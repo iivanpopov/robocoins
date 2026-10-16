@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "ignorePatterns": ["routeTree.gen.ts"],
+  "options": {
+    "typeAware": true,
+    "typeCheck": true
+  },
+  "plugins": ["react"],
+  "rules": {
+    "react/exhaustive-deps": "off"
+  }
+}

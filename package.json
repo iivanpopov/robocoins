@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "gen:api": "kubb generate",
-    "lint:css": "stylelint 'src/**/*.css'",
-    "check": "vp check && vp run lint:css",
-    "check:fix": "vp check --fix && vp run lint:css --fix",
-    "prepare": "vp config"
+    "fmt": "oxfmt .",
+    "fmt:check": "oxfmt --check .",
+    "lint": "oxlint .",
+    "lint:css": "stylelint --allow-empty-input 'src/**/*.css'",
+    "check": "bun run fmt:check && bun run lint && bun --check && bun run lint:css",
+    "prepare": "lefthook install --reset-hooks-path"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
@@ -40,6 +42,10 @@
     "@vitejs/plugin-react": "^6.1.1",
     "dotenv": "^18.0.5",
     "kubb": "^5.4.5",
+    "lefthook": "^2.1.4",
+    "oxfmt": "^0.70.0",
+    "oxlint": "^1.85.0",
+    "oxlint-tsgolint": "^7.0.2003",
     "stylelint": "^17.16.0",
     "stylelint-config-recess-order": "^7.8.0",
     "stylelint-config-recommended": "^18.0.0",
@@ -47,14 +53,6 @@
     "stylelint-order": "^8.1.1",
     "typescript": "^7.0.2",
     "unocss": "^66.10.5",
-    "vite": "catalog:",
-    "vite-plus": "catalog:"
-  },
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "12.8.1",
-      "onFail": "download"
-    }
+    "vite": "^8.3.4"
   }
 }

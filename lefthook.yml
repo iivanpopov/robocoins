@@ -1,0 +1,14 @@
+pre-commit:
+  piped: true
+  jobs:
+    - name: fmt
+      run: bunx oxfmt --no-error-on-unmatched-pattern {staged_files}
+      stage_fixed: true
+
+    - name: lint
+      run: bunx oxlint --fix --no-error-on-unmatched-pattern {staged_files}
+      stage_fixed: true
+
+    - name: stylelint
+      glob: '*.css'
+      run: bunx stylelint --allow-empty-input {staged_files}
