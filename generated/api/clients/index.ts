@@ -1,0 +1,8 @@
+export { createGroupGroupCreatePost } from './createGroupGroupCreatePost'
+export { createStudentStudentRegisterPost } from './createStudentStudentRegisterPost'
+export { getCoursesCourseGet } from './getCoursesCourseGet'
+export { getGroupByIdGroupIdGroupIdGet } from './getGroupByIdGroupIdGroupIdGet'
+export { getGroupByNameGroupNameNameGet } from './getGroupByNameGroupNameNameGet'
+export { getGroupsByCourseIdGroupCourseCourseIdGet } from './getGroupsByCourseIdGroupCourseCourseIdGet'
+export { getStudentByIdStudentStudentIdGet } from './getStudentByIdStudentStudentIdGet'
+export { rootGet } from './rootGet'
