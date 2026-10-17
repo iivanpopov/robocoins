@@ -63,4 +63,8 @@ export default {
     few {{робокоїни}}
     many {{робокоїнів}}
     * {{робокоїна}}`,
+  'not-found.code': '404',
+  'not-found.title': 'Такої сторінки немає',
+  'not-found.description': 'Перевірте адресу або поверніться туди, де все на місці.',
+  'not-found.home': 'На головну',
 }

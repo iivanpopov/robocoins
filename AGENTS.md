@@ -21,6 +21,7 @@ Single-context layout: root `GLOSSARY.md` plus `docs/adr/`. See `docs/agents/dom
 5. Never use comments.
 6. Don't destructure hooks. `model` hooks are exempt - identified by their return shape (`state`, `queries`, `mutations`, `functions`, `features`). Don't do for values too, like `{ ... } = event` and etc.
 7. Schemas are named in PascalCase with a `Schema` suffix, e.g. `RegisterStateSchema`, `StepNameSchema`.
+8. `cn()` only solution for merging classes, never use template literals for concatenating classNames.
 
 ## Structure
 
@@ -47,4 +48,6 @@ Component-local hooks may deliberately return a bare object of their state and h
 
 ## Verification
 
-After each change run `vpr check:fix`.
+After each change run `bun check`.
+
+To fix CSS warnings try `bun lint:css --fix`

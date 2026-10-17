@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "gen:api": "kubb generate",
+    "dev": "vite dev",
+    "build": "vite build",
     "fmt": "oxfmt .",
     "fmt:check": "oxfmt --check .",
     "lint": "oxlint .",

@@ -65,9 +65,6 @@ function RouteComponent() {
                   </div>
                   <div>
                     <h2 className={styles['card-title']}>{group.title}</h2>
-                    <span className={styles['card-theme-tag']}>
-                      {t(`group.theme.${group.theme}`)}
-                    </span>
                   </div>
                 </div>
 

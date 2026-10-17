@@ -17,7 +17,7 @@ export const MOCK_GROUPS: Group[] = [
     theme: GroupTheme.GameDev,
     studentCount: 5,
     schedule: 'Сб, Нд 11:00',
-    icon: 'i-ph:copyright',
+    icon: 'i-ph:game-controller',
   },
   {
     id: 'web-middle',

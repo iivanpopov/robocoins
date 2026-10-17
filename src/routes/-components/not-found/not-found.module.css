@@ -1,0 +1,54 @@
+.page {
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+  padding: 2rem;
+  background: var(--background);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.9fr);
+  gap: 1rem 3rem;
+  align-items: center;
+  width: min(68rem, 100%);
+}
+
+.code {
+  grid-row: span 3;
+  font-family: 'Rubik Mono One', sans-serif;
+  font-size: clamp(5rem, 13vw, 10rem);
+  line-height: 1;
+  color: var(--brand);
+}
+
+.title {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  line-height: 1.1;
+  color: var(--foreground);
+}
+
+.description {
+  max-width: 34rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--muted-foreground);
+}
+
+.button {
+  gap: 0.8rem;
+  width: fit-content;
+  margin-top: 1rem;
+}
+
+@media (width <= 600px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .code {
+    grid-row: auto;
+    font-size: clamp(5rem, 24vw, 8rem);
+  }
+}
