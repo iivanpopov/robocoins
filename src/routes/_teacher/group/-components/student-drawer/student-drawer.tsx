@@ -58,10 +58,6 @@ export function StudentDrawer({
   }
 
   useEffect(() => {
-    if (!open) resetState()
-  }, [open])
-
-  useEffect(() => {
     return () => {
       clearTimeout(timeoutReference.current)
     }
