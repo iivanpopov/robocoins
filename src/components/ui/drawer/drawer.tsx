@@ -1,6 +1,6 @@
 import { Drawer as DrawerPrimitive } from '@base-ui/react/drawer'
 import { cn } from 'cn'
-import { ComponentProps, createContext, useContext, useMemo } from 'react'
+import { ComponentProps, createContext, use, useMemo } from 'react'
 
 import styles from './drawer.module.css'
 
@@ -9,16 +9,10 @@ interface DrawerContextValue {
   showSwipeHandle: boolean
 }
 
-const DrawerContext = createContext<DrawerContextValue | null>(null)
+const DrawerContext = createContext<DrawerContextValue>(null!)
 
 function useDrawerContext() {
-  const context = useContext(DrawerContext)
-
-  if (!context) {
-    throw new Error('useDrawerContext must be used within a Drawer.')
-  }
-
-  return context
+  return use(DrawerContext)
 }
 
 export interface DrawerProps extends DrawerPrimitive.Root.Props {

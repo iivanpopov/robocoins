@@ -6,26 +6,6 @@
     { "code_action": "source.fixAll.oxc" },
     { "code_action": "source.fixAll.stylelint" }
   ],
-  "lsp": {
-    "oxlint": {
-      "initialization_options": {
-        "settings": {
-          "run": "onType",
-          "fixKind": "safe_fix",
-          "typeAware": true,
-          "unusedDisableDirectives": "deny"
-        }
-      }
-    },
-    "oxfmt": {
-      "initialization_options": {
-        "settings": {
-          "fmt.configPath": "./vite.config.ts",
-          "run": "onSave"
-        }
-      }
-    }
-  },
   "languages": {
     "JavaScript": {
       "language_servers": [
