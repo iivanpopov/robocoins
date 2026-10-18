@@ -1,5 +1,5 @@
 import { useTranslate } from '@kanjou/react'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { cn } from 'cn'
 
 import { IconButton } from '#/components/ui'
@@ -29,7 +29,7 @@ function RouteComponent() {
 
         <IconButton
           className={styles['back-btn']}
-          onClick={functions.handleBackToGroups}
+          render={<Link to="/group" />}
           title={t('group.back')}
         >
           <span className="i-ph:arrow-left" />

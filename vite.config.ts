@@ -1,4 +1,5 @@
 import kanjou from '@kanjou/plugin/vite'
+import { sentryVitePlugin } from '@sentry/vite-plugin'
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import react from '@vitejs/plugin-react'
 import unocss from 'unocss/vite'
@@ -28,5 +29,13 @@ export default defineConfig({
     }),
     react(),
     unocss(),
+    sentryVitePlugin({
+      sourcemaps: {
+        filesToDeleteAfterUpload: ['./dist/**/*.map'],
+      },
+    }),
   ],
+  build: {
+    sourcemap: 'hidden',
+  },
 })

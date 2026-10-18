@@ -1,4 +1,5 @@
 import { TranslateProvider } from '@kanjou/react'
+import * as Sentry from '@sentry/react'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { createRouter, Link, RouterProvider } from '@tanstack/react-router'
 import { ReactNode } from 'react'
@@ -13,6 +14,12 @@ import { queryClient } from '#/lib/query'
 
 import { routeTree } from '../generated/routeTree.gen'
 
+Sentry.init({
+  dsn: import.meta.env.VITE_SENTRY_DSN,
+  enabled: import.meta.env.PROD,
+  environment: import.meta.env.MODE,
+})
+
 const devTeacherUser = {
   name: 'Олена Петрівна',
   avatar: 'star-struck' as const,
@@ -22,6 +29,7 @@ const devTeacherUser = {
 
 const router = createRouter({
   routeTree,
+  defaultOnCatch: (error) => Sentry.captureException(error),
   context: {
     user: devTeacherUser,
   },
@@ -41,7 +49,11 @@ const components = {
   a: ({ to, children }: { children: ReactNode; to: string }) => <Link to={to}>{children}</Link>,
 }
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById('root')!, {
+  onUncaughtError: Sentry.reactErrorHandler(),
+  onCaughtError: Sentry.reactErrorHandler(),
+  onRecoverableError: Sentry.reactErrorHandler(),
+}).render(
   <QueryClientProvider client={queryClient}>
     <TranslateProvider locale={locale} messages={messages} components={components}>
       <RouterProvider router={router} />

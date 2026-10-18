@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from '@tanstack/react-router'
+import { useParams } from '@tanstack/react-router'
 import { useState } from 'react'
 
 import { StudentSortOrder } from '../-constants'
@@ -12,7 +12,6 @@ import {
 } from '../-mock'
 
 export function useGroupStudentsPage() {
-  const navigate = useNavigate()
   const params = useParams({ from: '/_teacher/group/$groupId' })
 
   const groupQuery = useGroupQuery(params.groupId)
@@ -50,10 +49,6 @@ export function useGroupStudentsPage() {
 
   function handleRevertAward(awardId: string) {
     revertAwardMutation.mutate(awardId)
-  }
-
-  function handleBackToGroups() {
-    void navigate({ to: '/group' })
   }
 
   const students = studentsQuery.data || []
@@ -101,7 +96,6 @@ export function useGroupStudentsPage() {
       handleDrawerOpenChange,
       handleAward,
       handleRevertAward,
-      handleBackToGroups,
     },
   }
 }
