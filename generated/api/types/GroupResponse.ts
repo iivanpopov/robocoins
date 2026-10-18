@@ -27,4 +27,9 @@ export type GroupResponse = {
    * @type integer | undefined
    */
   students_count?: number
+  /**
+   * @description User IDs of the group\'s teachers
+   * @type array | undefined
+   */
+  teacher_ids?: number[]
 }

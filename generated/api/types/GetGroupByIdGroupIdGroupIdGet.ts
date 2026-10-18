@@ -29,6 +29,4 @@ export type GetGroupByIdGroupIdGroupIdGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetGroupByIdGroupIdGroupIdGetResponse =
-  | GetGroupByIdGroupIdGroupIdGetStatus200
-  | GetGroupByIdGroupIdGroupIdGetStatus422
+export type GetGroupByIdGroupIdGroupIdGetResponse = GetGroupByIdGroupIdGroupIdGetStatus200

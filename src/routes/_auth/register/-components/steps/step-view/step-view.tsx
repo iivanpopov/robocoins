@@ -1,6 +1,7 @@
 import { useTranslate } from '@kanjou/react'
 
 import { HeroButton, Typography } from '#/components/ui'
+import { getAvatarUrl } from '#/routes/-utils/get-avatar-url'
 
 import { RegisterStep } from '../../../-schemas'
 import { MistakeCaption } from '../components/mistake-caption'
@@ -15,14 +16,16 @@ export function StepView() {
     <div className="flex flex-1 flex-col">
       <Typography variant="title">{t('step.view.title')}</Typography>
       <div className="flex items-center gap-3 mt-4">
-        {state.avatar && <img src={state.avatar} draggable={false} className="w-10 h-10" />}
+        {state.avatar && (
+          <img src={getAvatarUrl(state.avatar)} draggable={false} className="w-10 h-10" />
+        )}
         <Typography variant="accent">{state.name}</Typography>
       </div>
       <Typography variant="subtitle" className="mt-2">
         {state.courseName}
       </Typography>
       <Typography variant="subtitle">
-        {t('text.group')} {state.groupId}
+        {t('text.group')} {state.group?.name}
       </Typography>
 
       <div className="flex-1 flex flex-col justify-end">

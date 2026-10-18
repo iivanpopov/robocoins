@@ -28,6 +28,7 @@ export function StepGroup() {
           <HeroSelect
             items={state.courses}
             value={field.state.value}
+            disabled={queries.courses.isPending}
             onValueChange={(value) => field.handleChange(value ?? '')}
           >
             <HeroSelectTrigger className="mt-2" aria-invalid={!!field.state.meta.errors.length}>
@@ -52,6 +53,7 @@ export function StepGroup() {
           <HeroSelect
             items={state.groups}
             value={field.state.value}
+            disabled={queries.courses.isPending}
             onValueChange={(value) => field.handleChange(value ?? '')}
           >
             <HeroSelectTrigger

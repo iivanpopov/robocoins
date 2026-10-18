@@ -28,6 +28,4 @@ export type CreateGroupGroupCreatePostResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateGroupGroupCreatePostResponse =
-  | CreateGroupGroupCreatePostStatus200
-  | CreateGroupGroupCreatePostStatus422
+export type CreateGroupGroupCreatePostResponse = CreateGroupGroupCreatePostStatus200

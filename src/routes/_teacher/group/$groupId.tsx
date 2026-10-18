@@ -29,6 +29,7 @@ function RouteComponent() {
 
         <IconButton
           className={styles['back-btn']}
+          nativeButton={false}
           render={<Link to="/group" />}
           title={t('group.back')}
         >

@@ -3,6 +3,8 @@
  * Do not edit manually.
  */
 
+import type { GroupResponse } from './GroupResponse'
+
 export type CourseResponse = {
   /**
    * @default 'success'
@@ -17,10 +19,10 @@ export type CourseResponse = {
   id: number
   name: string
   /**
-   * @description List of group IDs associated with the course
+   * @description Groups associated with the course
    * @type array | undefined
    */
-  groups?: number[]
+  groups?: GroupResponse[]
   /**
    * @default 0
    * @type integer | undefined

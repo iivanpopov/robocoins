@@ -1,4 +1,3 @@
-import { useTranslate } from '@kanjou/react'
 import { useForm, useSelector } from '@tanstack/react-form'
 import type { SyntheticEvent } from 'react'
 
@@ -9,8 +8,6 @@ import { RegisterStep } from '../../../../-schemas'
 import { useRegisterContext } from '../../../register-provider'
 
 export function useStepGroup() {
-  const t = useTranslate()
-
   const register = useRegisterContext()
 
   const coursesQuery = useGetCoursesCourseGet()
@@ -18,13 +15,16 @@ export function useStepGroup() {
   const form = useForm({
     defaultValues: {
       courseName: register.state.courseName ?? '',
-      groupId: register.state.groupId?.toString() ?? '',
+      groupId: register.state.group?.id?.toString() ?? '',
     },
     validators: { onChange: StepGroupSchema },
     onSubmit: ({ value }) => {
       register.setState({
         step: RegisterStep.Avatar,
-        groupId: +value.groupId,
+        group: {
+          id: +value.groupId,
+          name: groups!.find((group) => +group.value === +value.groupId)?.label!,
+        },
         courseName: value.courseName,
       })
     },
@@ -39,8 +39,8 @@ export function useStepGroup() {
   const groups = coursesQuery.data
     ?.find((course) => course.name === courseName)
     ?.groups?.map((group) => ({
-      label: `${t('text.group')} ${group}`,
-      value: `${group}`,
+      label: group.name,
+      value: String(group.id),
     }))
 
   const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {

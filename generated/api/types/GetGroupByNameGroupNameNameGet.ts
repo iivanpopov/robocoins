@@ -29,6 +29,4 @@ export type GetGroupByNameGroupNameNameGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetGroupByNameGroupNameNameGetResponse =
-  | GetGroupByNameGroupNameNameGetStatus200
-  | GetGroupByNameGroupNameNameGetStatus422
+export type GetGroupByNameGroupNameNameGetResponse = GetGroupByNameGroupNameNameGetStatus200

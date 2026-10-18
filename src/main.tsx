@@ -1,8 +1,7 @@
 import { TranslateProvider } from '@kanjou/react'
 import * as Sentry from '@sentry/react'
 import { QueryClientProvider } from '@tanstack/react-query'
-import { createRouter, Link, RouterProvider } from '@tanstack/react-router'
-import { ReactNode } from 'react'
+import { createRouter, RouterProvider } from '@tanstack/react-router'
 import { createRoot } from 'react-dom/client'
 import locales from 'virtual:kanjou/locales'
 import '@fontsource-variable/rubik'
@@ -11,6 +10,7 @@ import '@fontsource/rubik-mono-one'
 import '#/assets/styles/global.css'
 import 'virtual:uno.css'
 import { queryClient } from '#/lib/query'
+import { AppLink } from '#/routes/-components'
 
 import { routeTree } from '../generated/routeTree.gen'
 
@@ -20,18 +20,16 @@ Sentry.init({
   environment: import.meta.env.MODE,
 })
 
-const devTeacherUser = {
-  name: 'Олена Петрівна',
-  avatar: 'star-struck' as const,
-  balance: 1000,
-  role: 'teacher' as const,
-}
-
 const router = createRouter({
   routeTree,
   defaultOnCatch: (error) => Sentry.captureException(error),
   context: {
-    user: devTeacherUser,
+    user: {
+      name: '',
+      role: 'teacher',
+      avatar: 'dreamy',
+      balance: 100,
+    },
   },
 })
 
@@ -46,7 +44,7 @@ const messages = await locales[locale]()
 
 const components = {
   br: () => <br />,
-  a: ({ to, children }: { children: ReactNode; to: string }) => <Link to={to}>{children}</Link>,
+  a: AppLink,
 }
 
 createRoot(document.getElementById('root')!, {

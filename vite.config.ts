@@ -7,7 +7,7 @@ import { defineConfig } from 'vite'
 import 'dotenv/config'
 
 export default defineConfig({
-  resolve: { tsconfigPaths: true },
+  resolve: { tsconfigPaths: true, dedupe: ['react', 'react-dom'] },
   server: {
     proxy: {
       '/api': {
@@ -26,6 +26,10 @@ export default defineConfig({
     }),
     kanjou({
       baseLocale: 'uk',
+      prettier: {
+        singleQuote: true,
+        semi: false,
+      },
     }),
     react(),
     unocss(),

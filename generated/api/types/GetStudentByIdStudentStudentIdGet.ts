@@ -4,13 +4,13 @@
  */
 
 import type { HTTPValidationError } from './HTTPValidationError'
-import type { StudentResponse } from './StudentResponse'
+import type { StudentProfileResponse } from './StudentProfileResponse'
 
 export type GetStudentByIdStudentStudentIdGetPath = {
   student_id: number
 }
 
-export type GetStudentByIdStudentStudentIdGetStatus200 = StudentResponse
+export type GetStudentByIdStudentStudentIdGetStatus200 = StudentProfileResponse
 
 export type GetStudentByIdStudentStudentIdGetStatus422 = HTTPValidationError
 
@@ -29,6 +29,4 @@ export type GetStudentByIdStudentStudentIdGetResponses = {
 /**
  * @description Union of all possible responses
  */
-export type GetStudentByIdStudentStudentIdGetResponse =
-  | GetStudentByIdStudentStudentIdGetStatus200
-  | GetStudentByIdStudentStudentIdGetStatus422
+export type GetStudentByIdStudentStudentIdGetResponse = GetStudentByIdStudentStudentIdGetStatus200

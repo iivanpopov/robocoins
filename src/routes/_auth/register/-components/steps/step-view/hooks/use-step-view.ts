@@ -27,10 +27,10 @@ export function useStepView() {
 
     if (!draft.success) return
 
-    const { name, avatar, courseName, groupId } = draft.data
+    const { name, avatar, courseName, group } = draft.data
 
     registerMutation.mutate({
-      body: { name, avatar, course_name: courseName, group_id: groupId },
+      body: { name, avatar, course_name: courseName, group_id: group.id },
     })
   }
 
@@ -39,7 +39,7 @@ export function useStepView() {
       name: register.state.name,
       avatar: register.state.avatar,
       courseName: register.state.courseName,
-      groupId: register.state.groupId,
+      group: register.state.group,
     },
     mutations: {
       register: registerMutation,

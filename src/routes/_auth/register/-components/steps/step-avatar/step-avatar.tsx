@@ -23,7 +23,7 @@ export function StepAvatar() {
     <form className="flex flex-1 flex-col" onSubmit={functions.handleSubmit}>
       <Typography variant="title">{t('step.avatar.title')}</Typography>
       <HeroCarousel
-        className="mt-8"
+        className="mt-4"
         opts={{ startIndex: state.initialIndex }}
         setApi={functions.setApi}
       >

@@ -30,5 +30,4 @@ export type GetGroupsByCourseIdGroupCourseCourseIdGetResponses = {
  * @description Union of all possible responses
  */
 export type GetGroupsByCourseIdGroupCourseCourseIdGetResponse =
-  | GetGroupsByCourseIdGroupCourseCourseIdGetStatus200
-  | GetGroupsByCourseIdGroupCourseCourseIdGetStatus422
+  GetGroupsByCourseIdGroupCourseCourseIdGetStatus200

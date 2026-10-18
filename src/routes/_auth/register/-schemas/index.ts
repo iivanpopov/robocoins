@@ -14,7 +14,12 @@ export const RegisterStateSchema = z.object({
   name: z.string().trim().min(1).optional(),
   avatar: z.enum(AVATARS).optional(),
   courseName: z.string().min(1).optional(),
-  groupId: z.number().int().positive().optional(),
+  group: z
+    .object({
+      name: z.string(),
+      id: z.number().int().positive(),
+    })
+    .optional(),
 })
 
 export type RegisterState = z.infer<typeof RegisterStateSchema>
@@ -24,7 +29,7 @@ export const CompleteRegisterStateSchema = RegisterStateSchema.required({
   name: true,
   avatar: true,
   courseName: true,
-  groupId: true,
+  group: true,
 })
 
 export const DEFAULT_REGISTER_STATE: RegisterState = { step: RegisterStep.Name }

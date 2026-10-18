@@ -28,6 +28,4 @@ export type CreateStudentStudentRegisterPostResponses = {
 /**
  * @description Union of all possible responses
  */
-export type CreateStudentStudentRegisterPostResponse =
-  | CreateStudentStudentRegisterPostStatus200
-  | CreateStudentStudentRegisterPostStatus422
+export type CreateStudentStudentRegisterPostResponse = CreateStudentStudentRegisterPostStatus200

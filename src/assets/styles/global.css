@@ -38,6 +38,5 @@ body {
 }
 
 a {
-  color: var(--brand) !important;
-  text-decoration: underline;
+  color: inherit;
 }

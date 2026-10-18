@@ -3,6 +3,8 @@
  * Do not edit manually.
  */
 
+import type { UserRoleKey } from './UserRole'
+
 export type StudentResponse = {
   /**
    * @default 'success'
@@ -15,6 +17,12 @@ export type StudentResponse = {
    */
   code?: number
   id: number
+  user_id: number
+  /**
+   * @default 'student'
+   * @type string | undefined
+   */
+  role?: UserRoleKey
   name: string
   course_name: string
   group_id: number

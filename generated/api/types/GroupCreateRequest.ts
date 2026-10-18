@@ -14,4 +14,9 @@ export type GroupCreateRequest = {
    * @type integer
    */
   course_id: number
+  /**
+   * @description One or two teacher user IDs
+   * @type array | undefined
+   */
+  teacher_ids?: number[]
 }
