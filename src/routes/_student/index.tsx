@@ -5,6 +5,7 @@ import { cn } from 'cn'
 import { Typography } from '#/components/ui'
 
 import { getAvatarUrl } from '../-utils/get-avatar-url'
+import { Avatar } from '../_auth/register/-constants'
 import { useProfilePage } from './-hooks'
 
 import styles from './index.module.css'
@@ -23,7 +24,11 @@ function RouteComponent() {
       <div className={cn('i-ph:coins-bold', styles.coins)} />
 
       <header className={styles.header}>
-        <img src={getAvatarUrl(state.avatar)} draggable={false} className={styles.avatar} />
+        <img
+          src={getAvatarUrl(state.avatar as Avatar)}
+          draggable={false}
+          className={styles.avatar}
+        />
         <Typography variant="subtitle">{state.name}</Typography>
       </header>
 

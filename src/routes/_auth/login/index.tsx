@@ -11,7 +11,7 @@ export const Route = createFileRoute('/_auth/login/')({
 })
 
 function RouteComponent() {
-  const { functions, features } = useLoginPage()
+  const { functions, features, mutations } = useLoginPage()
 
   const t = useTranslate()
 
@@ -33,7 +33,7 @@ function RouteComponent() {
       </features.form.Field>
 
       <div className="flex-1 flex flex-col justify-end">
-        <HeroButton type="submit" className="w-full">
+        <HeroButton type="submit" className="w-full" disabled={mutations.login.isPending}>
           {t('action.enter.title')}
         </HeroButton>
         <Typography variant="caption" className="text-center mt-4">

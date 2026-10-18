@@ -6,6 +6,8 @@ export default {
   'action.finish.title': 'Завершити',
   'action.login.title': 'Вхід в акаунт',
   'action.enter.title': 'Увійти',
+  'error.incorrect-password': 'Неправильний пароль',
+  'error.registration-failed': 'Сталася неочікувана помилка',
   'field.name.placeholder': "Твоє ім'я",
   'field.course.placeholder': 'Unity 3D',
   'field.group.placeholder': 'Група 2',

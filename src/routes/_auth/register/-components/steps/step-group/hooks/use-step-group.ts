@@ -48,8 +48,9 @@ export function useStepGroup() {
     void form.handleSubmit()
   }
 
-  const handleResetGroup = () => {
-    form.setFieldValue('groupId', '')
+  const handleResetGroup = ({ value }: { value: string }) => {
+    if (value === form.getFieldValue('courseName')) return
+    form.setFieldValue('groupId', '', { dontUpdateMeta: true })
   }
 
   return {

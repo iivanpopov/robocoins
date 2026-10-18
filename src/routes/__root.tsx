@@ -1,5 +1,7 @@
 import { Outlet, createRootRouteWithContext } from '@tanstack/react-router'
 
+import { getCurrentUserAuthMeGet } from '#/api/clients'
+
 import { NotFound } from './-components/not-found'
 import { Avatar } from './_auth/register/-constants'
 
@@ -17,7 +19,11 @@ export interface RootContext {
 export const Route = createRootRouteWithContext<RootContext>()({
   component: RootComponent,
   notFoundComponent: NotFound,
-  loader: () => {},
+  beforeLoad: async () => {
+    const data = await getCurrentUserAuthMeGet().catch(() => null)
+    const user = data?.data
+    return { user }
+  },
 })
 
 function RootComponent() {

@@ -1,0 +1,83 @@
+.viewport {
+  position: fixed;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  z-index: 1000;
+  width: min(24rem, calc(100vw - 2 * var(--spacing-lg)));
+  height: auto;
+  outline: none;
+}
+
+.toast {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+  color: var(--foreground);
+  background: var(--surface);
+  border: 1px solid var(--muted);
+  border-radius: var(--rounded-lg);
+  box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 12%);
+  transform: translateY(calc(var(--toast-index) * 0.75rem));
+  transition:
+    transform 200ms ease,
+    opacity 200ms ease;
+
+  &[data-starting-style] {
+    opacity: 0;
+    transform: translateY(-150%);
+  }
+
+  &[data-ending-style] {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  &[data-type='error'] {
+    color: var(--red-950);
+    background: var(--red-400);
+    border-color: var(--red-400);
+  }
+}
+
+.content {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  padding: var(--spacing-lg);
+}
+
+.message {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 0;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.description {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  overflow-wrap: anywhere;
+}
+
+.toast[data-type='error'] .description {
+  font-size: 0.9375rem;
+  color: var(--red-900);
+}
+
+.close {
+  flex: 0 0 auto;
+  font-size: 1.25rem;
+  color: var(--muted-foreground);
+}
+
+.toast[data-type='error'] .close {
+  color: var(--red-900);
+}

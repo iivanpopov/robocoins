@@ -9,6 +9,7 @@ import '@fontsource/rubik-mono-one'
 
 import '#/assets/styles/global.css'
 import 'virtual:uno.css'
+import { Toaster } from '#/components/ui'
 import { queryClient } from '#/lib/query'
 import { AppLink } from '#/routes/-components'
 
@@ -24,12 +25,7 @@ const router = createRouter({
   routeTree,
   defaultOnCatch: (error) => Sentry.captureException(error),
   context: {
-    user: {
-      name: '',
-      role: 'teacher',
-      avatar: 'dreamy',
-      balance: 100,
-    },
+    user: null,
   },
 })
 
@@ -54,7 +50,9 @@ createRoot(document.getElementById('root')!, {
 }).render(
   <QueryClientProvider client={queryClient}>
     <TranslateProvider locale={locale} messages={messages} components={components}>
-      <RouterProvider router={router} />
+      <Toaster>
+        <RouterProvider router={router} />
+      </Toaster>
     </TranslateProvider>
   </QueryClientProvider>,
 )

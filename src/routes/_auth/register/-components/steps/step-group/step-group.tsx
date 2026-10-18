@@ -59,7 +59,7 @@ export function StepGroup() {
             <HeroSelectTrigger
               className="mt-2"
               disabled={!state.courseName}
-              aria-invalid={!!field.state.meta.errors.length}
+              aria-invalid={!!field.state.meta.errors.length && field.state.meta.isDirty}
             >
               <HeroSelectValue placeholder={t('field.group.placeholder')} />
             </HeroSelectTrigger>

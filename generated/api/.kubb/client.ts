@@ -1,36 +1,12 @@
-import type {
-  HeadersInit,
-  PathParamStyle,
-  PathSerializer,
-  RequestBody,
-  Serializers,
-  Styles,
-} from './serializers'
-import {
-  applyHeaderStyles,
-  defaultBodySerializer,
-  defaultPathSerializer,
-  defaultQuerySerializer,
-  isDefaultJsonBody,
-  serializeCookies,
-} from './serializers'
+import type { HeadersInit, PathParamStyle, PathSerializer, RequestBody, Serializers, Styles } from './serializers'
 import type { StandardSchemaValidator } from './standardSchema'
+import { applyHeaderStyles, defaultBodySerializer, defaultPathSerializer, defaultQuerySerializer, isDefaultJsonBody, serializeCookies } from './serializers'
 import { ParseError, validateStandardSchema } from './standardSchema'
 
 /**
  * HTTP status codes treated as a success, everything else is an error.
  */
-export type SuccessStatusCode =
-  | '200'
-  | '201'
-  | '202'
-  | '203'
-  | '204'
-  | '205'
-  | '206'
-  | '207'
-  | '208'
-  | '226'
+export type SuccessStatusCode = '200' | '201' | '202' | '203' | '204' | '205' | '206' | '207' | '208' | '226'
 
 /**
  * The success members of a per-status responses record.
@@ -45,9 +21,7 @@ export type ErrorOf<TResponses> = TResponses[Exclude<keyof TResponses, SuccessSt
 /**
  * Converts a response record's string status key to its numeric literal, leaving non-numeric keys like `default` as `number`.
  */
-export type ToStatusNumber<TStatus> = TStatus extends `${infer TNumber extends number}`
-  ? TNumber
-  : number
+export type ToStatusNumber<TStatus> = TStatus extends `${infer TNumber extends number}` ? TNumber : number
 
 /**
  * The plain body of a per-status response, unwrapping the `{ contentType; data }` union so an error result keeps the bare body union on `error`.
@@ -57,38 +31,16 @@ export type DataOf<T> = T extends { contentType: string; data: infer TData } ? T
 /**
  * The success variant for a single status, flattened so the negotiated `contentType` sits next to `data` and `switch (result.contentType)` narrows it.
  */
-export type SuccessVariant<TStatus, TEntry, TRequest, TResponse> = TEntry extends {
-  contentType: string
-  data: unknown
-}
+export type SuccessVariant<TStatus, TEntry, TRequest, TResponse> = TEntry extends { contentType: string; data: unknown }
   ? TEntry extends { contentType: infer TContentType; data: infer TData }
-    ? {
-        status: ToStatusNumber<TStatus>
-        data: TData
-        error: undefined
-        contentType: TContentType
-        request: TRequest
-        response: TResponse
-      }
+    ? { status: ToStatusNumber<TStatus>; data: TData; error: undefined; contentType: TContentType; request: TRequest; response: TResponse }
     : never
-  : {
-      status: ToStatusNumber<TStatus>
-      data: TEntry
-      error: undefined
-      contentType: string | undefined
-      request: TRequest
-      response: TResponse
-    }
+  : { status: ToStatusNumber<TStatus>; data: TEntry; error: undefined; contentType: string | undefined; request: TRequest; response: TResponse }
 
 /**
  * One result variant for a single documented status, keyed by the numeric `status` so a `switch (result.status)` narrows `data` or `error`.
  */
-export type ResultByStatus<
-  TResponses,
-  TStatus extends keyof TResponses,
-  TRequest,
-  TResponse,
-> = TStatus extends SuccessStatusCode
+export type ResultByStatus<TResponses, TStatus extends keyof TResponses, TRequest, TResponse> = TStatus extends SuccessStatusCode
   ? SuccessVariant<TStatus, TResponses[TStatus], TRequest, TResponse>
   : {
       status: ToStatusNumber<TStatus>
@@ -110,23 +62,13 @@ export type ResultUnion<TResponses, TRequest, TResponse> = {
  * The union of just the success (2xx) status variants, selected by status code so an untyped error payload can never widen `data`.
  */
 export type SuccessResultUnion<TResponses, TRequest, TResponse> = {
-  [TStatus in Extract<keyof TResponses, SuccessStatusCode>]: ResultByStatus<
-    TResponses,
-    TStatus,
-    TRequest,
-    TResponse
-  >
+  [TStatus in Extract<keyof TResponses, SuccessStatusCode>]: ResultByStatus<TResponses, TStatus, TRequest, TResponse>
 }[Extract<keyof TResponses, SuccessStatusCode>]
 
 /**
  * The shape every generated function returns, discriminated by the top-level `status`, narrowing to the 2xx variants under `throwOnError` and to every documented status without it.
  */
-export type RequestResult<
-  TResponses,
-  ThrowOnError extends boolean = true,
-  TRequest = Request,
-  TResponse = Response,
-> = ThrowOnError extends true
+export type RequestResult<TResponses, ThrowOnError extends boolean = true, TRequest = Request, TResponse = Response> = ThrowOnError extends true
   ? [SuccessResultUnion<TResponses, TRequest, TResponse>] extends [never]
     ? {
         status: number
@@ -138,14 +80,7 @@ export type RequestResult<
       }
     : SuccessResultUnion<TResponses, TRequest, TResponse>
   : [ResultUnion<TResponses, TRequest, TResponse>] extends [never]
-    ? {
-        status: number
-        data: undefined
-        error: undefined
-        contentType: string | undefined
-        request: TRequest
-        response: TResponse
-      }
+    ? { status: number; data: undefined; error: undefined; contentType: string | undefined; request: TRequest; response: TResponse }
     : ResultUnion<TResponses, TRequest, TResponse>
 
 /**
@@ -164,9 +99,7 @@ export type Unwrappable<T extends { data: unknown; error: unknown }> = Promise<T
  * @example Success body only
  * `const pet = await getPetById({ path: { petId: 1 } }).unwrap()`
  */
-export function withUnwrap<T extends { data: unknown; error: unknown }>(
-  promise: Promise<T>,
-): Unwrappable<T> {
+export function withUnwrap<T extends { data: unknown; error: unknown }>(promise: Promise<T>): Unwrappable<T> {
   const unwrappable = promise as Unwrappable<T>
   unwrappable.unwrap = () =>
     promise.then((result) => {
@@ -180,12 +113,7 @@ export function withUnwrap<T extends { data: unknown; error: unknown }>(
  * The shape a generated operation returns with `returnType: 'data'`: the success body when
  * `throwOnError` is true, or the full `RequestResult` when it is false.
  */
-export type UnwrappedResult<
-  TResponses,
-  ThrowOnError extends boolean = true,
-  TRequest = Request,
-  TResponse = Response,
-> = ThrowOnError extends true
+export type UnwrappedResult<TResponses, ThrowOnError extends boolean = true, TRequest = Request, TResponse = Response> = ThrowOnError extends true
   ? RequestResult<TResponses, true, TRequest, TResponse>['data']
   : RequestResult<TResponses, ThrowOnError, TRequest, TResponse>
 
@@ -193,23 +121,14 @@ export type UnwrappedResult<
  * Returns the success body when `throwOnError` is true, or the full result when it is false.
  * Backs generated operations with `returnType: 'data'`.
  */
-export function unwrapResult<T extends { data: unknown; error: unknown }>(
-  promise: Promise<T>,
-  throwOnError: boolean | undefined,
-): Promise<T | T['data']> {
+export function unwrapResult<T extends { data: unknown; error: unknown }>(promise: Promise<T>, throwOnError: boolean | undefined): Promise<T | T['data']> {
   return promise.then((result) => ((throwOnError ?? true) ? result.data : result))
 }
 
 /**
  * The data-shaped keys of the grouped options object, which `Options` re-adds typed per operation.
  */
-export type DataShape = {
-  body?: unknown
-  cookies?: unknown
-  headers?: unknown
-  path?: unknown
-  query?: unknown
-}
+export type DataShape = { body?: unknown; cookies?: unknown; headers?: unknown; path?: unknown; query?: unknown }
 
 export type RequestCredentials = 'omit' | 'same-origin' | 'include'
 export type ResponseType = 'arraybuffer' | 'blob' | 'document' | 'json' | 'text' | 'stream'
@@ -264,10 +183,7 @@ export type ValidationErrorContext = {
  * `{ value }` resolves the call with that value instead, so a drifted body can be reported and still
  * delivered. The box keeps an explicit `{ value: undefined }` substitution distinct from declining.
  */
-export type ValidationErrorHandler = (
-  error: ParseError,
-  context: ValidationErrorContext,
-) => { value: unknown } | void | Promise<{ value: unknown } | void>
+export type ValidationErrorHandler = (error: ParseError, context: ValidationErrorContext) => { value: unknown } | void | Promise<{ value: unknown } | void>
 
 /**
  * A resolved security scheme carried on each generated call's `security` array and passed to the `auth` resolver.
@@ -328,12 +244,10 @@ export type RequestConfig<TBody = unknown, TRequest = Request, TResponse = Respo
  * The grouped options object passed to every generated function: the request config minus the
  * data-shaped keys and the literal `url`, plus the per-operation `<Name>Request`.
  */
-export type Options<
-  TData extends DataShape,
-  ThrowOnError extends boolean = true,
-  TRequest = Request,
-  TResponse = Response,
-> = Omit<RequestConfig<unknown, TRequest, TResponse>, keyof DataShape | 'url'> &
+export type Options<TData extends DataShape, ThrowOnError extends boolean = true, TRequest = Request, TResponse = Response> = Omit<
+  RequestConfig<unknown, TRequest, TResponse>,
+  keyof DataShape | 'url'
+> &
   TData & {
     client?: ClientInstance<TRequest, TResponse>
     throwOnError?: ThrowOnError
@@ -385,9 +299,7 @@ export type TransportResult<TData = unknown, TRequest = Request, TResponse = Res
 /**
  * The per-plugin send, supplied to `createClientCore` as `defaultTransport`.
  */
-export type Transport<TRequest = Request, TResponse = Response> = (
-  request: ResolvedRequest,
-) => Promise<TransportResult<unknown, TRequest, TResponse>>
+export type Transport<TRequest = Request, TResponse = Response> = (request: ResolvedRequest) => Promise<TransportResult<unknown, TRequest, TResponse>>
 
 /**
  * The result a resolved call produces before it is cast to `RequestResult` by the generated wrapper.
@@ -418,14 +330,8 @@ export type InterceptorStack<T, TContext = never> = {
  */
 export type Interceptors<TRequest = Request, TResponse = Response> = {
   request: InterceptorStack<ResolvedRequest, RequestConfig<unknown, TRequest, TResponse>>
-  response: InterceptorStack<
-    TransportResult<unknown, TRequest, TResponse>,
-    RequestConfig<unknown, TRequest, TResponse>
-  >
-  error: InterceptorStack<
-    ResponseError<unknown, TRequest, TResponse>,
-    RequestConfig<unknown, TRequest, TResponse>
-  >
+  response: InterceptorStack<TransportResult<unknown, TRequest, TResponse>, RequestConfig<unknown, TRequest, TResponse>>
+  error: InterceptorStack<ResponseError<unknown, TRequest, TResponse>, RequestConfig<unknown, TRequest, TResponse>>
 }
 
 /**
@@ -433,9 +339,7 @@ export type Interceptors<TRequest = Request, TResponse = Response> = {
  * `createClient` factory bound to the same transport.
  */
 export type ClientInstance<TRequest = Request, TResponse = Response> = {
-  <TBody = unknown>(
-    config: RequestConfig<TBody, TRequest, TResponse>,
-  ): Promise<CallResult<TRequest, TResponse>>
+  <TBody = unknown>(config: RequestConfig<TBody, TRequest, TResponse>): Promise<CallResult<TRequest, TResponse>>
   getConfig: () => ClientConfig<TRequest, TResponse>
   setConfig: (config: ClientConfig<TRequest, TResponse>) => ClientConfig<TRequest, TResponse>
   getUrl: <TBody = unknown>(config: RequestConfig<TBody, TRequest, TResponse>) => string
@@ -446,11 +350,7 @@ export type ClientInstance<TRequest = Request, TResponse = Response> = {
 /**
  * Thrown for a non-2xx response, so a resolved call always means success.
  */
-export class ResponseError<
-  TError = unknown,
-  TRequest = Request,
-  TResponse = Response,
-> extends Error {
+export class ResponseError<TError = unknown, TRequest = Request, TResponse = Response> extends Error {
   data: TError
   status: number
   statusText: string
@@ -472,9 +372,7 @@ export class ResponseError<
     const cleanUrl = config.url?.split(/[?#]/)[0]
     const target = [config.method, cleanUrl].filter(Boolean).join(' ')
     const statusText = config.statusText?.trim()
-    super(
-      `${target ? `${target} failed` : 'Request failed'} with status ${config.status}${statusText ? ` ${statusText}` : ''}`,
-    )
+    super(`${target ? `${target} failed` : 'Request failed'} with status ${config.status}${statusText ? ` ${statusText}` : ''}`)
     this.name = 'ResponseError'
     this.data = config.data
     this.status = config.status
@@ -500,12 +398,7 @@ function serializeHeaders(headers: HeadersInit | undefined): Record<string, stri
   const result: Record<string, string> = {}
   for (const [key, value] of entries) {
     if (value === undefined || value === null) continue
-    result[key] =
-      typeof value === 'string'
-        ? value
-        : typeof value === 'object'
-          ? JSON.stringify(value)
-          : String(value)
+    result[key] = typeof value === 'string' ? value : typeof value === 'object' ? JSON.stringify(value) : String(value)
   }
   return result
 }
@@ -542,9 +435,7 @@ function serializeUrl({
   const path = parts
     .filter(Boolean)
     .join('')
-    .replace(/\{([^{}]+)\}/g, (_, key: string) =>
-      pathSerializer({ name: key, value: pathParams[key], options: pathStyles?.[key] }),
-    )
+    .replace(/\{([^{}]+)\}/g, (_, key: string) => pathSerializer({ name: key, value: pathParams[key], options: pathStyles?.[key] }))
   return path + (search ? `?${search}` : '')
 }
 
@@ -603,8 +494,7 @@ export async function resolveAuth(params: {
         headers[name] = token
       }
     } else if (!hasHeader(headers, 'Authorization')) {
-      headers['Authorization'] =
-        scheme.scheme === 'basic' ? `Basic ${btoa(token)}` : `Bearer ${token}`
+      headers['Authorization'] = scheme.scheme === 'basic' ? `Basic ${btoa(token)}` : `Bearer ${token}`
     }
     return
   }
@@ -643,24 +533,16 @@ function baseContentType(value: string | null | undefined): string | undefined {
 /**
  * Reads the negotiated response content type from the response headers as a base media type.
  */
-function getResponseContentType(
-  headers: Headers | Record<string, string> | undefined,
-): string | undefined {
+function getResponseContentType(headers: Headers | Record<string, string> | undefined): string | undefined {
   if (!headers) return undefined
-  const value =
-    headers instanceof Headers
-      ? headers.get('Content-Type')
-      : (headers['Content-Type'] ?? headers['content-type'])
+  const value = headers instanceof Headers ? headers.get('Content-Type') : (headers['Content-Type'] ?? headers['content-type'])
   return baseContentType(value)
 }
 
 /**
  * Normalizes the `contentType` option to its `{ request, response }` form, treating a bare string as the request content type.
  */
-function resolveContentType(contentType: ContentType | undefined): {
-  request?: string
-  response?: string
-} {
+function resolveContentType(contentType: ContentType | undefined): { request?: string; response?: string } {
   if (typeof contentType === 'string') return { request: contentType }
   return contentType ?? {}
 }
@@ -669,20 +551,11 @@ function resolveContentType(contentType: ContentType | undefined): {
  * The per-concern serializers for a call, the per-call serializer winning over the client's and
  * falling back to the defaults.
  */
-function resolveSerializers({
-  config,
-  requestConfig,
-}: {
-  config: { serializer?: Serializers }
-  requestConfig: { serializer?: Serializers }
-}) {
+function resolveSerializers({ config, requestConfig }: { config: { serializer?: Serializers }; requestConfig: { serializer?: Serializers } }) {
   return {
-    querySerializer:
-      requestConfig.serializer?.query ?? config.serializer?.query ?? defaultQuerySerializer,
-    bodySerializer:
-      requestConfig.serializer?.body ?? config.serializer?.body ?? defaultBodySerializer,
-    pathSerializer:
-      requestConfig.serializer?.path ?? config.serializer?.path ?? defaultPathSerializer,
+    querySerializer: requestConfig.serializer?.query ?? config.serializer?.query ?? defaultQuerySerializer,
+    bodySerializer: requestConfig.serializer?.body ?? config.serializer?.body ?? defaultBodySerializer,
+    pathSerializer: requestConfig.serializer?.path ?? config.serializer?.path ?? defaultPathSerializer,
   }
 }
 
@@ -698,30 +571,17 @@ async function resolveRequest<TBody, TRequest, TResponse>({
   config: ClientConfig<TRequest, TResponse>
   requestConfig: RequestConfig<TBody, TRequest, TResponse>
 }): Promise<{ request: ResolvedRequest; codecs: Record<string, Codec> }> {
-  const { querySerializer, bodySerializer, pathSerializer } = resolveSerializers({
-    config,
-    requestConfig,
-  })
+  const { querySerializer, bodySerializer, pathSerializer } = resolveSerializers({ config, requestConfig })
   const codecs = { ...config.codecs, ...requestConfig.codecs }
 
-  const headers = mergeHeaders(
-    config.headers,
-    applyHeaderStyles(
-      requestConfig.headers as HeadersInit | undefined,
-      requestConfig.styles?.header,
-    ),
-  )
-  const { request: requestContentTypeOption, response: responseContentType } = resolveContentType(
-    requestConfig.contentType,
-  )
+  const headers = mergeHeaders(config.headers, applyHeaderStyles(requestConfig.headers as HeadersInit | undefined, requestConfig.styles?.header))
+  const { request: requestContentTypeOption, response: responseContentType } = resolveContentType(requestConfig.contentType)
   const requestContentType = requestContentTypeOption ?? getHeader(headers, 'content-type')
   if (responseContentType && !hasHeader(headers, 'accept')) {
     headers['Accept'] = responseContentType
   }
 
-  const query: Record<string, unknown> = {
-    ...((requestConfig.query ?? requestConfig.params) as Record<string, unknown> | undefined),
-  }
+  const query: Record<string, unknown> = { ...((requestConfig.query ?? requestConfig.params) as Record<string, unknown> | undefined) }
 
   await resolveAuth({
     security: requestConfig.security,
@@ -731,10 +591,7 @@ async function resolveRequest<TBody, TRequest, TResponse>({
   })
 
   if (requestConfig.cookies) {
-    const cookie = serializeCookies(
-      requestConfig.cookies as Record<string, unknown>,
-      requestConfig.styles?.cookie,
-    )
+    const cookie = serializeCookies(requestConfig.cookies as Record<string, unknown>, requestConfig.styles?.cookie)
     if (cookie) headers['Cookie'] = [headers['Cookie'], cookie].filter(Boolean).join('; ')
   }
 
@@ -746,15 +603,10 @@ async function resolveRequest<TBody, TRequest, TResponse>({
   })
   const requestContentTypeBase = baseContentType(requestContentType)
   const contentCodec = requestContentTypeBase ? codecs[requestContentTypeBase] : undefined
-  const usesDefaultBodySerializer =
-    !contentCodec?.serialize && bodySerializer === defaultBodySerializer
+  const usesDefaultBodySerializer = !contentCodec?.serialize && bodySerializer === defaultBodySerializer
   const body = contentCodec?.serialize
     ? contentCodec.serialize(validatedBody, requestContentType)
-    : bodySerializer({
-        body: validatedBody,
-        contentType: requestContentType,
-        encoding: requestConfig.styles?.body,
-      })
+    : bodySerializer({ body: validatedBody, contentType: requestContentType, encoding: requestConfig.styles?.body })
   // A FormData body must keep its Content-Type unset so the runtime appends the multipart boundary.
   if (body instanceof FormData) {
     for (const key of Object.keys(headers)) {
@@ -762,11 +614,7 @@ async function resolveRequest<TBody, TRequest, TResponse>({
     }
   } else if (requestContentTypeOption) {
     headers['Content-Type'] = requestContentTypeOption
-  } else if (
-    usesDefaultBodySerializer &&
-    isDefaultJsonBody(validatedBody) &&
-    !hasHeader(headers, 'content-type')
-  ) {
+  } else if (usesDefaultBodySerializer && isDefaultJsonBody(validatedBody) && !hasHeader(headers, 'content-type')) {
     headers['Content-Type'] = 'application/json'
   }
 
@@ -778,10 +626,7 @@ async function resolveRequest<TBody, TRequest, TResponse>({
     pathStyles: requestConfig.styles?.path,
   })
 
-  const options =
-    config.options || requestConfig.options
-      ? { ...config.options, ...requestConfig.options }
-      : undefined
+  const options = config.options || requestConfig.options ? { ...config.options, ...requestConfig.options } : undefined
 
   return {
     codecs,
@@ -819,10 +664,7 @@ async function settleResult<TRequest, TResponse>({
   throwOnError: boolean
   validator: { response?: Validator; error?: Validator } | undefined
   onValidationError: ValidationErrorHandler | undefined
-  errorInterceptors: InterceptorStack<
-    ResponseError<unknown, TRequest, TResponse>,
-    RequestConfig<unknown, TRequest, TResponse>
-  >
+  errorInterceptors: InterceptorStack<ResponseError<unknown, TRequest, TResponse>, RequestConfig<unknown, TRequest, TResponse>>
   requestConfig: RequestConfig<unknown, TRequest, TResponse>
 }): Promise<CallResult<TRequest, TResponse>> {
   const isSuccess = result.status >= 200 && result.status < 300
@@ -842,14 +684,7 @@ async function settleResult<TRequest, TResponse>({
       context: { direction: 'response', ...validationContext },
       onValidationError,
     })
-    return {
-      status: result.status,
-      data,
-      error: undefined,
-      contentType,
-      request: result.request,
-      response: result.response,
-    }
+    return { status: result.status, data, error: undefined, contentType, request: result.request, response: result.response }
   }
 
   const error = await runValidator({
@@ -872,14 +707,7 @@ async function settleResult<TRequest, TResponse>({
     await errorInterceptors.run(responseError, requestConfig)
     throw responseError
   }
-  return {
-    status: result.status,
-    data: undefined,
-    error,
-    contentType,
-    request: result.request,
-    response: result.response,
-  }
+  return { status: result.status, data: undefined, error, contentType, request: result.request, response: result.response }
 }
 
 /**
@@ -893,19 +721,11 @@ export function createClientCore<TRequest = Request, TResponse = Response>(
 
   const interceptors: Interceptors<TRequest, TResponse> = {
     request: createInterceptorStack<ResolvedRequest, RequestConfig<unknown, TRequest, TResponse>>(),
-    response: createInterceptorStack<
-      TransportResult<unknown, TRequest, TResponse>,
-      RequestConfig<unknown, TRequest, TResponse>
-    >(),
-    error: createInterceptorStack<
-      ResponseError<unknown, TRequest, TResponse>,
-      RequestConfig<unknown, TRequest, TResponse>
-    >(),
+    response: createInterceptorStack<TransportResult<unknown, TRequest, TResponse>, RequestConfig<unknown, TRequest, TResponse>>(),
+    error: createInterceptorStack<ResponseError<unknown, TRequest, TResponse>, RequestConfig<unknown, TRequest, TResponse>>(),
   }
 
-  const client = (async <TBody = unknown>(
-    requestConfig: RequestConfig<TBody, TRequest, TResponse>,
-  ): Promise<CallResult<TRequest, TResponse>> => {
+  const client = (async <TBody = unknown>(requestConfig: RequestConfig<TBody, TRequest, TResponse>): Promise<CallResult<TRequest, TResponse>> => {
     const transport = requestConfig.transport ?? config.transport ?? defaultTransport
     const { request, codecs } = await resolveRequest({ config, requestConfig })
 
@@ -926,18 +746,12 @@ export function createClientCore<TRequest = Request, TResponse = Response>(
 
   client.getConfig = () => config
   client.setConfig = (next) => {
-    config = {
-      ...config,
-      ...next,
-      headers: { ...serializeHeaders(config.headers), ...serializeHeaders(next.headers) },
-    }
+    config = { ...config, ...next, headers: { ...serializeHeaders(config.headers), ...serializeHeaders(next.headers) } }
     return config
   }
   client.getUrl = (requestConfig) => {
     const { querySerializer, pathSerializer } = resolveSerializers({ config, requestConfig })
-    const query: Record<string, unknown> = {
-      ...((requestConfig.query ?? requestConfig.params) as Record<string, unknown> | undefined),
-    }
+    const query: Record<string, unknown> = { ...((requestConfig.query ?? requestConfig.params) as Record<string, unknown> | undefined) }
     return serializeUrl({
       parts: [requestConfig.baseURL ?? config.baseURL, requestConfig.url],
       pathParams: (requestConfig.path ?? {}) as Record<string, unknown>,
@@ -960,8 +774,7 @@ function detectResponseType(contentType: string | null): ResponseType | undefine
   if (contentType.includes('text/event-stream')) return 'stream'
   if (contentType.includes('application/json') || contentType.includes('text/json')) return 'json'
   if (contentType.includes('text/')) return 'text'
-  if (contentType.includes('image/') || contentType.includes('application/octet-stream'))
-    return 'blob'
+  if (contentType.includes('image/') || contentType.includes('application/octet-stream')) return 'blob'
   return undefined
 }
 
@@ -969,12 +782,7 @@ function detectResponseType(contentType: string | null): ResponseType | undefine
  * Parses a `fetch` response body using the `responseType` (explicit or detected from the `Content-Type`), falling back to JSON-then-text.
  */
 async function parseResponse(response: Response, responseType?: ResponseType): Promise<unknown> {
-  if (
-    response.status === 204 ||
-    response.status === 205 ||
-    response.status === 304 ||
-    !response.body
-  ) {
+  if (response.status === 204 || response.status === 205 || response.status === 304 || !response.body) {
     return undefined
   }
 
@@ -1007,9 +815,7 @@ async function parseResponse(response: Response, responseType?: ResponseType): P
 /**
  * The default transport that sends the resolved request through `globalThis.fetch` and returns the parsed body with the native request and response.
  */
-export const defaultTransport: Transport = async (
-  request: ResolvedRequest,
-): Promise<TransportResult> => {
+export const defaultTransport: Transport = async (request: ResolvedRequest): Promise<TransportResult> => {
   const init: RequestInit = {
     ...request.options, // cache, mode, redirect, keepalive, duplex, next, …
     method: request.method,
@@ -1044,9 +850,7 @@ export type ServerSentEvent<TData = unknown> = {
   retry?: number
 }
 
-async function* readBytes(
-  stream: ReadableStream<Uint8Array> | AsyncIterable<Uint8Array>,
-): AsyncGenerator<Uint8Array> {
+async function* readBytes(stream: ReadableStream<Uint8Array> | AsyncIterable<Uint8Array>): AsyncGenerator<Uint8Array> {
   if (!('getReader' in stream)) {
     yield* stream
     return
@@ -1130,9 +934,7 @@ export type EventStreamResult<TData = unknown, TResponse = Response> = {
  * Wraps a transport result whose `data` is a streaming body into an `EventStreamResult`, exposing
  * the parsed events as a typed async iterator. Generated SSE operations call this.
  */
-export async function toEventStream<TData = unknown>(
-  result: Promise<{ data: unknown; response: Response }>,
-): Promise<EventStreamResult<TData>> {
+export async function toEventStream<TData = unknown>(result: Promise<{ data: unknown; response: Response }>): Promise<EventStreamResult<TData>> {
   const { data, response } = await result
   return {
     response,
@@ -1142,7 +944,6 @@ export async function toEventStream<TData = unknown>(
 
 export const client = createClientCore({ defaultTransport })
 
-export const createClient = (config?: Parameters<typeof client.createClient>[0]) =>
-  client.createClient(config)
+export const createClient = (config?: Parameters<typeof client.createClient>[0]) => client.createClient(config)
 
-client.setConfig({ baseURL: '/api' })
+client.setConfig({ baseURL: "/api" })

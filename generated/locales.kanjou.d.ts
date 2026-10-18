@@ -13,6 +13,8 @@ declare module '@kanjou/react' {
       'action.finish.title': {}
       'action.login.title': {}
       'action.enter.title': {}
+      'error.incorrect-password': {}
+      'error.registration-failed': {}
       'field.name.placeholder': {}
       'field.course.placeholder': {}
       'field.group.placeholder': {}
