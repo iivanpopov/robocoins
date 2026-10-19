@@ -22,8 +22,10 @@
     transform: translate(0.5rem, 0.5rem);
     transition: transform 200ms ease-in-out;
   }
+}
 
-  &:focus-within::after {
+.group:has(input:focus) {
+  &::after {
     transform: translate(0, 0);
   }
 }
@@ -41,14 +43,6 @@
 .group input {
   background: transparent;
   border: 0;
-}
-
-.group:has(input[aria-invalid='true']) {
-  background: var(--error);
-
-  input::placeholder {
-    color: var(--error-hover);
-  }
 }
 
 .button {
@@ -75,6 +69,18 @@
 
   &:focus-visible {
     outline: 3px solid var(--brand-hover);
+  }
+}
+
+.group:has(input[aria-invalid='true']) {
+  background: var(--error);
+
+  input::placeholder {
+    color: var(--error-hover);
+  }
+
+  .button {
+    color: var(--error-hover);
   }
 }
 

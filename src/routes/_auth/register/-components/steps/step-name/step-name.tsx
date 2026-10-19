@@ -12,7 +12,7 @@ export function StepName() {
   return (
     <form className="flex flex-1 flex-col" onSubmit={functions.handleSubmit}>
       <Typography variant="title">{t('action.registration.title')}</Typography>
-      <Typography variant="caption" className="mt-2">
+      <Typography variant="subtitle" className="mt-2">
         {t('action.registration.description')}
       </Typography>
       <features.form.Field name="name">
@@ -29,7 +29,7 @@ export function StepName() {
         )}
       </features.form.Field>
 
-      <div className="flex-1 flex flex-col justify-end">
+      <div className="mt-8 flex-1 flex flex-col justify-end">
         <HeroButton type="submit" className="w-full">
           {t('action.next.title')}
         </HeroButton>
