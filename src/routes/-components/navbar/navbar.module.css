@@ -43,7 +43,6 @@
     width: 24px;
     height: 24px;
     font-size: 1.5rem;
-    transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   > :not([aria-hidden='true']) {
@@ -64,10 +63,6 @@
     gap: var(--spacing-sm);
     color: var(--brand);
     background: var(--blue-50);
-
-    > [aria-hidden='true'] {
-      transform: scale(1.06);
-    }
 
     > :not([aria-hidden='true']) {
       max-width: 150px;
