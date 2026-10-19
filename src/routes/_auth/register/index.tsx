@@ -1,25 +1,25 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ComponentType } from 'react'
 
-import { useRegisterContext } from './-components/register-provider'
-import { StepAvatar, StepGroup, StepName, StepView } from './-components/steps'
-import { RegisterStep } from './-schemas'
+import { StepAvatar, StepCourse, StepGroup, StepName, StepView } from './-components/steps'
+import { RegisterStep } from './-constants'
+
+const STEPS: Record<RegisterStep, ComponentType> = {
+  name: StepName,
+  course: StepCourse,
+  schedule: StepGroup,
+  avatar: StepAvatar,
+  view: StepView,
+}
 
 export const Route = createFileRoute('/_auth/register/')({
   component: RouteComponent,
 })
 
-const STEPS: Record<RegisterStep, ComponentType> = {
-  name: StepName,
-  group: StepGroup,
-  avatar: StepAvatar,
-  view: StepView,
-}
-
 function RouteComponent() {
-  const { state } = useRegisterContext()
+  const { step } = Route.useSearch()
 
-  const Step = STEPS[state.step]
+  const Step = STEPS[step]
 
   return <Step />
 }

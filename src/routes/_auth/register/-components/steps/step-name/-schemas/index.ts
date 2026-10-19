@@ -1,5 +1,5 @@
 import { z } from 'zod'
 
-export const StepNameSchema = z.object({
+export const StepNameForm = z.object({
   name: z.string().trim().min(1),
 })

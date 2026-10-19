@@ -9,9 +9,7 @@ import {
 } from '#/components/ui'
 import { getAvatarUrl } from '#/routes/-utils/get-avatar-url'
 
-import { AVATARS } from '../../../-constants'
-import { RegisterStep } from '../../../-schemas'
-import { MistakeCaption } from '../components/mistake-caption'
+import { AVATARS, RegisterStep } from '../../../-constants'
 import { useStepAvatar } from './hooks'
 
 export function StepAvatar() {
@@ -43,7 +41,9 @@ export function StepAvatar() {
 
       <div className="flex-1 flex flex-col justify-end">
         <HeroButton type="submit">{t('action.next.title')}</HeroButton>
-        <MistakeCaption to={RegisterStep.Group} />
+        <Typography variant="caption" className="text-center mt-4">
+          {t.rich('caption.mistake', { search: { step: RegisterStep.Schedule } })}
+        </Typography>
       </div>
     </form>
   )

@@ -1,29 +1,27 @@
 import { createContext, ReactNode, use, useMemo, useState } from 'react'
 
-import { LOCALSTORAGE_REGISTER_STATE } from '../../-constants'
-import type { RegisterState } from '../../-schemas'
-
-type NewState = Partial<Omit<RegisterState, 'step'>> & Pick<RegisterState, 'step'>
+import type { RegisterDraft } from '../../-schemas'
+import { registerDraft } from '../../-utils/register-draft'
 
 interface RegisterContextValue {
-  setState: (newState: NewState) => void
-  state: RegisterState
+  setState: (newState: Partial<RegisterDraft>) => void
+  state: RegisterDraft
 }
 
 const RegisterContext = createContext<RegisterContextValue>({} as RegisterContextValue)
 
 export interface RegisterProviderProps {
-  initialState: RegisterState
+  initialState: RegisterDraft
   children: ReactNode
 }
 
 export function RegisterProvider({ initialState, children }: RegisterProviderProps) {
-  const [state, setState] = useState<RegisterState>(initialState)
+  const [state, setState] = useState<RegisterDraft>(initialState)
 
-  const _setState = (newState: NewState) => {
+  const _setState = (newState: Partial<RegisterDraft>) => {
     const next = { ...state, ...newState }
     setState(next)
-    localStorage.setItem(LOCALSTORAGE_REGISTER_STATE, JSON.stringify(next))
+    registerDraft.save(next)
   }
 
   const contextValue = useMemo(() => ({ state, setState: _setState }), [state])

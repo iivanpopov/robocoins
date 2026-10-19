@@ -14,7 +14,7 @@ export const Route = createFileRoute('/_auth')({
 function RouteComponent() {
   return (
     <div className={styles.wrapper}>
-      <div className={cn('i-ph:coins', styles.coins)} />
+      {/*<div className={cn('i-ph:coins', styles.coins)} />*/}
       <Outlet />
     </div>
   )

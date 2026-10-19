@@ -11,8 +11,7 @@ import {
   Typography,
 } from '#/components/ui'
 
-import { RegisterStep } from '../../../-schemas'
-import { MistakeCaption } from '../components/mistake-caption'
+import { RegisterStep } from '../../../-constants'
 import { useStepGroup } from './hooks'
 
 export function StepGroup() {
@@ -76,7 +75,9 @@ export function StepGroup() {
 
       <div className="flex-1 flex flex-col justify-end">
         <HeroButton type="submit">{t('action.next.title')}</HeroButton>
-        <MistakeCaption to={RegisterStep.Name} />
+        <Typography variant="caption" className="text-center mt-4">
+          {t.rich('caption.mistake', { search: { step: RegisterStep.Name } })}
+        </Typography>
       </div>
     </form>
   )

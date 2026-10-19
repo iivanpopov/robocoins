@@ -5,8 +5,8 @@ import { useCreateStudentStudentRegisterPost } from '#/api/hooks'
 import { toast } from '#/components/ui/toast'
 import { LOCALSTORAGE_DID_REGISTER } from '#/routes/-constants'
 
-import { LOCALSTORAGE_REGISTER_STATE } from '../../../../-constants'
-import { CompleteRegisterStateSchema } from '../../../../-schemas'
+import { LOCALSTORAGE_REGISTER_DRAFT } from '../../../../-constants'
+import { CompleteRegisterDraft } from '../../../../-schemas'
 import { useRegisterContext } from '../../../register-provider'
 
 export function useStepView() {
@@ -18,7 +18,7 @@ export function useStepView() {
   const registerMutation = useCreateStudentStudentRegisterPost()
 
   const handleFinish = async () => {
-    const draft = CompleteRegisterStateSchema.safeParse(register.state)
+    const draft = CompleteRegisterDraft.safeParse(register.state)
 
     if (!draft.success) return
 
@@ -28,7 +28,7 @@ export function useStepView() {
       await registerMutation.mutateAsync({
         body: { name, avatar, course_name: courseName, group_id: group.id },
       })
-      localStorage.removeItem(LOCALSTORAGE_REGISTER_STATE)
+      localStorage.removeItem(LOCALSTORAGE_REGISTER_DRAFT)
       localStorage.setItem(LOCALSTORAGE_DID_REGISTER, 'true')
       await navigate({ to: '/' })
     } catch {

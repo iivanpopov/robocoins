@@ -30,9 +30,9 @@ export function StepName() {
 
       <div className="flex-1 flex flex-col justify-end">
         <HeroButton type="submit" className="w-full">
-          {t('action.start.title')}
+          {t('action.next.title')}
         </HeroButton>
-        <Typography variant="caption" className="text-center mt-4">
+        <Typography variant="caption" className="text-center mt-6">
           {t.rich('caption.has-account', { to: '/login' })}
         </Typography>
       </div>

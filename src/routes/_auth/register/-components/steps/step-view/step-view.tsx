@@ -3,7 +3,7 @@ import { useTranslate } from '@kanjou/react'
 import { HeroButton, Typography } from '#/components/ui'
 import { getAvatarUrl } from '#/routes/-utils/get-avatar-url'
 
-import { RegisterStep } from '../../../-schemas'
+import { RegisterStep } from '../../../-constants'
 import { MistakeCaption } from '../components/mistake-caption'
 import { useStepView } from './hooks'
 
@@ -32,7 +32,9 @@ export function StepView() {
         <HeroButton onClick={functions.handleFinish} disabled={mutations.register.isPending}>
           {t('action.finish.title')}
         </HeroButton>
-        <MistakeCaption to={RegisterStep.Avatar} />
+        <Typography variant="caption" className="text-center mt-4">
+          {t.rich('caption.mistake', { search: { step: RegisterStep.Avatar } })}
+        </Typography>
       </div>
     </div>
   )

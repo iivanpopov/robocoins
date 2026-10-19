@@ -12,6 +12,7 @@ declare module '@kanjou/react' {
       'action.next.title': {}
       'action.finish.title': {}
       'action.login.title': {}
+      'action.login.description': {}
       'action.enter.title': {}
       'error.incorrect-password': {}
       'error.registration-failed': {}

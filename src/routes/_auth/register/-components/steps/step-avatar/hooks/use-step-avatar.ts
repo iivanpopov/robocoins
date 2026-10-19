@@ -5,7 +5,6 @@ import type { SyntheticEvent } from 'react'
 import type { CarouselApi } from '#/components/ui'
 import { AVATARS } from '#/routes/_auth/register/-constants'
 
-import { RegisterStep } from '../../../../-schemas'
 import { useRegisterContext } from '../../../register-provider'
 
 export function useStepAvatar() {
@@ -17,7 +16,7 @@ export function useStepAvatar() {
   const form = useForm({
     defaultValues: { avatar: AVATARS[initialIndex] },
     onSubmit: ({ value }) => {
-      register.setState({ step: RegisterStep.View, avatar: value.avatar })
+      register.setState({ avatar: value.avatar })
     },
   })
 

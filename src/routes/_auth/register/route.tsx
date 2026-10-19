@@ -1,24 +1,18 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router'
+import { z } from 'zod'
 
 import { RegisterProvider } from './-components/register-provider'
-import { LOCALSTORAGE_REGISTER_STATE } from './-constants'
-import { DEFAULT_REGISTER_STATE, JsonSchema, RegisterStateSchema } from './-schemas'
+import { RegisterStep } from './-constants'
+import { registerDraft } from './-utils/register-draft'
+
+const RouteSearch = z.object({
+  step: z.enum(RegisterStep).default(RegisterStep.Name),
+})
 
 export const Route = createFileRoute('/_auth/register')({
   component: RouteComponent,
-  loader: () => {
-    const draft = localStorage.getItem(LOCALSTORAGE_REGISTER_STATE)
-
-    if (draft) {
-      const parsed = JsonSchema.pipe(RegisterStateSchema).safeParse(draft)
-
-      if (parsed.success) return parsed.data
-
-      localStorage.removeItem(LOCALSTORAGE_REGISTER_STATE)
-    }
-
-    return DEFAULT_REGISTER_STATE
-  },
+  validateSearch: RouteSearch,
+  loader: () => registerDraft.get(),
 })
 
 function RouteComponent() {

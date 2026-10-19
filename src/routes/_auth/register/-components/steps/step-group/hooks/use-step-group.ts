@@ -4,7 +4,6 @@ import type { SyntheticEvent } from 'react'
 import { useGetCoursesCourseGet } from '#/api/hooks'
 
 import { StepGroupSchema } from '../-schemas'
-import { RegisterStep } from '../../../../-schemas'
 import { useRegisterContext } from '../../../register-provider'
 
 export function useStepGroup() {
@@ -14,18 +13,17 @@ export function useStepGroup() {
 
   const form = useForm({
     defaultValues: {
-      courseName: register.state.courseName ?? '',
-      groupId: register.state.group?.id?.toString() ?? '',
+      courseName: '',
+      groupId: '',
     },
     validators: { onChange: StepGroupSchema },
     onSubmit: ({ value }) => {
       register.setState({
-        step: RegisterStep.Avatar,
-        group: {
-          id: +value.groupId,
-          name: groups!.find((group) => +group.value === +value.groupId)?.label!,
-        },
-        courseName: value.courseName,
+        // group: {
+        //   id: +value.groupId,
+        //   name: groups!.find((group) => +group.value === +value.groupId)?.label!,
+        // },
+        // courseName: value.courseName,
       })
     },
   })

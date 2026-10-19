@@ -2,43 +2,20 @@ import { z } from 'zod'
 
 import { AVATARS } from '../-constants'
 
-export const RegisterStep = {
-  Name: 'name',
-  Group: 'group',
-  Avatar: 'avatar',
-  View: 'view',
-} as const
-
-export const RegisterStateSchema = z.object({
-  step: z.enum(RegisterStep),
+export const RegisterDraft = z.object({
+  version: z.number(),
   name: z.string().trim().min(1).optional(),
   avatar: z.enum(AVATARS).optional(),
-  courseName: z.string().min(1).optional(),
-  group: z
-    .object({
-      name: z.string(),
-      id: z.number().int().positive(),
-    })
+  groups: z
+    .array(
+      z.object({
+        id: z.number().int().positive(),
+        name: z.string(),
+        courseName: z.string(),
+      }),
+    )
     .optional(),
 })
+export type RegisterDraft = z.infer<typeof RegisterDraft>
 
-export type RegisterState = z.infer<typeof RegisterStateSchema>
-export type RegisterStep = RegisterState['step']
-
-export const CompleteRegisterStateSchema = RegisterStateSchema.required({
-  name: true,
-  avatar: true,
-  courseName: true,
-  group: true,
-})
-
-export const DEFAULT_REGISTER_STATE: RegisterState = { step: RegisterStep.Name }
-
-export const JsonSchema = z.string().transform((value, context) => {
-  try {
-    return JSON.parse(value)
-  } catch {
-    context.addIssue({ code: 'custom', message: 'validation.invalid-json' })
-    return z.NEVER
-  }
-})
+export const CompleteRegisterDraft = RegisterDraft.required()

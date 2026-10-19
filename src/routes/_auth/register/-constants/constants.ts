@@ -1,1 +1,1 @@
-export const LOCALSTORAGE_REGISTER_STATE = 'registerDraft'
+export const LOCALSTORAGE_REGISTER_DRAFT = 'registerDraft'

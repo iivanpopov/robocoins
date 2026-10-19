@@ -1,18 +1,23 @@
 import { useForm } from '@tanstack/react-form'
+import { useNavigate } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
 
-import { StepNameSchema } from '../-schemas'
-import { RegisterStep } from '../../../../-schemas'
+import { RegisterStep } from '#/routes/_auth/register/-constants'
+
+import { StepNameForm } from '../-schemas'
 import { useRegisterContext } from '../../../register-provider'
 
 export function useStepName() {
   const register = useRegisterContext()
 
+  const navigate = useNavigate({ from: '/register' })
+
   const form = useForm({
     defaultValues: { name: register.state.name ?? '' },
-    validators: { onChange: StepNameSchema },
+    validators: { onChange: StepNameForm },
     onSubmit: ({ value }) => {
-      register.setState({ step: RegisterStep.Group, name: value.name.trim() })
+      register.setState({ name: value.name.trim() })
+      void navigate({ search: { step: RegisterStep.Course } })
     },
   })
 

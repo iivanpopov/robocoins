@@ -18,6 +18,7 @@ function RouteComponent() {
   return (
     <form className="flex flex-1 flex-col" onSubmit={functions.handleSubmit}>
       <Typography variant="title">{t('action.login.title')}</Typography>
+      <Typography variant="caption">{t('action.login.description')}</Typography>
       <features.form.Field name="password">
         {(field) => (
           <HeroPasswordInput
@@ -36,7 +37,7 @@ function RouteComponent() {
         <HeroButton type="submit" className="w-full" disabled={mutations.login.isPending}>
           {t('action.enter.title')}
         </HeroButton>
-        <Typography variant="caption" className="text-center mt-4">
+        <Typography variant="caption" className="text-center mt-6">
           {t.rich('caption.has-no-account', { to: '/register' })}
         </Typography>
       </div>
