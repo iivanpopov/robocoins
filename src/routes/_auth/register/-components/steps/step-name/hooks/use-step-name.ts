@@ -17,7 +17,10 @@ export function useStepName() {
     validators: { onChange: StepNameForm },
     onSubmit: ({ value }) => {
       register.setState({ name: value.name.trim() })
-      void navigate({ search: { step: RegisterStep.Category } })
+      void navigate({
+        search: { step: RegisterStep.Category },
+        viewTransition: { types: ['register-forward'] },
+      })
     },
   })
 

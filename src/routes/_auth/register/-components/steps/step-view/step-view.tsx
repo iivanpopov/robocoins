@@ -21,7 +21,7 @@ export function StepView() {
       <AuthLayout.Top>
         <Typography variant="title">{t('step.view.title')}</Typography>
         <div className="flex items-center gap-3 mt-4">
-          <img src={getAvatarUrl(state.avatar)} draggable={false} className="w-10 h-10" />
+          <img src={getAvatarUrl(state.avatar)} draggable={false} className={styles.avatar} />
           <Typography variant="accent">{state.name}</Typography>
         </div>
 
@@ -42,7 +42,10 @@ export function StepView() {
         >
           {t('action.finish.title')}
         </HeroButton>
-        <RegisterBackCaption search={{ step: RegisterStep.Avatar }} />
+        <RegisterBackCaption
+          search={{ step: RegisterStep.Avatar }}
+          viewTransition={{ types: ['register-backward', 'register-avatar'] }}
+        />
       </AuthLayout.Bottom>
     </AuthLayout.Root>
   )

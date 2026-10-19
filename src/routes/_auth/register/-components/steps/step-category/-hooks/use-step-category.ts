@@ -55,7 +55,10 @@ export function useStepCategory() {
   const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!StepCategorySchema.safeParse(selectedCategories).success || !coursesQuery.isSuccess) return
-    void navigate({ search: { step: RegisterStep.Course, category: selectedCategories[0] } })
+    void navigate({
+      search: { step: RegisterStep.Course, category: selectedCategories[0] },
+      viewTransition: { types: ['register-forward'] },
+    })
   }
 
   return {

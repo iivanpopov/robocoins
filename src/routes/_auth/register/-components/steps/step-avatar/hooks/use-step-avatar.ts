@@ -44,7 +44,10 @@ export function useStepAvatar() {
   const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!register.state.avatar) return
-    void navigate({ search: { step: RegisterStep.View } })
+    void navigate({
+      search: { step: RegisterStep.View },
+      viewTransition: { types: ['register-forward', 'register-avatar'] },
+    })
   }
 
   return {

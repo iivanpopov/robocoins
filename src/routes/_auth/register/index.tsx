@@ -10,6 +10,9 @@ import {
   StepView,
 } from './-components/steps'
 import { RegisterStep } from './-constants'
+import { useRegisterPage } from './-hooks'
+
+import styles from './index.module.css'
 
 const STEPS: Record<RegisterStep, ComponentType> = {
   name: StepName,
@@ -25,9 +28,13 @@ export const Route = createFileRoute('/_auth/register/')({
 })
 
 function RouteComponent() {
-  const { step } = Route.useSearch()
+  const { state } = useRegisterPage()
 
-  const Step = STEPS[step]
+  const Step = STEPS[state.step]
 
-  return <Step />
+  return (
+    <div className={styles.root}>
+      <Step />
+    </div>
+  )
 }

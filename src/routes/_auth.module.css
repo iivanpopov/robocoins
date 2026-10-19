@@ -1,7 +1,9 @@
 .wrapper {
+  --auth-padding-inline: var(--spacing-xl);
+
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 3.5rem var(--spacing-xl) 1.5rem var(--spacing-xl);
+  padding: 3.5rem var(--auth-padding-inline) 1.5rem;
   overflow-x: hidden;
 }

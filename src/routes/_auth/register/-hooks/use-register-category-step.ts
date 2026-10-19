@@ -30,11 +30,17 @@ export function useRegisterCategoryStep() {
     const nextCategory = categories[categories.indexOf(category) + 1]
 
     if (nextCategory) {
-      void navigate({ search: { step: RegisterStep.Course, category: nextCategory } })
+      void navigate({
+        search: { step: RegisterStep.Course, category: nextCategory },
+        viewTransition: { types: ['register-forward'] },
+      })
       return
     }
 
-    void navigate({ search: { step: RegisterStep.Avatar } })
+    void navigate({
+      search: { step: RegisterStep.Avatar },
+      viewTransition: { types: ['register-forward'] },
+    })
   }
 
   return { category, index, total: categories.length, previousSearch, handleNextCategory }

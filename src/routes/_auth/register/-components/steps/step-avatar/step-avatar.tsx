@@ -1,4 +1,5 @@
 import { useTranslate } from '@kanjou/react'
+import { cn } from 'cn'
 
 import {
   HeroButton,
@@ -13,6 +14,8 @@ import { AuthLayout } from '#/routes/_auth/-components'
 import { AVATARS } from '../../../-constants'
 import { RegisterBackCaption } from '../../register-back-caption'
 import { useStepAvatar } from './hooks'
+
+import styles from './step-avatar.module.css'
 
 export function StepAvatar() {
   const { state, functions } = useStepAvatar()
@@ -38,7 +41,7 @@ export function StepAvatar() {
                     src={getAvatarUrl(avatar)}
                     alt={avatar}
                     draggable={false}
-                    className="w-full h-auto select-none pointer-events-none"
+                    className={cn(styles.avatar, 'w-full h-auto select-none pointer-events-none')}
                   />
                 </HeroCarouselItem>
               ))}

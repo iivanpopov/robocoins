@@ -38,7 +38,12 @@ export function useStepView() {
       register.setAccessCode(response.access_code)
       localStorage.removeItem(LOCALSTORAGE_REGISTER_DRAFT)
       localStorage.setItem(LOCALSTORAGE_DID_REGISTER, 'true')
-      await navigate({ to: '/register', search: { step: RegisterStep.Success }, replace: true })
+      await navigate({
+        to: '/register',
+        search: { step: RegisterStep.Success },
+        replace: true,
+        viewTransition: { types: ['register-forward'] },
+      })
     } catch {
       toast.add({ title: t('error.registration-failed'), type: 'error', timeout: 0 })
     }

@@ -1,0 +1,103 @@
+.root {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  padding-inline: var(--auth-padding-inline);
+  margin-inline: calc(-1 * var(--auth-padding-inline));
+  view-transition-name: register-step;
+}
+
+:root:active-view-transition-type(register-forward),
+:root:active-view-transition-type(register-backward) {
+  &::view-transition-old(root),
+  &::view-transition-new(root) {
+    animation: none;
+  }
+
+  &::view-transition-group(register-step) {
+    animation-duration: 280ms;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  &::view-transition-image-pair(register-step) {
+    overflow: clip;
+  }
+
+  &::view-transition-old(register-step),
+  &::view-transition-new(register-step) {
+    mix-blend-mode: normal;
+    animation-duration: 280ms;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation-fill-mode: both;
+  }
+}
+
+:root:active-view-transition-type(register-forward) {
+  &::view-transition-old(register-step) {
+    animation-name: step-exit-forward;
+  }
+
+  &::view-transition-new(register-step) {
+    animation-name: step-enter-forward;
+  }
+}
+
+:root:active-view-transition-type(register-backward) {
+  &::view-transition-old(register-step) {
+    animation-name: step-exit-backward;
+  }
+
+  &::view-transition-new(register-step) {
+    animation-name: step-enter-backward;
+  }
+}
+
+:root:active-view-transition-type(register-avatar) {
+  &::view-transition-group(register-avatar) {
+    z-index: 1;
+    animation-duration: 400ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  &::view-transition-old(register-avatar),
+  &::view-transition-new(register-avatar) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: normal;
+    animation: none;
+  }
+}
+
+@keyframes step-exit-forward {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes step-enter-forward {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes step-exit-backward {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes step-enter-backward {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: none;
+  }
+}

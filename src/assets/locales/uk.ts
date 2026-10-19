@@ -11,7 +11,8 @@ export default {
   'field.password.hide': 'Приховати пароль',
   'caption.has-account': 'Маєш акаунт?{#br/}{#a to=$to}Увійти{/a}',
   'caption.has-no-account': 'Немає акаунту?{#br/}{#a to=$to}Зареєструватися{/a}',
-  'caption.mistake': 'Помилився?{#br/}{#a search=$search}Повернутся назад{/a}',
+  'caption.mistake':
+    'Помилився?{#br/}{#a search=$search viewTransition=$viewTransition}Повернутся назад{/a}',
   'step.name.title': 'Як тебе звати?',
   'step.name.description': 'Так твоє ім’я бачитимуть викладачі та інші студенти.',
   'step.category.title': 'Обери напрямки',
