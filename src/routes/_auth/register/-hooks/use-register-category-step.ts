@@ -32,14 +32,14 @@ export function useRegisterCategoryStep() {
     if (nextCategory) {
       void navigate({
         search: { step: RegisterStep.Course, category: nextCategory },
-        viewTransition: { types: ['register-forward'] },
+        viewTransition: { types: ['slide-forward'] },
       })
       return
     }
 
     void navigate({
       search: { step: RegisterStep.Avatar },
-      viewTransition: { types: ['register-forward'] },
+      viewTransition: { types: ['slide-forward'] },
     })
   }
 

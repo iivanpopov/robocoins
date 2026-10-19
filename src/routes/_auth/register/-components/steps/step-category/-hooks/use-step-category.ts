@@ -57,7 +57,7 @@ export function useStepCategory() {
     if (!StepCategorySchema.safeParse(selectedCategories).success || !coursesQuery.isSuccess) return
     void navigate({
       search: { step: RegisterStep.Course, category: selectedCategories[0] },
-      viewTransition: { types: ['register-forward'] },
+      viewTransition: { types: ['slide-forward'] },
     })
   }
 

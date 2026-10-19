@@ -46,7 +46,7 @@ export function useStepAvatar() {
     if (!register.state.avatar) return
     void navigate({
       search: { step: RegisterStep.View },
-      viewTransition: { types: ['register-forward', 'register-avatar'] },
+      viewTransition: { types: ['slide-forward', 'register-avatar'] },
     })
   }
 

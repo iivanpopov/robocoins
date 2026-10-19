@@ -9,6 +9,8 @@ declare module '@kanjou/react' {
       'navbar.label': {}
       'navbar.settings': {}
       'navbar.profile': {}
+      'navbar.home': {}
+      'navbar.shop': {}
       'navbar.groups': {}
       'settings.name': {}
       'settings.logout': {}

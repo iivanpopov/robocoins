@@ -31,13 +31,13 @@ function TeacherLayout() {
           <main className={styles.content}>
             <Outlet />
           </main>
-          <Navbar aria-label={t('navbar.label')}>
-            <Navbar.Item to="/teacher/settings" activeOptions={{ exact: true }}>
-              <span aria-hidden="true" className="i-ph:gear-bold" />
+          <Navbar paths={['/teacher/settings', '/group']} aria-label={t('navbar.label')}>
+            <Navbar.Item to="/teacher/settings" aria-label={t('navbar.settings')}>
+              <div aria-hidden="true" className="i-ph:gear" />
               <span>{t('navbar.settings')}</span>
             </Navbar.Item>
-            <Navbar.Item to="/group" activeOptions={{ exact: true }}>
-              <span aria-hidden="true" className="i-ph:users-three-bold" />
+            <Navbar.Item to="/group" aria-label={t('navbar.groups')}>
+              <div aria-hidden="true" className="i-ph:users-three" />
               <span>{t('navbar.groups')}</span>
             </Navbar.Item>
           </Navbar>

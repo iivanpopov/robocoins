@@ -42,7 +42,7 @@ export function useStepView() {
         to: '/register',
         search: { step: RegisterStep.Success },
         replace: true,
-        viewTransition: { types: ['register-forward'] },
+        viewTransition: { types: ['slide-forward'] },
       })
     } catch {
       toast.add({ title: t('error.registration-failed'), type: 'error', timeout: 0 })

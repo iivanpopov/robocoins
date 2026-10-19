@@ -19,7 +19,7 @@ export function useStepName() {
       register.setState({ name: value.name.trim() })
       void navigate({
         search: { step: RegisterStep.Category },
-        viewTransition: { types: ['register-forward'] },
+        viewTransition: { types: ['slide-forward'] },
       })
     },
   })

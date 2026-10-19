@@ -1,0 +1,76 @@
+:root:active-view-transition-type(slide-forward),
+:root:active-view-transition-type(slide-backward) {
+  &::view-transition-old(root),
+  &::view-transition-new(root) {
+    animation: none;
+  }
+
+  &::view-transition-group(slide-content) {
+    animation-duration: 280ms;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  &::view-transition-image-pair(slide-content) {
+    overflow: clip;
+  }
+
+  &::view-transition-old(slide-content),
+  &::view-transition-new(slide-content) {
+    mix-blend-mode: normal;
+    animation-duration: 280ms;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation-fill-mode: both;
+  }
+}
+
+:root:active-view-transition-type(slide-forward) {
+  &::view-transition-old(slide-content) {
+    animation-name: slide-exit-forward;
+  }
+
+  &::view-transition-new(slide-content) {
+    animation-name: slide-enter-forward;
+  }
+}
+
+:root:active-view-transition-type(slide-backward) {
+  &::view-transition-old(slide-content) {
+    animation-name: slide-exit-backward;
+  }
+
+  &::view-transition-new(slide-content) {
+    animation-name: slide-enter-backward;
+  }
+}
+
+@keyframes slide-exit-forward {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slide-enter-forward {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes slide-exit-backward {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slide-enter-backward {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: none;
+  }
+}

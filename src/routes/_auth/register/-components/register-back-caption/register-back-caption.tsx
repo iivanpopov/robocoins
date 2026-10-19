@@ -16,7 +16,7 @@ export function RegisterBackCaption(props: {
     <Typography variant="caption" className="text-center mt-6">
       {t.rich('caption.mistake', {
         search: props.search,
-        viewTransition: props.viewTransition ?? { types: ['register-backward'] },
+        viewTransition: props.viewTransition ?? { types: ['slide-backward'] },
       })}
     </Typography>
   )

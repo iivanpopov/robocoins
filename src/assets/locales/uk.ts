@@ -2,6 +2,8 @@ export default {
   'navbar.label': 'Основна навігація',
   'navbar.settings': 'Налаштування',
   'navbar.profile': 'Профіль',
+  'navbar.home': 'Головна',
+  'navbar.shop': 'Магазин',
   'navbar.groups': 'Групи',
   'settings.name': 'Ім’я користувача',
   'settings.logout': 'Вийти',

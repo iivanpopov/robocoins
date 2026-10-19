@@ -56,7 +56,7 @@ export function StepView() {
         </HeroButton>
         <RegisterBackCaption
           search={{ step: RegisterStep.Avatar }}
-          viewTransition={{ types: ['register-backward', 'register-avatar'] }}
+          viewTransition={{ types: ['slide-backward', 'register-avatar'] }}
         />
       </AuthLayout.Bottom>
     </AuthLayout.Root>

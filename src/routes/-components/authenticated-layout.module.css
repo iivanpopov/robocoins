@@ -7,5 +7,9 @@
 .content {
   flex: 1;
   min-height: 0;
+  padding-bottom: calc(
+    64px + env(safe-area-inset-bottom, 0px) + var(--spacing-md) + var(--spacing-lg)
+  );
   overflow: auto;
+  view-transition-name: slide-content;
 }

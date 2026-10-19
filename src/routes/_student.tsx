@@ -22,7 +22,8 @@ export const Route = createFileRoute('/_student')({
 function StudentLayout() {
   const t = useTranslate()
   const matchRoute = useMatchRoute()
-  const showNavbar = !!matchRoute({ to: '/' }) || !!matchRoute({ to: '/settings' })
+  const showNavbar =
+    !!matchRoute({ to: '/' }) || !!matchRoute({ to: '/settings' }) || !!matchRoute({ to: '/shop' })
 
   return (
     <>
@@ -31,14 +32,18 @@ function StudentLayout() {
           <main className={styles.content}>
             <Outlet />
           </main>
-          <Navbar aria-label={t('navbar.label')}>
-            <Navbar.Item to="/settings" activeOptions={{ exact: true }}>
-              <span aria-hidden="true" className="i-ph:gear-bold" />
+          <Navbar paths={['/settings', '/', '/shop']} aria-label={t('navbar.label')}>
+            <Navbar.Item to="/settings" aria-label={t('navbar.settings')}>
+              <div aria-hidden="true" className="i-ph:gear" />
               <span>{t('navbar.settings')}</span>
             </Navbar.Item>
-            <Navbar.Item to="/" activeOptions={{ exact: true }}>
-              <span aria-hidden="true" className="i-ph:user-circle-bold" />
-              <span>{t('navbar.profile')}</span>
+            <Navbar.Item to="/" aria-label={t('navbar.home')}>
+              <div aria-hidden="true" className="i-ph:house" />
+              <span>{t('navbar.home')}</span>
+            </Navbar.Item>
+            <Navbar.Item to="/shop" aria-label={t('navbar.shop')}>
+              <div aria-hidden="true" className="i-ph:storefront" />
+              <span>{t('navbar.shop')}</span>
             </Navbar.Item>
           </Navbar>
         </div>
