@@ -1,21 +1,21 @@
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
-import { cn } from 'cn'
+import { createFileRoute, Navigate, Outlet } from '@tanstack/react-router'
+
+import { useAuthPage } from './_auth/-hooks'
 
 import styles from './_auth.module.css'
 
 export const Route = createFileRoute('/_auth')({
   component: RouteComponent,
-  beforeLoad: ({ context }) => {
-    if (context.user?.role === 'student') throw redirect({ to: '/' })
-    if (context.user?.role === 'teacher') throw redirect({ to: '/group' })
-  },
 })
 
 function RouteComponent() {
+  const { state } = useAuthPage()
+
   return (
     <div className={styles.wrapper}>
-      {/*<div className={cn('i-ph:coins', styles.coins)} />*/}
-      <Outlet />
+      {state.isStudent && <Navigate to="/" replace />}
+      {state.isTeacher && <Navigate to="/group" replace />}
+      {!state.isStudent && !state.isTeacher && <Outlet />}
     </div>
   )
 }

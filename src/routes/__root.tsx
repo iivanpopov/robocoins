@@ -1,29 +1,15 @@
+import type { QueryClient } from '@tanstack/react-query'
 import { Outlet, createRootRouteWithContext } from '@tanstack/react-router'
 
-import { getCurrentUserAuthMeGet } from '#/api/clients'
-
 import { NotFound } from './-components/not-found'
-import { Avatar } from './_auth/register/-constants'
-
-interface User {
-  name: string
-  avatar: Avatar
-  balance: number
-  role: 'admin' | 'teacher' | 'student'
-}
 
 export interface RootContext {
-  user: User | null
+  queryClient: QueryClient
 }
 
 export const Route = createRootRouteWithContext<RootContext>()({
   component: RootComponent,
   notFoundComponent: NotFound,
-  beforeLoad: async () => {
-    const data = await getCurrentUserAuthMeGet().catch(() => null)
-    const user = data?.data
-    return { user }
-  },
 })
 
 function RootComponent() {

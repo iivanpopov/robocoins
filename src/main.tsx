@@ -25,7 +25,7 @@ const router = createRouter({
   routeTree,
   defaultOnCatch: (error) => Sentry.captureException(error),
   context: {
-    user: null,
+    queryClient,
   },
 })
 

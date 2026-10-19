@@ -1,6 +1,7 @@
 import { useTranslate } from '@kanjou/react'
 
 import { HeroButton, HeroInput, Typography } from '#/components/ui'
+import { AuthLayout } from '#/routes/_auth/-components'
 
 import { useStepName } from './hooks'
 
@@ -11,32 +12,34 @@ export function StepName() {
 
   return (
     <form className="flex flex-1 flex-col" onSubmit={functions.handleSubmit}>
-      <Typography variant="title">{t('action.registration.title')}</Typography>
-      <Typography variant="subtitle" className="mt-2">
-        {t('action.registration.description')}
-      </Typography>
-      <features.form.Field name="name">
-        {(field) => (
-          <HeroInput
-            name={field.name}
-            value={field.state.value}
-            onChange={(event) => field.handleChange(event.target.value)}
-            onBlur={field.handleBlur}
-            aria-invalid={!!field.state.meta.errors.length}
-            placeholder={t('field.name.placeholder')}
-            className="mt-1"
-          />
-        )}
-      </features.form.Field>
+      <AuthLayout.Root>
+        <AuthLayout.Top>
+          <Typography variant="title">{t('step.name.title')}</Typography>
+          <Typography variant="caption">{t('step.name.description')}</Typography>
+          <features.form.Field name="name">
+            {(field) => (
+              <HeroInput
+                name={field.name}
+                value={field.state.value}
+                onChange={(event) => field.handleChange(event.target.value)}
+                onBlur={field.handleBlur}
+                aria-invalid={!!field.state.meta.errors.length}
+                placeholder={t('field.name.placeholder')}
+                className="mt-4"
+              />
+            )}
+          </features.form.Field>
+        </AuthLayout.Top>
 
-      <div className="mt-8 flex-1 flex flex-col justify-end">
-        <HeroButton type="submit" className="w-full">
-          {t('action.next.title')}
-        </HeroButton>
-        <Typography variant="caption" className="text-center mt-6">
-          {t.rich('caption.has-account', { to: '/login' })}
-        </Typography>
-      </div>
+        <AuthLayout.Bottom>
+          <HeroButton type="submit" className="w-full">
+            {t('action.next.title')}
+          </HeroButton>
+          <Typography variant="caption" className="text-center mt-6">
+            {t.rich('caption.has-account', { to: '/login' })}
+          </Typography>
+        </AuthLayout.Bottom>
+      </AuthLayout.Root>
     </form>
   )
 }

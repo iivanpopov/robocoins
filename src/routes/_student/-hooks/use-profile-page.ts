@@ -3,9 +3,9 @@ import { useRouteContext } from '@tanstack/react-router'
 import { StudentProfileResponse } from '#/api/types'
 
 export function useProfilePage() {
-  const { user } = useRouteContext({ from: '__root__' })
+  const context = useRouteContext({ from: '/_student' })
 
   return {
-    state: user as StudentProfileResponse,
+    state: context.user as StudentProfileResponse,
   }
 }

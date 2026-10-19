@@ -1,0 +1,27 @@
+.root {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+}
+
+.spacer {
+  flex-grow: 1;
+  flex-shrink: 0;
+  transition: flex-grow 200ms ease-out 75ms;
+}
+
+.root:has(.top :is(input, textarea):focus) > .spacer {
+  flex-grow: 0;
+  transition-delay: 0ms;
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+}

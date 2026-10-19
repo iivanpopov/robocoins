@@ -25,6 +25,8 @@ declare module '@kanjou/react' {
       'caption.has-account': {}
       'caption.has-no-account': {}
       'caption.mistake': {}
+      'step.name.title': {}
+      'step.name.description': {}
       'step.course-select.title': {}
       'step.avatar.title': {}
       'step.view.title': {}
