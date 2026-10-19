@@ -1,3 +1,7 @@
+.progress {
+  margin-top: var(--spacing-xl);
+}
+
 .category-icon {
   font-size: 4rem;
   color: var(--brand);
@@ -15,6 +19,7 @@
   gap: var(--spacing-md);
   align-items: center;
   padding: var(--spacing-md);
+  color: var(--foreground);
   text-align: left;
   cursor: pointer;
   background: var(--surface);

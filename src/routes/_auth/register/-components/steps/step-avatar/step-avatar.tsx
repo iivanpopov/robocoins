@@ -38,7 +38,7 @@ export function StepAvatar() {
                     src={getAvatarUrl(avatar)}
                     alt={avatar}
                     draggable={false}
-                    className="w-full h-full select-none pointer-events-none"
+                    className="w-full h-auto select-none pointer-events-none"
                   />
                 </HeroCarouselItem>
               ))}

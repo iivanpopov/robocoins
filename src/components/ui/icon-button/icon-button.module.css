@@ -56,3 +56,13 @@
     background: oklch(from var(--brand) l c h / 10%);
   }
 }
+
+.ghost {
+  color: var(--foreground);
+  background: transparent;
+
+  &:hover,
+  &:active {
+    background: var(--taupe-100);
+  }
+}

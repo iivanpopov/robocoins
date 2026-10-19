@@ -21,18 +21,19 @@ export function StepCourse() {
     <AuthLayout.Root>
       <AuthLayout.Top>
         <Typography variant="title">{t('step.course.title')}</Typography>
+        <Typography variant="caption">{t('step.course.description')}</Typography>
         {state.total > 1 && (
-          <>
+          <div className={styles.progress}>
             <Typography variant="subtitle">
               {t('course.category', { category: state.category ?? '' })}
             </Typography>
             <Typography variant="caption">
               {t('step.direction.progress', { current: state.index + 1, total: state.total })}
             </Typography>
-          </>
+          </div>
         )}
       </AuthLayout.Top>
-      <AuthLayout.Bottom style={{ marginTop: 0 }}>
+      <AuthLayout.Bottom>
         <div className={styles.courses}>
           {queries.courses.isPending && <Loader />}
           {queries.courses.isSuccess && !state.courses.length && (
@@ -50,9 +51,7 @@ export function StepCourse() {
               <div>
                 <Typography variant="subtitle">{course.name}</Typography>
                 {state.selectedCourseId === course.id && state.selectedGroup && (
-                  <Typography variant="caption" className="whitespace-pre-line">
-                    <GroupSchedule name={state.selectedGroup.name} />
-                  </Typography>
+                  <GroupSchedule name={state.selectedGroup.name} variant="caption" />
                 )}
               </div>
             </button>

@@ -19,6 +19,7 @@
   align-items: center;
   width: 100%;
   padding: var(--spacing-md);
+  color: var(--foreground);
   text-align: left;
   cursor: pointer;
   background: var(--surface);

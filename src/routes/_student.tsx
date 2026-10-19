@@ -1,13 +1,10 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
-import { queryClient } from '#/lib/query'
-import { sessionQueryOptions } from '#/lib/session'
-
 import { LOCALSTORAGE_DID_REGISTER } from './-constants'
 
 export const Route = createFileRoute('/_student')({
-  beforeLoad: async () => {
-    const user = await queryClient.query(sessionQueryOptions)
+  beforeLoad: async ({ context }) => {
+    const user = await context.user
 
     if (user?.role === 'teacher') throw redirect({ to: '/group' })
     if (user?.role === 'student') return { user }

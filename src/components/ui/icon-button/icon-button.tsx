@@ -4,7 +4,7 @@ import { cn } from 'cn'
 import styles from './icon-button.module.css'
 
 export interface IconButtonProps extends ButtonPrimitive.Props {
-  variant?: 'contain'
+  variant?: 'contain' | 'ghost'
   size?: 'sm' | 'md' | 'lg'
 }
 

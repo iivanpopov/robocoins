@@ -30,15 +30,7 @@ export function StepView() {
           {state.groups.map((group) => (
             <div key={group.id} className={styles.card}>
               <Typography variant="subtitle">{group.courseName}</Typography>
-              <div className={styles.schedule}>
-                <span
-                  aria-hidden="true"
-                  className="i-ph:clock text-6 text-[var(--brand)] shrink-0"
-                />
-                <span className={styles['schedule-label']}>
-                  <GroupSchedule name={group.name} />
-                </span>
-              </div>
+              <GroupSchedule name={group.name} className={styles.schedule} />
             </div>
           ))}
         </div>

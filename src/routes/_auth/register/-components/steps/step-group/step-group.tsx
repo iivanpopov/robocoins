@@ -40,10 +40,7 @@ export function StepGroup() {
             aria-pressed={state.selectedGroupId === group.id}
             onClick={() => functions.handleSelectGroup(group.id)}
           >
-            <span aria-hidden="true" className={cn('i-ph:clock', styles.clock)} />
-            <span className={styles.schedule}>
-              <GroupSchedule name={group.name} />
-            </span>
+            <GroupSchedule name={group.name} />
           </button>
         ))}
       </div>

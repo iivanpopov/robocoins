@@ -7,5 +7,6 @@ export const RegisterStep = {
   Course: 'course',
   Avatar: 'avatar',
   View: 'view',
+  Success: 'success',
 } as const
 export type RegisterStep = (typeof RegisterStep)[keyof typeof RegisterStep]

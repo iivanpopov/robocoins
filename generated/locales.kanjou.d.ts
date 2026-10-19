@@ -24,6 +24,7 @@ declare module '@kanjou/react' {
       'step.category.title': {}
       'step.category.description': {}
       'step.course.title': {}
+      'step.course.description': {}
       'step.group.title': {}
       'step.direction.progress': {
         current: { __fn: 'number' }
@@ -33,6 +34,12 @@ declare module '@kanjou/react' {
       'course.category': { category: { __fn: 'string' } }
       'step.avatar.title': {}
       'step.view.title': {}
+      'step.success.title': {}
+      'step.success.subtitle': {}
+      'step.success.password': {}
+      'step.success.description': {}
+      'step.success.profile': {}
+      'error.profile-entry-failed': {}
       'weekday.monday': {}
       'weekday.tuesday': {}
       'weekday.wednesday': {}

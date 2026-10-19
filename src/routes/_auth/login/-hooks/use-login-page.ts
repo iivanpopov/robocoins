@@ -1,19 +1,13 @@
 import { useTranslate } from '@kanjou/react'
 import { useForm } from '@tanstack/react-form'
-import { useQueryClient } from '@tanstack/react-query'
-import { useNavigate, useRouter } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
 
 import { useLoginAuthLoginPost } from '#/api/hooks/useLoginAuthLoginPost'
 import { toast } from '#/components/ui/toast'
-import { refreshSession } from '#/lib/session'
 
 import { LoginStateSchema } from '../-schemas'
 
 export function useLoginPage() {
-  const navigate = useNavigate()
-  const router = useRouter()
-  const queryClient = useQueryClient()
   const t = useTranslate()
 
   const loginMutation = useLoginAuthLoginPost()
@@ -24,12 +18,7 @@ export function useLoginPage() {
     onSubmit: async ({ value }) => {
       try {
         const response = await loginMutation.mutateAsync({ body: { code: value.password } })
-        await refreshSession(queryClient)
-        await router.invalidate()
-
-        if (response.user.role === 'student') return navigate({ to: '/' })
-
-        await navigate({ to: '/group' })
+        window.location.assign(response.user.role === 'student' ? '/' : '/group')
       } catch {
         toast.add({ title: t('error.incorrect-password'), type: 'error', timeout: 0 })
       }

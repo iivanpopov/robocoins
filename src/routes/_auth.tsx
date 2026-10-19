@@ -1,7 +1,5 @@
-import { useQuery } from '@tanstack/react-query'
-import { createFileRoute, Navigate, Outlet } from '@tanstack/react-router'
-
-import { sessionQueryOptions } from '#/lib/session'
+import { Await, createFileRoute, Navigate, Outlet } from '@tanstack/react-router'
+import { Suspense } from 'react'
 
 import styles from './_auth.module.css'
 
@@ -10,16 +8,20 @@ export const Route = createFileRoute('/_auth')({
 })
 
 function RouteComponent() {
-  const sessionQuery = useQuery(sessionQueryOptions)
-
-  const isStudent = sessionQuery.data?.role === 'student'
-  const isTeacher = sessionQuery.data?.role === 'teacher'
+  const context = Route.useRouteContext()
 
   return (
     <div className={styles.wrapper}>
-      {isStudent && <Navigate to="/" replace />}
-      {isTeacher && <Navigate to="/group" replace />}
-      {!isStudent && !isTeacher && <Outlet />}
+      <Suspense fallback={null}>
+        <Await promise={context.user}>
+          {(user) => {
+            if (user?.role === 'student') return <Navigate to="/" replace />
+            if (user?.role === 'teacher') return <Navigate to="/group" replace />
+            return null
+          }}
+        </Await>
+      </Suspense>
+      <Outlet />
     </div>
   )
 }

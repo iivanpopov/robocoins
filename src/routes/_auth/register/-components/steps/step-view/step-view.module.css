@@ -13,19 +13,5 @@
 }
 
 .schedule {
-  display: flex;
-  gap: var(--spacing-md);
-  align-items: center;
   margin-top: var(--spacing-md);
-  font-size: 1.125rem;
-  line-height: 1.4;
-}
-
-.schedule-label {
-  display: block;
-  white-space: pre-line;
-
-  &::first-line {
-    font-weight: 600;
-  }
 }
