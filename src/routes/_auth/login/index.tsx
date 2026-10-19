@@ -39,11 +39,13 @@ function RouteComponent() {
 
       <div
         className={cn(
-          'flex flex-col',
-          state.isPasswordFocused && 'mt-6',
-          !state.isPasswordFocused && 'flex-1 justify-end',
+          'shrink-0 transition-[flex-grow] duration-200 ease-out motion-reduce:transition-none',
+          state.isPasswordFocused && 'grow-0 delay-0',
+          !state.isPasswordFocused && 'grow delay-75',
         )}
-      >
+      />
+
+      <div className="mt-6 flex flex-col">
         <HeroButton type="submit" className="w-full" disabled={mutations.login.isPending}>
           {features.form.state.isSubmitting && <Loader />}
           {!features.form.state.isSubmitting && t('action.enter.title')}
