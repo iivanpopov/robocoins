@@ -5,6 +5,17 @@
     animation: none;
   }
 
+  &::view-transition-group(navbar) {
+    z-index: 1;
+    animation: none;
+  }
+
+  &::view-transition-old(navbar),
+  &::view-transition-new(navbar) {
+    mix-blend-mode: normal;
+    animation: none;
+  }
+
   &::view-transition-group(slide-content) {
     animation-duration: 280ms;
     animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
