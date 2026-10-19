@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "ignorePatterns": ["routeTree.gen.ts"],
+  "ignorePatterns": ["generated/*"],
   "options": {
     "typeAware": true,
     "typeCheck": true
