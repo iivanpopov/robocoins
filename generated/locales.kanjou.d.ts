@@ -61,9 +61,20 @@ declare module '@kanjou/react' {
       'sort.students': {}
       'sort.name-asc': {}
       'sort.name-desc': {}
+      'group.loading': {}
+      'group.error': {}
+      'award.error': {}
+      'reason.theory': {}
+      'reason.practice_completed': {}
+      'reason.additional_task_completed': {}
+      'reason.discipline_breakdown': {}
+      'reason.middle_level_violation': {}
+      'reason.serious_violation': {}
       'sort.balance-desc': {}
       'sort.balance-asc': {}
       'award.reason.label': {}
+      'award.reward': {}
+      'award.punish': {}
       'award.history.title': {}
       'award.history.empty': {}
       'action.revert.title': {}

@@ -9,7 +9,7 @@ export const balanceChangeReasons = {
   additional_task_completed: 'additional_task_completed',
   discipline_breakdown: 'discipline_breakdown',
   middle_level_violation: 'middle_level_violation',
-  hard_violation: 'hard_violation',
+  serious_violation: 'serious_violation',
 } as const
 
 export type BalanceChangeReasonsKey =

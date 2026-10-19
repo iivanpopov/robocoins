@@ -2,7 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { cn } from 'cn'
 
-import { IconButton } from '#/components/ui'
+import { IconButton, Loader } from '#/components/ui'
 import { getAvatarUrl } from '#/routes/-utils/get-avatar-url'
 
 import { StudentDrawer, StudentSearchBar } from './-components'
@@ -15,7 +15,7 @@ export const Route = createFileRoute('/_teacher/group/$groupId')({
 })
 
 function RouteComponent() {
-  const { state, functions } = useGroupStudentsPage()
+  const { state, functions, queries, mutations } = useGroupStudentsPage()
 
   const t = useTranslate()
 
@@ -24,9 +24,6 @@ function RouteComponent() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <h1 className={styles.title}>{state.group?.title}</h1>
-        <span className={styles.schedule}>{state.group?.schedule}</span>
-
         <IconButton
           className={styles['back-btn']}
           nativeButton={false}
@@ -35,6 +32,14 @@ function RouteComponent() {
         >
           <span className="i-ph:arrow-left" />
         </IconButton>
+        <div className={styles['header-info']}>
+          <h1 className={styles.title} title={state.courseName}>
+            {state.courseName}
+          </h1>
+          <span className={styles.schedule} title={state.schedule}>
+            {state.schedule}
+          </span>
+        </div>
       </header>
 
       <StudentSearchBar
@@ -44,7 +49,15 @@ function RouteComponent() {
         onSortChange={functions.handleSortChange}
       />
 
-      {!hasStudents && <div className={styles.empty}>{t('student.empty')}</div>}
+      {state.isPending && (
+        <div className="flex flex-1 justify-center items-center">
+          <Loader />
+        </div>
+      )}
+      {state.isError && <div role="alert">{t('group.error')}</div>}
+      {!state.isPending && !state.isError && !hasStudents && (
+        <div className={styles.empty}>{t('student.empty')}</div>
+      )}
 
       {hasStudents && (
         <div className={styles['student-list']}>
@@ -84,7 +97,10 @@ function RouteComponent() {
         awards={state.studentAwards}
         onOpenChange={functions.handleDrawerOpenChange}
         onAward={functions.handleAward}
-        onRevertAward={functions.handleRevertAward}
+        isPending={mutations.createAward.isPending}
+        isError={mutations.createAward.isError}
+        isHistoryPending={queries.awards.isPending}
+        isHistoryError={queries.awards.isError}
       />
     </div>
   )

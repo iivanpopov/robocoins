@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: var(--spacing-lg);
   width: 100%;
+  min-height: 100dvh;
   padding: var(--spacing-lg) var(--spacing-md) 4rem;
   margin: 0 auto;
 }
@@ -89,24 +90,45 @@
   color: var(--foreground);
 }
 
-.game-dev {
+.card[data-category='game dev'] {
   .card-icon {
     color: var(--violet-700);
     background: var(--violet-100);
   }
 }
 
-.web {
+.card[data-category='web'] {
   .card-icon {
     color: var(--amber-700);
     background: var(--amber-100);
   }
 }
 
-.embedded {
+.card[data-category='embedded'] {
   .card-icon {
     color: var(--teal-700);
     background: var(--teal-100);
+  }
+}
+
+.card[data-category='primary'] {
+  .card-icon {
+    color: var(--rose-700);
+    background: var(--rose-100);
+  }
+}
+
+.card[data-category='python'] {
+  .card-icon {
+    color: var(--blue-700);
+    background: var(--blue-100);
+  }
+}
+
+.card[data-category='no category'] {
+  .card-icon {
+    color: var(--taupe-700);
+    background: var(--taupe-100);
   }
 }
 

@@ -1,11 +1,12 @@
 import { useTranslate } from '@kanjou/react'
+import { cn } from 'cn'
 
 import { HeroButton, Loader, Typography } from '#/components/ui'
+import { parseGroupSchedule } from '#/routes/-utils'
 import { getAvatarUrl } from '#/routes/-utils/get-avatar-url'
 import { AuthLayout } from '#/routes/_auth/-components'
 
 import { RegisterStep } from '../../../-constants'
-import { GroupSchedule } from '../../group-schedule'
 import { RegisterBackCaption } from '../../register-back-caption'
 import { useStepView } from './hooks'
 
@@ -27,12 +28,23 @@ export function StepView() {
 
         <div className={styles.groups}>
           {queries.courses.isPending && <Loader />}
-          {state.groups.map((group) => (
-            <div key={group.id} className={styles.card}>
-              <Typography variant="subtitle">{group.courseName}</Typography>
-              <GroupSchedule name={group.name} className={styles.schedule} />
-            </div>
-          ))}
+          {state.groups.map((group) => {
+            const schedule = parseGroupSchedule(group.name)
+            return (
+              <div key={group.id} className={styles.card}>
+                <Typography variant="subtitle">{group.courseName}</Typography>
+                <div className={styles.schedule}>
+                  <span aria-hidden="true" className={cn('i-ph:clock', styles.clock)} />
+                  <span className={styles.label}>
+                    {schedule.weekday && (
+                      <span className={styles.weekday}>{t(`weekday.${schedule.weekday}`)}</span>
+                    )}
+                    <span className={styles.time}>{schedule.time}</span>
+                  </span>
+                </div>
+              </div>
+            )
+          })}
         </div>
       </AuthLayout.Top>
       <AuthLayout.Bottom style={{ marginTop: 0 }}>

@@ -2,10 +2,10 @@ import { useTranslate } from '@kanjou/react'
 import { cn } from 'cn'
 
 import { Drawer, DrawerContent, HeroButton, Loader, Typography } from '#/components/ui'
+import { CategoryIcon } from '#/routes/-components'
+import { parseGroupSchedule } from '#/routes/-utils'
 import { AuthLayout } from '#/routes/_auth/-components'
 
-import { CategoryIcon } from '../../category-icon'
-import { GroupSchedule } from '../../group-schedule'
 import { RegisterBackCaption } from '../../register-back-caption'
 import { StepGroup } from '../step-group'
 import { useStepCourse } from './-hooks'
@@ -16,6 +16,7 @@ export function StepCourse() {
   const { state, queries, functions } = useStepCourse()
 
   const t = useTranslate()
+  const schedule = parseGroupSchedule(state.selectedGroup?.name ?? '')
 
   return (
     <AuthLayout.Root>
@@ -51,7 +52,11 @@ export function StepCourse() {
               <div>
                 <Typography variant="subtitle">{course.name}</Typography>
                 {state.selectedCourseId === course.id && state.selectedGroup && (
-                  <GroupSchedule name={state.selectedGroup.name} variant="caption" />
+                  <Typography variant="caption">
+                    {schedule.weekday && t(`weekday.${schedule.weekday}`)}
+                    <br />
+                    {schedule.time}
+                  </Typography>
                 )}
               </div>
             </button>

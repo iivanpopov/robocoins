@@ -1,4 +1,4 @@
-import { GroupTheme } from '../-mock'
+import { courseCategory } from '#/api/types'
 
 export const StudentSortOrder = {
   NameAsc: 'name-asc',
@@ -11,7 +11,7 @@ export type StudentSortOrder = (typeof StudentSortOrder)[keyof typeof StudentSor
 
 export const GroupFilter = {
   All: 'all',
-  ...GroupTheme,
+  ...courseCategory,
 } as const
 
 export type GroupFilter = (typeof GroupFilter)[keyof typeof GroupFilter]

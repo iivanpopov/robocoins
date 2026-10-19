@@ -2,10 +2,10 @@ import { useTranslate } from '@kanjou/react'
 import { cn } from 'cn'
 
 import { HeroButton, Loader, Typography } from '#/components/ui'
+import { CategoryIcon } from '#/routes/-components'
 import { AuthLayout } from '#/routes/_auth/-components'
 
 import { RegisterStep } from '../../../-constants'
-import { CategoryIcon } from '../../category-icon'
 import { RegisterBackCaption } from '../../register-back-caption'
 import { useStepCategory } from './-hooks'
 

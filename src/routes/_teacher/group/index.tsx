@@ -2,7 +2,8 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute } from '@tanstack/react-router'
 import { cn } from 'cn'
 
-import { Chip } from '#/components/ui'
+import { Chip, Loader } from '#/components/ui'
+import { CategoryIcon } from '#/routes/-components'
 
 import { GroupFilter } from './-constants'
 import { useGroupPage } from './-hooks'
@@ -12,13 +13,6 @@ import styles from './index.module.css'
 export const Route = createFileRoute('/_teacher/group/')({
   component: RouteComponent,
 })
-
-const GROUP_FILTERS = [
-  { filter: GroupFilter.All, icon: null },
-  { filter: GroupFilter.GameDev, icon: 'i-ph:game-controller' },
-  { filter: GroupFilter.Web, icon: 'i-ph:code' },
-  { filter: GroupFilter.Embedded, icon: 'i-ph:cpu' },
-] as const
 
 function RouteComponent() {
   const { state, functions } = useGroupPage()
@@ -32,60 +26,77 @@ function RouteComponent() {
       </header>
 
       <div className={styles['themes-bar']}>
-        {GROUP_FILTERS.map((item) => {
-          const isSelected = state.selectedTheme === item.filter
-          const isAll = item.filter === GroupFilter.All
-
+        <Chip
+          selected={state.selectedTheme === GroupFilter.All}
+          onClick={() => functions.handleThemeSelect(GroupFilter.All)}
+        >
+          {t('group.filter.all', { count: state.allGroupsCount })}
+        </Chip>
+        {state.categories.map((category) => {
           return (
             <Chip
-              key={item.filter}
-              selected={isSelected}
-              onClick={() => functions.handleThemeSelect(item.filter)}
+              key={category}
+              selected={state.selectedTheme === category}
+              onClick={() => functions.handleThemeSelect(category)}
             >
-              {item.icon && <span className={item.icon} />}
-              {isAll && <span>{t('group.filter.all', { count: state.allGroupsCount })}</span>}
-              {!isAll && <span>{t(`group.theme.${item.filter}`)}</span>}
+              <CategoryIcon category={category} />
+              <span>{t('course.category', { category })}</span>
             </Chip>
           )
         })}
       </div>
 
-      <div className={styles.grid}>
-        {state.groups.map((group) => {
-          return (
-            <article
-              key={group.id}
-              className={cn(styles.card, styles[group.theme])}
-              onClick={() => functions.handleGroupClick(group.id)}
-            >
-              <div className={styles['card-top']}>
-                <div className={styles['card-title-group']}>
-                  <div className={styles['card-icon']}>
-                    <span className={group.icon} />
+      {state.isPending && (
+        <div className="flex flex-1 justify-center items-center">
+          <Loader />
+        </div>
+      )}
+      {state.isError && <div role="alert">{t('group.error')}</div>}
+      {!state.isPending && !state.isError && (
+        <div className={styles.grid}>
+          {state.groups.map((group) => {
+            return (
+              <article
+                key={group.id}
+                className={styles.card}
+                data-category={group.category}
+                onClick={() => functions.handleGroupClick(group.id)}
+              >
+                <div className={styles['card-top']}>
+                  <div className={styles['card-title-group']}>
+                    <div className={styles['card-icon']}>
+                      <CategoryIcon category={group.category} />
+                    </div>
+                    <div>
+                      <h2 className={styles['card-title']}>{group.course_name}</h2>
+                    </div>
                   </div>
-                  <div>
-                    <h2 className={styles['card-title']}>{group.title}</h2>
+
+                  <div className={styles['card-meta']}>
+                    <span className={styles['students-count']}>
+                      {t('group.students-count', { count: group.students_count })}
+                    </span>
+                    <span className={cn('i-ph:caret-right-bold', styles['arrow-icon'])} />
                   </div>
                 </div>
 
-                <div className={styles['card-meta']}>
-                  <span className={styles['students-count']}>
-                    {t('group.students-count', { count: group.studentCount })}
-                  </span>
-                  <span className={cn('i-ph:caret-right-bold', styles['arrow-icon'])} />
+                <div className={styles['card-footer']}>
+                  <div className={styles['schedule-block']}>
+                    <span
+                      aria-hidden="true"
+                      className={cn('i-ph:clock-bold', styles['schedule-icon'])}
+                    />
+                    <span>
+                      {group.schedule.weekday && <>{t(`weekday.${group.schedule.weekday}`)}, </>}
+                      {group.schedule.time}
+                    </span>
+                  </div>
                 </div>
-              </div>
-
-              <div className={styles['card-footer']}>
-                <div className={styles['schedule-block']}>
-                  <span className={cn('i-ph:clock-bold', styles['schedule-icon'])} />
-                  <span>{group.schedule}</span>
-                </div>
-              </div>
-            </article>
-          )
-        })}
-      </div>
+              </article>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }

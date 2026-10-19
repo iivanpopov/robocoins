@@ -10,8 +10,8 @@ import {
   Loader,
   Typography,
 } from '#/components/ui'
+import { parseGroupSchedule } from '#/routes/-utils'
 
-import { GroupSchedule } from '../../group-schedule'
 import { useStepGroup } from './-hooks'
 
 import styles from './step-group.module.css'
@@ -32,17 +32,26 @@ export function StepGroup() {
         {queries.courses.isSuccess && !state.course?.groups?.length && (
           <Typography variant="caption">{t('step.selection.empty')}</Typography>
         )}
-        {state.course?.groups?.map((group) => (
-          <button
-            key={group.id}
-            type="button"
-            className={cn(styles.group, state.selectedGroupId === group.id && styles.selected)}
-            aria-pressed={state.selectedGroupId === group.id}
-            onClick={() => functions.handleSelectGroup(group.id)}
-          >
-            <GroupSchedule name={group.name} />
-          </button>
-        ))}
+        {state.course?.groups?.map((group) => {
+          const schedule = parseGroupSchedule(group.name)
+          return (
+            <button
+              key={group.id}
+              type="button"
+              className={cn(styles.group, state.selectedGroupId === group.id && styles.selected)}
+              aria-pressed={state.selectedGroupId === group.id}
+              onClick={() => functions.handleSelectGroup(group.id)}
+            >
+              <span aria-hidden="true" className={cn('i-ph:clock', styles.clock)} />
+              <span className={styles.schedule}>
+                {schedule.weekday && (
+                  <span className={styles.weekday}>{t(`weekday.${schedule.weekday}`)}</span>
+                )}
+                <span className={styles.time}>{schedule.time}</span>
+              </span>
+            </button>
+          )
+        })}
       </div>
       <DrawerFooter className={styles.footer}>
         <Button type="submit" size="lg" disabled={!state.canSubmit}>

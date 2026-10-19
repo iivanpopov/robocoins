@@ -2,70 +2,62 @@ import { useTranslate } from '@kanjou/react'
 import { cn } from 'cn'
 import { useEffect, useRef, useState } from 'react'
 
-import { Chip, Drawer, DrawerContent, DrawerHeader, DrawerTitle } from '#/components/ui'
+import {
+  BalanceChangeReasonsKey,
+  BalanceTransactionResponse,
+  StudentProfileResponse,
+} from '#/api/types'
+import { Chip, Drawer, DrawerContent, DrawerHeader, DrawerTitle, Loader } from '#/components/ui'
 import { getAvatarUrl } from '#/routes/-utils/get-avatar-url'
+import { Avatar } from '#/routes/_auth/register/-constants'
 
-import { AwardReason, Student, StudentAward } from '../../-mock'
 import { AwardDirection } from '../../-types'
 
 import styles from './student-drawer.module.css'
 
-const REASON_DEBOUNCE_IN_MILLISECONDS = 800
-
-const POSITIVE_REASONS: AwardReason[] = [
-  'activity',
-  'homework',
-  'teamwork',
-  'answer',
-  'initiative',
-  'other',
+const POSITIVE_REASONS: BalanceChangeReasonsKey[] = [
+  'theory',
+  'practice_completed',
+  'additional_task_completed',
 ]
-
-const NEGATIVE_REASONS: AwardReason[] = ['discipline', 'mistake', 'late', 'incomplete', 'other']
+const NEGATIVE_REASONS: BalanceChangeReasonsKey[] = [
+  'discipline_breakdown',
+  'middle_level_violation',
+  'serious_violation',
+]
 
 export interface StudentDrawerProps {
   open: boolean
-  student: Student | null
-  awards: StudentAward[]
+  student: (StudentProfileResponse & { avatar: Avatar }) | null
+  awards: BalanceTransactionResponse[]
+  isPending: boolean
+  isError: boolean
+  isHistoryPending: boolean
+  isHistoryError: boolean
   onOpenChange: (open: boolean) => void
-  onAward: (studentId: string, amount: number, reason: AwardReason) => void
-  onRevertAward: (awardId: string) => void
+  onAward: (studentId: number, reason: BalanceChangeReasonsKey) => void
 }
 
-export function StudentDrawer({
-  open,
-  student,
-  awards,
-  onOpenChange,
-  onAward,
-  onRevertAward,
-}: StudentDrawerProps) {
+export function StudentDrawer(props: StudentDrawerProps) {
   const t = useTranslate()
   const [direction, setDirection] = useState<AwardDirection>(1)
-  const [selectedAwardId, setSelectedAwardId] = useState<string | null>(null)
-  const [pendingReason, setPendingReason] = useState<AwardReason | null>(null)
+  const [pendingReason, setPendingReason] = useState<BalanceChangeReasonsKey | null>(null)
   const timeoutReference = useRef<ReturnType<typeof setTimeout>>(undefined)
+  const reasonDebounceInMilliseconds = 800
+
+  useEffect(() => {
+    return () => clearTimeout(timeoutReference.current)
+  }, [props.open, props.student?.id])
 
   function cancelPendingReason() {
     clearTimeout(timeoutReference.current)
     setPendingReason(null)
   }
 
-  function resetState() {
+  function handleOpenChange(isOpen: boolean) {
     cancelPendingReason()
     setDirection(1)
-    setSelectedAwardId(null)
-  }
-
-  useEffect(() => {
-    return () => {
-      clearTimeout(timeoutReference.current)
-    }
-  }, [])
-
-  function handleOpenChange(isOpen: boolean) {
-    if (!isOpen) resetState()
-    onOpenChange(isOpen)
+    props.onOpenChange(isOpen)
   }
 
   function handleDirectionSelect(selectedDirection: AwardDirection) {
@@ -73,179 +65,140 @@ export function StudentDrawer({
     setDirection(selectedDirection)
   }
 
-  function handleReasonClick(reason: AwardReason) {
-    if (!student) return
-
+  function handleReasonClick(reason: BalanceChangeReasonsKey) {
+    if (!props.student || props.isPending) return
     if (pendingReason === reason) {
       cancelPendingReason()
       return
     }
-
     clearTimeout(timeoutReference.current)
     setPendingReason(reason)
+    const studentId = props.student.id
     timeoutReference.current = setTimeout(() => {
-      onAward(student.id, direction, reason)
-    }, REASON_DEBOUNCE_IN_MILLISECONDS)
-  }
-
-  function handleAwardSelect(awardId: string) {
-    if (selectedAwardId === awardId) {
-      setSelectedAwardId(null)
-      return
-    }
-    setSelectedAwardId(awardId)
-  }
-
-  function handleRevertSelectedAward() {
-    if (!selectedAwardId) return
-
-    onRevertAward(selectedAwardId)
-    setSelectedAwardId(null)
+      setPendingReason(null)
+      props.onAward(studentId, reason)
+    }, reasonDebounceInMilliseconds)
   }
 
   const isPlus = direction === 1
   const isMinus = direction === -1
-  const hasSelectedAward = Boolean(selectedAwardId)
-  const hasAwards = !!awards.length
+  const reasons = [
+    ...((isPlus && POSITIVE_REASONS) || []),
+    ...((isMinus && NEGATIVE_REASONS) || []),
+  ]
 
   return (
-    <Drawer open={open} onOpenChange={handleOpenChange} showSwipeHandle>
+    <Drawer open={props.open} onOpenChange={handleOpenChange} showSwipeHandle>
       <DrawerContent>
-        {student && (
+        {props.student && (
           <>
             <DrawerHeader>
-              <div className={cn(styles['student-wrap'])}>
+              <div className={styles['student-wrap']}>
                 <img
-                  src={getAvatarUrl(student.avatar)}
-                  alt={student.name}
-                  className={cn(styles.avatar)}
+                  src={getAvatarUrl(props.student.avatar)}
+                  alt={props.student.name}
+                  className={styles.avatar}
                   draggable={false}
                 />
-                <DrawerTitle>{student.name}</DrawerTitle>
+                <DrawerTitle>{props.student.name}</DrawerTitle>
               </div>
             </DrawerHeader>
-
-            <div className={cn(styles['direction-toggle'])}>
+            <div className={styles['direction-toggle']}>
               <button
                 type="button"
+                disabled={props.isPending}
                 className={cn(
                   styles['direction-btn'],
                   isPlus && styles['direction-btn-plus-active'],
                 )}
                 onClick={() => handleDirectionSelect(1)}
+                aria-label={t('award.reward')}
+                aria-pressed={isPlus}
+                title={t('award.reward')}
               >
-                <span className={cn('i-ph:coins-bold', styles['coin-icon'])} />
-                <span>+1</span>
+                {props.isPending && isPlus && <Loader />}
+                {(!props.isPending || isMinus) && (
+                  <span aria-hidden="true" className={cn('i-ph:star', styles['coin-icon'])} />
+                )}
               </button>
               <button
                 type="button"
+                disabled={props.isPending}
                 className={cn(
                   styles['direction-btn'],
                   isMinus && styles['direction-btn-minus-active'],
                 )}
                 onClick={() => handleDirectionSelect(-1)}
+                aria-label={t('award.punish')}
+                aria-pressed={isMinus}
+                title={t('award.punish')}
               >
-                <span className={cn('i-ph:coins-bold', styles['coin-icon'])} />
-                <span>-1</span>
+                {props.isPending && isMinus && <Loader />}
+                {(!props.isPending || isPlus) && (
+                  <span
+                    aria-hidden="true"
+                    className={cn('i-ph:gavel', styles['coin-icon'], styles['punish-icon'])}
+                  />
+                )}
               </button>
             </div>
-
             <div>
-              <span className={cn(styles['section-label'])}>{t('award.reason.label')}</span>
-              <div className={cn(styles['reasons-list'])}>
-                {isPlus &&
-                  POSITIVE_REASONS.map((reason) => {
-                    return (
-                      <Chip
-                        key={reason}
-                        size="lg"
-                        selected={pendingReason === reason}
-                        onClick={() => handleReasonClick(reason)}
-                      >
-                        {t(`reason.${reason}`)}
-                      </Chip>
-                    )
-                  })}
-
-                {isMinus &&
-                  NEGATIVE_REASONS.map((reason) => {
-                    return (
-                      <Chip
-                        key={reason}
-                        size="lg"
-                        tone="error"
-                        selected={pendingReason === reason}
-                        onClick={() => handleReasonClick(reason)}
-                      >
-                        {t(`reason.${reason}`)}
-                      </Chip>
-                    )
-                  })}
-              </div>
-            </div>
-
-            <div className={cn(styles['history-section'])}>
-              <div className={cn(styles['history-header'])}>
-                <span className={cn(styles['section-label'])}>{t('award.history.title')}</span>
-                {hasSelectedAward && (
-                  <button
-                    type="button"
-                    className={cn(styles['revert-btn'])}
-                    onClick={handleRevertSelectedAward}
+              <span className={styles['section-label']}>{t('award.reason.label')}</span>
+              <div className={styles['reasons-list']}>
+                {reasons.map((reason) => (
+                  <Chip
+                    key={reason}
+                    size="lg"
+                    tone={(isMinus && 'error') || undefined}
+                    disabled={props.isPending}
+                    selected={pendingReason === reason}
+                    onClick={() => handleReasonClick(reason)}
                   >
-                    <span className={cn('i-ph:arrow-u-up-left')} />
-                    <span>{t('action.revert.title')}</span>
-                  </button>
-                )}
+                    {t(`reason.${reason}`)}
+                  </Chip>
+                ))}
               </div>
-
-              {!hasAwards && (
-                <div className={cn(styles['history-empty'])}>{t('award.history.empty')}</div>
+              {props.isError && <div role="alert">{t('award.error')}</div>}
+            </div>
+            <div className={styles['history-section']}>
+              <div className={styles['history-header']}>
+                <span className={styles['section-label']}>{t('award.history.title')}</span>
+              </div>
+              {props.isHistoryPending && <Loader />}
+              {props.isHistoryError && <div role="alert">{t('group.error')}</div>}
+              {!props.isHistoryPending && !props.isHistoryError && !props.awards.length && (
+                <div className={styles['history-empty']}>{t('award.history.empty')}</div>
               )}
-
-              {hasAwards && (
-                <div className={cn(styles['history-list'])}>
-                  {awards.map((award) => {
-                    const isSelected = award.id === selectedAwardId
-                    const isAwardPlus = award.amount > 0
-
-                    return (
-                      <button
-                        key={award.id}
-                        type="button"
-                        className={cn(
-                          styles['history-item'],
-                          isSelected && styles['history-item-selected'],
-                        )}
-                        onClick={() => handleAwardSelect(award.id)}
-                      >
-                        <div className={cn(styles['history-left'])}>
-                          <span
-                            className={cn(
-                              styles['history-amount'],
-                              isAwardPlus && styles['history-amount-plus'],
-                              !isAwardPlus && styles['history-amount-minus'],
-                            )}
-                          >
-                            {isAwardPlus && `+${award.amount}`}
-                            {!isAwardPlus && `${award.amount}`}
+              <div className={styles['history-list']}>
+                {props.awards.map((award) => {
+                  const isAwardPlus = award.operation === 'deposit'
+                  return (
+                    <div key={award.id} className={styles['history-item']}>
+                      <div className={styles['history-left']}>
+                        <span
+                          className={cn(
+                            styles['history-amount'],
+                            isAwardPlus && styles['history-amount-plus'],
+                            !isAwardPlus && styles['history-amount-minus'],
+                          )}
+                        >
+                          {isAwardPlus && '+'}
+                          {!isAwardPlus && '−'}
+                          {award.amount}
+                        </span>
+                        <div className={styles['history-details']}>
+                          <span className={styles['history-reason']}>
+                            {t.unsafe(`reason.${award.reason}`, { fallback: award.reason ?? '' })}
                           </span>
-                          <div className={cn(styles['history-details'])}>
-                            <span className={cn(styles['history-reason'])}>
-                              {t(`reason.${award.reason}`)}
-                            </span>
-                            <span className={cn(styles['history-time'])}>{award.timestamp}</span>
-                          </div>
+                          <span className={styles['history-time']}>
+                            {new Date(award.created_at).toLocaleString('uk-UA')}
+                          </span>
                         </div>
-
-                        {isSelected && (
-                          <span className={cn('i-ph:check-circle-fill', styles['check-icon'])} />
-                        )}
-                      </button>
-                    )
-                  })}
-                </div>
-              )}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
             </div>
           </>
         )}

@@ -3,6 +3,7 @@ export { changeStudentBalanceStudentStudentIdBalanceTransactionsPost } from './c
 export { createCourseCoursePost } from './createCourseCoursePost'
 export { createGroupGroupCreatePost } from './createGroupGroupCreatePost'
 export { createStudentStudentRegisterPost } from './createStudentStudentRegisterPost'
+export { getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet } from './getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet'
 export { getCoursesByCategoryCourseCategoryCategoryGet } from './getCoursesByCategoryCourseCategoryCategoryGet'
 export { getCoursesCourseGet } from './getCoursesCourseGet'
 export { getCurrentUserAuthMeGet } from './getCurrentUserAuthMeGet'

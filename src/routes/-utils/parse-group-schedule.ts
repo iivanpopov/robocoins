@@ -1,11 +1,13 @@
+import { Weekday } from '../-constants'
+
 const WEEKDAYS = {
-  ПН: 'weekday.monday',
-  ВТ: 'weekday.tuesday',
-  СР: 'weekday.wednesday',
-  ЧТ: 'weekday.thursday',
-  ПТ: 'weekday.friday',
-  СБ: 'weekday.saturday',
-  НД: 'weekday.sunday',
+  ПН: Weekday.Monday,
+  ВТ: Weekday.Tuesday,
+  СР: Weekday.Wednesday,
+  ЧТ: Weekday.Thursday,
+  ПТ: Weekday.Friday,
+  СБ: Weekday.Saturday,
+  НД: Weekday.Sunday,
 } as const
 
 export function parseGroupSchedule(value: string) {

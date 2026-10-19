@@ -9,50 +9,44 @@
 }
 
 .header {
-  display: grid;
-  grid-template-areas:
-    'title back'
-    'schedule back';
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
   column-gap: var(--spacing-sm);
   align-items: center;
+  justify-content: space-between;
   width: 100%;
 }
 
-@media (width >= 384px) {
-  .header {
-    grid-template-areas: 'title schedule back';
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  }
-
-  .schedule {
-    text-align: center;
-  }
+.header-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  text-align: right;
 }
 
 .title {
-  grid-area: title;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 1.125rem;
   font-weight: 800;
   color: var(--foreground);
-  text-align: left;
+  text-align: right;
   white-space: nowrap;
 }
 
 .schedule {
-  grid-area: schedule;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--muted-foreground);
-  text-align: left;
+  text-align: right;
   white-space: nowrap;
 }
 
 .back-btn {
-  grid-area: back;
-  justify-self: end;
+  flex-shrink: 0;
 }
 
 .student-list {

@@ -8,6 +8,7 @@ export type {
   AssignGroupTeachersGroupIdGroupIdTeachersPutStatus422,
 } from './AssignGroupTeachersGroupIdGroupIdTeachersPut'
 export type { BalanceChangeReasonsKey } from './BalanceChangeReasons'
+export type { BalanceChangeReasonsResponse } from './BalanceChangeReasonsResponse'
 export type { BalanceChangeRequest } from './BalanceChangeRequest'
 export type { BalanceChangeResponse } from './BalanceChangeResponse'
 export type { BalanceHistoryResponse } from './BalanceHistoryResponse'
@@ -53,6 +54,12 @@ export type {
   CreateStudentStudentRegisterPostStatus200,
   CreateStudentStudentRegisterPostStatus422,
 } from './CreateStudentStudentRegisterPost'
+export type {
+  GetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetOptions,
+  GetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetResponse,
+  GetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetResponses,
+  GetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetStatus200,
+} from './GetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet'
 export type {
   GetCoursesByCategoryCourseCategoryCategoryGetOptions,
   GetCoursesByCategoryCourseCategoryCategoryGetPath,
