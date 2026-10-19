@@ -27,9 +27,6 @@ export function useStepName() {
   }
 
   return {
-    state: {},
-    queries: {},
-    mutations: {},
     functions: {
       handleSubmit,
     },

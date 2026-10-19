@@ -18,7 +18,9 @@ function RouteComponent() {
   return (
     <form className="flex flex-1 flex-col" onSubmit={functions.handleSubmit}>
       <Typography variant="title">{t('action.login.title')}</Typography>
-      <Typography variant="caption">{t('action.login.description')}</Typography>
+      <Typography variant="caption" className="mt-2">
+        {t('action.login.description')}
+      </Typography>
       <features.form.Field name="password">
         {(field) => (
           <HeroPasswordInput
@@ -27,7 +29,7 @@ function RouteComponent() {
             onChange={(event) => field.handleChange(event.target.value)}
             onBlur={field.handleBlur}
             aria-invalid={!!field.state.meta.errors.length}
-            className="mt-4"
+            className="mt-1"
           />
         )}
       </features.form.Field>

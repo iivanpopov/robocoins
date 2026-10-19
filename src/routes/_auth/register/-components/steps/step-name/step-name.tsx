@@ -12,7 +12,9 @@ export function StepName() {
   return (
     <form className="flex flex-1 flex-col" onSubmit={functions.handleSubmit}>
       <Typography variant="title">{t('action.registration.title')}</Typography>
-      <Typography variant="caption">{t('action.registration.description')}</Typography>
+      <Typography variant="caption" className="mt-2">
+        {t('action.registration.description')}
+      </Typography>
       <features.form.Field name="name">
         {(field) => (
           <HeroInput
@@ -22,7 +24,7 @@ export function StepName() {
             onBlur={field.handleBlur}
             aria-invalid={!!field.state.meta.errors.length}
             placeholder={t('field.name.placeholder')}
-            className="mt-4"
+            className="mt-1"
           />
         )}
       </features.form.Field>

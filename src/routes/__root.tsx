@@ -28,7 +28,7 @@ export const Route = createRootRouteWithContext<RootContext>()({
 
 function RootComponent() {
   return (
-    <div className="h-screen">
+    <div className="h-dvh">
       <Outlet />
     </div>
   )
