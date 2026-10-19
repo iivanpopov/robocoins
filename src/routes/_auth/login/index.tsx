@@ -1,5 +1,6 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute } from '@tanstack/react-router'
+import { cn } from 'cn'
 
 import { HeroButton, Loader, Typography } from '#/components/ui'
 
@@ -11,7 +12,7 @@ export const Route = createFileRoute('/_auth/login/')({
 })
 
 function RouteComponent() {
-  const { functions, features, mutations } = useLoginPage()
+  const { state, functions, features, mutations } = useLoginPage()
 
   const t = useTranslate()
 
@@ -25,14 +26,24 @@ function RouteComponent() {
             name={field.name}
             value={field.state.value}
             onChange={(event) => field.handleChange(event.target.value)}
-            onBlur={field.handleBlur}
+            onFocus={functions.handlePasswordFocus}
+            onBlur={() => {
+              field.handleBlur()
+              functions.handlePasswordBlur()
+            }}
             aria-invalid={!!field.state.meta.errors.length}
             className="mt-4"
           />
         )}
       </features.form.Field>
 
-      <div className="mt-8 flex-1 flex flex-col justify-end">
+      <div
+        className={cn(
+          'flex flex-col',
+          state.isPasswordFocused && 'mt-6',
+          !state.isPasswordFocused && 'flex-1 justify-end',
+        )}
+      >
         <HeroButton type="submit" className="w-full" disabled={mutations.login.isPending}>
           {features.form.state.isSubmitting && <Loader />}
           {!features.form.state.isSubmitting && t('action.enter.title')}

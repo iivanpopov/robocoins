@@ -2,6 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { useForm } from '@tanstack/react-form'
 import { useNavigate, useRouter } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
+import { useState } from 'react'
 
 import { useLoginAuthLoginPost } from '#/api/hooks/useLoginAuthLoginPost'
 import { toast } from '#/components/ui/toast'
@@ -9,6 +10,8 @@ import { toast } from '#/components/ui/toast'
 import { LoginStateSchema } from '../-schemas'
 
 export function useLoginPage() {
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false)
+
   const navigate = useNavigate()
   const router = useRouter()
   const t = useTranslate()
@@ -37,14 +40,26 @@ export function useLoginPage() {
     void form.handleSubmit()
   }
 
+  const handlePasswordFocus = () => {
+    setIsPasswordFocused(true)
+  }
+
+  const handlePasswordBlur = () => {
+    setIsPasswordFocused(false)
+  }
+
   return {
-    state: {},
+    state: {
+      isPasswordFocused,
+    },
     queries: {},
     mutations: {
       login: loginMutation,
     },
     functions: {
       handleSubmit,
+      handlePasswordFocus,
+      handlePasswordBlur,
     },
     features: {
       form,

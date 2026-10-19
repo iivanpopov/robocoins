@@ -19,7 +19,7 @@ Single-context layout: root `GLOSSARY.md` plus `docs/adr/`. See `docs/agents/dom
 3. Characters are free. Do not shortcut `event`, `value`, `number` and others. But `char`, `i`, `j` are allowed.
 4. Event handlers created in hooks are named `handleX`. Props are named `onX`.
 5. Never use comments.
-6. Don't destructure hooks. `model` hooks are exempt - identified by their return shape (`state`, `queries`, `mutations`, `functions`, `features`). Don't do for values too, like `{ ... } = event` and etc.
+6. Keep object results from form, mutation, query, and similar hooks intact (e.g. `form`, `loginMutation`, `usersQuery`); access their properties through that object. Destructure tuple hooks such as `useState` and `useReducer` normally. `model` hooks may be destructured - identified by their return shape (`state`, `queries`, `mutations`, `functions`, `features`). Don't destructure other values, e.g. `{ ... } = event`.
 7. Schemas are named in PascalCase with a `Schema` suffix, e.g. `RegisterStateSchema`, `StepNameSchema`.
 8. `cn()` only solution for merging classes, never use template literals for concatenating classNames.
 
