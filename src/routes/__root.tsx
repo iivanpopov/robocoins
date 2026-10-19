@@ -1,13 +1,8 @@
-import type { QueryClient } from '@tanstack/react-query'
-import { Outlet, createRootRouteWithContext } from '@tanstack/react-router'
+import { Outlet, createRootRoute } from '@tanstack/react-router'
 
 import { NotFound } from './-components/not-found'
 
-export interface RootContext {
-  queryClient: QueryClient
-}
-
-export const Route = createRootRouteWithContext<RootContext>()({
+export const Route = createRootRoute({
   component: RootComponent,
   notFoundComponent: NotFound,
 })

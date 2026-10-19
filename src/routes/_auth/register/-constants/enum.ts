@@ -3,8 +3,8 @@ export type Avatar = (typeof AVATARS)[number]
 
 export const RegisterStep = {
   Name: 'name',
+  Category: 'category',
   Course: 'course',
-  Schedule: 'schedule',
   Avatar: 'avatar',
   View: 'view',
 } as const

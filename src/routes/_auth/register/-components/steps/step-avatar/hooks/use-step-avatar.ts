@@ -1,56 +1,62 @@
-import { useForm } from '@tanstack/react-form'
-import { useEffect, useState } from 'react'
+import { useNavigate } from '@tanstack/react-router'
+import { useEffect, useEffectEvent, useState } from 'react'
 import type { SyntheticEvent } from 'react'
 
 import type { CarouselApi } from '#/components/ui'
-import { AVATARS } from '#/routes/_auth/register/-constants'
+import { AVATARS, RegisterStep } from '#/routes/_auth/register/-constants'
 
-import { useRegisterContext } from '../../../register-provider'
+import { useRegisterDraft } from '../../../register-provider'
 
 export function useStepAvatar() {
-  const register = useRegisterContext()
+  const register = useRegisterDraft()
 
-  const savedIndex = AVATARS.findIndex((key) => key === register.state.avatar)
-  const initialIndex = savedIndex === -1 ? Math.floor(AVATARS.length / 2) : savedIndex
+  const navigate = useNavigate({ from: '/register' })
+  const previousCategory = register.state.categories!.at(-1)!
 
-  const form = useForm({
-    defaultValues: { avatar: AVATARS[initialIndex] },
-    onSubmit: ({ value }) => {
-      register.setState({ avatar: value.avatar })
-    },
+  const [initialIndex] = useState(() => {
+    const savedIndex = AVATARS.findIndex((key) => key === register.state.avatar)
+    if (savedIndex === -1) return Math.floor(AVATARS.length / 2)
+    return savedIndex
   })
 
   const [api, setApi] = useState<CarouselApi>()
 
+  const handleSelectionChange = useEffectEvent(() => {
+    if (!api) return
+    const avatar = AVATARS[api.selectedScrollSnap()]
+    if (avatar === register.state.avatar) return
+    register.setState({ avatar })
+  })
+
   useEffect(() => {
     if (!api) return
 
-    const handleSelect = () => form.setFieldValue('avatar', AVATARS[api.selectedScrollSnap()])
+    const handleSelect = () => handleSelectionChange()
 
+    handleSelect()
     api.on('select', handleSelect)
 
     return () => {
       api.off('select', handleSelect)
     }
-  }, [api, form])
+  }, [api])
 
   const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault()
-    void form.handleSubmit()
+    if (!register.state.avatar) return
+    void navigate({ search: { step: RegisterStep.View } })
   }
 
   return {
     state: {
       initialIndex,
+      previousSearch: { step: RegisterStep.Course, category: previousCategory },
     },
     queries: {},
     mutations: {},
     functions: {
       setApi,
       handleSubmit,
-    },
-    features: {
-      form,
     },
   }
 }

@@ -1,0 +1,76 @@
+.form {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-2xl);
+  min-height: 0;
+}
+
+.header {
+  gap: var(--spacing-sm);
+}
+
+.title {
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+.description {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.group {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--spacing-md);
+  align-items: center;
+  padding: var(--spacing-lg);
+  font-size: 1.125rem;
+  line-height: 1.4;
+  color: var(--foreground);
+  text-align: left;
+  cursor: pointer;
+  background: var(--surface);
+  border: 2px solid transparent;
+  border-radius: var(--rounded-md);
+}
+
+.schedule {
+  display: block;
+  white-space: pre-line;
+
+  &::first-line {
+    font-weight: 600;
+  }
+}
+
+.clock {
+  flex-shrink: 0;
+  font-size: 1.5rem;
+  color: var(--brand);
+}
+
+.group:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+}
+
+.selected {
+  color: var(--brand);
+  background: color-mix(in srgb, var(--brand) 6%, var(--surface));
+  border-color: var(--brand);
+}
+
+.footer {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}

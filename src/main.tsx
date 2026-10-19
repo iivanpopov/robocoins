@@ -24,9 +24,6 @@ Sentry.init({
 const router = createRouter({
   routeTree,
   defaultOnCatch: (error) => Sentry.captureException(error),
-  context: {
-    queryClient,
-  },
 })
 
 declare module '@tanstack/react-router' {

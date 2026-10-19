@@ -3,7 +3,8 @@
  * Do not edit manually.
  */
 
-import type { GroupResponse } from './GroupResponse'
+import type { CourseCategoryKey } from './CourseCategory'
+import type { CourseGroupResponse } from './CourseGroupResponse'
 
 export type CourseResponse = {
   /**
@@ -18,11 +19,12 @@ export type CourseResponse = {
   code?: number
   id: number
   name: string
+  category: CourseCategoryKey
   /**
    * @description Groups associated with the course
    * @type array | undefined
    */
-  groups?: GroupResponse[]
+  groups?: CourseGroupResponse[]
   /**
    * @default 0
    * @type integer | undefined

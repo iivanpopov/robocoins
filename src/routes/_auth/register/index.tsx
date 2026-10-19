@@ -1,13 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ComponentType } from 'react'
 
-import { StepAvatar, StepCourse, StepGroup, StepName, StepView } from './-components/steps'
+import { StepAvatar, StepCategory, StepCourse, StepName, StepView } from './-components/steps'
 import { RegisterStep } from './-constants'
 
 const STEPS: Record<RegisterStep, ComponentType> = {
   name: StepName,
+  category: StepCategory,
   course: StepCourse,
-  schedule: StepGroup,
   avatar: StepAvatar,
   view: StepView,
 }

@@ -5,11 +5,3 @@
   padding: 3.5rem var(--spacing-xl) 1.5rem var(--spacing-xl);
   overflow-x: hidden;
 }
-
-.coins {
-  z-index: -10;
-  margin-bottom: -80%;
-  font-size: 140vw;
-  color: var(--brand);
-  transform: translate(-20%, -40%);
-}

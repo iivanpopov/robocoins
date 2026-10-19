@@ -1,7 +1,4 @@
 export default {
-  'action.registration.title': 'Реєстрація',
-  'action.registration.description': 'Як тебе звати?',
-  'action.start.title': 'Почати',
   'action.next.title': 'Далі',
   'action.finish.title': 'Завершити',
   'action.login.title': 'Вхід в акаунт',
@@ -10,9 +7,6 @@ export default {
   'error.incorrect-password': 'Неправильний пароль.',
   'error.registration-failed': 'Сталася неочікувана помилка',
   'field.name.placeholder': "Твоє ім'я",
-  'field.course.placeholder': 'Unity 3D',
-  'field.group.placeholder': 'Група 2',
-  'field.group.label': 'Група',
   'field.password.show': 'Показати пароль',
   'field.password.hide': 'Приховати пароль',
   'caption.has-account': 'Маєш акаунт?{#br/}{#a to=$to}Увійти{/a}',
@@ -20,10 +14,30 @@ export default {
   'caption.mistake': 'Помилився?{#br/}{#a search=$search}Повернутся назад{/a}',
   'step.name.title': 'Як тебе звати?',
   'step.name.description': 'Так твоє ім’я бачитимуть викладачі та інші студенти.',
-  'step.course-select.title': 'Твій курс',
+  'step.category.title': 'Обери напрямки',
+  'step.category.description': 'Можна обрати кілька.',
+  'step.course.title': 'Обери свій курс',
+  'step.group.title': 'Обери час заняття',
+  'step.direction.progress': 'Напрямок {$current :number} із {$total :number}',
+  'step.selection.empty': 'Наразі немає доступних варіантів.',
+  'course.category': `
+    .input {$category :string}
+    .match $category
+    |game dev| {{Розробка ігор}}
+    embedded {{Робототехніка}}
+    web {{Веброзробка}}
+    primary {{Перші кроки в ІТ}}
+    python {{Програмування на Python}}
+    * {{Інші напрямки}}`,
   'step.avatar.title': 'Обери аватар',
   'step.view.title': 'Правильно?',
-  'text.group': 'Група',
+  'weekday.monday': 'Понеділок',
+  'weekday.tuesday': 'Вівторок',
+  'weekday.wednesday': 'Середа',
+  'weekday.thursday': 'Четвер',
+  'weekday.friday': 'П’ятниця',
+  'weekday.saturday': 'Субота',
+  'weekday.sunday': 'Неділя',
   'group.select.title': 'Обери групу',
   'group.filter.all': 'Всі ({$count :number})',
   'group.theme.game-dev': 'GameDev',

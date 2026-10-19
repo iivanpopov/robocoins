@@ -1,20 +1,20 @@
 import * as Sentry from '@sentry/react'
 
 import { LOCALSTORAGE_REGISTER_DRAFT } from '../-constants'
-import { RegisterDraft } from '../-schemas'
+import { RegisterDraftSchema, type RegisterDraft } from '../-schemas'
 
 export const registerDraft = {
   get: function () {
     try {
       const draft = JSON.parse(localStorage.getItem(LOCALSTORAGE_REGISTER_DRAFT)!)
-      const parsed = RegisterDraft.safeParse(draft)
-      if (parsed.data?.version === 1) return draft
+      const parsed = RegisterDraftSchema.safeParse(draft)
+      if (parsed.success) return parsed.data
       this.clear()
-      return {}
+      return RegisterDraftSchema.parse({})
     } catch (error) {
       Sentry.captureException(error)
       this.clear()
-      return {}
+      return RegisterDraftSchema.parse({})
     }
   },
   save: (data: RegisterDraft) => {

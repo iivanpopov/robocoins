@@ -24,13 +24,7 @@ export default defineConfig({
       generatedRouteTree: './generated/routeTree.gen.ts',
       tmpDir: './generated/.tanstack/tmp',
     }),
-    kanjou({
-      baseLocale: 'uk',
-      prettier: {
-        singleQuote: true,
-        semi: false,
-      },
-    }),
+    kanjou(),
     react(),
     unocss(),
     sentryVitePlugin({

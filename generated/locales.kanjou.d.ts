@@ -6,9 +6,6 @@ declare module '@kanjou/react' {
   export interface Register {
     locale: 'uk'
     messages: {
-      'action.registration.title': {}
-      'action.registration.description': {}
-      'action.start.title': {}
       'action.next.title': {}
       'action.finish.title': {}
       'action.login.title': {}
@@ -17,9 +14,6 @@ declare module '@kanjou/react' {
       'error.incorrect-password': {}
       'error.registration-failed': {}
       'field.name.placeholder': {}
-      'field.course.placeholder': {}
-      'field.group.placeholder': {}
-      'field.group.label': {}
       'field.password.show': {}
       'field.password.hide': {}
       'caption.has-account': {}
@@ -27,10 +21,25 @@ declare module '@kanjou/react' {
       'caption.mistake': {}
       'step.name.title': {}
       'step.name.description': {}
-      'step.course-select.title': {}
+      'step.category.title': {}
+      'step.category.description': {}
+      'step.course.title': {}
+      'step.group.title': {}
+      'step.direction.progress': {
+        current: { __fn: 'number' }
+        total: { __fn: 'number' }
+      }
+      'step.selection.empty': {}
+      'course.category': { category: { __fn: 'string' } }
       'step.avatar.title': {}
       'step.view.title': {}
-      'text.group': {}
+      'weekday.monday': {}
+      'weekday.tuesday': {}
+      'weekday.wednesday': {}
+      'weekday.thursday': {}
+      'weekday.friday': {}
+      'weekday.saturday': {}
+      'weekday.sunday': {}
       'group.select.title': {}
       'group.filter.all': { count: { __fn: 'number' } }
       'group.theme.game-dev': {}

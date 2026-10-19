@@ -2,17 +2,17 @@ import { useTranslate } from '@kanjou/react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate, useRouter } from '@tanstack/react-router'
 
-import { useCreateStudentStudentRegisterPost } from '#/api/hooks'
+import { useCreateStudentStudentRegisterPost, useGetCoursesCourseGet } from '#/api/hooks'
 import { toast } from '#/components/ui/toast'
 import { refreshSession } from '#/lib/session'
 import { LOCALSTORAGE_DID_REGISTER } from '#/routes/-constants'
 
 import { LOCALSTORAGE_REGISTER_DRAFT } from '../../../../-constants'
-import { CompleteRegisterDraft } from '../../../../-schemas'
-import { useRegisterContext } from '../../../register-provider'
+import type { RegisterDraft } from '../../../../-schemas'
+import { useRegisterDraft } from '../../../register-provider'
 
 export function useStepView() {
-  const register = useRegisterContext()
+  const register = useRegisterDraft()
 
   const navigate = useNavigate()
   const router = useRouter()
@@ -20,17 +20,24 @@ export function useStepView() {
   const t = useTranslate()
 
   const registerMutation = useCreateStudentStudentRegisterPost()
+  const coursesQuery = useGetCoursesCourseGet()
+  const draft = register.state as Required<RegisterDraft>
+  const groups = (coursesQuery.data ?? []).flatMap((course) => {
+    if (!draft.courseIds.includes(course.id)) return []
+    const group = course.groups!.find((item) => draft.groupIds.includes(item.id))!
+    return [{ ...group, courseName: course.name }]
+  })
 
   const handleFinish = async () => {
-    const draft = CompleteRegisterDraft.safeParse(register.state)
-
-    if (!draft.success) return
-
-    const { name, avatar, courseName, group } = draft.data
+    if (!coursesQuery.isSuccess || registerMutation.isPending) return
 
     try {
       await registerMutation.mutateAsync({
-        body: { name, avatar, course_name: courseName, group_id: group.id },
+        body: {
+          name: draft.name,
+          avatar: draft.avatar,
+          group_ids: draft.groupIds,
+        },
       })
       localStorage.removeItem(LOCALSTORAGE_REGISTER_DRAFT)
       localStorage.setItem(LOCALSTORAGE_DID_REGISTER, 'true')
@@ -44,11 +51,11 @@ export function useStepView() {
 
   return {
     state: {
-      name: register.state.name,
-      avatar: register.state.avatar,
-      courseName: register.state.courseName,
-      group: register.state.group,
+      name: draft.name,
+      avatar: draft.avatar,
+      groups,
     },
+    queries: { courses: coursesQuery },
     mutations: {
       register: registerMutation,
     },

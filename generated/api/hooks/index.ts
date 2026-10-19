@@ -9,6 +9,11 @@ export {
   useChangeStudentBalanceStudentStudentIdBalanceTransactionsPost,
 } from './useChangeStudentBalanceStudentStudentIdBalanceTransactionsPost'
 export {
+  createCourseCoursePostMutationKey,
+  createCourseCoursePostMutationOptions,
+  useCreateCourseCoursePost,
+} from './useCreateCourseCoursePost'
+export {
   createGroupGroupCreatePostMutationKey,
   createGroupGroupCreatePostMutationOptions,
   useCreateGroupGroupCreatePost,
@@ -18,6 +23,11 @@ export {
   createStudentStudentRegisterPostMutationOptions,
   useCreateStudentStudentRegisterPost,
 } from './useCreateStudentStudentRegisterPost'
+export {
+  getCoursesByCategoryCourseCategoryCategoryGetQueryKey,
+  getCoursesByCategoryCourseCategoryCategoryGetQueryOptions,
+  useGetCoursesByCategoryCourseCategoryCategoryGet,
+} from './useGetCoursesByCategoryCourseCategoryCategoryGet'
 export {
   getCoursesCourseGetQueryKey,
   getCoursesCourseGetQueryOptions,

@@ -5,10 +5,10 @@ import type { SyntheticEvent } from 'react'
 import { RegisterStep } from '#/routes/_auth/register/-constants'
 
 import { StepNameForm } from '../-schemas'
-import { useRegisterContext } from '../../../register-provider'
+import { useRegisterDraft } from '../../../register-provider'
 
 export function useStepName() {
-  const register = useRegisterContext()
+  const register = useRegisterDraft()
 
   const navigate = useNavigate({ from: '/register' })
 
@@ -17,7 +17,7 @@ export function useStepName() {
     validators: { onChange: StepNameForm },
     onSubmit: ({ value }) => {
       register.setState({ name: value.name.trim() })
-      void navigate({ search: { step: RegisterStep.Course } })
+      void navigate({ search: { step: RegisterStep.Category } })
     },
   })
 

@@ -1,0 +1,7 @@
+{
+  "baseLocale": "uk",
+  "prettier": {
+    "singleQuote": true,
+    "semi": false
+  }
+}

@@ -3,16 +3,8 @@
  * Do not edit manually.
  */
 
-export const balanceChangeRequestOperationEnum = {
-  deposit: 'deposit',
-  deduct: 'deduct',
-} as const
-
-export type BalanceChangeRequestOperationEnumKey =
-  (typeof balanceChangeRequestOperationEnum)[keyof typeof balanceChangeRequestOperationEnum]
+import type { BalanceChangeReasonsKey } from './BalanceChangeReasons'
 
 export type BalanceChangeRequest = {
-  operation: BalanceChangeRequestOperationEnumKey
-  amount: number
-  reason?: string | null
+  reason: BalanceChangeReasonsKey
 }

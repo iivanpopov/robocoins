@@ -7,10 +7,8 @@ export type {
   AssignGroupTeachersGroupIdGroupIdTeachersPutStatus200,
   AssignGroupTeachersGroupIdGroupIdTeachersPutStatus422,
 } from './AssignGroupTeachersGroupIdGroupIdTeachersPut'
-export type {
-  BalanceChangeRequest,
-  BalanceChangeRequestOperationEnumKey,
-} from './BalanceChangeRequest'
+export type { BalanceChangeReasonsKey } from './BalanceChangeReasons'
+export type { BalanceChangeRequest } from './BalanceChangeRequest'
 export type { BalanceChangeResponse } from './BalanceChangeResponse'
 export type { BalanceHistoryResponse } from './BalanceHistoryResponse'
 export type { BalanceResponse } from './BalanceResponse'
@@ -27,7 +25,18 @@ export type {
   ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostStatus200,
   ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostStatus422,
 } from './ChangeStudentBalanceStudentStudentIdBalanceTransactionsPost'
+export type { CourseCategoryKey } from './CourseCategory'
+export type { CourseCreateRequest } from './CourseCreateRequest'
+export type { CourseGroupResponse } from './CourseGroupResponse'
 export type { CourseResponse } from './CourseResponse'
+export type {
+  CreateCourseCoursePostBody,
+  CreateCourseCoursePostOptions,
+  CreateCourseCoursePostResponse,
+  CreateCourseCoursePostResponses,
+  CreateCourseCoursePostStatus201,
+  CreateCourseCoursePostStatus422,
+} from './CreateCourseCoursePost'
 export type {
   CreateGroupGroupCreatePostBody,
   CreateGroupGroupCreatePostOptions,
@@ -44,6 +53,14 @@ export type {
   CreateStudentStudentRegisterPostStatus200,
   CreateStudentStudentRegisterPostStatus422,
 } from './CreateStudentStudentRegisterPost'
+export type {
+  GetCoursesByCategoryCourseCategoryCategoryGetOptions,
+  GetCoursesByCategoryCourseCategoryCategoryGetPath,
+  GetCoursesByCategoryCourseCategoryCategoryGetResponse,
+  GetCoursesByCategoryCourseCategoryCategoryGetResponses,
+  GetCoursesByCategoryCourseCategoryCategoryGetStatus200,
+  GetCoursesByCategoryCourseCategoryCategoryGetStatus422,
+} from './GetCoursesByCategoryCourseCategoryCategoryGet'
 export type {
   GetCoursesCourseGetOptions,
   GetCoursesCourseGetResponse,
@@ -168,6 +185,7 @@ export type { UserLogoutResponse } from './UserLogoutResponse'
 export type { UserResponse } from './UserResponse'
 export type { UserRoleKey } from './UserRole'
 export type { ValidationError } from './ValidationError'
-export { balanceChangeRequestOperationEnum } from './BalanceChangeRequest'
+export { balanceChangeReasons } from './BalanceChangeReasons'
 export { balanceTransactionResponseOperationEnum } from './BalanceTransactionResponse'
+export { courseCategory } from './CourseCategory'
 export { userRole } from './UserRole'

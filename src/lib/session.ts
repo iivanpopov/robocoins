@@ -15,7 +15,6 @@ export const sessionQueryOptions = queryOptions({
       throw error
     }
   },
-  staleTime: 30_000,
   retry: false,
   throwOnError: false,
 })
@@ -27,5 +26,5 @@ export async function refreshSession(queryClient: QueryClient) {
     refetchType: 'none',
   })
 
-  return queryClient.fetchQuery(sessionQueryOptions)
+  return queryClient.query(sessionQueryOptions)
 }

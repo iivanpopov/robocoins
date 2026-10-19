@@ -29,6 +29,6 @@ export function RegisterProvider({ initialState, children }: RegisterProviderPro
   return <RegisterContext value={contextValue}>{children}</RegisterContext>
 }
 
-export function useRegisterContext() {
+export function useRegisterDraft() {
   return use(RegisterContext)
 }

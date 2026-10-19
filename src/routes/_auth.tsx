@@ -1,6 +1,7 @@
+import { useQuery } from '@tanstack/react-query'
 import { createFileRoute, Navigate, Outlet } from '@tanstack/react-router'
 
-import { useAuthPage } from './_auth/-hooks'
+import { sessionQueryOptions } from '#/lib/session'
 
 import styles from './_auth.module.css'
 
@@ -9,13 +10,16 @@ export const Route = createFileRoute('/_auth')({
 })
 
 function RouteComponent() {
-  const { state } = useAuthPage()
+  const sessionQuery = useQuery(sessionQueryOptions)
+
+  const isStudent = sessionQuery.data?.role === 'student'
+  const isTeacher = sessionQuery.data?.role === 'teacher'
 
   return (
     <div className={styles.wrapper}>
-      {state.isStudent && <Navigate to="/" replace />}
-      {state.isTeacher && <Navigate to="/group" replace />}
-      {!state.isStudent && !state.isTeacher && <Outlet />}
+      {isStudent && <Navigate to="/" replace />}
+      {isTeacher && <Navigate to="/group" replace />}
+      {!isStudent && !isTeacher && <Outlet />}
     </div>
   )
 }
