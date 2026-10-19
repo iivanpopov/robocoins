@@ -23,7 +23,6 @@ export function StepCourse() {
             aria-invalid={!!field.state.meta.errors.length}
             placeholder={t('field.name.placeholder')}
             className="mt-4"
-            autoFocus
           />
         )}
       </features.form.Field>

@@ -4,7 +4,6 @@ import { HeroButton, Typography } from '#/components/ui'
 import { getAvatarUrl } from '#/routes/-utils/get-avatar-url'
 
 import { RegisterStep } from '../../../-constants'
-import { MistakeCaption } from '../components/mistake-caption'
 import { useStepView } from './hooks'
 
 export function StepView() {

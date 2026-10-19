@@ -28,7 +28,6 @@ function RouteComponent() {
             onBlur={field.handleBlur}
             aria-invalid={!!field.state.meta.errors.length}
             className="mt-4"
-            autoFocus
           />
         )}
       </features.form.Field>
