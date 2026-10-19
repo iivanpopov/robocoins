@@ -6,6 +6,13 @@ declare module '@kanjou/react' {
   export interface Register {
     locale: 'uk'
     messages: {
+      'navbar.label': {}
+      'navbar.settings': {}
+      'navbar.profile': {}
+      'navbar.groups': {}
+      'settings.name': {}
+      'settings.logout': {}
+      'settings.logout.error': {}
       'action.next.title': {}
       'action.finish.title': {}
       'action.login.title': {}

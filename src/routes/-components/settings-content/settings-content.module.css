@@ -1,0 +1,33 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  width: 100%;
+  max-width: 36rem;
+  padding: var(--spacing-xl);
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg);
+  background: var(--surface);
+  border-radius: var(--rounded-lg);
+}
+
+.label {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.name {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}

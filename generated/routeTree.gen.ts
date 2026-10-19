@@ -16,10 +16,12 @@ import { Route as AuthRegisterRouteRouteImport } from './../src/routes/_auth/reg
 import { Route as StudentIndexRouteImport } from './../src/routes/_student/index'
 import { Route as AuthLoginIndexRouteImport } from './../src/routes/_auth/login/index'
 import { Route as AuthRegisterIndexRouteImport } from './../src/routes/_auth/register/index'
+import { Route as StudentSettingsIndexRouteImport } from './../src/routes/_student/settings/index'
 import { Route as StudentShopIndexRouteImport } from './../src/routes/_student/shop/index'
 import { Route as TeacherGroupIndexRouteImport } from './../src/routes/_teacher/group/index'
 import { Route as TeacherGroupGroupIdRouteImport } from './../src/routes/_teacher/group/$groupId'
 import { Route as TeacherStudentsIndexRouteImport } from './../src/routes/_teacher/students/index'
+import { Route as TeacherTeacherSettingsIndexRouteImport } from './../src/routes/_teacher/teacher/settings/index'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/_auth',
@@ -53,6 +55,11 @@ const AuthRegisterIndexRoute = AuthRegisterIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthRegisterRouteRoute,
 } as any)
+const StudentSettingsIndexRoute = StudentSettingsIndexRouteImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => StudentRoute,
+} as any)
 const StudentShopIndexRoute = StudentShopIndexRouteImport.update({
   id: '/shop/',
   path: '/shop/',
@@ -73,6 +80,12 @@ const TeacherStudentsIndexRoute = TeacherStudentsIndexRouteImport.update({
   path: '/students/',
   getParentRoute: () => TeacherRoute,
 } as any)
+const TeacherTeacherSettingsIndexRoute =
+  TeacherTeacherSettingsIndexRouteImport.update({
+    id: '/teacher/settings/',
+    path: '/teacher/settings/',
+    getParentRoute: () => TeacherRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof StudentIndexRoute
@@ -80,18 +93,22 @@ export interface FileRoutesByFullPath {
   '/group/$groupId': typeof TeacherGroupGroupIdRoute
   '/login/': typeof AuthLoginIndexRoute
   '/register/': typeof AuthRegisterIndexRoute
+  '/settings/': typeof StudentSettingsIndexRoute
   '/shop/': typeof StudentShopIndexRoute
   '/group/': typeof TeacherGroupIndexRoute
   '/students/': typeof TeacherStudentsIndexRoute
+  '/teacher/settings/': typeof TeacherTeacherSettingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof StudentIndexRoute
   '/group/$groupId': typeof TeacherGroupGroupIdRoute
   '/login': typeof AuthLoginIndexRoute
   '/register': typeof AuthRegisterIndexRoute
+  '/settings': typeof StudentSettingsIndexRoute
   '/shop': typeof StudentShopIndexRoute
   '/group': typeof TeacherGroupIndexRoute
   '/students': typeof TeacherStudentsIndexRoute
+  '/teacher/settings': typeof TeacherTeacherSettingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -103,9 +120,11 @@ export interface FileRoutesById {
   '/_teacher/group/$groupId': typeof TeacherGroupGroupIdRoute
   '/_auth/login/': typeof AuthLoginIndexRoute
   '/_auth/register/': typeof AuthRegisterIndexRoute
+  '/_student/settings/': typeof StudentSettingsIndexRoute
   '/_student/shop/': typeof StudentShopIndexRoute
   '/_teacher/group/': typeof TeacherGroupIndexRoute
   '/_teacher/students/': typeof TeacherStudentsIndexRoute
+  '/_teacher/teacher/settings/': typeof TeacherTeacherSettingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -115,18 +134,22 @@ export interface FileRouteTypes {
     | '/group/$groupId'
     | '/login/'
     | '/register/'
+    | '/settings/'
     | '/shop/'
     | '/group/'
     | '/students/'
+    | '/teacher/settings/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/group/$groupId'
     | '/login'
     | '/register'
+    | '/settings'
     | '/shop'
     | '/group'
     | '/students'
+    | '/teacher/settings'
   id:
     | '__root__'
     | '/_auth'
@@ -137,9 +160,11 @@ export interface FileRouteTypes {
     | '/_teacher/group/$groupId'
     | '/_auth/login/'
     | '/_auth/register/'
+    | '/_student/settings/'
     | '/_student/shop/'
     | '/_teacher/group/'
     | '/_teacher/students/'
+    | '/_teacher/teacher/settings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -199,6 +224,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRegisterIndexRouteImport
       parentRoute: typeof AuthRegisterRouteRoute
     }
+    '/_student/settings/': {
+      id: '/_student/settings/'
+      path: '/settings'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof StudentSettingsIndexRouteImport
+      parentRoute: typeof StudentRoute
+    }
     '/_student/shop/': {
       id: '/_student/shop/'
       path: '/shop'
@@ -225,6 +257,13 @@ declare module '@tanstack/react-router' {
       path: '/students'
       fullPath: '/students/'
       preLoaderRoute: typeof TeacherStudentsIndexRouteImport
+      parentRoute: typeof TeacherRoute
+    }
+    '/_teacher/teacher/settings/': {
+      id: '/_teacher/teacher/settings/'
+      path: '/teacher/settings'
+      fullPath: '/teacher/settings/'
+      preLoaderRoute: typeof TeacherTeacherSettingsIndexRouteImport
       parentRoute: typeof TeacherRoute
     }
   }
@@ -255,11 +294,13 @@ const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 interface StudentRouteChildren {
   StudentIndexRoute: typeof StudentIndexRoute
+  StudentSettingsIndexRoute: typeof StudentSettingsIndexRoute
   StudentShopIndexRoute: typeof StudentShopIndexRoute
 }
 
 const StudentRouteChildren: StudentRouteChildren = {
   StudentIndexRoute: StudentIndexRoute,
+  StudentSettingsIndexRoute: StudentSettingsIndexRoute,
   StudentShopIndexRoute: StudentShopIndexRoute,
 }
 
@@ -270,12 +311,14 @@ interface TeacherRouteChildren {
   TeacherGroupGroupIdRoute: typeof TeacherGroupGroupIdRoute
   TeacherGroupIndexRoute: typeof TeacherGroupIndexRoute
   TeacherStudentsIndexRoute: typeof TeacherStudentsIndexRoute
+  TeacherTeacherSettingsIndexRoute: typeof TeacherTeacherSettingsIndexRoute
 }
 
 const TeacherRouteChildren: TeacherRouteChildren = {
   TeacherGroupGroupIdRoute: TeacherGroupGroupIdRoute,
   TeacherGroupIndexRoute: TeacherGroupIndexRoute,
   TeacherStudentsIndexRoute: TeacherStudentsIndexRoute,
+  TeacherTeacherSettingsIndexRoute: TeacherTeacherSettingsIndexRoute,
 }
 
 const TeacherRouteWithChildren =

@@ -1,4 +1,11 @@
 export default {
+  'navbar.label': 'Основна навігація',
+  'navbar.settings': 'Налаштування',
+  'navbar.profile': 'Профіль',
+  'navbar.groups': 'Групи',
+  'settings.name': 'Ім’я користувача',
+  'settings.logout': 'Вийти',
+  'settings.logout.error': 'Не вдалося вийти. Спробуйте ще раз.',
   'action.next.title': 'Далі',
   'action.finish.title': 'Завершити',
   'action.login.title': 'Вхід в акаунт',

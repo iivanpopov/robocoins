@@ -3,8 +3,8 @@
   flex-direction: column;
   gap: var(--spacing-lg);
   width: 100%;
-  min-height: 100dvh;
-  padding: var(--spacing-lg) var(--spacing-md) 4rem;
+  min-height: 100%;
+  padding: var(--spacing-lg) var(--spacing-md);
   margin: 0 auto;
 }
 
