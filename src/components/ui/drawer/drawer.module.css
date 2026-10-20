@@ -1,3 +1,17 @@
+.portal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+}
+
+:root:active-view-transition-type(slide-forward),
+:root:active-view-transition-type(slide-backward) {
+  .portal {
+    view-transition-name: slide-overlay;
+  }
+}
+
 .overlay {
   position: fixed;
   inset: 0;

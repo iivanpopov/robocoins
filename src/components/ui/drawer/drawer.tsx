@@ -71,7 +71,7 @@ export function DrawerContent({ className, children, ...props }: DrawerContentPr
   const isModal = context.modal === true
 
   return (
-    <DrawerPortal>
+    <DrawerPortal className={styles.portal}>
       {isModal && <DrawerOverlay />}
       <DrawerPrimitive.Viewport data-modal={context.modal} className={styles.viewport}>
         <DrawerPrimitive.Popup {...props} className={cn(styles.popup, className)}>

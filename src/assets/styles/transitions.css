@@ -16,17 +16,25 @@
     animation: none;
   }
 
-  &::view-transition-group(slide-content) {
+  &::view-transition-group(slide-overlay) {
+    z-index: 1;
+  }
+
+  &::view-transition-group(slide-content),
+  &::view-transition-group(slide-overlay) {
     animation-duration: 280ms;
     animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
-  &::view-transition-image-pair(slide-content) {
+  &::view-transition-image-pair(slide-content),
+  &::view-transition-image-pair(slide-overlay) {
     overflow: clip;
   }
 
   &::view-transition-old(slide-content),
-  &::view-transition-new(slide-content) {
+  &::view-transition-new(slide-content),
+  &::view-transition-old(slide-overlay),
+  &::view-transition-new(slide-overlay) {
     mix-blend-mode: normal;
     animation-duration: 280ms;
     animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -35,21 +43,25 @@
 }
 
 :root:active-view-transition-type(slide-forward) {
-  &::view-transition-old(slide-content) {
+  &::view-transition-old(slide-content),
+  &::view-transition-old(slide-overlay) {
     animation-name: slide-exit-forward;
   }
 
-  &::view-transition-new(slide-content) {
+  &::view-transition-new(slide-content),
+  &::view-transition-new(slide-overlay) {
     animation-name: slide-enter-forward;
   }
 }
 
 :root:active-view-transition-type(slide-backward) {
-  &::view-transition-old(slide-content) {
+  &::view-transition-old(slide-content),
+  &::view-transition-old(slide-overlay) {
     animation-name: slide-exit-backward;
   }
 
-  &::view-transition-new(slide-content) {
+  &::view-transition-new(slide-content),
+  &::view-transition-new(slide-overlay) {
     animation-name: slide-enter-backward;
   }
 }
