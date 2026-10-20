@@ -3,6 +3,7 @@ import { cn } from 'cn'
 import { ReactNode } from 'react'
 
 import { Chip, Loader } from '#/components/ui'
+import { InlineError } from '#/routes/-components'
 import { AwardDirection } from '#/routes/_authorized/_teacher/group/-constants'
 
 import { useBalanceChange } from './-hooks'
@@ -27,8 +28,15 @@ export function BalanceChange(props: BalanceChangeProps) {
         {props.children}
         <div ref={refs.swipe} className={styles['reasons-section']} data-base-ui-swipe-ignore="x">
           <span className={styles['section-label']}>{t('award.reason.label')}</span>
-          {queries.reasonsQuery.isPending && <Loader />}
-          {queries.reasonsQuery.isError && <div role="alert">{t('group.error')}</div>}
+          {queries.reasonsQuery.isPending && <Loader grow className={styles.loader} />}
+          {queries.reasonsQuery.isError && (
+            <InlineError
+              onRetry={functions.handleRetryReasons}
+              isRetrying={queries.reasonsQuery.isFetching}
+            >
+              {t('group.error')}
+            </InlineError>
+          )}
           <div key={state.direction} className={styles['reasons-list']}>
             {state.reasons.map((reason) => (
               <Chip
@@ -43,7 +51,6 @@ export function BalanceChange(props: BalanceChangeProps) {
               </Chip>
             ))}
           </div>
-          {mutations.createAwardMutation.isError && <div role="alert">{t('award.error')}</div>}
         </div>
       </div>
       <div className={styles['direction-toggle']}>

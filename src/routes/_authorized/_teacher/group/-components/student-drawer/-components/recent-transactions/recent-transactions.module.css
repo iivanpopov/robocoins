@@ -8,6 +8,10 @@
   margin-top: var(--spacing-xs);
 }
 
+.loader {
+  padding: var(--spacing-md);
+}
+
 .history-header {
   display: flex;
   align-items: center;

@@ -13,6 +13,8 @@ declare module '@kanjou/react' {
       'navbar.shop': {}
       'navbar.groups': {}
       'settings.name': {}
+      'settings.password': {}
+      'settings.credentials.error': {}
       'settings.logout': {}
       'settings.logout.error': {}
       'action.next.title': {}
@@ -60,9 +62,6 @@ declare module '@kanjou/react' {
       'weekday.sunday': {}
       'group.select.title': {}
       'group.filter.all': { count: { __fn: 'number' } }
-      'group.theme.game-dev': {}
-      'group.theme.web': {}
-      'group.theme.embedded': {}
       'group.students-count': { count: { __fn: 'number' } }
       'group.back': {}
       'student.empty': {}
@@ -73,7 +72,6 @@ declare module '@kanjou/react' {
       'sort.students': {}
       'sort.name-asc': {}
       'sort.name-desc': {}
-      'group.loading': {}
       'group.error': {}
       'award.error': {}
       'reason.theory': {}
@@ -91,7 +89,7 @@ declare module '@kanjou/react' {
       'award.history.all': {}
       'award.history.view-all': {}
       'award.history.empty': {}
-      'action.revert.title': {}
+      'award.cancel.error': {}
       'reason.activity': {}
       'reason.homework': {}
       'reason.teamwork': {}

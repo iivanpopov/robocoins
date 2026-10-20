@@ -3,6 +3,7 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { cn } from 'cn'
 
 import { Avatar, AvatarFallback, AvatarImage, IconButton, Loader } from '#/components/ui'
+import { InlineError } from '#/routes/-components'
 import { getAvatarUrl, getInitial } from '#/routes/-utils'
 
 import { StudentDrawer, StudentSearchBar } from './-components'
@@ -49,12 +50,12 @@ function GroupStudentsPage() {
         onSortChange={functions.handleSortChange}
       />
 
-      {state.isPending && (
-        <div className="flex flex-1 justify-center items-center">
-          <Loader />
-        </div>
+      {state.isPending && <Loader grow className={styles.loader} />}
+      {state.isError && (
+        <InlineError onRetry={functions.handleRetry} isRetrying={state.isRetrying}>
+          {t('group.error')}
+        </InlineError>
       )}
-      {state.isError && <div role="alert">{t('group.error')}</div>}
       {!state.isPending && !state.isError && !state.hasStudents && (
         <div className={styles.empty}>
           {!state.searchQuery && t('student.group-empty')}
@@ -99,6 +100,7 @@ function GroupStudentsPage() {
         groupId={state.groupId}
         student={state.selectedStudent}
         onOpenChange={functions.handleDrawerOpenChange}
+        onOpenChangeComplete={functions.handleDrawerOpenChangeComplete}
       />
     </div>
   )

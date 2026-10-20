@@ -2,6 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute } from '@tanstack/react-router'
 
 import { HeroButton, Loader, Typography } from '#/components/ui'
+import { InlineError } from '#/routes/-components'
 
 import { AuthLayout } from '../-components'
 import { HeroPasswordInput } from './-components'
@@ -12,7 +13,7 @@ export const Route = createFileRoute('/_auth/login/')({
 })
 
 function RouteComponent() {
-  const { functions, features, mutations } = useLoginPage()
+  const { mutations, functions, features } = useLoginPage()
 
   const t = useTranslate()
 
@@ -25,15 +26,21 @@ function RouteComponent() {
           <features.form.Field name="password">
             {(field) => (
               <HeroPasswordInput
+                id="password"
                 name={field.name}
                 value={field.state.value}
                 onChange={(event) => field.handleChange(event.target.value)}
                 onBlur={field.handleBlur}
-                aria-invalid={!!field.state.meta.errors.length}
+                aria-invalid={!!field.state.meta.errors.length || mutations.login.isError}
                 className="mt-4"
               />
             )}
           </features.form.Field>
+          {mutations.login.isError && (
+            <InlineError id="password-error" className="mt-4">
+              {t('error.incorrect-password')}
+            </InlineError>
+          )}
         </AuthLayout.Top>
 
         <AuthLayout.Bottom>

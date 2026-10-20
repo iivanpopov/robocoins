@@ -7,7 +7,7 @@
     "jsx": "react-jsx",
     "skipLibCheck": true,
     "strictNullChecks": true,
-    "types": ["node"]
+    "types": ["bun"]
   },
   "include": ["./*.config.*"]
 }

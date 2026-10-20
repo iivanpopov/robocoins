@@ -29,6 +29,10 @@ export function useStudentPage() {
     return t('profile.history.date', { date })
   }
 
+  function handleRetryHistory() {
+    void historyQuery.refetch()
+  }
+
   const transactions = (historyQuery.data?.transactions ?? [])
     .toSorted(compareTransactionsByNewest)
     .map((transaction) => ({
@@ -61,5 +65,6 @@ export function useStudentPage() {
       remainingBalance: Math.max(0, GOAL_BALANCE - profile.balance),
     },
     queries: { history: historyQuery },
+    functions: { handleRetryHistory },
   }
 }

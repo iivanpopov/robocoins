@@ -21,6 +21,12 @@ export function useGroupPage() {
     void navigate({ to: '/group/$groupId', params: { groupId: String(groupId) } })
   }
 
+  function handleRetry() {
+    if (coursesQuery.isError && !coursesQuery.isFetching) void coursesQuery.refetch()
+    if (teacherGroupsQuery.isError && !teacherGroupsQuery.isFetching)
+      void teacherGroupsQuery.refetch()
+  }
+
   const groups = (teacherGroupsQuery.data ?? []).flatMap((group) => {
     const course = coursesQuery.data?.find((course) => course.id === group.course_id)
     if (!course) return []
@@ -49,8 +55,9 @@ export function useGroupPage() {
       allGroupsCount: groups.length,
       isPending: coursesQuery.isPending || teacherGroupsQuery.isPending,
       isError: coursesQuery.isError || teacherGroupsQuery.isError,
+      isRetrying: coursesQuery.isFetching || teacherGroupsQuery.isFetching,
     },
     queries: { courses: coursesQuery, teacherGroups: teacherGroupsQuery },
-    functions: { handleThemeSelect, handleGroupClick },
+    functions: { handleThemeSelect, handleGroupClick, handleRetry },
   }
 }

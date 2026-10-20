@@ -2,6 +2,7 @@ import { pluginFetch } from '@kubb/plugin-fetch'
 import { pluginReactQuery } from '@kubb/plugin-react-query'
 import { pluginTs } from '@kubb/plugin-ts'
 import { defineConfig } from 'kubb/config'
+import 'dotenv/config'
 
 export default defineConfig([
   {
@@ -12,7 +13,7 @@ export default defineConfig([
   },
   {
     name: 'services',
-    input: `${process.env.SERVICES_URL}/openapi.json`,
+    input: `${process.env.SERVICES_URL}/openapi`,
     output: { path: './generated/services', clean: true },
     plugins: [
       pluginTs(),

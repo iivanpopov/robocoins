@@ -3,7 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { cn } from 'cn'
 
 import { Chip, Loader } from '#/components/ui'
-import { CategoryIcon } from '#/routes/-components'
+import { CategoryIcon, InlineError } from '#/routes/-components'
 
 import { GroupFilter } from './-constants'
 import { useGroupPage } from './-hooks'
@@ -46,12 +46,12 @@ function GroupPage() {
         })}
       </div>
 
-      {state.isPending && (
-        <div className="flex flex-1 justify-center items-center">
-          <Loader />
-        </div>
+      {state.isPending && <Loader grow />}
+      {state.isError && (
+        <InlineError onRetry={functions.handleRetry} isRetrying={state.isRetrying}>
+          {t('group.error')}
+        </InlineError>
       )}
-      {state.isError && <div role="alert">{t('group.error')}</div>}
       {!state.isPending && !state.isError && (
         <div className={styles.grid}>
           {state.groups.map((group) => {

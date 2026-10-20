@@ -1,13 +1,22 @@
 import { useTranslate } from '@kanjou/react'
 import { useRouteContext } from '@tanstack/react-router'
+import { useState } from 'react'
 
+import { useGetStudentCredentialsAuthMeCredentialsGet } from '#/api/hooks/useGetStudentCredentialsAuthMeCredentialsGet'
 import { useLogoutAuthLogoutPost } from '#/api/hooks/useLogoutAuthLogoutPost'
 import { toast } from '#/components/ui'
 import { queryClient } from '#/lib/query'
 
 export function useSettingsPage() {
   const context = useRouteContext({ from: '/_authorized' })
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const t = useTranslate()
+  const credentialsQuery = useGetStudentCredentialsAuthMeCredentialsGet({
+    query: {
+      enabled: context.user.role === 'student' && isPasswordVisible,
+      gcTime: 0,
+    },
+  })
   const logoutMutation = useLogoutAuthLogoutPost({
     mutation: {
       onSuccess: async () => {
@@ -25,9 +34,18 @@ export function useSettingsPage() {
     logoutMutation.mutate(undefined)
   }
 
+  const handleTogglePassword = () => {
+    setIsPasswordVisible((value) => !value)
+  }
+
+  function handleRetryCredentials() {
+    void credentialsQuery.refetch()
+  }
+
   return {
-    state: { user: context.user },
+    state: { user: context.user, isPasswordVisible },
+    queries: { credentials: credentialsQuery },
     mutations: { logout: logoutMutation },
-    functions: { handleLogout },
+    functions: { handleLogout, handleTogglePassword, handleRetryCredentials },
   }
 }

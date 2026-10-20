@@ -24,6 +24,7 @@ export interface StudentDrawerProps {
   groupId: number
   student: (StudentProfileResponse & { avatar: AvatarName }) | null
   onOpenChange: (open: boolean) => void
+  onOpenChangeComplete: (open: boolean) => void
 }
 
 export function StudentDrawer(props: StudentDrawerProps) {
@@ -32,7 +33,12 @@ export function StudentDrawer(props: StudentDrawerProps) {
   const t = useTranslate()
 
   return (
-    <Drawer open={props.open} onOpenChange={studentDrawer.handleOpenChange} showSwipeHandle>
+    <Drawer
+      open={props.open}
+      onOpenChange={studentDrawer.handleOpenChange}
+      onOpenChangeComplete={props.onOpenChangeComplete}
+      showSwipeHandle
+    >
       <DrawerContent>
         {props.student && (
           <div className={styles.layout}>
@@ -74,7 +80,9 @@ export function StudentDrawer(props: StudentDrawerProps) {
               onSuccess={studentDrawer.handleClose}
             >
               <RecentTransactions
+                key={props.student.id}
                 studentId={props.student.id}
+                groupId={studentDrawer.groupId}
                 enabled={props.open}
                 onViewAll={studentDrawer.handleViewHistory}
               />

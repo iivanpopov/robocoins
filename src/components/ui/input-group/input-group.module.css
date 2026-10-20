@@ -24,10 +24,6 @@
     cursor: not-allowed;
     opacity: 0.5;
   }
-
-  &:focus-within {
-    outline: 2px solid var(--brand);
-  }
 }
 
 .sm {
@@ -51,6 +47,7 @@
   color: var(--muted-foreground);
   cursor: text;
   user-select: none;
+  transition: color 0.15s ease;
 }
 
 .inline-start {
@@ -141,6 +138,7 @@
 
   &::placeholder {
     color: var(--muted-foreground);
+    transition: color 0.15s ease;
   }
 
   &:disabled {
@@ -171,9 +169,17 @@
 
   &::placeholder {
     color: var(--muted-foreground);
+    transition: color 0.15s ease;
   }
 
   &:disabled {
     cursor: not-allowed;
   }
+}
+
+.group:focus-within .addon,
+.group:focus-within .button,
+.group:focus-within .input::placeholder,
+.group:focus-within .textarea::placeholder {
+  color: var(--brand);
 }

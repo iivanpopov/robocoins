@@ -12,9 +12,8 @@ import {
 const FULL_SWIPE_WIDTH_RATIO = 0.75
 
 interface UseTransactionSwipeProps {
-  transactionId: number
-  studentId: number
   enabled: boolean
+  onCancel: () => void
 }
 
 export function useTransactionSwipe(
@@ -74,10 +73,7 @@ export function useTransactionSwipe(
     if (value.lengthX <= Math.abs(value.lengthY) * SWIPE_AXIS_DOMINANCE_RATIO) return
     if (value.lengthX < gesture.width * FULL_SWIPE_WIDTH_RATIO) return
 
-    console.log('Undo student transaction', {
-      studentId: props.studentId,
-      transactionId: props.transactionId,
-    })
+    props.onCancel()
   }
 
   return { offset, isDragging, isReady }

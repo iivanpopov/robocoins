@@ -15,7 +15,9 @@ export type BalanceTransactionResponse = {
     student_id: number;
     operation: BalanceTransactionResponseOperationEnumKey;
     amount: number;
-    reason: (string | null);
+    reason: (string[] | null);
+    cancelled_at?: (string | null);
+    cancelled_by_user_id?: (number | null);
     /**
      * @description
      * Format: `date-time`

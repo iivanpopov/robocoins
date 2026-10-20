@@ -1,3 +1,4 @@
+import { useTranslate } from '@kanjou/react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useEffect, useRef, useState } from 'react'
 
@@ -6,6 +7,7 @@ import { useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet } from '#/a
 import { getGroupByIdGroupIdGroupIdGetQueryKey } from '#/api/hooks/useGetGroupByIdGroupIdGroupIdGet'
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryKey } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { BalanceChangeReasonsKey } from '#/api/types'
+import { toast } from '#/components/ui'
 import { AwardDirection } from '#/routes/_authorized/_teacher/group/-constants'
 
 import { useDirectionSwipe } from './use-direction-swipe'
@@ -20,14 +22,20 @@ interface UseBalanceChangeProps {
 }
 
 export function useBalanceChange(props: UseBalanceChangeProps) {
+  const t = useTranslate()
   const queryClient = useQueryClient()
+
   const [direction, setDirection] = useState<AwardDirection>(AwardDirection.Reward)
   const [selectedReasons, setSelectedReasons] = useState<BalanceChangeReasonsKey[]>([])
   const timeoutReference = useRef<ReturnType<typeof setTimeout>>(undefined)
   const activeReference = useRef(false)
+
   const reasonsQuery = useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet()
   const createAwardMutation = useChangeStudentBalanceStudentStudentIdBalanceTransactionsPost({
     mutation: {
+      onError: () => {
+        toast.add({ title: t('award.error'), type: 'error' })
+      },
       onSuccess: async (_data, variables) => {
         await Promise.all([
           queryClient.invalidateQueries({
@@ -69,6 +77,10 @@ export function useBalanceChange(props: UseBalanceChangeProps) {
     setDirection(selectedDirection)
   }
 
+  function handleRetryReasons() {
+    void reasonsQuery.refetch()
+  }
+
   function handleReasonClick(reason: BalanceChangeReasonsKey) {
     if (!props.enabled || createAwardMutation.isPending) return
 
@@ -107,6 +119,6 @@ export function useBalanceChange(props: UseBalanceChangeProps) {
     state: { direction, selectedReasons, reasons, isPlus, isMinus, reasonTone },
     queries: { reasonsQuery },
     mutations: { createAwardMutation },
-    functions: { handleDirectionSelect, handleReasonClick },
+    functions: { handleDirectionSelect, handleReasonClick, handleRetryReasons },
   }
 }

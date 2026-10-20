@@ -14,6 +14,7 @@ import {
   DrawerTrigger,
   Loader,
 } from '#/components/ui'
+import { InlineError } from '#/routes/-components'
 
 import styles from './rules-drawer.module.css'
 
@@ -58,12 +59,9 @@ export function RulesDrawer(props: RulesDrawerProps) {
             </div>
           )}
           {reasonsQuery.isError && (
-            <div role="alert">
-              <p>{t('profile.rules.error')}</p>
-              <Button variant="link" onClick={handleRetry}>
-                {t('error.retry')}
-              </Button>
-            </div>
+            <InlineError onRetry={handleRetry} isRetrying={reasonsQuery.isFetching}>
+              {t('profile.rules.error')}
+            </InlineError>
           )}
           {reasonsQuery.isSuccess &&
             RULE_SECTIONS.map((section) => (

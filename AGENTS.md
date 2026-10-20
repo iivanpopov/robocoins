@@ -22,7 +22,7 @@ Single-context layout: root `GLOSSARY.md` plus `docs/adr/`. See `docs/agents/dom
 6. Keep object results from form, mutation, query, and similar hooks intact (e.g. `form`, `loginMutation`, `usersQuery`); access their properties through that object. Destructure tuple hooks such as `useState` and `useReducer` normally. `model` hooks may be destructured in this order: `refs`, `state`, `queries`, `mutations`, `functions`, `features`. The destructuring order is important. Destructure model hooks at one level only and access nested values through the object, e.g. `refs.swipe`; neither `refs: { swipe: swipeRef }` nor `const { swipe } = refs` is allowed. Don't destructure other values, e.g. `{ ... } = event`.
 7. Schemas are named in PascalCase with a `Schema` suffix, e.g. `RegisterStateSchema`, `StepNameSchema`.
 8. `cn()` only solution for merging classes, never use template literals for concatenating classNames.
-9. **Hook body order**: Arrange components and custom hooks in this order, skipping sections that are not needed:
+9. **Hook body order**: Arrange components and custom hooks in this order, skipping sections that are not needed. Separate each non-empty section from the next with a blank line:
    1. TanStack Router hooks (`useParams`, `useSearch`, `useNavigate`, `useRouteContext`, etc.).
    2. State hooks (`useState`, `useReducer`, `useRef`).
    3. Queries and mutations.

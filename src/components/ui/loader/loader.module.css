@@ -2,6 +2,12 @@
   animation: spin 1s linear infinite;
 }
 
+.grow {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);

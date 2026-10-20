@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { cn } from 'cn'
 
 import { Avatar, AvatarFallback, AvatarImage, Button, Loader, Typography } from '#/components/ui'
+import { InlineError } from '#/routes/-components'
 import { LOCALSTORAGE_LAST_LOG_ON, type Avatar as AvatarName } from '#/routes/-constants'
 import { getAvatarUrl, getInitial, getProductUrl } from '#/routes/-utils'
 
@@ -24,7 +25,7 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/')({
 
 function StudentPage() {
   const t = useTranslate()
-  const { state, queries } = useStudentPage()
+  const { state, queries, functions } = useStudentPage()
 
   return (
     <main className={styles.page}>
@@ -89,7 +90,12 @@ function StudentPage() {
           </div>
         )}
         {queries.history.isError && (
-          <Button onClick={() => queries.history.refetch()}>{t('profile.history.retry')}</Button>
+          <InlineError
+            onRetry={functions.handleRetryHistory}
+            isRetrying={queries.history.isFetching}
+          >
+            {t('group.error')}
+          </InlineError>
         )}
         {queries.history.isSuccess && !state.groups.length && <p>{t('profile.history.empty')}</p>}
         {state.groups.map((group) => (
@@ -113,7 +119,11 @@ function StudentPage() {
                   />
                   {transaction.isNew && <span aria-hidden="true" className={styles['icon-dot']} />}
                 </div>
-                <span>{t.unsafe(`reason.${transaction.reason}`)}</span>
+                <span>
+                  {(transaction.reason ?? [])
+                    .map((reason) => t.unsafe(`reason.${reason}`))
+                    .join(', ')}
+                </span>
                 <strong className={cn(transaction.isDeposit && styles['new-amount'])}>
                   {t('profile.history.amount', { count: transaction.signedAmount })}
                 </strong>

@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "gen:api": "kubb generate",
-    "dev": "vite dev",
+    "gen:api:dev": "bun --env-file=.env.development kubb generate",
+    "dev": "bun --bun --env-file=.env.development vite dev",
     "build": "vite build",
     "fmt": "oxfmt .",
     "lint": "oxlint .",
@@ -45,6 +46,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
+    "dotenv": "^18.0.8",
     "kubb": "^5.11.4",
     "lefthook": "^2.2.2",
     "oxfmt": "^0.74.0",

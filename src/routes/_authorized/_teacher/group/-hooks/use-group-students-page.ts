@@ -11,11 +11,14 @@ import { StudentSortOrder } from '../-constants'
 
 export function useGroupStudentsPage() {
   const params = useParams({ from: '/_authorized/_teacher/group/$groupId' })
+
   const [searchQuery, setSearchQuery] = useState('')
   const [sortOrder, setSortOrder] = useState<StudentSortOrder>(StudentSortOrder.NameAsc)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [selectedStudent, setSelectedStudent] = useState<
     (StudentProfileResponse & { avatar: Avatar }) | null
   >(null)
+
   const coursesQuery = useGetCoursesCourseGet()
   const groupQuery = useGetGroupByIdGroupIdGroupIdGet({
     path: { group_id: Number(params.groupId) },
@@ -31,10 +34,19 @@ export function useGroupStudentsPage() {
 
   function handleSelectStudent(student: StudentProfileResponse & { avatar: Avatar }) {
     setSelectedStudent(student)
+    setIsDrawerOpen(true)
   }
 
   function handleDrawerOpenChange(isOpen: boolean) {
+    setIsDrawerOpen(isOpen)
+  }
+
+  function handleDrawerOpenChangeComplete(isOpen: boolean) {
     if (!isOpen) setSelectedStudent(null)
+  }
+
+  function handleRetry() {
+    void groupQuery.refetch()
   }
 
   const students = (groupQuery.data?.students ?? []).map((student) => ({
@@ -61,12 +73,14 @@ export function useGroupStudentsPage() {
       groupId: Number(params.groupId),
       students: sortedStudents,
       hasStudents: !!sortedStudents.length,
-      selectedStudent,
+      selectedStudent:
+        students.find((student) => student.id === selectedStudent?.id) ?? selectedStudent,
       searchQuery,
       sortOrder,
-      isDrawerOpen: selectedStudent !== null,
+      isDrawerOpen,
       isPending: groupQuery.isPending,
       isError: groupQuery.isError,
+      isRetrying: groupQuery.isFetching,
     },
     queries: { group: groupQuery, courses: coursesQuery },
     functions: {
@@ -74,6 +88,8 @@ export function useGroupStudentsPage() {
       handleSortChange,
       handleSelectStudent,
       handleDrawerOpenChange,
+      handleDrawerOpenChangeComplete,
+      handleRetry,
     },
   }
 }

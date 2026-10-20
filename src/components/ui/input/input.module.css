@@ -10,12 +10,13 @@
   border: none;
   border-radius: var(--rounded-md);
 
-  &:focus-visible {
-    outline: 2px solid var(--brand);
-  }
-
   &::placeholder {
     color: var(--muted-foreground);
+    transition: color 0.15s ease;
+  }
+
+  &:focus::placeholder {
+    color: var(--brand);
   }
 
   &[data-disabled],

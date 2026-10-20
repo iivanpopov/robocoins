@@ -16,6 +16,10 @@
   width: 100%;
 }
 
+.loader {
+  align-items: center;
+}
+
 .header-info {
   display: flex;
   flex-direction: column;

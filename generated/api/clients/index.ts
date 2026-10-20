@@ -1,4 +1,5 @@
 export { assignGroupTeachersGroupIdGroupIdTeachersPut } from './assignGroupTeachersGroupIdGroupIdTeachersPut'
+export { cancelStudentTransactionStudentTransactionsTransactionIdCancelPost } from './cancelStudentTransactionStudentTransactionsTransactionIdCancelPost'
 export { changeStudentBalanceStudentStudentIdBalanceTransactionsPost } from './changeStudentBalanceStudentStudentIdBalanceTransactionsPost'
 export { createCourseCoursePost } from './createCourseCoursePost'
 export { createGroupGroupCreatePost } from './createGroupGroupCreatePost'
@@ -12,6 +13,7 @@ export { getGroupByNameGroupNameNameGet } from './getGroupByNameGroupNameNameGet
 export { getGroupsByCourseIdGroupCourseCourseIdGet } from './getGroupsByCourseIdGroupCourseCourseIdGet'
 export { getStudentBalanceByIdStudentStudentIdBalanceGet } from './getStudentBalanceByIdStudentStudentIdBalanceGet'
 export { getStudentByIdStudentStudentIdGet } from './getStudentByIdStudentStudentIdGet'
+export { getStudentCredentialsAuthMeCredentialsGet } from './getStudentCredentialsAuthMeCredentialsGet'
 export { getStudentTransactionHistoryStudentStudentIdTransactionsGet } from './getStudentTransactionHistoryStudentStudentIdTransactionsGet'
 export { getTeacherGroupsByCourseTeacherCourseCourseIdGroupsGet } from './getTeacherGroupsByCourseTeacherCourseCourseIdGroupsGet'
 export { getTeacherGroupsTeacherGroupsGet } from './getTeacherGroupsTeacherGroupsGet'
