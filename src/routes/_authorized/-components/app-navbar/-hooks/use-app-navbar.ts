@@ -6,8 +6,6 @@ import {
   type NavigateOptions,
 } from '@tanstack/react-router'
 
-import type { UserRoleKey } from '#/api/types'
-
 const NAVIGATION_ITEMS = {
   teacher: [
     { to: '/settings', icon: 'i-ph:gear', label: 'navbar.settings' },
