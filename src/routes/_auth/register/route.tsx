@@ -1,6 +1,7 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 import { z } from 'zod'
 
+import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
 import { courseCategory } from '#/api/types'
 
 import { RegisterProvider } from './-components/register-provider'
@@ -16,7 +17,10 @@ const RouteSearchSchema = z.object({
 export const Route = createFileRoute('/_auth/register')({
   component: RouteComponent,
   validateSearch: RouteSearchSchema,
-  loader: () => registerDraft.get(),
+  loader: async ({ context }) => {
+    await context.queryClient.query(getCoursesCourseGetQueryOptions())
+    return registerDraft.get()
+  },
 })
 
 function RouteComponent() {

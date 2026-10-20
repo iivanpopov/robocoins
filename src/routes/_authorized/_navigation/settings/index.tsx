@@ -21,7 +21,7 @@ function SettingsPage() {
       <h1 className={styles.title}>{t('navbar.settings')}</h1>
       <dl className={styles.details}>
         <dt className={styles.label}>{t('settings.name')}</dt>
-        <dd className={styles.name}>{state.user.name}</dd>
+        <dd className={styles.name}>{state.user?.name}</dd>
         {state.isPasswordVisible && queries.credentials.isSuccess && (
           <>
             <dt className={styles.label}>{t('settings.password')}</dt>
@@ -29,7 +29,7 @@ function SettingsPage() {
           </>
         )}
       </dl>
-      {state.user.role === 'student' && (
+      {state.user?.role === 'student' && (
         <>
           {state.isPasswordVisible && queries.credentials.isError && (
             <InlineError

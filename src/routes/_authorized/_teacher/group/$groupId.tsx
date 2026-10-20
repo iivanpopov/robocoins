@@ -2,6 +2,8 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { cn } from 'cn'
 
+import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
+import { getGroupByIdGroupIdGroupIdGetQueryOptions } from '#/api/hooks/useGetGroupByIdGroupIdGroupIdGet'
 import { Avatar, AvatarFallback, AvatarImage, IconButton, Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 import { getAvatarUrl, getInitial } from '#/routes/-utils'
@@ -12,6 +14,12 @@ import { useGroupStudentsPage } from './-hooks'
 import styles from './$groupId.module.css'
 
 export const Route = createFileRoute('/_authorized/_teacher/group/$groupId')({
+  loader: async ({ context, params }) => [
+    context.queryClient.query(
+      getGroupByIdGroupIdGroupIdGetQueryOptions({ path: { group_id: Number(params.groupId) } }),
+    ),
+    context.queryClient.query(getCoursesCourseGetQueryOptions()),
+  ],
   component: GroupStudentsPage,
 })
 

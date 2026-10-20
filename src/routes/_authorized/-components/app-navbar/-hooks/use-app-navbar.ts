@@ -1,5 +1,10 @@
 // @unocss-include
-import { useLocation, useNavigate, type NavigateOptions } from '@tanstack/react-router'
+import {
+  useLocation,
+  useNavigate,
+  useRouteContext,
+  type NavigateOptions,
+} from '@tanstack/react-router'
 
 import type { UserRoleKey } from '#/api/types'
 
@@ -15,7 +20,10 @@ const NAVIGATION_ITEMS = {
   ],
 } as const
 
-export function useAppNavbar(role: UserRoleKey) {
+export function useAppNavbar() {
+  const { user } = useRouteContext({ from: '/_authorized' })
+  const role = user?.role!
+
   const navigate = useNavigate()
   const pathname = useLocation({ select: (location) => location.pathname })
   const currentPath = pathname.replace(/\/+$/, '') || '/'

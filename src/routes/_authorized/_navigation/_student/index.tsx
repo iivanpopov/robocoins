@@ -2,6 +2,8 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute } from '@tanstack/react-router'
 import { cn } from 'cn'
 
+import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryOptions } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
+import { StudentProfileResponse } from '#/api/types'
 import { Avatar, AvatarFallback, AvatarImage, Button, Loader, Typography } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 import { COOKIE_MAX_AGE, LAST_LOG_ON_COOKIE, type Avatar as AvatarName } from '#/routes/-constants'
@@ -18,6 +20,15 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/')({
   beforeLoad: async () => {
     const lastLogOn = Number(await readCookie(LAST_LOG_ON_COOKIE)) || Date.now()
     return { lastLogOn }
+  },
+  loader: ({ context }) => {
+    const profile = context.user as StudentProfileResponse
+    return context.queryClient.query(
+      getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryOptions({
+        path: { student_id: profile.id },
+        query: { limit: 3 },
+      }),
+    )
   },
   onEnter: () => {
     if (import.meta.env.SSR) return

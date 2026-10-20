@@ -28,7 +28,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     })
     return { locale, user }
   },
-  headers: () => ({ 'Cache-Control': 'private, no-store', Vary: 'Cookie' }),
+  headers: () => ({ 'Cache-Control': 'private, no-store' }),
   head: () => ({
     meta: [
       { charSet: 'utf-8' },

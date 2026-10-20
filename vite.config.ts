@@ -3,6 +3,7 @@ import { sentryTanstackStart } from '@sentry/tanstackstart-react/vite'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import react from '@vitejs/plugin-react'
 import { nitro } from 'nitro/vite'
+import { visualizer } from 'rollup-plugin-visualizer'
 import unocss from 'unocss/vite'
 import { defineConfig, loadEnv } from 'vite'
 
@@ -49,6 +50,16 @@ export default defineConfig(({ mode }) => {
           filesToDeleteAfterUpload: ['./dist/**/*.map', './.vercel/output/**/*.map'],
         },
       }),
+      ...(mode === 'analyze'
+        ? [
+            visualizer({
+              filename: './dist/bundle-analysis.html',
+              open: true,
+              gzipSize: true,
+              brotliSize: true,
+            }),
+          ]
+        : []),
     ],
     build: {
       sourcemap: 'hidden',

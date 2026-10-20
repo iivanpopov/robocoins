@@ -2,6 +2,8 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute } from '@tanstack/react-router'
 import { cn } from 'cn'
 
+import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
+import { getTeacherGroupsTeacherGroupsGetQueryOptions } from '#/api/hooks/useGetTeacherGroupsTeacherGroupsGet'
 import { Chip, Loader } from '#/components/ui'
 import { CategoryIcon, InlineError } from '#/routes/-components'
 
@@ -11,6 +13,10 @@ import { useGroupPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_teacher/group/')({
+  loader: async ({ context }) => [
+    context.queryClient.query(getCoursesCourseGetQueryOptions()),
+    context.queryClient.query(getTeacherGroupsTeacherGroupsGetQueryOptions()),
+  ],
   component: GroupPage,
 })
 
