@@ -2,7 +2,7 @@
   "compilerOptions": {
     "paths": {
       "#/*": ["./src/*"],
-      "#/api/*": ["./generated/api/*"]
+      "#/api/*": ["./generated/api/*", "./generated/services/*"]
     }
   },
   "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],

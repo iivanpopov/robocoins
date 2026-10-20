@@ -10,7 +10,7 @@
     "types": ["vite/client", "bun"],
     "paths": {
       "#/*": ["./src/*"],
-      "#/api/*": ["./generated/api/*"]
+      "#/api/*": ["./generated/api/*", "./generated/services/*"]
     }
   },
   "include": ["src", "generated"]
