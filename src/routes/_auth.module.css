@@ -1,9 +1,11 @@
 .wrapper {
   --auth-padding-inline: var(--spacing-xl);
+  --auth-padding-block-start: 3.5rem;
+  --auth-padding-block-end: 1.5rem;
 
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 3.5rem var(--auth-padding-inline) 1.5rem;
+  padding: var(--auth-padding-block-start) var(--auth-padding-inline) var(--auth-padding-block-end);
   overflow-x: hidden;
 }

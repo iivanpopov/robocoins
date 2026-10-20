@@ -2,8 +2,8 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { cn } from 'cn'
 
-import { IconButton, Loader } from '#/components/ui'
-import { getAvatarUrl } from '#/routes/-utils/get-avatar-url'
+import { Avatar, AvatarFallback, AvatarImage, IconButton, Loader } from '#/components/ui'
+import { getAvatarUrl, getInitial } from '#/routes/-utils'
 
 import { StudentDrawer, StudentSearchBar } from './-components'
 import { useGroupStudentsPage } from './-hooks'
@@ -11,11 +11,11 @@ import { useGroupStudentsPage } from './-hooks'
 import styles from './$groupId.module.css'
 
 export const Route = createFileRoute('/_authorized/_teacher/group/$groupId')({
-  component: RouteComponent,
+  component: GroupStudentsPage,
 })
 
-function RouteComponent() {
-  const { state, functions, queries, mutations } = useGroupStudentsPage()
+function GroupStudentsPage() {
+  const { state, functions } = useGroupStudentsPage()
 
   const t = useTranslate()
 
@@ -34,8 +34,10 @@ function RouteComponent() {
           <h1 className={styles.title} title={state.courseName}>
             {state.courseName}
           </h1>
-          <span className={styles.schedule} title={state.schedule}>
-            {state.schedule}
+          <span className={styles.schedule}>
+            {state.schedule.weekday && t.unsafe(`weekday.${state.schedule.weekday}`)}
+            {state.schedule.weekday && state.schedule.time && ', '}
+            {state.schedule.time}
           </span>
         </div>
       </header>
@@ -54,7 +56,10 @@ function RouteComponent() {
       )}
       {state.isError && <div role="alert">{t('group.error')}</div>}
       {!state.isPending && !state.isError && !state.hasStudents && (
-        <div className={styles.empty}>{t('student.empty')}</div>
+        <div className={styles.empty}>
+          {!state.searchQuery && t('student.group-empty')}
+          {state.searchQuery && t('student.empty')}
+        </div>
       )}
 
       {state.hasStudents && (
@@ -64,15 +69,15 @@ function RouteComponent() {
               <article
                 key={student.id}
                 className={styles['student-card']}
-                onClick={() => functions.handleSelectStudent(student.id)}
+                onClick={() => functions.handleSelectStudent(student)}
               >
                 <div className={styles['card-left']}>
-                  <img
-                    src={getAvatarUrl(student.avatar)}
-                    alt={student.name}
-                    className={styles.avatar}
-                    draggable={false}
-                  />
+                  <Avatar size="lg">
+                    <AvatarImage src={getAvatarUrl(student.avatar)} alt={student.name} />
+                    <AvatarFallback role="img" aria-label={student.name}>
+                      {getInitial(student.name)}
+                    </AvatarFallback>
+                  </Avatar>
                   <span className={styles['student-name']}>{student.name}</span>
                 </div>
 
@@ -91,14 +96,9 @@ function RouteComponent() {
 
       <StudentDrawer
         open={state.isDrawerOpen}
+        groupId={state.groupId}
         student={state.selectedStudent}
-        awards={state.studentAwards}
         onOpenChange={functions.handleDrawerOpenChange}
-        onAward={functions.handleAward}
-        isPending={mutations.createAward.isPending}
-        isError={mutations.createAward.isError}
-        isHistoryPending={queries.awards.isPending}
-        isHistoryError={queries.awards.isError}
       />
     </div>
   )

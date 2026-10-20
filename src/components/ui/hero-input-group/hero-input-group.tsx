@@ -1,7 +1,7 @@
 import { cn } from 'cn'
 import type { ComponentProps, MouseEvent, ReactNode } from 'react'
 
-import { HeroInput, type HeroInputProps } from '../hero-input'
+import { focusInputGroup } from '../utils'
 
 import styles from './hero-input-group.module.css'
 
@@ -12,10 +12,7 @@ export interface HeroInputGroupProps extends ComponentProps<'div'> {
 export function HeroInputGroup({ className, children, onClick, ...props }: HeroInputGroupProps) {
   const handleClick = (event: MouseEvent<HTMLDivElement>) => {
     onClick?.(event)
-
-    if ((event.target as HTMLElement).closest('button')) return
-
-    event.currentTarget.querySelector('input')?.focus()
+    focusInputGroup(event, event.currentTarget)
   }
 
   return (
@@ -29,12 +26,6 @@ export function HeroInputGroup({ className, children, onClick, ...props }: HeroI
       {children}
     </div>
   )
-}
-
-export interface HeroInputGroupInputProps extends HeroInputProps {}
-
-export function HeroInputGroupInput({ className, ...props }: HeroInputGroupInputProps) {
-  return <HeroInput {...props} className={className} />
 }
 
 export interface HeroInputGroupButtonProps extends ComponentProps<'button'> {}

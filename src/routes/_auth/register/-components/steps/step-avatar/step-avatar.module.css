@@ -1,3 +1,21 @@
+.avatar {
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.next-button {
+  margin-top: 4rem;
+}
+
 :root:active-view-transition-type(register-avatar) [data-active] > .avatar {
   view-transition-name: register-avatar;
+}
+
+.suggest-avatar {
+  align-self: flex-start;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: left;
 }

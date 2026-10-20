@@ -4,11 +4,13 @@
   position: relative;
   width: 100%;
 
-  > div {
+  &::after {
     position: absolute;
     inset: 0;
     z-index: -10;
     width: 100%;
+    pointer-events: none;
+    content: '';
     background: var(--foreground);
     border-radius: var(--radius);
     opacity: 1;
@@ -19,13 +21,13 @@
   }
 
   &:has(button[aria-expanded='true']) {
-    > div {
+    &::after {
       transform: translate(0, 0);
     }
   }
 
   &:has(.trigger[data-disabled]) {
-    > div {
+    &::after {
       opacity: 0;
     }
   }

@@ -1,19 +1,19 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import {
+  Button,
   HeroButton,
   HeroCarousel,
   HeroCarouselContent,
   HeroCarouselItem,
   Typography,
 } from '#/components/ui'
-import { getAvatarUrl } from '#/routes/-utils/get-avatar-url'
+import { AVATARS } from '#/routes/-constants'
+import { getAvatarUrl } from '#/routes/-utils'
 import { AuthLayout } from '#/routes/_auth/-components'
 
-import { AVATARS } from '../../../-constants'
 import { RegisterBackCaption } from '../../register-back-caption'
-import { useStepAvatar } from './hooks'
+import { useStepAvatar } from './-hooks'
 
 import styles from './step-avatar.module.css'
 
@@ -27,6 +27,9 @@ export function StepAvatar() {
       <AuthLayout.Root>
         <AuthLayout.Top>
           <Typography variant="title">{t('step.avatar.title')}</Typography>
+          <Button type="button" variant="link" className={styles['suggest-avatar']}>
+            {t('step.avatar.suggest')}
+          </Button>
         </AuthLayout.Top>
         <AuthLayout.Bottom style={{ marginTop: 0 }}>
           <HeroCarousel
@@ -41,14 +44,14 @@ export function StepAvatar() {
                     src={getAvatarUrl(avatar)}
                     alt={avatar}
                     draggable={false}
-                    className={cn(styles.avatar, 'w-full h-auto select-none pointer-events-none')}
+                    className={styles.avatar}
                   />
                 </HeroCarouselItem>
               ))}
             </HeroCarouselContent>
           </HeroCarousel>
 
-          <HeroButton type="submit" className="mt-8">
+          <HeroButton type="submit" className={styles['next-button']}>
             {t('action.next.title')}
           </HeroButton>
           <RegisterBackCaption search={state.previousSearch} />

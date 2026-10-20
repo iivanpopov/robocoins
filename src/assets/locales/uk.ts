@@ -18,6 +18,7 @@ export default {
   'field.name.placeholder': "Твоє ім'я",
   'field.password.show': 'Показати пароль',
   'field.password.hide': 'Приховати пароль',
+  'field.password.placeholder': 'Твій пароль',
   'caption.has-account': 'Маєш акаунт?{#br/}{#a to=$to}Увійти{/a}',
   'caption.has-no-account': 'Немає акаунту?{#br/}{#a to=$to}Зареєструватися{/a}',
   'caption.mistake':
@@ -41,6 +42,7 @@ export default {
     python {{Програмування на Python}}
     * {{Інші напрямки}}`,
   'step.avatar.title': 'Обери аватар',
+  'step.avatar.suggest': 'Запропонувати аватар, якщо бажаного нема.',
   'step.view.title': 'Правильно?',
   'step.success.title': 'Вітаю!',
   'step.success.subtitle': 'Твій акаунт створено',
@@ -69,6 +71,7 @@ export default {
     * {{{$count} учня}}`,
   'group.back': 'Назад до вибору груп',
   'student.empty': 'Учнів за вашим запитом не знайдено',
+  'student.group-empty': 'У цій групі ще немає учнів',
   'field.student-search.placeholder': 'Пошук учня за іменем...',
   'action.clear-search.title': 'Очистити пошук',
   'sort.title': 'Сортування',
@@ -90,6 +93,8 @@ export default {
   'award.reward': 'Нагородити',
   'award.punish': 'Покарати',
   'award.history.title': 'Історія нагород',
+  'award.history.all': 'Уся',
+  'award.history.view-all': 'Уся історія нагород',
   'award.history.empty': 'Історія нагород порожня',
   'action.revert.title': 'Скасувати',
   'reason.activity': 'Активність на уроці',
@@ -103,6 +108,33 @@ export default {
   'reason.incomplete': 'Невиконання завдання',
   'reason.other': 'Інше',
   'profile.balance.amount': '{$count :number}',
+  'profile.goal.product': 'Набір Arduino Uno',
+  'profile.goal.target': 'із {$count :number}',
+  'profile.goal.remaining': `
+    .input {$count :number}
+    .match $count
+    one {{Залишився {$count} робокоїн}}
+    few {{Залишилося {$count} робокоїни}}
+    many {{Залишилося {$count} робокоїнів}}
+    * {{Залишилося {$count} робокоїна}}`,
+  'profile.history.title': 'Історія',
+  'profile.history.all': 'Уся історія ›',
+  'profile.history.loading': 'Завантаження історії…',
+  'profile.history.retry': 'Повторити завантаження історії',
+  'profile.history.empty': 'Операцій поки немає',
+  'profile.history.today': 'Сьогодні',
+  'profile.history.yesterday': 'Учора',
+  'profile.history.date': '{$date :datetime year=numeric month=|2-digit| day=|2-digit|}',
+  'profile.history.amount': '{$count :number signDisplay=always}',
+  'profile.rules': 'За що дають робокоїни?',
+  'profile.rules.title': 'Як працюють робокоїни',
+  'profile.rules.description': 'Викладач нараховує або списує робокоїни з таких причин.',
+  'profile.rules.reward': 'За що нараховують',
+  'profile.rules.punish': 'За що списують',
+  'profile.rules.loading': 'Завантаження правил…',
+  'profile.rules.error': 'Не вдалося завантажити правила.',
+  'profile.rules.close': 'Зрозуміло',
+  'reason.balance-change': 'Зміна балансу',
   'profile.balance.caption': `
     .input {$count :number}
     .match $count

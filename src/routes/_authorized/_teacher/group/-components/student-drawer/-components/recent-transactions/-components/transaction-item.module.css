@@ -1,0 +1,97 @@
+.container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  touch-action: pan-y;
+  background: var(--taupe-100);
+  border-radius: var(--rounded-md);
+}
+
+.swiping {
+  background: var(--red-600);
+}
+
+.undo-indicator {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: var(--spacing-lg);
+  font-size: 1.5rem;
+  color: var(--surface);
+  opacity: 0.6;
+  transition: opacity 0.15s ease;
+}
+
+.ready .undo-indicator {
+  opacity: 1;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  width: 100%;
+  padding: var(--spacing-sm);
+  font-family: inherit;
+  text-align: left;
+  cursor: grab;
+  user-select: none;
+  background: var(--taupe-100);
+  border: 1.5px solid transparent;
+  border-radius: var(--rounded-md);
+  transition: transform 0.2s ease;
+}
+
+.dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.amount {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  border-radius: var(--rounded-full);
+}
+
+.amount-plus {
+  color: var(--brand);
+  background: oklch(from var(--brand) l c h / 14%);
+}
+
+.amount-minus {
+  color: var(--red-600);
+  background: oklch(from var(--red-600) l c h / 14%);
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.reason {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.time {
+  font-size: 0.6875rem;
+  color: var(--muted-foreground);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item,
+  .undo-indicator {
+    transition: none;
+  }
+}

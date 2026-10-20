@@ -46,20 +46,6 @@ export function Carousel({ opts, plugins, setApi, className, children, ...props 
   const [carouselRef, api] = useEmblaCarousel({ ...opts, axis: 'x' }, plugins)
   const [selectedIndex, setSelectedIndex] = useState(opts?.startIndex ?? 0)
 
-  const scrollPrev = useCallback(() => api?.scrollPrev(), [api])
-  const scrollNext = useCallback(() => api?.scrollNext(), [api])
-  const scrollTo = useCallback((index: number) => api?.scrollTo(index), [api])
-
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === 'ArrowLeft') {
-      event.preventDefault()
-      scrollPrev()
-    } else if (event.key === 'ArrowRight') {
-      event.preventDefault()
-      scrollNext()
-    }
-  }
-
   useEffect(() => {
     if (!api || !setApi) return
     setApi(api)
@@ -79,6 +65,20 @@ export function Carousel({ opts, plugins, setApi, className, children, ...props 
       api.off('select', onSelect)
     }
   }, [api])
+
+  const scrollPrev = useCallback(() => api?.scrollPrev(), [api])
+  const scrollNext = useCallback(() => api?.scrollNext(), [api])
+  const scrollTo = useCallback((index: number) => api?.scrollTo(index), [api])
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault()
+      scrollPrev()
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault()
+      scrollNext()
+    }
+  }
 
   return (
     <CarouselContext value={{ carouselRef, api, selectedIndex, scrollPrev, scrollNext, scrollTo }}>

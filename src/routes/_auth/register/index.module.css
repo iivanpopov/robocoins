@@ -1,11 +1,56 @@
 .root {
+  position: relative;
   display: flex;
   flex: 1;
   flex-direction: column;
   min-width: 0;
-  padding-inline: var(--auth-padding-inline);
+  margin-block: calc(-1 * var(--auth-padding-block-start)) calc(-1 * var(--auth-padding-block-end));
   margin-inline: calc(-1 * var(--auth-padding-inline));
+  isolation: isolate;
+}
+
+.decoration {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: clip;
+  pointer-events: none;
+  user-select: none;
+  view-transition-name: register-watermark;
+}
+
+.watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: clamp(48rem, 180vmax, 120rem);
+  color: color-mix(in srgb, var(--brand) 8%, var(--background));
+  transform: translate(-50%, -50%) rotate(-15deg);
+}
+
+.content {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  padding-block: var(--auth-padding-block-start) var(--auth-padding-block-end);
+  padding-inline: var(--auth-padding-inline);
   view-transition-name: slide-content;
+}
+
+:root:active-view-transition-type(slide-forward),
+:root:active-view-transition-type(slide-backward) {
+  &::view-transition-group(register-watermark) {
+    animation: none;
+  }
+
+  &::view-transition-old(register-watermark),
+  &::view-transition-new(register-watermark) {
+    mix-blend-mode: normal;
+    animation: none;
+  }
 }
 
 :root:active-view-transition-type(register-avatar) {

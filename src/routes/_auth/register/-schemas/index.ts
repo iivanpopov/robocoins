@@ -1,8 +1,7 @@
 import { z } from 'zod'
 
 import { courseCategory } from '#/api/types'
-
-import { AVATARS } from '../-constants'
+import { AVATARS } from '#/routes/-constants'
 
 export const RegisterDraftSchema = z.object({
   version: z.literal(3).default(3),

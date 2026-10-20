@@ -1,0 +1,59 @@
+.header {
+  text-align: left;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  text-align: left;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+}
+
+.reward {
+  --accent: var(--brand);
+}
+
+.punish {
+  --accent: var(--error-hover);
+}
+
+.heading {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  margin: 0 0 var(--spacing-md);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+
+.icon {
+  flex-shrink: 0;
+  font-size: 1.375rem;
+  color: var(--accent);
+}
+
+.reasons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding-left: 2rem;
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.5;
+  list-style: disc;
+}
+
+.reasons li::marker {
+  color: var(--accent);
+}
+
+.close {
+  width: 100%;
+}

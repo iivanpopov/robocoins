@@ -1,0 +1,29 @@
+.category-theme {
+  --category-color: var(--taupe-700);
+  --category-background: var(--taupe-100);
+}
+
+.category-theme[data-category='game dev'] {
+  --category-color: var(--violet-700);
+  --category-background: var(--violet-100);
+}
+
+.category-theme[data-category='web'] {
+  --category-color: var(--amber-700);
+  --category-background: var(--amber-100);
+}
+
+.category-theme[data-category='embedded'] {
+  --category-color: var(--teal-700);
+  --category-background: var(--teal-100);
+}
+
+.category-theme[data-category='primary'] {
+  --category-color: var(--rose-700);
+  --category-background: var(--rose-100);
+}
+
+.category-theme[data-category='python'] {
+  --category-color: var(--blue-700);
+  --category-background: var(--blue-100);
+}

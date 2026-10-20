@@ -1,89 +1,127 @@
+import { useTranslate } from '@kanjou/react'
 import { createFileRoute } from '@tanstack/react-router'
 import { cn } from 'cn'
 
-import { Button, Typography } from '#/components/ui'
-import { getAvatarUrl } from '#/routes/-utils/get-avatar-url'
+import { Avatar, AvatarFallback, AvatarImage, Button, Loader, Typography } from '#/components/ui'
+import { LOCALSTORAGE_LAST_LOG_ON, type Avatar as AvatarName } from '#/routes/-constants'
+import { getAvatarUrl, getInitial, getProductUrl } from '#/routes/-utils'
+
+import { RulesDrawer } from './-components'
+import { CURRENT_TARGET_PRODUCT, GOAL_BALANCE } from './-constants'
+import { useStudentPage } from './-hooks'
 
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_student/')({
-  component: MockHomePage,
+  beforeLoad: () => ({
+    lastLogOn: Number(localStorage.getItem(LOCALSTORAGE_LAST_LOG_ON)) || Date.now(),
+  }),
+  onEnter: () => {
+    localStorage.setItem(LOCALSTORAGE_LAST_LOG_ON, String(Date.now()))
+  },
+  component: StudentPage,
 })
 
-function MockHomePage() {
+function StudentPage() {
+  const t = useTranslate()
+  const { state, queries } = useStudentPage()
+
   return (
     <main className={styles.page}>
       <header className={styles.header}>
-        <img className={styles.avatar} src={getAvatarUrl('dreamy')} alt="Аватар Аліси" />
+        <Avatar>
+          <AvatarImage
+            src={getAvatarUrl(state.profile.avatar as AvatarName)}
+            alt={state.profile.name}
+          />
+          <AvatarFallback role="img" aria-label={state.profile.name}>
+            {getInitial(state.profile.name)}
+          </AvatarFallback>
+        </Avatar>
         <Typography className={styles.name} variant="subtitle">
-          Аліса
+          {state.profile.name}
         </Typography>
-        <Button className={styles.balance} variant="ghost">
-          <span>120</span>
+        <div className={styles.balance}>
+          <span>{t('profile.balance.amount', { count: state.profile.balance })}</span>
           <div aria-hidden="true" className={cn('i-ph:coins-bold', styles['coin-icon'])} />
-        </Button>
+        </div>
       </header>
-      <article className={styles.goal} onClick={() => {}} role="button" tabIndex={0}>
-        <img className={styles.product} src="/images/products/arduino-uno.webp" alt="Arduino Uno" />
+      <article className={styles.goal}>
+        <img
+          className={styles.product}
+          src={getProductUrl(CURRENT_TARGET_PRODUCT)}
+          alt={t('profile.goal.product')}
+        />
         <div className={styles['product-heading']}>
           <Typography className={styles['product-name']} variant="subtitle">
-            Набір Arduino Uno
+            {t('profile.goal.product')}
           </Typography>
           <div aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.chevron)} />
         </div>
         <p className={styles.amount}>
-          <strong>120</strong> із 200 <span aria-hidden="true" className="i-ph:coins-bold" />
+          <strong>{t('profile.balance.amount', { count: state.profile.balance })}</strong>{' '}
+          {t('profile.goal.target', { count: GOAL_BALANCE })}{' '}
+          <span aria-hidden="true" className="i-ph:coins-bold" />
         </p>
         <div className={styles.progress}>
-          <span />
+          <span data-active={state.profile.balance > 0} style={{ width: state.goalProgress }} />
         </div>
         <Typography className={styles.label} variant="caption">
-          Залишилося 80 робокоїнів
+          {t('profile.goal.remaining', { count: state.remainingBalance })}
         </Typography>
       </article>
       <section className={styles.history}>
         <div className={styles['section-heading']}>
           <Typography className={styles['history-title']} variant="subtitle">
-            Історія
+            {t('profile.history.title')}
           </Typography>
           <Button className={styles['all-button']} variant="link">
-            Усі ›
+            {t('profile.history.all')}
           </Button>
         </div>
-        <div className={styles['day-heading']}>
-          <span>Сьогодні</span>
-          <span>+5</span>
-        </div>
-        <div className={cn(styles.operation, styles['operation-today'])}>
-          <div className={styles['operation-icon']}>
-            <div aria-hidden="true" className="i-ph:trophy-bold" />
-            <div className={styles['icon-dot']} />
+        {queries.history.isPending && (
+          <div
+            className={styles['history-loading']}
+            role="status"
+            aria-label={t('profile.history.loading')}
+          >
+            <Loader />
           </div>
-          <span>Завершив проєкт</span>
-          <strong className={styles['new-amount']}>+2</strong>
-        </div>
-        <div className={cn(styles.operation, styles['operation-today'])}>
-          <div className={styles['operation-icon']}>
-            <div aria-hidden="true" className="i-ph:handshake-bold" />
-            <div className={styles['icon-dot']} />
+        )}
+        {queries.history.isError && (
+          <Button onClick={() => queries.history.refetch()}>{t('profile.history.retry')}</Button>
+        )}
+        {queries.history.isSuccess && !state.groups.length && <p>{t('profile.history.empty')}</p>}
+        {state.groups.map((group) => (
+          <div key={group.date}>
+            <div className={styles['day-heading']}>
+              <span>{group.date}</span>
+              <span>{group.total}</span>
+            </div>
+            {group.transactions.map((transaction) => (
+              <div
+                className={cn(styles.operation, transaction.isNew && styles['operation-today'])}
+                key={transaction.id}
+              >
+                <div className={styles['operation-icon']}>
+                  <div
+                    aria-hidden="true"
+                    className={cn(
+                      transaction.isDeposit && 'i-ph:trophy-bold',
+                      !transaction.isDeposit && 'i-ph:minus-circle-bold',
+                    )}
+                  />
+                  {transaction.isNew && <span aria-hidden="true" className={styles['icon-dot']} />}
+                </div>
+                <span>{t.unsafe(`reason.${transaction.reason}`)}</span>
+                <strong className={cn(transaction.isDeposit && styles['new-amount'])}>
+                  {t('profile.history.amount', { count: transaction.signedAmount })}
+                </strong>
+              </div>
+            ))}
           </div>
-          <span>Допоміг команді</span>
-          <strong className={styles['new-amount']}>+3</strong>
-        </div>
-        <div className={styles['day-heading']}>
-          <span>Учора</span>
-          <span>−3</span>
-        </div>
-        <div className={styles.operation}>
-          <div className={styles['operation-icon']}>
-            <div aria-hidden="true" className="i-ph:shopping-bag-bold" />
-          </div>
-          <span>Набір для експериментів</span>
-          <strong>−3</strong>
-        </div>
-        <Button className={styles['rules-button']} variant="link">
-          За що дають робокоїни?
-        </Button>
+        ))}
+        <RulesDrawer className={styles['rules-button']} />
       </section>
     </main>
   )

@@ -25,17 +25,16 @@
   min-width: 48px;
   min-height: 48px;
   padding: var(--spacing-sm);
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 550;
   color: var(--muted-foreground);
-  background: var(--surface);
+  background: transparent;
   border: none;
   border-radius: var(--rounded-full);
   transition:
     flex-grow 360ms cubic-bezier(0.22, 1, 0.36, 1),
     flex-basis 360ms cubic-bezier(0.22, 1, 0.36, 1),
     gap 360ms cubic-bezier(0.22, 1, 0.36, 1),
-    background-color 240ms ease,
     color 240ms ease;
 
   > [aria-hidden='true'] {
@@ -63,7 +62,6 @@
     flex: 2 1 160px;
     gap: var(--spacing-sm);
     color: var(--brand);
-    background: var(--blue-50);
 
     > :not([aria-hidden='true']) {
       max-width: 150px;

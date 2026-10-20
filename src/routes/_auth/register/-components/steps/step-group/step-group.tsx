@@ -22,7 +22,11 @@ export function StepGroup() {
   const t = useTranslate()
 
   return (
-    <form className={styles.form} onSubmit={functions.handleSubmit}>
+    <form
+      className={cn('category-theme', styles.form)}
+      data-category={state.course?.category}
+      onSubmit={functions.handleSubmit}
+    >
       <DrawerHeader className={styles.header}>
         <DrawerTitle className={styles.title}>{t('step.group.title')}</DrawerTitle>
         <DrawerDescription className={styles.description}>{state.course?.name}</DrawerDescription>
@@ -38,11 +42,10 @@ export function StepGroup() {
             <button
               key={group.id}
               type="button"
-              className={cn(styles.group, state.selectedGroupId === group.id && styles.selected)}
+              className={cn('category-choice', styles.group)}
               aria-pressed={state.selectedGroupId === group.id}
               onClick={() => functions.handleSelectGroup(group.id)}
             >
-              <span aria-hidden="true" className={cn('i-ph:clock', styles.clock)} />
               <span className={styles.schedule}>
                 {schedule.weekday && (
                   <span className={styles.weekday}>{t(`weekday.${schedule.weekday}`)}</span>
@@ -53,11 +56,13 @@ export function StepGroup() {
           )
         })}
       </div>
-      <DrawerFooter className={styles.footer}>
-        <Button type="submit" size="lg" disabled={!state.canSubmit}>
-          {t('action.next.title')}
-        </Button>
-      </DrawerFooter>
+      {!!state.course?.groups?.length && (
+        <DrawerFooter className={styles.footer}>
+          <Button type="submit" size="lg" disabled={!state.canSubmit}>
+            {t('action.next.title')}
+          </Button>
+        </DrawerFooter>
+      )}
     </form>
   )
 }

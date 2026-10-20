@@ -77,9 +77,7 @@ export function SelectItem({ className, children, ...props }: SelectItemProps) {
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator
         className={styles.indicator}
-        render={({ children: _children, ...indicatorProps }) => (
-          <span {...indicatorProps} className="i-ph:check-bold" />
-        )}
+        render={<span className="i-ph:check-bold" />}
       />
     </SelectPrimitive.Item>
   )

@@ -44,11 +44,14 @@ export function StepCourse() {
             <button
               type="button"
               key={course.id}
-              className={cn(styles.course, state.selectedCourseId === course.id && styles.selected)}
+              data-category={course.category}
+              className={cn('category-theme', 'category-choice', styles.course)}
               aria-pressed={state.selectedCourseId === course.id}
               onClick={() => functions.handleSelectCourse(course.id)}
             >
-              <CategoryIcon category={course.category} className={styles['category-icon']} />
+              <div className="category-tile">
+                <CategoryIcon category={course.category} />
+              </div>
               <div>
                 <Typography variant="subtitle">{course.name}</Typography>
                 {state.selectedCourseId === course.id && state.selectedGroup && (
@@ -78,7 +81,9 @@ export function StepCourse() {
         onOpenChange={functions.handleDrawerOpenChange}
         showSwipeHandle
       >
-        <DrawerContent>{state.isDrawerOpen && <StepGroup />}</DrawerContent>
+        <DrawerContent>
+          <StepGroup />
+        </DrawerContent>
       </Drawer>
     </AuthLayout.Root>
   )

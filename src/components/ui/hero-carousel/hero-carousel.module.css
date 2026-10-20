@@ -26,19 +26,46 @@
   padding: var(--spacing-md);
   cursor: pointer;
   outline: none;
-  background: var(--surface);
   border: 3px solid transparent;
   border-radius: var(--rounded-xl);
-  box-shadow: 0 0 0 var(--foreground);
+  isolation: isolate;
   transform: scale(0.65);
   transition:
     transform 200ms cubic-bezier(0.165, 0.84, 0.44, 1),
-    border-color 200ms ease-in-out,
-    box-shadow 200ms cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-color 200ms ease-in-out;
+
+  &::before,
+  &::after {
+    position: absolute;
+    pointer-events: none;
+    content: '';
+    border-radius: inherit;
+  }
+
+  &::before {
+    inset: 0;
+    z-index: -1;
+    background: var(--surface);
+  }
+
+  &::after {
+    inset: -3px;
+    z-index: -2;
+    background: var(--foreground);
+    opacity: 0;
+    transform: translate(0, 0);
+    transition:
+      transform 200ms cubic-bezier(0.165, 0.84, 0.44, 1),
+      opacity 200ms ease-in-out;
+  }
 
   &[data-active] {
     border-color: var(--foreground);
-    box-shadow: 0.75rem 0.75rem 0 var(--foreground);
     transform: scale(1);
+
+    &::after {
+      opacity: 1;
+      transform: translate(0.75rem, 0.75rem);
+    }
   }
 }

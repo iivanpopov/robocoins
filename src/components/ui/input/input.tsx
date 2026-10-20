@@ -8,6 +8,11 @@ export interface InputProps extends Omit<InputPrimitive.Props, 'size'> {
   size?: 'sm' | 'md' | 'lg'
 }
 
-export function Input({ variant = 'contain', size = 'md', ...props }: InputProps) {
-  return <InputPrimitive {...props} className={cn(styles.input, styles[variant], styles[size])} />
+export function Input({ variant = 'contain', size = 'md', className, ...props }: InputProps) {
+  return (
+    <InputPrimitive
+      {...props}
+      className={cn(styles.input, styles[variant], styles[size], className)}
+    />
+  )
 }

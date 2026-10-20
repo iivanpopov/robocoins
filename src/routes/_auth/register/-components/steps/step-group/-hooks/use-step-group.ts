@@ -3,7 +3,7 @@ import type { SyntheticEvent } from 'react'
 import { useGetCoursesCourseGet } from '#/api/hooks'
 
 import { useRegisterCategoryStep } from '../../../../-hooks'
-import { getSelectedCoursesOutsideCategory } from '../../../../-utils'
+import { filterGroupIdsByCourses, getSelectedCoursesOutsideCategory } from '../../../../-utils'
 import { useRegisterDraft } from '../../../register-provider'
 
 export function useStepGroup() {
@@ -23,12 +23,7 @@ export function useStepGroup() {
       register.state,
       navigation.category,
     )
-    const otherGroupIds =
-      register.state.groupIds?.filter((groupId) =>
-        otherCourses.some((otherCourse) =>
-          otherCourse.groups?.some((otherGroup) => otherGroup.id === groupId),
-        ),
-      ) ?? []
+    const otherGroupIds = filterGroupIdsByCourses(otherCourses, register.state.groupIds) ?? []
     register.setState({ groupIds: [...otherGroupIds, id] })
   }
 

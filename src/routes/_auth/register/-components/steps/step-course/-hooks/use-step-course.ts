@@ -4,14 +4,14 @@ import { useGetCoursesCourseGet } from '#/api/hooks'
 
 import { RegisterStep } from '../../../../-constants'
 import { useRegisterCategoryStep } from '../../../../-hooks'
-import { getSelectedCoursesOutsideCategory } from '../../../../-utils'
+import { filterGroupIdsByCourses, getSelectedCoursesOutsideCategory } from '../../../../-utils'
 import { useRegisterDraft } from '../../../register-provider'
 
 export function useStepCourse() {
   const register = useRegisterDraft()
   const navigate = useNavigate({ from: '/register' })
-  const coursesQuery = useGetCoursesCourseGet()
   const search = useSearch({ from: '/_auth/register' })
+  const coursesQuery = useGetCoursesCourseGet()
   const navigation = useRegisterCategoryStep()
 
   const courses =
@@ -44,9 +44,7 @@ export function useStepCourse() {
 
     register.setState({
       courseIds: selectedCourses.map((course) => course.id),
-      groupIds: register.state.groupIds?.filter((groupId) =>
-        selectedCourses.some((course) => course.groups?.some((item) => item.id === groupId)),
-      ),
+      groupIds: filterGroupIdsByCourses(selectedCourses, register.state.groupIds),
     })
     void navigate({
       search: { step: RegisterStep.Course, category: navigation.category, drawer: 'group' },

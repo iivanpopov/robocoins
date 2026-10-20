@@ -6,6 +6,7 @@ import type { CourseCategoryKey } from '#/api/types'
 
 import { StepCategorySchema } from '../-schemas'
 import { RegisterStep } from '../../../../-constants'
+import { filterGroupIdsByCourses } from '../../../../-utils'
 import { useRegisterDraft } from '../../../register-provider'
 
 export function useStepCategory() {
@@ -43,11 +44,9 @@ export function useStepCategory() {
     register.setState({
       categories: nextCategories,
       courseIds,
-      groupIds: register.state.groupIds?.filter((groupId) =>
-        courses.some(
-          (course) =>
-            courseIds.includes(course.id) && course.groups?.some((item) => item.id === groupId),
-        ),
+      groupIds: filterGroupIdsByCourses(
+        courses.filter((course) => courseIds.includes(course.id)),
+        register.state.groupIds,
       ),
     })
   }

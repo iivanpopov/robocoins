@@ -2,6 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { Navigate } from '@tanstack/react-router'
 
 import { HeroButton, IconButton, Typography } from '#/components/ui'
+import { useBoolean } from '#/hooks'
 
 import { RegisterStep } from '../../../-constants'
 import { useStepSuccess } from './-hooks'
@@ -10,8 +11,11 @@ import styles from './step-success.module.css'
 
 export function StepSuccess() {
   const { state, mutations, functions } = useStepSuccess()
+  const [isRevealed, toggleRevealed] = useBoolean()
   const t = useTranslate()
-  const passwordLabel = state.isRevealed ? t('field.password.hide') : t('field.password.show')
+
+  let passwordLabel = t('field.password.show')
+  if (isRevealed) passwordLabel = t('field.password.hide')
 
   if (!state.accessCode) {
     return <Navigate to="/register" search={{ step: RegisterStep.Name }} replace />
@@ -31,19 +35,19 @@ export function StepSuccess() {
           </div>
           <div className={styles.password}>
             <span className={styles.code}>
-              {state.isRevealed && state.accessCode}
-              {!state.isRevealed && '••••••••'}
+              {isRevealed && state.accessCode}
+              {!isRevealed && '••••••••'}
             </span>
             <IconButton
               type="button"
               variant="ghost"
               size="lg"
-              aria-pressed={state.isRevealed}
+              aria-pressed={isRevealed}
               aria-label={passwordLabel}
-              onClick={functions.handleToggleRevealed}
+              onClick={() => toggleRevealed()}
             >
-              {state.isRevealed && <span className="i-ph:eye-slash-bold" />}
-              {!state.isRevealed && <span className="i-ph:eye-bold" />}
+              {isRevealed && <span className="i-ph:eye-slash-bold" />}
+              {!isRevealed && <span className="i-ph:eye-bold" />}
             </IconButton>
           </div>
         </div>

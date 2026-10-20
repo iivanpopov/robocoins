@@ -1,6 +1,6 @@
 import { Outlet, createFileRoute } from '@tanstack/react-router'
 
-import { AppNavbar } from './-components/app-navbar'
+import { AppNavbar } from './-components'
 
 import styles from './_navigation.module.css'
 

@@ -1,8 +1,3 @@
-.avatar {
-  width: 2.5rem;
-  height: 2.5rem;
-}
-
 :root:active-view-transition-type(register-avatar) .avatar {
   view-transition-name: register-avatar;
 }
@@ -16,6 +11,9 @@
 }
 
 .card {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
   padding: var(--spacing-lg);
   background: var(--surface);
   border-radius: var(--rounded-md);
@@ -23,16 +21,31 @@
 
 .schedule {
   display: flex;
-  gap: var(--spacing-md);
-  align-items: center;
-  margin-top: var(--spacing-md);
+  flex-direction: column;
   font-size: 1.125rem;
   line-height: 1.4;
+  color: var(--muted-foreground);
 }
 
-.label {
+.category-icon {
   display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--category-icon-size, 4rem);
+  height: var(--category-icon-size, 4rem);
+  font-size: calc(var(--category-icon-size, 4rem) * 0.65);
+  color: var(--category-color);
+  background: var(--category-background);
+  border-radius: var(--rounded-md);
+}
+
+.details {
+  display: flex;
+  flex: 1;
   flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 0;
 }
 
 .weekday {
@@ -41,10 +54,4 @@
 
 .time {
   font-weight: 450;
-}
-
-.clock {
-  flex-shrink: 0;
-  font-size: 1.5rem;
-  color: var(--brand);
 }

@@ -8,7 +8,6 @@
   background: var(--surface);
   border: none;
   border-radius: var(--rounded-md);
-  transition: box-shadow 0.15s ease;
 
   &:has(textarea) {
     height: auto;
@@ -17,7 +16,7 @@
 
   &[data-invalid='true'],
   &:has([aria-invalid='true']) {
-    box-shadow: 0 0 0 2px var(--error);
+    outline: 2px solid var(--error);
   }
 
   &[data-disabled='true'],
@@ -27,7 +26,7 @@
   }
 
   &:focus-within {
-    box-shadow: 0 0 0 2px var(--brand);
+    outline: 2px solid var(--brand);
   }
 }
 
@@ -99,24 +98,24 @@
     color: var(--foreground);
     background: var(--muted);
   }
-}
 
-.button-xs {
-  width: 1.25rem;
-  height: 1.25rem;
-  font-size: 0.75rem;
-}
+  &[data-size='xs'] {
+    width: 1.25rem;
+    height: 1.25rem;
+    font-size: 0.75rem;
+  }
 
-.button-sm {
-  width: 1.5rem;
-  height: 1.5rem;
-  font-size: 0.875rem;
-}
+  &[data-size='sm'] {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.875rem;
+  }
 
-.button-md {
-  width: 2rem;
-  height: 2rem;
-  font-size: 1rem;
+  &[data-size='md'] {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+  }
 }
 
 .text {

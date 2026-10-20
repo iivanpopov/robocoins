@@ -1,3 +1,16 @@
+export const AVATARS = [
+  'skull',
+  'alien-monster',
+  'devil',
+  'robot',
+  'cold',
+  'dreamy',
+  'frog',
+  'star-struck',
+  'cat',
+] as const
+export type Avatar = (typeof AVATARS)[number]
+
 export const Weekday = {
   Monday: 'monday',
   Tuesday: 'tuesday',

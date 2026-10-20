@@ -1,6 +1,20 @@
 import { useLocation, useNavigate, type NavigateOptions } from '@tanstack/react-router'
 
-export function useAppNavbar(paths: readonly NonNullable<NavigateOptions['to']>[]) {
+import type { UserRoleKey } from '#/api/types'
+
+const NAVIGATION_ITEMS = {
+  teacher: [
+    { to: '/settings', icon: 'i-ph:gear', label: 'navbar.settings' },
+    { to: '/group', icon: 'i-ph:users-three', label: 'navbar.groups' },
+  ],
+  student: [
+    { to: '/settings', icon: 'i-ph:gear-bold', label: 'navbar.settings' },
+    { to: '/', icon: 'i-ph:house-bold', label: 'navbar.home' },
+    { to: '/shop', icon: 'i-ph:storefront-bold', label: 'navbar.shop' },
+  ],
+} as const
+
+export function useAppNavbar(role: UserRoleKey) {
   const navigate = useNavigate()
   const pathname = useLocation({ select: (location) => location.pathname })
   const currentPath = pathname.replace(/\/+$/, '') || '/'
@@ -8,8 +22,9 @@ export function useAppNavbar(paths: readonly NonNullable<NavigateOptions['to']>[
   function handleNavigate(to: NonNullable<NavigateOptions['to']>) {
     if (to === currentPath) return
 
-    const currentIndex = paths.findIndex((path) => path === currentPath)
-    const nextIndex = paths.indexOf(to)
+    const items = NAVIGATION_ITEMS[role]
+    const currentIndex = items.findIndex((item) => item.to === currentPath)
+    const nextIndex = items.findIndex((item) => item.to === to)
     let viewTransition: NavigateOptions['viewTransition'] = false
 
     if (currentIndex >= 0 && nextIndex >= 0 && currentIndex !== nextIndex) {
@@ -21,5 +36,7 @@ export function useAppNavbar(paths: readonly NonNullable<NavigateOptions['to']>[
     return navigate({ to, viewTransition })
   }
 
-  return { currentPath, handleNavigate }
+  const items = NAVIGATION_ITEMS[role]
+
+  return { currentPath, handleNavigate, items }
 }

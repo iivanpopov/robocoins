@@ -3,7 +3,7 @@ import { useTranslate } from '@kanjou/react'
 import { HeroButton, HeroInput, Typography } from '#/components/ui'
 import { AuthLayout } from '#/routes/_auth/-components'
 
-import { useStepName } from './hooks'
+import { useStepName } from './-hooks'
 
 export function StepName() {
   const { functions, features } = useStepName()

@@ -11,10 +11,10 @@ import { useGroupPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_teacher/group/')({
-  component: RouteComponent,
+  component: GroupPage,
 })
 
-function RouteComponent() {
+function GroupPage() {
   const { state, functions } = useGroupPage()
 
   const t = useTranslate()
@@ -58,39 +58,25 @@ function RouteComponent() {
             return (
               <article
                 key={group.id}
-                className={styles.card}
+                className={cn('category-theme', styles.card)}
                 data-category={group.category}
                 onClick={() => functions.handleGroupClick(group.id)}
               >
-                <div className={styles['card-top']}>
-                  <div className={styles['card-title-group']}>
-                    <div className={styles['card-icon']}>
-                      <CategoryIcon category={group.category} />
-                    </div>
-                    <div>
-                      <h2 className={styles['card-title']}>{group.course_name}</h2>
-                    </div>
-                  </div>
-
-                  <div className={styles['card-meta']}>
-                    <span className={styles['students-count']}>
-                      {t('group.students-count', { count: group.students_count })}
-                    </span>
-                    <span className={cn('i-ph:caret-right-bold', styles['arrow-icon'])} />
-                  </div>
+                <div className={styles['card-icon']}>
+                  <CategoryIcon category={group.category} />
                 </div>
-
-                <div className={styles['card-footer']}>
-                  <div className={styles['schedule-block']}>
-                    <span
-                      aria-hidden="true"
-                      className={cn('i-ph:clock-bold', styles['schedule-icon'])}
-                    />
-                    <span>
-                      {group.schedule.weekday && <>{t(`weekday.${group.schedule.weekday}`)}, </>}
-                      {group.schedule.time}
-                    </span>
-                  </div>
+                <div className={styles['card-details']}>
+                  <h2 className={styles['card-title']}>{group.course_name}</h2>
+                  <span className={styles['schedule-block']}>
+                    {group.schedule.weekday && <>{t(`weekday.${group.schedule.weekday}`)}, </>}
+                    {group.schedule.time}
+                  </span>
+                </div>
+                <div className={styles['card-meta']}>
+                  <span className={styles['students-count']}>
+                    {t('group.students-count', { count: group.students_count })}
+                  </span>
+                  <span className={cn('i-ph:caret-right-bold', styles['arrow-icon'])} />
                 </div>
               </article>
             )

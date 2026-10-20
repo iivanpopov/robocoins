@@ -8,10 +8,10 @@ import { useSettingsPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/settings/')({
-  component: RouteComponent,
+  component: SettingsPage,
 })
 
-function RouteComponent() {
+function SettingsPage() {
   const t = useTranslate()
   const { state, mutations, functions } = useSettingsPage()
 
@@ -22,6 +22,10 @@ function RouteComponent() {
         <dt className={styles.label}>{t('settings.name')}</dt>
         <dd className={styles.name}>{state.user.name}</dd>
       </dl>
+      <Button variant="ghost" disabled>
+        <div aria-hidden="true" className="i-ph:eye-bold" />
+        {t('field.password.show')}
+      </Button>
       <Button onClick={functions.handleLogout} disabled={mutations.logout.isPending}>
         {!mutations.logout.isPending && <span aria-hidden="true" className="i-ph:sign-out-bold" />}
         {mutations.logout.isPending && <Loader />}

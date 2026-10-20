@@ -1,6 +1,8 @@
 @import './normalize.css';
 @import './colors.css';
 @import './transitions.css';
+@import './category-colors.css';
+@import './category-choice.css';
 
 * {
   box-sizing: border-box;

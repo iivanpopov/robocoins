@@ -1,1 +1,1 @@
-export { useProfilePage } from './use-profile-page'
+export { useStudentPage } from './use-student-page'

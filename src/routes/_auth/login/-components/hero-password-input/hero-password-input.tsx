@@ -1,35 +1,35 @@
 import { useTranslate } from '@kanjou/react'
 import { cn } from 'cn'
-import { useState } from 'react'
 
 import {
+  HeroInput,
   HeroInputGroup,
   HeroInputGroupButton,
-  HeroInputGroupInput,
-  type HeroInputGroupInputProps,
+  type HeroInputProps,
 } from '#/components/ui'
+import { useBoolean } from '#/hooks'
 
-export interface HeroPasswordInputProps extends Omit<HeroInputGroupInputProps, 'className'> {
+export interface HeroPasswordInputProps extends Omit<HeroInputProps, 'className'> {
   className?: string
 }
 
 export function HeroPasswordInput({ className, ...props }: HeroPasswordInputProps) {
-  const [isRevealed, setIsRevealed] = useState(false)
-
+  const [isRevealed, toggleRevealed] = useBoolean()
   const t = useTranslate()
 
-  const handleToggleRevealed = () => {
-    setIsRevealed(!isRevealed)
-  }
+  let type: 'password' | 'text' = 'password'
+  let label = t('field.password.show')
 
-  const label = isRevealed ? t('field.password.hide') : t('field.password.show')
-  const type = isRevealed ? 'text' : 'password'
+  if (isRevealed) {
+    type = 'text'
+    label = t('field.password.hide')
+  }
 
   return (
     <HeroInputGroup className={className}>
-      <HeroInputGroupInput {...props} placeholder="Твій пароль" type={type} />
+      <HeroInput {...props} placeholder={t('field.password.placeholder')} type={type} />
       <HeroInputGroupButton
-        onClick={handleToggleRevealed}
+        onClick={() => toggleRevealed()}
         aria-pressed={isRevealed}
         aria-label={label}
       >

@@ -24,34 +24,27 @@
 .groups {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: var(--spacing-xl);
+  min-width: 0;
   min-height: 0;
-  overflow-y: auto;
+  padding: var(--spacing-sm);
+  overflow: hidden auto;
 }
 
 .group {
+  --choice-background: var(--surface);
+
   display: flex;
   flex-shrink: 0;
-  gap: var(--spacing-md);
+  gap: var(--spacing-lg);
   align-items: center;
   padding: var(--spacing-lg);
   color: var(--foreground);
   text-align: left;
   cursor: pointer;
-  background: var(--surface);
-  border: 2px solid transparent;
+  background: transparent;
+  border: none;
   border-radius: var(--rounded-md);
-}
-
-.group:focus-visible {
-  outline: 2px solid var(--foreground);
-  outline-offset: 3px;
-}
-
-.selected {
-  color: var(--brand);
-  background: color-mix(in srgb, var(--brand) 6%, var(--surface));
-  border-color: var(--brand);
 }
 
 .footer {
@@ -71,10 +64,4 @@
 
 .time {
   font-weight: 450;
-}
-
-.clock {
-  flex-shrink: 0;
-  font-size: 1.5rem;
-  color: var(--brand);
 }

@@ -34,14 +34,14 @@ export function StepCategory() {
               <button
                 type="button"
                 key={item.category}
-                className={cn(
-                  styles.category,
-                  state.selectedCategories.includes(item.category) && styles.selected,
-                )}
+                data-category={item.category}
+                className={cn('category-theme', 'category-choice', styles.category)}
                 aria-pressed={state.selectedCategories.includes(item.category)}
                 onClick={() => functions.handleToggleCategory(item.category)}
               >
-                <CategoryIcon category={item.category} className={styles['category-icon']} />
+                <div className="category-tile">
+                  <CategoryIcon category={item.category} />
+                </div>
                 <div className={styles.details}>
                   <Typography variant="subtitle">
                     {t('course.category', { category: item.category })}

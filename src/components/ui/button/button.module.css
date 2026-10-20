@@ -1,4 +1,8 @@
 .button {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  justify-content: center;
   font-family: 'Rubik Variable', sans-serif;
   cursor: pointer;
   outline: none;

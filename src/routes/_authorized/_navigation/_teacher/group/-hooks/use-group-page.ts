@@ -9,9 +9,9 @@ import { GroupFilter } from '../-constants'
 
 export function useGroupPage() {
   const navigate = useNavigate()
+  const [selectedTheme, setSelectedTheme] = useState<GroupFilter>(GroupFilter.All)
   const coursesQuery = useGetCoursesCourseGet()
   const teacherGroupsQuery = useGetTeacherGroupsTeacherGroupsGet()
-  const [selectedTheme, setSelectedTheme] = useState<GroupFilter>(GroupFilter.All)
 
   function handleThemeSelect(theme: GroupFilter) {
     setSelectedTheme(theme)

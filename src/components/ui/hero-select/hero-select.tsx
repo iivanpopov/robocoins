@@ -23,7 +23,6 @@ export function HeroSelectTrigger({ className, children, ...props }: HeroSelectT
           render={<div className="i-ph:caret-down-bold" />}
         />
       </SelectPrimitive.Trigger>
-      <div />
     </div>
   )
 }
@@ -68,9 +67,7 @@ export function HeroSelectItem({ className, children, ...props }: HeroSelectItem
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator
         className={styles.indicator}
-        render={({ children: _children, ...props }) => (
-          <div {...props} className="i-ph:check-bold" />
-        )}
+        render={<div className="i-ph:check-bold" />}
       />
     </SelectPrimitive.Item>
   )

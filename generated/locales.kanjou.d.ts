@@ -25,6 +25,7 @@ declare module '@kanjou/react' {
       'field.name.placeholder': {}
       'field.password.show': {}
       'field.password.hide': {}
+      'field.password.placeholder': {}
       'caption.has-account': {}
       'caption.has-no-account': {}
       'caption.mistake': {}
@@ -42,6 +43,7 @@ declare module '@kanjou/react' {
       'step.selection.empty': {}
       'course.category': { category: { __fn: 'string' } }
       'step.avatar.title': {}
+      'step.avatar.suggest': {}
       'step.view.title': {}
       'step.success.title': {}
       'step.success.subtitle': {}
@@ -64,6 +66,7 @@ declare module '@kanjou/react' {
       'group.students-count': { count: { __fn: 'number' } }
       'group.back': {}
       'student.empty': {}
+      'student.group-empty': {}
       'field.student-search.placeholder': {}
       'action.clear-search.title': {}
       'sort.title': {}
@@ -85,6 +88,8 @@ declare module '@kanjou/react' {
       'award.reward': {}
       'award.punish': {}
       'award.history.title': {}
+      'award.history.all': {}
+      'award.history.view-all': {}
       'award.history.empty': {}
       'action.revert.title': {}
       'reason.activity': {}
@@ -98,6 +103,27 @@ declare module '@kanjou/react' {
       'reason.incomplete': {}
       'reason.other': {}
       'profile.balance.amount': { count: { __fn: 'number' } }
+      'profile.goal.product': {}
+      'profile.goal.target': { count: { __fn: 'number' } }
+      'profile.goal.remaining': { count: { __fn: 'number' } }
+      'profile.history.title': {}
+      'profile.history.all': {}
+      'profile.history.loading': {}
+      'profile.history.retry': {}
+      'profile.history.empty': {}
+      'profile.history.today': {}
+      'profile.history.yesterday': {}
+      'profile.history.date': { date: { __fn: 'datetime' } }
+      'profile.history.amount': { count: { __fn: 'number' } }
+      'profile.rules': {}
+      'profile.rules.title': {}
+      'profile.rules.description': {}
+      'profile.rules.reward': {}
+      'profile.rules.punish': {}
+      'profile.rules.loading': {}
+      'profile.rules.error': {}
+      'profile.rules.close': {}
+      'reason.balance-change': {}
       'profile.balance.caption': { count: { __fn: 'number' } }
       'error.code': {}
       'error.title': {}

@@ -6,8 +6,8 @@ import { toast } from '#/components/ui'
 import { queryClient } from '#/lib/query'
 
 export function useSettingsPage() {
-  const t = useTranslate()
   const context = useRouteContext({ from: '/_authorized' })
+  const t = useTranslate()
   const logoutMutation = useLogoutAuthLogoutPost({
     mutation: {
       onSuccess: async () => {

@@ -7,6 +7,11 @@ import { toast } from '#/components/ui/toast'
 
 import { LoginStateSchema } from '../-schemas'
 
+const HOME_PATH_BY_ROLE = {
+  student: '/',
+  teacher: '/group',
+} as const
+
 export function useLoginPage() {
   const t = useTranslate()
 
@@ -18,7 +23,7 @@ export function useLoginPage() {
     onSubmit: async ({ value }) => {
       try {
         const response = await loginMutation.mutateAsync({ body: { code: value.password } })
-        window.location.assign(response.user.role === 'student' ? '/' : '/group')
+        window.location.assign(HOME_PATH_BY_ROLE[response.user.role])
       } catch {
         toast.add({ title: t('error.incorrect-password'), type: 'error', timeout: 0 })
       }
@@ -31,8 +36,6 @@ export function useLoginPage() {
   }
 
   return {
-    state: {},
-    queries: {},
     mutations: {
       login: loginMutation,
     },

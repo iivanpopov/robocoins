@@ -1,0 +1,105 @@
+.scroll-area {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.scroll-area > * {
+  flex-shrink: 0;
+}
+
+.direction-toggle {
+  display: grid;
+  flex-shrink: 0;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-sm);
+  width: 100%;
+}
+
+.direction-btn {
+  display: flex;
+  gap: 0.375rem;
+  align-items: center;
+  justify-content: center;
+  height: 3.25rem;
+  font-family: inherit;
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--foreground);
+  cursor: pointer;
+  background: var(--taupe-100);
+  border: none;
+  border-radius: var(--rounded-md);
+  transition: all 0.15s ease;
+}
+
+.direction-btn:active {
+  transform: scale(0.98);
+}
+
+.direction-btn-plus-active {
+  color: var(--surface);
+  background: var(--brand);
+}
+
+.direction-btn-minus-active {
+  color: var(--surface);
+  background: var(--red-600);
+}
+
+.coin-icon {
+  font-size: 1.75rem;
+  color: var(--brand);
+}
+
+.punish-icon {
+  color: var(--red-600);
+}
+
+.direction-btn-plus-active .coin-icon,
+.direction-btn-minus-active .coin-icon {
+  color: var(--surface);
+}
+
+.section-label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+
+.reasons-section {
+  touch-action: pan-y;
+}
+
+.reasons-list {
+  --chip-background: var(--taupe-100);
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  animation: reasons-appear 0.16s ease-out;
+}
+
+@keyframes reasons-appear {
+  from {
+    opacity: 0;
+    transform: translateX(0.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reasons-list {
+    animation: none;
+  }
+}

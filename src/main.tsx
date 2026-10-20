@@ -2,6 +2,7 @@ import { TranslateProvider } from '@kanjou/react'
 import * as Sentry from '@sentry/react'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { createRouter, RouterProvider } from '@tanstack/react-router'
+import { DefaultFunctions, DraftFunctions } from 'messageformat/functions'
 import { createRoot } from 'react-dom/client'
 import locales from 'virtual:kanjou/locales'
 import '@fontsource-variable/rubik'
@@ -11,12 +12,9 @@ import '#/assets/styles/global.css'
 import 'virtual:uno.css'
 import { Toaster } from '#/components/ui'
 import { queryClient } from '#/lib/query'
-import { AppLink } from '#/routes/-components'
+import { AppLink, ErrorComponent, NotFoundComponent, PendingComponent } from '#/routes/-components'
 
 import { routeTree } from '../generated/routeTree.gen'
-import { ErrorComponent } from './routes/-components/error-component'
-import { NotFoundComponent } from './routes/-components/not-found-component'
-import { PendingComponent } from './routes/-components/pending'
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
@@ -46,13 +44,23 @@ const components = {
   a: AppLink,
 }
 
+const functions = {
+  ...DefaultFunctions,
+  ...DraftFunctions,
+}
+
 createRoot(document.getElementById('root')!, {
   onUncaughtError: Sentry.reactErrorHandler(),
   onCaughtError: Sentry.reactErrorHandler(),
   onRecoverableError: Sentry.reactErrorHandler(),
 }).render(
   <QueryClientProvider client={queryClient}>
-    <TranslateProvider locale={locale} messages={messages} components={components}>
+    <TranslateProvider
+      locale={locale}
+      messages={messages}
+      components={components}
+      functions={functions}
+    >
       <Toaster>
         <RouterProvider router={router} />
       </Toaster>

@@ -1,3 +1,10 @@
+export const AwardDirection = {
+  Reward: 1,
+  Punish: -1,
+} as const
+
+export type AwardDirection = (typeof AwardDirection)[keyof typeof AwardDirection]
+
 export const StudentSortOrder = {
   NameAsc: 'name-asc',
   NameDesc: 'name-desc',

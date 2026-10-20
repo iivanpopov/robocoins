@@ -2,6 +2,8 @@ import { Input as InputPrimitive } from '@base-ui/react'
 import { cn } from 'cn'
 import { ComponentProps, MouseEvent } from 'react'
 
+import { focusInputGroup } from '../utils'
+
 import styles from './input-group.module.css'
 
 export interface InputGroupProps extends ComponentProps<'div'> {
@@ -17,14 +19,7 @@ export function InputGroup({
 }: InputGroupProps) {
   function handleClick(event: MouseEvent<HTMLDivElement>) {
     onClick?.(event)
-
-    if ((event.target as HTMLElement).closest('button')) {
-      return
-    }
-
-    event.currentTarget
-      .querySelector<HTMLInputElement | HTMLTextAreaElement>('input, textarea')
-      ?.focus()
+    focusInputGroup(event, event.currentTarget)
   }
 
   return (
@@ -52,14 +47,7 @@ export function InputGroupAddon({
 }: InputGroupAddonProps) {
   function handleClick(event: MouseEvent<HTMLDivElement>) {
     onClick?.(event)
-
-    if ((event.target as HTMLElement).closest('button')) {
-      return
-    }
-
-    event.currentTarget.parentElement
-      ?.querySelector<HTMLInputElement | HTMLTextAreaElement>('input, textarea')
-      ?.focus()
+    focusInputGroup(event, event.currentTarget.parentElement)
   }
 
   return (
@@ -89,7 +77,8 @@ export function InputGroupButton({
       {...props}
       type={type}
       data-slot="input-group-button"
-      className={cn(styles.button, styles[`button-${size}`], className)}
+      data-size={size}
+      className={cn(styles.button, className)}
     />
   )
 }
