@@ -1,0 +1,21 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "routes": [
+    {
+      "src": "/api/services/(.*)",
+      "dest": "${SERVICES_URL}/$1",
+      "env": ["SERVICES_URL"]
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "${API_URL}/$1",
+      "env": ["API_URL"]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
