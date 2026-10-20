@@ -9,5 +9,5 @@
     "strictNullChecks": true,
     "types": ["node"]
   },
-  "include": ["./*.config.*"]
+  "include": ["./*.config.*", "vercel.ts"]
 }
