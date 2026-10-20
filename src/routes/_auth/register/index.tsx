@@ -1,5 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { cn } from 'cn'
 import { ComponentType } from 'react'
 
 import {
@@ -35,9 +34,6 @@ function RouteComponent() {
 
   return (
     <div className={styles.root}>
-      <div aria-hidden="true" className={styles.decoration}>
-        <span className={cn('i-ph:coins', styles.watermark)} />
-      </div>
       <div className={styles.content}>
         <Step />
       </div>

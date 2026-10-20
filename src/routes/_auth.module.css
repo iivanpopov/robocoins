@@ -3,9 +3,11 @@
   --auth-padding-block-start: 3.5rem;
   --auth-padding-block-end: 1.5rem;
 
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
   padding: var(--auth-padding-block-start) var(--auth-padding-inline) var(--auth-padding-block-end);
   overflow-x: hidden;
+  isolation: isolate;
 }

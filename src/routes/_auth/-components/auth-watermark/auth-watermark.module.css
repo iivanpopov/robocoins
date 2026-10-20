@@ -1,0 +1,17 @@
+.root {
+  position: absolute;
+  inset: 0;
+  z-index: -20;
+  overflow: clip;
+  pointer-events: none;
+  user-select: none;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: clamp(48rem, 180vmax, 120rem);
+  color: color-mix(in srgb, var(--brand) 8%, var(--background));
+  transform: translate(-50%, -50%) rotate(-15deg);
+}
