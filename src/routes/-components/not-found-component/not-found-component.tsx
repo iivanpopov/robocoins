@@ -1,7 +1,8 @@
 import { useTranslate } from '@kanjou/react'
 import { Link } from '@tanstack/react-router'
 
-import { HeroButton, Typography } from '#/components/ui'
+import { HeroButton } from '#/components/ui/hero-button'
+import { Typography } from '#/components/ui/typography'
 
 import styles from './not-found-component.module.css'
 

@@ -1,6 +1,8 @@
 import { useTranslate } from '@kanjou/react'
 
-import { HeroButton, HeroInput, Typography } from '#/components/ui'
+import { HeroButton } from '#/components/ui/hero-button'
+import { HeroInput } from '#/components/ui/hero-input'
+import { Typography } from '#/components/ui/typography'
 import { AuthLayout } from '#/routes/_auth/-components'
 
 import { useStepName } from './-hooks'
@@ -20,6 +22,8 @@ export function StepName() {
             {(field) => (
               <HeroInput
                 name={field.name}
+                aria-label={t('field.name.placeholder')}
+                autoComplete="name"
                 value={field.state.value}
                 onChange={(event) => field.handleChange(event.target.value)}
                 onBlur={field.handleBlur}

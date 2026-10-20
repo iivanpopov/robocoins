@@ -32,7 +32,7 @@ export function useStepCourse() {
     navigation.handleNextCategory()
   }
 
-  const handleSelectCourse = (id: number) => {
+  const handleSelectCourse = async (id: number) => {
     const course = courses.find((item) => item.id === id)!
 
     const otherCourses = getSelectedCoursesOutsideCategory(
@@ -42,11 +42,11 @@ export function useStepCourse() {
     )
     const selectedCourses = [...otherCourses, course]
 
-    register.setState({
+    await register.setState({
       courseIds: selectedCourses.map((course) => course.id),
       groupIds: filterGroupIdsByCourses(selectedCourses, register.state.groupIds),
     })
-    void navigate({
+    await navigate({
       search: { step: RegisterStep.Course, category: navigation.category, drawer: 'group' },
     })
   }

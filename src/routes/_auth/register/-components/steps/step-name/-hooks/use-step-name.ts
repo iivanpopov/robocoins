@@ -15,9 +15,9 @@ export function useStepName() {
   const form = useForm({
     defaultValues: { name: register.state.name ?? '' },
     validators: { onChange: StepNameFormSchema },
-    onSubmit: ({ value }) => {
-      register.setState({ name: value.name.trim() })
-      void navigate({
+    onSubmit: async ({ value }) => {
+      await register.setState({ name: value.name.trim() })
+      await navigate({
         search: { step: RegisterStep.Category },
         viewTransition: { types: ['slide-forward'] },
       })

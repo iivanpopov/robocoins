@@ -1,1 +1,1 @@
-export * from './step-avatar'
+export { StepAvatar as default } from './step-avatar'

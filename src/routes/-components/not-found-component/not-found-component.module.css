@@ -7,7 +7,6 @@
 }
 
 .code {
-  font-family: 'Rubik Mono One', sans-serif;
   font-size: clamp(5rem, 13vw, 10rem);
   line-height: 1;
   color: var(--brand);

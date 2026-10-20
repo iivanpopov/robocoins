@@ -6,7 +6,7 @@ import { registerDraft } from '../../-utils/register-draft'
 interface RegisterContextValue {
   accessCode: string | undefined
   setAccessCode: (accessCode: string) => void
-  setState: (newState: Partial<RegisterDraft>) => void
+  setState: (newState: Partial<RegisterDraft>) => Promise<void>
   state: RegisterDraft
 }
 
@@ -18,13 +18,13 @@ export interface RegisterProviderProps {
 }
 
 export function RegisterProvider({ initialState, children }: RegisterProviderProps) {
-  const [state, setState] = useState<RegisterDraft>(initialState)
+  const [state, setState] = useState(initialState)
   const [accessCode, setAccessCode] = useState<string>()
 
-  const _setState = (newState: Partial<RegisterDraft>) => {
+  const _setState = async (newState: Partial<RegisterDraft>) => {
     const next = { ...state, ...newState }
     setState(next)
-    registerDraft.save(next)
+    await registerDraft.save(next)
   }
 
   const contextValue = useMemo(

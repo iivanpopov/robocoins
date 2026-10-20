@@ -1,1 +1,1 @@
-export * from './step-course'
+export { StepCourse as default } from './step-course'

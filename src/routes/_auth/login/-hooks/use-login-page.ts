@@ -1,4 +1,5 @@
 import { useForm } from '@tanstack/react-form'
+import { useHydrated } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
 
 import { useLoginAuthLoginPost } from '#/api/hooks/useLoginAuthLoginPost'
@@ -11,6 +12,8 @@ const HOME_PATH_BY_ROLE = {
 } as const
 
 export function useLoginPage() {
+  const isHydrated = useHydrated()
+
   const loginMutation = useLoginAuthLoginPost()
 
   const form = useForm({
@@ -35,6 +38,7 @@ export function useLoginPage() {
   }
 
   return {
+    state: { isHydrated },
     mutations: {
       login: loginMutation,
     },

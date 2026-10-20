@@ -1,26 +1,20 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ComponentType } from 'react'
+import { ComponentType, lazy, Suspense } from 'react'
 
-import {
-  StepAvatar,
-  StepCategory,
-  StepCourse,
-  StepName,
-  StepSuccess,
-  StepView,
-} from './-components/steps'
+import { PendingComponent } from '#/routes/-components/pending'
+
+import { StepName } from './-components/steps/step-name'
 import { RegisterStep } from './-constants'
-import { useRegisterPage } from './-hooks'
 
 import styles from './index.module.css'
 
 const STEPS: Record<RegisterStep, ComponentType> = {
   name: StepName,
-  category: StepCategory,
-  course: StepCourse,
-  avatar: StepAvatar,
-  view: StepView,
-  success: StepSuccess,
+  category: lazy(() => import('./-components/steps/step-category')),
+  course: lazy(() => import('./-components/steps/step-course')),
+  avatar: lazy(() => import('./-components/steps/step-avatar')),
+  view: lazy(() => import('./-components/steps/step-view')),
+  success: lazy(() => import('./-components/steps/step-success')),
 }
 
 export const Route = createFileRoute('/_auth/register/')({
@@ -28,15 +22,17 @@ export const Route = createFileRoute('/_auth/register/')({
 })
 
 function RouteComponent() {
-  const { state } = useRegisterPage()
+  const { step } = Route.useSearch()
 
-  const Step = STEPS[state.step]
+  const Step = STEPS[step]
 
   return (
-    <div className={styles.root}>
+    <main className={styles.root}>
       <div className={styles.content}>
-        <Step />
+        <Suspense fallback={<PendingComponent />}>
+          <Step />
+        </Suspense>
       </div>
-    </div>
+    </main>
   )
 }

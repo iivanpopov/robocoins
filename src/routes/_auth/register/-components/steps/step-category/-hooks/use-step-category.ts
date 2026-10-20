@@ -41,7 +41,7 @@ export function useStepCategory() {
       if (!course) return []
       return [course.id]
     })
-    register.setState({
+    void register.setState({
       categories: nextCategories,
       courseIds,
       groupIds: filterGroupIdsByCourses(

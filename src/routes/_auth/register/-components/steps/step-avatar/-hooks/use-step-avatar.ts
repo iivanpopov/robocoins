@@ -25,7 +25,7 @@ export function useStepAvatar() {
     if (!api) return
     const avatar = AVATARS[api.selectedScrollSnap()]
     if (avatar === register.state.avatar) return
-    register.setState({ avatar })
+    void register.setState({ avatar })
   })
 
   useEffect(() => {

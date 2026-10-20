@@ -4,8 +4,9 @@ import { cn } from 'cn'
 
 import { Avatar, AvatarFallback, AvatarImage, Button, Loader, Typography } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
-import { LOCALSTORAGE_LAST_LOG_ON, type Avatar as AvatarName } from '#/routes/-constants'
+import { COOKIE_MAX_AGE, LAST_LOG_ON_COOKIE, type Avatar as AvatarName } from '#/routes/-constants'
 import { getAvatarUrl, getInitial, getProductUrl } from '#/routes/-utils'
+import { readCookie } from '#/utils/cookies'
 
 import { RulesDrawer } from './-components'
 import { CURRENT_TARGET_PRODUCT, GOAL_BALANCE } from './-constants'
@@ -14,11 +15,19 @@ import { useStudentPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_student/')({
-  beforeLoad: () => ({
-    lastLogOn: Number(localStorage.getItem(LOCALSTORAGE_LAST_LOG_ON)) || Date.now(),
-  }),
+  beforeLoad: async () => {
+    const lastLogOn = Number(await readCookie(LAST_LOG_ON_COOKIE)) || Date.now()
+    return { lastLogOn }
+  },
   onEnter: () => {
-    localStorage.setItem(LOCALSTORAGE_LAST_LOG_ON, String(Date.now()))
+    if (import.meta.env.SSR) return
+    void cookieStore.set({
+      name: LAST_LOG_ON_COOKIE,
+      value: String(Date.now()),
+      path: '/',
+      expires: Date.now() + COOKIE_MAX_AGE,
+      sameSite: 'lax',
+    })
   },
   component: StudentPage,
 })

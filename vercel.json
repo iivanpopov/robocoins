@@ -1,21 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "routes": [
+  "headers": [
     {
-      "src": "/api/services/(.*)",
-      "dest": "${SERVICES_URL}/$1",
-      "env": ["SERVICES_URL"]
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "${API_URL}/$1",
-      "env": ["API_URL"]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "source": "/assets/:path*",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     }
   ]
 }

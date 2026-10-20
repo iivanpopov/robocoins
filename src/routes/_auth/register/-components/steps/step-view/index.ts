@@ -1,1 +1,1 @@
-export * from './step-view'
+export { StepView as default } from './step-view'

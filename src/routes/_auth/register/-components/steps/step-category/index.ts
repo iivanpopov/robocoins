@@ -1,1 +1,1 @@
-export * from './step-category'
+export { StepCategory as default } from './step-category'

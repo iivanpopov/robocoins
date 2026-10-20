@@ -13,12 +13,12 @@ export const Route = createFileRoute('/_auth/login/')({
 })
 
 function RouteComponent() {
-  const { mutations, functions, features } = useLoginPage()
+  const { state, mutations, functions, features } = useLoginPage()
 
   const t = useTranslate()
 
   return (
-    <form className="flex flex-1 flex-col" onSubmit={functions.handleSubmit}>
+    <form method="post" className="flex flex-1 flex-col" onSubmit={functions.handleSubmit}>
       <AuthLayout.Root>
         <AuthLayout.Top>
           <Typography variant="title">{t('action.login.title')}</Typography>
@@ -28,6 +28,7 @@ function RouteComponent() {
               <HeroPasswordInput
                 id="password"
                 name={field.name}
+                disabled={!state.isHydrated}
                 value={field.state.value}
                 onChange={(event) => field.handleChange(event.target.value)}
                 onBlur={field.handleBlur}
@@ -44,7 +45,11 @@ function RouteComponent() {
         </AuthLayout.Top>
 
         <AuthLayout.Bottom>
-          <HeroButton type="submit" className="w-full" disabled={mutations.login.isPending}>
+          <HeroButton
+            type="submit"
+            className="w-full"
+            disabled={!state.isHydrated || mutations.login.isPending}
+          >
             {features.form.state.isSubmitting && <Loader />}
             {!features.form.state.isSubmitting && t('action.enter.title')}
           </HeroButton>

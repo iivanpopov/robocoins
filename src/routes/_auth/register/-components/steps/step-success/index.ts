@@ -1,1 +1,1 @@
-export * from './step-success'
+export { StepSuccess as default } from './step-success'

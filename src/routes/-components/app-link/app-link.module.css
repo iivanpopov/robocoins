@@ -1,11 +1,11 @@
 .link {
-  color: var(--blue-600);
+  color: var(--blue-700);
   text-decoration: underline;
   text-underline-offset: 0.15em;
 }
 
 .link:hover {
-  color: var(--blue-700);
+  color: var(--blue-800);
 }
 
 .link:focus-visible {

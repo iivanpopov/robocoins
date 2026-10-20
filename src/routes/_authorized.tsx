@@ -1,14 +1,15 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
-import { LOCALSTORAGE_DID_REGISTER } from './-constants'
+import { readCookie } from '#/utils/cookies'
+
+import { DID_REGISTER_COOKIE } from './-constants'
 
 export const Route = createFileRoute('/_authorized')({
   beforeLoad: async ({ context }) => {
-    const user = await context.user
+    if (context.user) return
 
-    if (user) return { user }
-
-    const to = localStorage.getItem(LOCALSTORAGE_DID_REGISTER) ? '/login' : '/register'
+    let to: '/login' | '/register' = '/register'
+    if (await readCookie(DID_REGISTER_COOKIE)) to = '/login'
     throw redirect({ to })
   },
 })

@@ -24,7 +24,7 @@ export function useStepGroup() {
       navigation.category,
     )
     const otherGroupIds = filterGroupIdsByCourses(otherCourses, register.state.groupIds) ?? []
-    register.setState({ groupIds: [...otherGroupIds, id] })
+    void register.setState({ groupIds: [...otherGroupIds, id] })
   }
 
   const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {

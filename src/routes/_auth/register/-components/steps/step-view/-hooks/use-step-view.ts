@@ -3,10 +3,11 @@ import { useNavigate } from '@tanstack/react-router'
 
 import { useCreateStudentStudentRegisterPost, useGetCoursesCourseGet } from '#/api/hooks'
 import { toast } from '#/components/ui/toast'
-import { LOCALSTORAGE_DID_REGISTER } from '#/routes/-constants'
+import { COOKIE_MAX_AGE, DID_REGISTER_COOKIE } from '#/routes/-constants'
 
-import { LOCALSTORAGE_REGISTER_DRAFT, RegisterStep } from '../../../../-constants'
+import { RegisterStep } from '../../../../-constants'
 import type { RegisterDraft } from '../../../../-schemas'
+import { registerDraft } from '../../../../-utils/register-draft'
 import { useRegisterDraft } from '../../../register-provider'
 
 export function useStepView() {
@@ -36,8 +37,14 @@ export function useStepView() {
         },
       })
       register.setAccessCode(response.access_code)
-      localStorage.removeItem(LOCALSTORAGE_REGISTER_DRAFT)
-      localStorage.setItem(LOCALSTORAGE_DID_REGISTER, 'true')
+      await registerDraft.clear()
+      await cookieStore.set({
+        name: DID_REGISTER_COOKIE,
+        value: 'true',
+        path: '/',
+        expires: Date.now() + COOKIE_MAX_AGE,
+        sameSite: 'lax',
+      })
       await navigate({
         to: '/register',
         search: { step: RegisterStep.Success },

@@ -1,4 +1,4 @@
-import { Loader } from '#/components/ui'
+import { Loader } from '#/components/ui/loader'
 
 import styles from './pending.module.css'
 

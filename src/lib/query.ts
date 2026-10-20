@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/react'
+import * as Sentry from '@sentry/tanstackstart-react'
 import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query'
 
 import { ResponseError } from '#/api/.kubb/client'
@@ -22,24 +22,26 @@ function shouldIgnoreError(error: unknown, meta: RequestMeta | undefined) {
   return meta?.expectedErrorStatuses?.includes(error.status) ?? false
 }
 
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 60_000,
+export function createQueryClient() {
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 60_000,
+      },
     },
-  },
-  queryCache: new QueryCache({
-    onError: (error, query) => {
-      if (shouldIgnoreError(error, query.meta)) return
+    queryCache: new QueryCache({
+      onError: (error, query) => {
+        if (shouldIgnoreError(error, query.meta)) return
 
-      Sentry.captureException(error, { tags: { source: 'query' } })
-    },
-  }),
-  mutationCache: new MutationCache({
-    onError: (error, _variables, _context, mutation) => {
-      if (shouldIgnoreError(error, mutation.meta)) return
+        Sentry.captureException(error, { tags: { source: 'query' } })
+      },
+    }),
+    mutationCache: new MutationCache({
+      onError: (error, _variables, _context, mutation) => {
+        if (shouldIgnoreError(error, mutation.meta)) return
 
-      Sentry.captureException(error, { tags: { source: 'mutation' } })
-    },
-  }),
-})
+        Sentry.captureException(error, { tags: { source: 'mutation' } })
+      },
+    }),
+  })
+}

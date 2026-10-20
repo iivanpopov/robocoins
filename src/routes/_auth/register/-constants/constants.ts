@@ -1,1 +1,1 @@
-export const LOCALSTORAGE_REGISTER_DRAFT = 'registerDraft'
+export const REGISTER_DRAFT_COOKIE = 'registerDraft'

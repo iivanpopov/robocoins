@@ -1,19 +1,20 @@
 import { useTranslate } from '@kanjou/react'
+import { useQueryClient } from '@tanstack/react-query'
 import { useRouteContext } from '@tanstack/react-router'
 import { useState } from 'react'
 
 import { useGetStudentCredentialsAuthMeCredentialsGet } from '#/api/hooks/useGetStudentCredentialsAuthMeCredentialsGet'
 import { useLogoutAuthLogoutPost } from '#/api/hooks/useLogoutAuthLogoutPost'
 import { toast } from '#/components/ui'
-import { queryClient } from '#/lib/query'
 
 export function useSettingsPage() {
   const context = useRouteContext({ from: '/_authorized' })
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const t = useTranslate()
+  const queryClient = useQueryClient()
   const credentialsQuery = useGetStudentCredentialsAuthMeCredentialsGet({
     query: {
-      enabled: context.user.role === 'student' && isPasswordVisible,
+      enabled: context.user?.role === 'student' && isPasswordVisible,
       gcTime: 0,
     },
   })

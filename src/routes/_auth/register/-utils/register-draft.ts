@@ -1,26 +1,29 @@
-import * as Sentry from '@sentry/react'
+import { COOKIE_MAX_AGE } from '#/routes/-constants'
+import { readCookie } from '#/utils/cookies'
 
-import { LOCALSTORAGE_REGISTER_DRAFT } from '../-constants'
+import { REGISTER_DRAFT_COOKIE } from '../-constants'
 import { RegisterDraftSchema, type RegisterDraft } from '../-schemas'
 
+function parseRegisterDraft(value: string | null) {
+  if (!value) return RegisterDraftSchema.parse({})
+  try {
+    const draft = RegisterDraftSchema.safeParse(JSON.parse(value))
+    if (draft.success) return draft.data
+    return RegisterDraftSchema.parse({})
+  } catch {
+    return RegisterDraftSchema.parse({})
+  }
+}
+
 export const registerDraft = {
-  get: function () {
-    try {
-      const draft = JSON.parse(localStorage.getItem(LOCALSTORAGE_REGISTER_DRAFT)!)
-      const parsed = RegisterDraftSchema.safeParse(draft)
-      if (parsed.success) return parsed.data
-      this.clear()
-      return RegisterDraftSchema.parse({})
-    } catch (error) {
-      Sentry.captureException(error)
-      this.clear()
-      return RegisterDraftSchema.parse({})
-    }
-  },
-  save: (data: RegisterDraft) => {
-    localStorage.setItem(LOCALSTORAGE_REGISTER_DRAFT, JSON.stringify(data))
-  },
-  clear: () => {
-    localStorage.removeItem(LOCALSTORAGE_REGISTER_DRAFT)
-  },
+  get: async () => parseRegisterDraft(await readCookie(REGISTER_DRAFT_COOKIE)),
+  save: (data: RegisterDraft) =>
+    cookieStore.set({
+      name: REGISTER_DRAFT_COOKIE,
+      value: encodeURIComponent(JSON.stringify(data)),
+      path: '/',
+      expires: Date.now() + COOKIE_MAX_AGE,
+      sameSite: 'lax',
+    }),
+  clear: () => cookieStore.delete({ name: REGISTER_DRAFT_COOKIE, path: '/' }),
 }

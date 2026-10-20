@@ -1,45 +1,46 @@
 import kanjou from '@kanjou/plugin/vite'
-import { sentryVitePlugin } from '@sentry/vite-plugin'
-import { tanstackRouter } from '@tanstack/router-plugin/vite'
+import { sentryTanstackStart } from '@sentry/tanstackstart-react/vite'
+import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import react from '@vitejs/plugin-react'
+import { nitro } from 'nitro/vite'
 import unocss from 'unocss/vite'
 import { defineConfig, loadEnv } from 'vite'
 
 export default defineConfig(({ mode }) => {
-  const { API_URL, SERVICES_URL } = loadEnv(mode, process.cwd(), '')
+  const env = loadEnv(mode, process.cwd(), '')
 
   return {
     resolve: {
       tsconfigPaths: true,
       dedupe: ['react', 'react-dom'],
     },
-    server: {
-      proxy: {
-        '/api/services': {
-          target: SERVICES_URL,
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api\/services/, ''),
-        },
-        '/api': {
-          target: API_URL,
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
-        },
-      },
-    },
     plugins: [
-      tanstackRouter({
-        target: 'react',
-        autoCodeSplitting: true,
-        generatedRouteTree: './generated/routeTree.gen.ts',
-        tmpDir: './generated/.tanstack/tmp',
+      tanstackStart({
+        router: {
+          generatedRouteTree: '../generated/routeTree.gen.ts',
+          tmpDir: './generated/.tanstack/tmp',
+        },
+      }),
+      nitro({
+        preset: 'vercel',
+        routeRules: {
+          '/api/**': {
+            proxy: `${env.API_URL}/**`,
+            headers: { 'Cache-Control': 'private, no-store' },
+          },
+        },
       }),
       kanjou(),
       react(),
       unocss(),
-      sentryVitePlugin({
+      sentryTanstackStart({
+        tunnelRoute: true,
+        bundleSizeOptimizations: {
+          excludeDebugStatements: true,
+          excludeTracing: true,
+        },
         sourcemaps: {
-          filesToDeleteAfterUpload: ['./dist/**/*.map'],
+          filesToDeleteAfterUpload: ['./dist/**/*.map', './.vercel/output/**/*.map'],
         },
       }),
     ],

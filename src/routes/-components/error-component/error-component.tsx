@@ -1,6 +1,7 @@
 import { useTranslate } from '@kanjou/react'
 
-import { HeroButton, Typography } from '#/components/ui'
+import { HeroButton } from '#/components/ui/hero-button'
+import { Typography } from '#/components/ui/typography'
 
 import styles from './error-component.module.css'
 
