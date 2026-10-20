@@ -40,6 +40,7 @@ export default defineConfig(({ mode }) => {
       react(),
       unocss(),
       sentryTanstackStart({
+        authToken: env.SENTRY_AUTH_TOKEN,
         bundleSizeOptimizations: {
           excludeDebugStatements: true,
           excludeTracing: true,
