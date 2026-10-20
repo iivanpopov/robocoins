@@ -13,6 +13,8 @@ export { getGroupsByCourseIdGroupCourseCourseIdGet } from './getGroupsByCourseId
 export { getStudentBalanceByIdStudentStudentIdBalanceGet } from './getStudentBalanceByIdStudentStudentIdBalanceGet'
 export { getStudentByIdStudentStudentIdGet } from './getStudentByIdStudentStudentIdGet'
 export { getStudentTransactionHistoryStudentStudentIdTransactionsGet } from './getStudentTransactionHistoryStudentStudentIdTransactionsGet'
+export { getTeacherGroupsByCourseTeacherCourseCourseIdGroupsGet } from './getTeacherGroupsByCourseTeacherCourseCourseIdGroupsGet'
+export { getTeacherGroupsTeacherGroupsGet } from './getTeacherGroupsTeacherGroupsGet'
 export { getTeacherProfileTeacherTeacherIdGet } from './getTeacherProfileTeacherTeacherIdGet'
 export { getUserByIdUsersUserIdGet } from './getUserByIdUsersUserIdGet'
 export { getUsersUsersGet } from './getUsersUsersGet'

@@ -6,7 +6,7 @@ import { defineConfig } from 'kubb'
 import 'dotenv/config'
 
 export default defineConfig({
-  input: `${process.env.API_URL}/openapi.json`,
+  input: './openapi.json',
   output: { path: './generated/api', clean: true },
   plugins: [
     pluginTs(),

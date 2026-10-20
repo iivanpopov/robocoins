@@ -14,7 +14,9 @@ import { queryClient } from '#/lib/query'
 import { AppLink } from '#/routes/-components'
 
 import { routeTree } from '../generated/routeTree.gen'
-import { NotFound } from './routes/-components/not-found'
+import { ErrorComponent } from './routes/-components/error-component'
+import { NotFoundComponent } from './routes/-components/not-found-component'
+import { PendingComponent } from './routes/-components/pending'
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
@@ -24,7 +26,9 @@ Sentry.init({
 
 const router = createRouter({
   routeTree,
-  defaultNotFoundComponent: NotFound,
+  defaultNotFoundComponent: NotFoundComponent,
+  defaultErrorComponent: ErrorComponent,
+  defaultPendingComponent: PendingComponent,
   defaultOnCatch: (error) => Sentry.captureException(error),
 })
 

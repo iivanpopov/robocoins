@@ -6,8 +6,8 @@ import styles from './app-link.module.css'
 
 type _LinkProps = ComponentProps<'a'>
 
-function _Link(props: _LinkProps) {
-  return <a {...props} className={cn(styles.link, props.className)} />
+function _Link({ className, ...props }: _LinkProps) {
+  return <a {...props} className={cn(styles.link, className)} />
 }
 
 export const AppLink = createLink(_Link)

@@ -12,9 +12,7 @@ export type StandardSchemaValidator<TOutput = unknown> = {
  * The two possible outcomes of a Standard Schema `validate` call. A successful result carries
  * `value`; a failed result carries `issues`.
  */
-export type StandardSchemaResult<TOutput> =
-  | { readonly value: TOutput; readonly issues?: undefined }
-  | { readonly issues: ReadonlyArray<StandardSchemaIssue> }
+export type StandardSchemaResult<TOutput> = { readonly value: TOutput; readonly issues?: undefined } | { readonly issues: ReadonlyArray<StandardSchemaIssue> }
 
 /**
  * One validation issue from a Standard Schema `validate` call.
@@ -32,13 +30,7 @@ export type StandardSchemaIssue = {
 export class ParseError extends Error {
   readonly issues: ReadonlyArray<StandardSchemaIssue>
 
-  constructor({
-    issues,
-    message,
-  }: {
-    issues: ReadonlyArray<StandardSchemaIssue>
-    message?: string
-  }) {
+  constructor({ issues, message }: { issues: ReadonlyArray<StandardSchemaIssue>; message?: string }) {
     super(message ?? 'Validation failed')
     this.name = 'ParseError'
     this.issues = issues
@@ -53,10 +45,7 @@ export class ParseError extends Error {
  * @example
  * const pet = await validateStandardSchema(PetSchema, rawData)
  */
-export async function validateStandardSchema<TOutput>(
-  schema: StandardSchemaValidator<TOutput>,
-  value: unknown,
-): Promise<TOutput> {
+export async function validateStandardSchema<TOutput>(schema: StandardSchemaValidator<TOutput>, value: unknown): Promise<TOutput> {
   const result = await schema['~standard'].validate(value)
   if (result.issues) {
     throw new ParseError({ issues: result.issues })

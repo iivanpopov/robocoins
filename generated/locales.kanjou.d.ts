@@ -99,6 +99,10 @@ declare module '@kanjou/react' {
       'reason.other': {}
       'profile.balance.amount': { count: { __fn: 'number' } }
       'profile.balance.caption': { count: { __fn: 'number' } }
+      'error.code': {}
+      'error.title': {}
+      'error.description': {}
+      'error.retry': {}
       'not-found.code': {}
       'not-found.title': {}
       'not-found.description': {}

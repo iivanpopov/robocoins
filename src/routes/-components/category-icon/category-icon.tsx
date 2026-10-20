@@ -11,6 +11,11 @@ const CATEGORY_ICON: Record<CourseCategoryKey, string> = {
   web: 'i-ph:globe-duotone',
 }
 
-export function CategoryIcon(props: { category: CourseCategoryKey; className?: string }) {
-  return <div className={cn(CATEGORY_ICON[props.category], props.className)} />
+export interface CategoryIconProps {
+  category: CourseCategoryKey
+  className?: string
+}
+
+export function CategoryIcon({ category, className }: CategoryIconProps) {
+  return <div className={cn(CATEGORY_ICON[category], className)} />
 }

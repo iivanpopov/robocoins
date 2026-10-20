@@ -8,7 +8,7 @@ Teacher-facing interfaces use a restrained, flat UI. Keep the presentation clear
 
 Examples:
 
-- [Teacher group](../../src/routes/_teacher/group/)
+- [Teacher group](../../src/routes/_authorized/_navigation/_teacher/group/)
 
 ## Child-facing interfaces
 
@@ -16,6 +16,6 @@ Interfaces for children use a hero UI: expressive, prominent buttons and clearly
 
 Examples:
 
-- [Profile](../../src/routes/_student/)
+- [Profile](../../src/routes/_authorized/_navigation/_student/)
 - [Login](../../src/routes/_auth/login/)
 - [Register](../../src/routes/_auth/register/)

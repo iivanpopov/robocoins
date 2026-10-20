@@ -1,0 +1,1132 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "RoboCoins Dashboard", "version": "0.1.0" },
+  "paths": {
+    "/course": {
+      "get": {
+        "tags": ["courses"],
+        "summary": "Get Courses",
+        "operationId": "get_courses_course_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/CourseResponse" },
+                  "type": "array",
+                  "title": "Response Get Courses Course Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["courses"],
+        "summary": "Create Course",
+        "operationId": "create_course_course_post",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/CourseCreateRequest" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/CourseResponse" } }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/category/{category}": {
+      "get": {
+        "tags": ["courses"],
+        "summary": "Get Courses By Category",
+        "operationId": "get_courses_by_category_course_category__category__get",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/CourseCategory" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/CourseResponse" },
+                  "title": "Response Get Courses By Category Course Category  Category  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/group/create": {
+      "post": {
+        "tags": ["groups"],
+        "summary": "Create Group",
+        "operationId": "create_group_group_create_post",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/GroupCreateRequest" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/GroupResponse" } }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/group/id/{group_id}": {
+      "get": {
+        "tags": ["groups"],
+        "summary": "Get Group By Id",
+        "operationId": "get_group_by_id_group_id__group_id__get",
+        "parameters": [
+          {
+            "name": "group_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Group Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/GroupResponse" } }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/group/name/{name}": {
+      "get": {
+        "tags": ["groups"],
+        "summary": "Get Group By Name",
+        "operationId": "get_group_by_name_group_name__name__get",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "title": "Name" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/GroupResponse" } }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/group/course/{course_id}": {
+      "get": {
+        "tags": ["groups"],
+        "summary": "Get Groups By Course Id",
+        "operationId": "get_groups_by_course_id_group_course__course_id__get",
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Course Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/GroupResponse" },
+                  "title": "Response Get Groups By Course Id Group Course  Course Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/group/id/{group_id}/teachers": {
+      "put": {
+        "tags": ["groups"],
+        "summary": "Assign Group Teachers",
+        "operationId": "assign_group_teachers_group_id__group_id__teachers_put",
+        "parameters": [
+          {
+            "name": "group_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Group Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/TeacherAssignmentRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/GroupResponse" } }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student/register": {
+      "post": {
+        "tags": ["students"],
+        "summary": "Create Student",
+        "operationId": "create_student_student_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/StudentCreateRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/StudentResponse" } }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student/{student_id}": {
+      "get": {
+        "tags": ["students"],
+        "summary": "Get Student By Id",
+        "operationId": "get_student_by_id_student__student_id__get",
+        "parameters": [
+          {
+            "name": "student_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Student Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StudentProfileResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teacher/course/{course_id}/groups": {
+      "get": {
+        "tags": ["teachers"],
+        "summary": "Get Teacher Groups By Course",
+        "operationId": "get_teacher_groups_by_course_teacher_course__course_id__groups_get",
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Course Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/CourseGroupResponse" },
+                  "title": "Response Get Teacher Groups By Course Teacher Course  Course Id  Groups Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teacher/groups": {
+      "get": {
+        "tags": ["teachers"],
+        "summary": "Get Teacher Groups",
+        "operationId": "get_teacher_groups_teacher_groups_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/CourseGroupResponse" },
+                  "type": "array",
+                  "title": "Response Get Teacher Groups Teacher Groups Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teacher/register": {
+      "post": {
+        "tags": ["teachers"],
+        "summary": "Register Teacher",
+        "operationId": "register_teacher_teacher_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/TeacherRegistrationRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TeacherRegistrationResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teacher/{teacher_id}": {
+      "get": {
+        "tags": ["teachers"],
+        "summary": "Get Teacher Profile",
+        "operationId": "get_teacher_profile_teacher__teacher_id__get",
+        "parameters": [
+          {
+            "name": "teacher_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Teacher Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TeacherProfileResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Get Users",
+        "operationId": "get_users_users_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/UserResponse" },
+                  "type": "array",
+                  "title": "Response Get Users Users Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Get User By Id",
+        "operationId": "get_user_by_id_users__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "User Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UserResponse" } }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student/{student_id}/balance": {
+      "get": {
+        "tags": ["balance"],
+        "summary": "Get Student Balance By Id",
+        "operationId": "get_student_balance_by_id_student__student_id__balance_get",
+        "parameters": [
+          {
+            "name": "student_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Student Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/BalanceResponse" } }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student/{student_id}/balance/transactions": {
+      "post": {
+        "tags": ["balance"],
+        "summary": "Change Student Balance",
+        "operationId": "change_student_balance_student__student_id__balance_transactions_post",
+        "parameters": [
+          {
+            "name": "student_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Student Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/BalanceChangeRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BalanceChangeResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student/{student_id}/transactions": {
+      "get": {
+        "tags": ["balance"],
+        "summary": "Get Student Transaction History",
+        "operationId": "get_student_transaction_history_student__student_id__transactions_get",
+        "parameters": [
+          {
+            "name": "student_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "Student Id" }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "minimum": 0, "default": 0, "title": "Offset" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BalanceHistoryResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ext/balance/balanceChangeReasons": {
+      "get": {
+        "tags": ["balance"],
+        "summary": "Get Balance Change Reasons",
+        "operationId": "get_balance_change_reasons_ext_balance_balanceChangeReasons_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BalanceChangeReasonsResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Login",
+        "operationId": "login_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/UserLoginRequest" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/UserLoginResponse" } }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Logout",
+        "operationId": "logout_auth_logout_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserLogoutResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "tags": ["auth"],
+        "summary": "Get Current User",
+        "operationId": "get_current_user_auth_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    { "$ref": "#/components/schemas/StudentProfileResponse" },
+                    { "$ref": "#/components/schemas/TeacherProfileResponse" }
+                  ],
+                  "title": "Response Get Current User Auth Me Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BalanceChangeReasonItem": {
+        "properties": {
+          "reason": { "$ref": "#/components/schemas/BalanceChangeReasons" },
+          "type": { "$ref": "#/components/schemas/BalanceChangeType" }
+        },
+        "type": "object",
+        "required": ["reason", "type"],
+        "title": "BalanceChangeReasonItem"
+      },
+      "BalanceChangeReasons": {
+        "type": "string",
+        "enum": [
+          "theory",
+          "practice_completed",
+          "additional_task_completed",
+          "accidental_punish",
+          "discipline_breakdown",
+          "middle_level_violation",
+          "serious_violation",
+          "accidental_reward"
+        ],
+        "title": "BalanceChangeReasons"
+      },
+      "BalanceChangeReasonsResponse": {
+        "properties": {
+          "code": { "type": "integer", "title": "Code", "default": 200 },
+          "status": { "type": "string", "title": "Status", "default": "success" },
+          "reasons": {
+            "items": { "$ref": "#/components/schemas/BalanceChangeReasonItem" },
+            "type": "array",
+            "title": "Reasons"
+          }
+        },
+        "type": "object",
+        "required": ["reasons"],
+        "title": "BalanceChangeReasonsResponse"
+      },
+      "BalanceChangeRequest": {
+        "properties": {
+          "reason": {
+            "items": { "$ref": "#/components/schemas/BalanceChangeReasons" },
+            "type": "array",
+            "minItems": 1,
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": ["reason"],
+        "title": "BalanceChangeRequest"
+      },
+      "BalanceChangeResponse": {
+        "properties": {
+          "balance": { "type": "integer", "title": "Balance" },
+          "transaction": { "$ref": "#/components/schemas/BalanceTransactionResponse" },
+          "code": { "type": "integer", "title": "Code", "default": 200 },
+          "status": { "type": "string", "title": "Status", "default": "success" }
+        },
+        "type": "object",
+        "required": ["balance", "transaction"],
+        "title": "BalanceChangeResponse"
+      },
+      "BalanceChangeType": {
+        "type": "string",
+        "enum": ["punish", "reward"],
+        "title": "BalanceChangeType"
+      },
+      "BalanceHistoryResponse": {
+        "properties": {
+          "transactions": {
+            "items": { "$ref": "#/components/schemas/BalanceTransactionResponse" },
+            "type": "array",
+            "title": "Transactions"
+          },
+          "code": { "type": "integer", "title": "Code", "default": 200 },
+          "status": { "type": "string", "title": "Status", "default": "success" }
+        },
+        "type": "object",
+        "required": ["transactions"],
+        "title": "BalanceHistoryResponse"
+      },
+      "BalanceResponse": {
+        "properties": {
+          "balance": { "type": "integer", "title": "Balance" },
+          "code": { "type": "integer", "title": "Code", "default": 200 },
+          "status": { "type": "string", "title": "Status", "default": "success" }
+        },
+        "type": "object",
+        "required": ["balance"],
+        "title": "BalanceResponse"
+      },
+      "BalanceTransactionResponse": {
+        "properties": {
+          "id": { "type": "integer", "title": "Id" },
+          "student_id": { "type": "integer", "title": "Student Id" },
+          "operation": { "type": "string", "enum": ["deposit", "deduct"], "title": "Operation" },
+          "amount": { "type": "integer", "title": "Amount" },
+          "reason": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Reason" },
+          "created_at": { "type": "string", "format": "date-time", "title": "Created At" }
+        },
+        "type": "object",
+        "required": ["id", "student_id", "operation", "amount", "reason", "created_at"],
+        "title": "BalanceTransactionResponse"
+      },
+      "CourseCategory": {
+        "type": "string",
+        "enum": ["embedded", "game dev", "web", "primary", "python", "no category"],
+        "title": "CourseCategory"
+      },
+      "CourseCreateRequest": {
+        "properties": {
+          "name": { "type": "string", "title": "Name", "description": "Name of the course" },
+          "category": { "$ref": "#/components/schemas/CourseCategory", "default": "embedded" }
+        },
+        "type": "object",
+        "required": ["name"],
+        "title": "CourseCreateRequest"
+      },
+      "CourseGroupResponse": {
+        "properties": {
+          "status": { "type": "string", "title": "Status", "default": "success" },
+          "code": { "type": "integer", "title": "Code", "default": 200 },
+          "id": { "type": "integer", "title": "Id" },
+          "name": { "type": "string", "title": "Name" },
+          "course_id": { "type": "integer", "title": "Course Id" },
+          "students_count": { "type": "integer", "title": "Students Count", "default": 0 },
+          "teacher_ids": {
+            "items": { "type": "integer" },
+            "type": "array",
+            "title": "Teacher Ids",
+            "description": "User IDs of the group's teachers"
+          }
+        },
+        "type": "object",
+        "required": ["id", "name", "course_id"],
+        "title": "CourseGroupResponse"
+      },
+      "CourseResponse": {
+        "properties": {
+          "status": { "type": "string", "title": "Status", "default": "success" },
+          "code": { "type": "integer", "title": "Code", "default": 200 },
+          "id": { "type": "integer", "title": "Id" },
+          "name": { "type": "string", "title": "Name" },
+          "category": { "$ref": "#/components/schemas/CourseCategory" },
+          "groups": {
+            "items": { "$ref": "#/components/schemas/CourseGroupResponse" },
+            "type": "array",
+            "title": "Groups",
+            "description": "Groups associated with the course"
+          },
+          "groups_count": { "type": "integer", "title": "Groups Count", "default": 0 }
+        },
+        "type": "object",
+        "required": ["id", "name", "category"],
+        "title": "CourseResponse"
+      },
+      "GroupCreateRequest": {
+        "properties": {
+          "name": { "type": "string", "title": "Name", "description": "Name of the group" },
+          "course_id": {
+            "type": "integer",
+            "title": "Course Id",
+            "description": "ID of the associated course"
+          },
+          "teacher_ids": {
+            "items": { "type": "integer" },
+            "type": "array",
+            "maxItems": 2,
+            "title": "Teacher Ids",
+            "description": "One or two teacher user IDs"
+          }
+        },
+        "type": "object",
+        "required": ["name", "course_id"],
+        "title": "GroupCreateRequest"
+      },
+      "GroupResponse": {
+        "properties": {
+          "status": { "type": "string", "title": "Status", "default": "success" },
+          "code": { "type": "integer", "title": "Code", "default": 200 },
+          "id": { "type": "integer", "title": "Id" },
+          "name": { "type": "string", "title": "Name" },
+          "course_id": { "type": "integer", "title": "Course Id" },
+          "students": {
+            "items": { "$ref": "#/components/schemas/StudentProfileResponse" },
+            "type": "array",
+            "title": "Students",
+            "description": "Students in the group"
+          },
+          "students_count": { "type": "integer", "title": "Students Count", "default": 0 },
+          "teacher_ids": {
+            "items": { "type": "integer" },
+            "type": "array",
+            "title": "Teacher Ids",
+            "description": "User IDs of the group's teachers"
+          }
+        },
+        "type": "object",
+        "required": ["id", "name", "course_id"],
+        "title": "GroupResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "LoginUser": {
+        "properties": {
+          "id": { "type": "integer", "title": "Id" },
+          "user_id": { "type": "integer", "title": "User Id" },
+          "name": { "type": "string", "title": "Name" },
+          "role": { "$ref": "#/components/schemas/UserRole" }
+        },
+        "type": "object",
+        "required": ["id", "user_id", "name", "role"],
+        "title": "LoginUser"
+      },
+      "StudentCreateRequest": {
+        "properties": {
+          "name": { "type": "string", "title": "Name" },
+          "avatar": { "type": "string", "title": "Avatar" },
+          "group_ids": {
+            "items": { "type": "integer" },
+            "type": "array",
+            "minItems": 1,
+            "title": "Group Ids"
+          }
+        },
+        "type": "object",
+        "required": ["name", "avatar", "group_ids"],
+        "title": "StudentCreateRequest"
+      },
+      "StudentProfileResponse": {
+        "properties": {
+          "status": { "type": "string", "title": "Status", "default": "success" },
+          "code": { "type": "integer", "title": "Code", "default": 200 },
+          "id": { "type": "integer", "title": "Id" },
+          "user_id": { "type": "integer", "title": "User Id" },
+          "role": { "$ref": "#/components/schemas/UserRole", "default": "student" },
+          "name": { "type": "string", "title": "Name" },
+          "course_names": {
+            "items": { "type": "string" },
+            "type": "array",
+            "title": "Course Names"
+          },
+          "group_ids": { "items": { "type": "integer" }, "type": "array", "title": "Group Ids" },
+          "avatar": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Avatar" },
+          "balance": { "type": "integer", "title": "Balance" }
+        },
+        "type": "object",
+        "required": ["id", "user_id", "name", "course_names", "group_ids", "balance"],
+        "title": "StudentProfileResponse"
+      },
+      "StudentResponse": {
+        "properties": {
+          "status": { "type": "string", "title": "Status", "default": "success" },
+          "code": { "type": "integer", "title": "Code", "default": 200 },
+          "id": { "type": "integer", "title": "Id" },
+          "user_id": { "type": "integer", "title": "User Id" },
+          "role": { "$ref": "#/components/schemas/UserRole", "default": "student" },
+          "name": { "type": "string", "title": "Name" },
+          "course_names": {
+            "items": { "type": "string" },
+            "type": "array",
+            "title": "Course Names"
+          },
+          "group_ids": { "items": { "type": "integer" }, "type": "array", "title": "Group Ids" },
+          "avatar": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Avatar" },
+          "balance": { "type": "integer", "title": "Balance" },
+          "hash_access_key": { "type": "string", "title": "Hash Access Key" },
+          "access_code": { "type": "string", "title": "Access Code" }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "name",
+          "course_names",
+          "group_ids",
+          "balance",
+          "hash_access_key",
+          "access_code"
+        ],
+        "title": "StudentResponse"
+      },
+      "TeacherAssignmentRequest": {
+        "properties": {
+          "teacher_ids": {
+            "items": { "type": "integer" },
+            "type": "array",
+            "maxItems": 2,
+            "title": "Teacher Ids"
+          }
+        },
+        "type": "object",
+        "title": "TeacherAssignmentRequest"
+      },
+      "TeacherGroupProfile": {
+        "properties": {
+          "id": { "type": "integer", "title": "Id" },
+          "name": { "type": "string", "title": "Name" },
+          "course_id": { "type": "integer", "title": "Course Id" },
+          "course_name": { "type": "string", "title": "Course Name" },
+          "students_count": { "type": "integer", "title": "Students Count" }
+        },
+        "type": "object",
+        "required": ["id", "name", "course_id", "course_name", "students_count"],
+        "title": "TeacherGroupProfile"
+      },
+      "TeacherProfileResponse": {
+        "properties": {
+          "status": { "type": "string", "title": "Status", "default": "success" },
+          "code": { "type": "integer", "title": "Code", "default": 200 },
+          "id": { "type": "integer", "title": "Id" },
+          "user_id": { "type": "integer", "title": "User Id" },
+          "name": { "type": "string", "title": "Name" },
+          "role": { "$ref": "#/components/schemas/UserRole", "default": "teacher" },
+          "groups": {
+            "items": { "$ref": "#/components/schemas/TeacherGroupProfile" },
+            "type": "array",
+            "title": "Groups"
+          }
+        },
+        "type": "object",
+        "required": ["id", "user_id", "name"],
+        "title": "TeacherProfileResponse"
+      },
+      "TeacherRegistrationRequest": {
+        "properties": {
+          "name": { "type": "string", "maxLength": 200, "minLength": 1, "title": "Name" }
+        },
+        "type": "object",
+        "required": ["name"],
+        "title": "TeacherRegistrationRequest"
+      },
+      "TeacherRegistrationResponse": {
+        "properties": {
+          "status": { "type": "string", "title": "Status", "default": "success" },
+          "code": { "type": "integer", "title": "Code", "default": 200 },
+          "id": { "type": "integer", "title": "Id" },
+          "user_id": { "type": "integer", "title": "User Id" },
+          "name": { "type": "string", "title": "Name" },
+          "role": { "$ref": "#/components/schemas/UserRole", "default": "teacher" },
+          "access_code": { "type": "string", "title": "Access Code" }
+        },
+        "type": "object",
+        "required": ["id", "user_id", "name", "access_code"],
+        "title": "TeacherRegistrationResponse"
+      },
+      "UserLoginRequest": {
+        "properties": { "code": { "type": "string", "title": "Code" } },
+        "type": "object",
+        "required": ["code"],
+        "title": "UserLoginRequest"
+      },
+      "UserLoginResponse": {
+        "properties": {
+          "message": { "type": "string", "title": "Message" },
+          "session_token": { "type": "string", "title": "Session Token" },
+          "user": { "$ref": "#/components/schemas/LoginUser" },
+          "status": { "type": "string", "title": "Status", "default": "success" },
+          "code": { "type": "integer", "title": "Code", "default": 200 }
+        },
+        "type": "object",
+        "required": ["message", "session_token", "user"],
+        "title": "UserLoginResponse"
+      },
+      "UserLogoutResponse": {
+        "properties": {
+          "message": { "type": "string", "title": "Message" },
+          "status": { "type": "string", "title": "Status", "default": "success" },
+          "code": { "type": "integer", "title": "Code", "default": 200 }
+        },
+        "type": "object",
+        "required": ["message"],
+        "title": "UserLogoutResponse"
+      },
+      "UserResponse": {
+        "properties": {
+          "id": { "type": "integer", "title": "Id" },
+          "name": { "type": "string", "title": "Name" },
+          "role": { "$ref": "#/components/schemas/UserRole" }
+        },
+        "type": "object",
+        "required": ["id", "name", "role"],
+        "title": "UserResponse"
+      },
+      "UserRole": { "type": "string", "enum": ["student", "teacher"], "title": "UserRole" },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": { "type": "string", "title": "Message" },
+          "type": { "type": "string", "title": "Error Type" },
+          "input": { "title": "Input" },
+          "ctx": { "type": "object", "title": "Context" }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
