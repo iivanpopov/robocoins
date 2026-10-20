@@ -23,6 +23,12 @@ export default defineConfig(({ mode }) => {
       }),
       nitro({
         preset: 'vercel',
+        sourcemap: true,
+        rolldownConfig: {
+          checks: {
+            moduleLevelDirective: false,
+          },
+        },
         routeRules: {
           '/api/**': {
             proxy: `${env.API_URL}/**`,
@@ -34,7 +40,6 @@ export default defineConfig(({ mode }) => {
       react(),
       unocss(),
       sentryTanstackStart({
-        tunnelRoute: true,
         bundleSizeOptimizations: {
           excludeDebugStatements: true,
           excludeTracing: true,
@@ -46,6 +51,23 @@ export default defineConfig(({ mode }) => {
     ],
     build: {
       sourcemap: 'hidden',
+      rolldownOptions: {
+        checks: {
+          moduleLevelDirective: false,
+        },
+      },
+    },
+    environments: {
+      ssr: {
+        build: {
+          sourcemap: 'hidden',
+          rolldownOptions: {
+            checks: {
+              moduleLevelDirective: false,
+            },
+          },
+        },
+      },
     },
   }
 })

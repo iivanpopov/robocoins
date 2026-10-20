@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/tanstackstart-react'
+import { captureException } from '@sentry/tanstackstart-react'
 import { createRouter } from '@tanstack/react-router'
 import { setupRouterSsrQueryIntegration } from '@tanstack/react-router-ssr-query'
 
@@ -19,7 +19,7 @@ export function getRouter() {
     defaultNotFoundComponent: NotFoundComponent,
     defaultErrorComponent: ErrorComponent,
     defaultPendingComponent: PendingComponent,
-    defaultOnCatch: (error) => Sentry.captureException(error),
+    defaultOnCatch: (error) => captureException(error),
   })
 
   setupRouterSsrQueryIntegration({ router, queryClient })

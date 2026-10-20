@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/tanstackstart-react'
+import { captureException } from '@sentry/tanstackstart-react'
 import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query'
 
 import { ResponseError } from '#/api/.kubb/client'
@@ -33,14 +33,14 @@ export function createQueryClient() {
       onError: (error, query) => {
         if (shouldIgnoreError(error, query.meta)) return
 
-        Sentry.captureException(error, { tags: { source: 'query' } })
+        captureException(error, { tags: { source: 'query' } })
       },
     }),
     mutationCache: new MutationCache({
       onError: (error, _variables, _context, mutation) => {
         if (shouldIgnoreError(error, mutation.meta)) return
 
-        Sentry.captureException(error, { tags: { source: 'mutation' } })
+        captureException(error, { tags: { source: 'mutation' } })
       },
     }),
   })
