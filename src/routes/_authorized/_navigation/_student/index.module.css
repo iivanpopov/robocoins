@@ -114,6 +114,10 @@
   min-width: 16px;
 }
 
+.progress span[data-completed='true'] {
+  background: var(--green-500);
+}
+
 .history {
   display: flex;
   flex-direction: column;
