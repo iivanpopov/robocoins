@@ -79,6 +79,7 @@ function StudentPage() {
           className={styles.product}
           src={getProductUrl(CURRENT_TARGET_PRODUCT)}
           alt={t('profile.goal.product')}
+          fetchPriority="high"
         />
         <div className={styles['product-heading']}>
           <Typography className={styles['product-name']} variant="subtitle">
