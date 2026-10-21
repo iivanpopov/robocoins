@@ -1,3 +1,5 @@
+import { resolve } from 'node:path'
+
 import kanjou from '@kanjou/plugin/vite'
 import { sentryTanstackStart } from '@sentry/tanstackstart-react/vite'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
@@ -14,6 +16,10 @@ export default defineConfig(({ mode }) => {
     resolve: {
       tsconfigPaths: true,
       dedupe: ['react', 'react-dom'],
+      alias: {
+        react: resolve('node_modules/react'),
+        'react-dom': resolve('node_modules/react-dom'),
+      },
     },
     plugins: [
       tanstackStart({
@@ -25,6 +31,7 @@ export default defineConfig(({ mode }) => {
       nitro({
         preset: 'vercel',
         sourcemap: true,
+        traceDeps: ['react', 'react-dom'],
         rolldownConfig: {
           external: ['react', 'react-dom'],
           checks: {
