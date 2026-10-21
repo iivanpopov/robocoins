@@ -8,14 +8,14 @@ import { compareTransactionsByNewest } from '#/routes/-utils'
 import { GOAL_BALANCE } from '../-constants'
 import { getSignedAmount } from '../-utils'
 
-const now = new Date()
-const dateToday = now.toDateString()
-const dateYesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1).toDateString()
-
 export function useStudentPage() {
   const context = useRouteContext({ from: '/_authorized/_navigation/_student/' })
   const t = useTranslate()
   const profile = context.user as StudentProfileResponse
+  const dateToday = new Date(context.renderedAt).toISOString().slice(0, 10)
+  const dateYesterday = new Date(context.renderedAt - 24 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 10)
   const historyQuery = useGetStudentTransactionHistoryStudentStudentIdTransactionsGet({
     path: { student_id: profile.id },
     query: { limit: 3 },
@@ -24,9 +24,11 @@ export function useStudentPage() {
   function formatHistoryDate(value: string) {
     const date = new Date(value)
 
-    if (date.toDateString() === dateToday) return t('profile.history.today')
-    if (date.toDateString() === dateYesterday) return t('profile.history.yesterday')
-    return t('profile.history.date', { date })
+    const dateKey = date.toISOString().slice(0, 10)
+
+    if (dateKey === dateToday) return t('profile.history.today')
+    if (dateKey === dateYesterday) return t('profile.history.yesterday')
+    return t('profile.history.date', { date: new Date(dateKey) })
   }
 
   function handleRetryHistory() {

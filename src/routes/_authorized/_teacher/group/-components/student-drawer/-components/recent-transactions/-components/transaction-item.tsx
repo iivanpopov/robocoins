@@ -3,7 +3,6 @@ import { cn } from 'cn'
 import { AnimationEvent, useRef } from 'react'
 
 import { BalanceTransactionResponse } from '#/api/types'
-import { UKRAINIAN_LOCALE } from '#/routes/-constants'
 
 import { useTransactionSwipe } from '../-hooks'
 
@@ -78,7 +77,11 @@ export function TransactionItem(props: TransactionItemProps) {
               .join(', ')}
           </span>
           <span className={styles.time}>
-            {new Date(props.transaction.created_at).toLocaleString(UKRAINIAN_LOCALE)}
+            {t.date(new Date(props.transaction.created_at), {
+              dateStyle: 'short',
+              timeStyle: 'short',
+              timeZone: 'UTC',
+            })}
           </span>
         </div>
       </div>

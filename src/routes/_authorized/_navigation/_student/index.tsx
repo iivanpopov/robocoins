@@ -2,6 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute } from '@tanstack/react-router'
 import { cn } from 'cn'
 
+import { getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions } from '#/api/hooks/useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet'
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryOptions } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { StudentProfileResponse } from '#/api/types'
 import { Avatar, AvatarFallback, AvatarImage, Button, Loader, Typography } from '#/components/ui'
@@ -18,17 +19,23 @@ import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_student/')({
   beforeLoad: async () => {
+    const renderedAt = Date.now()
     const lastLogOn = Number(await readCookie(LAST_LOG_ON_COOKIE)) || Date.now()
-    return { lastLogOn }
+    return { lastLogOn, renderedAt }
   },
-  loader: ({ context }) => {
+  loader: async ({ context }) => {
     const profile = context.user as StudentProfileResponse
-    return context.queryClient.query(
-      getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryOptions({
-        path: { student_id: profile.id },
-        query: { limit: 3 },
-      }),
-    )
+    return Promise.all([
+      context.queryClient.query(
+        getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryOptions({
+          path: { student_id: profile.id },
+          query: { limit: 3 },
+        }),
+      ),
+      context.queryClient.query(
+        getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions(),
+      ),
+    ])
   },
   onEnter: () => {
     if (import.meta.env.SSR) return

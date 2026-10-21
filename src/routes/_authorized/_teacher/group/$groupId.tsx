@@ -2,6 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { cn } from 'cn'
 
+import { getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions } from '#/api/hooks/useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet'
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
 import { getGroupByIdGroupIdGroupIdGetQueryOptions } from '#/api/hooks/useGetGroupByIdGroupIdGroupIdGet'
 import { Avatar, AvatarFallback, AvatarImage, IconButton, Loader } from '#/components/ui'
@@ -14,12 +15,16 @@ import { useGroupStudentsPage } from './-hooks'
 import styles from './$groupId.module.css'
 
 export const Route = createFileRoute('/_authorized/_teacher/group/$groupId')({
-  loader: async ({ context, params }) => [
-    context.queryClient.query(
-      getGroupByIdGroupIdGroupIdGetQueryOptions({ path: { group_id: Number(params.groupId) } }),
-    ),
-    context.queryClient.query(getCoursesCourseGetQueryOptions()),
-  ],
+  loader: async ({ context, params }) =>
+    Promise.all([
+      context.queryClient.query(
+        getGroupByIdGroupIdGroupIdGetQueryOptions({ path: { group_id: Number(params.groupId) } }),
+      ),
+      context.queryClient.query(getCoursesCourseGetQueryOptions()),
+      context.queryClient.query(
+        getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions(),
+      ),
+    ]),
   component: GroupStudentsPage,
 })
 

@@ -13,10 +13,11 @@ import { useGroupPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_teacher/group/')({
-  loader: async ({ context }) => [
-    context.queryClient.query(getCoursesCourseGetQueryOptions()),
-    context.queryClient.query(getTeacherGroupsTeacherGroupsGetQueryOptions()),
-  ],
+  loader: async ({ context }) =>
+    Promise.all([
+      context.queryClient.query(getCoursesCourseGetQueryOptions()),
+      context.queryClient.query(getTeacherGroupsTeacherGroupsGetQueryOptions()),
+    ]),
   component: GroupPage,
 })
 

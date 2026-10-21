@@ -26,6 +26,7 @@ export default defineConfig(({ mode }) => {
         preset: 'vercel',
         sourcemap: true,
         rolldownConfig: {
+          external: ['react', 'react-dom'],
           checks: {
             moduleLevelDirective: false,
           },
