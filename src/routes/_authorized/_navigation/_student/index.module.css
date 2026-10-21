@@ -44,6 +44,23 @@
   border-radius: var(--rounded-xl);
 }
 
+.goal-empty {
+  padding: 0;
+  background: none;
+}
+
+.goal-shop {
+  justify-content: flex-start;
+  font-weight: 500;
+  color: var(--brand);
+}
+
+.goal-completed-label {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
 .product-name {
   flex: 1;
   min-width: 0;
@@ -114,6 +131,10 @@
   min-width: 16px;
 }
 
+.progress span[data-completed='true'] {
+  background: var(--green-500);
+}
+
 .history {
   display: flex;
   flex-direction: column;
@@ -151,12 +172,13 @@
   gap: var(--spacing-md);
   align-items: center;
   min-height: 32px;
+  margin-bottom: var(--spacing-xs);
   font-weight: 500;
 }
 
 .rules-button {
   align-self: flex-start;
-  margin-top: var(--spacing-lg);
+  margin-top: var(--spacing-sm);
   font-weight: 500;
   text-align: left;
   text-decoration: none;

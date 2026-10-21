@@ -1,18 +1,18 @@
 import { useTranslate } from '@kanjou/react'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { cn } from 'cn'
 
 import { getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions } from '#/api/hooks/useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet'
+import { getStudentRewardProgressStudentStudentIdRewardProgressGetQueryOptions } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryOptions } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { StudentProfileResponse } from '#/api/types'
 import { Avatar, AvatarFallback, AvatarImage, Button, Loader, Typography } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 import { COOKIE_MAX_AGE, LAST_LOG_ON_COOKIE, type Avatar as AvatarName } from '#/routes/-constants'
-import { getAvatarUrl, getInitial, getProductUrl } from '#/routes/-utils'
+import { getAvatarUrl, getInitial } from '#/routes/-utils'
 import { readCookie } from '#/utils/cookies'
 
 import { RulesDrawer } from './-components'
-import { CURRENT_TARGET_PRODUCT, GOAL_BALANCE } from './-constants'
 import { useStudentPage } from './-hooks'
 
 import styles from './index.module.css'
@@ -35,6 +35,11 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/')({
       context.queryClient.query(
         getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions(),
       ),
+      context.queryClient.query(
+        getStudentRewardProgressStudentStudentIdRewardProgressGetQueryOptions({
+          path: { student_id: profile.id },
+        }),
+      ),
     ])
   },
   onEnter: () => {
@@ -51,8 +56,13 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/')({
 })
 
 function StudentPage() {
+  const navigate = useNavigate()
   const t = useTranslate()
   const { state, queries, functions } = useStudentPage()
+
+  function handleNavigateToShop() {
+    void navigate({ to: '/shop' })
+  }
 
   return (
     <main className={styles.page}>
@@ -74,31 +84,44 @@ function StudentPage() {
           <div aria-hidden="true" className={cn('i-ph:coins-bold', styles['coin-icon'])} />
         </div>
       </header>
-      <article className={styles.goal}>
-        <img
-          className={styles.product}
-          src={getProductUrl(CURRENT_TARGET_PRODUCT)}
-          alt={t('profile.goal.product')}
-          fetchPriority="high"
-        />
-        <div className={styles['product-heading']}>
+      {!state.goal && (
+        <article className={cn(styles.goal, styles['goal-empty'])}>
           <Typography className={styles['product-name']} variant="subtitle">
-            {t('profile.goal.product')}
+            {t('profile.goal.none')}
           </Typography>
-          <div aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.chevron)} />
-        </div>
-        <p className={styles.amount}>
-          <strong>{t('profile.balance.amount', { count: state.profile.balance })}</strong>{' '}
-          {t('profile.goal.target', { count: GOAL_BALANCE })}{' '}
-          <span aria-hidden="true" className="i-ph:coins-bold" />
-        </p>
-        <div className={styles.progress}>
-          <span data-active={state.profile.balance > 0} style={{ width: state.goalProgress }} />
-        </div>
-        <Typography className={styles.label} variant="caption">
-          {t('profile.goal.remaining', { count: state.remainingBalance })}
-        </Typography>
-      </article>
+          <Button className={styles['goal-shop']} variant="ghost" onClick={handleNavigateToShop}>
+            {t('profile.goal.shop')}
+          </Button>
+        </article>
+      )}
+      {state.goal && (
+        <article className={styles.goal}>
+          <div className={styles['product-heading']}>
+            <Typography className={styles['product-name']} variant="subtitle">
+              {state.goal.name}
+            </Typography>
+            <div aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.chevron)} />
+          </div>
+          <p className={styles.amount}>
+            <strong>{t('profile.balance.amount', { count: state.profile.balance })}</strong>{' '}
+            {t('profile.goal.target', { count: state.goal.price })}{' '}
+            <span aria-hidden="true" className="i-ph:coins-bold" />
+          </p>
+          <div className={styles.progress}>
+            <span
+              data-active={state.profile.balance > 0}
+              data-completed={state.goalCompleted}
+              style={{ width: state.goalProgress }}
+            />
+          </div>
+          <Typography className={styles.label} variant="caption">
+            {state.goalCompleted && (
+              <span className={styles['goal-completed-label']}>{t('profile.goal.completed')}</span>
+            )}
+            {!state.goalCompleted && t('profile.goal.remaining', { count: state.remainingBalance })}
+          </Typography>
+        </article>
+      )}
       <section className={styles.history}>
         <div className={styles['section-heading']}>
           <Typography className={styles['history-title']} variant="subtitle">

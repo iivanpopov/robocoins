@@ -102,6 +102,9 @@ declare module '@kanjou/react' {
       'reason.other': {}
       'profile.balance.amount': { count: { __fn: 'number' } }
       'profile.goal.product': {}
+      'profile.goal.none': {}
+      'profile.goal.shop': {}
+      'profile.goal.completed': {}
       'profile.goal.target': { count: { __fn: 'number' } }
       'profile.goal.remaining': { count: { __fn: 'number' } }
       'profile.history.title': {}

@@ -107,6 +107,9 @@ export default {
   'reason.other': 'Інше',
   'profile.balance.amount': '{$count :number}',
   'profile.goal.product': 'Набір Arduino Uno',
+  'profile.goal.none': 'Ціль не обрана',
+  'profile.goal.shop': 'Перейти до магазину, щоб обрати ціль',
+  'profile.goal.completed': 'Достатньо робокоїнів!',
   'profile.goal.target': 'із {$count :number}',
   'profile.goal.remaining': `
     .input {$count :number}
