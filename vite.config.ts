@@ -11,8 +11,13 @@ import { defineConfig, loadEnv } from 'vite'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
+  const isVercelPreview = process.env.VERCEL_ENV === 'preview'
+  const sourcemap = isVercelPreview ? true : 'hidden'
 
   return {
+    define: {
+      'import.meta.env.VITE_SENTRY_DSN': JSON.stringify(isVercelPreview ? '' : env.VITE_SENTRY_DSN),
+    },
     resolve: {
       tsconfigPaths: true,
       dedupe: ['react', 'react-dom'],
@@ -48,16 +53,20 @@ export default defineConfig(({ mode }) => {
       kanjou(),
       react(),
       unocss(),
-      sentryTanstackStart({
-        authToken: env.SENTRY_AUTH_TOKEN,
-        bundleSizeOptimizations: {
-          excludeDebugStatements: true,
-          excludeTracing: true,
-        },
-        sourcemaps: {
-          filesToDeleteAfterUpload: ['./dist/**/*.map', './.vercel/output/**/*.map'],
-        },
-      }),
+      ...(!isVercelPreview
+        ? [
+            sentryTanstackStart({
+              authToken: env.SENTRY_AUTH_TOKEN,
+              bundleSizeOptimizations: {
+                excludeDebugStatements: true,
+                excludeTracing: true,
+              },
+              sourcemaps: {
+                filesToDeleteAfterUpload: ['./dist/**/*.map', './.vercel/output/**/*.map'],
+              },
+            }),
+          ]
+        : []),
       ...(mode === 'analyze'
         ? [
             visualizer({
@@ -70,7 +79,7 @@ export default defineConfig(({ mode }) => {
         : []),
     ],
     build: {
-      sourcemap: 'hidden',
+      sourcemap,
       rolldownOptions: {
         checks: {
           moduleLevelDirective: false,
@@ -80,7 +89,7 @@ export default defineConfig(({ mode }) => {
     environments: {
       ssr: {
         build: {
-          sourcemap: 'hidden',
+          sourcemap,
           rolldownOptions: {
             checks: {
               moduleLevelDirective: false,
