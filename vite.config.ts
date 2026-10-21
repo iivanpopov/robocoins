@@ -13,9 +13,6 @@ export default defineConfig(({ mode }) => {
   const sourcemap = isVercelPreview ? true : 'hidden'
 
   return {
-    define: {
-      'import.meta.env.VITE_SENTRY_DSN': JSON.stringify(isVercelPreview ? '' : env.VITE_SENTRY_DSN),
-    },
     resolve: {
       tsconfigPaths: true,
       dedupe: ['react', 'react-dom'],
