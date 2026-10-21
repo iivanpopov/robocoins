@@ -1,5 +1,5 @@
-import { z } from 'zod'
+import * as v from 'valibot'
 
 import { courseCategory } from '#/api/types'
 
-export const StepCategorySchema = z.array(z.enum(courseCategory)).min(1)
+export const StepCategorySchema = v.pipe(v.array(v.enum(courseCategory)), v.minLength(1))
