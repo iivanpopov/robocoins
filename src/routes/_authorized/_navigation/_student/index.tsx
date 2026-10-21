@@ -85,11 +85,13 @@ function StudentPage() {
         </div>
       </header>
       {!state.goal && (
-        <article className={styles.goal}>
+        <article className={cn(styles.goal, styles['goal-empty'])}>
           <Typography className={styles['product-name']} variant="subtitle">
             {t('profile.goal.none')}
           </Typography>
-          <Button onClick={handleNavigateToShop}>{t('profile.goal.shop')}</Button>
+          <Button className={styles['goal-shop']} variant="ghost" onClick={handleNavigateToShop}>
+            {t('profile.goal.shop')}
+          </Button>
         </article>
       )}
       {state.goal && (
@@ -113,7 +115,9 @@ function StudentPage() {
             />
           </div>
           <Typography className={styles.label} variant="caption">
-            {state.goalCompleted && t('profile.goal.completed')}
+            {state.goalCompleted && (
+              <span className={styles['goal-completed-label']}>{t('profile.goal.completed')}</span>
+            )}
             {!state.goalCompleted && t('profile.goal.remaining', { count: state.remainingBalance })}
           </Typography>
         </article>
