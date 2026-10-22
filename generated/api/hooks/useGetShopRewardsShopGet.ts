@@ -4,21 +4,21 @@
 */
 
 import type { RequestConfig, ResponseErrorConfig } from '../.kubb/client'
-import type { GetShopRewardsShopGetStatus200 } from '../types/GetShopRewardsShopGet'
+import type { GetShopRewardsShopGetOptions, GetShopRewardsShopGetStatus200, GetShopRewardsShopGetStatus422 } from '../types/GetShopRewardsShopGet'
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getShopRewardsShopGet } from '../clients/getShopRewardsShopGet'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const getShopRewardsShopGetQueryKey = () => [{ url: '/shop' }] as const
+export const getShopRewardsShopGetQueryKey = ({ query }: Omit<GetShopRewardsShopGetOptions, 'headers'> = {}) => [{ url: '/shop' }, ...(query ? [query] : [])] as const
 
 type GetShopRewardsShopGetQueryKey = ReturnType<typeof getShopRewardsShopGetQueryKey>
 
-export function getShopRewardsShopGetQueryOptions(config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
-  const queryKey = getShopRewardsShopGetQueryKey()
-  return queryOptions<GetShopRewardsShopGetStatus200, ResponseErrorConfig<Error>, GetShopRewardsShopGetStatus200, typeof queryKey>({
+export function getShopRewardsShopGetQueryOptions({ query }: GetShopRewardsShopGetOptions = {}, config: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>> = {}) {
+  const queryKey = getShopRewardsShopGetQueryKey({ query })
+  return queryOptions<GetShopRewardsShopGetStatus200, ResponseErrorConfig<GetShopRewardsShopGetStatus422>, GetShopRewardsShopGetStatus200, typeof queryKey>({
    queryKey,
    queryFn: async ({ signal }) => {
-      return getShopRewardsShopGet({ ...config, signal: config.signal ?? signal, throwOnError: true }).unwrap()
+      return getShopRewardsShopGet({ ...config, query, signal: config.signal ?? signal, throwOnError: true }).unwrap()
    },
   })
 }
@@ -27,19 +27,20 @@ export function getShopRewardsShopGetQueryOptions(config: Partial<Omit<RequestCo
  * @summary Get Shop Rewards
  * {@link /shop}
  */
-export function useGetShopRewardsShopGet<TData = GetShopRewardsShopGetStatus200, TQueryData = GetShopRewardsShopGetStatus200, TQueryKey extends QueryKey = GetShopRewardsShopGetQueryKey>(options: {
-  query?: Partial<QueryObserverOptions<GetShopRewardsShopGetStatus200, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
+export function useGetShopRewardsShopGet<TData = GetShopRewardsShopGetStatus200, TQueryData = GetShopRewardsShopGetStatus200, TQueryKey extends QueryKey = GetShopRewardsShopGetQueryKey>({ query }: { query?: GetShopRewardsShopGetOptions['query'] | (() => GetShopRewardsShopGetOptions['query']) } = {}, options: {
+  query?: Partial<QueryObserverOptions<GetShopRewardsShopGetStatus200, ResponseErrorConfig<GetShopRewardsShopGetStatus422>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<Omit<RequestConfig, 'path' | 'query' | 'body' | 'headers' | 'url'>>
 } = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...resolvedOptions } = queryConfig
-  const queryKey = resolvedOptions?.queryKey ?? getShopRewardsShopGetQueryKey()
+  const resolvedParams = { query: typeof query === 'function' ? query() : query }
+  const queryKey = resolvedOptions?.queryKey ?? getShopRewardsShopGetQueryKey(resolvedParams)
 
   const queryResult = useQuery({
-   ...getShopRewardsShopGetQueryOptions(config),
+   ...getShopRewardsShopGetQueryOptions(resolvedParams, config),
    ...resolvedOptions,
    queryKey,
-  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }
+  } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetShopRewardsShopGetStatus422>> & { queryKey: TQueryKey }
 
   queryResult.queryKey = queryKey as TQueryKey
 

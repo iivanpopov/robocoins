@@ -3,19 +3,28 @@
 * Do not edit manually.
 */
 
+import type { CourseCategoryKey } from './CourseCategory'
+import type { HTTPValidationError } from './HTTPValidationError'
 import type { RewardResponse } from './RewardResponse'
 
+export type GetShopRewardsShopGetQuery = {
+    course_category?: (CourseCategoryKey | null);
+};
+
 export type GetShopRewardsShopGetStatus200 = RewardResponse[];
+
+export type GetShopRewardsShopGetStatus422 = HTTPValidationError;
 
 export type GetShopRewardsShopGetOptions = {
     body?: never;
     path?: never;
-    query?: never;
+    query?: GetShopRewardsShopGetQuery;
     headers?: never;
 };
 
 export type GetShopRewardsShopGetResponses = {
     "200": GetShopRewardsShopGetStatus200;
+    "422": GetShopRewardsShopGetStatus422;
 };
 
 /**

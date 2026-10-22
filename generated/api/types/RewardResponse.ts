@@ -3,9 +3,14 @@
 * Do not edit manually.
 */
 
+import type { CourseCategoryKey } from './CourseCategory'
+import type { RewardTypeKey } from './RewardType'
+
 export type RewardResponse = {
     id: number;
     name: string;
     price: number;
     description: (string | null);
+    type: RewardTypeKey;
+    course_category: (CourseCategoryKey | null);
 };
