@@ -31,6 +31,7 @@ Single-context layout: root `GLOSSARY.md` plus `docs/adr/`. See `docs/agents/dom
    6. Functions (handlers and helpers).
    7. Derived values.
    8. Return statement.
+10. Page components may call `useTranslate()` directly for rendering. When used with a page model hook, call and destructure the model hook first, then call `useTranslate()`.
 
 ## Structure
 
@@ -52,6 +53,8 @@ Single-context layout: root `GLOSSARY.md` plus `docs/adr/`. See `docs/agents/dom
 - `features?`: result of other hooks, e.g. `form` or `clipboard` (useCopy).
 
 The destructuring order is important: `refs` first, then `state`, `queries`, `mutations`, `functions`, `features`.
+
+Page components destructure the model hook's top-level groups in that order, for example `const { refs, state, functions } = useShopPage()`. Do not destructure nested group values.
 
 Component-local hooks may deliberately return a bare object of their state and handlers instead of this shape. A hook that does so is not a model hook, and its return value must not be destructured.
 

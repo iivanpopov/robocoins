@@ -1,3 +1,12 @@
 .navbar {
+  transition:
+    background-color 240ms ease,
+    color 240ms ease,
+    box-shadow 240ms ease;
   view-transition-name: navbar;
+}
+
+.shop-navbar {
+  color: var(--foreground);
+  background: var(--surface);
 }

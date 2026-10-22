@@ -34,6 +34,20 @@
   --rounded-full: 9999px;
 }
 
+.dark {
+  --background: #070812;
+  --surface: #0d0f20;
+  --foreground: #eeedf7;
+  --brand: #82b4ff;
+  --brand-hover: #accdff;
+  --error: var(--red-400);
+  --error-hover: var(--red-300);
+  --muted: #303348;
+  --muted-foreground: #a5aec6;
+
+  color-scheme: dark;
+}
+
 body {
   font-family: 'Rubik Variable', sans-serif;
   color: var(--foreground);

@@ -10,7 +10,10 @@
     animation: none;
   }
 
-  &::view-transition-old(navbar),
+  &::view-transition-old(navbar) {
+    display: none;
+  }
+
   &::view-transition-new(navbar) {
     mix-blend-mode: normal;
     animation: none;

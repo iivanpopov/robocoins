@@ -4,12 +4,31 @@
   height: 100dvh;
 }
 
+.layout:has([data-shop-reward]) > nav {
+  display: none;
+}
+
 .content {
   flex: 1;
   min-height: 0;
-  padding-bottom: calc(
-    64px + env(safe-area-inset-bottom, 0px) + var(--spacing-md) + var(--spacing-lg)
-  );
   overflow: auto;
   view-transition-name: slide-content;
+}
+
+.content::after {
+  display: block;
+  height: calc(64px + env(safe-area-inset-bottom, 0px) + var(--spacing-md) + var(--spacing-lg));
+  content: '';
+}
+
+.shop-layout {
+  background: var(--background);
+}
+
+.shop-content {
+  overflow: hidden;
+}
+
+.shop-content::after {
+  display: none;
 }

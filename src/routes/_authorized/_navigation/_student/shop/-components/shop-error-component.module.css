@@ -1,0 +1,27 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100dvh;
+  padding: var(--spacing-xl);
+  color: var(--foreground);
+  background: var(--background);
+}
+
+.code {
+  font-size: clamp(5rem, 13vw, 10rem);
+  line-height: 1;
+  color: var(--brand);
+}
+
+.title {
+  margin-top: 1rem;
+}
+
+.description {
+  margin-top: 0.25rem;
+}
+
+.retry {
+  margin-top: 2rem;
+}

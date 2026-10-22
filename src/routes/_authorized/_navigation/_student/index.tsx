@@ -160,21 +160,11 @@ function StudentPage() {
                 className={cn(styles.operation, transaction.isNew && styles['operation-today'])}
                 key={transaction.id}
               >
-                <div className={styles['operation-icon']}>
-                  <div
-                    aria-hidden="true"
-                    className={cn(
-                      transaction.isDeposit && 'i-ph:trophy-bold',
-                      !transaction.isDeposit && 'i-ph:minus-circle-bold',
-                    )}
-                  />
-                  {transaction.isNew && <span aria-hidden="true" className={styles['icon-dot']} />}
-                </div>
-                <span>
-                  {(transaction.reason ?? [])
-                    .map((reason) => t.unsafe(`reason.${reason}`))
-                    .join(', ')}
-                </span>
+                <ul className={styles['operation-reasons']}>
+                  {(transaction.reason ?? []).map((reason, i) => (
+                    <li key={`${reason}-${i}`}>{t.unsafe(`reason.${reason}`)}</li>
+                  ))}
+                </ul>
                 <strong className={cn(transaction.isDeposit && styles['new-amount'])}>
                   {t('profile.history.amount', { count: transaction.signedAmount })}
                 </strong>
