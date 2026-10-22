@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 
 import { prefersReducedMotion } from '#/utils/motion'
 
-import { advanceMapInertia, interpolateMapOffset } from '../-utils'
+import { advanceMapInertia } from '../-utils'
 
 export function useDraggableMap(
   offsetRef: React.RefObject<{ x: number; y: number }>,
@@ -17,12 +17,9 @@ export function useDraggableMap(
     startY: 0,
     time: 0,
     moved: false,
-    smooth: false,
   })
-  const targetOffsetRef = useRef({ ...offsetRef.current })
   const velocityRef = useRef({ x: 0, y: 0 })
   const frameRef = useRef<number | null>(null)
-  const frameTimeRef = useRef(0)
 
   useEffect(
     () => () => {
@@ -35,42 +32,6 @@ export function useDraggableMap(
     if (frameRef.current !== null) cancelAnimationFrame(frameRef.current)
     frameRef.current = null
     velocityRef.current = { x: 0, y: 0 }
-    targetOffsetRef.current = { ...offsetRef.current }
-  }
-
-  function handleFrame(now: number) {
-    frameRef.current = null
-    if (prefersReducedMotion()) {
-      offsetRef.current = { ...targetOffsetRef.current }
-      handleStop()
-      onChange()
-      return
-    }
-    const elapsed = Math.min(50, Math.max(0, now - frameTimeRef.current))
-    frameTimeRef.current = now
-    if (pointerRef.current.id === null) {
-      const motion = advanceMapInertia(targetOffsetRef.current, velocityRef.current, elapsed)
-      targetOffsetRef.current = motion.offset
-      velocityRef.current = motion.velocity
-    }
-    if (pointerRef.current.smooth)
-      offsetRef.current = interpolateMapOffset(offsetRef.current, targetOffsetRef.current, elapsed)
-    else offsetRef.current = { ...targetOffsetRef.current }
-    onChange()
-    const remaining = Math.hypot(
-      targetOffsetRef.current.x - offsetRef.current.x,
-      targetOffsetRef.current.y - offsetRef.current.y,
-    )
-    const isCoasting =
-      pointerRef.current.id === null &&
-      Math.hypot(velocityRef.current.x, velocityRef.current.y) >= 0.009
-    if (remaining >= 0.1 || isCoasting) frameRef.current = requestAnimationFrame(handleFrame)
-  }
-
-  function handleScheduleFrame() {
-    if (frameRef.current !== null) return
-    frameTimeRef.current = performance.now()
-    frameRef.current = requestAnimationFrame(handleFrame)
   }
 
   function handlePointerDown(event: React.PointerEvent<HTMLDivElement>) {
@@ -85,7 +46,6 @@ export function useDraggableMap(
       startY: event.clientY,
       time: event.timeStamp,
       moved: false,
-      smooth: event.pointerType === 'touch',
     }
   }
 
@@ -108,15 +68,8 @@ export function useDraggableMap(
     pointer.x = event.clientX
     pointer.y = event.clientY
     pointer.time = event.timeStamp
-    targetOffsetRef.current = {
-      x: targetOffsetRef.current.x + deltaX,
-      y: targetOffsetRef.current.y + deltaY,
-    }
-    if (pointer.smooth && !prefersReducedMotion()) handleScheduleFrame()
-    else {
-      offsetRef.current = { ...targetOffsetRef.current }
-      onChange()
-    }
+    offsetRef.current = { x: offsetRef.current.x + deltaX, y: offsetRef.current.y + deltaY }
+    onChange()
   }
 
   function handlePointerCancel(event: React.PointerEvent<HTMLDivElement>) {
@@ -134,17 +87,33 @@ export function useDraggableMap(
     pointer.id = null
     if (event.currentTarget.hasPointerCapture(event.pointerId))
       event.currentTarget.releasePointerCapture(event.pointerId)
-    if (!pointer.moved || prefersReducedMotion()) {
+    const minimumInertiaDistance = 24
+    const distance = Math.hypot(pointer.x - pointer.startX, pointer.y - pointer.startY)
+    if (!pointer.moved || distance < minimumInertiaDistance || prefersReducedMotion()) {
       handleStop()
       return
     }
     const releaseDecay = Math.exp(-Math.max(0, event.timeStamp - pointer.time) / 50)
     velocityRef.current.x *= releaseDecay
     velocityRef.current.y *= releaseDecay
-    if (Math.hypot(velocityRef.current.x, velocityRef.current.y) < 0.05)
-      velocityRef.current = { x: 0, y: 0 }
-    frameTimeRef.current = performance.now()
-    handleScheduleFrame()
+    if (Math.hypot(velocityRef.current.x, velocityRef.current.y) < 0.05) return
+    let lastTime = performance.now()
+    function handleInertia(now: number) {
+      if (prefersReducedMotion()) {
+        handleStop()
+        return
+      }
+      const elapsed = Math.min(50, now - lastTime)
+      lastTime = now
+      const motion = advanceMapInertia(offsetRef.current, velocityRef.current, elapsed)
+      offsetRef.current = motion.offset
+      velocityRef.current = motion.velocity
+      onChange()
+      frameRef.current = null
+      if (Math.hypot(velocityRef.current.x, velocityRef.current.y) >= 0.009)
+        frameRef.current = requestAnimationFrame(handleInertia)
+    }
+    frameRef.current = requestAnimationFrame(handleInertia)
   }
 
   function handlePointerLeave(event: React.PointerEvent<HTMLDivElement>) {

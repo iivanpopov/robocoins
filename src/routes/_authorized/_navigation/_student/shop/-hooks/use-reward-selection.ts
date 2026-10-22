@@ -15,12 +15,12 @@ type AnimateCamera = (
 
 export function useRewardSelection(onAnimate: AnimateCamera) {
   const phaseRef = useRef<RewardState['phase']>('idle')
-  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const closeFrameRef = useRef<number | null>(null)
   const [selection, setSelection] = useState<RewardState>({ phase: 'idle', reward: null })
 
   useEffect(
     () => () => {
-      clearTimeout(closeTimeoutRef.current)
+      if (closeFrameRef.current !== null) cancelAnimationFrame(closeFrameRef.current)
     },
     [],
   )
@@ -38,20 +38,35 @@ export function useRewardSelection(onAnimate: AnimateCamera) {
   function handleClose() {
     if (phaseRef.current !== 'open' || !selection.reward) return
     phaseRef.current = 'closing'
-    setSelection({ phase: 'closing', reward: selection.reward })
-    function handleResetCamera() {
-      onAnimate({ x: 0, y: 0, zoom: 1 }, 380, () => {
-        phaseRef.current = 'idle'
-        setSelection({ phase: 'idle', reward: null })
-      })
+    onAnimate({ x: 0, y: 0, zoom: 1 }, 0)
+    if (prefersReducedMotion()) {
+      phaseRef.current = 'idle'
+      setSelection({ phase: 'idle', reward: null })
+      return
     }
-    if (prefersReducedMotion()) handleResetCamera()
-    else closeTimeoutRef.current = setTimeout(handleResetCamera, 100)
+    const reward = selection.reward
+    closeFrameRef.current = requestAnimationFrame(() => {
+      closeFrameRef.current = requestAnimationFrame(() => {
+        closeFrameRef.current = null
+        setSelection({ phase: 'closing', reward })
+      })
+    })
+  }
+
+  function handleRewardAnimationEnd(event: React.AnimationEvent<HTMLElement>) {
+    if (event.target !== event.currentTarget) return
+    if (phaseRef.current === 'open') {
+      onAnimate({ x: 0, y: 0, zoom: 1 }, 0)
+      return
+    }
+    if (selection.phase !== 'closing') return
+    phaseRef.current = 'idle'
+    setSelection({ phase: 'idle', reward: null })
   }
 
   function handleIsBlocked() {
     return phaseRef.current !== 'idle'
   }
 
-  return { selection, handleOpen, handleClose, handleIsBlocked }
+  return { selection, handleOpen, handleClose, handleRewardAnimationEnd, handleIsBlocked }
 }

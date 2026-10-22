@@ -71,6 +71,7 @@ export function useShopPage() {
       handleWheel: draggableMap.handleWheel,
       handleOpenReward,
       handleCloseReward: rewardSelection.handleClose,
+      handleRewardAnimationEnd: rewardSelection.handleRewardAnimationEnd,
     },
   }
 }

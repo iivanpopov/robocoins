@@ -73,6 +73,7 @@ function ShopPage() {
           className={cn(styles.detail, state.isClosingReward && styles['detail-closing'])}
           data-shop-reward={state.isRewardOpen || undefined}
           data-shop-reward-closing={state.isClosingReward || undefined}
+          onAnimationEnd={functions.handleRewardAnimationEnd}
           aria-label={state.selectedReward.name}
         >
           <div className={styles['detail-content']}>
