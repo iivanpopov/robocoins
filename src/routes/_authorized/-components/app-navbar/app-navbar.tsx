@@ -19,7 +19,7 @@ export function AppNavbar() {
       aria-label={t('navbar.label')}
       className={cn(
         styles.navbar,
-        location.pathname === '/shop' && 'dark',
+        location.pathname === '/shop' && 'galaxy',
         location.pathname === '/shop' && styles['shop-navbar'],
       )}
     >

@@ -1,5 +1,5 @@
 import { useTranslate } from '@kanjou/react'
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import { cn } from 'cn'
 
 import { getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions } from '#/api/hooks/useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet'
@@ -18,6 +18,7 @@ import { useStudentPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_student/')({
+  head: () => ({ meta: [{ title: 'Головна | Robocoins' }] }),
   beforeLoad: async () => {
     const renderedAt = Date.now()
     const lastLogOn = Number(await readCookie(LAST_LOG_ON_COOKIE)) || Date.now()
@@ -56,13 +57,8 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/')({
 })
 
 function StudentPage() {
-  const navigate = useNavigate()
-  const t = useTranslate()
   const { state, queries, functions } = useStudentPage()
-
-  function handleNavigateToShop() {
-    void navigate({ to: '/shop' })
-  }
+  const t = useTranslate()
 
   return (
     <main className={styles.page}>
@@ -89,7 +85,11 @@ function StudentPage() {
           <Typography className={styles['product-name']} variant="subtitle">
             {t('profile.goal.none')}
           </Typography>
-          <Button className={styles['goal-shop']} variant="ghost" onClick={handleNavigateToShop}>
+          <Button
+            className={styles['goal-shop']}
+            variant="ghost"
+            onClick={functions.handleNavigateToShop}
+          >
             {t('profile.goal.shop')}
           </Button>
         </article>

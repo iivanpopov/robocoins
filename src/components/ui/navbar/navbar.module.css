@@ -1,4 +1,6 @@
 .navbar {
+  --active: var(--brand);
+
   position: fixed;
   bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom, 0px));
   left: 50%;
@@ -63,7 +65,7 @@
 
   &[data-active='true'] {
     flex-grow: 1;
-    color: var(--brand);
+    color: var(--active);
 
     > :not([aria-hidden='true']) {
       clip-path: inset(0);

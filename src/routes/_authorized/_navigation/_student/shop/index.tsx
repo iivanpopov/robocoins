@@ -10,6 +10,7 @@ import { useShopPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_student/shop/')({
+  head: () => ({ meta: [{ title: 'Магазин | Robocoins' }] }),
   loader: async ({ context }) => ({
     rewards: await context.queryClient.query(getShopRewardsShopGetQueryOptions()),
     seed: context.user!.id,
@@ -19,12 +20,13 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/shop/')(
 })
 
 function ShopPage() {
-  const t = useTranslate()
   const { refs, state, functions } = useShopPage()
+  const t = useTranslate()
 
   return (
     <main
-      className={styles.galaxy}
+      className={cn('galaxy', styles.galaxy)}
+      data-galaxy=""
       onPointerDown={functions.handlePointerDown}
       onPointerMove={functions.handlePointerMove}
       onPointerUp={functions.handlePointerUp}
@@ -34,8 +36,7 @@ function ShopPage() {
       onWheel={functions.handleWheel}
       ref={refs.map}
     >
-      <header className={cn('dark', styles['shop-header'])}>
-        {!state.isRewardOpen && <h1>{t('shop.title')}</h1>}
+      <header className={styles['shop-header']}>
         <div className={styles.balance} aria-label={t('shop.balance', { count: state.balance })}>
           <span>{t('shop.balance.amount', { count: state.balance })}</span>
           <span className="i-ph:coins-bold" aria-hidden="true" />
@@ -71,14 +72,14 @@ function ShopPage() {
       </div>
       {state.isRewardVisible && state.selectedReward && (
         <section
-          className={cn('dark', styles.detail, state.isClosingReward && styles['detail-closing'])}
+          className={cn(styles.detail, state.isClosingReward && styles['detail-closing'])}
           data-shop-reward={state.isRewardOpen || undefined}
           data-shop-reward-closing={state.isClosingReward || undefined}
           aria-label={state.selectedReward.name}
         >
           <div className={styles['detail-content']}>
             <button className={styles.back} onClick={functions.handleCloseReward}>
-              <span className="i-ph:arrow-left-bold" aria-hidden="true" />
+              <span className="i-ph:caret-left-bold" aria-hidden="true" />
               {t('shop.reward.back')}
             </button>
             <div className={styles['detail-heading']}>

@@ -10,6 +10,18 @@
     animation: none;
   }
 
+  &::view-transition-group(student-balance) {
+    z-index: 2;
+    animation: none;
+  }
+
+  &::view-transition-old(student-balance),
+  &::view-transition-new(student-balance) {
+    mix-blend-mode: normal;
+    animation-duration: 280ms;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
   &::view-transition-old(navbar) {
     display: none;
   }

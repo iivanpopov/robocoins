@@ -21,14 +21,10 @@
   content: '';
 }
 
-.shop-layout {
-  background: var(--background);
-}
-
-.shop-content {
+.content:has(> [data-galaxy]) {
   overflow: hidden;
-}
 
-.shop-content::after {
-  display: none;
+  &::after {
+    display: none;
+  }
 }

@@ -31,7 +31,7 @@ Single-context layout: root `GLOSSARY.md` plus `docs/adr/`. See `docs/agents/dom
    6. Functions (handlers and helpers).
    7. Derived values.
    8. Return statement.
-10. Page components may call `useTranslate()` directly for rendering. When used with a page model hook, call and destructure the model hook first, then call `useTranslate()`.
+10. **Page component hook order**: Call and destructure the page model hook first, then Kanjou hooks such as `useTranslate()`. Skip unused groups. This page-specific order takes precedence over rule 9. Keep handlers and non-rendering logic in the page model hook.
 
 ## Structure
 

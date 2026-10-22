@@ -1,5 +1,5 @@
 import { useTranslate } from '@kanjou/react'
-import { useRouteContext } from '@tanstack/react-router'
+import { useNavigate, useRouteContext } from '@tanstack/react-router'
 
 import { useGetStudentRewardProgressStudentStudentIdRewardProgressGet } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
 import { useGetStudentTransactionHistoryStudentStudentIdTransactionsGet } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
@@ -9,6 +9,7 @@ import { compareTransactionsByNewest } from '#/routes/-utils'
 import { getSignedAmount } from '../-utils'
 
 export function useStudentPage() {
+  const navigate = useNavigate()
   const context = useRouteContext({ from: '/_authorized/_navigation/_student/' })
   const t = useTranslate()
   const profile = context.user as StudentProfileResponse
@@ -36,6 +37,10 @@ export function useStudentPage() {
 
   function handleRetryHistory() {
     void historyQuery.refetch()
+  }
+
+  function handleNavigateToShop() {
+    void navigate({ to: '/shop', viewTransition: { types: ['slide-forward'] } })
   }
 
   const transactions = (historyQuery.data?.transactions ?? [])
@@ -75,6 +80,6 @@ export function useStudentPage() {
       remainingBalance: Math.max(0, goalQuery.data?.coins_remaining ?? 0),
     },
     queries: { history: historyQuery },
-    functions: { handleRetryHistory },
+    functions: { handleRetryHistory, handleNavigateToShop },
   }
 }

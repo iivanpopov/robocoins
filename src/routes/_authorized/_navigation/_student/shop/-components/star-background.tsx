@@ -38,7 +38,7 @@ export const StarBackground = memo(function StarBackground(props: {
               cy={star.y}
               r={star.radius}
               opacity={star.opacity}
-              fill="#dedcf0"
+              fill="var(--foreground)"
             />
           ))}
         </pattern>

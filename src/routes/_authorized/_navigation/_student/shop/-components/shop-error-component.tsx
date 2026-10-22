@@ -10,7 +10,7 @@ export function ShopErrorComponent() {
   const t = useTranslate()
 
   return (
-    <main className={cn('dark', styles.page)}>
+    <main className={cn('galaxy', styles.page)} data-galaxy="">
       <p className={styles.code}>{t('error.code')}</p>
       <div>
         <Typography variant="title" className={styles.title}>
