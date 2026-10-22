@@ -13,6 +13,9 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
   const cameraRef = useRef({ x: 0, y: 0, zoom: 1 })
   const sizeRef = useRef({ width: 0, height: 0 })
   const frameRef = useRef<number | null>(null)
+  const labelMeasurementsRef = useRef(
+    new WeakMap<HTMLElement, { width: number; height: number; text: string | null }>(),
+  )
 
   const handleRender = useCallback(() => {
     frameRef.current = null
@@ -20,6 +23,28 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
     if (!size.width || !size.height) return
     const camera = cameraRef.current
     const offset = offsetRef.current
+    const measurements = new Map<number, { element: HTMLElement; width: number; height: number }>()
+    for (const star of starsRef.current) {
+      const label = starElementsRef.current
+        .get(star.reward.id)
+        ?.querySelector<HTMLElement>('[data-star-label]')
+      if (label) {
+        let measurement = labelMeasurementsRef.current.get(label)
+        if (!measurement || measurement.text !== label.textContent) {
+          measurement = {
+            width: label.offsetWidth,
+            height: label.offsetHeight,
+            text: label.textContent,
+          }
+          labelMeasurementsRef.current.set(label, measurement)
+        }
+        measurements.set(star.reward.id, {
+          element: label,
+          width: measurement.width,
+          height: measurement.height,
+        })
+      }
+    }
     const labelElements: HTMLElement[] = []
     const labels: {
       element: HTMLElement
@@ -42,8 +67,9 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
       element.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`
       element.style.visibility = 'visible'
       element.style.setProperty('--scale', String(scale * camera.zoom))
-      const label = element.querySelector<HTMLElement>('[data-star-label]')
-      if (label) {
+      const measurement = measurements.get(star.reward.id)
+      if (measurement) {
+        const label = measurement.element
         labelElements.push(label)
         if (scale <= 0.48) continue
         const distanceFromCenter = Math.hypot((x / size.width) * 100, (y / size.height) * 200)
@@ -55,9 +81,9 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
         labels.push({
           element: label,
           distance: distanceFromCenter,
-          left: x - label.offsetWidth / 2,
-          right: x + label.offsetWidth / 2,
-          top: bottom - label.offsetHeight,
+          left: x - measurement.width / 2,
+          right: x + measurement.width / 2,
+          top: bottom - measurement.height,
           bottom,
         })
       }
@@ -105,6 +131,7 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
     if (!map) return
     function handleResize() {
       if (!map) return
+      labelMeasurementsRef.current = new WeakMap()
       const previousSize = sizeRef.current
       if (previousSize.width && previousSize.height) {
         offsetRef.current = {
@@ -118,8 +145,10 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
     handleResize()
     const observer = new ResizeObserver(handleResize)
     observer.observe(map)
+    document.fonts.addEventListener('loadingdone', handleResize)
     return () => {
       observer.disconnect()
+      document.fonts.removeEventListener('loadingdone', handleResize)
       if (frameRef.current !== null) cancelAnimationFrame(frameRef.current)
       frameRef.current = null
     }
