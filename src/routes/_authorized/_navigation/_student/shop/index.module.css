@@ -210,7 +210,7 @@
 
 .detail-closing {
   pointer-events: none;
-  animation: reward-screen-out 100ms ease-out both;
+  animation: reward-screen-out 260ms ease-in-out both;
 }
 
 @keyframes reward-screen-out {

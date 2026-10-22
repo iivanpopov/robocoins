@@ -52,14 +52,18 @@ export function useDraggableMap(
   function handlePointerMove(event: React.PointerEvent<HTMLDivElement>) {
     const pointer = pointerRef.current
     if (pointer.id !== event.pointerId) return
-    const deltaX = event.clientX - pointer.x
-    const deltaY = event.clientY - pointer.y
-    const elapsed = Math.max(1, event.timeStamp - pointer.time)
     if (!pointer.moved) {
       if (Math.hypot(event.clientX - pointer.startX, event.clientY - pointer.startY) <= 3) return
       pointer.moved = true
+      pointer.x = event.clientX
+      pointer.y = event.clientY
+      pointer.time = event.timeStamp
       event.currentTarget.setPointerCapture(event.pointerId)
+      return
     }
+    const deltaX = event.clientX - pointer.x
+    const deltaY = event.clientY - pointer.y
+    const elapsed = Math.max(1, event.timeStamp - pointer.time)
     const weight = 1 - Math.exp(-elapsed / 25)
     velocityRef.current = {
       x: velocityRef.current.x * (1 - weight) + (deltaX / elapsed) * weight,
@@ -87,9 +91,7 @@ export function useDraggableMap(
     pointer.id = null
     if (event.currentTarget.hasPointerCapture(event.pointerId))
       event.currentTarget.releasePointerCapture(event.pointerId)
-    const minimumInertiaDistance = 24
-    const distance = Math.hypot(pointer.x - pointer.startX, pointer.y - pointer.startY)
-    if (!pointer.moved || distance < minimumInertiaDistance || prefersReducedMotion()) {
+    if (!pointer.moved || prefersReducedMotion()) {
       handleStop()
       return
     }
