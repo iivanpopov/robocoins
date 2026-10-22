@@ -119,7 +119,6 @@
   width: 26px;
   height: 26px;
   color: var(--foreground);
-  filter: drop-shadow(0 0 calc(2px + 6px * var(--glow)) white);
 }
 
 .star-selected .star-point {
@@ -209,35 +208,18 @@
   }
 }
 
-.detail-closing .detail-content {
-  animation: reward-content-out 360ms cubic-bezier(0.4, 0, 0.6, 1) both;
-}
-
 .detail-closing {
   pointer-events: none;
-  animation: reward-screen-out 420ms cubic-bezier(0.4, 0, 0.6, 1) both;
+  animation: reward-screen-out 100ms ease-out both;
 }
 
 @keyframes reward-screen-out {
-  0%,
-  20% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes reward-content-out {
   from {
     opacity: 1;
-    transform: translateY(0) scale(1);
   }
 
   to {
     opacity: 0;
-    transform: translateY(20px) scale(0.97);
   }
 }
 

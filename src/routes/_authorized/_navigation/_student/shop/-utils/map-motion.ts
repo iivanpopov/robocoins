@@ -25,3 +25,13 @@ export function advanceMapInertia(offset: Point, velocity: Point, elapsed: numbe
     velocity: { x: velocity.x * friction, y: velocity.y * friction },
   }
 }
+
+export function interpolateMapOffset(offset: Point, target: Point, elapsed: number) {
+  const weight = 1 - Math.exp(-Math.max(0, elapsed) / 18)
+  const next = {
+    x: offset.x + (target.x - offset.x) * weight,
+    y: offset.y + (target.y - offset.y) * weight,
+  }
+  if (Math.hypot(target.x - next.x, target.y - next.y) < 0.1) return { ...target }
+  return next
+}
