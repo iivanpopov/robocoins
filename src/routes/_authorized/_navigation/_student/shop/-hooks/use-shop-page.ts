@@ -1,4 +1,4 @@
-import { useId, useMemo, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 
 import type { StudentProfileResponse } from '#/api/types/StudentProfileResponse'
 
@@ -13,7 +13,6 @@ export function useShopPage() {
   const galaxy = Route.useLoaderData()
   const context = Route.useRouteContext()
 
-  const backgroundPatternId = useId()
   const starsRef = useRef<(ReturnType<typeof getStarPositions>[number] & { glow: number })[]>([])
   const map = useMapAnimation(starsRef)
   const camera = useCamera(map.cameraRef, map.handleInvalidate)
@@ -50,11 +49,9 @@ export function useShopPage() {
     refs: {
       map: map.mapRef,
       background: map.backgroundRef,
-      pattern: map.patternRef,
       starElements: map.starElementsRef,
     },
     state: {
-      backgroundPatternId,
       stars: starPositions,
       selectedReward,
       canClaimReward: Boolean(selectedReward && profile.balance >= selectedReward.price),

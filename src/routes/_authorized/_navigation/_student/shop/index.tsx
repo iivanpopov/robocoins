@@ -43,11 +43,7 @@ function ShopPage() {
         </div>
       </header>
       <div className={styles['star-field']}>
-        <StarBackground
-          patternId={state.backgroundPatternId}
-          backgroundRef={refs.background}
-          patternRef={refs.pattern}
-        />
+        <StarBackground backgroundRef={refs.background} />
         {state.stars.map((star) => (
           <button
             className={cn(
@@ -63,7 +59,9 @@ function ShopPage() {
             style={{ '--glow': star.glow } as React.CSSProperties}
             aria-label={star.reward.name}
           >
-            <span className={cn('i-ph:star-four-fill', styles['star-point'])} aria-hidden="true" />
+            <span className={styles['star-visual']} aria-hidden="true">
+              <span className={cn('i-ph:star-four-fill', styles['star-point'])} />
+            </span>
             <span className={styles['star-label']} data-star-label="" aria-hidden="true">
               {star.reward.name}
             </span>

@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react'
 
+import { prefersReducedMotion } from '#/utils/motion'
+
 import { getCameraProgress } from '../-utils'
 
 type Camera = { x: number; y: number; zoom: number }
@@ -16,10 +18,18 @@ export function useCamera(cameraRef: React.RefObject<Camera>, onChange: () => vo
 
   function handleAnimate(target: Camera, duration: number, onComplete?: () => void) {
     if (frameRef.current !== null) cancelAnimationFrame(frameRef.current)
+    frameRef.current = null
+    if (prefersReducedMotion() || duration <= 0) {
+      cameraRef.current = { ...target }
+      onChange()
+      onComplete?.()
+      return
+    }
     const origin = { ...cameraRef.current }
     const startedAt = performance.now()
     function handleFrame(now: number) {
-      const progress = Math.min(1, (now - startedAt) / duration)
+      let progress = Math.min(1, (now - startedAt) / duration)
+      if (prefersReducedMotion()) progress = 1
       const eased = getCameraProgress(progress)
       cameraRef.current = {
         x: origin.x + (target.x - origin.x) * eased,

@@ -1,13 +1,12 @@
 import { useCallback, useLayoutEffect, useRef } from 'react'
 
-import { getMapPosition, getMapViewBox, getPatternTransform, getStarPositions } from '../-utils'
+import { getMapPosition, getStarPositions } from '../-utils'
 
 type Star = ReturnType<typeof getStarPositions>[number] & { glow: number }
 
 export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
   const mapRef = useRef<HTMLDivElement>(null)
   const backgroundRef = useRef<SVGSVGElement>(null)
-  const patternRef = useRef<SVGPatternElement>(null)
   const starElementsRef = useRef(new Map<number, HTMLButtonElement>())
   const offsetRef = useRef({ x: 0, y: 0 })
   const cameraRef = useRef({ x: 0, y: 0, zoom: 1 })
@@ -53,6 +52,8 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
       right: number
       top: number
       bottom: number
+      translate: number
+      opacity: number
     }[] = []
 
     for (const star of starsRef.current) {
@@ -66,7 +67,8 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
       const y = (((position.y - 50) * camera.zoom + camera.y) * size.height) / 100
       element.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`
       element.style.visibility = 'visible'
-      element.style.setProperty('--scale', String(scale * camera.zoom))
+      const visual = element.firstElementChild
+      if (visual instanceof HTMLElement) visual.style.transform = `scale(${scale * camera.zoom})`
       const measurement = measurements.get(star.reward.id)
       if (measurement) {
         const label = measurement.element
@@ -74,10 +76,6 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
         if (scale <= 0.48) continue
         const distanceFromCenter = Math.hypot((x / size.width) * 100, (y / size.height) * 200)
         const bottom = y - 13 * scale * camera.zoom - 14
-        label.style.setProperty(
-          '--label-opacity',
-          String(0.45 + 0.55 * Math.exp(-((distanceFromCenter / 30) ** 2))),
-        )
         labels.push({
           element: label,
           distance: distanceFromCenter,
@@ -85,6 +83,8 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
           right: x + measurement.width / 2,
           top: bottom - measurement.height,
           bottom,
+          translate: -13 * scale * camera.zoom - 14,
+          opacity: 0.45 + 0.55 * Math.exp(-((distanceFromCenter / 30) ** 2)),
         })
       }
     }
@@ -118,8 +118,20 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
         element.setAttribute('aria-hidden', hidden)
     }
 
-    backgroundRef.current?.setAttribute('viewBox', getMapViewBox(camera))
-    patternRef.current?.setAttribute('patternTransform', getPatternTransform(offset, size))
+    for (const label of visibleLabels) {
+      label.element.style.translate = `-50% ${label.translate}px`
+      label.element.style.setProperty('--label-opacity', String(label.opacity))
+    }
+
+    if (backgroundRef.current) {
+      const backgroundX =
+        ((((offset.x * 0.16 + size.width / 2) % size.width) + size.width) % size.width) -
+        size.width / 2
+      const backgroundY =
+        ((((offset.y * 0.16 + size.height / 2) % size.height) + size.height) % size.height) -
+        size.height / 2
+      backgroundRef.current.style.transform = `translate3d(${(camera.x * size.width) / 100 + backgroundX * camera.zoom}px, ${(camera.y * size.height) / 100 + backgroundY * camera.zoom}px, 0) scale(${camera.zoom})`
+    }
   }, [starsRef])
 
   const handleInvalidate = useCallback(() => {
@@ -161,7 +173,6 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
   return {
     mapRef,
     backgroundRef,
-    patternRef,
     starElementsRef,
     offsetRef,
     cameraRef,

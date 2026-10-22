@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import type { RewardResponse } from '#/api/types/RewardResponse'
+import { prefersReducedMotion } from '#/utils/motion'
 
 type RewardState =
   | { phase: 'idle'; reward: null }
@@ -38,12 +39,14 @@ export function useRewardSelection(onAnimate: AnimateCamera) {
     if (phaseRef.current !== 'open' || !selection.reward) return
     phaseRef.current = 'closing'
     setSelection({ phase: 'closing', reward: selection.reward })
-    closeTimeoutRef.current = setTimeout(() => {
+    function handleResetCamera() {
       onAnimate({ x: 0, y: 0, zoom: 1 }, 380, () => {
         phaseRef.current = 'idle'
         setSelection({ phase: 'idle', reward: null })
       })
-    }, 100)
+    }
+    if (prefersReducedMotion()) handleResetCamera()
+    else closeTimeoutRef.current = setTimeout(handleResetCamera, 100)
   }
 
   function handleIsBlocked() {

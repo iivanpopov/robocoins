@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react'
 
+import { prefersReducedMotion } from '#/utils/motion'
+
 import { advanceMapInertia } from '../-utils'
 
 export function useDraggableMap(
@@ -87,12 +89,20 @@ export function useDraggableMap(
     pointer.id = null
     if (event.currentTarget.hasPointerCapture(event.pointerId))
       event.currentTarget.releasePointerCapture(event.pointerId)
+    if (prefersReducedMotion()) {
+      handleStop()
+      return
+    }
     const releaseDecay = Math.exp(-Math.max(0, event.timeStamp - pointer.time) / 50)
     velocityRef.current.x *= releaseDecay
     velocityRef.current.y *= releaseDecay
     if (!pointer.moved || Math.hypot(velocityRef.current.x, velocityRef.current.y) < 0.05) return
     let lastTime = performance.now()
     function handleInertia(now: number) {
+      if (prefersReducedMotion()) {
+        handleStop()
+        return
+      }
       const elapsed = Math.min(50, now - lastTime)
       lastTime = now
       const motion = advanceMapInertia(offsetRef.current, velocityRef.current, elapsed)
