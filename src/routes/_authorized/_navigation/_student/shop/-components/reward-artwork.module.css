@@ -1,0 +1,68 @@
+.symbol {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+}
+
+.artwork {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(100%, 320px);
+  height: clamp(180px, 32dvh, 280px);
+  margin: 0 auto;
+  color: var(--foreground);
+  isolation: isolate;
+}
+
+.halo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse, rgb(255 255 255 / 9%), transparent 65%);
+}
+
+.core {
+  display: grid;
+  place-items: center;
+  width: 142px;
+  height: 142px;
+  font-size: 96px;
+}
+
+.spark {
+  position: absolute;
+  top: 20%;
+  right: 14%;
+  width: 14px;
+  height: 14px;
+  opacity: 0.8;
+}
+
+.satellite {
+  position: absolute;
+  bottom: 24%;
+  left: 13%;
+  width: 8px;
+  height: 8px;
+  background: var(--foreground);
+  border-radius: 50%;
+  box-shadow: 0 0 14px rgb(255 255 255 / 40%);
+}
+
+.privilege .halo {
+  animation: energy-pulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes energy-pulse {
+  from {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}

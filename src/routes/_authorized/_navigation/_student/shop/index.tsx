@@ -4,7 +4,7 @@ import { cn } from 'cn'
 
 import { getShopRewardsShopGetQueryOptions } from '#/api/hooks/useGetShopRewardsShopGet'
 
-import { ShopErrorComponent, StarBackground } from './-components'
+import { RewardArtwork, RewardSymbol, ShopErrorComponent, StarBackground } from './-components'
 import { useShopPage } from './-hooks'
 
 import styles from './index.module.css'
@@ -37,19 +37,31 @@ function ShopPage() {
       ref={refs.map}
     >
       <header className={styles['shop-header']}>
+        {!state.isRewardVisible && (
+          <div className={styles.legend}>
+            <span>
+              <span className="i-ph:cube-duotone" aria-hidden="true" />
+              {t('shop.legend.rewards')}
+            </span>
+            <span>
+              <span className="i-ph:star-four-fill" aria-hidden="true" />
+              {t('shop.legend.privileges')}
+            </span>
+          </div>
+        )}
         <div className={styles.balance} aria-label={t('shop.balance', { count: state.balance })}>
           <span>{t('shop.balance.amount', { count: state.balance })}</span>
           <span className="i-ph:coins-bold" aria-hidden="true" />
         </div>
       </header>
-      <div className={styles['star-field']}>
-        <StarBackground backgroundRef={refs.background} />
+      <StarBackground backgroundRef={refs.background} />
+      <div
+        className={cn(styles['star-field'], state.isRewardVisible && styles['star-field-hidden'])}
+        inert={state.isRewardActive}
+      >
         {state.stars.map((star) => (
           <button
-            className={cn(
-              styles.star,
-              state.selectedReward?.id === star.reward.id && styles['star-selected'],
-            )}
+            className={cn(styles.star)}
             key={star.reward.id}
             ref={(element) => {
               if (element) refs.starElements.current.set(star.reward.id, element)
@@ -58,12 +70,23 @@ function ShopPage() {
             onClick={(event) => functions.handleOpenReward(star, event)}
             style={{ '--glow': star.glow } as React.CSSProperties}
             aria-label={star.reward.name}
+            aria-description={`${t(`shop.reward.type.${star.reward.type}`)} · ${t('shop.reward.cost')}: ${t('shop.reward.price', { count: star.reward.price })}`}
           >
             <span className={styles['star-visual']} aria-hidden="true">
-              <span className={cn('i-ph:star-four-fill', styles['star-point'])} />
+              {star.reward.type === 'privilege' && (
+                <span className={cn('i-ph:star-four-fill', styles['star-point'])} />
+              )}
+              {star.reward.type === 'reward' && (
+                <span className={cn('i-ph:cube-duotone', styles['star-point'])} />
+              )}
+              <RewardSymbol reward={star.reward} className={styles['star-symbol']} />
             </span>
             <span className={styles['star-label']} data-star-label="" aria-hidden="true">
-              {star.reward.name}
+              <span className={styles['star-name']}>{star.reward.name}</span>
+              <span className={styles['star-price']}>
+                {t('shop.reward.price', { count: star.reward.price })}
+                <span className="i-ph:coins-bold" />
+              </span>
             </span>
           </button>
         ))}
@@ -76,19 +99,44 @@ function ShopPage() {
           onAnimationEnd={functions.handleRewardAnimationEnd}
           aria-label={state.selectedReward.name}
         >
-          <div className={styles['detail-content']}>
-            <button className={styles.back} onClick={functions.handleCloseReward}>
+          <div className={styles['detail-header']}>
+            <button
+              className={styles.back}
+              onClick={functions.handleCloseReward}
+              ref={refs.rewardBack}
+            >
               <span className="i-ph:caret-left-bold" aria-hidden="true" />
               {t('shop.reward.back')}
             </button>
-            <div className={styles['detail-heading']}>
-              <span
-                className={cn('i-ph:star-four-fill', styles['detail-icon'])}
-                aria-hidden="true"
-              />
-              <h1>{state.selectedReward.name}</h1>
+          </div>
+          <div className={styles['detail-scroll']}>
+            <RewardArtwork reward={state.selectedReward} />
+            <div className={styles['detail-content']}>
+              <div className={styles['reward-meta']}>
+                <span className={styles['reward-type']}>
+                  <span
+                    className={cn(
+                      state.selectedReward.type === 'reward' && 'i-ph:cube-duotone',
+                      state.selectedReward.type === 'privilege' && 'i-ph:star-four-fill',
+                    )}
+                    aria-hidden="true"
+                  />
+                  {t(`shop.reward.type.${state.selectedReward.type}`)}
+                </span>
+                {state.selectedReward.course_category &&
+                  state.selectedReward.course_category !== 'no category' && (
+                    <span className={styles['reward-category']}>
+                      {t('course.category', { category: state.selectedReward.course_category })}
+                    </span>
+                  )}
+              </div>
+              <h1 className={styles['detail-heading']}>{state.selectedReward.name}</h1>
+              {state.rewardDescription && (
+                <p className={styles.description}>{state.rewardDescription}</p>
+              )}
             </div>
-            {state.selectedReward.description && <p>{state.selectedReward.description}</p>}
+          </div>
+          <div className={styles['detail-footer']}>
             <div className={styles.price}>
               {t('shop.reward.price', { count: state.selectedReward.price })}
               <span className="i-ph:coins-bold" aria-hidden="true" />
