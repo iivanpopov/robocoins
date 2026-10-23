@@ -3,6 +3,7 @@
 @import './transitions.css';
 @import './category-colors.css';
 @import './category-choice.css';
+@import './motion.css';
 
 * {
   box-sizing: border-box;
@@ -16,6 +17,7 @@
   --foreground: var(--mist-800);
   --brand: var(--blue-500);
   --brand-hover: var(--blue-600);
+  --brand-foreground: white;
   --error: var(--red-300);
   --error-hover: var(--red-400);
   --muted: var(--taupe-300);
@@ -32,6 +34,21 @@
   --rounded-lg: 0.75rem;
   --rounded-xl: 1rem;
   --rounded-full: 9999px;
+}
+
+.galaxy {
+  --background: #080808;
+  --surface: #141414;
+  --foreground: #f5f5f5;
+  --brand: #82b4ff;
+  --brand-hover: #accdff;
+  --brand-foreground: var(--blue-950);
+  --error: var(--red-400);
+  --error-hover: var(--red-300);
+  --muted: #333;
+  --muted-foreground: #a3a3a3;
+
+  color-scheme: dark;
 }
 
 body {

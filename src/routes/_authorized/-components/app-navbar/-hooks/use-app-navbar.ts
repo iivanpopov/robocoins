@@ -14,7 +14,7 @@ const NAVIGATION_ITEMS = {
   student: [
     { to: '/settings', icon: 'i-ph:gear-bold', label: 'navbar.settings' },
     { to: '/', icon: 'i-ph:house-bold', label: 'navbar.home' },
-    { to: '/shop', icon: 'i-ph:storefront-bold', label: 'navbar.shop' },
+    { to: '/shop', icon: 'i-ph:planet-bold', label: 'navbar.shop' },
   ],
 } as const
 

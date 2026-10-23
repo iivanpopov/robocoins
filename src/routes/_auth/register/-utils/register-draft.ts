@@ -1,3 +1,5 @@
+import * as v from 'valibot'
+
 import { COOKIE_MAX_AGE } from '#/routes/-constants'
 import { readCookie } from '#/utils/cookies'
 
@@ -5,13 +7,13 @@ import { REGISTER_DRAFT_COOKIE } from '../-constants'
 import { RegisterDraftSchema, type RegisterDraft } from '../-schemas'
 
 function parseRegisterDraft(value: string | null) {
-  if (!value) return RegisterDraftSchema.parse({})
+  if (!value) return v.parse(RegisterDraftSchema, {})
   try {
-    const draft = RegisterDraftSchema.safeParse(JSON.parse(value))
-    if (draft.success) return draft.data
-    return RegisterDraftSchema.parse({})
+    const draft = v.safeParse(RegisterDraftSchema, JSON.parse(value))
+    if (draft.success) return draft.output
+    return v.parse(RegisterDraftSchema, {})
   } catch {
-    return RegisterDraftSchema.parse({})
+    return v.parse(RegisterDraftSchema, {})
   }
 }
 

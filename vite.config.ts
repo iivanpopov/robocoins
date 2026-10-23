@@ -9,8 +9,8 @@ import { defineConfig, loadEnv } from 'vite'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  const isVercelPreview = process.env.VERCEL_ENV === 'preview'
-  const sourcemap = isVercelPreview ? true : 'hidden'
+  const isProduction = mode === 'production'
+  const sourcemap = isProduction ? 'hidden' : true
 
   return {
     resolve: {
@@ -44,10 +44,12 @@ export default defineConfig(({ mode }) => {
       kanjou(),
       react(),
       unocss(),
-      ...(!isVercelPreview
+      ...(isProduction
         ? [
             sentryTanstackStart({
               authToken: env.SENTRY_AUTH_TOKEN,
+              org: env.SENTRY_ORG,
+              project: env.SENTRY_PROJECT,
               bundleSizeOptimizations: {
                 excludeDebugStatements: true,
                 excludeTracing: true,

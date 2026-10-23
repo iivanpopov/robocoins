@@ -5,6 +5,14 @@ export default {
   'navbar.home': 'Головна',
   'navbar.shop': 'Магазин',
   'navbar.groups': 'Групи',
+  'shop.reward.close': 'Закрити',
+  'shop.title': 'Галактика призів',
+  'shop.balance': 'Баланс: {$count :number} робокоїнів',
+  'shop.balance.amount': '{$count :number}',
+  'shop.reward.back': 'Назад до галактики',
+  'shop.reward.price': '{$count :number}',
+  'shop.reward.claim': 'Забрати нагороду',
+  'shop.reward.insufficient': 'Не вистачає робокоїнів',
   'settings.name': 'Ім’я користувача',
   'settings.password': 'Пароль',
   'settings.credentials.error': 'Не вдалося завантажити пароль.',
@@ -80,8 +88,8 @@ export default {
   'group.error': 'Не вдалося завантажити дані.',
   'award.error': 'Не вдалося підтвердити зміну балансу. Перевірте баланс перед наступною дією.',
   'reason.theory': 'Теорія',
-  'reason.practice_completed': 'Виконана практика',
-  'reason.additional_task_completed': 'Виконане додаткове завдання',
+  'reason.practice_completed': 'Практика',
+  'reason.additional_task_completed': 'Додаткове завдання',
   'reason.discipline_breakdown': 'Порушення дисципліни',
   'reason.middle_level_violation': 'Порушення середнього рівня',
   'reason.serious_violation': 'Серйозне порушення',
@@ -107,14 +115,17 @@ export default {
   'reason.other': 'Інше',
   'profile.balance.amount': '{$count :number}',
   'profile.goal.product': 'Набір Arduino Uno',
+  'profile.goal.none': 'Ціль не обрана',
+  'profile.goal.shop': 'Перейти до магазину, щоб обрати ціль',
+  'profile.goal.completed': 'Достатньо робокоїнів!',
   'profile.goal.target': 'із {$count :number}',
   'profile.goal.remaining': `
     .input {$count :number}
     .match $count
-    one {{Залишився {$count} робокоїн}}
-    few {{Залишилося {$count} робокоїни}}
-    many {{Залишилося {$count} робокоїнів}}
-    * {{Залишилося {$count} робокоїна}}`,
+    one {{Залишився {$count} робокоїн!}}
+    few {{Залишилося {$count} робокоїни!}}
+    many {{Залишилося {$count} робокоїнів!}}
+    * {{Залишилося {$count} робокоїна!}}`,
   'profile.history.title': 'Історія',
   'profile.history.all': 'Уся історія ›',
   'profile.history.loading': 'Завантаження історії…',

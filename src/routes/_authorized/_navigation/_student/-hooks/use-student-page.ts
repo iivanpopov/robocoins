@@ -1,14 +1,15 @@
 import { useTranslate } from '@kanjou/react'
-import { useRouteContext } from '@tanstack/react-router'
+import { useNavigate, useRouteContext } from '@tanstack/react-router'
 
+import { useGetStudentRewardProgressStudentStudentIdRewardProgressGet } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
 import { useGetStudentTransactionHistoryStudentStudentIdTransactionsGet } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { StudentProfileResponse } from '#/api/types'
 import { compareTransactionsByNewest } from '#/routes/-utils'
 
-import { GOAL_BALANCE } from '../-constants'
 import { getSignedAmount } from '../-utils'
 
 export function useStudentPage() {
+  const navigate = useNavigate()
   const context = useRouteContext({ from: '/_authorized/_navigation/_student/' })
   const t = useTranslate()
   const profile = context.user as StudentProfileResponse
@@ -19,6 +20,9 @@ export function useStudentPage() {
   const historyQuery = useGetStudentTransactionHistoryStudentStudentIdTransactionsGet({
     path: { student_id: profile.id },
     query: { limit: 3 },
+  })
+  const goalQuery = useGetStudentRewardProgressStudentStudentIdRewardProgressGet({
+    path: { student_id: profile.id },
   })
 
   function formatHistoryDate(value: string) {
@@ -33,6 +37,10 @@ export function useStudentPage() {
 
   function handleRetryHistory() {
     void historyQuery.refetch()
+  }
+
+  function handleNavigateToShop() {
+    void navigate({ to: '/shop', viewTransition: { types: ['slide-forward'] } })
   }
 
   const transactions = (historyQuery.data?.transactions ?? [])
@@ -59,14 +67,19 @@ export function useStudentPage() {
     }),
   }))
 
+  const goal = goalQuery.data?.reward ?? null
+  const goalCompleted = Boolean(goal && (goalQuery.data?.coins_remaining ?? 0) <= 0)
+
   return {
     state: {
       profile,
       groups,
-      goalProgress: `${Math.max(0, Math.min(100, (profile.balance / GOAL_BALANCE) * 100))}%`,
-      remainingBalance: Math.max(0, GOAL_BALANCE - profile.balance),
+      goal,
+      goalCompleted,
+      goalProgress: `${Math.max(0, Math.min(100, goalQuery.data?.progress_percent ?? 0))}%`,
+      remainingBalance: Math.max(0, goalQuery.data?.coins_remaining ?? 0),
     },
     queries: { history: historyQuery },
-    functions: { handleRetryHistory },
+    functions: { handleRetryHistory, handleNavigateToShop },
   }
 }

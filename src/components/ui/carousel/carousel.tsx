@@ -10,6 +10,8 @@ import {
   useState,
 } from 'react'
 
+import { prefersReducedMotion } from '#/utils/motion'
+
 import styles from './carousel.module.css'
 
 export type CarouselApi = UseEmblaCarouselType[1]
@@ -43,7 +45,20 @@ export function useCarousel() {
 }
 
 export function Carousel({ opts, plugins, setApi, className, children, ...props }: CarouselProps) {
-  const [carouselRef, api] = useEmblaCarousel({ ...opts, axis: 'x' }, plugins)
+  const [carouselRef, api] = useEmblaCarousel(
+    {
+      ...opts,
+      axis: 'x',
+      breakpoints: {
+        ...opts?.breakpoints,
+        '(prefers-reduced-motion: reduce)': {
+          ...opts?.breakpoints?.['(prefers-reduced-motion: reduce)'],
+          duration: 0,
+        },
+      },
+    },
+    plugins,
+  )
   const [selectedIndex, setSelectedIndex] = useState(opts?.startIndex ?? 0)
 
   useEffect(() => {
@@ -55,14 +70,19 @@ export function Carousel({ opts, plugins, setApi, className, children, ...props 
     if (!api) return
 
     const onSelect = (api: NonNullable<CarouselApi>) => setSelectedIndex(api.selectedScrollSnap())
+    function handlePointerUp(api: NonNullable<CarouselApi>) {
+      if (prefersReducedMotion()) api.scrollTo(api.selectedScrollSnap(), true)
+    }
 
     onSelect(api)
     api.on('reInit', onSelect)
     api.on('select', onSelect)
+    api.on('pointerUp', handlePointerUp)
 
     return () => {
       api.off('reInit', onSelect)
       api.off('select', onSelect)
+      api.off('pointerUp', handlePointerUp)
     }
   }, [api])
 

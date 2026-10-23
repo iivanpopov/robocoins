@@ -1,5 +1,5 @@
-import { z } from 'zod'
+import * as v from 'valibot'
 
-export const LoginStateSchema = z.object({
-  password: z.string().min(1),
+export const LoginStateSchema = v.object({
+  password: v.pipe(v.string(), v.minLength(1)),
 })

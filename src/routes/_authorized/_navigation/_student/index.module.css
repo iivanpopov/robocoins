@@ -26,6 +26,7 @@
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--foreground);
+  view-transition-name: student-balance;
 }
 
 .coin-icon {
@@ -42,6 +43,23 @@
   margin-top: var(--spacing-xl);
   background: var(--surface);
   border-radius: var(--rounded-xl);
+}
+
+.goal-empty {
+  padding: 0;
+  background: none;
+}
+
+.goal-shop {
+  justify-content: flex-start;
+  font-weight: 500;
+  color: var(--brand);
+}
+
+.goal-completed-label {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--foreground);
 }
 
 .product-name {
@@ -114,6 +132,10 @@
   min-width: 16px;
 }
 
+.progress span[data-completed='true'] {
+  background: var(--green-500);
+}
+
 .history {
   display: flex;
   flex-direction: column;
@@ -147,51 +169,41 @@
 }
 
 .operation {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: var(--spacing-md);
-  align-items: center;
-  min-height: 32px;
-  font-weight: 500;
+  align-items: start;
+  margin: var(--spacing-md) 0 var(--spacing-lg);
+  line-height: 1.5;
 }
 
 .rules-button {
   align-self: flex-start;
-  margin-top: var(--spacing-lg);
+  margin-top: var(--spacing-sm);
   font-weight: 500;
   text-align: left;
   text-decoration: none;
 }
 
-.operation-icon {
-  position: relative;
+.operation-reasons {
   display: grid;
-  flex: 0 0 1.25rem;
-  place-items: center;
-  width: 1.25rem;
-  height: 1.25rem;
-  font-size: 1.25rem;
-  color: var(--mist-500);
+  gap: var(--spacing-xs);
+  min-width: 0;
+  padding: 0 0 0 var(--spacing-md);
+  margin: 0;
+  font-weight: 400;
+  overflow-wrap: anywhere;
+  list-style: none;
+  border-left: 2px solid var(--muted);
 }
 
-.icon-dot {
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  z-index: 1;
-  display: none;
-  width: 8px;
-  height: 8px;
-  background: var(--blue-500);
-  border-radius: var(--rounded-full);
-}
-
-.operation-today .icon-dot {
-  display: block;
+.operation-today .operation-reasons {
+  border-left-color: var(--brand);
 }
 
 .operation strong {
-  margin-left: auto;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .new-amount {

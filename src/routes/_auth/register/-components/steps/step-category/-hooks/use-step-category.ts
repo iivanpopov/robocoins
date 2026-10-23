@@ -1,5 +1,6 @@
 import { useNavigate } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
+import * as v from 'valibot'
 
 import { useGetCoursesCourseGet } from '#/api/hooks'
 import type { CourseCategoryKey } from '#/api/types'
@@ -53,7 +54,8 @@ export function useStepCategory() {
 
   const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (!StepCategorySchema.safeParse(selectedCategories).success || !coursesQuery.isSuccess) return
+    if (!v.safeParse(StepCategorySchema, selectedCategories).success || !coursesQuery.isSuccess)
+      return
     void navigate({
       search: { step: RegisterStep.Course, category: selectedCategories[0] },
       viewTransition: { types: ['slide-forward'] },

@@ -8,6 +8,7 @@
   outline: none;
   outline-offset: 2px;
   border-radius: var(--spacing-lg);
+  transition: background-color 160ms ease;
 
   &:focus-visible {
     outline: 3px solid var(--brand-hover);
@@ -20,7 +21,7 @@
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  color: white;
+  color: var(--brand-foreground);
   background: var(--brand);
   border: none;
 

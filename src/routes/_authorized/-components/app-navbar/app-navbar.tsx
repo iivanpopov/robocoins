@@ -1,4 +1,6 @@
 import { useTranslate } from '@kanjou/react'
+import { useLocation } from '@tanstack/react-router'
+import { cn } from 'cn'
 
 import { Navbar, NavbarItem } from '#/components/ui'
 
@@ -8,11 +10,19 @@ import styles from './app-navbar.module.css'
 
 export function AppNavbar() {
   const t = useTranslate()
+  const location = useLocation()
 
   const navbar = useAppNavbar()
 
   return (
-    <Navbar aria-label={t('navbar.label')} className={styles.navbar}>
+    <Navbar
+      aria-label={t('navbar.label')}
+      className={cn(
+        styles.navbar,
+        location.pathname === '/shop' && 'galaxy',
+        location.pathname === '/shop' && styles['shop-navbar'],
+      )}
+    >
       {navbar.items.map((item) => (
         <NavbarItem
           key={item.to}

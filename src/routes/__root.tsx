@@ -2,7 +2,13 @@ import rubikCyrillic from '@fontsource-variable/rubik/files/rubik-cyrillic-wght-
 import rubikLatin from '@fontsource-variable/rubik/files/rubik-latin-wght-normal.woff2?url'
 import { TranslateProvider } from '@kanjou/react'
 import type { QueryClient } from '@tanstack/react-query'
-import { HeadContent, Outlet, Scripts, createRootRouteWithContext } from '@tanstack/react-router'
+import {
+  HeadContent,
+  Outlet,
+  Scripts,
+  createRootRouteWithContext,
+  useLocation,
+} from '@tanstack/react-router'
 import { DefaultFunctions, DraftFunctions } from 'messageformat/functions'
 import type { ReactNode } from 'react'
 import messages from 'virtual:kanjou/uk'
@@ -42,7 +48,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: 'icon', href: '/favicon.ico', sizes: '32x32' },
-      { rel: 'icon', href: '/icon.svg', type: 'image/svg+xml' },
       { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
       {
         rel: 'preload',
@@ -65,12 +70,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 })
 
 function RootDocument({ children }: { children: ReactNode }) {
+  const pathname = useLocation({ select: (location) => location.pathname })
   const { locale } = Route.useRouteContext()
+
+  let iconHref = '/icon.svg'
+  if (pathname.replace(/\/+$/, '') === '/shop') iconHref = '/icon-galaxy.svg'
 
   return (
     <html lang={locale}>
       <head>
         <HeadContent />
+        <link rel="icon" href={iconHref} type="image/svg+xml" />
       </head>
       <body>
         <TranslateProvider

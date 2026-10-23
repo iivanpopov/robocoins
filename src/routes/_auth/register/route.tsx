@@ -1,5 +1,5 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router'
-import { z } from 'zod'
+import * as v from 'valibot'
 
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
 import { courseCategory } from '#/api/types'
@@ -8,10 +8,10 @@ import { RegisterProvider } from './-components/register-provider'
 import { RegisterStep } from './-constants'
 import { registerDraft } from './-utils/register-draft'
 
-const RouteSearchSchema = z.object({
-  step: z.enum(RegisterStep).default(RegisterStep.Name),
-  category: z.enum(courseCategory).optional(),
-  drawer: z.literal('group').optional(),
+const RouteSearchSchema = v.object({
+  step: v.optional(v.enum(RegisterStep), RegisterStep.Name),
+  category: v.optional(v.enum(courseCategory)),
+  drawer: v.optional(v.literal('group')),
 })
 
 export const Route = createFileRoute('/_auth/register')({

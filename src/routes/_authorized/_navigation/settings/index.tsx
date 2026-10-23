@@ -9,6 +9,7 @@ import { useSettingsPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/settings/')({
+  head: () => ({ meta: [{ title: 'Налаштування | Robocoins' }] }),
   component: SettingsPage,
 })
 

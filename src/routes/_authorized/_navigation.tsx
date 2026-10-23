@@ -1,4 +1,5 @@
 import { Outlet, createFileRoute } from '@tanstack/react-router'
+import { cn } from 'cn'
 
 import { AppNavbar } from './-components'
 
@@ -11,7 +12,7 @@ export const Route = createFileRoute('/_authorized/_navigation')({
 function NavigationLayout() {
   return (
     <div className={styles.layout}>
-      <main className={styles.content}>
+      <main className={cn(styles.content)}>
         <Outlet />
       </main>
       <AppNavbar />

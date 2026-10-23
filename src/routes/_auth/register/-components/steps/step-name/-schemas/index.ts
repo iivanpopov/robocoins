@@ -1,5 +1,5 @@
-import { z } from 'zod'
+import * as v from 'valibot'
 
-export const StepNameFormSchema = z.object({
-  name: z.string().trim().min(1),
+export const StepNameFormSchema = v.object({
+  name: v.pipe(v.string(), v.trim(), v.minLength(1)),
 })

@@ -12,6 +12,14 @@ declare module '@kanjou/react' {
       'navbar.home': {}
       'navbar.shop': {}
       'navbar.groups': {}
+      'shop.reward.close': {}
+      'shop.title': {}
+      'shop.balance': { count: { __fn: 'number' } }
+      'shop.balance.amount': { count: { __fn: 'number' } }
+      'shop.reward.back': {}
+      'shop.reward.price': { count: { __fn: 'number' } }
+      'shop.reward.claim': {}
+      'shop.reward.insufficient': {}
       'settings.name': {}
       'settings.password': {}
       'settings.credentials.error': {}
@@ -102,6 +110,9 @@ declare module '@kanjou/react' {
       'reason.other': {}
       'profile.balance.amount': { count: { __fn: 'number' } }
       'profile.goal.product': {}
+      'profile.goal.none': {}
+      'profile.goal.shop': {}
+      'profile.goal.completed': {}
       'profile.goal.target': { count: { __fn: 'number' } }
       'profile.goal.remaining': { count: { __fn: 'number' } }
       'profile.history.title': {}
