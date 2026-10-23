@@ -20,6 +20,11 @@ declare module '@kanjou/react' {
       'shop.reward.price': { count: { __fn: 'number' } }
       'shop.reward.claim': {}
       'shop.reward.insufficient': {}
+      'shop.reward.cost': {}
+      'shop.reward.type.reward': {}
+      'shop.reward.type.privilege': {}
+      'shop.legend.rewards': {}
+      'shop.legend.privileges': {}
       'settings.name': {}
       'settings.password': {}
       'settings.credentials.error': {}

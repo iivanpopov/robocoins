@@ -45,14 +45,23 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
       }
     }
     const labelElements: HTMLElement[] = []
+    const visuals: {
+      element: HTMLButtonElement
+      left: number
+      right: number
+      top: number
+      bottom: number
+    }[] = []
     const labels: {
       element: HTMLElement
+      owner: HTMLButtonElement
       distance: number
       left: number
       right: number
       top: number
       bottom: number
       translate: number
+      translateX: number
       opacity: number
     }[] = []
 
@@ -67,38 +76,77 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
       const y = (((position.y - 50) * camera.zoom + camera.y) * size.height) / 100
       element.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`
       element.style.visibility = 'visible'
-      const visual = element.firstElementChild
-      if (visual instanceof HTMLElement) visual.style.transform = `scale(${scale * camera.zoom})`
+      const visualSize = Math.round(26 * scale * camera.zoom)
+      element.style.setProperty('--star-size', `${visualSize}px`)
+      const near = String(scale >= 1)
+      if (element.dataset.near !== near) element.dataset.near = near
+      visuals.push({
+        element,
+        left: x - visualSize / 2,
+        right: x + visualSize / 2,
+        top: y - visualSize / 2,
+        bottom: y + visualSize / 2,
+      })
       const measurement = measurements.get(star.reward.id)
       if (measurement) {
         const label = measurement.element
         labelElements.push(label)
         if (scale <= 0.48) continue
-        const distanceFromCenter = Math.hypot((x / size.width) * 100, (y / size.height) * 200)
-        const bottom = y - 13 * scale * camera.zoom - 14
-        labels.push({
-          element: label,
-          distance: distanceFromCenter,
-          left: x - measurement.width / 2,
-          right: x + measurement.width / 2,
-          top: bottom - measurement.height,
-          bottom,
-          translate: -13 * scale * camera.zoom - 14,
-          opacity: 0.45 + 0.55 * Math.exp(-((distanceFromCenter / 30) ** 2)),
-        })
+        const distanceFromCenter = Math.hypot(x, y)
+        const relativeDistance = (distanceFromCenter / size.width) * 100
+        const left = Math.max(
+          -size.width / 2 + 16,
+          Math.min(x - measurement.width / 2, size.width / 2 - 16 - measurement.width),
+        )
+        for (const translate of [-visualSize / 2 - 14, visualSize / 2 + 14 + measurement.height]) {
+          const bottom = y + translate
+          labels.push({
+            element: label,
+            owner: element,
+            distance: distanceFromCenter,
+            left,
+            right: left + measurement.width,
+            top: bottom - measurement.height,
+            bottom,
+            translate,
+            translateX: left - x,
+            opacity: 0.45 + 0.55 * Math.exp(-((relativeDistance / 30) ** 2)),
+          })
+        }
       }
     }
 
-    const visibleLabels: typeof labels = []
-    for (const label of labels.sort((first, second) => first.distance - second.distance)) {
-      if (visibleLabels.length >= 3) break
-      if (
-        label.left < -size.width / 2 + 16 ||
-        label.right > size.width / 2 - 16 ||
-        label.top < -size.height / 2 + 16 ||
-        label.bottom > size.height / 2 - 16
+    function getObstructions(label: (typeof labels)[number]) {
+      return visuals.filter(
+        (visual) =>
+          label.left < visual.right + 8 &&
+          label.right + 8 > visual.left &&
+          label.top < visual.bottom + 8 &&
+          label.bottom + 8 > visual.top,
       )
-        continue
+    }
+
+    const candidates = labels
+      .filter(
+        (label) => label.top >= -size.height / 2 + 80 && label.bottom <= size.height / 2 - 130,
+      )
+      .sort((first, second) => first.distance - second.distance)
+    const priority = candidates
+      .filter((label) => label.element === candidates[0]?.element)
+      .sort((first, second) => getObstructions(first).length - getObstructions(second).length)[0]
+    const obscuredVisuals = new Set<HTMLButtonElement>()
+    const visibleLabels: typeof labels = []
+
+    if (priority) {
+      visibleLabels.push(priority)
+      for (const visual of getObstructions(priority)) obscuredVisuals.add(visual.element)
+    }
+
+    for (const label of candidates) {
+      if (visibleLabels.length >= 3) break
+      if (obscuredVisuals.has(label.owner)) continue
+      if (visibleLabels.some((visible) => visible.element === label.element)) continue
+      if (getObstructions(label).some((visual) => !obscuredVisuals.has(visual.element))) continue
       if (
         visibleLabels.some(
           (visible) =>
@@ -112,6 +160,14 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
       visibleLabels.push(label)
     }
 
+    for (const visual of visuals) {
+      const obscured = obscuredVisuals.has(visual.element)
+      visual.element.style.setProperty('--marker-opacity', String(Number(!obscured)))
+      visual.element.style.zIndex = String(Number(visual.element === priority?.owner))
+      visual.element.style.pointerEvents = 'auto'
+      if (obscured) visual.element.style.pointerEvents = 'none'
+    }
+
     for (const element of labelElements) {
       const hidden = String(!visibleLabels.some((label) => label.element === element))
       if (element.getAttribute('aria-hidden') !== hidden)
@@ -119,7 +175,7 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
     }
 
     for (const label of visibleLabels) {
-      label.element.style.translate = `-50% ${label.translate}px`
+      label.element.style.translate = `${label.translateX}px ${label.translate}px`
       label.element.style.setProperty('--label-opacity', String(label.opacity))
     }
 

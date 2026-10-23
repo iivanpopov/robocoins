@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 
 import type { StudentProfileResponse } from '#/api/types/StudentProfileResponse'
 
@@ -14,6 +14,8 @@ export function useShopPage() {
   const context = Route.useRouteContext()
 
   const starsRef = useRef<(ReturnType<typeof getStarPositions>[number] & { glow: number })[]>([])
+  const rewardBack = useRef<HTMLButtonElement>(null)
+  const selectedStar = useRef<HTMLButtonElement | null>(null)
   const map = useMapAnimation(starsRef)
   const camera = useCamera(map.cameraRef, map.handleInvalidate)
   const rewardSelection = useRewardSelection(camera.handleAnimate)
@@ -35,10 +37,20 @@ export function useShopPage() {
   }, [galaxy.rewards, galaxy.seed])
   starsRef.current = starPositions
 
+  useEffect(() => {
+    if (rewardSelection.selection.phase === 'open')
+      rewardBack.current?.focus({ preventScroll: true })
+    if (rewardSelection.selection.phase === 'idle' && selectedStar.current) {
+      selectedStar.current.focus({ preventScroll: true })
+      selectedStar.current = null
+    }
+  }, [rewardSelection.selection.phase])
+
   function handleOpenReward(star: (typeof starPositions)[number], event: React.MouseEvent) {
     if (rewardSelection.handleIsBlocked()) return
     if (event.detail !== 0 && !draggableMap.handleCanSelect()) return
     draggableMap.handleStop()
+    selectedStar.current = map.starElementsRef.current.get(star.reward.id) ?? null
     rewardSelection.handleOpen(star.reward, map.handleGetPosition(star))
   }
 
@@ -50,10 +62,13 @@ export function useShopPage() {
       map: map.mapRef,
       background: map.backgroundRef,
       starElements: map.starElementsRef,
+      rewardBack,
     },
     state: {
       stars: starPositions,
       selectedReward,
+      rewardDescription: selectedReward?.description?.trim(),
+      isRewardActive: rewardSelection.selection.phase !== 'idle',
       canClaimReward: Boolean(selectedReward && profile.balance >= selectedReward.price),
       balance: profile.balance,
       isRewardVisible:
