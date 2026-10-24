@@ -5,7 +5,23 @@ import { cn } from 'cn'
 import { getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions } from '#/api/hooks/useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet'
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
 import { getGroupByIdGroupIdGroupIdGetQueryOptions } from '#/api/hooks/useGetGroupByIdGroupIdGroupIdGet'
-import { Avatar, AvatarFallback, AvatarImage, IconButton, Loader } from '#/components/ui'
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+  Button,
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  IconButton,
+  Loader,
+} from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 import { getAvatarUrl, getInitial } from '#/routes/-utils'
 
@@ -29,7 +45,7 @@ export const Route = createFileRoute('/_authorized/_teacher/group/$groupId')({
 })
 
 function GroupStudentsPage() {
-  const { state, functions } = useGroupStudentsPage()
+  const { state, mutations, functions } = useGroupStudentsPage()
 
   const t = useTranslate()
 
@@ -55,6 +71,43 @@ function GroupStudentsPage() {
           </span>
         </div>
       </header>
+
+      <AlertDialog
+        open={state.isPracticeDialogOpen}
+        onOpenChange={functions.handlePracticeDialogOpenChange}
+      >
+        <AlertDialogTrigger
+          render={<Button />}
+          disabled={!state.canAwardPractice || mutations.awardPractice.isPending}
+        >
+          <span aria-hidden="true" className="i-ph:coins-bold" />
+          {t('group.practice.award')}
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t('group.practice.confirm.title')}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {t('group.practice.confirm.description', { count: state.studentsCount })}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          {mutations.awardPractice.isError && (
+            <InlineError>{t('group.practice.error')}</InlineError>
+          )}
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={mutations.awardPractice.isPending}>
+              {t('action.cancel')}
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={functions.handleAwardPractice}
+              disabled={!state.canAwardPractice || mutations.awardPractice.isPending}
+              aria-busy={mutations.awardPractice.isPending}
+            >
+              {mutations.awardPractice.isPending && <Loader />}
+              {t('group.practice.confirm.action')}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       <StudentSearchBar
         searchQuery={state.searchQuery}

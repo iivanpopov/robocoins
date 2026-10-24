@@ -1,4 +1,5 @@
 export { assignGroupTeachersGroupIdGroupIdTeachersPut } from './assignGroupTeachersGroupIdGroupIdTeachersPut'
+export { awardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPost } from './awardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPost'
 export { cancelStudentTransactionStudentTransactionsTransactionIdCancelPost } from './cancelStudentTransactionStudentTransactionsTransactionIdCancelPost'
 export { changeStudentBalanceStudentStudentIdBalanceTransactionsPost } from './changeStudentBalanceStudentStudentIdBalanceTransactionsPost'
 export { createCourseCoursePost } from './createCourseCoursePost'

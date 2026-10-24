@@ -27,8 +27,19 @@ declare module '@kanjou/react' {
       'shop.legend.privileges': {}
       'settings.name': {}
       'settings.password': {}
+      'student.password.unavailable': {}
+      'student.password.regenerate': {}
       'settings.credentials.error': {}
       'settings.logout': {}
+      'settings.logout.confirm.title': {}
+      'settings.logout.confirm.description': {}
+      'action.cancel': {}
+      'group.practice.award': {}
+      'group.practice.confirm.title': {}
+      'group.practice.confirm.description': { count: { __fn: 'number' } }
+      'group.practice.confirm.action': {}
+      'group.practice.success': { count: { __fn: 'number' } }
+      'group.practice.error': {}
       'settings.logout.error': {}
       'action.next.title': {}
       'action.finish.title': {}
@@ -51,6 +62,7 @@ declare module '@kanjou/react' {
       'step.course.title': {}
       'step.course.description': {}
       'step.group.title': {}
+      'step.group.description': {}
       'step.direction.progress': {
         current: { __fn: 'number' }
         total: { __fn: 'number' }
@@ -58,8 +70,10 @@ declare module '@kanjou/react' {
       'step.selection.empty': {}
       'course.category': { category: { __fn: 'string' } }
       'step.avatar.title': {}
+      'step.avatar.description': {}
       'step.avatar.suggest': {}
       'step.view.title': {}
+      'step.view.description': {}
       'step.success.title': {}
       'step.success.subtitle': {}
       'step.success.password': {}

@@ -1,16 +1,14 @@
-import { useTranslate } from '@kanjou/react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useRouteContext } from '@tanstack/react-router'
 import { useState } from 'react'
 
 import { useGetStudentCredentialsAuthMeCredentialsGet } from '#/api/hooks/useGetStudentCredentialsAuthMeCredentialsGet'
 import { useLogoutAuthLogoutPost } from '#/api/hooks/useLogoutAuthLogoutPost'
-import { toast } from '#/components/ui'
 
 export function useSettingsPage() {
   const context = useRouteContext({ from: '/_authorized' })
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-  const t = useTranslate()
+  const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false)
   const queryClient = useQueryClient()
   const credentialsQuery = useGetStudentCredentialsAuthMeCredentialsGet({
     query: {
@@ -20,19 +18,24 @@ export function useSettingsPage() {
   })
   const logoutMutation = useLogoutAuthLogoutPost({
     mutation: {
+      retry: false,
       onSuccess: async () => {
         await queryClient.cancelQueries()
         queryClient.clear()
         window.location.assign('/login')
       },
-      onError: () => {
-        toast.add({ title: t('settings.logout.error'), type: 'error' })
-      },
     },
   })
 
   const handleLogout = () => {
+    if (logoutMutation.isPending) return
     logoutMutation.mutate(undefined)
+  }
+
+  function handleLogoutDialogOpenChange(open: boolean) {
+    if (logoutMutation.isPending) return
+    if (open) logoutMutation.reset()
+    setIsLogoutDialogOpen(open)
   }
 
   const handleTogglePassword = () => {
@@ -44,9 +47,14 @@ export function useSettingsPage() {
   }
 
   return {
-    state: { user: context.user, isPasswordVisible },
+    state: { user: context.user, isPasswordVisible, isLogoutDialogOpen },
     queries: { credentials: credentialsQuery },
     mutations: { logout: logoutMutation },
-    functions: { handleLogout, handleTogglePassword, handleRetryCredentials },
+    functions: {
+      handleLogout,
+      handleTogglePassword,
+      handleRetryCredentials,
+      handleLogoutDialogOpenChange,
+    },
   }
 }

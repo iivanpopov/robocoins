@@ -100,7 +100,7 @@ function StudentPage() {
             <Typography className={styles['product-name']} variant="subtitle">
               {state.goal.name}
             </Typography>
-            <div aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.chevron)} />
+            {/* <div aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.chevron)} /> */}
           </div>
           <p className={styles.amount}>
             <strong>{t('profile.balance.amount', { count: state.profile.balance })}</strong>{' '}

@@ -29,6 +29,7 @@ export function StepView() {
     <AuthLayout.Root>
       <AuthLayout.Top>
         <Typography variant="title">{t('step.view.title')}</Typography>
+        <Typography variant="caption">{t('step.view.description')}</Typography>
         <div className="flex items-center gap-3 mt-4">
           <Avatar size="lg" className={styles.avatar}>
             <AvatarImage src={getAvatarUrl(state.avatar)} alt={state.name} />

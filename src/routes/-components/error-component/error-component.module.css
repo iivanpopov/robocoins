@@ -8,6 +8,7 @@
 
 .code {
   font-size: clamp(5rem, 13vw, 10rem);
+  font-weight: 800;
   line-height: 1;
   color: var(--brand);
 }
@@ -21,5 +22,6 @@
 }
 
 .retry {
+  width: 100%;
   margin-top: 2rem;
 }
