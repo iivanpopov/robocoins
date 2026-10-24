@@ -14,7 +14,7 @@ import {
 import { Avatar as AvatarName } from '#/routes/-constants'
 import { getAvatarUrl, getInitial } from '#/routes/-utils'
 
-import { BalanceChange, RecentTransactions } from './-components'
+import { BalanceChange, RecentTransactions, StudentDetails } from './-components'
 import { useStudentDrawer } from './-hooks'
 
 import styles from './student-drawer.module.css'
@@ -73,6 +73,7 @@ export function StudentDrawer(props: StudentDrawerProps) {
                 </button>
               </DrawerTitle>
             </DrawerHeader>
+            <StudentDetails />
             <BalanceChange
               studentId={props.student.id}
               groupId={studentDrawer.groupId}

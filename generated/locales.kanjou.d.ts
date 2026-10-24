@@ -27,6 +27,8 @@ declare module '@kanjou/react' {
       'shop.legend.privileges': {}
       'settings.name': {}
       'settings.password': {}
+      'student.password.unavailable': {}
+      'student.password.regenerate': {}
       'settings.credentials.error': {}
       'settings.logout': {}
       'settings.logout.error': {}

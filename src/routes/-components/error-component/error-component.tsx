@@ -1,6 +1,6 @@
 import { useTranslate } from '@kanjou/react'
 
-import { HeroButton } from '#/components/ui/hero-button'
+import { Button } from '#/components/ui/button'
 import { Typography } from '#/components/ui/typography'
 
 import styles from './error-component.module.css'
@@ -18,9 +18,9 @@ export function ErrorComponent() {
         <Typography variant="caption" className={styles.description}>
           {t('error.description')}
         </Typography>
-        <HeroButton className={styles.retry} onClick={() => window.location.reload()}>
+        <Button size="lg" className={styles.retry} onClick={() => window.location.reload()}>
           {t('error.retry')}
-        </HeroButton>
+        </Button>
       </div>
     </main>
   )

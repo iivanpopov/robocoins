@@ -20,6 +20,8 @@ export default {
   'shop.legend.privileges': 'Привілеї',
   'settings.name': 'Ім’я користувача',
   'settings.password': 'Пароль',
+  'student.password.unavailable': 'Пароль недоступний',
+  'student.password.regenerate': 'Згенерувати новий пароль',
   'settings.credentials.error': 'Не вдалося завантажити пароль.',
   'settings.logout': 'Вийти',
   'settings.logout.error': 'Не вдалося вийти. Спробуйте ще раз.',

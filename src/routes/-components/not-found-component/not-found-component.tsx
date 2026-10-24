@@ -1,7 +1,7 @@
 import { useTranslate } from '@kanjou/react'
 import { Link } from '@tanstack/react-router'
 
-import { HeroButton } from '#/components/ui/hero-button'
+import { Button } from '#/components/ui/button'
 import { Typography } from '#/components/ui/typography'
 
 import styles from './not-found-component.module.css'
@@ -19,9 +19,9 @@ export function NotFoundComponent() {
         <Typography variant="caption" className={styles.description}>
           {t('not-found.description')}
         </Typography>
-        <HeroButton className={styles.home} render={<Link to="/" />}>
+        <Button size="lg" className={styles.home} nativeButton={false} render={<Link to="/" />}>
           {t('not-found.home')}
-        </HeroButton>
+        </Button>
       </div>
     </main>
   )

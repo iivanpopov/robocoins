@@ -71,7 +71,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootDocument({ children }: { children: ReactNode }) {
   const pathname = useLocation({ select: (location) => location.pathname })
-  const { locale } = Route.useRouteContext()
+  const context = Route.useRouteContext()
+
+  const locale = context?.locale ?? 'uk'
 
   let iconHref = '/icon.svg'
   if (pathname.replace(/\/+$/, '') === '/shop') iconHref = '/icon-galaxy.svg'
