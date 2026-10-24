@@ -27,6 +27,7 @@ export function StepAvatar() {
       <AuthLayout.Root>
         <AuthLayout.Top>
           <Typography variant="title">{t('step.avatar.title')}</Typography>
+          <Typography variant="caption">{t('step.avatar.description')}</Typography>
           <Button type="button" variant="link" className={styles['suggest-avatar']}>
             {t('step.avatar.suggest')}
           </Button>

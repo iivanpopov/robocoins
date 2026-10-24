@@ -52,12 +52,14 @@ export default {
   'caption.mistake':
     'Помилився?{#br/}{#a search=$search viewTransition=$viewTransition}Повернутся назад{/a}',
   'step.name.title': 'Як тебе звати?',
-  'step.name.description': 'Так твоє ім’я бачитимуть викладачі та інші студенти.',
+  'step.name.description': 'Вкажи ім’я та прізвище, щоб викладач міг тебе впізнати.',
   'step.category.title': 'Обери напрямки',
-  'step.category.description': 'Можна обрати кілька.',
+  'step.category.description': 'Обери напрямки, за якими ти навчаєшся. Можна обрати кілька.',
   'step.course.title': 'Обери свій курс',
-  'step.course.description': 'Обери групи, у яких ти навчаєшся.',
+  'step.course.description':
+    'Обери групи, у яких ти навчаєшся. Натисни на свій курс, щоб обрати розклад.',
   'step.group.title': 'Обери час твого уроку',
+  'step.group.description': 'Обери день і час, коли ти відвідуєш цей курс.',
   'step.direction.progress': 'Напрямок {$current :number} із {$total :number}',
   'step.selection.empty': 'Наразі немає доступних варіантів.',
   'course.category': `
@@ -70,12 +72,16 @@ export default {
     python {{Програмування на Python}}
     * {{Інші напрямки}}`,
   'step.avatar.title': 'Обери аватар',
+  'step.avatar.description': 'Гортай аватари вліво або вправо. Обраним буде той, що посередині.',
   'step.avatar.suggest': 'Запропонувати аватар, якщо бажаного нема.',
   'step.view.title': 'Правильно?',
+  'step.view.description':
+    'Перевір ім’я, аватар і розклад. Якщо все правильно, натисни «Завершити».',
   'step.success.title': 'Вітаю!',
   'step.success.subtitle': 'Твій акаунт створено',
   'step.success.password': 'Твій пароль',
-  'step.success.description': 'Ти зможеш змінити його пізніше в особистому кабінеті.',
+  'step.success.description':
+    'Натисни на око, щоб побачити пароль. Збережи його — він потрібен для входу в акаунт.',
   'step.success.profile': 'Перейти в профіль',
   'error.profile-entry-failed': 'Не вдалося увійти. Спробуй ще раз.',
   'weekday.monday': 'Понеділок',

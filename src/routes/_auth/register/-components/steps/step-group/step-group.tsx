@@ -30,6 +30,7 @@ export function StepGroup() {
       <DrawerHeader className={styles.header}>
         <DrawerTitle className={styles.title}>{t('step.group.title')}</DrawerTitle>
         <DrawerDescription className={styles.description}>{state.course?.name}</DrawerDescription>
+        <Typography variant="caption">{t('step.group.description')}</Typography>
       </DrawerHeader>
       <div className={styles.groups}>
         {queries.courses.isPending && <Loader />}
