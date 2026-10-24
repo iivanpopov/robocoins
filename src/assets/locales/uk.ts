@@ -43,8 +43,8 @@ export default {
   'step.category.title': 'Обери напрямки',
   'step.category.description': 'Можна обрати кілька.',
   'step.course.title': 'Обери свій курс',
-  'step.course.description': 'Можна обрати лише один.',
-  'step.group.title': 'Обери час заняття',
+  'step.course.description': 'Обери групи, у яких ти навчаєшся.',
+  'step.group.title': 'Обери час твого уроку',
   'step.direction.progress': 'Напрямок {$current :number} із {$total :number}',
   'step.selection.empty': 'Наразі немає доступних варіантів.',
   'course.category': `
