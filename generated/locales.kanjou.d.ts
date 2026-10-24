@@ -31,6 +31,15 @@ declare module '@kanjou/react' {
       'student.password.regenerate': {}
       'settings.credentials.error': {}
       'settings.logout': {}
+      'settings.logout.confirm.title': {}
+      'settings.logout.confirm.description': {}
+      'action.cancel': {}
+      'group.practice.award': {}
+      'group.practice.confirm.title': {}
+      'group.practice.confirm.description': { count: { __fn: 'number' } }
+      'group.practice.confirm.action': {}
+      'group.practice.success': { count: { __fn: 'number' } }
+      'group.practice.error': {}
       'settings.logout.error': {}
       'action.next.title': {}
       'action.finish.title': {}

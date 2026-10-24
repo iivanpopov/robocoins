@@ -24,6 +24,17 @@ export default {
   'student.password.regenerate': 'Згенерувати новий пароль',
   'settings.credentials.error': 'Не вдалося завантажити пароль.',
   'settings.logout': 'Вийти',
+  'settings.logout.confirm.title': 'Вийти з акаунту?',
+  'settings.logout.confirm.description': 'Щоб повернутися, потрібно буде знову ввести пароль.',
+  'action.cancel': 'Скасувати',
+  'group.practice.award': 'Нарахувати всім за практику',
+  'group.practice.confirm.title': 'Нарахувати всій групі?',
+  'group.practice.confirm.description':
+    'Нагороду за практику отримають усі учні групи ({$count :number}), незалежно від пошуку.',
+  'group.practice.confirm.action': 'Нарахувати',
+  'group.practice.success': 'Нагороду за практику нараховано. Учнів: {$count :number}.',
+  'group.practice.error':
+    'Не вдалося підтвердити нарахування. Перевір баланси групи перед повторною спробою.',
   'settings.logout.error': 'Не вдалося вийти. Спробуйте ще раз.',
   'action.next.title': 'Далі',
   'action.finish.title': 'Завершити',

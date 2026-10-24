@@ -1,7 +1,19 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute } from '@tanstack/react-router'
 
-import { Button, Loader } from '#/components/ui'
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+  Button,
+  Loader,
+} from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 
 import { useSettingsPage } from './-hooks'
@@ -14,8 +26,9 @@ export const Route = createFileRoute('/_authorized/_navigation/settings/')({
 })
 
 function SettingsPage() {
-  const t = useTranslate()
   const { state, queries, mutations, functions } = useSettingsPage()
+
+  const t = useTranslate()
 
   return (
     <section className={styles.page}>
@@ -51,11 +64,37 @@ function SettingsPage() {
           </Button>
         </>
       )}
-      <Button onClick={functions.handleLogout} disabled={mutations.logout.isPending}>
-        {!mutations.logout.isPending && <span aria-hidden="true" className="i-ph:sign-out-bold" />}
-        {mutations.logout.isPending && <Loader />}
-        {t('settings.logout')}
-      </Button>
+      <AlertDialog
+        open={state.isLogoutDialogOpen}
+        onOpenChange={functions.handleLogoutDialogOpenChange}
+      >
+        <AlertDialogTrigger render={<Button />} disabled={mutations.logout.isPending}>
+          <span aria-hidden="true" className="i-ph:sign-out-bold" />
+          {t('settings.logout')}
+        </AlertDialogTrigger>
+        <AlertDialogContent size="sm">
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t('settings.logout.confirm.title')}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {t('settings.logout.confirm.description')}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          {mutations.logout.isError && <InlineError>{t('settings.logout.error')}</InlineError>}
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={mutations.logout.isPending}>
+              {t('action.cancel')}
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={functions.handleLogout}
+              disabled={mutations.logout.isPending}
+              aria-busy={mutations.logout.isPending}
+            >
+              {mutations.logout.isPending && <Loader />}
+              {t('settings.logout')}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </section>
   )
 }

@@ -1,9 +1,20 @@
+import { useTranslate } from '@kanjou/react'
+import { useQueryClient } from '@tanstack/react-query'
 import { useParams } from '@tanstack/react-router'
 import { useState } from 'react'
 
+import { useAwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPost } from '#/api/hooks/useAwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPost'
 import { useGetCoursesCourseGet } from '#/api/hooks/useGetCoursesCourseGet'
-import { useGetGroupByIdGroupIdGroupIdGet } from '#/api/hooks/useGetGroupByIdGroupIdGroupIdGet'
+import {
+  getGroupByIdGroupIdGroupIdGetQueryKey,
+  useGetGroupByIdGroupIdGroupIdGet,
+} from '#/api/hooks/useGetGroupByIdGroupIdGroupIdGet'
+import { getStudentBalanceByIdStudentStudentIdBalanceGetQueryKey } from '#/api/hooks/useGetStudentBalanceByIdStudentStudentIdBalanceGet'
+import { getStudentByIdStudentStudentIdGetQueryKey } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
+import { getStudentRewardProgressStudentStudentIdRewardProgressGetQueryKey } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
+import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryKey } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { StudentProfileResponse } from '#/api/types'
+import { toast } from '#/components/ui'
 import { Avatar, AVATARS } from '#/routes/-constants'
 import { parseGroupSchedule } from '#/routes/-utils'
 
@@ -15,14 +26,76 @@ export function useGroupStudentsPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [sortOrder, setSortOrder] = useState<StudentSortOrder>(StudentSortOrder.NameAsc)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const [isPracticeDialogOpen, setIsPracticeDialogOpen] = useState(false)
   const [selectedStudent, setSelectedStudent] = useState<
     (StudentProfileResponse & { avatar: Avatar }) | null
   >(null)
 
+  const t = useTranslate()
+  const queryClient = useQueryClient()
   const coursesQuery = useGetCoursesCourseGet()
   const groupQuery = useGetGroupByIdGroupIdGroupIdGet({
     path: { group_id: Number(params.groupId) },
   })
+  const awardPracticeMutation = useAwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPost({
+    mutation: {
+      retry: false,
+      onSuccess: async (data, variables) => {
+        setIsPracticeDialogOpen(false)
+        toast.add({
+          title: t('group.practice.success', { count: data.affected_students }),
+          type: 'success',
+        })
+        await Promise.all([
+          queryClient.invalidateQueries({
+            queryKey: getGroupByIdGroupIdGroupIdGetQueryKey({ path: variables.path }),
+          }),
+          ...data.students.flatMap((student) => {
+            const path = { student_id: student.student_id }
+            return [
+              queryClient.invalidateQueries({
+                queryKey: getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryKey({
+                  path,
+                }),
+              }),
+              queryClient.invalidateQueries({
+                queryKey: getStudentBalanceByIdStudentStudentIdBalanceGetQueryKey({ path }),
+              }),
+              queryClient.invalidateQueries({
+                queryKey: getStudentByIdStudentStudentIdGetQueryKey({ path }),
+              }),
+              queryClient.invalidateQueries({
+                queryKey: getStudentRewardProgressStudentStudentIdRewardProgressGetQueryKey({
+                  path,
+                }),
+              }),
+            ]
+          }),
+        ])
+      },
+      onError: (_error, variables) => {
+        void queryClient.invalidateQueries({
+          queryKey: getGroupByIdGroupIdGroupIdGetQueryKey({ path: variables.path }),
+        })
+      },
+    },
+  })
+
+  function handlePracticeDialogOpenChange(open: boolean) {
+    if (awardPracticeMutation.isPending) return
+    if (open) awardPracticeMutation.reset()
+    setIsPracticeDialogOpen(open)
+  }
+
+  function handleAwardPractice() {
+    if (
+      awardPracticeMutation.isPending ||
+      !groupQuery.isSuccess ||
+      !groupQuery.data.students?.length
+    )
+      return
+    awardPracticeMutation.mutate({ path: { group_id: Number(params.groupId) } })
+  }
 
   function handleSearchChange(query: string) {
     setSearchQuery(query)
@@ -78,11 +151,15 @@ export function useGroupStudentsPage() {
       searchQuery,
       sortOrder,
       isDrawerOpen,
+      isPracticeDialogOpen,
+      studentsCount: students.length,
+      canAwardPractice: groupQuery.isSuccess && !!students.length,
       isPending: groupQuery.isPending,
       isError: groupQuery.isError,
       isRetrying: groupQuery.isFetching,
     },
     queries: { group: groupQuery, courses: coursesQuery },
+    mutations: { awardPractice: awardPracticeMutation },
     functions: {
       handleSearchChange,
       handleSortChange,
@@ -90,6 +167,8 @@ export function useGroupStudentsPage() {
       handleDrawerOpenChange,
       handleDrawerOpenChangeComplete,
       handleRetry,
+      handlePracticeDialogOpenChange,
+      handleAwardPractice,
     },
   }
 }
