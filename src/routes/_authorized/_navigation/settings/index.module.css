@@ -25,3 +25,12 @@
   font-weight: 700;
   line-height: 1.2;
 }
+
+.logout.logout {
+  color: var(--error-foreground);
+  background: var(--error);
+
+  &:hover:not(:disabled) {
+    background: var(--error-hover);
+  }
+}

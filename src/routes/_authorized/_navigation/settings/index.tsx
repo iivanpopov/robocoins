@@ -45,7 +45,7 @@ function SettingsPage() {
 
       {state.user?.role === 'student' && (
         <section className={styles.section}>
-          <h2 className={styles['section-title']}>{t('settings.section.password')}</h2>
+          <h2 className={styles['section-title']}>{t('settings.section.account')}</h2>
           <Field>
             <FieldLabel htmlFor="settings-password">{t('settings.password')}</FieldLabel>
             <InputGroup>
@@ -116,7 +116,7 @@ function SettingsPage() {
           onOpenChange={functions.handleLogoutDialogOpenChange}
         >
           <AlertDialogTrigger
-            render={<Button variant="ghost" />}
+            render={<Button variant="contain" className={styles.logout} />}
             disabled={mutations.logout.isPending}
           >
             <span aria-hidden="true" className="i-ph:sign-out-bold" />
@@ -135,6 +135,7 @@ function SettingsPage() {
                 {t('action.cancel')}
               </AlertDialogCancel>
               <AlertDialogAction
+                className={styles.logout}
                 onClick={functions.handleLogout}
                 disabled={mutations.logout.isPending}
                 aria-busy={mutations.logout.isPending}

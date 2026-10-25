@@ -30,7 +30,7 @@ declare module '@kanjou/react' {
       'shop.view.galaxy': {}
       'shop.view.list': {}
       'settings.password': {}
-      'settings.section.password': {}
+      'settings.section.account': {}
       'settings.section.appearance': {}
       'settings.section.session': {}
       'settings.password.description': {}

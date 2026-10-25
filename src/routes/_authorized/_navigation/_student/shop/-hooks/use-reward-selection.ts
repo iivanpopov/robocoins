@@ -28,6 +28,12 @@ export function useRewardSelection(onAnimate: AnimateCamera) {
 
   function handleOpen(reward: RewardResponse, position: { x: number; y: number }) {
     if (phaseRef.current !== 'idle') return
+    if (prefersReducedMotion()) {
+      isDirectRef.current = true
+      phaseRef.current = 'open'
+      setSelection({ phase: 'open', reward })
+      return
+    }
     isDirectRef.current = false
     phaseRef.current = 'approaching'
     setSelection({ phase: 'approaching', reward })

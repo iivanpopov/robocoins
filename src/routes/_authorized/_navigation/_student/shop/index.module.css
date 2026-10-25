@@ -87,7 +87,7 @@
 .catalog {
   position: absolute;
   inset: 0;
-  padding: 84px 24px max(24px, env(safe-area-inset-bottom));
+  padding: 84px 24px calc(96px + env(safe-area-inset-bottom));
   overflow: auto;
   overscroll-behavior: contain;
   touch-action: pan-y;
@@ -113,7 +113,7 @@
   text-align: left;
   cursor: pointer;
   background: var(--muted);
-  border: 1px solid var(--muted-foreground);
+  border: none;
   border-radius: var(--rounded-lg);
 }
 

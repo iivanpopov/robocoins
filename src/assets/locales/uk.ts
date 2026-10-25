@@ -23,7 +23,7 @@ export default {
   'shop.view.galaxy': 'Галактика',
   'shop.view.list': 'Список',
   'settings.password': 'Пароль',
-  'settings.section.password': 'Пароль',
+  'settings.section.account': 'Обліковий запис',
   'settings.section.appearance': 'Вигляд',
   'settings.section.session': 'Сесія',
   'settings.password.description':
