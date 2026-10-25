@@ -118,7 +118,14 @@ function StudentPage() {
             {t('profile.goal.target', { count: state.goal.price })}{' '}
             <span aria-hidden="true" className="i-ph:coins-bold" />
           </p>
-          <div className={styles.progress}>
+          <div
+            className={styles.progress}
+            role="progressbar"
+            aria-label={state.goal.name}
+            aria-valuenow={state.goalProgressValue}
+            aria-valuemin={0}
+            aria-valuemax={100}
+          >
             <span
               data-active={state.profile.balance > 0}
               data-completed={state.goalCompleted}

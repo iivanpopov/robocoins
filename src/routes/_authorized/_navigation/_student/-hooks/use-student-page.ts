@@ -12,6 +12,7 @@ import {
   getStudentRewardCategoriesQueryOptions,
   isRewardEligible,
 } from '../-utils'
+import { useGoalProgress } from './use-goal-progress'
 
 export function useStudentPage() {
   const navigate = useNavigate()
@@ -28,6 +29,16 @@ export function useStudentPage() {
     path: { student_id: profile.id },
   })
   const categoriesQuery = useQuery(getStudentRewardCategoriesQueryOptions(queryClient, profile))
+  const isGoalPending = goalQuery.isPending || categoriesQuery.isPending
+  const isGoalError = goalQuery.isError || categoriesQuery.isError
+  const goal =
+    !isGoalPending &&
+    !isGoalError &&
+    goalQuery.data?.reward &&
+    isRewardEligible(goalQuery.data.reward, categoriesQuery.data)
+      ? goalQuery.data.reward
+      : null
+  const goalProgress = useGoalProgress(profile.id, goal ? goalQuery.data : undefined)
 
   function formatHistoryDate(value: string) {
     const date = new Date(value)
@@ -79,15 +90,6 @@ export function useStudentPage() {
     }),
   }))
 
-  const isGoalPending = goalQuery.isPending || categoriesQuery.isPending
-  const isGoalError = goalQuery.isError || categoriesQuery.isError
-  const goal =
-    !isGoalPending &&
-    !isGoalError &&
-    goalQuery.data?.reward &&
-    isRewardEligible(goalQuery.data.reward, categoriesQuery.data)
-      ? goalQuery.data.reward
-      : null
   const goalCompleted = Boolean(goal && (goalQuery.data?.coins_remaining ?? 0) <= 0)
 
   return {
@@ -100,7 +102,8 @@ export function useStudentPage() {
       isGoalPending,
       isGoalError,
       isGoalFetching: goalQuery.isFetching || categoriesQuery.isFetching,
-      goalProgress: `${Math.max(0, Math.min(100, goalQuery.data?.progress_percent ?? 0))}%`,
+      goalProgress: goalProgress.displayWidth,
+      goalProgressValue: goalProgress.currentProgress,
       remainingBalance: Math.max(0, goalQuery.data?.coins_remaining ?? 0),
     },
     queries: { history: historyQuery },
