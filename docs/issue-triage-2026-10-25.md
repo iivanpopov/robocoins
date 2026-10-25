@@ -58,11 +58,19 @@ The integration branch is `issues/cheap-batch`, in `/tmp/opencode/robocoins-inte
 | #39   | `issues/39-cyberween`        | `837393d`      |
 | #40   | `issues/40-reduce-motion`    | `d4a397a`      |
 
-The integration branch carries the nine feature commits above (with two integration touch-ups: banner dismissal reads through an external store, and conflicts between reward eligibility, goal animation, the banner and history were resolved by hand).
+The integration branch carries the nine feature commits above plus three integration commits: banner dismissal reads through an external store, conflicts between reward eligibility, goal animation, the banner and history were resolved by hand, and the first history page is prefetched during SSR.
 
-Verification on the integration branch: `bun check` passes with no warnings, `bun run build` succeeds, no `.test` files or code comments were introduced, and `git diff --check` is clean.
+Verification on the integration branch: `bun check` passes with no warnings, `bun run build` succeeds, no `.test` files or code comments were introduced, and `git diff --check` is clean. Integration commits: `ca49a72`, `275c767`.
 
-Not verified: no request ran against the live backend, so server-side permission behavior (group lookups for a student, teacher-to-student history access) and real pagination remain unconfirmed. Interactive browser checks were attempted but the machine lacks `libasound.so.2`, which keeps Chromium from launching.
+Server-rendered smoke checks ran against the production build with a local mock of the API (`/tmp/opencode/ssr-smoke`):
+
+- Student home renders the October Cyberween banner, the eligible Python goal with `role="progressbar"`, and the history link.
+- Shop renders only the eligible rewards (universal and Python), plus the galaxy/list switch, in both views.
+- `/history` and `/group/10/student/100/history` render the first 30 transactions with a load-more control, confirming the SSR prefetch and pagination wiring.
+- Teacher history rejects an unowned group, an unknown student, and a malformed student id with 404.
+- `reduced-motion=true` cookie produces `data-reduced-motion="true"` on the server-rendered document; settings exposes the toggle with the correct initial state.
+
+Not verified: no request ran against the live backend, so real permissions and data shapes remain unconfirmed. Interactive browser checks were not possible because the machine lacks `libasound.so.2`, which keeps Chromium from launching; dialog focus flow, swipe gestures and animations were verified only through the feature branches' logic-level tests.
 
 ## Remaining backlog
 
