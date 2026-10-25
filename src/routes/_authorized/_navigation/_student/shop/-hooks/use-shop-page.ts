@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
+import type { RewardResponse } from '#/api/types/RewardResponse'
 import type { StudentProfileResponse } from '#/api/types/StudentProfileResponse'
 
 import { Route } from '..'
@@ -16,6 +17,7 @@ export function useShopPage() {
   const starsRef = useRef<(ReturnType<typeof getStarPositions>[number] & { glow: number })[]>([])
   const rewardBack = useRef<HTMLButtonElement>(null)
   const selectedStar = useRef<HTMLButtonElement | null>(null)
+  const [view, setView] = useState<'galaxy' | 'list'>('galaxy')
   const map = useMapAnimation(starsRef)
   const camera = useCamera(map.cameraRef, map.handleInvalidate)
   const rewardSelection = useRewardSelection(camera.handleAnimate)
@@ -54,6 +56,29 @@ export function useShopPage() {
     rewardSelection.handleOpen(star.reward, map.handleGetPosition(star))
   }
 
+  function handleOpenListReward(
+    reward: RewardResponse,
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) {
+    if (rewardSelection.handleIsBlocked()) return
+    draggableMap.handleStop()
+    selectedStar.current = event.currentTarget
+    rewardSelection.handleOpenDirect(reward)
+  }
+
+  function handleShowGalaxy() {
+    if (rewardSelection.handleIsBlocked()) return
+    draggableMap.handleStop()
+    setView('galaxy')
+    map.handleInvalidate()
+  }
+
+  function handleShowList() {
+    if (rewardSelection.handleIsBlocked()) return
+    draggableMap.handleStop()
+    setView('list')
+  }
+
   const selectedReward = rewardSelection.selection.reward
   const profile = context.user as StudentProfileResponse
 
@@ -65,6 +90,8 @@ export function useShopPage() {
       rewardBack,
     },
     state: {
+      isListView: view === 'list',
+      rewards: galaxy.rewards,
       stars: starPositions,
       selectedReward,
       rewardDescription: selectedReward?.description?.trim(),
@@ -85,6 +112,9 @@ export function useShopPage() {
       handleLostPointerCapture: draggableMap.handleLostPointerCapture,
       handleWheel: draggableMap.handleWheel,
       handleOpenReward,
+      handleOpenListReward,
+      handleShowGalaxy,
+      handleShowList,
       handleCloseReward: rewardSelection.handleClose,
       handleRewardAnimationEnd: rewardSelection.handleRewardAnimationEnd,
     },

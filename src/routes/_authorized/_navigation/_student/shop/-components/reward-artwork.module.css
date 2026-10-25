@@ -31,6 +31,16 @@
   font-size: 96px;
 }
 
+.compact {
+  height: 100px;
+}
+
+.compact .core {
+  width: 72px;
+  height: 72px;
+  font-size: 56px;
+}
+
 .spark {
   position: absolute;
   top: 20%;

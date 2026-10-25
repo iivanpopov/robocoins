@@ -23,6 +23,7 @@
   left: 0;
   z-index: 2;
   display: flex;
+  flex-wrap: wrap;
   gap: var(--spacing-md);
   align-items: center;
   width: min(100%, 430px);
@@ -55,10 +56,106 @@
 
 .legend {
   display: flex;
+  flex-basis: 100%;
   flex-wrap: wrap;
   gap: 6px 14px;
   font-size: 14px;
   color: var(--muted-foreground);
+}
+
+.list-view,
+.list-view:active {
+  cursor: default;
+  user-select: text;
+}
+
+.view-switch {
+  display: flex;
+  gap: 4px;
+  pointer-events: auto;
+}
+
+.view-switch button {
+  min-height: 44px;
+  padding: 8px;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  background: var(--background);
+  border: 1px solid var(--muted);
+  border-radius: var(--rounded-lg);
+}
+
+.view-switch button[aria-pressed='true'] {
+  color: var(--background);
+  background: var(--foreground);
+}
+
+.catalog {
+  position: absolute;
+  inset: 0;
+  padding: 84px 24px max(24px, env(safe-area-inset-bottom));
+  overflow: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  background: var(--background);
+}
+
+.reward-list {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+  max-width: 430px;
+  padding: 0;
+  margin: 0 auto;
+  list-style: none;
+}
+
+.reward-card {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px;
+  color: var(--foreground);
+  text-align: left;
+  cursor: pointer;
+  background: var(--muted);
+  border: 1px solid var(--muted-foreground);
+  border-radius: var(--rounded-lg);
+}
+
+.card-artwork {
+  flex-shrink: 0;
+  width: 100px;
+}
+
+.view-switch button:focus-visible,
+.reward-card:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+}
+
+.card-content {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 8px;
+}
+
+.card-name {
+  font-size: 18px;
+  font-weight: 550;
+  overflow-wrap: anywhere;
+}
+
+.card-type {
+  font-size: 14px;
+  color: var(--muted-foreground);
+}
+
+.card-price {
+  display: flex;
+  gap: 6px;
+  align-items: center;
 }
 
 .legend > span {

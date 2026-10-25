@@ -25,19 +25,34 @@ function ShopPage() {
 
   return (
     <main
-      className={cn('galaxy', styles.galaxy)}
+      className={cn('galaxy', styles.galaxy, state.isListView && styles['list-view'])}
       data-galaxy=""
-      onPointerDown={functions.handlePointerDown}
-      onPointerMove={functions.handlePointerMove}
-      onPointerUp={functions.handlePointerUp}
-      onPointerCancel={functions.handlePointerCancel}
-      onPointerLeave={functions.handlePointerLeave}
-      onLostPointerCapture={functions.handleLostPointerCapture}
-      onWheel={functions.handleWheel}
       ref={refs.map}
     >
       <header className={styles['shop-header']}>
-        {!state.isRewardVisible && (
+        {!state.isRewardActive && (
+          <div className={styles['view-switch']} role="group" aria-label={t('shop.view.label')}>
+            <button
+              type="button"
+              aria-pressed={!state.isListView}
+              onClick={functions.handleShowGalaxy}
+            >
+              {t('shop.view.galaxy')}
+            </button>
+            <button
+              type="button"
+              aria-pressed={state.isListView}
+              onClick={functions.handleShowList}
+            >
+              {t('shop.view.list')}
+            </button>
+          </div>
+        )}
+        <div className={styles.balance} aria-label={t('shop.balance', { count: state.balance })}>
+          <span>{t('shop.balance.amount', { count: state.balance })}</span>
+          <span className="i-ph:coins-bold" aria-hidden="true" />
+        </div>
+        {!state.isRewardActive && !state.isListView && (
           <div className={styles.legend}>
             <span>
               <span className="i-ph:cube-duotone" aria-hidden="true" />
@@ -49,15 +64,21 @@ function ShopPage() {
             </span>
           </div>
         )}
-        <div className={styles.balance} aria-label={t('shop.balance', { count: state.balance })}>
-          <span>{t('shop.balance.amount', { count: state.balance })}</span>
-          <span className="i-ph:coins-bold" aria-hidden="true" />
-        </div>
       </header>
       <StarBackground backgroundRef={refs.background} />
       <div
-        className={cn(styles['star-field'], state.isRewardVisible && styles['star-field-hidden'])}
-        inert={state.isRewardActive}
+        className={cn(
+          styles['star-field'],
+          (state.isRewardVisible || state.isListView) && styles['star-field-hidden'],
+        )}
+        inert={state.isRewardActive || state.isListView}
+        onPointerDown={functions.handlePointerDown}
+        onPointerMove={functions.handlePointerMove}
+        onPointerUp={functions.handlePointerUp}
+        onPointerCancel={functions.handlePointerCancel}
+        onPointerLeave={functions.handlePointerLeave}
+        onLostPointerCapture={functions.handleLostPointerCapture}
+        onWheel={functions.handleWheel}
       >
         {state.stars.map((star) => (
           <button
@@ -91,6 +112,39 @@ function ShopPage() {
           </button>
         ))}
       </div>
+      {state.isListView && (
+        <section
+          className={styles.catalog}
+          aria-label={t('shop.view.list')}
+          inert={state.isRewardActive}
+        >
+          <ul className={styles['reward-list']}>
+            {state.rewards.map((reward) => (
+              <li key={reward.id}>
+                <button
+                  type="button"
+                  className={styles['reward-card']}
+                  onClick={(event) => functions.handleOpenListReward(reward, event)}
+                >
+                  <div className={styles['card-artwork']}>
+                    <RewardArtwork reward={reward} compact />
+                  </div>
+                  <span className={styles['card-content']}>
+                    <span className={styles['card-name']}>{reward.name}</span>
+                    <span className={styles['card-type']}>
+                      {t(`shop.reward.type.${reward.type}`)}
+                    </span>
+                    <span className={styles['card-price']}>
+                      {t('shop.reward.price', { count: reward.price })}
+                      <span className="i-ph:coins-bold" aria-hidden="true" />
+                    </span>
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       {state.isRewardVisible && state.selectedReward && (
         <section
           className={cn(styles.detail, state.isClosingReward && styles['detail-closing'])}

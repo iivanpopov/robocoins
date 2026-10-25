@@ -15,6 +15,7 @@ type AnimateCamera = (
 
 export function useRewardSelection(onAnimate: AnimateCamera) {
   const phaseRef = useRef<RewardState['phase']>('idle')
+  const isDirectRef = useRef(false)
   const closeFrameRef = useRef<number | null>(null)
   const [selection, setSelection] = useState<RewardState>({ phase: 'idle', reward: null })
 
@@ -27,6 +28,7 @@ export function useRewardSelection(onAnimate: AnimateCamera) {
 
   function handleOpen(reward: RewardResponse, position: { x: number; y: number }) {
     if (phaseRef.current !== 'idle') return
+    isDirectRef.current = false
     phaseRef.current = 'approaching'
     setSelection({ phase: 'approaching', reward })
     onAnimate({ x: (50 - position.x) * 4, y: (50 - position.y) * 4, zoom: 4 }, 500, () => {
@@ -35,8 +37,20 @@ export function useRewardSelection(onAnimate: AnimateCamera) {
     })
   }
 
+  function handleOpenDirect(reward: RewardResponse) {
+    if (phaseRef.current !== 'idle') return
+    isDirectRef.current = true
+    phaseRef.current = 'open'
+    setSelection({ phase: 'open', reward })
+  }
+
   function handleClose() {
     if (phaseRef.current !== 'open' || !selection.reward) return
+    if (isDirectRef.current) {
+      phaseRef.current = 'idle'
+      setSelection({ phase: 'idle', reward: null })
+      return
+    }
     phaseRef.current = 'closing'
     onAnimate({ x: 0, y: 0, zoom: 1 }, 0)
     if (prefersReducedMotion()) {
@@ -55,6 +69,7 @@ export function useRewardSelection(onAnimate: AnimateCamera) {
 
   function handleRewardAnimationEnd(event: React.AnimationEvent<HTMLElement>) {
     if (event.target !== event.currentTarget) return
+    if (isDirectRef.current) return
     if (phaseRef.current === 'open') {
       onAnimate({ x: 0, y: 0, zoom: 1 }, 0)
       return
@@ -68,5 +83,12 @@ export function useRewardSelection(onAnimate: AnimateCamera) {
     return phaseRef.current !== 'idle'
   }
 
-  return { selection, handleOpen, handleClose, handleRewardAnimationEnd, handleIsBlocked }
+  return {
+    selection,
+    handleOpen,
+    handleOpenDirect,
+    handleClose,
+    handleRewardAnimationEnd,
+    handleIsBlocked,
+  }
 }

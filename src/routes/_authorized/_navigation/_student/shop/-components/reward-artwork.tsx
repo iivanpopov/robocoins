@@ -37,10 +37,14 @@ export function RewardSymbol(props: { reward: RewardResponse; className?: string
   )
 }
 
-export function RewardArtwork(props: { reward: RewardResponse }) {
+export function RewardArtwork(props: { reward: RewardResponse; compact?: boolean }) {
   return (
     <div
-      className={cn(styles.artwork, props.reward.type === 'privilege' && styles.privilege)}
+      className={cn(
+        styles.artwork,
+        props.reward.type === 'privilege' && styles.privilege,
+        props.compact && styles.compact,
+      )}
       aria-hidden="true"
     >
       <div className={styles.halo} />
