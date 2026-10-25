@@ -1,4 +1,5 @@
 export * from './compare-transactions'
 export * from './get-image-url'
 export * from './get-initial'
+export * from './is-group-schedule-active'
 export * from './parse-group-schedule'

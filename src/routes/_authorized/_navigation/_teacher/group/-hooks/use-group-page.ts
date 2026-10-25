@@ -1,17 +1,42 @@
 import { useNavigate } from '@tanstack/react-router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useGetCoursesCourseGet } from '#/api/hooks/useGetCoursesCourseGet'
 import { useGetTeacherGroupsTeacherGroupsGet } from '#/api/hooks/useGetTeacherGroupsTeacherGroupsGet'
-import { parseGroupSchedule } from '#/routes/-utils'
+import { isGroupScheduleActive, parseGroupSchedule } from '#/routes/-utils'
 
 import { GroupFilter } from '../-constants'
 
 export function useGroupPage() {
   const navigate = useNavigate()
+
   const [selectedTheme, setSelectedTheme] = useState<GroupFilter>(GroupFilter.All)
+  const [now, setNow] = useState<Date | null>(null)
+
   const coursesQuery = useGetCoursesCourseGet()
   const teacherGroupsQuery = useGetTeacherGroupsTeacherGroupsGet()
+
+  useEffect(() => {
+    const minuteInMilliseconds = 60_000
+    let timeout: ReturnType<typeof setTimeout>
+
+    function handleClockUpdate() {
+      clearTimeout(timeout)
+      setNow(new Date())
+      timeout = setTimeout(
+        handleClockUpdate,
+        minuteInMilliseconds - (Date.now() % minuteInMilliseconds),
+      )
+    }
+
+    handleClockUpdate()
+    window.addEventListener('focus', handleClockUpdate)
+
+    return () => {
+      clearTimeout(timeout)
+      window.removeEventListener('focus', handleClockUpdate)
+    }
+  }, [])
 
   function handleThemeSelect(theme: GroupFilter) {
     setSelectedTheme(theme)
@@ -30,11 +55,13 @@ export function useGroupPage() {
   const groups = (teacherGroupsQuery.data ?? []).flatMap((group) => {
     const course = coursesQuery.data?.find((course) => course.id === group.course_id)
     if (!course) return []
+    const schedule = parseGroupSchedule(group.name)
 
     return [
       {
         ...group,
-        schedule: parseGroupSchedule(group.name),
+        schedule,
+        isActive: isGroupScheduleActive(schedule, now),
         course_name: course.name,
         category: course.category,
         students_count: group.students_count ?? 0,
@@ -42,10 +69,12 @@ export function useGroupPage() {
     ]
   })
   const categories = [...new Set(groups.map((group) => group.category))]
-  const filteredGroups = groups.filter((group) => {
-    if (selectedTheme === GroupFilter.All) return true
-    return group.category === selectedTheme
-  })
+  const filteredGroups = groups
+    .filter((group) => {
+      if (selectedTheme === GroupFilter.All) return true
+      return group.category === selectedTheme
+    })
+    .toSorted((first, second) => Number(second.isActive) - Number(first.isActive))
 
   return {
     state: {
