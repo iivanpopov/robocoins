@@ -3,7 +3,9 @@ import { createFileRoute } from '@tanstack/react-router'
 import { cn } from 'cn'
 
 import { getShopRewardsShopGetQueryOptions } from '#/api/hooks/useGetShopRewardsShopGet'
+import type { StudentProfileResponse } from '#/api/types'
 
+import { getStudentRewardCategoriesQueryOptions, isRewardEligible } from '../-utils'
 import { RewardArtwork, RewardSymbol, ShopErrorComponent, StarBackground } from './-components'
 import { useShopPage } from './-hooks'
 
@@ -11,10 +13,20 @@ import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_student/shop/')({
   head: () => ({ meta: [{ title: 'Магазин | Robocoins' }] }),
-  loader: async ({ context }) => ({
-    rewards: await context.queryClient.query(getShopRewardsShopGetQueryOptions()),
-    seed: context.user!.id,
-  }),
+  loader: async ({ context }) => {
+    const profile = context.user as StudentProfileResponse
+    const shop = await Promise.all([
+      context.queryClient.query(getShopRewardsShopGetQueryOptions()),
+      context.queryClient.query(
+        getStudentRewardCategoriesQueryOptions(context.queryClient, profile),
+      ),
+    ])
+
+    return {
+      rewards: shop[0].filter((reward) => isRewardEligible(reward, shop[1])),
+      seed: profile.id,
+    }
+  },
   component: ShopPage,
   errorComponent: ShopErrorComponent,
 })

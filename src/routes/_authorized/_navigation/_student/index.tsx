@@ -14,6 +14,7 @@ import { readCookie } from '#/utils/cookies'
 
 import { RulesDrawer } from './-components'
 import { useStudentPage } from './-hooks'
+import { getStudentRewardCategoriesQueryOptions } from './-utils'
 
 import styles from './index.module.css'
 
@@ -40,6 +41,9 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/')({
         getStudentRewardProgressStudentStudentIdRewardProgressGetQueryOptions({
           path: { student_id: profile.id },
         }),
+      ),
+      context.queryClient.prefetchQuery(
+        getStudentRewardCategoriesQueryOptions(context.queryClient, profile),
       ),
     ])
   },
@@ -80,7 +84,13 @@ function StudentPage() {
           <div aria-hidden="true" className={cn('i-ph:coins-bold', styles['coin-icon'])} />
         </div>
       </header>
-      {!state.goal && (
+      {state.isGoalPending && <Loader />}
+      {state.isGoalError && (
+        <InlineError onRetry={functions.handleRetryGoal} isRetrying={state.isGoalFetching}>
+          {t('group.error')}
+        </InlineError>
+      )}
+      {!state.isGoalPending && !state.isGoalError && !state.goal && (
         <article className={cn(styles.goal, styles['goal-empty'])}>
           <Typography className={styles['product-name']} variant="subtitle">
             {t('profile.goal.none')}

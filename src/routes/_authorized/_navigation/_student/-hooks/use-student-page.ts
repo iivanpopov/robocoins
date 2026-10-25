@@ -1,4 +1,5 @@
 import { useTranslate } from '@kanjou/react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate, useRouteContext } from '@tanstack/react-router'
 
 import { useGetStudentRewardProgressStudentStudentIdRewardProgressGet } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
@@ -6,17 +7,19 @@ import { useGetStudentTransactionHistoryStudentStudentIdTransactionsGet } from '
 import { StudentProfileResponse } from '#/api/types'
 import { compareTransactionsByNewest } from '#/routes/-utils'
 
-import { getSignedAmount } from '../-utils'
+import {
+  getSignedAmount,
+  getStudentRewardCategoriesQueryOptions,
+  isRewardEligible,
+} from '../-utils'
 
 export function useStudentPage() {
   const navigate = useNavigate()
   const context = useRouteContext({ from: '/_authorized/_navigation/_student/' })
   const t = useTranslate()
+
+  const queryClient = useQueryClient()
   const profile = context.user as StudentProfileResponse
-  const dateToday = new Date(context.renderedAt).toISOString().slice(0, 10)
-  const dateYesterday = new Date(context.renderedAt - 24 * 60 * 60 * 1000)
-    .toISOString()
-    .slice(0, 10)
   const historyQuery = useGetStudentTransactionHistoryStudentStudentIdTransactionsGet({
     path: { student_id: profile.id },
     query: { limit: 3 },
@@ -24,6 +27,7 @@ export function useStudentPage() {
   const goalQuery = useGetStudentRewardProgressStudentStudentIdRewardProgressGet({
     path: { student_id: profile.id },
   })
+  const categoriesQuery = useQuery(getStudentRewardCategoriesQueryOptions(queryClient, profile))
 
   function formatHistoryDate(value: string) {
     const date = new Date(value)
@@ -43,6 +47,14 @@ export function useStudentPage() {
     void navigate({ to: '/shop', viewTransition: { types: ['slide-forward'] } })
   }
 
+  function handleRetryGoal() {
+    void Promise.all([goalQuery.refetch(), categoriesQuery.refetch()])
+  }
+
+  const dateToday = new Date(context.renderedAt).toISOString().slice(0, 10)
+  const dateYesterday = new Date(context.renderedAt - 24 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 10)
   const transactions = (historyQuery.data?.transactions ?? [])
     .toSorted(compareTransactionsByNewest)
     .map((transaction) => ({
@@ -67,7 +79,15 @@ export function useStudentPage() {
     }),
   }))
 
-  const goal = goalQuery.data?.reward ?? null
+  const isGoalPending = goalQuery.isPending || categoriesQuery.isPending
+  const isGoalError = goalQuery.isError || categoriesQuery.isError
+  const goal =
+    !isGoalPending &&
+    !isGoalError &&
+    goalQuery.data?.reward &&
+    isRewardEligible(goalQuery.data.reward, categoriesQuery.data)
+      ? goalQuery.data.reward
+      : null
   const goalCompleted = Boolean(goal && (goalQuery.data?.coins_remaining ?? 0) <= 0)
 
   return {
@@ -76,10 +96,13 @@ export function useStudentPage() {
       groups,
       goal,
       goalCompleted,
+      isGoalPending,
+      isGoalError,
+      isGoalFetching: goalQuery.isFetching || categoriesQuery.isFetching,
       goalProgress: `${Math.max(0, Math.min(100, goalQuery.data?.progress_percent ?? 0))}%`,
       remainingBalance: Math.max(0, goalQuery.data?.coins_remaining ?? 0),
     },
     queries: { history: historyQuery },
-    functions: { handleRetryHistory, handleNavigateToShop },
+    functions: { handleRetryHistory, handleNavigateToShop, handleRetryGoal },
   }
 }
