@@ -70,6 +70,17 @@ Server-rendered smoke checks ran against the production build with a local mock 
 - Teacher history rejects an unowned group, an unknown student, and a malformed student id with 404.
 - `reduced-motion=true` cookie produces `data-reduced-motion="true"` on the server-rendered document; settings exposes the toggle with the correct initial state.
 
+## Follow-up requests
+
+After the first pass the user asked for four refinements. All are committed on `issues/cheap-batch`.
+
+- **Current-group badge (#1).** The active lesson card shows a localized `Поточна` badge next to the course name (`2d937b2`). It is driven by the same `isGroupScheduleActive` check that sorts the list, so the badge appears only while a lesson is actually running; malformed schedules never get it. Verified at logic level: a 15:00 lesson is active at 15:00 and 16:49, inactive at 14:59, 16:50 and 23:00, and the check rolls over weeks.
+- **Shop switch position (#18).** The galaxy/list switch now sits at the top-left of the screen, and the rewards/privileges legend was removed together with its styles and translations (`b135297`). The balance stays on the right; the header is a single full-width row.
+- **Cyberween banner link (#39).** The banner body is now an external link to `https://www.instagram.com/robocode_ua/p/DeykiZTjbUV`, opened in a new tab with `rel="noreferrer noopener"` and a localized accessible name (`701bc87`). The dismiss control stays a separate sibling button, so it never opens the link.
+- **Category theme colors.** Web is `#fe394e`, game dev is `#a939ff`, embedded is `#1646ff`; the other categories keep their palette colors (`0681309`). Icons and course cards in the teacher group list and in registration now use these values, with backgrounds mixed at 12% of the theme color so they work on both the light app surface and the dark galaxy. Selected tiles get a 24% tint.
+
+Note on the red: `#fe394e` reaches about 3.4:1 against pure white but about 2.9:1 against its own light tint, so the web icon is slightly under the 3:1 non-text contrast threshold. The exact brand value was kept; if strict AA is required, the red needs to be darkened by roughly one step.
+
 Not verified: no request ran against the live backend, so real permissions and data shapes remain unconfirmed. Interactive browser checks were not possible because the machine lacks `libasound.so.2`, which keeps Chromium from launching; dialog focus flow, swipe gestures and animations were verified only through the feature branches' logic-level tests.
 
 ## Remaining backlog
