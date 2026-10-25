@@ -100,6 +100,8 @@ Money and progress stay on the short TTL so an award shows up quickly, while the
 
 Measured against a local mock API: every request issued during navigation is served from the cache on the second visit, and the live queries refetch once their 30 second window is over.
 
+The shop is prefetched from `getRouter()` on the client: the session is resolved first and, for a student, the rewards are fetched in the background. Browser measurements (`/api/*` requests captured with Playwright against the dev server) show the first navigation to the shop makes no request at all, and neither does any later one.
+
 ## Remaining backlog
 
 Nothing from the cheap set is left open. The remaining fourteen issues are blocked for the reasons in the table above and need decisions or backend contracts before implementation:
