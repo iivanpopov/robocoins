@@ -21,8 +21,10 @@ import { Route as AuthorizedNavigationTeacherRouteImport } from './../src/routes
 import { Route as AuthorizedNavigationStudentIndexRouteImport } from './../src/routes/_authorized/_navigation/_student/index'
 import { Route as AuthorizedNavigationSettingsIndexRouteImport } from './../src/routes/_authorized/_navigation/settings/index'
 import { Route as AuthorizedTeacherGroupGroupIdRouteImport } from './../src/routes/_authorized/_teacher/group/$groupId'
+import { Route as AuthorizedNavigationStudentHistoryIndexRouteImport } from './../src/routes/_authorized/_navigation/_student/history/index'
 import { Route as AuthorizedNavigationStudentShopIndexRouteImport } from './../src/routes/_authorized/_navigation/_student/shop/index'
 import { Route as AuthorizedNavigationTeacherGroupIndexRouteImport } from './../src/routes/_authorized/_navigation/_teacher/group/index'
+import { Route as AuthorizedTeacherGroupGroupIdStudentStudentIdHistoryIndexRouteImport } from './../src/routes/_authorized/_teacher/group/$groupId_/student/$studentId/history/index'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/_auth',
@@ -83,6 +85,12 @@ const AuthorizedTeacherGroupGroupIdRoute =
     path: '/group/$groupId',
     getParentRoute: () => AuthorizedTeacherRoute,
   } as any)
+const AuthorizedNavigationStudentHistoryIndexRoute =
+  AuthorizedNavigationStudentHistoryIndexRouteImport.update({
+    id: '/history/',
+    path: '/history/',
+    getParentRoute: () => AuthorizedNavigationStudentRoute,
+  } as any)
 const AuthorizedNavigationStudentShopIndexRoute =
   AuthorizedNavigationStudentShopIndexRouteImport.update({
     id: '/shop/',
@@ -95,6 +103,12 @@ const AuthorizedNavigationTeacherGroupIndexRoute =
     path: '/group/',
     getParentRoute: () => AuthorizedNavigationTeacherRoute,
   } as any)
+const AuthorizedTeacherGroupGroupIdStudentStudentIdHistoryIndexRoute =
+  AuthorizedTeacherGroupGroupIdStudentStudentIdHistoryIndexRouteImport.update({
+    id: '/group/$groupId_/student/$studentId/history/',
+    path: '/group/$groupId/student/$studentId/history/',
+    getParentRoute: () => AuthorizedTeacherRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthorizedNavigationStudentIndexRoute
@@ -103,8 +117,10 @@ export interface FileRoutesByFullPath {
   '/register/': typeof AuthRegisterIndexRoute
   '/group/$groupId': typeof AuthorizedTeacherGroupGroupIdRoute
   '/settings/': typeof AuthorizedNavigationSettingsIndexRoute
+  '/history/': typeof AuthorizedNavigationStudentHistoryIndexRoute
   '/shop/': typeof AuthorizedNavigationStudentShopIndexRoute
   '/group/': typeof AuthorizedNavigationTeacherGroupIndexRoute
+  '/group/$groupId/student/$studentId/history/': typeof AuthorizedTeacherGroupGroupIdStudentStudentIdHistoryIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AuthorizedNavigationStudentIndexRoute
@@ -112,8 +128,10 @@ export interface FileRoutesByTo {
   '/register': typeof AuthRegisterIndexRoute
   '/group/$groupId': typeof AuthorizedTeacherGroupGroupIdRoute
   '/settings': typeof AuthorizedNavigationSettingsIndexRoute
+  '/history': typeof AuthorizedNavigationStudentHistoryIndexRoute
   '/shop': typeof AuthorizedNavigationStudentShopIndexRoute
   '/group': typeof AuthorizedNavigationTeacherGroupIndexRoute
+  '/group/$groupId/student/$studentId/history': typeof AuthorizedTeacherGroupGroupIdStudentStudentIdHistoryIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -129,8 +147,10 @@ export interface FileRoutesById {
   '/_authorized/_teacher/group/$groupId': typeof AuthorizedTeacherGroupGroupIdRoute
   '/_authorized/_navigation/_student/': typeof AuthorizedNavigationStudentIndexRoute
   '/_authorized/_navigation/settings/': typeof AuthorizedNavigationSettingsIndexRoute
+  '/_authorized/_navigation/_student/history/': typeof AuthorizedNavigationStudentHistoryIndexRoute
   '/_authorized/_navigation/_student/shop/': typeof AuthorizedNavigationStudentShopIndexRoute
   '/_authorized/_navigation/_teacher/group/': typeof AuthorizedNavigationTeacherGroupIndexRoute
+  '/_authorized/_teacher/group/$groupId_/student/$studentId/history/': typeof AuthorizedTeacherGroupGroupIdStudentStudentIdHistoryIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -141,8 +161,10 @@ export interface FileRouteTypes {
     | '/register/'
     | '/group/$groupId'
     | '/settings/'
+    | '/history/'
     | '/shop/'
     | '/group/'
+    | '/group/$groupId/student/$studentId/history/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -150,8 +172,10 @@ export interface FileRouteTypes {
     | '/register'
     | '/group/$groupId'
     | '/settings'
+    | '/history'
     | '/shop'
     | '/group'
+    | '/group/$groupId/student/$studentId/history'
   id:
     | '__root__'
     | '/_auth'
@@ -166,8 +190,10 @@ export interface FileRouteTypes {
     | '/_authorized/_teacher/group/$groupId'
     | '/_authorized/_navigation/_student/'
     | '/_authorized/_navigation/settings/'
+    | '/_authorized/_navigation/_student/history/'
     | '/_authorized/_navigation/_student/shop/'
     | '/_authorized/_navigation/_teacher/group/'
+    | '/_authorized/_teacher/group/$groupId_/student/$studentId/history/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -261,6 +287,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthorizedTeacherGroupGroupIdRouteImport
       parentRoute: typeof AuthorizedTeacherRoute
     }
+    '/_authorized/_navigation/_student/history/': {
+      id: '/_authorized/_navigation/_student/history/'
+      path: '/history'
+      fullPath: '/history/'
+      preLoaderRoute: typeof AuthorizedNavigationStudentHistoryIndexRouteImport
+      parentRoute: typeof AuthorizedNavigationStudentRoute
+    }
     '/_authorized/_navigation/_student/shop/': {
       id: '/_authorized/_navigation/_student/shop/'
       path: '/shop'
@@ -274,6 +307,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/group/'
       preLoaderRoute: typeof AuthorizedNavigationTeacherGroupIndexRouteImport
       parentRoute: typeof AuthorizedNavigationTeacherRoute
+    }
+    '/_authorized/_teacher/group/$groupId_/student/$studentId/history/': {
+      id: '/_authorized/_teacher/group/$groupId_/student/$studentId/history/'
+      path: '/group/$groupId/student/$studentId/history'
+      fullPath: '/group/$groupId/student/$studentId/history/'
+      preLoaderRoute: typeof AuthorizedTeacherGroupGroupIdStudentStudentIdHistoryIndexRouteImport
+      parentRoute: typeof AuthorizedTeacherRoute
     }
   }
 }
@@ -303,6 +343,7 @@ const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 interface AuthorizedNavigationStudentRouteChildren {
   AuthorizedNavigationStudentIndexRoute: typeof AuthorizedNavigationStudentIndexRoute
+  AuthorizedNavigationStudentHistoryIndexRoute: typeof AuthorizedNavigationStudentHistoryIndexRoute
   AuthorizedNavigationStudentShopIndexRoute: typeof AuthorizedNavigationStudentShopIndexRoute
 }
 
@@ -310,6 +351,8 @@ const AuthorizedNavigationStudentRouteChildren: AuthorizedNavigationStudentRoute
   {
     AuthorizedNavigationStudentIndexRoute:
       AuthorizedNavigationStudentIndexRoute,
+    AuthorizedNavigationStudentHistoryIndexRoute:
+      AuthorizedNavigationStudentHistoryIndexRoute,
     AuthorizedNavigationStudentShopIndexRoute:
       AuthorizedNavigationStudentShopIndexRoute,
   }
@@ -354,10 +397,13 @@ const AuthorizedNavigationRouteWithChildren =
 
 interface AuthorizedTeacherRouteChildren {
   AuthorizedTeacherGroupGroupIdRoute: typeof AuthorizedTeacherGroupGroupIdRoute
+  AuthorizedTeacherGroupGroupIdStudentStudentIdHistoryIndexRoute: typeof AuthorizedTeacherGroupGroupIdStudentStudentIdHistoryIndexRoute
 }
 
 const AuthorizedTeacherRouteChildren: AuthorizedTeacherRouteChildren = {
   AuthorizedTeacherGroupGroupIdRoute: AuthorizedTeacherGroupGroupIdRoute,
+  AuthorizedTeacherGroupGroupIdStudentStudentIdHistoryIndexRoute:
+    AuthorizedTeacherGroupGroupIdStudentStudentIdHistoryIndexRoute,
 }
 
 const AuthorizedTeacherRouteWithChildren =

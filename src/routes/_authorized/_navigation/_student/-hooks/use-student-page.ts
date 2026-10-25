@@ -62,6 +62,10 @@ export function useStudentPage() {
     void Promise.all([goalQuery.refetch(), categoriesQuery.refetch()])
   }
 
+  function handleViewHistory() {
+    void navigate({ to: '/history', viewTransition: { types: ['slide-forward'] } })
+  }
+
   const dateToday = new Date(context.renderedAt).toISOString().slice(0, 10)
   const dateYesterday = new Date(context.renderedAt - 24 * 60 * 60 * 1000)
     .toISOString()
@@ -107,6 +111,6 @@ export function useStudentPage() {
       remainingBalance: Math.max(0, goalQuery.data?.coins_remaining ?? 0),
     },
     queries: { history: historyQuery },
-    functions: { handleRetryHistory, handleNavigateToShop, handleRetryGoal },
+    functions: { handleRetryHistory, handleNavigateToShop, handleRetryGoal, handleViewHistory },
   }
 }

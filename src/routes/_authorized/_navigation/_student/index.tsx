@@ -145,7 +145,11 @@ function StudentPage() {
           <Typography className={styles['history-title']} variant="subtitle">
             {t('profile.history.title')}
           </Typography>
-          <Button className={styles['all-button']} variant="link">
+          <Button
+            className={styles['all-button']}
+            variant="link"
+            onClick={functions.handleViewHistory}
+          >
             {t('profile.history.all')}
           </Button>
         </div>

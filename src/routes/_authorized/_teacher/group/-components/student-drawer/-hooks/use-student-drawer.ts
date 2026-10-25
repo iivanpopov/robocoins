@@ -1,6 +1,10 @@
+import { useNavigate } from '@tanstack/react-router'
+
 import type { StudentDrawerProps } from '../student-drawer'
 
 export function useStudentDrawer(props: StudentDrawerProps) {
+  const navigate = useNavigate()
+
   function handleOpenChange(open: boolean) {
     props.onOpenChange(open)
   }
@@ -14,7 +18,11 @@ export function useStudentDrawer(props: StudentDrawerProps) {
   }
 
   function handleViewHistory() {
-    console.log('View student history', props.student!.id)
+    if (!props.student) return
+    void navigate({
+      to: '/group/$groupId/student/$studentId/history',
+      params: { groupId: String(props.groupId), studentId: String(props.student.id) },
+    })
   }
 
   return {

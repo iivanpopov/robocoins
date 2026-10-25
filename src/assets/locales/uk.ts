@@ -168,6 +168,15 @@ export default {
     many {{Залишилося {$count} робокоїнів!}}
     * {{Залишилося {$count} робокоїна!}}`,
   'profile.history.title': 'Історія',
+  'history.title': 'Уся історія нагород',
+  'history.back': 'Назад',
+  'history.error': 'Не вдалося завантажити історію нагород',
+  'history.load-more': 'Завантажити ще',
+  'history.end': 'Це вся історія нагород',
+  'history.cancelled': 'Скасовано',
+  'history.no-reason': 'Причину не вказано',
+  'history.date':
+    '{$date :datetime year=numeric month=|2-digit| day=|2-digit| hour=|2-digit| minute=|2-digit|}',
   'profile.history.all': 'Уся історія ›',
   'profile.history.loading': 'Завантаження історії…',
   'profile.history.retry': 'Повторити завантаження історії',

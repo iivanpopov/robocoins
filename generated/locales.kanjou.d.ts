@@ -156,6 +156,14 @@ declare module '@kanjou/react' {
       'profile.goal.target': { count: { __fn: 'number' } }
       'profile.goal.remaining': { count: { __fn: 'number' } }
       'profile.history.title': {}
+      'history.title': {}
+      'history.back': {}
+      'history.error': {}
+      'history.load-more': {}
+      'history.end': {}
+      'history.cancelled': {}
+      'history.no-reason': {}
+      'history.date': { date: { __fn: 'datetime' } }
       'profile.history.all': {}
       'profile.history.loading': {}
       'profile.history.retry': {}
