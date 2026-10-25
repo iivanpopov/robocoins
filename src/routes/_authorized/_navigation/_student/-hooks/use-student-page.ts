@@ -92,6 +92,7 @@ export function useStudentPage() {
 
   return {
     state: {
+      renderedAt: context.renderedAt,
       profile,
       groups,
       goal,

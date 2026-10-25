@@ -1,4 +1,7 @@
 export default {
+  'profile.cyberween.title': 'Cyberween',
+  'profile.cyberween.greeting': 'Привіт із моторошно затишного кіберсвіту! Нехай ідеї оживають.',
+  'profile.cyberween.dismiss': 'Приховати банер Cyberween',
   'navbar.label': 'Основна навігація',
   'navbar.settings': 'Налаштування',
   'navbar.profile': 'Профіль',

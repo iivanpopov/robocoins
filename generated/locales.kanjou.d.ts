@@ -6,6 +6,9 @@ declare module '@kanjou/react' {
   export interface Register {
     locale: 'uk'
     messages: {
+      'profile.cyberween.title': {}
+      'profile.cyberween.greeting': {}
+      'profile.cyberween.dismiss': {}
       'navbar.label': {}
       'navbar.settings': {}
       'navbar.profile': {}

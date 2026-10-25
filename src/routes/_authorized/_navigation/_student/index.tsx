@@ -12,7 +12,7 @@ import { COOKIE_MAX_AGE, LAST_LOG_ON_COOKIE, type Avatar as AvatarName } from '#
 import { getAvatarUrl, getInitial } from '#/routes/-utils'
 import { readCookie } from '#/utils/cookies'
 
-import { RulesDrawer } from './-components'
+import { CyberweenBanner, RulesDrawer } from './-components'
 import { useStudentPage } from './-hooks'
 import { getStudentRewardCategoriesQueryOptions } from './-utils'
 
@@ -84,6 +84,7 @@ function StudentPage() {
           <div aria-hidden="true" className={cn('i-ph:coins-bold', styles['coin-icon'])} />
         </div>
       </header>
+      <CyberweenBanner renderedAt={state.renderedAt} />
       {state.isGoalPending && <Loader />}
       {state.isGoalError && (
         <InlineError onRetry={functions.handleRetryGoal} isRetrying={state.isGoalFetching}>
