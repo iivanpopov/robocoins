@@ -9,6 +9,7 @@ declare module '@kanjou/react' {
       'profile.cyberween.title': {}
       'profile.cyberween.greeting': {}
       'profile.cyberween.dismiss': {}
+      'profile.cyberween.open': {}
       'navbar.label': {}
       'navbar.settings': {}
       'navbar.profile': {}
