@@ -13,17 +13,21 @@ import { getAvatarUrl, getInitial } from '#/routes/-utils'
 import { readCookie } from '#/utils/cookies'
 
 import { CyberweenBanner, RulesDrawer } from './-components'
+import { HISTORY_TRANSACTION_FETCH_LIMIT } from './-constants'
 import { useStudentPage } from './-hooks'
-import { getStudentRewardCategoriesQueryOptions } from './-utils'
+import { getGoalProgressCookieName, getStudentRewardCategoriesQueryOptions } from './-utils'
 
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_student/')({
   head: () => ({ meta: [{ title: 'Головна | Robocoins' }] }),
-  beforeLoad: async () => {
+  beforeLoad: async ({ context }) => {
     const renderedAt = Date.now()
     const lastLogOn = Number(await readCookie(LAST_LOG_ON_COOKIE)) || Date.now()
-    return { lastLogOn, renderedAt }
+    const goalProgressSnapshot = await readCookie(
+      getGoalProgressCookieName((context.user as StudentProfileResponse).id),
+    )
+    return { lastLogOn, renderedAt, goalProgressSnapshot }
   },
   loader: async ({ context }) => {
     const profile = context.user as StudentProfileResponse
@@ -31,7 +35,7 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/')({
       context.queryClient.query(
         getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryOptions({
           path: { student_id: profile.id },
-          query: { limit: 3 },
+          query: { limit: HISTORY_TRANSACTION_FETCH_LIMIT },
         }),
       ),
       context.queryClient.query(
@@ -129,6 +133,7 @@ function StudentPage() {
             <span
               data-active={state.profile.balance > 0}
               data-completed={state.goalCompleted}
+              data-running={state.goalProgressRunning}
               style={{ width: state.goalProgress }}
             />
           </div>

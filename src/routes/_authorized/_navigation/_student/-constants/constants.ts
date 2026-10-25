@@ -1,2 +1,4 @@
 export const GOAL_BALANCE = 200
 export const CURRENT_TARGET_PRODUCT = 'arduino-uno'
+export const HISTORY_TRANSACTION_FETCH_LIMIT = 50
+export const HISTORY_MINIMUM_TRANSACTIONS = 3

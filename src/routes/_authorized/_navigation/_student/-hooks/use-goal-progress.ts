@@ -3,70 +3,81 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import type { RewardProgressResponse } from '#/api/types'
 import { prefersReducedMotion } from '#/utils/motion'
 
-import { consumeGoalProgressSnapshot, getGoalProgressSnapshot } from '../-utils'
+import {
+  getGoalProgressOrigin,
+  getGoalProgressSnapshot,
+  getSavedGoalProgressSnapshot,
+  saveGoalProgressSnapshot,
+} from '../-utils'
 
-export function useGoalProgress(studentId: number, data: RewardProgressResponse | undefined) {
-  const [display, setDisplay] = useState<{ key: string; progress: number } | null>(null)
-  const animationRef = useRef<{ key: string; origin: number } | null>(null)
+const ANIMATION_DURATION_IN_MS = 3000
+
+interface UseGoalProgressValue {
+  displayWidth: string
+  currentProgress: number
+  isAnimating: boolean
+}
+
+export function useGoalProgress(
+  studentId: number,
+  data: RewardProgressResponse | undefined,
+  savedSnapshot: string | null,
+): UseGoalProgressValue {
+  const snapshot = getGoalProgressSnapshot(data)
+  const key = `${studentId}:${JSON.stringify(snapshot)}`
+  const currentProgress = snapshot?.progress ?? 0
+  const saved = getSavedGoalProgressSnapshot(savedSnapshot)
+  const origin = getGoalProgressOrigin(saved, snapshot)
+
+  const [display, setDisplay] = useState<{ key: string; progress: number }>(() => ({
+    key,
+    progress: origin ?? currentProgress,
+  }))
+
+  const [isAnimating, setIsAnimating] = useState(false)
+  const animationKeyReference = useRef<string | null>(null)
 
   useLayoutEffect(() => {
-    if (!data) return
+    saveGoalProgressSnapshot(studentId, snapshot)
 
-    const snapshot = getGoalProgressSnapshot(data)
-    const key = JSON.stringify([studentId, snapshot])
-    const currentProgress = snapshot?.progress ?? 0
-
-    if (animationRef.current?.key !== key) {
-      animationRef.current = {
-        key,
-        origin: consumeGoalProgressSnapshot(studentId, snapshot),
-      }
-    }
-
-    const origin = animationRef.current.origin
-
-    if (origin >= currentProgress || prefersReducedMotion()) {
-      setDisplay({ key, progress: currentProgress })
+    if (origin === null || origin >= currentProgress || prefersReducedMotion()) {
+      setIsAnimating(false)
       return
     }
 
-    const duration = 900
+    const from = origin
+    const target = currentProgress
     let startedAt: number | null = null
     let frame: number | null = null
 
-    setDisplay({ key, progress: origin })
+    animationKeyReference.current = key
 
     function handleFrame(now: number) {
       startedAt ??= now
-      let progress = Math.min(1, (now - startedAt) / duration)
-      if (prefersReducedMotion()) progress = 1
+      const linear = Math.min(1, (now - startedAt) / ANIMATION_DURATION_IN_MS)
+      const eased = 1 - (1 - linear) ** 3
 
-      const eased = 1 - (1 - progress) ** 3
-      setDisplay({ key, progress: origin + (currentProgress - origin) * eased })
+      setIsAnimating(true)
+      setDisplay({ key, progress: from + (target - from) * eased })
       frame = null
 
-      if (progress < 1) frame = requestAnimationFrame(handleFrame)
+      if (linear < 1) {
+        frame = requestAnimationFrame(handleFrame)
+        return
+      }
+
+      setIsAnimating(false)
     }
 
     frame = requestAnimationFrame(handleFrame)
 
     return () => {
       if (frame !== null) cancelAnimationFrame(frame)
+      if (animationKeyReference.current === key) animationKeyReference.current = null
     }
-  }, [
-    studentId,
-    Boolean(data),
-    data?.balance,
-    data?.reward?.id,
-    data?.reward?.price,
-    data?.progress_percent,
-  ])
+  }, [studentId, key, origin, currentProgress])
 
-  const snapshot = getGoalProgressSnapshot(data)
-  const key = JSON.stringify([studentId, snapshot])
-  const progress = snapshot?.progress ?? 0
-  let displayProgress = progress
-  if (display?.key === key) displayProgress = display.progress
+  const displayProgress = display.key === key ? display.progress : currentProgress
 
-  return { displayWidth: `${displayProgress}%`, currentProgress: progress }
+  return { displayWidth: `${displayProgress}%`, currentProgress, isAnimating }
 }

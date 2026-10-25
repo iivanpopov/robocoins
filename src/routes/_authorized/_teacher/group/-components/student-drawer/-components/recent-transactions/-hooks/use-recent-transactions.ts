@@ -6,7 +6,7 @@ import { useCancelStudentTransactionStudentTransactionsTransactionIdCancelPost }
 import { getGroupByIdGroupIdGroupIdGetQueryKey } from '#/api/hooks/useGetGroupByIdGroupIdGroupIdGet'
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryKey } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { useGetStudentTransactionHistoryStudentStudentIdTransactionsGet } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
-import { BalanceHistoryResponse, BalanceTransactionResponse, GroupResponse } from '#/api/types'
+import { BalanceHistoryResponse, GroupResponse } from '#/api/types'
 import { toast } from '#/components/ui'
 import { compareTransactionsByNewest } from '#/routes/-utils'
 
@@ -21,10 +21,6 @@ export function useRecentTransactions(props: UseRecentTransactionsProps) {
   const queryClient = useQueryClient()
 
   const cancellingReference = useRef(false)
-  const cancelButtonReference = useRef<HTMLButtonElement>(null)
-  const [selectedTransaction, setSelectedTransaction] = useState<BalanceTransactionResponse | null>(
-    null,
-  )
   const [exitingTransactionId, setExitingTransactionId] = useState<number | null>(null)
 
   const transactionsQuery = useGetStudentTransactionHistoryStudentStudentIdTransactionsGet(
@@ -141,20 +137,14 @@ export function useRecentTransactions(props: UseRecentTransactionsProps) {
         },
         onSettled: () => {
           cancellingReference.current = false
-          setSelectedTransaction(null)
         },
       },
     })
-
-  function handleDialogOpenChange(open: boolean) {
-    if (!open && !cancellingReference.current) setSelectedTransaction(null)
-  }
 
   function handleCancel(transactionId: number) {
     if (
       !props.enabled ||
       cancellingReference.current ||
-      selectedTransaction ||
       cancelTransactionMutation.isPending ||
       exitingTransactionId !== null
     )
@@ -163,28 +153,10 @@ export function useRecentTransactions(props: UseRecentTransactionsProps) {
     const transaction = transactionsQuery.data?.transactions.find(
       (transaction) => transaction.id === transactionId && !transaction.cancelled_at,
     )
-    if (transaction) setSelectedTransaction(transaction)
-  }
-
-  function handleConfirmCancel() {
-    if (
-      !props.enabled ||
-      !selectedTransaction ||
-      cancellingReference.current ||
-      cancelTransactionMutation.isPending
-    )
-      return
-
-    const transaction = transactionsQuery.data?.transactions.find(
-      (transaction) => transaction.id === selectedTransaction.id && !transaction.cancelled_at,
-    )
-    if (!transaction || transaction.student_id !== props.studentId) {
-      setSelectedTransaction(null)
-      return
-    }
+    if (!transaction || transaction.student_id !== props.studentId) return
 
     cancellingReference.current = true
-    cancelTransactionMutation.mutate({ path: { transaction_id: selectedTransaction.id } })
+    cancelTransactionMutation.mutate({ path: { transaction_id: transactionId } })
   }
 
   function handleExitComplete(transactionId: number) {
@@ -204,16 +176,13 @@ export function useRecentTransactions(props: UseRecentTransactionsProps) {
     .slice(0, 3)
 
   return {
-    refs: { cancelButton: cancelButtonReference },
-    state: { transactions, exitingTransactionId, selectedTransaction },
+    state: { transactions, exitingTransactionId },
     queries: { transactionsQuery },
     mutations: { cancelTransactionMutation },
     functions: {
       handleRetry,
       handleCancel,
       handleExitComplete,
-      handleDialogOpenChange,
-      handleConfirmCancel,
     },
   }
 }

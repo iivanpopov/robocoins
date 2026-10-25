@@ -1,5 +1,6 @@
-import { RefObject, useRef, useState } from 'react'
+import { RefObject, useEffect, useRef, useState } from 'react'
 
+import { BalanceTransactionResponse } from '#/api/types'
 import { SwipeEvent, UseSwipeValue, useSwipe } from '#/hooks'
 
 import {
@@ -10,10 +11,23 @@ import {
 } from '../../../-utils'
 
 const FULL_SWIPE_WIDTH_RATIO = 0.75
+const CONFIRM_DELAY_IN_MS = 1500
+const CANCEL_WINDOW_IN_MS = 10 * 60 * 1000
 
 interface UseTransactionSwipeProps {
   enabled: boolean
   onCancel: () => void
+}
+
+export function isTransactionCancellable(
+  transaction: BalanceTransactionResponse,
+  enabled: boolean,
+) {
+  return (
+    enabled &&
+    !transaction.cancelled_at &&
+    Date.now() - new Date(transaction.created_at).getTime() <= CANCEL_WINDOW_IN_MS
+  )
 }
 
 export function useTransactionSwipe(
@@ -23,23 +37,46 @@ export function useTransactionSwipe(
   const [offset, setOffset] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
   const [isReady, setIsReady] = useState(false)
+  const [isConfirming, setIsConfirming] = useState(false)
+  const [isArmed, setIsArmed] = useState(false)
   const gestureReference = useRef<{
     width: number
     axis: 'horizontal' | 'vertical' | null
   } | null>(null)
+  const armTimeoutReference = useRef<number | null>(null)
+  const resetTimeoutReference = useRef<number | null>(null)
   useSwipe(elementReference, {
     onStart: handleSwipeStart,
     onMove: handleSwipeMove,
     onEnd: handleSwipeEnd,
   })
 
+  useEffect(() => () => clearConfirmationTimeouts(), [])
+
+  function clearConfirmationTimeouts() {
+    if (armTimeoutReference.current !== null) {
+      clearTimeout(armTimeoutReference.current)
+      armTimeoutReference.current = null
+    }
+    if (resetTimeoutReference.current !== null) {
+      clearTimeout(resetTimeoutReference.current)
+      resetTimeoutReference.current = null
+    }
+  }
+
   function handleSwipeStart(_value: UseSwipeValue, event: SwipeEvent) {
+    if (event.target instanceof Element && event.target.closest('[data-confirm-action]')) return
+
     gestureReference.current = null
     if (!props.enabled) return
     if (!isPrimaryPointer(event)) return
 
     const width = elementReference.current?.getBoundingClientRect().width ?? 0
     if (!width) return
+
+    clearConfirmationTimeouts()
+    setIsConfirming(false)
+    setIsArmed(false)
 
     gestureReference.current = { width, axis: null }
     setOffset(0)
@@ -73,8 +110,17 @@ export function useTransactionSwipe(
     if (value.lengthX <= Math.abs(value.lengthY) * SWIPE_AXIS_DOMINANCE_RATIO) return
     if (value.lengthX < gesture.width * FULL_SWIPE_WIDTH_RATIO) return
 
-    props.onCancel()
+    setIsConfirming(true)
+    armTimeoutReference.current = window.setTimeout(() => {
+      armTimeoutReference.current = null
+      setIsArmed(true)
+      resetTimeoutReference.current = window.setTimeout(() => {
+        resetTimeoutReference.current = null
+        setIsConfirming(false)
+        setIsArmed(false)
+      }, CONFIRM_DELAY_IN_MS)
+    }, CONFIRM_DELAY_IN_MS)
   }
 
-  return { offset, isDragging, isReady }
+  return { offset, isDragging, isReady, isConfirming, isArmed }
 }

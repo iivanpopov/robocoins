@@ -4,7 +4,7 @@ import { AnimationEvent, useRef } from 'react'
 
 import { BalanceTransactionResponse } from '#/api/types'
 
-import { useTransactionSwipe } from '../-hooks'
+import { useTransactionSwipe, isTransactionCancellable } from '../-hooks'
 
 import styles from './transaction-item.module.css'
 
@@ -21,25 +21,37 @@ export function TransactionItem(props: TransactionItemProps) {
 
   const elementReference = useRef<HTMLDivElement>(null)
 
+  const isCancellable = isTransactionCancellable(
+    props.transaction,
+    props.enabled && !props.transaction.cancelled_at,
+  )
+
   const swipe = useTransactionSwipe(
     {
-      enabled: props.enabled && !props.transaction.cancelled_at,
-      onCancel: handleCancel,
+      enabled: isCancellable,
+      onCancel: handleConfirmCancel,
     },
     elementReference,
   )
 
-  function handleCancel() {
+  const isLocked = props.enabled && !props.transaction.cancelled_at && !isCancellable
+
+  function handleConfirmCancel() {
+    if (!swipe.isArmed) return
+
     props.onCancel(props.transaction.id)
   }
 
-  function handleAnimationEnd(event: AnimationEvent<HTMLButtonElement>) {
+  function handleAnimationEnd(event: AnimationEvent<HTMLDivElement>) {
     if (event.target !== event.currentTarget || !props.isExiting) return
 
     props.onExitComplete(props.transaction.id)
   }
 
   const isPlus = props.transaction.operation === 'deposit'
+  const confirmSurfaceTransform = swipe.isConfirming
+    ? 'translateX(0)'
+    : `translateX(calc(100% - ${swipe.offset}px))`
 
   return (
     <div
@@ -47,21 +59,36 @@ export function TransactionItem(props: TransactionItemProps) {
       className={cn(
         styles.container,
         swipe.isReady && styles.ready,
+        swipe.isConfirming && styles.confirming,
         props.isExiting && styles.exiting,
       )}
       data-base-ui-swipe-ignore="x"
+      onAnimationEnd={handleAnimationEnd}
     >
-      <span aria-hidden="true" className={styles['undo-indicator']}>
-        <span className="i-ph:arrow-counter-clockwise" />
-      </span>
+      <div
+        className={cn(styles['confirm-surface'], swipe.isDragging && styles.dragging)}
+        style={{ transform: confirmSurfaceTransform }}
+      >
+        <span aria-hidden="true" className={styles['confirm-indicator']}>
+          <span className="i-ph:arrow-counter-clockwise" />
+        </span>
+        <button
+          type="button"
+          disabled={!swipe.isArmed}
+          onClick={handleConfirmCancel}
+          aria-label={t('award.cancel.confirm.trigger', { amount: props.transaction.amount })}
+          className={styles['confirm-action']}
+          data-confirm-action=""
+        >
+          {t('award.cancel.confirm.action')}
+        </button>
+      </div>
       <button
         type="button"
         disabled={!props.enabled || !!props.transaction.cancelled_at}
-        onClick={handleCancel}
-        aria-label={t('award.cancel.confirm.trigger', { amount: props.transaction.amount })}
         className={cn(styles.item, swipe.isDragging && styles.dragging)}
         style={{ transform: `translateX(${-swipe.offset}px)` }}
-        onAnimationEnd={handleAnimationEnd}
+        inert={swipe.isDragging || swipe.isConfirming || props.isExiting}
       >
         <span
           className={cn(
@@ -88,6 +115,13 @@ export function TransactionItem(props: TransactionItemProps) {
             })}
           </span>
         </div>
+        {isLocked && (
+          <span
+            aria-hidden="true"
+            title={t('award.cancel.locked')}
+            className={cn('i-ph:lock-bold', styles['lock-indicator'])}
+          />
+        )}
       </button>
     </div>
   )

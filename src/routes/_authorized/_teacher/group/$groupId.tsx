@@ -72,43 +72,6 @@ function GroupStudentsPage() {
         </div>
       </header>
 
-      <AlertDialog
-        open={state.isPracticeDialogOpen}
-        onOpenChange={functions.handlePracticeDialogOpenChange}
-      >
-        <AlertDialogTrigger
-          render={<Button />}
-          disabled={!state.canAwardPractice || mutations.awardPractice.isPending}
-        >
-          <span aria-hidden="true" className="i-ph:coins-bold" />
-          {t('group.practice.award')}
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>{t('group.practice.confirm.title')}</AlertDialogTitle>
-            <AlertDialogDescription>
-              {t('group.practice.confirm.description', { count: state.studentsCount })}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          {mutations.awardPractice.isError && (
-            <InlineError>{t('group.practice.error')}</InlineError>
-          )}
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={mutations.awardPractice.isPending}>
-              {t('action.cancel')}
-            </AlertDialogCancel>
-            <AlertDialogAction
-              onClick={functions.handleAwardPractice}
-              disabled={!state.canAwardPractice || mutations.awardPractice.isPending}
-              aria-busy={mutations.awardPractice.isPending}
-            >
-              {mutations.awardPractice.isPending && <Loader />}
-              {t('group.practice.confirm.action')}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-
       <StudentSearchBar
         searchQuery={state.searchQuery}
         onSearchChange={functions.handleSearchChange}
@@ -160,6 +123,45 @@ function GroupStudentsPage() {
           })}
         </div>
       )}
+
+      <div className={styles['practice-award']}>
+        <AlertDialog
+          open={state.isPracticeDialogOpen}
+          onOpenChange={functions.handlePracticeDialogOpenChange}
+        >
+          <AlertDialogTrigger
+            render={<Button className={styles['practice-award-btn']} />}
+            disabled={!state.canAwardPractice || mutations.awardPractice.isPending}
+          >
+            <span aria-hidden="true" className="i-ph:coins-bold" />
+            {t('group.practice.award')}
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>{t('group.practice.confirm.title')}</AlertDialogTitle>
+              <AlertDialogDescription>
+                {t('group.practice.confirm.description', { count: state.studentsCount })}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            {mutations.awardPractice.isError && (
+              <InlineError>{t('group.practice.error')}</InlineError>
+            )}
+            <AlertDialogFooter>
+              <AlertDialogCancel disabled={mutations.awardPractice.isPending}>
+                {t('action.cancel')}
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={functions.handleAwardPractice}
+                disabled={!state.canAwardPractice || mutations.awardPractice.isPending}
+                aria-busy={mutations.awardPractice.isPending}
+              >
+                {mutations.awardPractice.isPending && <Loader />}
+                {t('group.practice.confirm.action')}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
 
       <StudentDrawer
         open={state.isDrawerOpen}

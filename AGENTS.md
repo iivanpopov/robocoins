@@ -32,6 +32,7 @@ Single-context layout: root `GLOSSARY.md` plus `docs/adr/`. See `docs/agents/dom
    7. Derived values.
    8. Return statement.
 10. **Page component hook order**: Call and destructure the page model hook first, then Kanjou hooks such as `useTranslate()`. Skip unused groups. This page-specific order takes precedence over rule 9. Keep handlers and non-rendering logic in the page model hook.
+11. Do not create .test files inside the repository.
 
 ## Structure
 

@@ -1,16 +1,6 @@
 import { useTranslate } from '@kanjou/react'
 
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogCancel,
-  AlertDialogAction,
-  Loader,
-} from '#/components/ui'
+import { Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 
 import { TransactionItem } from './-components'
@@ -28,48 +18,10 @@ interface RecentTransactionsProps {
 
 export function RecentTransactions(props: RecentTransactionsProps) {
   const t = useTranslate()
-  const { refs, state, queries, mutations, functions } = useRecentTransactions(props)
+  const { state, queries, mutations, functions } = useRecentTransactions(props)
 
   return (
     <div className={styles['history-section']}>
-      <AlertDialog
-        open={props.enabled && state.selectedTransaction !== null}
-        onOpenChange={functions.handleDialogOpenChange}
-      >
-        <AlertDialogContent initialFocus={refs.cancelButton}>
-          <AlertDialogHeader>
-            <AlertDialogTitle>{t('award.cancel.confirm.title')}</AlertDialogTitle>
-            <AlertDialogDescription>
-              {state.selectedTransaction &&
-                t('award.cancel.confirm.description', {
-                  student: props.studentName,
-                  amount: state.selectedTransaction.amount,
-                  reason:
-                    (state.selectedTransaction.reason ?? [])
-                      .map((reason) => t.unsafe(`reason.${reason}`))
-                      .join(', ') || t('reason.balance-change'),
-                  operation: state.selectedTransaction.operation,
-                })}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel
-              ref={refs.cancelButton}
-              disabled={mutations.cancelTransactionMutation.isPending}
-            >
-              {t('action.cancel')}
-            </AlertDialogCancel>
-            <AlertDialogAction
-              onClick={functions.handleConfirmCancel}
-              disabled={mutations.cancelTransactionMutation.isPending}
-              aria-busy={mutations.cancelTransactionMutation.isPending}
-            >
-              {mutations.cancelTransactionMutation.isPending && <Loader />}
-              {t('award.cancel.confirm.action')}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
       <div className={styles['history-header']}>
         <span className={styles['section-label']}>{t('award.history.title')}</span>
         <button
@@ -103,7 +55,6 @@ export function RecentTransactions(props: RecentTransactionsProps) {
             transaction={transaction}
             enabled={
               props.enabled &&
-              !state.selectedTransaction &&
               !mutations.cancelTransactionMutation.isPending &&
               state.exitingTransactionId === null
             }

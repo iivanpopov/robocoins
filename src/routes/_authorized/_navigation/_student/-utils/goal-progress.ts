@@ -1,6 +1,7 @@
 import * as v from 'valibot'
 
 import type { RewardProgressResponse } from '#/api/types'
+import { COOKIE_MAX_AGE } from '#/routes/-constants'
 
 const GoalProgressSnapshotSchema = v.object({
   goalId: v.number(),
@@ -8,6 +9,12 @@ const GoalProgressSnapshotSchema = v.object({
   balance: v.number(),
   progress: v.pipe(v.number(), v.minValue(0), v.maxValue(100)),
 })
+
+type GoalProgressSnapshot = v.InferOutput<typeof GoalProgressSnapshotSchema>
+
+export function getGoalProgressCookieName(studentId: number) {
+  return `robocoins-goal-progress-${studentId}`
+}
 
 export function getGoalProgressSnapshot(data: RewardProgressResponse | undefined) {
   if (!data?.reward) return null
@@ -23,38 +30,42 @@ export function getGoalProgressSnapshot(data: RewardProgressResponse | undefined
   return snapshot
 }
 
-export function consumeGoalProgressSnapshot(
-  studentId: number,
-  snapshot: ReturnType<typeof getGoalProgressSnapshot>,
-) {
-  const currentProgress = snapshot?.progress ?? 0
+export function getSavedGoalProgressSnapshot(saved: string | null) {
+  if (!saved) return null
 
   try {
-    const key = `robocoins:goal-progress:${studentId}`
-    const saved = localStorage.getItem(key)
-
-    if (!snapshot) {
-      localStorage.removeItem(key)
-      return currentProgress
-    }
-
-    localStorage.setItem(key, JSON.stringify(snapshot))
-    if (!saved) return currentProgress
-
-    const previous = v.safeParse(GoalProgressSnapshotSchema, JSON.parse(saved))
-
-    if (
-      previous.success &&
-      previous.output.goalId === snapshot.goalId &&
-      previous.output.price === snapshot.price &&
-      previous.output.balance < snapshot.balance &&
-      previous.output.progress < snapshot.progress
-    ) {
-      return previous.output.progress
-    }
+    const parsed = v.safeParse(GoalProgressSnapshotSchema, JSON.parse(saved))
+    return parsed.success ? parsed.output : null
   } catch {
-    return currentProgress
+    return null
   }
+}
 
-  return currentProgress
+export function getGoalProgressOrigin(
+  previous: GoalProgressSnapshot | null,
+  snapshot: GoalProgressSnapshot | null,
+) {
+  if (!previous || !snapshot) return null
+  if (previous.goalId !== snapshot.goalId || previous.price !== snapshot.price) return null
+  if (previous.balance >= snapshot.balance || previous.progress >= snapshot.progress) return null
+  return previous.progress
+}
+
+export function saveGoalProgressSnapshot(studentId: number, snapshot: GoalProgressSnapshot | null) {
+  if (typeof document === 'undefined') return
+
+  const name = getGoalProgressCookieName(studentId)
+
+  try {
+    if (!snapshot) {
+      document.cookie = `${name}=; path=/; max-age=0; samesite=lax`
+      return
+    }
+
+    document.cookie = `${name}=${encodeURIComponent(JSON.stringify(snapshot))}; path=/; max-age=${
+      COOKIE_MAX_AGE / 1000
+    }; samesite=lax`
+  } catch {
+    return
+  }
 }

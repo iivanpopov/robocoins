@@ -97,15 +97,18 @@ function SettingsPage() {
           <Checkbox
             id="settings-animations"
             size="lg"
-            checked={state.animationsDisabled}
+            checked={state.animationsReduced}
+            disabled={state.isSystemReducedMotion}
             onCheckedChange={functions.handleAnimationsChange}
             aria-describedby="settings-animations-description"
           />
           <FieldLabel htmlFor="settings-animations">{t('settings.animations.disable')}</FieldLabel>
         </Field>
-        <FieldDescription id="settings-animations-description">
-          {t('settings.animations.system')}
-        </FieldDescription>
+        {state.isSystemReducedMotion && (
+          <FieldDescription id="settings-animations-description">
+            {t('settings.animations.system')}
+          </FieldDescription>
+        )}
       </section>
 
       <section className={styles.section}>

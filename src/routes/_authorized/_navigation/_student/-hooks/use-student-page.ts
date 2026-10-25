@@ -7,6 +7,7 @@ import { useGetStudentTransactionHistoryStudentStudentIdTransactionsGet } from '
 import { StudentProfileResponse } from '#/api/types'
 import { compareTransactionsByNewest } from '#/routes/-utils'
 
+import { HISTORY_MINIMUM_TRANSACTIONS, HISTORY_TRANSACTION_FETCH_LIMIT } from '../-constants'
 import {
   getSignedAmount,
   getStudentRewardCategoriesQueryOptions,
@@ -23,7 +24,7 @@ export function useStudentPage() {
   const profile = context.user as StudentProfileResponse
   const historyQuery = useGetStudentTransactionHistoryStudentStudentIdTransactionsGet({
     path: { student_id: profile.id },
-    query: { limit: 3 },
+    query: { limit: HISTORY_TRANSACTION_FETCH_LIMIT },
   })
   const goalQuery = useGetStudentRewardProgressStudentStudentIdRewardProgressGet({
     path: { student_id: profile.id },
@@ -38,7 +39,11 @@ export function useStudentPage() {
     isRewardEligible(goalQuery.data.reward, categoriesQuery.data)
       ? goalQuery.data.reward
       : null
-  const goalProgress = useGoalProgress(profile.id, goal ? goalQuery.data : undefined)
+  const goalProgress = useGoalProgress(
+    profile.id,
+    goal ? goalQuery.data : undefined,
+    context.goalProgressSnapshot,
+  )
 
   function formatHistoryDate(value: string) {
     const date = new Date(value)
@@ -63,14 +68,14 @@ export function useStudentPage() {
   }
 
   function handleViewHistory() {
-    void navigate({ to: '/history', viewTransition: { types: ['slide-forward'] } })
+    void navigate({ to: '/history' })
   }
 
   const dateToday = new Date(context.renderedAt).toISOString().slice(0, 10)
   const dateYesterday = new Date(context.renderedAt - 24 * 60 * 60 * 1000)
     .toISOString()
     .slice(0, 10)
-  const transactions = (historyQuery.data?.transactions ?? [])
+  const allTransactions = (historyQuery.data?.transactions ?? [])
     .toSorted(compareTransactionsByNewest)
     .map((transaction) => ({
       id: transaction.id,
@@ -80,6 +85,20 @@ export function useStudentPage() {
       signedAmount: getSignedAmount(transaction),
       reason: transaction.reason,
     }))
+  const recentTransactions = allTransactions.filter((transaction) => {
+    const dateKey = new Date(transaction.createdAt).toISOString().slice(0, 10)
+    return dateKey === dateToday || dateKey === dateYesterday
+  })
+  const hasFullRecentWindow = recentTransactions.length >= HISTORY_MINIMUM_TRANSACTIONS
+  const paddedTransactions = hasFullRecentWindow
+    ? []
+    : allTransactions
+        .filter((transaction) => !recentTransactions.includes(transaction))
+        .slice(0, HISTORY_MINIMUM_TRANSACTIONS - recentTransactions.length)
+  const transactions = [...recentTransactions, ...paddedTransactions].toSorted(
+    (transaction, otherTransaction) =>
+      Date.parse(otherTransaction.createdAt) - Date.parse(transaction.createdAt),
+  )
 
   const groups = Object.entries(
     Object.groupBy(transactions, (transaction) => formatHistoryDate(transaction.createdAt)),
@@ -107,6 +126,7 @@ export function useStudentPage() {
       isGoalFetching: goalQuery.isFetching || categoriesQuery.isFetching,
       goalProgress: goalProgress.displayWidth,
       goalProgressValue: goalProgress.currentProgress,
+      goalProgressRunning: goalProgress.isAnimating,
       remainingBalance: Math.max(0, goalQuery.data?.coins_remaining ?? 0),
     },
     queries: { history: historyQuery },

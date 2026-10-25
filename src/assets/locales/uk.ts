@@ -147,6 +147,7 @@ export default {
     * {{Буде скасовано списання {$amount :number} робокоїнів. Учень: {$student}. Причина: {$reason}. Баланс збільшиться.}}`,
   'award.cancel.confirm.action': 'Скасувати транзакцію',
   'award.cancel.confirm.trigger': 'Скасувати транзакцію на {$amount :number} робокоїнів',
+  'award.cancel.locked': 'Транзакцію більше не можна скасувати',
   'award.deduct.confirm.title': 'Підтвердити списання?',
   'award.deduct.confirm.description': 'Баланс учня {$student} буде зменшено. Причина: {$reason}.',
   'award.deduct.confirm.action': 'Списати робокоїни',

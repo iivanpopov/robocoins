@@ -130,3 +130,11 @@
   color: var(--muted-foreground);
   text-align: center;
 }
+
+.practice-award {
+  margin-top: auto;
+}
+
+.practice-award-btn {
+  width: 100%;
+}

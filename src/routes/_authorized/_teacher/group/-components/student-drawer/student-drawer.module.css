@@ -41,9 +41,14 @@
 }
 
 .student-balance {
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--muted-foreground);
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.balance-icon {
+  font-size: 0.875rem;
+  color: var(--brand);
 }
 
 .profile-arrow {

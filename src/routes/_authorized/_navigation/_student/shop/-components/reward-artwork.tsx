@@ -47,7 +47,6 @@ export function RewardArtwork(props: { reward: RewardResponse; compact?: boolean
       )}
       aria-hidden="true"
     >
-      <div className={styles.halo} />
       <div className={styles.core}>
         <RewardSymbol reward={props.reward} />
       </div>

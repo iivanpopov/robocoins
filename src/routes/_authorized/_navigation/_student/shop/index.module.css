@@ -119,7 +119,7 @@
   color: var(--foreground);
   text-align: left;
   cursor: pointer;
-  background: var(--muted);
+  background: transparent;
   border: none;
   border-radius: var(--rounded-lg);
 }

@@ -122,6 +122,7 @@
 }
 
 .progress span {
+  position: relative;
   display: block;
   height: 100%;
   background: var(--brand);
@@ -130,6 +131,37 @@
 
 .progress span[data-active='true'] {
   min-width: 16px;
+}
+
+.progress span::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+  background-image: repeating-linear-gradient(
+    -45deg,
+    oklch(from var(--brand) calc(l + 0.12) c h) 0 0.75rem,
+    var(--brand) 0.75rem 1.5rem
+  );
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+.progress span[data-running='true']::after {
+  opacity: 1;
+  animation: goal-progress-stripes 0.9s linear infinite;
+}
+
+@keyframes goal-progress-stripes {
+  to {
+    background-position: 2.121rem 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress span[data-running='true']::after {
+    animation: none;
+  }
 }
 
 .progress span[data-completed='true'] {

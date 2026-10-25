@@ -136,6 +136,7 @@ declare module '@kanjou/react' {
       }
       'award.cancel.confirm.action': {}
       'award.cancel.confirm.trigger': { amount: { __fn: 'number' } }
+      'award.cancel.locked': {}
       'award.deduct.confirm.title': {}
       'award.deduct.confirm.description': {
         student: DefaultMessageValue
