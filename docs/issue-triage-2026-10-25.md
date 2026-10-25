@@ -72,16 +72,19 @@ Server-rendered smoke checks ran against the production build with a local mock 
 
 ## Follow-up requests
 
-After the first pass the user asked for four refinements. All are committed on `issues/cheap-batch`.
+After the first pass the user asked for a series of refinements. All of them are committed on `dev`.
 
 - **Current-group badge (#1).** The active lesson card shows a localized `Поточна` badge next to the course name (`2d937b2`). It is driven by the same `isGroupScheduleActive` check that sorts the list, so the badge appears only while a lesson is actually running; malformed schedules never get it. Verified at logic level: a 15:00 lesson is active at 15:00 and 16:49, inactive at 14:59, 16:50 and 23:00, and the check rolls over weeks.
-- **Shop switch position (#18).** The galaxy/list switch now sits at the top-left of the screen, and the rewards/privileges legend was removed together with its styles and translations (`b135297`). The balance stays on the right; the header is a single full-width row.
-- **Cyberween banner link (#39).** The banner body is now an external link to `https://www.instagram.com/robocode_ua/p/DeykiZTjbUV`, opened in a new tab with `rel="noreferrer noopener"` and a localized accessible name (`701bc87`). The dismiss control stays a separate sibling button, so it never opens the link.
+- **Shop switch position (#18).** The galaxy/list switch now sits at the top-left of the screen, and the rewards/privileges legend was removed together with its styles and translations (`b135297`). The balance stays on the right; the header is a single full-width row. The switch itself lost its frames, gained a larger label and more spacing between the two options (`77dd5ee`).
+- **Cyberween banner (#39).** The banner was rebuilt from the "Robocode Cyberween 2026" presentation: the artwork of the hero stepping out of the game is used as the background, the GAMEVERSE wordmark is a glitch effect with green and blue ghost layers, the tagline and the contest dates come from the deck, and an up-right arrow marks the banner as a link to `https://www.instagram.com/robocode_ua/p/DeykiZTjbUV`. The skull artwork, the dismiss button and the seasonal visibility logic are gone, so the banner is always shown. The extracted artwork lives in `public/images/cyberween/gameverse-hero.webp`; the slide text was masked out in the left third so the headline stays readable (`77dd5ee`).
+- **Settings redesign.** Settings are split into sections with large headings (password, appearance, session). The username was removed on request. The password is a real masked input inside an `InputGroup` with an eye toggle that reveals it, and the animation switch is a checkbox with a label and a description (`77dd5ee`).
+- **New UI primitives.** `Checkbox` and the `Field` family were ported from the shadcn sources to CSS modules and the project tokens (`src/components/ui/checkbox`, `src/components/ui/field`). The checkbox is 1.5rem (1.75rem in the large size) with a blue check and a neutral frame. No `"use client"` directive was added: this project renders on the server and the components are plain presentational primitives.
 - **Category theme colors.** Web is `#fe394e`, game dev is `#a939ff`, embedded is `#1646ff`; the other categories keep their palette colors (`0681309`). Icons and course cards in the teacher group list and in registration now use these values, with backgrounds mixed at 12% of the theme color so they work on both the light app surface and the dark galaxy. Selected tiles get a 24% tint.
+- **History header and goal card.** The history header spreads the back button and the title apart (`justify-content: space-between`), and the chevron in the current goal card is no longer commented out (`77dd5ee`).
 
 Note on the red: `#fe394e` reaches about 3.4:1 against pure white but about 2.9:1 against its own light tint, so the web icon is slightly under the 3:1 non-text contrast threshold. The exact brand value was kept; if strict AA is required, the red needs to be darkened by roughly one step.
 
-Not verified: no request ran against the live backend, so real permissions and data shapes remain unconfirmed. Interactive browser checks were not possible because the machine lacks `libasound.so.2`, which keeps Chromium from launching; dialog focus flow, swipe gestures and animations were verified only through the feature branches' logic-level tests.
+Not verified: no request ran against the live backend, so real permissions and data shapes remain unconfirmed. Interactive browser checks were not possible because the machine lacks `libasound.so.2`, which keeps Chromium from launching; dialog focus flow, swipe gestures and animations were verified only through the feature branches' logic-level tests and server-rendered markup.
 
 ## Remaining backlog
 
@@ -93,4 +96,4 @@ Nothing from the cheap set is left open. The remaining fourteen issues are block
 - Underspecified: #16.
 - #6 needs a persisted goal-selection endpoint.
 
-Usage note: #39 assumes an October season; if the event has different dates or artwork, the banner needs that input.
+Usage note: #39 now follows the presentation, so the banner is always visible and the contest dates are printed inside it. Remove it manually when the event is over.
