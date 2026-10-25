@@ -60,15 +60,18 @@
 
 .view-switch {
   display: flex;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-md);
   pointer-events: auto;
 }
 
 .view-switch button {
-  min-height: 44px;
-  padding: 8px 12px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  min-height: 40px;
+  padding: 6px 10px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 650;
   color: var(--muted-foreground);
   cursor: pointer;
   background: transparent;
@@ -77,6 +80,10 @@
   transition:
     color 0.15s ease,
     background-color 0.15s ease;
+}
+
+.view-switch button > [aria-hidden='true'] {
+  font-size: 1.125rem;
 }
 
 .view-switch button[aria-pressed='true'] {
@@ -307,7 +314,12 @@
   cursor: default;
   user-select: text;
   scrollbar-width: none;
-  background: linear-gradient(180deg, rgb(8 8 8 / 65%), rgb(8 8 8 / 30%) 25%, rgb(8 8 8 / 92%) 65%);
+  background: linear-gradient(
+    180deg,
+    rgb(8 8 8 / 82%) 0%,
+    rgb(8 8 8 / 58%) 16%,
+    rgb(8 8 8 / 92%) 55%
+  );
   animation: reward-screen-in 220ms ease-out both;
 }
 

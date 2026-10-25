@@ -49,6 +49,7 @@ function ShopPage() {
               aria-pressed={!state.isListView}
               onClick={functions.handleShowGalaxy}
             >
+              <span aria-hidden="true" className="i-ph:planet" />
               {t('shop.view.galaxy')}
             </button>
             <button
@@ -56,6 +57,7 @@ function ShopPage() {
               aria-pressed={state.isListView}
               onClick={functions.handleShowList}
             >
+              <span aria-hidden="true" className="i-ph:list-dashes" />
               {t('shop.view.list')}
             </button>
           </div>
