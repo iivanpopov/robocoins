@@ -23,6 +23,7 @@ export function useShopPage() {
   const rewardSelection = useRewardSelection(camera.handleAnimate)
   const draggableMap = useDraggableMap(
     map.offsetRef,
+    map.boundsRef,
     map.handleInvalidate,
     rewardSelection.handleIsBlocked,
   )
@@ -79,6 +80,16 @@ export function useShopPage() {
     setView('list')
   }
 
+  function handleFocusStar(
+    star: (typeof starPositions)[number],
+    event: React.FocusEvent<HTMLButtonElement>,
+  ) {
+    if (rewardSelection.handleIsBlocked() || selectedStar.current) return
+    if (!event.currentTarget.matches(':focus-visible')) return
+    draggableMap.handleStop()
+    map.handleFocusStar(star)
+  }
+
   const selectedReward = rewardSelection.selection.reward
   const profile = context.user as StudentProfileResponse
 
@@ -115,6 +126,7 @@ export function useShopPage() {
       handleOpenListReward,
       handleShowGalaxy,
       handleShowList,
+      handleFocusStar,
       handleCloseReward: rewardSelection.handleClose,
       handleRewardAnimationEnd: rewardSelection.handleRewardAnimationEnd,
     },

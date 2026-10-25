@@ -101,6 +101,7 @@ function ShopPage() {
               else refs.starElements.current.delete(star.reward.id)
             }}
             onClick={(event) => functions.handleOpenReward(star, event)}
+            onFocus={(event) => functions.handleFocusStar(star, event)}
             style={{ '--glow': star.glow } as React.CSSProperties}
             aria-label={star.reward.name}
             aria-description={`${t(`shop.reward.type.${star.reward.type}`)} · ${t('shop.reward.cost')}: ${t('shop.reward.price', { count: star.reward.price })}`}

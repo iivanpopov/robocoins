@@ -1,6 +1,6 @@
 import { useCallback, useLayoutEffect, useRef } from 'react'
 
-import { getMapPosition, getStarPositions } from '../-utils'
+import { clampMapOffset, getMapBounds, getMapPosition, getStarPositions } from '../-utils'
 
 type Star = ReturnType<typeof getStarPositions>[number] & { glow: number }
 
@@ -11,6 +11,7 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
   const offsetRef = useRef({ x: 0, y: 0 })
   const cameraRef = useRef({ x: 0, y: 0, zoom: 1 })
   const sizeRef = useRef({ width: 0, height: 0 })
+  const boundsRef = useRef(getMapBounds([], sizeRef.current))
   const frameRef = useRef<number | null>(null)
   const labelMeasurementsRef = useRef(
     new WeakMap<HTMLElement, { width: number; height: number; text: string | null }>(),
@@ -20,6 +21,8 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
     frameRef.current = null
     const size = sizeRef.current
     if (!size.width || !size.height) return
+    boundsRef.current = getMapBounds(starsRef.current, size)
+    offsetRef.current = clampMapOffset(offsetRef.current, boundsRef.current)
     const camera = cameraRef.current
     const offset = offsetRef.current
     const measurements = new Map<number, { element: HTMLElement; width: number; height: number }>()
@@ -180,12 +183,8 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
     }
 
     if (backgroundRef.current) {
-      const backgroundX =
-        ((((offset.x * 0.16 + size.width / 2) % size.width) + size.width) % size.width) -
-        size.width / 2
-      const backgroundY =
-        ((((offset.y * 0.16 + size.height / 2) % size.height) + size.height) % size.height) -
-        size.height / 2
+      const backgroundX = offset.x * 0.16
+      const backgroundY = offset.y * 0.16
       backgroundRef.current.style.transform = `translate3d(${(camera.x * size.width) / 100 + backgroundX * camera.zoom}px, ${(camera.y * size.height) / 100 + backgroundY * camera.zoom}px, 0) scale(${camera.zoom})`
     }
   }, [starsRef])
@@ -208,6 +207,8 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
         }
       }
       sizeRef.current = { width: map.clientWidth, height: map.clientHeight }
+      boundsRef.current = getMapBounds(starsRef.current, sizeRef.current)
+      offsetRef.current = clampMapOffset(offsetRef.current, boundsRef.current)
       handleInvalidate()
     }
     handleResize()
@@ -220,7 +221,26 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
       if (frameRef.current !== null) cancelAnimationFrame(frameRef.current)
       frameRef.current = null
     }
-  }, [handleInvalidate])
+  }, [handleInvalidate, starsRef])
+
+  useLayoutEffect(() => {
+    handleInvalidate()
+  })
+
+  function handleFocusStar(star: Star) {
+    const size = sizeRef.current
+    if (!size.width || !size.height) return
+    const position = getMapPosition(star, offsetRef.current, size)
+    if (position.x >= 10 && position.x <= 90 && position.y >= 25 && position.y <= 75) return
+    offsetRef.current = clampMapOffset(
+      {
+        x: offsetRef.current.x + ((50 - position.x) * size.width) / 100,
+        y: offsetRef.current.y + ((50 - position.y) * size.height) / 100,
+      },
+      getMapBounds(starsRef.current, size),
+    )
+    handleInvalidate()
+  }
 
   function handleGetPosition(star: Star) {
     return getMapPosition(star, offsetRef.current, sizeRef.current)
@@ -231,8 +251,10 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
     backgroundRef,
     starElementsRef,
     offsetRef,
+    boundsRef,
     cameraRef,
     handleInvalidate,
     handleGetPosition,
+    handleFocusStar,
   }
 }

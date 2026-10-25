@@ -2,10 +2,11 @@ import { useEffect, useRef } from 'react'
 
 import { prefersReducedMotion } from '#/utils/motion'
 
-import { advanceMapInertia } from '../-utils'
+import { advanceMapInertia, clampMapOffset, getMapBounds } from '../-utils'
 
 export function useDraggableMap(
   offsetRef: React.RefObject<{ x: number; y: number }>,
+  boundsRef: React.RefObject<ReturnType<typeof getMapBounds>>,
   onChange: () => void,
   isBlocked: () => boolean,
 ) {
@@ -72,7 +73,10 @@ export function useDraggableMap(
     pointer.x = event.clientX
     pointer.y = event.clientY
     pointer.time = event.timeStamp
-    offsetRef.current = { x: offsetRef.current.x + deltaX, y: offsetRef.current.y + deltaY }
+    const target = { x: offsetRef.current.x + deltaX, y: offsetRef.current.y + deltaY }
+    offsetRef.current = clampMapOffset(target, boundsRef.current)
+    if (offsetRef.current.x !== target.x) velocityRef.current.x = 0
+    if (offsetRef.current.y !== target.y) velocityRef.current.y = 0
     onChange()
   }
 
@@ -107,7 +111,12 @@ export function useDraggableMap(
       }
       const elapsed = Math.min(50, now - lastTime)
       lastTime = now
-      const motion = advanceMapInertia(offsetRef.current, velocityRef.current, elapsed)
+      const motion = advanceMapInertia(
+        offsetRef.current,
+        velocityRef.current,
+        elapsed,
+        boundsRef.current,
+      )
       offsetRef.current = motion.offset
       velocityRef.current = motion.velocity
       onChange()
@@ -128,10 +137,13 @@ export function useDraggableMap(
     let unit = 1
     if (event.deltaMode === 1) unit = 16
     if (event.deltaMode === 2) unit = event.currentTarget.clientHeight
-    offsetRef.current = {
-      x: offsetRef.current.x - event.deltaX * unit,
-      y: offsetRef.current.y - event.deltaY * unit,
-    }
+    offsetRef.current = clampMapOffset(
+      {
+        x: offsetRef.current.x - event.deltaX * unit,
+        y: offsetRef.current.y - event.deltaY * unit,
+      },
+      boundsRef.current,
+    )
     onChange()
   }
 

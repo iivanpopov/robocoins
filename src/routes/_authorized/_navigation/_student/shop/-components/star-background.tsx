@@ -7,7 +7,7 @@ const BACKGROUND_STARS = Array.from({ length: 150 }, (_, index) => ({
   x: (((index * 197.3 + Math.sin(index * 91.7) * 43) % 1000) + 1000) % 1000,
   y: (((index * 283.9 + Math.cos(index * 41.3) * 31) % 2000) + 2000) % 2000,
   radius: 2 + Number(index % 13 === 0) * 2,
-  opacity: 0.2 + ((index * 17) % 70) / 100,
+  opacity: 0.15 + ((index * 17) % 70) / 125,
 }))
 
 export const StarBackground = memo(function StarBackground(props: {
