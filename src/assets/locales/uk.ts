@@ -8,8 +8,6 @@ export default {
   'navbar.home': 'Головна',
   'navbar.shop': 'Магазин',
   'navbar.groups': 'Групи',
-  'shop.reward.close': 'Закрити',
-  'shop.title': 'Галактика призів',
   'shop.balance': 'Баланс: {$count :number} робокоїнів',
   'shop.balance.amount': '{$count :number}',
   'shop.reward.back': 'Назад до галактики',
@@ -139,12 +137,6 @@ export default {
   'award.history.view-all': 'Уся історія нагород',
   'award.history.empty': 'Історія нагород порожня',
   'award.cancel.error': 'Не вдалося скасувати транзакцію. Спробуйте ще раз.',
-  'award.cancel.confirm.title': 'Скасувати транзакцію?',
-  'award.cancel.confirm.description': `
-    .input {$operation :string}
-    .match $operation
-    deposit {{Буде скасовано нарахування {$amount :number} робокоїнів. Учень: {$student}. Причина: {$reason}. Баланс зменшиться.}}
-    * {{Буде скасовано списання {$amount :number} робокоїнів. Учень: {$student}. Причина: {$reason}. Баланс збільшиться.}}`,
   'award.cancel.confirm.action': 'Скасувати транзакцію',
   'award.cancel.confirm.trigger': 'Скасувати транзакцію на {$amount :number} робокоїнів',
   'award.cancel.locked': 'Транзакцію більше не можна скасувати',
@@ -162,7 +154,6 @@ export default {
   'reason.incomplete': 'Невиконання завдання',
   'reason.other': 'Інше',
   'profile.balance.amount': '{$count :number}',
-  'profile.goal.product': 'Набір Arduino Uno',
   'profile.goal.none': 'Ціль не обрана',
   'profile.goal.shop': 'Перейти до магазину, щоб обрати ціль',
   'profile.goal.completed': 'Достатньо робокоїнів!',
@@ -186,7 +177,6 @@ export default {
     '{$date :datetime year=numeric month=|2-digit| day=|2-digit| hour=|2-digit| minute=|2-digit|}',
   'profile.history.all': 'Уся історія ›',
   'profile.history.loading': 'Завантаження історії…',
-  'profile.history.retry': 'Повторити завантаження історії',
   'profile.history.empty': 'Операцій поки немає',
   'profile.history.today': 'Сьогодні',
   'profile.history.yesterday': 'Учора',

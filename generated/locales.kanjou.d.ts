@@ -15,8 +15,6 @@ declare module '@kanjou/react' {
       'navbar.home': {}
       'navbar.shop': {}
       'navbar.groups': {}
-      'shop.reward.close': {}
-      'shop.title': {}
       'shop.balance': { count: { __fn: 'number' } }
       'shop.balance.amount': { count: { __fn: 'number' } }
       'shop.reward.back': {}
@@ -127,13 +125,6 @@ declare module '@kanjou/react' {
       'award.history.view-all': {}
       'award.history.empty': {}
       'award.cancel.error': {}
-      'award.cancel.confirm.title': {}
-      'award.cancel.confirm.description': {
-        operation: { __fn: 'string' }
-        amount: { __fn: 'number' }
-        student: DefaultMessageValue
-        reason: DefaultMessageValue
-      }
       'award.cancel.confirm.action': {}
       'award.cancel.confirm.trigger': { amount: { __fn: 'number' } }
       'award.cancel.locked': {}
@@ -154,7 +145,6 @@ declare module '@kanjou/react' {
       'reason.incomplete': {}
       'reason.other': {}
       'profile.balance.amount': { count: { __fn: 'number' } }
-      'profile.goal.product': {}
       'profile.goal.none': {}
       'profile.goal.shop': {}
       'profile.goal.completed': {}
@@ -171,7 +161,6 @@ declare module '@kanjou/react' {
       'history.date': { date: { __fn: 'datetime' } }
       'profile.history.all': {}
       'profile.history.loading': {}
-      'profile.history.retry': {}
       'profile.history.empty': {}
       'profile.history.today': {}
       'profile.history.yesterday': {}
