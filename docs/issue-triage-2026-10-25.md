@@ -86,6 +86,20 @@ Note on the red: `#fe394e` reaches about 3.4:1 against pure white but about 2.9:
 
 Not verified: no request ran against the live backend, so real permissions and data shapes remain unconfirmed. Interactive browser checks were not possible because the machine lacks `libasound.so.2`, which keeps Chromium from launching; dialog focus flow, swipe gestures and animations were verified only through the feature branches' logic-level tests and server-rendered markup.
 
+## Query caching
+
+TanStack Query owns the cache; the rules live in `src/constants/query.ts` and are applied in `src/lib/query.ts` with `queryClient.setQueryDefaults`, so every call site of a query shares the same TTL.
+
+| Group   | TTL    | Queries                                                                                                                                                                                                                                                                                                              |
+| ------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default | 1 min  | everything else                                                                                                                                                                                                                                                                                                      |
+| Catalog | 10 min | `/shop`, `/shop/:reward_id`, `/course`, `/course/category/:category`, `/group/course/:course_id`, `/group/name/:name`, `/teacher/:teacher_id`, `/teacher/course/:course_id/groups`, `/users`, `/users/:user_id`, `/ext/balance/balanceChangeReasons`, `/auth/me/credentials`, `student-reward-categories`, `session` |
+| Live    | 30 s   | `/student/:student_id`, `/student/:student_id/balance`, `/student/:student_id/reward-progress`, `/student/:student_id/transactions`, `/group/id/:group_id`, `/teacher/groups`                                                                                                                                        |
+
+Money and progress stay on the short TTL so an award shows up quickly, while the catalog, the profile and the session are cached for ten minutes. The shop is prefetched in the background from the student route `beforeLoad`, so opening `/shop` is instant; the deprecated `prefetchQuery` and `prefetchInfiniteQuery` calls were replaced with `queryClient.query` and `queryClient.infiniteQuery`.
+
+Measured against a local mock API: every request issued during navigation is served from the cache on the second visit, and the live queries refetch once their 30 second window is over.
+
 ## Remaining backlog
 
 Nothing from the cheap set is left open. The remaining fourteen issues are blocked for the reasons in the table above and need decisions or backend contracts before implementation:
