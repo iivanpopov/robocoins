@@ -38,8 +38,8 @@
   width: 4rem;
   height: 4rem;
   font-size: 2.5rem;
-  color: var(--muted-foreground);
-  background: var(--taupe-100);
+  color: var(--category-color);
+  background: var(--category-background);
   border-radius: var(--rounded-lg);
   transition:
     color 0.1s ease,
@@ -52,8 +52,7 @@
 }
 
 .category-choice[aria-pressed='true'] .category-tile {
-  color: var(--category-color);
-  background: var(--category-background);
+  background: color-mix(in srgb, var(--category-color) 24%, transparent);
 }
 
 .category-choice[aria-pressed='true']::before {
