@@ -35,7 +35,6 @@ declare module '@kanjou/react' {
       'settings.section.session': {}
       'settings.password.description': {}
       'settings.animations.disable': {}
-      'settings.animations.description': {}
       'settings.animations.system': {}
       'student.password.unavailable': {}
       'student.password.regenerate': {}
