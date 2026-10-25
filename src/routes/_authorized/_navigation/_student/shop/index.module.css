@@ -60,18 +60,23 @@
 
 .view-switch {
   display: flex;
-  gap: 4px;
+  gap: var(--spacing-lg);
   pointer-events: auto;
 }
 
 .view-switch button {
   min-height: 44px;
-  padding: 8px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  font-weight: 600;
   color: var(--muted-foreground);
   cursor: pointer;
-  background: var(--background);
-  border: 1px solid var(--muted);
+  background: transparent;
+  border: none;
   border-radius: var(--rounded-lg);
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease;
 }
 
 .view-switch button[aria-pressed='true'] {

@@ -15,8 +15,7 @@ export function useSettingsPage() {
   const queryClient = useQueryClient()
   const credentialsQuery = useGetStudentCredentialsAuthMeCredentialsGet({
     query: {
-      enabled: context.user?.role === 'student' && isPasswordVisible,
-      gcTime: 0,
+      enabled: context.user?.role === 'student',
     },
   })
   const logoutMutation = useLogoutAuthLogoutPost({
@@ -49,8 +48,9 @@ export function useSettingsPage() {
     void credentialsQuery.refetch()
   }
 
-  function handleToggleAnimations() {
-    setAnimationsDisabled(!motionPreference.disabled)
+  function handleAnimationsChange(checked: boolean) {
+    if (checked === motionPreference.disabled) return
+    setAnimationsDisabled(checked)
   }
 
   return {
@@ -60,6 +60,8 @@ export function useSettingsPage() {
       isLogoutDialogOpen,
       animationsDisabled: motionPreference.disabled,
       systemReducedMotion: motionPreference.systemReducedMotion,
+      password: credentialsQuery.data?.access_code ?? '',
+      isPasswordLoading: credentialsQuery.isPending,
     },
     queries: { credentials: credentialsQuery },
     mutations: { logout: logoutMutation },
@@ -68,7 +70,7 @@ export function useSettingsPage() {
       handleTogglePassword,
       handleRetryCredentials,
       handleLogoutDialogOpenChange,
-      handleToggleAnimations,
+      handleAnimationsChange,
     },
   }
 }

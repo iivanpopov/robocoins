@@ -6,10 +6,9 @@ declare module '@kanjou/react' {
   export interface Register {
     locale: 'uk'
     messages: {
-      'profile.cyberween.title': {}
-      'profile.cyberween.greeting': {}
-      'profile.cyberween.dismiss': {}
       'profile.cyberween.open': {}
+      'profile.cyberween.tagline': {}
+      'profile.cyberween.period': {}
       'navbar.label': {}
       'navbar.settings': {}
       'navbar.profile': {}
@@ -30,8 +29,11 @@ declare module '@kanjou/react' {
       'shop.view.label': {}
       'shop.view.galaxy': {}
       'shop.view.list': {}
-      'settings.name': {}
       'settings.password': {}
+      'settings.section.password': {}
+      'settings.section.appearance': {}
+      'settings.section.session': {}
+      'settings.password.description': {}
       'settings.animations.disable': {}
       'settings.animations.description': {}
       'settings.animations.system': {}

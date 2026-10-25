@@ -13,6 +13,14 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
   Button,
+  Checkbox,
+  Field,
+  FieldDescription,
+  FieldLabel,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
   Loader,
 } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
@@ -34,90 +42,110 @@ function SettingsPage() {
   return (
     <section className={styles.page}>
       <h1 className={styles.title}>{t('navbar.settings')}</h1>
-      <dl className={styles.details}>
-        <dt className={styles.label}>{t('settings.name')}</dt>
-        <dd className={styles.name}>{state.user?.name}</dd>
-        {state.isPasswordVisible && queries.credentials.isSuccess && (
-          <>
-            <dt className={styles.label}>{t('settings.password')}</dt>
-            <dd className={styles.name}>{queries.credentials.data.access_code}</dd>
-          </>
-        )}
-      </dl>
+
       {state.user?.role === 'student' && (
-        <>
-          {state.isPasswordVisible && queries.credentials.isError && (
-            <InlineError
-              onRetry={functions.handleRetryCredentials}
-              isRetrying={queries.credentials.isFetching}
-            >
-              {t('settings.credentials.error')}
-            </InlineError>
-          )}
-          <Button variant="ghost" onClick={functions.handleTogglePassword}>
-            {state.isPasswordVisible && queries.credentials.isFetching && <Loader />}
-            {state.isPasswordVisible && !queries.credentials.isFetching && (
-              <div aria-hidden="true" className="i-ph:eye-slash-bold" />
+        <section className={styles.section}>
+          <h2 className={styles['section-title']}>{t('settings.section.password')}</h2>
+          <Field>
+            <FieldLabel htmlFor="settings-password">{t('settings.password')}</FieldLabel>
+            <InputGroup>
+              <InputGroupInput
+                id="settings-password"
+                type={state.isPasswordVisible ? 'text' : 'password'}
+                value={state.password}
+                readOnly
+                autoComplete="off"
+                placeholder={t('field.password.placeholder')}
+                aria-describedby="settings-password-description"
+              />
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton
+                  onClick={functions.handleTogglePassword}
+                  aria-label={
+                    state.isPasswordVisible ? t('field.password.hide') : t('field.password.show')
+                  }
+                  aria-pressed={state.isPasswordVisible}
+                >
+                  <span
+                    aria-hidden="true"
+                    className={cn(
+                      state.isPasswordVisible && 'i-ph:eye-slash-bold',
+                      !state.isPasswordVisible && 'i-ph:eye-bold',
+                    )}
+                  />
+                </InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
+            <FieldDescription id="settings-password-description">
+              {t('settings.password.description')}
+            </FieldDescription>
+            {queries.credentials.isError && (
+              <InlineError
+                onRetry={functions.handleRetryCredentials}
+                isRetrying={queries.credentials.isFetching}
+              >
+                {t('settings.credentials.error')}
+              </InlineError>
             )}
-            {!state.isPasswordVisible && <div aria-hidden="true" className="i-ph:eye-bold" />}
-            {state.isPasswordVisible && t('field.password.hide')}
-            {!state.isPasswordVisible && t('field.password.show')}
-          </Button>
-        </>
+          </Field>
+        </section>
       )}
-      <div>
-        <Button
-          variant="ghost"
-          role="switch"
-          aria-checked={state.animationsDisabled}
-          aria-describedby="motion-description"
-          onClick={functions.handleToggleAnimations}
-        >
-          <span
-            aria-hidden="true"
-            className={cn(
-              state.animationsDisabled && 'i-ph:check-square-bold',
-              !state.animationsDisabled && 'i-ph:square-bold',
-            )}
+
+      <section className={styles.section}>
+        <h2 className={styles['section-title']}>{t('settings.section.appearance')}</h2>
+        <Field orientation="horizontal">
+          <Checkbox
+            id="settings-animations"
+            size="lg"
+            checked={state.animationsDisabled}
+            onCheckedChange={functions.handleAnimationsChange}
+            aria-describedby="settings-animations-description"
           />
-          {t('settings.animations.disable')}
-        </Button>
-        <p id="motion-description" className={styles.label}>
+          <FieldLabel htmlFor="settings-animations">{t('settings.animations.disable')}</FieldLabel>
+        </Field>
+        <FieldDescription id="settings-animations-description">
           {state.systemReducedMotion && t('settings.animations.system')}
           {!state.systemReducedMotion && t('settings.animations.description')}
-        </p>
-      </div>
-      <AlertDialog
-        open={state.isLogoutDialogOpen}
-        onOpenChange={functions.handleLogoutDialogOpenChange}
-      >
-        <AlertDialogTrigger render={<Button />} disabled={mutations.logout.isPending}>
-          <span aria-hidden="true" className="i-ph:sign-out-bold" />
-          {t('settings.logout')}
-        </AlertDialogTrigger>
-        <AlertDialogContent size="sm">
-          <AlertDialogHeader>
-            <AlertDialogTitle>{t('settings.logout.confirm.title')}</AlertDialogTitle>
-            <AlertDialogDescription>
-              {t('settings.logout.confirm.description')}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          {mutations.logout.isError && <InlineError>{t('settings.logout.error')}</InlineError>}
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={mutations.logout.isPending}>
-              {t('action.cancel')}
-            </AlertDialogCancel>
-            <AlertDialogAction
-              onClick={functions.handleLogout}
-              disabled={mutations.logout.isPending}
-              aria-busy={mutations.logout.isPending}
-            >
-              {mutations.logout.isPending && <Loader />}
-              {t('settings.logout')}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+        </FieldDescription>
+      </section>
+
+      <section className={styles.section}>
+        <h2 className={styles['section-title']}>{t('settings.section.session')}</h2>
+        <AlertDialog
+          open={state.isLogoutDialogOpen}
+          onOpenChange={functions.handleLogoutDialogOpenChange}
+        >
+          <AlertDialogTrigger
+            render={<Button variant="ghost" />}
+            disabled={mutations.logout.isPending}
+          >
+            <span aria-hidden="true" className="i-ph:sign-out-bold" />
+            {t('settings.logout')}
+          </AlertDialogTrigger>
+          <AlertDialogContent size="sm">
+            <AlertDialogHeader>
+              <AlertDialogTitle>{t('settings.logout.confirm.title')}</AlertDialogTitle>
+              <AlertDialogDescription>
+                {t('settings.logout.confirm.description')}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            {mutations.logout.isError && <InlineError>{t('settings.logout.error')}</InlineError>}
+            <AlertDialogFooter>
+              <AlertDialogCancel disabled={mutations.logout.isPending}>
+                {t('action.cancel')}
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={functions.handleLogout}
+                disabled={mutations.logout.isPending}
+                aria-busy={mutations.logout.isPending}
+              >
+                {mutations.logout.isPending && <Loader />}
+                {t('settings.logout')}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </section>
     </section>
   )
 }

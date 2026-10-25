@@ -1,8 +1,7 @@
 export default {
-  'profile.cyberween.title': 'Cyberween',
-  'profile.cyberween.greeting': 'Привіт із моторошно затишного кіберсвіту! Нехай ідеї оживають.',
-  'profile.cyberween.dismiss': 'Приховати банер Cyberween',
   'profile.cyberween.open': 'Відкрити допис Cyberween в Instagram',
+  'profile.cyberween.tagline': 'Твій герой виходить із гри',
+  'profile.cyberween.period': 'Конкурс 31.10 – 09.11',
   'navbar.label': 'Основна навігація',
   'navbar.settings': 'Налаштування',
   'navbar.profile': 'Профіль',
@@ -23,8 +22,12 @@ export default {
   'shop.view.label': 'Вигляд магазину',
   'shop.view.galaxy': 'Галактика',
   'shop.view.list': 'Список',
-  'settings.name': 'Ім’я користувача',
   'settings.password': 'Пароль',
+  'settings.section.password': 'Пароль',
+  'settings.section.appearance': 'Вигляд',
+  'settings.section.session': 'Сесія',
+  'settings.password.description':
+    'Пароль для входу в Robocoins. Натисни на око, щоб показати або сховати його.',
   'settings.animations.disable': 'Вимкнути анімації',
   'settings.animations.description':
     'Зберігається в цьому браузері та враховує налаштування системи.',
