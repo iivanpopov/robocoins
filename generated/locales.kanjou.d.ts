@@ -120,6 +120,21 @@ declare module '@kanjou/react' {
       'award.history.view-all': {}
       'award.history.empty': {}
       'award.cancel.error': {}
+      'award.cancel.confirm.title': {}
+      'award.cancel.confirm.description': {
+        operation: { __fn: 'string' }
+        amount: { __fn: 'number' }
+        student: DefaultMessageValue
+        reason: DefaultMessageValue
+      }
+      'award.cancel.confirm.action': {}
+      'award.cancel.confirm.trigger': { amount: { __fn: 'number' } }
+      'award.deduct.confirm.title': {}
+      'award.deduct.confirm.description': {
+        student: DefaultMessageValue
+        reason: DefaultMessageValue
+      }
+      'award.deduct.confirm.action': {}
       'reason.activity': {}
       'reason.homework': {}
       'reason.teamwork': {}

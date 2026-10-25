@@ -75,7 +75,9 @@ export function StudentDrawer(props: StudentDrawerProps) {
             </DrawerHeader>
             <StudentDetails />
             <BalanceChange
+              key={`${studentDrawer.groupId}:${props.student.id}:${props.open}`}
               studentId={props.student.id}
+              studentName={props.student.name}
               groupId={studentDrawer.groupId}
               enabled={props.open}
               onSuccess={studentDrawer.handleClose}
@@ -83,6 +85,7 @@ export function StudentDrawer(props: StudentDrawerProps) {
               <RecentTransactions
                 key={props.student.id}
                 studentId={props.student.id}
+                studentName={props.student.name}
                 groupId={studentDrawer.groupId}
                 enabled={props.open}
                 onViewAll={studentDrawer.handleViewHistory}

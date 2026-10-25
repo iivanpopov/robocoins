@@ -27,6 +27,12 @@ export function useBalanceChange(props: UseBalanceChangeProps) {
 
   const [direction, setDirection] = useState<AwardDirection>(AwardDirection.Reward)
   const [selectedReasons, setSelectedReasons] = useState<BalanceChangeReasonsKey[]>([])
+  const [pendingDeduction, setPendingDeduction] = useState<{
+    studentId: number
+    reasons: BalanceChangeReasonsKey[]
+  } | null>(null)
+  const cancelButtonReference = useRef<HTMLButtonElement>(null)
+  const submittingReference = useRef(false)
   const timeoutReference = useRef<ReturnType<typeof setTimeout>>(undefined)
   const activeReference = useRef(false)
 
@@ -51,12 +57,17 @@ export function useBalanceChange(props: UseBalanceChangeProps) {
         ])
         if (activeReference.current) props.onSuccess()
       },
+      onSettled: () => {
+        submittingReference.current = false
+        setPendingDeduction(null)
+        setSelectedReasons([])
+      },
     },
   })
 
   const swipeRef = useDirectionSwipe({
     direction,
-    enabled: props.enabled && !createAwardMutation.isPending,
+    enabled: props.enabled && !createAwardMutation.isPending && !pendingDeduction,
     onDirectionChange: handleDirectionSelect,
   })
 
@@ -70,7 +81,13 @@ export function useBalanceChange(props: UseBalanceChangeProps) {
   }, [props.enabled, props.studentId])
 
   function handleDirectionSelect(selectedDirection: AwardDirection) {
-    if (!props.enabled || createAwardMutation.isPending) return
+    if (
+      !props.enabled ||
+      createAwardMutation.isPending ||
+      pendingDeduction ||
+      submittingReference.current
+    )
+      return
 
     clearTimeout(timeoutReference.current)
     setSelectedReasons([])
@@ -82,7 +99,13 @@ export function useBalanceChange(props: UseBalanceChangeProps) {
   }
 
   function handleReasonClick(reason: BalanceChangeReasonsKey) {
-    if (!props.enabled || createAwardMutation.isPending) return
+    if (
+      !props.enabled ||
+      createAwardMutation.isPending ||
+      pendingDeduction ||
+      submittingReference.current
+    )
+      return
 
     clearTimeout(timeoutReference.current)
     const nextReasons = selectedReasons.filter((selectedReason) => selectedReason !== reason)
@@ -92,12 +115,42 @@ export function useBalanceChange(props: UseBalanceChangeProps) {
     if (!nextReasons.length) return
 
     timeoutReference.current = setTimeout(() => {
+      if (!activeReference.current || submittingReference.current) return
+      if (direction === AwardDirection.Punish) {
+        setPendingDeduction({ studentId: props.studentId, reasons: nextReasons })
+        return
+      }
+      submittingReference.current = true
       createAwardMutation.mutate({
         path: { student_id: props.studentId },
         body: { reason: nextReasons },
       })
       setSelectedReasons([])
     }, REASON_DEBOUNCE_IN_MILLISECONDS)
+  }
+
+  function handleDeductionDialogOpenChange(open: boolean) {
+    if (open || submittingReference.current) return
+
+    setPendingDeduction(null)
+    setSelectedReasons([])
+  }
+
+  function handleConfirmDeduction() {
+    if (
+      !props.enabled ||
+      !pendingDeduction ||
+      pendingDeduction.studentId !== props.studentId ||
+      submittingReference.current ||
+      createAwardMutation.isPending
+    )
+      return
+
+    submittingReference.current = true
+    createAwardMutation.mutate({
+      path: { student_id: pendingDeduction.studentId },
+      body: { reason: pendingDeduction.reasons },
+    })
   }
 
   const reasons = (reasonsQuery.data?.reasons ?? [])
@@ -115,10 +168,16 @@ export function useBalanceChange(props: UseBalanceChangeProps) {
   if (isMinus) reasonTone = 'error'
 
   return {
-    refs: { swipe: swipeRef },
-    state: { direction, selectedReasons, reasons, isPlus, isMinus, reasonTone },
+    refs: { swipe: swipeRef, cancelButton: cancelButtonReference },
+    state: { direction, selectedReasons, reasons, isPlus, isMinus, reasonTone, pendingDeduction },
     queries: { reasonsQuery },
     mutations: { createAwardMutation },
-    functions: { handleDirectionSelect, handleReasonClick, handleRetryReasons },
+    functions: {
+      handleDirectionSelect,
+      handleReasonClick,
+      handleRetryReasons,
+      handleDeductionDialogOpenChange,
+      handleConfirmDeduction,
+    },
   }
 }

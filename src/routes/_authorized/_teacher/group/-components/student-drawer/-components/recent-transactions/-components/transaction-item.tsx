@@ -33,7 +33,7 @@ export function TransactionItem(props: TransactionItemProps) {
     props.onCancel(props.transaction.id)
   }
 
-  function handleAnimationEnd(event: AnimationEvent<HTMLDivElement>) {
+  function handleAnimationEnd(event: AnimationEvent<HTMLButtonElement>) {
     if (event.target !== event.currentTarget || !props.isExiting) return
 
     props.onExitComplete(props.transaction.id)
@@ -54,7 +54,11 @@ export function TransactionItem(props: TransactionItemProps) {
       <span aria-hidden="true" className={styles['undo-indicator']}>
         <span className="i-ph:arrow-counter-clockwise" />
       </span>
-      <div
+      <button
+        type="button"
+        disabled={!props.enabled || !!props.transaction.cancelled_at}
+        onClick={handleCancel}
+        aria-label={t('award.cancel.confirm.trigger', { amount: props.transaction.amount })}
         className={cn(styles.item, swipe.isDragging && styles.dragging)}
         style={{ transform: `translateX(${-swipe.offset}px)` }}
         onAnimationEnd={handleAnimationEnd}
@@ -84,7 +88,7 @@ export function TransactionItem(props: TransactionItemProps) {
             })}
           </span>
         </div>
-      </div>
+      </button>
     </div>
   )
 }

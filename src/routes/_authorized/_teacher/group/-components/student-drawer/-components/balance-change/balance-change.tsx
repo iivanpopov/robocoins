@@ -2,7 +2,18 @@ import { useTranslate } from '@kanjou/react'
 import { cn } from 'cn'
 import { ReactNode } from 'react'
 
-import { Chip, Loader } from '#/components/ui'
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+  Chip,
+  Loader,
+} from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 import { AwardDirection } from '#/routes/_authorized/_teacher/group/-constants'
 
@@ -12,6 +23,7 @@ import styles from './balance-change.module.css'
 
 interface BalanceChangeProps {
   studentId: number
+  studentName: string
   groupId: number
   enabled: boolean
   onSuccess: () => void
@@ -24,6 +36,41 @@ export function BalanceChange(props: BalanceChangeProps) {
 
   return (
     <>
+      <AlertDialog
+        open={props.enabled && state.pendingDeduction !== null}
+        onOpenChange={functions.handleDeductionDialogOpenChange}
+      >
+        <AlertDialogContent initialFocus={refs.cancelButton}>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t('award.deduct.confirm.title')}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {state.pendingDeduction &&
+                t('award.deduct.confirm.description', {
+                  student: props.studentName,
+                  reason: state.pendingDeduction.reasons
+                    .map((reason) => t.unsafe(`reason.${reason}`))
+                    .join(', '),
+                })}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel
+              ref={refs.cancelButton}
+              disabled={mutations.createAwardMutation.isPending}
+            >
+              {t('action.cancel')}
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={functions.handleConfirmDeduction}
+              disabled={mutations.createAwardMutation.isPending}
+              aria-busy={mutations.createAwardMutation.isPending}
+            >
+              {mutations.createAwardMutation.isPending && <Loader />}
+              {t('award.deduct.confirm.action')}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
       <div className={styles['scroll-area']}>
         {props.children}
         <div ref={refs.swipe} className={styles['reasons-section']} data-base-ui-swipe-ignore="x">
@@ -43,7 +90,7 @@ export function BalanceChange(props: BalanceChangeProps) {
                 key={reason}
                 size="lg"
                 tone={state.reasonTone}
-                disabled={mutations.createAwardMutation.isPending}
+                disabled={mutations.createAwardMutation.isPending || !!state.pendingDeduction}
                 selected={state.selectedReasons.includes(reason)}
                 onClick={() => functions.handleReasonClick(reason)}
               >
@@ -56,7 +103,7 @@ export function BalanceChange(props: BalanceChangeProps) {
       <div className={styles['direction-toggle']}>
         <button
           type="button"
-          disabled={mutations.createAwardMutation.isPending}
+          disabled={mutations.createAwardMutation.isPending || !!state.pendingDeduction}
           className={cn(
             styles['direction-btn'],
             state.isPlus && styles['direction-btn-plus-active'],
@@ -73,7 +120,7 @@ export function BalanceChange(props: BalanceChangeProps) {
         </button>
         <button
           type="button"
-          disabled={mutations.createAwardMutation.isPending}
+          disabled={mutations.createAwardMutation.isPending || !!state.pendingDeduction}
           className={cn(
             styles['direction-btn'],
             state.isMinus && styles['direction-btn-minus-active'],

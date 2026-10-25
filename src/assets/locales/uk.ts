@@ -130,6 +130,17 @@ export default {
   'award.history.view-all': 'Уся історія нагород',
   'award.history.empty': 'Історія нагород порожня',
   'award.cancel.error': 'Не вдалося скасувати транзакцію. Спробуйте ще раз.',
+  'award.cancel.confirm.title': 'Скасувати транзакцію?',
+  'award.cancel.confirm.description': `
+    .input {$operation :string}
+    .match $operation
+    deposit {{Буде скасовано нарахування {$amount :number} робокоїнів. Учень: {$student}. Причина: {$reason}. Баланс зменшиться.}}
+    * {{Буде скасовано списання {$amount :number} робокоїнів. Учень: {$student}. Причина: {$reason}. Баланс збільшиться.}}`,
+  'award.cancel.confirm.action': 'Скасувати транзакцію',
+  'award.cancel.confirm.trigger': 'Скасувати транзакцію на {$amount :number} робокоїнів',
+  'award.deduct.confirm.title': 'Підтвердити списання?',
+  'award.deduct.confirm.description': 'Баланс учня {$student} буде зменшено. Причина: {$reason}.',
+  'award.deduct.confirm.action': 'Списати робокоїни',
   'reason.activity': 'Активність на уроці',
   'reason.homework': 'Домашнє завдання',
   'reason.teamwork': 'Допомога команді',
