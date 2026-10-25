@@ -112,6 +112,7 @@ export default {
     many {{{$count} учнів}}
     * {{{$count} учня}}`,
   'group.back': 'Назад до вибору груп',
+  'group.current': 'Поточна',
   'student.empty': 'Учнів за вашим запитом не знайдено',
   'student.group-empty': 'У цій групі ще немає учнів',
   'field.student-search.placeholder': 'Пошук учня за іменем...',

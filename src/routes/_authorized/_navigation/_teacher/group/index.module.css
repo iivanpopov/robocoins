@@ -82,6 +82,24 @@
   border-radius: var(--rounded-md);
 }
 
+.card-heading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs) var(--spacing-sm);
+  align-items: center;
+}
+
+.current-badge {
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--green-900);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: var(--green-200);
+  border-radius: var(--rounded-full);
+}
+
 .card-title {
   font-size: 1.0625rem;
   font-weight: 700;

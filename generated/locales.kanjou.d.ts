@@ -100,6 +100,7 @@ declare module '@kanjou/react' {
       'group.filter.all': { count: { __fn: 'number' } }
       'group.students-count': { count: { __fn: 'number' } }
       'group.back': {}
+      'group.current': {}
       'student.empty': {}
       'student.group-empty': {}
       'field.student-search.placeholder': {}

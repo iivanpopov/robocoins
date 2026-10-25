@@ -73,7 +73,12 @@ function GroupPage() {
                   <CategoryIcon category={group.category} />
                 </div>
                 <div className={styles['card-details']}>
-                  <h2 className={styles['card-title']}>{group.course_name}</h2>
+                  <div className={styles['card-heading']}>
+                    <h2 className={styles['card-title']}>{group.course_name}</h2>
+                    {group.isActive && (
+                      <span className={styles['current-badge']}>{t('group.current')}</span>
+                    )}
+                  </div>
                   <span className={styles['schedule-block']}>
                     {group.schedule.weekday && <>{t(`weekday.${group.schedule.weekday}`)}, </>}
                     {group.schedule.time}
