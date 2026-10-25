@@ -64,18 +64,6 @@ function ShopPage() {
           <span>{t('shop.balance.amount', { count: state.balance })}</span>
           <span className="i-ph:coins-bold" aria-hidden="true" />
         </div>
-        {!state.isRewardActive && !state.isListView && (
-          <div className={styles.legend}>
-            <span>
-              <span className="i-ph:cube-duotone" aria-hidden="true" />
-              {t('shop.legend.rewards')}
-            </span>
-            <span>
-              <span className="i-ph:star-four-fill" aria-hidden="true" />
-              {t('shop.legend.privileges')}
-            </span>
-          </div>
-        )}
       </header>
       <StarBackground backgroundRef={refs.background} />
       <div

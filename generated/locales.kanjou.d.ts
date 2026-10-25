@@ -26,11 +26,9 @@ declare module '@kanjou/react' {
       'shop.reward.cost': {}
       'shop.reward.type.reward': {}
       'shop.reward.type.privilege': {}
-      'shop.legend.rewards': {}
       'shop.view.label': {}
       'shop.view.galaxy': {}
       'shop.view.list': {}
-      'shop.legend.privileges': {}
       'settings.name': {}
       'settings.password': {}
       'settings.animations.disable': {}

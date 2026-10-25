@@ -23,13 +23,11 @@
   left: 0;
   z-index: 2;
   display: flex;
-  flex-wrap: wrap;
   gap: var(--spacing-md);
   align-items: center;
-  width: min(100%, 430px);
+  width: 100%;
   min-height: 44px;
   padding: 0 var(--spacing-xl);
-  margin: 0 auto;
   color: var(--foreground);
   pointer-events: none;
 }
@@ -52,15 +50,6 @@
   height: 1em;
   vertical-align: -0.08em;
   color: var(--foreground);
-}
-
-.legend {
-  display: flex;
-  flex-basis: 100%;
-  flex-wrap: wrap;
-  gap: 6px 14px;
-  font-size: 14px;
-  color: var(--muted-foreground);
 }
 
 .list-view,
@@ -156,18 +145,6 @@
   display: flex;
   gap: 6px;
   align-items: center;
-}
-
-.legend > span {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-
-.legend [aria-hidden='true'] {
-  width: 14px;
-  height: 14px;
-  color: var(--foreground);
 }
 
 .star-background,
