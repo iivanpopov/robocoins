@@ -11,7 +11,9 @@ import { useHistoryPage } from './-hooks'
 
 export const Route = createFileRoute('/_authorized/_navigation/_student/history/')({
   loader: async ({ context }) => {
-    await context.queryClient.prefetchInfiniteQuery(getRewardHistoryQueryOptions(context.user!.id))
+    await context.queryClient
+      .infiniteQuery(getRewardHistoryQueryOptions(context.user!.id))
+      .catch(() => undefined)
   },
   component: HistoryPage,
 })

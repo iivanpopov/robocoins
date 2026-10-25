@@ -59,7 +59,6 @@ export function useSettingsPage() {
       isPasswordVisible,
       isLogoutDialogOpen,
       animationsDisabled: motionPreference.disabled,
-      systemReducedMotion: motionPreference.systemReducedMotion,
       password: credentialsQuery.data?.access_code ?? '',
       isPasswordLoading: credentialsQuery.isPending,
     },

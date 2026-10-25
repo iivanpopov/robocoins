@@ -42,9 +42,9 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/')({
           path: { student_id: profile.id },
         }),
       ),
-      context.queryClient.prefetchQuery(
-        getStudentRewardCategoriesQueryOptions(context.queryClient, profile),
-      ),
+      context.queryClient
+        .query(getStudentRewardCategoriesQueryOptions(context.queryClient, profile))
+        .catch(() => undefined),
     ])
   },
   onEnter: () => {

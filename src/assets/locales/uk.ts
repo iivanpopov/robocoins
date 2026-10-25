@@ -29,8 +29,6 @@ export default {
   'settings.password.description':
     'Пароль для входу в Robocoins. Натисни на око, щоб показати або сховати його.',
   'settings.animations.disable': 'Вимкнути анімації',
-  'settings.animations.description':
-    'Зберігається в цьому браузері та враховує налаштування системи.',
   'settings.animations.system':
     'Анімації вже зменшено налаштуваннями системи. Цей перемикач не може їх увімкнути.',
   'student.password.unavailable': 'Пароль недоступний',

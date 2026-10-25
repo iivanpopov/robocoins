@@ -104,11 +104,7 @@ function SettingsPage() {
           <FieldLabel htmlFor="settings-animations">{t('settings.animations.disable')}</FieldLabel>
         </Field>
         <FieldDescription id="settings-animations-description">
-          {(state.systemReducedMotion || state.animationsDisabled) &&
-            t('settings.animations.system')}
-          {!state.systemReducedMotion &&
-            !state.animationsDisabled &&
-            t('settings.animations.description')}
+          {t('settings.animations.system')}
         </FieldDescription>
       </section>
 

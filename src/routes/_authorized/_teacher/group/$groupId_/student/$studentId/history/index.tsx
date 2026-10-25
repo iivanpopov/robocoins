@@ -36,7 +36,9 @@ export const Route = createFileRoute(
     const student = group.students?.find((value) => value.id === studentId)
     if (!student) throw notFound()
 
-    await context.queryClient.prefetchInfiniteQuery(getRewardHistoryQueryOptions(student.id))
+    await context.queryClient
+      .infiniteQuery(getRewardHistoryQueryOptions(student.id))
+      .catch(() => undefined)
     return student
   },
   component: StudentHistoryPage,
