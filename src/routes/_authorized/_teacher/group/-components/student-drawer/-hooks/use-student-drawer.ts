@@ -21,7 +21,7 @@ export function useStudentDrawer(props: StudentDrawerProps) {
     if (!props.student) return
     void navigate({
       to: '/group/$groupId/student/$studentId/history',
-      params: { groupId: String(props.groupId), studentId: String(props.student.id) },
+      params: { groupId: props.groupId, studentId: props.student.id },
     })
   }
 

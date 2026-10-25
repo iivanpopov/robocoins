@@ -36,6 +36,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       retry: false,
     })
     const animationsDisabled = (await readCookie(MOTION_PREFERENCE_COOKIE)) === 'true'
+
     return { locale, user, animationsDisabled }
   },
   headers: () => ({ 'Cache-Control': 'private, no-store' }),

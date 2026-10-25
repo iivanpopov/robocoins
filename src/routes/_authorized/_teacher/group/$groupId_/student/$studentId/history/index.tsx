@@ -1,5 +1,6 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link, notFound } from '@tanstack/react-router'
+import * as v from 'valibot'
 
 import { getGroupByIdGroupIdGroupIdGetQueryOptions } from '#/api/hooks/useGetGroupByIdGroupIdGroupIdGet'
 import { getTeacherGroupsTeacherGroupsGetQueryOptions } from '#/api/hooks/useGetTeacherGroupsTeacherGroupsGet'
@@ -11,29 +12,41 @@ import {
 
 import { useStudentHistoryPage } from './-hooks'
 
+const HistoryParamsSchema = v.object({
+  groupId: v.pipe(
+    v.string(),
+    v.regex(/^\d+$/),
+    v.transform(Number),
+    v.safeInteger(),
+    v.minValue(1),
+  ),
+  studentId: v.pipe(
+    v.string(),
+    v.regex(/^\d+$/),
+    v.transform(Number),
+    v.safeInteger(),
+    v.minValue(1),
+  ),
+})
+
 export const Route = createFileRoute(
   '/_authorized/_teacher/group/$groupId_/student/$studentId/history/',
 )({
+  params: {
+    parse: (params) => {
+      const result = v.safeParse(HistoryParamsSchema, params)
+      if (!result.success) throw notFound()
+      return result.output
+    },
+  },
   loader: async ({ context, params }) => {
-    const groupId = Number(params.groupId)
-    const studentId = Number(params.studentId)
-    if (
-      !/^\d+$/.test(params.groupId) ||
-      !/^\d+$/.test(params.studentId) ||
-      !Number.isSafeInteger(groupId) ||
-      !Number.isSafeInteger(studentId) ||
-      groupId <= 0 ||
-      studentId <= 0
-    )
-      throw notFound()
-
     const groups = await context.queryClient.query(getTeacherGroupsTeacherGroupsGetQueryOptions())
-    if (!groups.some((group) => group.id === groupId)) throw notFound()
+    if (!groups.some((group) => group.id === params.groupId)) throw notFound()
 
     const group = await context.queryClient.query(
-      getGroupByIdGroupIdGroupIdGetQueryOptions({ path: { group_id: groupId } }),
+      getGroupByIdGroupIdGroupIdGetQueryOptions({ path: { group_id: params.groupId } }),
     )
-    const student = group.students?.find((value) => value.id === studentId)
+    const student = group.students?.find((value) => value.id === params.studentId)
     if (!student) throw notFound()
 
     await context.queryClient
@@ -55,7 +68,7 @@ function StudentHistoryPage() {
       backLink={
         <IconButton
           nativeButton={false}
-          render={<Link to="/group/$groupId" params={{ groupId: state.groupId }} />}
+          render={<Link to="/group/$groupId" params={{ groupId: String(state.groupId) }} />}
           title={t('history.back')}
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
