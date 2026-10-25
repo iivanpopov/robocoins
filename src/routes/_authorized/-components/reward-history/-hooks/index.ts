@@ -1,1 +1,1 @@
-export { useRewardHistory } from './use-reward-history'
+export { getRewardHistoryQueryOptions, useRewardHistory } from './use-reward-history'

@@ -1,35 +1,40 @@
-import { useInfiniteQuery } from '@tanstack/react-query'
+import { infiniteQueryOptions, useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect, useRef } from 'react'
 
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGet } from '#/api/clients/getStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryKey } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { compareTransactionsByNewest } from '#/routes/-utils'
 
-export function useRewardHistory(studentId: number) {
-  const sentinel = useRef<HTMLDivElement>(null)
+const PAGE_SIZE = 30
 
-  const pageSize = 30
-  const historyQuery = useInfiniteQuery({
+export function getRewardHistoryQueryOptions(studentId: number) {
+  return infiniteQueryOptions({
     queryKey: [
       ...getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryKey({
         path: { student_id: studentId },
       }),
       'infinite',
-      { pageSize },
+      { pageSize: PAGE_SIZE },
     ],
     initialPageParam: 0,
     queryFn: ({ pageParam, signal }) =>
       getStudentTransactionHistoryStudentStudentIdTransactionsGet({
         path: { student_id: studentId },
-        query: { limit: pageSize, offset: pageParam },
+        query: { limit: PAGE_SIZE, offset: pageParam },
         signal,
         throwOnError: true,
       }).unwrap(),
     getNextPageParam: (lastPage, pages) => {
-      if (lastPage.transactions.length < pageSize) return undefined
+      if (lastPage.transactions.length < PAGE_SIZE) return undefined
       return pages.reduce((count, page) => count + page.transactions.length, 0)
     },
   })
+}
+
+export function useRewardHistory(studentId: number) {
+  const sentinel = useRef<HTMLDivElement>(null)
+
+  const historyQuery = useInfiniteQuery(getRewardHistoryQueryOptions(studentId))
 
   useEffect(() => {
     if (

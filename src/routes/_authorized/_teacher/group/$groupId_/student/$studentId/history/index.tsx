@@ -4,7 +4,10 @@ import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 import { getGroupByIdGroupIdGroupIdGetQueryOptions } from '#/api/hooks/useGetGroupByIdGroupIdGroupIdGet'
 import { getTeacherGroupsTeacherGroupsGetQueryOptions } from '#/api/hooks/useGetTeacherGroupsTeacherGroupsGet'
 import { IconButton } from '#/components/ui'
-import { RewardHistory } from '#/routes/_authorized/-components/reward-history'
+import {
+  getRewardHistoryQueryOptions,
+  RewardHistory,
+} from '#/routes/_authorized/-components/reward-history'
 
 import { useStudentHistoryPage } from './-hooks'
 
@@ -32,6 +35,8 @@ export const Route = createFileRoute(
     )
     const student = group.students?.find((value) => value.id === studentId)
     if (!student) throw notFound()
+
+    await context.queryClient.prefetchInfiniteQuery(getRewardHistoryQueryOptions(student.id))
     return student
   },
   component: StudentHistoryPage,

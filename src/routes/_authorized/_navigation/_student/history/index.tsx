@@ -2,11 +2,17 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { IconButton } from '#/components/ui'
-import { RewardHistory } from '#/routes/_authorized/-components/reward-history'
+import {
+  getRewardHistoryQueryOptions,
+  RewardHistory,
+} from '#/routes/_authorized/-components/reward-history'
 
 import { useHistoryPage } from './-hooks'
 
 export const Route = createFileRoute('/_authorized/_navigation/_student/history/')({
+  loader: async ({ context }) => {
+    await context.queryClient.prefetchInfiniteQuery(getRewardHistoryQueryOptions(context.user!.id))
+  },
   component: HistoryPage,
 })
 
