@@ -1,5 +1,6 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute } from '@tanstack/react-router'
+import { cn } from 'cn'
 
 import {
   AlertDialog,
@@ -64,6 +65,28 @@ function SettingsPage() {
           </Button>
         </>
       )}
+      <div>
+        <Button
+          variant="ghost"
+          role="switch"
+          aria-checked={state.animationsDisabled}
+          aria-describedby="motion-description"
+          onClick={functions.handleToggleAnimations}
+        >
+          <span
+            aria-hidden="true"
+            className={cn(
+              state.animationsDisabled && 'i-ph:check-square-bold',
+              !state.animationsDisabled && 'i-ph:square-bold',
+            )}
+          />
+          {t('settings.animations.disable')}
+        </Button>
+        <p id="motion-description" className={styles.label}>
+          {state.systemReducedMotion && t('settings.animations.system')}
+          {!state.systemReducedMotion && t('settings.animations.description')}
+        </p>
+      </div>
       <AlertDialog
         open={state.isLogoutDialogOpen}
         onOpenChange={functions.handleLogoutDialogOpenChange}

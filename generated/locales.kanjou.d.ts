@@ -33,6 +33,9 @@ declare module '@kanjou/react' {
       'shop.legend.privileges': {}
       'settings.name': {}
       'settings.password': {}
+      'settings.animations.disable': {}
+      'settings.animations.description': {}
+      'settings.animations.system': {}
       'student.password.unavailable': {}
       'student.password.regenerate': {}
       'settings.credentials.error': {}

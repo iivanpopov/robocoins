@@ -18,8 +18,11 @@ import '#/assets/styles/global.css'
 import 'virtual:uno.css'
 
 import { Toaster } from '#/components/ui/toast'
+import { useMotionPreference } from '#/hooks/use-motion-preference'
 import { getSession } from '#/lib/session'
 import { AppLink } from '#/routes/-components/app-link'
+import { readCookie } from '#/utils/cookies'
+import { MOTION_PREFERENCE_COOKIE } from '#/utils/motion'
 
 const components = { br: () => <br />, a: AppLink }
 const functions = { ...DefaultFunctions, ...DraftFunctions }
@@ -32,7 +35,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       queryFn: () => getSession(),
       retry: false,
     })
-    return { locale, user }
+    const animationsDisabled = (await readCookie(MOTION_PREFERENCE_COOKIE)) === 'true'
+    return { locale, user, animationsDisabled }
   },
   headers: () => ({ 'Cache-Control': 'private, no-store' }),
   head: () => ({
@@ -72,6 +76,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootDocument({ children }: { children: ReactNode }) {
   const pathname = useLocation({ select: (location) => location.pathname })
   const context = Route.useRouteContext()
+  const motionPreference = useMotionPreference(context?.animationsDisabled)
 
   const locale = context?.locale ?? 'uk'
 
@@ -79,7 +84,7 @@ function RootDocument({ children }: { children: ReactNode }) {
   if (pathname.replace(/\/+$/, '') === '/shop') iconHref = '/icon-galaxy.svg'
 
   return (
-    <html lang={locale}>
+    <html lang={locale} data-reduced-motion={motionPreference.disabled}>
       <head>
         <HeadContent />
         <link rel="icon" href={iconHref} type="image/svg+xml" />

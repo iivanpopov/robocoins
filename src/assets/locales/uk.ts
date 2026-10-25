@@ -26,6 +26,11 @@ export default {
   'shop.legend.privileges': 'Привілеї',
   'settings.name': 'Ім’я користувача',
   'settings.password': 'Пароль',
+  'settings.animations.disable': 'Вимкнути анімації',
+  'settings.animations.description':
+    'Зберігається в цьому браузері та враховує налаштування системи.',
+  'settings.animations.system':
+    'Анімації вже зменшено налаштуваннями системи. Цей перемикач не може їх увімкнути.',
   'student.password.unavailable': 'Пароль недоступний',
   'student.password.regenerate': 'Згенерувати новий пароль',
   'settings.credentials.error': 'Не вдалося завантажити пароль.',

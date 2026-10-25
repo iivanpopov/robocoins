@@ -4,11 +4,14 @@ import { useState } from 'react'
 
 import { useGetStudentCredentialsAuthMeCredentialsGet } from '#/api/hooks/useGetStudentCredentialsAuthMeCredentialsGet'
 import { useLogoutAuthLogoutPost } from '#/api/hooks/useLogoutAuthLogoutPost'
+import { useMotionPreference } from '#/hooks/use-motion-preference'
+import { setAnimationsDisabled } from '#/utils/motion'
 
 export function useSettingsPage() {
   const context = useRouteContext({ from: '/_authorized' })
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false)
+  const motionPreference = useMotionPreference(context.animationsDisabled)
   const queryClient = useQueryClient()
   const credentialsQuery = useGetStudentCredentialsAuthMeCredentialsGet({
     query: {
@@ -46,8 +49,18 @@ export function useSettingsPage() {
     void credentialsQuery.refetch()
   }
 
+  function handleToggleAnimations() {
+    setAnimationsDisabled(!motionPreference.disabled)
+  }
+
   return {
-    state: { user: context.user, isPasswordVisible, isLogoutDialogOpen },
+    state: {
+      user: context.user,
+      isPasswordVisible,
+      isLogoutDialogOpen,
+      animationsDisabled: motionPreference.disabled,
+      systemReducedMotion: motionPreference.systemReducedMotion,
+    },
     queries: { credentials: credentialsQuery },
     mutations: { logout: logoutMutation },
     functions: {
@@ -55,6 +68,7 @@ export function useSettingsPage() {
       handleTogglePassword,
       handleRetryCredentials,
       handleLogoutDialogOpenChange,
+      handleToggleAnimations,
     },
   }
 }

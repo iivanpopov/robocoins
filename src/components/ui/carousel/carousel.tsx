@@ -10,6 +10,7 @@ import {
   useState,
 } from 'react'
 
+import { useMotionPreference } from '#/hooks/use-motion-preference'
 import { prefersReducedMotion } from '#/utils/motion'
 
 import styles from './carousel.module.css'
@@ -45,9 +46,11 @@ export function useCarousel() {
 }
 
 export function Carousel({ opts, plugins, setApi, className, children, ...props }: CarouselProps) {
+  const motionPreference = useMotionPreference()
   const [carouselRef, api] = useEmblaCarousel(
     {
       ...opts,
+      ...(motionPreference.reducedMotion && { duration: 0 }),
       axis: 'x',
       breakpoints: {
         ...opts?.breakpoints,
@@ -86,9 +89,12 @@ export function Carousel({ opts, plugins, setApi, className, children, ...props 
     }
   }, [api])
 
-  const scrollPrev = useCallback(() => api?.scrollPrev(), [api])
-  const scrollNext = useCallback(() => api?.scrollNext(), [api])
-  const scrollTo = useCallback((index: number) => api?.scrollTo(index), [api])
+  const scrollPrev = useCallback(() => api?.scrollPrev(prefersReducedMotion()), [api])
+  const scrollNext = useCallback(() => api?.scrollNext(prefersReducedMotion()), [api])
+  const scrollTo = useCallback(
+    (index: number) => api?.scrollTo(index, prefersReducedMotion()),
+    [api],
+  )
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'ArrowLeft') {
