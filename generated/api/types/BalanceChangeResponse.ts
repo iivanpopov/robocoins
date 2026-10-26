@@ -6,16 +6,16 @@
 import type { BalanceTransactionResponse } from './BalanceTransactionResponse'
 
 export type BalanceChangeResponse = {
-    balance: number;
-    transaction: BalanceTransactionResponse;
-    /**
-     * @default 200
-     * @type integer | undefined
-    */
-    code?: number;
     /**
      * @default 'success'
      * @type string | undefined
     */
     status?: string;
+    /**
+     * @default 200
+     * @type integer | undefined
+    */
+    code?: number;
+    balance: number;
+    transaction: BalanceTransactionResponse;
 };

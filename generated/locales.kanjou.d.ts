@@ -36,6 +36,11 @@ declare module '@kanjou/react' {
       'settings.animations.system': {}
       'student.password.unavailable': {}
       'student.password.regenerate': {}
+      'student.password.regenerate.confirm.title': {}
+      'student.password.regenerate.confirm.description': {
+        student: DefaultMessageValue
+      }
+      'student.password.regenerate.confirm.action': {}
       'settings.credentials.error': {}
       'settings.logout': {}
       'settings.logout.confirm.title': {}
@@ -184,6 +189,52 @@ declare module '@kanjou/react' {
       'not-found.title': {}
       'not-found.description': {}
       'not-found.home': {}
+      'student.profile.title': {}
+      'student.profile.edit': {}
+      'profile.groups': {}
+      'profile.courses': {}
+      'profile.groups.empty': {}
+      'student.edit.title': {}
+      'student.edit.section.profile': {}
+      'student.edit.section.groups': {}
+      'student.edit.nickname.label': {}
+      'student.edit.nickname.placeholder': {}
+      'student.edit.nickname.save': {}
+      'student.edit.nickname.error': {}
+      'student.edit.avatar.label': {}
+      'student.edit.avatar.change': {}
+      'student.edit.avatar.save': {}
+      'student.edit.avatar.error': {}
+      'student.edit.groups.source-label': {}
+      'student.edit.groups.target-label': {}
+      'student.edit.groups.source-empty': {}
+      'student.edit.groups.target-empty': {}
+      'student.edit.groups.placeholder': {}
+      'field.group-search.placeholder': {}
+      'student.edit.groups.remove.label': {}
+      'student.edit.groups.remove.description': { group: DefaultMessageValue }
+      'student.edit.groups.add-action': {}
+      'student.edit.groups.transfer-action': {}
+      'student.edit.groups.confirm.title': {}
+      'student.edit.groups.confirm.add-description': {
+        student: DefaultMessageValue
+        group: DefaultMessageValue
+      }
+      'student.edit.groups.confirm.transfer-description': {
+        student: DefaultMessageValue
+        source: DefaultMessageValue
+        target: DefaultMessageValue
+      }
+      'student.edit.groups.confirm.keep-source': { group: DefaultMessageValue }
+      'student.edit.groups.confirm.remove-source': {
+        group: DefaultMessageValue
+      }
+      'student.edit.groups.confirm.submit': {}
+      'student.edit.groups.error': {}
+      'student.edit.groups.partial-error': {}
+      'student.edit.groups.partial-retry': {}
+      'student.edit.groups.success': {}
+      'student.edit.groups.membership-changed': {}
     }
   }
 }

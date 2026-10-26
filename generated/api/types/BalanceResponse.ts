@@ -4,15 +4,15 @@
 */
 
 export type BalanceResponse = {
-    balance: number;
-    /**
-     * @default 200
-     * @type integer | undefined
-    */
-    code?: number;
     /**
      * @default 'success'
      * @type string | undefined
     */
     status?: string;
+    /**
+     * @default 200
+     * @type integer | undefined
+    */
+    code?: number;
+    balance: number;
 };

@@ -71,18 +71,25 @@ function StudentPage() {
   return (
     <main className={styles.page}>
       <header className={styles.header}>
-        <Avatar>
-          <AvatarImage
-            src={getAvatarUrl(state.profile.avatar as AvatarName)}
-            alt={state.profile.name}
-          />
-          <AvatarFallback role="img" aria-label={state.profile.name}>
-            {getInitial(state.profile.name)}
-          </AvatarFallback>
-        </Avatar>
-        <Typography className={styles.name} variant="subtitle">
-          {state.profile.name}
-        </Typography>
+        <button
+          type="button"
+          className={styles['profile-button']}
+          onClick={functions.handleOpenProfile}
+          title={t('step.success.profile')}
+        >
+          <Avatar>
+            <AvatarImage
+              src={getAvatarUrl(state.profile.avatar as AvatarName)}
+              alt={state.profile.name}
+            />
+            <AvatarFallback role="img" aria-label={state.profile.name}>
+              {getInitial(state.profile.name)}
+            </AvatarFallback>
+          </Avatar>
+          <Typography className={styles.name} variant="subtitle">
+            {state.profile.name}
+          </Typography>
+        </button>
         <div className={styles.balance}>
           <span>{t('profile.balance.amount', { count: state.profile.balance })}</span>
           <div aria-hidden="true" className={cn('i-ph:coins-bold', styles['coin-icon'])} />

@@ -7,14 +7,14 @@ import type { BalanceChangeReasonItem } from './BalanceChangeReasonItem'
 
 export type BalanceChangeReasonsResponse = {
     /**
-     * @default 200
-     * @type integer | undefined
-    */
-    code?: number;
-    /**
      * @default 'success'
      * @type string | undefined
     */
     status?: string;
+    /**
+     * @default 200
+     * @type integer | undefined
+    */
+    code?: number;
     reasons: BalanceChangeReasonItem[];
 };

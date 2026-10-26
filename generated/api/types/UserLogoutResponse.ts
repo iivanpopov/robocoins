@@ -4,7 +4,6 @@
 */
 
 export type UserLogoutResponse = {
-    message: string;
     /**
      * @default 'success'
      * @type string | undefined
@@ -15,4 +14,5 @@ export type UserLogoutResponse = {
      * @type integer | undefined
     */
     code?: number;
+    message: string;
 };

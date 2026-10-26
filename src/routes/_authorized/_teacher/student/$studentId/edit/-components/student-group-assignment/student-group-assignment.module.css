@@ -1,0 +1,40 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.submit {
+  width: 100%;
+}
+
+.confirm-identity {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.outcome {
+  color: var(--foreground);
+}
+
+.remove-checkbox {
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+
+.remove-checkbox[data-checked],
+.remove-checkbox[data-indeterminate] {
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+
+.remove-checkbox:focus-visible {
+  outline-color: var(--foreground);
+}
+
+.remove-label {
+  color: var(--foreground);
+}

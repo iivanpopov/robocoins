@@ -1,0 +1,85 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  width: min(100%, 430px);
+  min-height: 100dvh;
+  padding: var(--spacing-md) var(--spacing-md) 4rem;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back-button {
+  flex-shrink: 0;
+}
+
+.header-identity {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  min-width: 0;
+}
+
+.header-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  color: var(--foreground);
+  white-space: nowrap;
+}
+
+.loader {
+  align-items: center;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--foreground);
+}
+
+.nickname-row {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.nickname-row > :first-child {
+  flex: 1;
+}
+
+.nickname-save {
+  flex-shrink: 0;
+}
+
+.avatar-field {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.password-row {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.password-row > :first-child {
+  flex: 1;
+}
+
+.password-regenerate {
+  flex-shrink: 0;
+}

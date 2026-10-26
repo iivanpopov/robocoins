@@ -13,8 +13,22 @@ export function useStudentDrawer(props: StudentDrawerProps) {
     handleOpenChange(false)
   }
 
+  function navigateToStudent(path: '/student/$studentId' | '/student/$studentId/edit') {
+    if (!props.student) return
+    props.onOpenChange(false)
+    void navigate({
+      to: path,
+      params: { studentId: props.student.id },
+      search: { fromGroupId: props.groupId },
+    })
+  }
+
   function handleViewProfile() {
-    console.log('View student profile', props.student!.id)
+    navigateToStudent('/student/$studentId')
+  }
+
+  function handleEditStudent() {
+    navigateToStudent('/student/$studentId/edit')
   }
 
   function handleViewHistory() {
@@ -30,6 +44,7 @@ export function useStudentDrawer(props: StudentDrawerProps) {
     handleOpenChange,
     handleClose,
     handleViewProfile,
+    handleEditStudent,
     handleViewHistory,
   }
 }

@@ -6,9 +6,6 @@
 import type { LoginUser } from './LoginUser'
 
 export type UserLoginResponse = {
-    message: string;
-    session_token: string;
-    user: LoginUser;
     /**
      * @default 'success'
      * @type string | undefined
@@ -19,4 +16,7 @@ export type UserLoginResponse = {
      * @type integer | undefined
     */
     code?: number;
+    message: string;
+    session_token: string;
+    user: LoginUser;
 };

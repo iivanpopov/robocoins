@@ -6,7 +6,7 @@
   padding: 0;
   color: var(--brand);
   cursor: pointer;
-  background: var(--surface);
+  background: transparent;
   border: 2px solid var(--muted-foreground);
   border-radius: var(--rounded-sm);
   transition:
@@ -23,6 +23,21 @@
     color: var(--brand);
     background: transparent;
     border-color: var(--brand);
+  }
+
+  &[data-variant='error'] {
+    color: var(--error);
+    border-color: var(--error);
+  }
+
+  &[data-variant='error'][data-checked],
+  &[data-variant='error'][data-indeterminate] {
+    color: var(--error);
+    background: transparent;
+  }
+
+  &[data-variant='error']:focus-visible {
+    outline-color: var(--error);
   }
 
   &[data-disabled] {

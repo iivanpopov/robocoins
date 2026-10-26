@@ -14,7 +14,7 @@ import {
 import { Avatar as AvatarName } from '#/routes/-constants'
 import { getAvatarUrl, getInitial } from '#/routes/-utils'
 
-import { BalanceChange, RecentTransactions, StudentDetails } from './-components'
+import { BalanceChange, RecentTransactions } from './-components'
 import { useStudentDrawer } from './-hooks'
 
 import styles from './student-drawer.module.css'
@@ -43,7 +43,7 @@ export function StudentDrawer(props: StudentDrawerProps) {
         {props.student && (
           <div className={styles.layout}>
             <DrawerHeader>
-              <DrawerTitle>
+              <DrawerTitle className={styles['title-row']}>
                 <button
                   type="button"
                   className={styles['student-wrap']}
@@ -72,6 +72,14 @@ export function StudentDrawer(props: StudentDrawerProps) {
                       />
                     </span>
                   </span>
+                </button>
+                <button
+                  type="button"
+                  className={styles['student-edit']}
+                  onClick={studentDrawer.handleEditStudent}
+                  aria-label={t('student.profile.edit')}
+                  title={t('student.profile.edit')}
+                >
                   <span
                     aria-hidden="true"
                     className={cn('i-ph:caret-right', styles['profile-arrow'])}
@@ -79,7 +87,6 @@ export function StudentDrawer(props: StudentDrawerProps) {
                 </button>
               </DrawerTitle>
             </DrawerHeader>
-            <StudentDetails />
             <BalanceChange
               key={`${studentDrawer.groupId}:${props.student.id}:${props.open}`}
               studentId={props.student.id}

@@ -14,6 +14,25 @@
   align-items: center;
 }
 
+.profile-button {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  min-width: 0;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: var(--rounded-md);
+}
+
+.profile-button:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 4px;
+}
+
 .name {
   font-size: 1.25rem;
 }
@@ -223,7 +242,7 @@
   min-width: 0;
   padding: 0 0 0 var(--spacing-md);
   margin: 0;
-  font-weight: 400;
+  font-weight: 475;
   overflow-wrap: anywhere;
   list-style: none;
   border-left: 2px solid var(--muted);

@@ -4,9 +4,6 @@
 */
 
 export type StudentCredentialsResponse = {
-    user_id: number;
-    name: string;
-    access_code: string;
     /**
      * @default 'success'
      * @type string | undefined
@@ -17,4 +14,7 @@ export type StudentCredentialsResponse = {
      * @type integer | undefined
     */
     code?: number;
+    user_id: number;
+    name: string;
+    access_code: string;
 };

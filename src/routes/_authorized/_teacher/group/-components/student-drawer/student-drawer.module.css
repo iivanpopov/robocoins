@@ -8,11 +8,19 @@
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
-.student-wrap {
+.title-row {
   display: flex;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
   align-items: center;
   width: 100%;
+}
+
+.student-wrap {
+  display: flex;
+  flex: 1;
+  gap: var(--spacing-sm);
+  align-items: center;
+  min-width: 0;
   padding: 0;
   font: inherit;
   color: inherit;
@@ -51,8 +59,24 @@
   color: var(--brand);
 }
 
-.profile-arrow {
+.student-edit {
+  display: flex;
   flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xs);
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: var(--rounded-md);
+}
+
+.student-edit:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 4px;
+}
+
+.profile-arrow {
   font-size: 1.25rem;
   color: var(--muted-foreground);
 }

@@ -3,10 +3,11 @@
 * Do not edit manually.
 */
 
+import type { AdminProfileResponse } from './AdminProfileResponse'
 import type { StudentProfileResponse } from './StudentProfileResponse'
 import type { TeacherProfileResponse } from './TeacherProfileResponse'
 
-export type GetCurrentUserAuthMeGetStatus200 = (StudentProfileResponse | TeacherProfileResponse);
+export type GetCurrentUserAuthMeGetStatus200 = (StudentProfileResponse | TeacherProfileResponse | AdminProfileResponse);
 
 export type GetCurrentUserAuthMeGetOptions = {
     body?: never;

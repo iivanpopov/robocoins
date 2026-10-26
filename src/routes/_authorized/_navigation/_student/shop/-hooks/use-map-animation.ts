@@ -66,6 +66,8 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
       translate: number
       translateX: number
       opacity: number
+      x: number
+      y: number
     }[] = []
 
     for (const star of starsRef.current) {
@@ -114,6 +116,8 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
             translate,
             translateX: left - x,
             opacity: 0.45 + 0.55 * Math.exp(-((relativeDistance / 30) ** 2)),
+            x,
+            y,
           })
         }
       }
@@ -131,7 +135,11 @@ export function useMapAnimation(starsRef: React.RefObject<Star[]>) {
 
     const candidates = labels
       .filter(
-        (label) => label.top >= -size.height / 2 + 80 && label.bottom <= size.height / 2 - 130,
+        (label) =>
+          Math.abs(label.x) <= size.width / 2 &&
+          Math.abs(label.y) <= size.height / 2 &&
+          label.top >= -size.height / 2 + 80 &&
+          label.bottom <= size.height / 2 - 130,
       )
       .sort((first, second) => first.distance - second.distance)
     const priority = candidates

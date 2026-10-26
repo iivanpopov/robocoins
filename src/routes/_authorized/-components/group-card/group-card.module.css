@@ -1,0 +1,63 @@
+.card {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  width: 100%;
+  padding: var(--spacing-md);
+  background: var(--surface);
+  border-radius: var(--rounded-lg);
+}
+
+.card-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  color: var(--category-color);
+  background: var(--category-bg);
+  border-radius: var(--rounded-md);
+}
+
+.card-details {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 0;
+}
+
+.card-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--foreground);
+  white-space: nowrap;
+}
+
+.schedule {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.card-meta {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.students-count {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--foreground);
+  background: var(--taupe-100);
+  border-radius: var(--rounded-sm);
+}
