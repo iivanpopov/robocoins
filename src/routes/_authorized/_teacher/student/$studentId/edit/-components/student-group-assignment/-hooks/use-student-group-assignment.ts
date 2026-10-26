@@ -37,6 +37,8 @@ export function useStudentGroupAssignment(props: StudentGroupAssignmentProps) {
   const [targetId, setTargetId] = useState<number | null>(null)
   const [removePrevious, setRemovePrevious] = useState(false)
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
+  const [isKickConfirmOpen, setIsKickConfirmOpen] = useState(false)
+  const [isKickError, setIsKickError] = useState(false)
   const [outcome, setOutcome] = useState<AssignmentOutcome>(null)
   const [isOperating, setIsOperating] = useState(false)
   const [isSourceNotice, setIsSourceNotice] = useState(false)
@@ -225,6 +227,43 @@ export function useStudentGroupAssignment(props: StudentGroupAssignmentProps) {
     if (teacherGroupsQuery.isError) void teacherGroupsQuery.refetch()
   }
 
+  function handleKickOpenChange(isOpen: boolean) {
+    if (isOperating) return
+    if (isOpen) {
+      setIsKickError(false)
+      removeStudentMutation.reset()
+    }
+    setIsKickConfirmOpen(isOpen)
+  }
+
+  async function runKick() {
+    if (sourceId === null) return
+    setIsOperating(true)
+    try {
+      await removeStudentMutation.mutateAsync({
+        path: { group_id: sourceId, student_id: props.studentId },
+      })
+    } catch {
+      const student = await refetchStudent()
+      if (student && student.group_ids.includes(sourceId)) {
+        setIsOperating(false)
+        setIsKickError(true)
+        return
+      }
+    }
+    await invalidateAfterAssignment()
+    setIsKickConfirmOpen(false)
+    setIsKickError(false)
+    setIsOperating(false)
+    props.onSuccess()
+    toast.add({ title: t('student.edit.groups.success'), type: 'success' })
+  }
+
+  function handleKick() {
+    if (isOperating || sourceId === null || removeStudentMutation.isPending) return
+    void runKick()
+  }
+
   const sourceName =
     sourceId !== null ? (sourceGroups.find((group) => group.id === sourceId)?.name ?? null) : null
   const targetName =
@@ -251,6 +290,9 @@ export function useStudentGroupAssignment(props: StudentGroupAssignmentProps) {
       isSourceNotice,
       isTargetNotice,
       isTransfer,
+      isKickConfirmOpen,
+      isKickError,
+      isKickOperating: removeStudentMutation.isPending,
       canRemovePrevious,
       canSubmit,
     },
@@ -267,6 +309,8 @@ export function useStudentGroupAssignment(props: StudentGroupAssignmentProps) {
       handleConfirm,
       handleRetryRemoval,
       handleRetryOptions,
+      handleKickOpenChange,
+      handleKick,
     },
   }
 }

@@ -41,6 +41,7 @@ declare module '@kanjou/react' {
         student: DefaultMessageValue
       }
       'student.password.regenerate.confirm.action': {}
+      'student.password.regenerate.error': {}
       'settings.credentials.error': {}
       'settings.logout': {}
       'settings.logout.confirm.title': {}
@@ -215,6 +216,13 @@ declare module '@kanjou/react' {
       'student.edit.groups.remove.description': { group: DefaultMessageValue }
       'student.edit.groups.add-action': {}
       'student.edit.groups.transfer-action': {}
+      'student.edit.groups.kick-action': {}
+      'student.edit.groups.kick.confirm.title': {}
+      'student.edit.groups.kick.confirm.description': {
+        student: DefaultMessageValue
+        group: DefaultMessageValue
+      }
+      'student.edit.groups.kick.confirm.action': {}
       'student.edit.groups.confirm.title': {}
       'student.edit.groups.confirm.add-description': {
         student: DefaultMessageValue

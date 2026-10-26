@@ -24,6 +24,7 @@ export function getStudentCredentialsAuthMeCredentialsGetQueryOptions(config: Pa
 }
 
 /**
+ * @description Students can view only their own credentials
  * @summary Get Student Credentials
  * {@link /auth/me/credentials}
  */

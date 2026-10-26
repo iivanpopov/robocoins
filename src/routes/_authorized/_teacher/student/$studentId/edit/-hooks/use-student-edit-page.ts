@@ -9,6 +9,14 @@ import {
   getStudentByIdStudentStudentIdGetQueryKey,
   useGetStudentByIdStudentStudentIdGet,
 } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
+import {
+  regenarateStudentAccessCodeStudentStudentIdAccessCodePatchMutationKey,
+  useRegenarateStudentAccessCodeStudentStudentIdAccessCodePatch,
+} from '#/api/hooks/useRegenarateStudentAccessCodeStudentStudentIdAccessCodePatch'
+import {
+  showStudentCredentialsStudentStudentIdCredentialsGetQueryKey,
+  useShowStudentCredentialsStudentStudentIdCredentialsGet,
+} from '#/api/hooks/useShowStudentCredentialsStudentStudentIdCredentialsGet'
 import type { StudentNicknameEditRequest } from '#/api/types'
 import { AVATARS, type Avatar } from '#/routes/-constants'
 
@@ -33,10 +41,45 @@ export function useStudentEditPage() {
 
   const isNicknameSyncedReference = useRef(false)
   const isAvatarSyncedReference = useRef(false)
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const studentQuery = useGetStudentByIdStudentStudentIdGet({
     path: { student_id: studentId },
   })
+
+  const credentialsQuery = useShowStudentCredentialsStudentStudentIdCredentialsGet(
+    {
+      path: { student_id: studentId },
+    },
+    {
+      query: {
+        retry: false,
+        staleTime: 0,
+      },
+    },
+  )
+
+  const passwordRegenerationMutation =
+    useRegenarateStudentAccessCodeStudentStudentIdAccessCodePatch({
+      mutation: {
+        retry: false,
+        onSuccess: async (_data, variables) => {
+          await queryClient.invalidateQueries({
+            queryKey: showStudentCredentialsStudentStudentIdCredentialsGetQueryKey({
+              path: variables.path,
+            }),
+          })
+          await queryClient.invalidateQueries({
+            queryKey: regenarateStudentAccessCodeStudentStudentIdAccessCodePatchMutationKey(),
+          })
+          setIsPasswordVisible(true)
+        },
+      },
+    })
 
   const nicknameMutation = useEditStudentNicknameStudentStudentIdNicknamePatch({
     mutation: {
@@ -165,8 +208,16 @@ export function useStudentEditPage() {
     setIsPasswordVisible((value) => !value)
   }
 
+  function handleRetryPasswordRegeneration() {
+    if (passwordRegenerationMutation.isPending) return
+    passwordRegenerationMutation.reset()
+    handleConfirmPasswordRegeneration()
+  }
+
   function handleConfirmPasswordRegeneration() {
+    if (passwordRegenerationMutation.isPending) return
     setIsPasswordDialogOpen(false)
+    passwordRegenerationMutation.mutate({ path: { student_id: studentId } })
   }
 
   function handleRetryStudent() {
@@ -187,6 +238,7 @@ export function useStudentEditPage() {
 
   const profile = studentQuery.data
   const avatar = AVATARS.find((candidate) => candidate === profile?.avatar) ?? AVATARS[0]
+  const password = credentialsQuery.data?.access_code ?? ''
 
   return {
     state: {
@@ -203,9 +255,16 @@ export function useStudentEditPage() {
       isAvatarPickerOpen,
       isPasswordDialogOpen,
       isPasswordVisible,
+      password,
+      isPasswordUnavailable: isMounted && credentialsQuery.isError,
+      isPasswordLoading: isMounted && credentialsQuery.isPending,
     },
-    queries: { student: studentQuery },
-    mutations: { nickname: nicknameMutation, avatar: avatarMutation },
+    queries: { student: studentQuery, credentials: credentialsQuery },
+    mutations: {
+      nickname: nicknameMutation,
+      avatar: avatarMutation,
+      passwordRegeneration: passwordRegenerationMutation,
+    },
     functions: {
       handleNicknameChange,
       handleSaveNickname,
@@ -218,6 +277,7 @@ export function useStudentEditPage() {
       handleOpenPasswordDialog,
       handleTogglePassword,
       handleConfirmPasswordRegeneration,
+      handleRetryPasswordRegeneration,
       handleRetryStudent,
       handleBack,
       handleAssignmentSuccess,

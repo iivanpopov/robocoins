@@ -4,8 +4,22 @@
   gap: var(--spacing-md);
 }
 
+.actions {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
 .submit {
   width: 100%;
+}
+
+.kick {
+  color: var(--error-foreground);
+  background: var(--error);
+
+  &:hover:not(:disabled) {
+    background: var(--error-hover);
+  }
 }
 
 .confirm-identity {

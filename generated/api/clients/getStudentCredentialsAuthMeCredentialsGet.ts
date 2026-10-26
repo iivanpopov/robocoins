@@ -8,6 +8,7 @@ import type { GetStudentCredentialsAuthMeCredentialsGetOptions, GetStudentCreden
 import { client, withUnwrap } from '../.kubb/client'
 
 /**
+ * @description Students can view only their own credentials
  * @summary Get Student Credentials
  * {@link /auth/me/credentials}
  */

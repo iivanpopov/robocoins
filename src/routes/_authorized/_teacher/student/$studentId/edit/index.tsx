@@ -6,6 +6,7 @@ import * as v from 'valibot'
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
 import { getStudentByIdStudentStudentIdGetQueryOptions } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
 import { getTeacherGroupsTeacherGroupsGetQueryOptions } from '#/api/hooks/useGetTeacherGroupsTeacherGroupsGet'
+import { showStudentCredentialsStudentStudentIdCredentialsGetQueryOptions } from '#/api/hooks/useShowStudentCredentialsStudentStudentIdCredentialsGet'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -81,6 +82,14 @@ export const Route = createFileRoute('/_authorized/_teacher/student/$studentId/e
       groups.some((group) => group.id === groupId),
     )
     if (!isStudentAccessible) throw notFound()
+
+    void context.queryClient
+      .prefetchQuery(
+        showStudentCredentialsStudentStudentIdCredentialsGetQueryOptions({
+          path: { student_id: params.studentId },
+        }),
+      )
+      .catch(() => undefined)
   },
   component: StudentEditPage,
 })
@@ -163,14 +172,14 @@ function StudentEditPage() {
                   <InputGroupInput
                     id="student-edit-password"
                     type={state.isPasswordVisible ? 'text' : 'password'}
-                    value=""
+                    value={state.password}
                     readOnly
                     autoComplete="new-password"
-                    placeholder={t('field.password.placeholder')}
                   />
                   <InputGroupAddon align="inline-end">
                     <InputGroupButton
                       onClick={functions.handleTogglePassword}
+                      disabled={state.isPasswordLoading}
                       aria-label={
                         state.isPasswordVisible
                           ? t('field.password.hide')
@@ -178,13 +187,16 @@ function StudentEditPage() {
                       }
                       aria-pressed={state.isPasswordVisible}
                     >
-                      <span
-                        aria-hidden="true"
-                        className={cn(
-                          state.isPasswordVisible && 'i-ph:eye-slash-bold',
-                          !state.isPasswordVisible && 'i-ph:eye-bold',
-                        )}
-                      />
+                      {state.isPasswordLoading && <Loader />}
+                      {!state.isPasswordLoading && (
+                        <span
+                          aria-hidden="true"
+                          className={cn(
+                            state.isPasswordVisible && 'i-ph:eye-slash-bold',
+                            !state.isPasswordVisible && 'i-ph:eye-bold',
+                          )}
+                        />
+                      )}
                     </InputGroupButton>
                   </InputGroupAddon>
                 </InputGroup>
@@ -197,6 +209,17 @@ function StudentEditPage() {
                   <span aria-hidden="true" className="i-ph:arrows-clockwise-bold" />
                 </IconButton>
               </div>
+              {state.isPasswordUnavailable && (
+                <InlineError>{t('student.password.unavailable')}</InlineError>
+              )}
+              {mutations.passwordRegeneration.isError && (
+                <InlineError
+                  onRetry={functions.handleRetryPasswordRegeneration}
+                  isRetrying={mutations.passwordRegeneration.isPending}
+                >
+                  {t('student.password.regenerate.error')}
+                </InlineError>
+              )}
             </Field>
             <Field>
               <FieldLabel>{t('student.edit.avatar.label')}</FieldLabel>

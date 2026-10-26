@@ -35,6 +35,7 @@ export default {
   'student.password.regenerate.confirm.description':
     'Пароль учня {$student} буде замінено новим. Попередній пароль перестане діяти.',
   'student.password.regenerate.confirm.action': 'Згенерувати',
+  'student.password.regenerate.error': 'Не вдалося згенерувати новий пароль. Спробуйте ще раз.',
   'settings.credentials.error': 'Не вдалося завантажити пароль.',
   'settings.logout': 'Вийти',
   'settings.logout.confirm.title': 'Вийти з акаунту?',
@@ -237,6 +238,11 @@ export default {
     'Після переведення учень перестане складатися в групі «{$group}».',
   'student.edit.groups.add-action': 'Додати в групу',
   'student.edit.groups.transfer-action': 'Перевести в групу',
+  'student.edit.groups.kick-action': 'Виключити з групи',
+  'student.edit.groups.kick.confirm.title': 'Виключити учня з групи?',
+  'student.edit.groups.kick.confirm.description':
+    'Учень {$student} перестане складатися в групі «{$group}».',
+  'student.edit.groups.kick.confirm.action': 'Виключити',
   'student.edit.groups.confirm.title': 'Підтвердити зміну груп учня?',
   'student.edit.groups.confirm.add-description': 'Учня {$student} буде додано в групу «{$group}».',
   'student.edit.groups.confirm.transfer-description':
