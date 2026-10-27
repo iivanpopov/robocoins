@@ -1,5 +1,6 @@
 import { useTranslate } from '@kanjou/react'
-import { createFileRoute, Link, useParams } from '@tanstack/react-router'
+import { createFileRoute, Link, useParams, useSearch } from '@tanstack/react-router'
+import * as v from 'valibot'
 
 import { Button, Field, FieldDescription, FieldLabel, IconButton, Loader } from '#/components/ui'
 
@@ -17,11 +18,16 @@ import { parseCourseIdParams } from '../../-utils'
 
 import styles from './index.module.css'
 
+const CourseCategorySearchSchema = v.object({
+  from: v.optional(v.picklist(['categories'])),
+})
+
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/courses/$courseId/category/',
 )({
   head: () => ({ meta: [{ title: 'Категорія курсу | Robocoins' }] }),
   params: { parse: (params) => parseCourseIdParams(params) },
+  validateSearch: CourseCategorySearchSchema,
   component: CourseCategoryRoute,
 })
 
@@ -36,7 +42,35 @@ function CourseCategoryRoute() {
 function CourseCategoryPage() {
   const { state, functions, features } = useCourseCategoryPage()
 
+  const search = useSearch({
+    from: '/_authorized/_navigation/_admin/admin/courses/$courseId/category/',
+  })
+
   const t = useTranslate()
+
+  const backToCategories = search.from === 'categories'
+
+  let backButton = (
+    <IconButton
+      nativeButton={false}
+      render={<Link to="/admin/courses/$courseId" params={{ courseId: state.courseId }} />}
+      title={t('admin.courses.back-to-course')}
+    >
+      <span aria-hidden="true" className="i-ph:arrow-left" />
+    </IconButton>
+  )
+
+  if (backToCategories) {
+    backButton = (
+      <IconButton
+        nativeButton={false}
+        render={<Link to="/admin/courses/categories" />}
+        title={t('admin.courses.categories.back')}
+      >
+        <span aria-hidden="true" className="i-ph:arrow-left" />
+      </IconButton>
+    )
+  }
 
   return (
     <CoursePageLayout
@@ -47,15 +81,7 @@ function CourseCategoryPage() {
           {state.course && t('admin.courses.category.description', { course: state.course.name })}
         </>
       }
-      back={
-        <IconButton
-          nativeButton={false}
-          render={<Link to="/admin/courses/$courseId" params={{ courseId: state.courseId }} />}
-          title={t('admin.courses.back-to-course')}
-        >
-          <span aria-hidden="true" className="i-ph:arrow-left" />
-        </IconButton>
-      }
+      back={backButton}
     >
       {state.isPending && <Loader grow />}
       {state.isError && state.errorKey && (
@@ -120,12 +146,21 @@ function CourseCategoryPage() {
           ]}
         >
           <div className={styles.actions}>
-            <Button
-              nativeButton={false}
-              render={<Link to="/admin/courses/$courseId" params={{ courseId: state.courseId }} />}
-            >
-              {t('admin.courses.back-to-course')}
-            </Button>
+            {!backToCategories && (
+              <Button
+                nativeButton={false}
+                render={
+                  <Link to="/admin/courses/$courseId" params={{ courseId: state.courseId }} />
+                }
+              >
+                {t('admin.courses.back-to-course')}
+              </Button>
+            )}
+            {backToCategories && (
+              <Button nativeButton={false} render={<Link to="/admin/courses/categories" />}>
+                {t('admin.courses.categories.back')}
+              </Button>
+            )}
             <Button variant="ghost" nativeButton={false} render={<Link to="/admin/courses" />}>
               {t('admin.courses.back')}
             </Button>

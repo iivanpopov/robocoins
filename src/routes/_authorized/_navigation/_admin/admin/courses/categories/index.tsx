@@ -117,6 +117,7 @@ function CourseCategoriesPage() {
                           <Link
                             to="/admin/courses/$courseId/category"
                             params={{ courseId: course.id }}
+                            search={{ from: 'categories' }}
                             className={styles['change-link']}
                             aria-label={t('admin.courses.categories.change', {
                               course: course.name,
