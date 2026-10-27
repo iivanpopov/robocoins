@@ -1,10 +1,10 @@
 import { useTranslate } from '@kanjou/react'
+import { Link } from '@tanstack/react-router'
 import { cn } from 'cn'
 
 import type { BalanceLeaderboardEntry } from '#/api/types'
-import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui'
-import type { Avatar as AvatarName } from '#/routes/-constants'
-import { getAvatarUrl, getInitial } from '#/routes/-utils'
+
+import { PodiumAvatar, PodiumPoints } from './podium-parts'
 
 import styles from './podium.module.css'
 
@@ -29,26 +29,22 @@ export function Podium(props: PodiumProps) {
         >
           <span className={styles['sr-only']}>{t('leaderboard.rank', { rank: entry.rank })}</span>
           <span className={styles.figure}>
-            <Avatar size="lg" className={styles.avatar}>
-              <AvatarImage
-                src={getAvatarUrl(entry.avatar as AvatarName)}
-                alt=""
-                aria-hidden="true"
-              />
-              <AvatarFallback>{getInitial(entry.name)}</AvatarFallback>
-            </Avatar>
+            <Link
+              className={styles['avatar-link']}
+              to="/student/$studentId"
+              params={{ studentId: entry.student_id }}
+              aria-label={t('leaderboard.profile.open', { name: entry.name })}
+            >
+              <PodiumAvatar entry={entry} className={styles.avatar} />
+            </Link>
             {entry.rank === 1 && (
               <span aria-hidden="true" className={cn('i-ph:crown-fill', styles.crown)} />
             )}
           </span>
-          <span className={styles.name}>{entry.name}</span>
-          <strong
-            className={styles.points}
-            aria-label={t('leaderboard.points.label', { count: entry.balance })}
-          >
-            {t('leaderboard.points', { count: entry.balance })}
-            <span aria-hidden="true" className={cn('i-ph:coin-fill', styles.coin)} />
-          </strong>
+          <span className={styles.meta}>
+            <span className={styles.name}>{entry.name}</span>
+            <PodiumPoints entry={entry} className={styles.points} coinClassName={styles.coin} />
+          </span>
           <span aria-hidden="true" className={styles.step}>
             <span className={styles['step-rank']}>{entry.rank}</span>
           </span>

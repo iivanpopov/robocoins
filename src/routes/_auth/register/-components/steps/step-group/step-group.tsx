@@ -1,5 +1,4 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import {
   Button,
@@ -12,6 +11,7 @@ import {
 } from '#/components/ui'
 import { parseGroupSchedule } from '#/routes/-utils'
 
+import { CategoryChoice } from '../../category-choice'
 import { useStepGroup } from './-hooks'
 
 import styles from './step-group.module.css'
@@ -22,11 +22,7 @@ export function StepGroup() {
   const t = useTranslate()
 
   return (
-    <form
-      className={cn('category-theme', styles.form)}
-      data-category={state.course?.category}
-      onSubmit={functions.handleSubmit}
-    >
+    <form className={styles.form} onSubmit={functions.handleSubmit}>
       <DrawerHeader className={styles.header}>
         <DrawerTitle className={styles.title}>{t('step.group.title')}</DrawerTitle>
         <DrawerDescription className={styles.description}>{state.course?.name}</DrawerDescription>
@@ -40,10 +36,9 @@ export function StepGroup() {
         {state.course?.groups?.map((group) => {
           const schedule = parseGroupSchedule(group.name)
           return (
-            <button
+            <CategoryChoice
               key={group.id}
-              type="button"
-              className={cn('category-choice', styles.group)}
+              className={styles.group}
               aria-pressed={state.selectedGroupId === group.id}
               onClick={() => functions.handleSelectGroup(group.id)}
             >
@@ -53,7 +48,7 @@ export function StepGroup() {
                 )}
                 <span className={styles.time}>{schedule.time}</span>
               </span>
-            </button>
+            </CategoryChoice>
           )
         })}
       </div>

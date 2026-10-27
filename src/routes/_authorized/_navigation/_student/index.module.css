@@ -1,11 +1,36 @@
 .page {
+  --page-gradient-start: rgb(52 120 255 / 14%);
+  --page-gradient-end: rgb(128 101 233 / 6%);
+
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xl);
   width: min(100%, 430px);
   min-height: 100%;
-  padding: var(--spacing-lg) var(--spacing-xl) 7rem;
+  padding: max(1.75rem, calc(env(safe-area-inset-top) + var(--spacing-lg))) var(--spacing-xl) 7rem;
   margin: 0 auto;
+  overflow-x: clip;
   color: var(--foreground);
-  background: var(--background);
+  background-color: var(--background);
+  background-image: radial-gradient(
+    ellipse 105% 280px at 50% 0%,
+    var(--page-gradient-start) 0%,
+    var(--page-gradient-end) 55%,
+    transparent 100%
+  );
+}
+
+.page[data-gradient='2'] {
+  --page-gradient-start: rgb(128 101 233 / 14%);
+  --page-gradient-end: rgb(52 120 255 / 6%);
+}
+
+.page[data-gradient='3'] {
+  --page-gradient-start: rgb(74 168 255 / 13%);
+  --page-gradient-end: rgb(52 120 255 / 6%);
+}
+
+.page[data-gradient='4'] {
+  --page-gradient-start: rgb(107 124 255 / 13%);
+  --page-gradient-end: rgb(180 140 255 / 6%);
 }

@@ -30,7 +30,7 @@ export function GroupCard({ group, className }: GroupCardProps) {
   const t = useTranslate()
 
   return (
-    <div className={cn('category-theme', styles.card, className)} data-category={group.category}>
+    <div className={cn(styles.card, className)} data-category={group.category}>
       <div className={styles['card-icon']}>
         <CategoryIcon category={group.category} />
       </div>

@@ -1,13 +1,14 @@
-.category-choice {
+.choice {
   --choice-background: var(--surface);
+  --category-color: var(--taupe-700);
 
   position: relative;
   background: transparent;
   isolation: isolate;
 }
 
-.category-choice::before,
-.category-choice::after {
+.choice::before,
+.choice::after {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -15,14 +16,14 @@
   border-radius: inherit;
 }
 
-.category-choice::before {
+.choice::before {
   z-index: -1;
   background: var(--choice-background);
   border: 3px solid transparent;
   transition: border-color 0.05s ease;
 }
 
-.category-choice::after {
+.choice::after {
   inset: 1px;
   z-index: -2;
   background: var(--foreground);
@@ -30,7 +31,7 @@
   transition: transform 0.1s ease;
 }
 
-.category-tile {
+.tile {
   display: flex;
   flex-shrink: 0;
   align-items: center;
@@ -39,30 +40,30 @@
   height: 4rem;
   font-size: 2.5rem;
   color: var(--category-color);
-  background: var(--category-background);
+  background: color-mix(in srgb, var(--category-color) 12%, transparent);
   border-radius: var(--rounded-lg);
   transition:
     color 0.1s ease,
     background-color 0.1s ease;
 }
 
-.category-choice:focus-visible {
+.choice:focus-visible {
   outline: 2px solid var(--category-color);
   outline-offset: 5px;
 }
 
-.category-choice[aria-pressed='true'] .category-tile {
+.choice[aria-pressed='true'] .tile {
   background: color-mix(in srgb, var(--category-color) 24%, transparent);
 }
 
-.category-choice[aria-pressed='true']::before {
+.choice[aria-pressed='true']::before {
   border-color: var(--foreground);
 }
 
-.category-choice[aria-pressed='true']::after {
+.choice[aria-pressed='true']::after {
   transform: translate(6px, 6px);
 }
 
-.category-choice[aria-pressed='true']:active::after {
+.choice[aria-pressed='true']:active::after {
   transform: translate(0, 0);
 }

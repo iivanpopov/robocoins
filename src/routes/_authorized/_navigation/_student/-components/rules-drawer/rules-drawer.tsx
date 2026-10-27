@@ -46,6 +46,7 @@ export function RulesDrawer(props: RulesDrawerProps) {
     <Drawer open={open} onOpenChange={handleOpenChange} showSwipeHandle>
       <DrawerTrigger render={<Button className={props.className} variant="link" />}>
         {t('profile.rules')}
+        <span aria-hidden="true" className="i-ph:caret-right-bold" />
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className={styles.header}>

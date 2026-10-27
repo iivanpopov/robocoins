@@ -65,7 +65,7 @@ function GroupPage() {
             return (
               <article
                 key={group.id}
-                className={cn('category-theme', styles.card)}
+                className={styles.card}
                 data-category={group.category}
                 onClick={() => functions.handleGroupClick(group.id)}
               >

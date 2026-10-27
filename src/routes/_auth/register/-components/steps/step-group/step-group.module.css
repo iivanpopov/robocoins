@@ -32,8 +32,6 @@
 }
 
 .group {
-  --choice-background: var(--surface);
-
   display: flex;
   flex-shrink: 0;
   gap: var(--spacing-lg);

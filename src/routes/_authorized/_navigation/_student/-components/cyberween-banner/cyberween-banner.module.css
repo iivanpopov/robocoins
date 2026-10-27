@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   min-height: 190px;
-  margin-top: var(--spacing-xl);
+  margin-top: var(--spacing-sm);
   overflow: hidden;
   color: #fff;
   text-decoration: none;
@@ -19,7 +19,7 @@
     cover;
   border: 1px solid rgb(72 104 255 / 60%);
   border-radius: var(--rounded-xl);
-  box-shadow: 0 0 24px rgb(22 70 255 / 30%);
+  box-shadow: 0 6px 16px rgb(22 70 255 / 18%);
 }
 
 .banner:focus-visible {

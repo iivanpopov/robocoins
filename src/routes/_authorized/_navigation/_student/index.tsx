@@ -1,6 +1,5 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import { getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions } from '#/api/hooks/useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet'
 import { getStudentRewardProgressStudentStudentIdRewardProgressGetQueryOptions } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
@@ -83,12 +82,14 @@ function StudentPage() {
   const t = useTranslate()
 
   return (
-    <main className={cn(styles.page, 'student-theme')}>
+    <main className={styles.page} data-gradient={state.gradientVariant}>
       <StudentHero
         name={state.profile.name}
         avatar={state.avatar}
         balance={state.profile.balance}
         hasNewReward={state.hasNewReward}
+        greetingVariant={state.greetingVariant}
+        captionVariant={state.captionVariant}
         onOpenProfile={functions.handleOpenProfile}
         onOpenShop={functions.handleNavigateToShop}
       />

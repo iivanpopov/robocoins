@@ -8,7 +8,11 @@ import type { StudentProfileResponse } from '#/api/types'
 import type { Avatar as AvatarName } from '#/routes/-constants'
 import { compareTransactionsByNewest } from '#/routes/-utils'
 
-import { HISTORY_MINIMUM_TRANSACTIONS, HISTORY_TRANSACTION_FETCH_LIMIT } from '../-constants'
+import {
+  GREETING_PAIRS,
+  HISTORY_MINIMUM_TRANSACTIONS,
+  HISTORY_TRANSACTION_FETCH_LIMIT,
+} from '../-constants'
 import {
   getSignedAmount,
   getStudentRewardCategoriesQueryOptions,
@@ -120,6 +124,13 @@ export function useStudentPage() {
     (transaction) => transaction.isNew && transaction.isDeposit,
   )
   const avatar = (profile.avatar as AvatarName | null) ?? null
+  const renderedAt = new Date(context.renderedAt)
+  const localDayIndex = Math.floor(
+    Date.UTC(renderedAt.getFullYear(), renderedAt.getMonth(), renderedAt.getDate()) /
+      (24 * 60 * 60 * 1000),
+  )
+  const greetingPair = GREETING_PAIRS[localDayIndex % GREETING_PAIRS.length] ?? GREETING_PAIRS[0]
+  const gradientVariant = (localDayIndex % 4) + 1
 
   return {
     state: {
@@ -134,6 +145,9 @@ export function useStudentPage() {
       isGoalFetching: goalQuery.isFetching || categoriesQuery.isFetching,
       goalProgressDisplay: Number.parseFloat(goalProgress.displayWidth),
       remainingBalance: Math.max(0, goalQuery.data?.coins_remaining ?? 0),
+      greetingVariant: greetingPair.greeting,
+      captionVariant: greetingPair.caption,
+      gradientVariant,
     },
     queries: { history: historyQuery },
     functions: {

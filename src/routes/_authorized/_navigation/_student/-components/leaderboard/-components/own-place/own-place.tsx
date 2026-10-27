@@ -9,6 +9,10 @@ export interface OwnPlaceProps {
   neededCoins: number | null
 }
 
+function CoinIcon() {
+  return <span aria-hidden="true" className={cn('i-ph:coin-fill', styles.coin)} />
+}
+
 export function OwnPlace(props: OwnPlaceProps) {
   const t = useTranslate()
 
@@ -20,8 +24,11 @@ export function OwnPlace(props: OwnPlaceProps) {
           <span className={styles.place}>{t('leaderboard.own.place')}</span>
         </span>
         <span className={styles.points}>
-          <span aria-hidden="true" className={cn('i-ph:coin-fill', styles.coin)} />
-          {t('leaderboard.own.points', { count: props.balance })}
+          {t.rich(
+            'leaderboard.own.points',
+            { count: props.balance },
+            { components: { coin: CoinIcon } },
+          )}
         </span>
       </div>
       {props.neededCoins !== null && props.neededCoins > 0 && (

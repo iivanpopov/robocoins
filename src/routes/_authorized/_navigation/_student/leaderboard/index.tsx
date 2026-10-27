@@ -2,7 +2,6 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { cn } from 'cn'
 
-import { Mascot } from '#/components/mascot'
 import { IconButton, Loader, Typography } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 
@@ -22,7 +21,7 @@ function LeaderboardPage() {
   const entries = state.entries.filter((entry) => entry.rank > 3)
 
   return (
-    <main className={cn(styles.page, 'student-theme')}>
+    <main className={styles.page}>
       <header className={styles.header}>
         <IconButton nativeButton={false} render={<Link to="/" />} title={t('leaderboard.back')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />
@@ -30,10 +29,6 @@ function LeaderboardPage() {
         <Typography variant="subtitle">{t('leaderboard.title')}</Typography>
       </header>
       <p className={styles.description}>{t('leaderboard.description')}</p>
-      <div className={styles.help}>
-        <Mascot mood="explaining" size={96} className={styles['help-mascot']} aria-hidden="true" />
-        <p className={styles.rules}>{t('leaderboard.rules')}</p>
-      </div>
       {queries.rank.isPending && (
         <Loader grow role="status" aria-label={t('leaderboard.loading')} />
       )}
@@ -64,7 +59,10 @@ function LeaderboardPage() {
       {!!entries.length && (
         <ol className={styles.list} aria-label={t('leaderboard.title')}>
           {entries.map((entry) => (
-            <li key={entry.student_id}>
+            <li
+              key={entry.student_id}
+              className={cn(entry.student_id === state.studentId && styles.current)}
+            >
               <LeaderboardRow entry={entry} isCurrent={entry.student_id === state.studentId} />
             </li>
           ))}

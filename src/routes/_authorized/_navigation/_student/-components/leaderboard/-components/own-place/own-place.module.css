@@ -33,9 +33,6 @@
 }
 
 .points {
-  display: inline-flex;
-  gap: 0.25rem;
-  align-items: center;
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--muted-foreground);
@@ -43,8 +40,11 @@
 }
 
 .coin {
+  display: inline-block;
+  margin-inline: 0.125rem;
   font-size: 0.875rem;
-  color: var(--student-coin);
+  vertical-align: -0.125em;
+  color: var(--coin);
 }
 
 .gap {

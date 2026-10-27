@@ -18,7 +18,7 @@
 
 .all {
   gap: 0.125rem;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--muted-foreground);
   text-decoration: none;
@@ -54,7 +54,7 @@
 }
 
 .reward {
-  color: var(--student-coin);
+  color: var(--coin);
 }
 
 .penalty {
@@ -98,7 +98,7 @@
 
 .amount-coin {
   font-size: 1rem;
-  color: var(--student-coin);
+  color: var(--coin);
 }
 
 .row[data-reward='true'] .amount-coin {

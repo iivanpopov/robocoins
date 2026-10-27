@@ -58,7 +58,7 @@
 .points > span {
   flex-shrink: 0;
   font-size: 0.875rem;
-  color: var(--student-coin);
+  color: var(--coin);
 }
 
 .current .points {

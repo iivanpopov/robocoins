@@ -1,22 +1,24 @@
 export default {
   'leaderboard.title': 'Рейтинг тижня',
-  'leaderboard.description': 'За робокоїнами, заробленими цього тижня',
+  'leaderboard.description': 'Найбільше зароблених робокоїнів',
   'leaderboard.rules':
     'Отримуй робокоїни за навчання та підіймайся в рейтингу. Покупки не зменшують твій результат. Щотижня — новий старт!',
   'leaderboard.all': 'Увесь рейтинг',
   'leaderboard.you': 'Ти',
   'leaderboard.place': 'Твоє місце',
   'leaderboard.podium': 'Трійка лідерів',
+  'leaderboard.profile.open': 'Відкрити профіль {$name}',
   'leaderboard.own.place': 'у рейтингу',
   'leaderboard.own.points': `
     .input {$count :number}
+    .local $countText = {$count :string}
     .match $count
-    one {{{$count} робокоїн}}
-    few {{{$count} робокоїни}}
-    many {{{$count} робокоїнів}}
-    * {{{$count} робокоїна}}`,
+    one {{У тебе {$countText} {#coin/} робокоїн}}
+    few {{У тебе {$countText} {#coin/} робокоїни}}
+    many {{У тебе {$countText} {#coin/} робокоїнів}}
+    * {{У тебе {$countText} {#coin/} робокоїна}}`,
   'leaderboard.gap': 'Ще {$count :number} до наступної позиції',
-  'leaderboard.own.near': 'Ти на рівні з наступним місцем',
+  'leaderboard.own.near': 'Однаковий результат із наступним місцем',
   'leaderboard.rank': 'Місце {$rank :number}',
   'leaderboard.points': '{$count :number}',
   'leaderboard.points.label': 'Зароблено за тиждень: {$count :number} робокоїнів',
@@ -188,8 +190,16 @@ export default {
   'reason.other': 'Інше',
   'profile.balance.amount': '{$count :number}',
   'profile.balance.open-shop': 'Відкрити крамницю нагород',
-  'profile.greeting.hello': 'Привіт, {$name}!',
-  'profile.greeting.caption': 'Час нових пригод?',
+  'profile.greeting.pair.1.greeting': 'Доброго дня!',
+  'profile.greeting.pair.1.caption': 'Сьогодні на тебе чекає багато нового!',
+  'profile.greeting.pair.2.greeting': 'Привіт!',
+  'profile.greeting.pair.2.caption': 'Час нових пригод!',
+  'profile.greeting.pair.3.greeting': 'З поверненням!',
+  'profile.greeting.pair.3.caption': 'Твоя ціль стає ближчою!',
+  'profile.greeting.pair.4.greeting': 'День відкриттів!',
+  'profile.greeting.pair.4.caption': 'Що цікавого сьогодні?',
+  'profile.greeting.pair.5.greeting': 'Пригоди чекають!',
+  'profile.greeting.pair.5.caption': 'Попереду багато цікавого!',
   'profile.goal.kicker': 'Моя ціль',
   'profile.goal.loading': 'Завантажуємо ціль',
   'profile.goal.progress': '{$saved :number} / {$price :number}',
@@ -197,6 +207,14 @@ export default {
   'profile.goal.claim': 'Забрати',
   'profile.goal.choose': 'Обрати ціль',
   'profile.earn.title': 'Як заробити робокоїни',
+  'profile.earn.theory': 'Розгорнута відповідь на одне або кілька запитань',
+  'profile.earn.practice': 'Виконане завдання від викладача',
+  'profile.earn.additional': 'Необов’язкове завдання з нагородою',
+  'profile.earn.activity': 'Будь активним на уроці',
+  'profile.earn.homework': 'Виконуй домашні завдання',
+  'profile.earn.teamwork': 'Допомагай команді',
+  'profile.earn.answer': 'Дай гарну відповідь',
+  'profile.earn.initiative': 'Пропонуй власні ідеї',
   'profile.goal.none': 'Ціль не обрана',
   'profile.goal.shop': 'Перейти до магазину, щоб обрати ціль',
   'profile.goal.completed': 'Достатньо робокоїнів!',
@@ -224,7 +242,7 @@ export default {
   'profile.history.empty.mascot': 'Тут з’являться твої перші нагороди!',
   'profile.history.today': 'Сьогодні',
   'profile.history.yesterday': 'Учора',
-  'profile.history.day': '{$date :datetime day=numeric month=long}',
+  'profile.history.day': '{$date :date fields=month-day length=long timeZone=UTC}',
   'profile.history.amount': '{$count :number signDisplay=always}',
   'profile.rules': 'Усі способи',
   'profile.rules.title': 'Як працюють робокоїни',

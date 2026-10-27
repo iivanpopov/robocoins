@@ -51,10 +51,12 @@ export function HistoryPreview(props: HistoryPreviewProps) {
         <h2 id="history-preview-title" className={styles.title}>
           {t('profile.history.title')}
         </h2>
-        <Button variant="link" className={styles.all} onClick={props.onViewAll}>
-          {t('profile.history.all')}
-          <span aria-hidden="true" className="i-ph:caret-right-bold" />
-        </Button>
+        {!!items.length && (
+          <Button variant="link" className={styles.all} onClick={props.onViewAll}>
+            {t('profile.history.all')}
+            <span aria-hidden="true" className="i-ph:caret-right-bold" />
+          </Button>
+        )}
       </div>
       {props.isPending && (
         <div className={styles.loading} role="status" aria-label={t('profile.history.loading')}>

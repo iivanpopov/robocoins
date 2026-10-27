@@ -1,10 +1,7 @@
 @import './normalize.css';
 @import './colors.css';
 @import './transitions.css';
-@import './category-colors.css';
-@import './category-choice.css';
 @import './motion.css';
-@import './student-theme.css';
 
 * {
   box-sizing: border-box;
@@ -24,6 +21,9 @@
   --error-foreground: white;
   --muted: var(--taupe-300);
   --muted-foreground: var(--mist-600);
+  --category-web: #fe394e;
+  --category-game-dev: #a939ff;
+  --category-embedded: #1646ff;
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 0.75rem;
@@ -52,6 +52,19 @@
   --muted-foreground: #a3a3a3;
 
   color-scheme: dark;
+}
+
+.student {
+  --background: #f6f7fc;
+  --surface: #fff;
+  --foreground: #222936;
+  --muted: #e8eaf3;
+  --muted-foreground: #69718a;
+  --brand: #3478ff;
+  --brand-hover: #2a63d8;
+  --coin: #ffb347;
+  --success: #43c9a5;
+  --divider: #e5e8f2;
 }
 
 body {

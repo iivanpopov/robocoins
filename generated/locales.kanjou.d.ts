@@ -13,8 +13,12 @@ declare module '@kanjou/react' {
       'leaderboard.you': {}
       'leaderboard.place': {}
       'leaderboard.podium': {}
+      'leaderboard.profile.open': { name: DefaultMessageValue }
       'leaderboard.own.place': {}
-      'leaderboard.own.points': { count: { __fn: 'number' } }
+      'leaderboard.own.points': {
+        count: { __fn: 'number' }
+        countText: DefaultMessageValue
+      }
       'leaderboard.gap': { count: { __fn: 'number' } }
       'leaderboard.own.near': {}
       'leaderboard.rank': { rank: { __fn: 'number' } }
@@ -173,8 +177,16 @@ declare module '@kanjou/react' {
       'reason.other': {}
       'profile.balance.amount': { count: { __fn: 'number' } }
       'profile.balance.open-shop': {}
-      'profile.greeting.hello': { name: DefaultMessageValue }
-      'profile.greeting.caption': {}
+      'profile.greeting.pair.1.greeting': {}
+      'profile.greeting.pair.1.caption': {}
+      'profile.greeting.pair.2.greeting': {}
+      'profile.greeting.pair.2.caption': {}
+      'profile.greeting.pair.3.greeting': {}
+      'profile.greeting.pair.3.caption': {}
+      'profile.greeting.pair.4.greeting': {}
+      'profile.greeting.pair.4.caption': {}
+      'profile.greeting.pair.5.greeting': {}
+      'profile.greeting.pair.5.caption': {}
       'profile.goal.kicker': {}
       'profile.goal.loading': {}
       'profile.goal.progress': {
@@ -185,6 +197,14 @@ declare module '@kanjou/react' {
       'profile.goal.claim': {}
       'profile.goal.choose': {}
       'profile.earn.title': {}
+      'profile.earn.theory': {}
+      'profile.earn.practice': {}
+      'profile.earn.additional': {}
+      'profile.earn.activity': {}
+      'profile.earn.homework': {}
+      'profile.earn.teamwork': {}
+      'profile.earn.answer': {}
+      'profile.earn.initiative': {}
       'profile.goal.none': {}
       'profile.goal.shop': {}
       'profile.goal.completed': {}
@@ -205,7 +225,7 @@ declare module '@kanjou/react' {
       'profile.history.empty.mascot': {}
       'profile.history.today': {}
       'profile.history.yesterday': {}
-      'profile.history.day': { date: { __fn: 'datetime' } }
+      'profile.history.day': { date: { __fn: 'date' } }
       'profile.history.amount': { count: { __fn: 'number' } }
       'profile.rules': {}
       'profile.rules.title': {}

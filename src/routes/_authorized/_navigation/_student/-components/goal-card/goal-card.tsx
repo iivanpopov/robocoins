@@ -2,7 +2,6 @@ import { useTranslate } from '@kanjou/react'
 import { cn } from 'cn'
 
 import type { RewardResponse } from '#/api/types'
-import { Mascot, type MascotMood } from '#/components/mascot'
 import { Button } from '#/components/ui'
 
 import styles from './goal-card.module.css'
@@ -31,12 +30,10 @@ export function GoalCard(props: GoalCardProps) {
             <span aria-hidden="true" className="i-ph:arrow-right-bold" />
           </Button>
         </div>
-        <Mascot mood="curious" size={120} className={styles.mascot} />
       </article>
     )
   }
 
-  const mood: MascotMood = props.isCompleted ? 'celebrate' : 'support'
   const progress = Math.min(100, Math.max(0, props.progressPercent))
 
   return (
@@ -66,22 +63,19 @@ export function GoalCard(props: GoalCardProps) {
           </p>
         )}
         {props.isCompleted && <p className={styles.remaining}>{t('profile.goal.completed')}</p>}
-        <Button className={styles.action} size="md" onClick={props.onOpenShop}>
-          {!props.isCompleted && (
-            <>
-              {t('profile.goal.change')}
-              <span aria-hidden="true" className="i-ph:caret-right-bold" />
-            </>
-          )}
-          {props.isCompleted && (
-            <>
-              {t('profile.goal.claim')}
-              <span aria-hidden="true" className="i-ph:gift-fill" />
-            </>
-          )}
-        </Button>
+        {!props.isCompleted && (
+          <Button className={styles.change} size="md" variant="ghost" onClick={props.onOpenShop}>
+            {t('profile.goal.change')}
+            <span aria-hidden="true" className="i-ph:caret-right-bold" />
+          </Button>
+        )}
+        {props.isCompleted && (
+          <Button className={styles.action} size="md" onClick={props.onOpenShop}>
+            {t('profile.goal.claim')}
+            <span aria-hidden="true" className="i-ph:gift-fill" />
+          </Button>
+        )}
       </div>
-      <Mascot mood={mood} size={120} className={styles.mascot} />
     </article>
   )
 }

@@ -21,6 +21,18 @@
   border-radius: var(--rounded-md);
 }
 
+.category[data-category='web'] {
+  --category-color: var(--category-web);
+}
+
+.category[data-category='game dev'] {
+  --category-color: var(--category-game-dev);
+}
+
+.category[data-category='embedded'] {
+  --category-color: var(--category-embedded);
+}
+
 .details {
   display: flex;
   flex-direction: column;

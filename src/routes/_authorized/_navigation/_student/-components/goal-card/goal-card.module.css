@@ -1,12 +1,9 @@
 .card {
-  position: relative;
   display: flex;
-  min-height: 224px;
-  padding: var(--spacing-xl) 7rem var(--spacing-xl) var(--spacing-xl);
+  padding: var(--spacing-xl);
   overflow: hidden;
   background: var(--surface);
   border-radius: 24px;
-  isolation: isolate;
 }
 
 .content {
@@ -14,20 +11,23 @@
   flex-direction: column;
   gap: var(--spacing-sm);
   align-items: flex-start;
+  width: 100%;
 }
 
 .kicker {
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--student-accent);
+  color: var(--brand);
   letter-spacing: 0.04em;
 }
 
 .title {
+  width: 100%;
   font-size: 1.5rem;
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
 }
 
 .saved {
@@ -46,7 +46,7 @@
 
 .coin {
   font-size: 1rem;
-  color: var(--student-coin);
+  color: var(--coin);
 }
 
 .track {
@@ -61,12 +61,12 @@
 .fill {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, #ffd08a, var(--student-coin));
+  background: linear-gradient(90deg, #ffd08a, var(--coin));
   border-radius: inherit;
 }
 
 .completed .fill {
-  background: linear-gradient(90deg, #7ee0c4, var(--student-success));
+  background: linear-gradient(90deg, #7ee0c4, var(--success));
 }
 
 .remaining {
@@ -85,44 +85,14 @@
   border-radius: var(--rounded-full);
 }
 
-.mascot {
-  position: absolute;
-  right: 0.5rem;
-  bottom: 0.75rem;
-  width: 6.5rem;
-  height: auto;
-  pointer-events: none;
+.card .content .change {
+  min-height: 2.5rem;
+  margin-top: var(--spacing-xs);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
 }
 
-@media (width <= 359px) {
-  .card {
-    padding-right: var(--spacing-xl);
-  }
-
-  .mascot {
-    display: none;
-  }
-}
-
-@media (width >= 400px) {
-  .mascot {
-    width: 7rem;
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .mascot {
-    animation: mascot-float 6s ease-in-out infinite;
-  }
-}
-
-@keyframes mascot-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-5px);
-  }
+.card .content .change:hover {
+  color: var(--foreground);
 }

@@ -6,7 +6,6 @@ import * as v from 'valibot'
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
 import { getStudentByIdStudentStudentIdGetQueryOptions } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
 import { getTeacherGroupsTeacherGroupsGetQueryOptions } from '#/api/hooks/useGetTeacherGroupsTeacherGroupsGet'
-import type { StudentProfileResponse } from '#/api/types'
 import {
   Avatar,
   AvatarFallback,
@@ -53,8 +52,6 @@ export const Route = createFileRoute('/_authorized/student/$studentId/')({
   },
   loader: async ({ context, params }) => {
     const user = context.user
-    if (user?.role === 'student' && (user as StudentProfileResponse).id !== params.studentId)
-      throw notFound()
 
     const student = await context.queryClient
       .query(

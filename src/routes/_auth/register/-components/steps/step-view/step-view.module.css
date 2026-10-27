@@ -35,9 +35,24 @@
   width: var(--category-icon-size, 4rem);
   height: var(--category-icon-size, 4rem);
   font-size: calc(var(--category-icon-size, 4rem) * 0.65);
-  color: var(--category-color);
-  background: var(--category-background);
+  color: var(--taupe-700);
+  background: var(--taupe-100);
   border-radius: var(--rounded-md);
+}
+
+.card[data-category='web'] .category-icon {
+  color: var(--category-web);
+  background: color-mix(in srgb, var(--category-web) 12%, transparent);
+}
+
+.card[data-category='game dev'] .category-icon {
+  color: var(--category-game-dev);
+  background: color-mix(in srgb, var(--category-game-dev) 12%, transparent);
+}
+
+.card[data-category='embedded'] .category-icon {
+  color: var(--category-embedded);
+  background: color-mix(in srgb, var(--category-embedded) 12%, transparent);
 }
 
 .details {

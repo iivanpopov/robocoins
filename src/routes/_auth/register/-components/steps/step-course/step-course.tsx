@@ -1,11 +1,11 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import { Drawer, DrawerContent, HeroButton, Loader, Typography } from '#/components/ui'
 import { CategoryIcon } from '#/routes/-components'
 import { parseGroupSchedule } from '#/routes/-utils'
 import { AuthLayout } from '#/routes/_auth/-components'
 
+import { CategoryChoice, CategoryChoiceTile } from '../../category-choice'
 import { RegisterBackCaption } from '../../register-back-caption'
 import { StepGroup } from '../step-group'
 import { useStepCourse } from './-hooks'
@@ -41,17 +41,16 @@ export function StepCourse() {
             <Typography variant="caption">{t('step.selection.empty')}</Typography>
           )}
           {state.courses.map((course) => (
-            <button
-              type="button"
+            <CategoryChoice
               key={course.id}
-              data-category={course.category}
-              className={cn('category-theme', 'category-choice', styles.course)}
+              category={course.category}
+              className={styles.course}
               aria-pressed={state.selectedCourseId === course.id}
               onClick={() => functions.handleSelectCourse(course.id)}
             >
-              <div className="category-tile">
+              <CategoryChoiceTile>
                 <CategoryIcon category={course.category} />
-              </div>
+              </CategoryChoiceTile>
               <div>
                 <Typography variant="subtitle">{course.name}</Typography>
                 {state.selectedCourseId === course.id && state.selectedGroup && (
@@ -62,7 +61,7 @@ export function StepCourse() {
                   </Typography>
                 )}
               </div>
-            </button>
+            </CategoryChoice>
           ))}
         </div>
 

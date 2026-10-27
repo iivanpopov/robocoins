@@ -1,5 +1,4 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import {
   Avatar,
@@ -45,11 +44,7 @@ export function StepView() {
           {state.groups.map((group) => {
             const schedule = parseGroupSchedule(group.name)
             return (
-              <div
-                key={group.id}
-                className={cn('category-theme', styles.card)}
-                data-category={group.category}
-              >
+              <div key={group.id} className={styles.card} data-category={group.category}>
                 <div className={styles['category-icon']}>
                   <CategoryIcon category={group.category} />
                 </div>

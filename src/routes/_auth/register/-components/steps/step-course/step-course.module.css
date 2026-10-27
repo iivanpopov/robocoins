@@ -21,3 +21,15 @@
   border: none;
   border-radius: var(--rounded-md);
 }
+
+.course[data-category='web'] {
+  --category-color: var(--category-web);
+}
+
+.course[data-category='game dev'] {
+  --category-color: var(--category-game-dev);
+}
+
+.course[data-category='embedded'] {
+  --category-color: var(--category-embedded);
+}
