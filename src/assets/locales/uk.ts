@@ -113,7 +113,6 @@ export default {
     'Оберіть до двох викладачів або залиште список порожнім. Кожне збереження замінює склад групи; якщо сервер забороняє порожній список, покажемо помилку.',
   'admin.groups.teachers.submit': 'Зберегти склад',
   'admin.groups.teachers.entry': 'Керувати викладачами',
-  'admin.groups.teachers.entry-description': 'Призначити, замінити або зняти до двох викладачів.',
   'admin.groups.teachers.success-title': 'Викладачів оновлено',
   'admin.groups.teachers.success-description': 'Склад групи «{$group}» збережено на сервері.',
   'admin.groups.teachers.result-group': 'Група',

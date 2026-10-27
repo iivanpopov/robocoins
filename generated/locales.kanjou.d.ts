@@ -101,7 +101,6 @@ declare module '@kanjou/react' {
       'admin.groups.teachers.note': {}
       'admin.groups.teachers.submit': {}
       'admin.groups.teachers.entry': {}
-      'admin.groups.teachers.entry-description': {}
       'admin.groups.teachers.success-title': {}
       'admin.groups.teachers.success-description': {
         group: DefaultMessageValue

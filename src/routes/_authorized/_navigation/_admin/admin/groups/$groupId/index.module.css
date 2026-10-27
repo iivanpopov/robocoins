@@ -4,6 +4,10 @@
   gap: var(--spacing-sm);
 }
 
+.section + .section {
+  margin-top: var(--spacing-sm);
+}
+
 .section-header {
   display: flex;
   gap: var(--spacing-sm);
@@ -33,7 +37,7 @@
   border-radius: var(--rounded-md);
 }
 
-.students-link {
+.manage-link {
   display: inline-flex;
   flex-shrink: 0;
   gap: 0.125rem;
@@ -44,7 +48,7 @@
   text-decoration: none;
 }
 
-.students-link:focus-visible {
+.manage-link:focus-visible {
   outline: 2px solid var(--brand);
   outline-offset: 2px;
 }
@@ -88,11 +92,6 @@
 .action-icon[data-icon='course'] {
   color: var(--category-embedded);
   background: color-mix(in srgb, var(--category-embedded) 12%, transparent);
-}
-
-.action-icon[data-icon='teacher'] {
-  color: var(--brand);
-  background: color-mix(in srgb, var(--brand) 12%, transparent);
 }
 
 .action-icon[data-icon='practice'] {

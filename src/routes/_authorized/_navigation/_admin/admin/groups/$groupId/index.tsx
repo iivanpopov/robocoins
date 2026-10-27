@@ -77,7 +77,17 @@ function GroupDetailsPage() {
       {state.group && (
         <>
           <section className={styles.section}>
-            <h2 className={styles['section-title']}>{t('admin.groups.detail.teachers')}</h2>
+            <div className={styles['section-header']}>
+              <h2 className={styles['section-title']}>{t('admin.groups.detail.teachers')}</h2>
+              <Link
+                to="/admin/groups/$groupId/teachers"
+                params={{ groupId: state.groupId }}
+                className={styles['manage-link']}
+              >
+                <span>{t('admin.groups.teachers.entry')}</span>
+                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+              </Link>
+            </div>
             {!state.teachers.length && (
               <p className={styles.empty}>{t('admin.groups.detail.teachers-empty')}</p>
             )}
@@ -100,7 +110,7 @@ function GroupDetailsPage() {
               <Link
                 to="/admin/groups/$groupId/students"
                 params={{ groupId: state.groupId }}
-                className={styles['students-link']}
+                className={styles['manage-link']}
               >
                 <span>{t('admin.groups.detail.students-manage')}</span>
                 <span aria-hidden="true" className="i-ph:caret-right-bold" />
@@ -138,22 +148,6 @@ function GroupDetailsPage() {
                   </span>
                   <span className={styles['action-description']}>
                     {t('admin.groups.detail.practice-description')}
-                  </span>
-                </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
-              </Link>
-              <Link
-                to="/admin/groups/$groupId/teachers"
-                params={{ groupId: state.groupId }}
-                className={styles.action}
-              >
-                <span aria-hidden="true" className={styles['action-icon']} data-icon="teacher">
-                  <span className="i-ph:chalkboard-teacher-duotone" />
-                </span>
-                <span className={styles['action-copy']}>
-                  <span className={styles['action-title']}>{t('admin.groups.teachers.entry')}</span>
-                  <span className={styles['action-description']}>
-                    {t('admin.groups.teachers.entry-description')}
                   </span>
                 </span>
                 <span aria-hidden="true" className="i-ph:caret-right-bold" />

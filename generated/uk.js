@@ -1055,13 +1055,6 @@ export default {
       "Керувати викладачами"
     ]
   },
-  "admin.groups.teachers.entry-description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Призначити, замінити або зняти до двох викладачів."
-    ]
-  },
   "admin.groups.teachers.success-title": {
     "type": "message",
     "declarations": [],
