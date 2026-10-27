@@ -3,7 +3,7 @@ import { Chip, type ChipProps } from '#/components/ui'
 
 import { CategoryIcon } from '../category-icon'
 
-export type ThemedChipType = 'default' | 'category' | 'course'
+export type ThemedChipType = 'default' | 'category' | 'course' | 'reward' | 'privilege'
 
 export interface ThemedChipProps extends Omit<ChipProps, 'type'> {
   type?: ThemedChipType
@@ -27,6 +27,8 @@ export function ThemedChip({
   return (
     <Chip {...props} type="button">
       {icon && !!resolvedCategory && <CategoryIcon category={resolvedCategory} />}
+      {icon && type === 'reward' && <span aria-hidden="true" className="i-ph:cube-duotone" />}
+      {icon && type === 'privilege' && <span aria-hidden="true" className="i-ph:star-four-fill" />}
       {children}
     </Chip>
   )

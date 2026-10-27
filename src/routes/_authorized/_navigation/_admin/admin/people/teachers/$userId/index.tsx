@@ -2,9 +2,13 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { IconButton, Loader } from '#/components/ui'
-import { getInitial } from '#/routes/-utils'
 
-import { TeacherGroupRow, TeacherRequestError, TeacherUnavailable } from '../-components'
+import {
+  TeacherGroupRow,
+  TeacherPageLayout,
+  TeacherRequestError,
+  TeacherUnavailable,
+} from '../-components'
 import { useTeacherProfilePage } from '../-hooks'
 import { parseTeacherIdParams } from '../-utils'
 
@@ -24,8 +28,10 @@ function TeacherProfilePage() {
   const t = useTranslate()
 
   return (
-    <section className={styles.page}>
-      <header className={styles.header}>
+    <TeacherPageLayout
+      title={state.name ?? t('role.teacher')}
+      description={state.profile && t('role.teacher')}
+      back={
         <IconButton
           onClick={functions.handleBack}
           title={t('admin.teachers.profile.back')}
@@ -33,8 +39,8 @@ function TeacherProfilePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      </header>
-
+      }
+    >
       {state.isPending && <Loader grow />}
       {!state.isPending && state.isError && !state.notFound && (
         <TeacherRequestError
@@ -52,16 +58,6 @@ function TeacherProfilePage() {
 
       {state.profile && (
         <>
-          <article className={styles.identity}>
-            <span className={styles.avatar} aria-hidden="true">
-              {getInitial(state.name)}
-            </span>
-            <div className={styles['identity-info']}>
-              <h1 className={styles.name}>{state.name}</h1>
-              <span className={styles.role}>{t('role.teacher')}</span>
-            </div>
-          </article>
-
           <section className={styles.section}>
             <h2 className={styles['section-title']}>{t('admin.teachers.profile.groups')}</h2>
             {!!state.groups.length && (
@@ -78,26 +74,7 @@ function TeacherProfilePage() {
 
           <section className={styles.section}>
             <h2 className={styles['section-title']}>{t('admin.teachers.profile.manage')}</h2>
-            <p className={styles.note}>{t('admin.teachers.profile.manage-note')}</p>
             <div className={styles.actions}>
-              <Link
-                to="/admin/groups/teachers"
-                search={{ teacherId: state.teacherId }}
-                className={styles.action}
-              >
-                <span aria-hidden="true" className={styles['action-icon']}>
-                  <span className="i-ph:chalkboard-teacher-duotone" />
-                </span>
-                <span className={styles['action-copy']}>
-                  <span className={styles['action-title']}>
-                    {t('admin.teachers.profile.assign')}
-                  </span>
-                  <span className={styles['action-description']}>
-                    {t('admin.teachers.profile.assign-description')}
-                  </span>
-                </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
-              </Link>
               <Link
                 to="/admin/people/teachers/$userId/rename"
                 params={{ userId: state.teacherId }}
@@ -157,6 +134,6 @@ function TeacherProfilePage() {
           </section>
         </>
       )}
-    </section>
+    </TeacherPageLayout>
   )
 }

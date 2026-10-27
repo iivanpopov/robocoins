@@ -41,7 +41,6 @@ declare module '@kanjou/react' {
       'navbar.shop': {}
       'navbar.groups': {}
       'navbar.learning': {}
-      'navbar.operations': {}
       'navbar.people': {}
       'navbar.catalog': {}
       'admin.groups.title': {}
@@ -120,31 +119,6 @@ declare module '@kanjou/react' {
       'admin.groups.teachers.picker.search-empty': {}
       'admin.groups.teachers.picker.error': {}
       'admin.groups.teachers.picker.validation': {}
-      'admin.groups.bulk.title': {}
-      'admin.groups.bulk.description': {}
-      'admin.groups.bulk.note': {}
-      'admin.groups.bulk.entry': {}
-      'admin.groups.bulk.submit': {}
-      'admin.groups.bulk.submit-empty': {}
-      'admin.groups.bulk.groups.label': {}
-      'admin.groups.bulk.groups.search-label': {}
-      'admin.groups.bulk.groups.search-placeholder': {}
-      'admin.groups.bulk.groups.selected': { count: { __fn: 'number' } }
-      'admin.groups.bulk.groups.hint': {}
-      'admin.groups.bulk.groups.search-empty': {}
-      'admin.groups.bulk.groups.no-teachers': {}
-      'admin.groups.bulk.groups.empty-title': {}
-      'admin.groups.bulk.groups.empty-description': {}
-      'admin.groups.bulk.read-error': {}
-      'admin.groups.bulk.results.title': {}
-      'admin.groups.bulk.results.pending': {}
-      'admin.groups.bulk.results.success': {}
-      'admin.groups.bulk.results.error': {}
-      'admin.groups.bulk.results.error-status': { status: { __fn: 'number' } }
-      'admin.groups.bulk.results.unknown-description': {}
-      'admin.groups.bulk.results.retry': {}
-      'admin.groups.bulk.results.retry-note': {}
-      'admin.groups.bulk.results.open': { group: DefaultMessageValue }
       'admin.groups.create.title': {}
       'admin.groups.create.name-label': {}
       'admin.groups.create.name-placeholder': {}
@@ -210,6 +184,7 @@ declare module '@kanjou/react' {
       'students.register.action': {}
       'students.search.placeholder': {}
       'students.search.clear': {}
+      'students.filters.toggle': {}
       'students.filters.category': {}
       'students.filters.courses': {}
       'students.filters.groups': {}
@@ -226,6 +201,8 @@ declare module '@kanjou/react' {
       'students.action.login': {}
       'students.profile.title': {}
       'students.profile.back': {}
+      'students.profile.manage': {}
+      'students.profile.delete-description': {}
       'students.profile.error': {}
       'students.profile.metrics.groups': {}
       'students.profile.metrics.courses': {}
@@ -590,8 +567,6 @@ declare module '@kanjou/react' {
       'admin.teachers.profile.not-teacher': {}
       'admin.teachers.profile.manage': {}
       'admin.teachers.profile.manage-note': {}
-      'admin.teachers.profile.assign': {}
-      'admin.teachers.profile.assign-description': {}
       'admin.teachers.profile.rename': {}
       'admin.teachers.profile.rename-description': {}
       'admin.teachers.profile.access': {}
@@ -802,7 +777,8 @@ declare module '@kanjou/react' {
       'admin.catalog.add': {}
       'admin.catalog.back': {}
       'admin.catalog.search.placeholder': {}
-      'admin.catalog.filters.all': {}
+      'admin.catalog.filters.all-types': {}
+      'admin.catalog.filters.all-categories': {}
       'admin.catalog.filters.type': {}
       'admin.catalog.filters.category': {}
       'admin.catalog.type.reward': {}
@@ -817,6 +793,7 @@ declare module '@kanjou/react' {
       'admin.catalog.error.forbidden': {}
       'admin.catalog.error.not-found': {}
       'admin.catalog.error.validation': {}
+      'admin.catalog.details.title': {}
       'admin.catalog.details.type': {}
       'admin.catalog.details.category': {}
       'admin.catalog.details.description': {}
@@ -854,7 +831,6 @@ declare module '@kanjou/react' {
       'admin.catalog.form.name.placeholder': {}
       'admin.catalog.form.price': {}
       'admin.catalog.form.price.placeholder': {}
-      'admin.catalog.form.price.description': {}
       'admin.catalog.form.description': {}
       'admin.catalog.form.description.placeholder': {}
       'admin.catalog.form.type': {}
@@ -865,7 +841,6 @@ declare module '@kanjou/react' {
       'admin.catalog.validation.type': {}
       'admin.catalog.validation.category': {}
       'admin.catalog.create.title': {}
-      'admin.catalog.create.description': {}
       'admin.catalog.create.error': {}
       'admin.catalog.create.success.title': {}
       'admin.catalog.create.success.description': {}
@@ -876,8 +851,6 @@ declare module '@kanjou/react' {
       'admin.catalog.create.success.image.description': {}
       'admin.catalog.create.success.no-image': {}
       'admin.catalog.image.title': {}
-      'admin.catalog.image.description': {}
-      'admin.catalog.image.unsupported': {}
       'admin.catalog.image.mode.link': {}
       'admin.catalog.image.mode.file': {}
       'admin.catalog.image.link.placeholder': {}

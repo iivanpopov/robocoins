@@ -183,7 +183,7 @@ function RegisterStudentPage() {
                             selected={state.categoryFilter === 'all'}
                             onClick={() => functions.handleCategoryChange('all')}
                           >
-                            {t('admin.catalog.filters.all')}
+                            {t('admin.catalog.filters.all-categories')}
                           </ThemedChip>
                           {state.categories.map((category) => (
                             <ThemedChip

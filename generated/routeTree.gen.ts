@@ -43,7 +43,6 @@ import { Route as AuthorizedNavigationAdminAdminCoursesCategoriesIndexRouteImpor
 import { Route as AuthorizedNavigationAdminAdminCoursesCreateIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/courses/create/index'
 import { Route as AuthorizedNavigationAdminAdminGroupsGroupIdIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/groups/$groupId/index'
 import { Route as AuthorizedNavigationAdminAdminGroupsCreateIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/groups/create/index'
-import { Route as AuthorizedNavigationAdminAdminGroupsTeachersIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/groups/teachers/index'
 import { Route as AuthorizedNavigationAdminAdminOperationsPracticeIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/operations/practice/index'
 import { Route as AuthorizedNavigationAdminAdminOperationsSettingsIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/operations/settings/index'
 import { Route as AuthorizedNavigationAdminAdminPeopleStudentsIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/people/students/index'
@@ -262,12 +261,6 @@ const AuthorizedNavigationAdminAdminGroupsCreateIndexRoute =
   AuthorizedNavigationAdminAdminGroupsCreateIndexRouteImport.update({
     id: '/groups/create/',
     path: '/groups/create/',
-    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
-  } as any)
-const AuthorizedNavigationAdminAdminGroupsTeachersIndexRoute =
-  AuthorizedNavigationAdminAdminGroupsTeachersIndexRouteImport.update({
-    id: '/groups/teachers/',
-    path: '/groups/teachers/',
     getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminOperationsPracticeIndexRoute =
@@ -493,7 +486,6 @@ export interface FileRoutesByFullPath {
   '/admin/courses/create/': typeof AuthorizedNavigationAdminAdminCoursesCreateIndexRoute
   '/admin/groups/$groupId/': typeof AuthorizedNavigationAdminAdminGroupsGroupIdIndexRoute
   '/admin/groups/create/': typeof AuthorizedNavigationAdminAdminGroupsCreateIndexRoute
-  '/admin/groups/teachers/': typeof AuthorizedNavigationAdminAdminGroupsTeachersIndexRoute
   '/admin/operations/practice/': typeof AuthorizedNavigationAdminAdminOperationsPracticeIndexRoute
   '/admin/operations/settings/': typeof AuthorizedNavigationAdminAdminOperationsSettingsIndexRoute
   '/admin/people/students/': typeof AuthorizedNavigationAdminAdminPeopleStudentsIndexRoute
@@ -549,7 +541,6 @@ export interface FileRoutesByTo {
   '/admin/courses/create': typeof AuthorizedNavigationAdminAdminCoursesCreateIndexRoute
   '/admin/groups/$groupId': typeof AuthorizedNavigationAdminAdminGroupsGroupIdIndexRoute
   '/admin/groups/create': typeof AuthorizedNavigationAdminAdminGroupsCreateIndexRoute
-  '/admin/groups/teachers': typeof AuthorizedNavigationAdminAdminGroupsTeachersIndexRoute
   '/admin/operations/practice': typeof AuthorizedNavigationAdminAdminOperationsPracticeIndexRoute
   '/admin/operations/settings': typeof AuthorizedNavigationAdminAdminOperationsSettingsIndexRoute
   '/admin/people/students': typeof AuthorizedNavigationAdminAdminPeopleStudentsIndexRoute
@@ -616,7 +607,6 @@ export interface FileRoutesById {
   '/_authorized/_navigation/_admin/admin/courses/create/': typeof AuthorizedNavigationAdminAdminCoursesCreateIndexRoute
   '/_authorized/_navigation/_admin/admin/groups/$groupId/': typeof AuthorizedNavigationAdminAdminGroupsGroupIdIndexRoute
   '/_authorized/_navigation/_admin/admin/groups/create/': typeof AuthorizedNavigationAdminAdminGroupsCreateIndexRoute
-  '/_authorized/_navigation/_admin/admin/groups/teachers/': typeof AuthorizedNavigationAdminAdminGroupsTeachersIndexRoute
   '/_authorized/_navigation/_admin/admin/operations/practice/': typeof AuthorizedNavigationAdminAdminOperationsPracticeIndexRoute
   '/_authorized/_navigation/_admin/admin/operations/settings/': typeof AuthorizedNavigationAdminAdminOperationsSettingsIndexRoute
   '/_authorized/_navigation/_admin/admin/people/students/': typeof AuthorizedNavigationAdminAdminPeopleStudentsIndexRoute
@@ -677,7 +667,6 @@ export interface FileRouteTypes {
     | '/admin/courses/create/'
     | '/admin/groups/$groupId/'
     | '/admin/groups/create/'
-    | '/admin/groups/teachers/'
     | '/admin/operations/practice/'
     | '/admin/operations/settings/'
     | '/admin/people/students/'
@@ -733,7 +722,6 @@ export interface FileRouteTypes {
     | '/admin/courses/create'
     | '/admin/groups/$groupId'
     | '/admin/groups/create'
-    | '/admin/groups/teachers'
     | '/admin/operations/practice'
     | '/admin/operations/settings'
     | '/admin/people/students'
@@ -799,7 +787,6 @@ export interface FileRouteTypes {
     | '/_authorized/_navigation/_admin/admin/courses/create/'
     | '/_authorized/_navigation/_admin/admin/groups/$groupId/'
     | '/_authorized/_navigation/_admin/admin/groups/create/'
-    | '/_authorized/_navigation/_admin/admin/groups/teachers/'
     | '/_authorized/_navigation/_admin/admin/operations/practice/'
     | '/_authorized/_navigation/_admin/admin/operations/settings/'
     | '/_authorized/_navigation/_admin/admin/people/students/'
@@ -1076,13 +1063,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminGroupsCreateIndexRouteImport
       parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
-    '/_authorized/_navigation/_admin/admin/groups/teachers/': {
-      id: '/_authorized/_navigation/_admin/admin/groups/teachers/'
-      path: '/groups/teachers'
-      fullPath: '/admin/groups/teachers/'
-      preLoaderRoute: typeof AuthorizedNavigationAdminAdminGroupsTeachersIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
-    }
     '/_authorized/_navigation/_admin/admin/operations/practice/': {
       id: '/_authorized/_navigation/_admin/admin/operations/practice/'
       path: '/operations/practice'
@@ -1348,7 +1328,6 @@ interface AuthorizedNavigationAdminAdminRouteRouteChildren {
   AuthorizedNavigationAdminAdminCoursesCreateIndexRoute: typeof AuthorizedNavigationAdminAdminCoursesCreateIndexRoute
   AuthorizedNavigationAdminAdminGroupsGroupIdIndexRoute: typeof AuthorizedNavigationAdminAdminGroupsGroupIdIndexRoute
   AuthorizedNavigationAdminAdminGroupsCreateIndexRoute: typeof AuthorizedNavigationAdminAdminGroupsCreateIndexRoute
-  AuthorizedNavigationAdminAdminGroupsTeachersIndexRoute: typeof AuthorizedNavigationAdminAdminGroupsTeachersIndexRoute
   AuthorizedNavigationAdminAdminOperationsPracticeIndexRoute: typeof AuthorizedNavigationAdminAdminOperationsPracticeIndexRoute
   AuthorizedNavigationAdminAdminOperationsSettingsIndexRoute: typeof AuthorizedNavigationAdminAdminOperationsSettingsIndexRoute
   AuthorizedNavigationAdminAdminPeopleStudentsIndexRoute: typeof AuthorizedNavigationAdminAdminPeopleStudentsIndexRoute
@@ -1402,8 +1381,6 @@ const AuthorizedNavigationAdminAdminRouteRouteChildren: AuthorizedNavigationAdmi
       AuthorizedNavigationAdminAdminGroupsGroupIdIndexRoute,
     AuthorizedNavigationAdminAdminGroupsCreateIndexRoute:
       AuthorizedNavigationAdminAdminGroupsCreateIndexRoute,
-    AuthorizedNavigationAdminAdminGroupsTeachersIndexRoute:
-      AuthorizedNavigationAdminAdminGroupsTeachersIndexRoute,
     AuthorizedNavigationAdminAdminOperationsPracticeIndexRoute:
       AuthorizedNavigationAdminAdminOperationsPracticeIndexRoute,
     AuthorizedNavigationAdminAdminOperationsSettingsIndexRoute:

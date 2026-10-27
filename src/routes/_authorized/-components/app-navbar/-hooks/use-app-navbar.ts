@@ -1,16 +1,14 @@
 // @unocss-include
 
-import {
-  useLocation,
-  useNavigate,
-  useRouteContext,
-  type NavigateOptions,
-} from '@tanstack/react-router'
+import { useNavigate, useRouteContext, type NavigateOptions } from '@tanstack/react-router'
 
 import type { UserRoleKey } from '#/api/types'
+import { useResolvedPathname } from '#/routes/-hooks'
+import { getTabViewTransition } from '#/routes/-utils'
 
 interface NavigationItem {
   to: NonNullable<NavigateOptions['to']>
+  path?: NonNullable<NavigateOptions['to']>
   icon: string
   label: string
 }
@@ -18,13 +16,13 @@ interface NavigationItem {
 const NAVIGATION_ITEMS = {
   admin: [
     { to: '/settings', icon: 'i-ph:gear-bold', label: 'navbar.settings' },
-    {
-      to: '/admin/operations',
-      icon: 'i-ph:arrows-left-right-bold',
-      label: 'navbar.operations',
-    },
     { to: '/admin', icon: 'i-ph:graduation-cap-bold', label: 'navbar.learning' },
-    { to: '/admin/people', icon: 'i-ph:users-three-bold', label: 'navbar.people' },
+    {
+      to: '/admin/people',
+      path: '/admin/people/students',
+      icon: 'i-ph:users-three-bold',
+      label: 'navbar.people',
+    },
     { to: '/admin/catalog', icon: 'i-ph:storefront-bold', label: 'navbar.catalog' },
   ],
   teacher: [
@@ -56,24 +54,20 @@ export function useAppNavbar() {
   const role = user?.role ?? 'student'
 
   const navigate = useNavigate()
-  const pathname = useLocation({ select: (location) => location.pathname })
-  const currentPath = pathname.replace(/\/+$/, '') || '/'
+  const currentPath = useResolvedPathname()
 
   function handleNavigate(to: NonNullable<NavigateOptions['to']>) {
-    if (to === currentPath) return
-
     const items = NAVIGATION_ITEMS[role]
+    const item = items.find((candidate) => candidate.to === to)
+    let target: NonNullable<NavigateOptions['to']> = to
+    if (item && 'path' in item && item.path) target = item.path
+    if (target === currentPath) return
+
     const currentIndex = items.findIndex((item) => item.to === getActivePath(items, currentPath))
     const nextIndex = items.findIndex((item) => item.to === to)
-    let viewTransition: NavigateOptions['viewTransition'] = false
+    const viewTransition = getTabViewTransition(currentIndex, nextIndex)
 
-    if (currentIndex >= 0 && nextIndex >= 0 && currentIndex !== nextIndex) {
-      let direction = 'slide-forward'
-      if (nextIndex < currentIndex) direction = 'slide-backward'
-      viewTransition = { types: [direction] }
-    }
-
-    return navigate({ to, viewTransition })
+    return navigate({ to: target, viewTransition })
   }
 
   const items = NAVIGATION_ITEMS[role]

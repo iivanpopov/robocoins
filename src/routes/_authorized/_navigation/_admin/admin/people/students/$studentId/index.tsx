@@ -1,6 +1,5 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link, notFound } from '@tanstack/react-router'
-import { cn } from 'cn'
 import * as v from 'valibot'
 
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
@@ -8,7 +7,7 @@ import { getStudentByIdStudentStudentIdGetQueryOptions } from '#/api/hooks/useGe
 import { IconButton, Loader } from '#/components/ui'
 import { CategoryIcon } from '#/routes/-components'
 
-import { ApiErrorNotice, StudentAvatar } from '../-components'
+import { ApiErrorNotice } from '../-components'
 import { useStudentProfilePage } from './-hooks'
 
 import styles from './index.module.css'
@@ -56,7 +55,10 @@ function StudentProfilePage() {
         <IconButton onClick={functions.handleBack} title={t('students.profile.back')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <h1 className={styles.title}>{t('students.profile.title')}</h1>
+        <div className={styles['header-copy']}>
+          <h1 className={styles.title}>{state.student?.name ?? t('students.profile.title')}</h1>
+          {!!state.student && <p className={styles.role}>{t('role.student')}</p>}
+        </div>
       </header>
 
       {state.isPending && <Loader grow />}
@@ -71,122 +73,96 @@ function StudentProfilePage() {
       )}
       {!!state.student && !state.isError && (
         <>
-          <article className={styles.identity}>
-            <StudentAvatar
-              name={state.student.name}
-              avatar={state.student.avatar}
-              size="lg"
-              className={styles.avatar}
-            />
-            <div className={styles['identity-details']}>
-              <h2 className={styles.name}>{state.student.name}</h2>
-              <div className={styles.metrics}>
-                <div className={styles.metric}>
-                  <span className={styles['metric-value']}>{state.groupCount}</span>
-                  <span className={styles['metric-label']}>
-                    {t('students.profile.metrics.groups')}
+          <section className={styles.section}>
+            <h2 className={styles['section-title']}>{t('students.profile.manage')}</h2>
+            <div className={styles.actions}>
+              <Link
+                to="/admin/people/students/$studentId/edit"
+                params={{ studentId: state.student.id }}
+                className={styles.action}
+              >
+                <span aria-hidden="true" className={styles['action-icon']}>
+                  <span className="i-ph:pencil-simple-duotone" />
+                </span>
+                <span className={styles['action-copy']}>
+                  <span className={styles['action-title']}>{t('students.edit.title')}</span>
+                  <span className={styles['action-description']}>
+                    {t('students.edit.description')}
                   </span>
-                </div>
-                <div className={styles.metric}>
-                  <span className={styles['metric-value']}>{state.courseCount}</span>
-                  <span className={styles['metric-label']}>
-                    {t('students.profile.metrics.courses')}
+                </span>
+                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+              </Link>
+
+              <Link
+                to="/admin/people/students/$studentId/access"
+                params={{ studentId: state.student.id }}
+                className={styles.action}
+              >
+                <span aria-hidden="true" className={styles['action-icon']}>
+                  <span className="i-ph:key-duotone" />
+                </span>
+                <span className={styles['action-copy']}>
+                  <span className={styles['action-title']}>{t('students.access.title')}</span>
+                  <span className={styles['action-description']}>
+                    {t('students.access.description-empty')}
                   </span>
-                </div>
-              </div>
+                </span>
+                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+              </Link>
+
+              <Link
+                to="/admin/people/students/$studentId/balance"
+                params={{ studentId: state.student.id }}
+                className={styles.action}
+              >
+                <span aria-hidden="true" className={styles['action-icon']}>
+                  <span className="i-ph:coins-duotone" />
+                </span>
+                <span className={styles['action-copy']}>
+                  <span className={styles['action-title']}>{t('admin.balance.profile.link')}</span>
+                  <span className={styles['action-description']}>
+                    {t('admin.balance.profile.description')}
+                  </span>
+                </span>
+                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+              </Link>
+
+              <Link
+                to="/admin/people/students/$studentId/streak"
+                params={{ studentId: state.student.id }}
+                className={styles.action}
+              >
+                <span aria-hidden="true" className={styles['action-icon']}>
+                  <span className="i-ph:fire-duotone" />
+                </span>
+                <span className={styles['action-copy']}>
+                  <span className={styles['action-title']}>{t('admin.streak.title')}</span>
+                  <span className={styles['action-description']}>
+                    {t('admin.streak.description')}
+                  </span>
+                </span>
+                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+              </Link>
+
+              <Link
+                to="/admin/people/students/$studentId/delete"
+                params={{ studentId: state.student.id }}
+                className={styles.action}
+                data-tone="error"
+              >
+                <span aria-hidden="true" className={styles['action-icon']}>
+                  <span className="i-ph:user-minus-duotone" />
+                </span>
+                <span className={styles['action-copy']}>
+                  <span className={styles['action-title']}>{t('students.delete.title')}</span>
+                  <span className={styles['action-description']}>
+                    {t('students.profile.delete-description')}
+                  </span>
+                </span>
+                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+              </Link>
             </div>
-          </article>
-
-          <nav className={styles.actions}>
-            <Link
-              to="/admin/people/students/$studentId/edit"
-              params={{ studentId: state.student.id }}
-              className={styles['action-link']}
-            >
-              <span
-                aria-hidden="true"
-                className={cn('i-ph:pencil-simple-duotone', styles['action-icon'])}
-              />
-              <span className={styles['action-title']}>{t('students.edit.title')}</span>
-              <span
-                aria-hidden="true"
-                className={cn('i-ph:caret-right-bold', styles['action-arrow'])}
-              />
-            </Link>
-
-            <Link
-              to="/admin/people/students/$studentId/access"
-              params={{ studentId: state.student.id }}
-              className={styles['action-link']}
-            >
-              <span aria-hidden="true" className={cn('i-ph:key-duotone', styles['action-icon'])} />
-              <span className={styles['action-title']}>{t('students.access.title')}</span>
-              <span
-                aria-hidden="true"
-                className={cn('i-ph:caret-right-bold', styles['action-arrow'])}
-              />
-            </Link>
-
-            <Link
-              to="/admin/people/students/$studentId/delete"
-              params={{ studentId: state.student.id }}
-              className={styles['action-link']}
-            >
-              <span
-                aria-hidden="true"
-                className={cn('i-ph:user-minus-duotone', styles['action-icon'])}
-              />
-              <span className={styles['action-title']}>{t('students.delete.title')}</span>
-              <span
-                aria-hidden="true"
-                className={cn('i-ph:caret-right-bold', styles['action-arrow'])}
-              />
-            </Link>
-          </nav>
-
-          <Link
-            to="/admin/people/students/$studentId/balance"
-            params={{ studentId: state.student.id }}
-            className={styles['profile-link']}
-          >
-            <span
-              aria-hidden="true"
-              className={cn('i-ph:coins-duotone', styles['profile-link-icon'])}
-            />
-            <span className={styles['profile-link-details']}>
-              <span className={styles['profile-link-title']}>
-                {t('admin.balance.profile.link')}
-              </span>
-              <span className={styles['profile-link-description']}>
-                {t('admin.balance.profile.description')}
-              </span>
-            </span>
-            <span
-              aria-hidden="true"
-              className={cn('i-ph:caret-right-bold', styles['profile-link-arrow'])}
-            />
-          </Link>
-
-          <Link
-            to="/admin/people/students/$studentId/streak"
-            params={{ studentId: state.student.id }}
-            className={styles['profile-link']}
-          >
-            <span
-              aria-hidden="true"
-              className={cn('i-ph:fire-duotone', styles['profile-link-icon'])}
-            />
-            <span className={styles['profile-link-details']}>
-              <span className={styles['profile-link-title']}>{t('admin.streak.title')}</span>
-              <span className={styles['profile-link-description']}>
-                {t('admin.streak.description')}
-              </span>
-            </span>
-            <span
-              aria-hidden="true"
-              className={cn('i-ph:caret-right-bold', styles['profile-link-arrow'])}
-            />
-          </Link>
+          </section>
 
           <section className={styles.section}>
             <div className={styles['section-header']}>
@@ -194,9 +170,10 @@ function StudentProfilePage() {
               <Link
                 to="/admin/people/students/$studentId/groups"
                 params={{ studentId: state.student.id }}
-                className={styles['section-link']}
+                className={styles['manage-link']}
               >
-                {t('students.profile.memberships.manage')}
+                <span>{t('students.profile.memberships.manage')}</span>
+                <span aria-hidden="true" className="i-ph:caret-right-bold" />
               </Link>
             </div>
             {!!state.memberships.length && (
@@ -222,19 +199,6 @@ function StudentProfilePage() {
               <p className={styles.empty}>{t('students.profile.memberships.empty')}</p>
             )}
           </section>
-
-          {!!state.courseNames.length && (
-            <section className={styles.section}>
-              <h2 className={styles['section-title']}>{t('students.profile.metrics.courses')}</h2>
-              <div className={styles.courses}>
-                {state.courseNames.map((courseName) => (
-                  <span key={courseName} className={styles.course}>
-                    {courseName}
-                  </span>
-                ))}
-              </div>
-            </section>
-          )}
         </>
       )}
     </section>

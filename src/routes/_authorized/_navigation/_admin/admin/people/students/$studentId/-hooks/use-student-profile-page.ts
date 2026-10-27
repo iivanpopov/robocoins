@@ -4,7 +4,7 @@ import { useGetCoursesCourseGet } from '#/api/hooks/useGetCoursesCourseGet'
 import { useGetStudentByIdStudentStudentIdGet } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
 import { UKRAINIAN_LOCALE } from '#/routes/-constants'
 
-import { combineCourseGroups, getApiErrorKind, getStudentCourseNames } from '../../-utils'
+import { combineCourseGroups, getApiErrorKind } from '../../-utils'
 
 export function useStudentProfilePage() {
   const navigate = useNavigate()
@@ -39,20 +39,12 @@ export function useStudentProfilePage() {
           first.courseName.localeCompare(second.courseName, UKRAINIAN_LOCALE),
         )
     : []
-  const courseNames = getStudentCourseNames(
-    student?.course_names ?? [],
-    student?.group_ids ?? [],
-    groups,
-  )
   const error = studentQuery.error ?? coursesQuery.error ?? null
 
   return {
     state: {
       student,
       memberships,
-      courseNames,
-      groupCount: memberships.length,
-      courseCount: courseNames.length,
       errorKind: getApiErrorKind(error),
       isPending: studentQuery.isPending || coursesQuery.isPending,
       isError: studentQuery.isError || coursesQuery.isError,

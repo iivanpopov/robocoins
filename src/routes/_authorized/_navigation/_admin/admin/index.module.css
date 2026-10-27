@@ -28,28 +28,6 @@
   align-items: center;
 }
 
-.menu-item {
-  display: flex;
-  gap: var(--spacing-sm);
-  align-items: center;
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: 0.875rem;
-  font-weight: 550;
-  color: var(--foreground);
-  cursor: pointer;
-  border-radius: var(--rounded-sm);
-}
-
-.menu-item > [aria-hidden='true'] {
-  font-size: 1.125rem;
-  color: var(--muted-foreground);
-}
-
-.menu-item:hover,
-.menu-item:active {
-  background: var(--muted);
-}
-
 .title {
   font-size: 1.5rem;
   font-weight: 800;

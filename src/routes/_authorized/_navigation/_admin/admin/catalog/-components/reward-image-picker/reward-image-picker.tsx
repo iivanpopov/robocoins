@@ -15,6 +15,11 @@ export interface RewardImagePickerProps {
 export function RewardImagePicker({ picker, disabled = false }: RewardImagePickerProps) {
   const t = useTranslate()
 
+  function handleFileModeClick() {
+    picker.functions.handleModeChange('file')
+    picker.functions.handleChooseFile()
+  }
+
   return (
     <section className={styles.picker}>
       <div className={styles.header}>
@@ -23,8 +28,6 @@ export function RewardImagePicker({ picker, disabled = false }: RewardImagePicke
           <span className={styles.badge}>{t('admin.catalog.image.unsaved')}</span>
         )}
       </div>
-      <p className={styles.description}>{t('admin.catalog.image.description')}</p>
-
       <div className={styles.modes} role="tablist" aria-label={t('admin.catalog.image.title')}>
         <button
           type="button"
@@ -43,7 +46,7 @@ export function RewardImagePicker({ picker, disabled = false }: RewardImagePicke
           aria-selected={picker.state.mode === 'file'}
           className={cn(styles.mode, picker.state.mode === 'file' && styles['mode-active'])}
           disabled={disabled}
-          onClick={() => picker.functions.handleModeChange('file')}
+          onClick={handleFileModeClick}
         >
           <span className="i-ph:upload-simple-bold" aria-hidden="true" />
           {t('admin.catalog.image.mode.file')}
@@ -80,26 +83,17 @@ export function RewardImagePicker({ picker, disabled = false }: RewardImagePicke
         </div>
       )}
 
+      <input
+        ref={picker.refs.fileInput}
+        type="file"
+        accept="image/*"
+        className={styles['file-input']}
+        disabled={disabled}
+        onChange={picker.functions.handleFileChange}
+      />
+
       {picker.state.mode === 'file' && (
         <div className={styles.panel} role="tabpanel">
-          <input
-            ref={picker.refs.fileInput}
-            type="file"
-            accept="image/*"
-            className={styles['file-input']}
-            disabled={disabled}
-            onChange={picker.functions.handleFileChange}
-          />
-          <Button
-            type="button"
-            size="sm"
-            disabled={disabled}
-            onClick={picker.functions.handleChooseFile}
-          >
-            <span className="i-ph:image-bold" aria-hidden="true" />
-            {picker.state.selection?.kind === 'file' && t('admin.catalog.image.file.replace')}
-            {picker.state.selection?.kind !== 'file' && t('admin.catalog.image.file.choose')}
-          </Button>
           <p className={styles.hint}>{t('admin.catalog.image.file.hint')}</p>
           {picker.state.fileError && (
             <p className={styles.error} role="alert">
@@ -170,8 +164,6 @@ export function RewardImagePicker({ picker, disabled = false }: RewardImagePicke
           {t('admin.catalog.image.error.preview')}
         </p>
       )}
-
-      <p className={styles.unsupported}>{t('admin.catalog.image.unsupported')}</p>
     </section>
   )
 }

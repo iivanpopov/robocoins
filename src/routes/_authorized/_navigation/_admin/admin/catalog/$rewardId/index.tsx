@@ -1,5 +1,6 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, notFound } from '@tanstack/react-router'
+import { cn } from 'cn'
 import * as v from 'valibot'
 
 import {
@@ -11,6 +12,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
+  IconButton,
   Loader,
 } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
@@ -46,10 +48,30 @@ function RewardDetailContent() {
 
   return (
     <section className={styles.page}>
-      <button type="button" className={styles.back} onClick={functions.handleBack}>
-        <span className="i-ph:caret-left-bold" aria-hidden="true" />
-        {t('admin.catalog.back')}
-      </button>
+      <header className={styles.header}>
+        <IconButton
+          onClick={functions.handleBack}
+          title={t('admin.catalog.back')}
+          aria-label={t('admin.catalog.back')}
+        >
+          <span aria-hidden="true" className="i-ph:arrow-left" />
+        </IconButton>
+        <div className={styles['header-copy']}>
+          <h1 className={styles.title}>{state.reward?.name ?? t('admin.catalog.details.title')}</h1>
+          {!!state.reward && (
+            <p className={styles.meta}>
+              <span>{t(`admin.catalog.type.${state.reward.type}`)},</span>
+              <RewardCategoryName category={state.reward.course_category} />
+            </p>
+          )}
+          {!!state.reward && (
+            <p className={styles.price}>
+              {t('shop.reward.price', { count: state.reward.price })}
+              <span className="i-ph:coins-bold" aria-hidden="true" />
+            </p>
+          )}
+        </div>
+      </header>
 
       {state.isPending && <Loader grow />}
 
@@ -59,60 +81,47 @@ function RewardDetailContent() {
         </InlineError>
       )}
 
-      {state.reward && (
+      {!!state.reward && (
         <>
-          <header className={styles.header}>
-            <span className={styles.type}>{t(`admin.catalog.type.${state.reward.type}`)}</span>
-            <h1 className={styles.title}>{state.reward.name}</h1>
-            <p className={styles.price}>
-              {t('shop.reward.price', { count: state.reward.price })}
-              <span className="i-ph:coins-bold" aria-hidden="true" />
-            </p>
-          </header>
+          {!!state.reward.description?.trim() && (
+            <section className={styles.section}>
+              <h2 className={styles['section-title']}>{t('admin.catalog.details.description')}</h2>
+              <p className={styles.description}>{state.reward.description}</p>
+            </section>
+          )}
 
-          <dl className={styles.summary}>
-            <div className={styles['summary-row']}>
-              <dt>{t('admin.catalog.details.type')}</dt>
-              <dd>{t(`admin.catalog.type.${state.reward.type}`)}</dd>
-            </div>
-            <div className={styles['summary-row']}>
-              <dt>{t('admin.catalog.details.category')}</dt>
-              <dd>
-                <RewardCategoryName category={state.reward.course_category} />
-              </dd>
-            </div>
-            <div className={styles['summary-row']}>
-              <dt>{t('admin.catalog.details.image')}</dt>
-              <dd className={styles.muted}>{t('admin.catalog.details.image.none')}</dd>
-            </div>
-            <div className={styles['summary-description']}>
-              <dt>{t('admin.catalog.details.description')}</dt>
-              <dd>
-                {!!state.reward.description?.trim() && <p>{state.reward.description}</p>}
-                {!state.reward.description?.trim() && (
-                  <p className={styles.muted}>{t('admin.catalog.details.no-description')}</p>
-                )}
-              </dd>
-            </div>
-          </dl>
-
-          <section className={styles.manage}>
-            <h2 className={styles['manage-title']}>{t('admin.catalog.details.manage')}</h2>
-            <p className={styles['manage-description']}>
-              {t('admin.catalog.details.manage.description')}
-            </p>
+          <section className={styles.section}>
+            <h2 className={styles['section-title']}>{t('admin.catalog.details.manage')}</h2>
             <div className={styles.actions}>
               <button type="button" className={styles.action} onClick={functions.handleEdit}>
-                {t('admin.catalog.details.edit')}
+                <span aria-hidden="true" className={styles['action-icon']}>
+                  <span className="i-ph:pencil-simple-duotone" />
+                </span>
+                <span className={styles['action-title']}>{t('admin.catalog.details.edit')}</span>
+                <span aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.caret)} />
               </button>
               <button type="button" className={styles.action} onClick={functions.handleOpenHide}>
-                {t('admin.catalog.details.hide')}
+                <span aria-hidden="true" className={styles['action-icon']}>
+                  <span className="i-ph:eye-slash-duotone" />
+                </span>
+                <span className={styles['action-title']}>{t('admin.catalog.details.hide')}</span>
               </button>
               <button type="button" className={styles.action} onClick={functions.handleOpenShow}>
-                {t('admin.catalog.details.show')}
+                <span aria-hidden="true" className={styles['action-icon']}>
+                  <span className="i-ph:eye-duotone" />
+                </span>
+                <span className={styles['action-title']}>{t('admin.catalog.details.show')}</span>
               </button>
-              <button type="button" className={styles.delete} onClick={functions.handleOpenDelete}>
-                {t('admin.catalog.details.delete')}
+              <button
+                type="button"
+                className={styles.action}
+                data-tone="error"
+                onClick={functions.handleOpenDelete}
+              >
+                <span aria-hidden="true" className={styles['action-icon']}>
+                  <span className="i-ph:trash-duotone" />
+                </span>
+                <span className={styles['action-title']}>{t('admin.catalog.details.delete')}</span>
               </button>
             </div>
 

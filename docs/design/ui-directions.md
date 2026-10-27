@@ -2,13 +2,14 @@
 
 The product uses two visual directions, chosen according to the audience:
 
-## Teacher interfaces
+## Teacher and admin interfaces
 
-Teacher-facing interfaces use a restrained, flat UI. Keep the presentation clear and functional, with understated styling that supports focused work rather than competing with it.
+Teacher- and admin-facing interfaces use the same restrained, flat UI. Keep the presentation clear and functional, with understated styling that supports focused work rather than competing with it. Admin-specific structure and interaction rules are documented in [Admin interface guidelines](./admin-ui-guidelines.md).
 
 Examples:
 
 - [Teacher group](../../src/routes/_authorized/_navigation/_teacher/group/)
+- [Admin cabinet](../../src/routes/_authorized/_navigation/_admin/admin/)
 
 ## Child-facing interfaces
 

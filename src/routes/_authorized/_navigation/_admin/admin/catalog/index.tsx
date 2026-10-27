@@ -3,6 +3,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { cn } from 'cn'
 
 import {
+  Button,
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
@@ -31,10 +32,10 @@ function CatalogPage() {
     <section className={styles.page}>
       <header className={styles.header}>
         <h1 className={styles.title}>{t('admin.catalog.title')}</h1>
-        <Link to="/admin/catalog/create" className={styles.add}>
+        <Button nativeButton={false} render={<Link to="/admin/catalog/create" />}>
           <span className="i-ph:plus-bold" aria-hidden="true" />
           {t('admin.catalog.add')}
-        </Link>
+        </Button>
       </header>
 
       <div className={styles.filters}>
@@ -69,12 +70,12 @@ function CatalogPage() {
               selected={state.type === ALL_FILTER}
               onClick={() => functions.handleTypeChange(ALL_FILTER)}
             >
-              {t('admin.catalog.filters.all')}
+              {t('admin.catalog.filters.all-types')}
             </ThemedChip>
             {REWARD_TYPE_OPTIONS.map((type) => (
               <ThemedChip
                 key={type}
-                icon={false}
+                type={type}
                 selected={state.type === type}
                 onClick={() => functions.handleTypeChange(type)}
               >
@@ -92,7 +93,7 @@ function CatalogPage() {
               selected={state.category === ALL_FILTER}
               onClick={() => functions.handleCategoryChange(ALL_FILTER)}
             >
-              {t('admin.catalog.filters.all')}
+              {t('admin.catalog.filters.all-categories')}
             </ThemedChip>
             {REWARD_FILTER_CATEGORY_OPTIONS.map((category) => (
               <ThemedChip

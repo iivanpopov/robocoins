@@ -2,7 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, notFound } from '@tanstack/react-router'
 import * as v from 'valibot'
 
-import { Button, Loader } from '#/components/ui'
+import { Button, IconButton, Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 
 import { RewardActionNotice, RewardFields, RewardImagePicker } from '../../-components'
@@ -38,10 +38,19 @@ function RewardEditContent() {
 
   return (
     <section className={styles.page}>
-      <button type="button" className={styles.back} onClick={functions.handleBack}>
-        <span className="i-ph:caret-left-bold" aria-hidden="true" />
-        {t('admin.catalog.edit.back')}
-      </button>
+      <header className={styles.header}>
+        <IconButton
+          onClick={functions.handleBack}
+          title={t('admin.catalog.edit.back')}
+          aria-label={t('admin.catalog.edit.back')}
+        >
+          <span aria-hidden="true" className="i-ph:arrow-left" />
+        </IconButton>
+        <div className={styles['header-copy']}>
+          <h1 className={styles.title}>{t('admin.catalog.edit.title')}</h1>
+          <p className={styles.description}>{t('admin.catalog.edit.description')}</p>
+        </div>
+      </header>
 
       {state.isPending && <Loader grow />}
 
@@ -53,11 +62,6 @@ function RewardEditContent() {
 
       {state.reward && (
         <>
-          <header className={styles.header}>
-            <h1 className={styles.title}>{t('admin.catalog.edit.title')}</h1>
-            <p className={styles.description}>{t('admin.catalog.edit.description')}</p>
-          </header>
-
           <form className={styles.form} noValidate onSubmit={functions.handleSubmit}>
             <RewardFields
               draft={state.draft}

@@ -138,13 +138,6 @@ function GroupTeachersPage() {
           >
             {t('admin.groups.back-to-group')}
           </Button>
-          <Button
-            variant="ghost"
-            nativeButton={false}
-            render={<Link to="/admin/groups/teachers" />}
-          >
-            {t('admin.groups.bulk.entry')}
-          </Button>
         </GroupResultPanel>
       )}
     </GroupPageLayout>

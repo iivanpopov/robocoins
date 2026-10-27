@@ -26,31 +26,6 @@
   color: var(--foreground);
 }
 
-.add {
-  display: inline-flex;
-  flex: 0 0 auto;
-  gap: var(--spacing-xs);
-  align-items: center;
-  min-height: 2.5rem;
-  padding: 0 var(--spacing-md);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--brand-foreground);
-  white-space: nowrap;
-  background: var(--brand);
-  border-radius: var(--rounded-lg);
-  transition: background-color 160ms ease;
-}
-
-.add:hover {
-  background: var(--brand-hover);
-}
-
-.add:focus-visible {
-  outline: 3px solid var(--brand-hover);
-  outline-offset: 2px;
-}
-
 .filters {
   display: flex;
   flex-direction: column;

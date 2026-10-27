@@ -1,16 +1,8 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 import type { ChangeEvent } from 'react'
 
-import {
-  Chip,
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-  Input,
-} from '#/components/ui'
+import { Field, FieldError, FieldGroup, FieldLabel, Input } from '#/components/ui'
+import { ThemedChip } from '#/routes/-components'
 
 import { REWARD_FORM_CATEGORY_OPTIONS, REWARD_TYPE_OPTIONS } from '../../-constants'
 import type { RewardDraft, RewardDraftErrors } from '../../-types'
@@ -67,13 +59,10 @@ export function RewardFields({ draft, errors, disabled = false, onChange }: Rewa
           value={draft.price}
           disabled={disabled}
           aria-invalid={!!errors.price}
-          aria-describedby={errors.price ? 'reward-price-error' : 'reward-price-description'}
+          aria-describedby={errors.price ? 'reward-price-error' : undefined}
           placeholder={t('admin.catalog.form.price.placeholder')}
           onChange={handlePriceChange}
         />
-        <FieldDescription id="reward-price-description">
-          {t('admin.catalog.form.price.description')}
-        </FieldDescription>
         {errors.price && <FieldError id="reward-price-error">{t(errors.price)}</FieldError>}
       </Field>
 
@@ -95,22 +84,15 @@ export function RewardFields({ draft, errors, disabled = false, onChange }: Rewa
         <FieldLabel>{t('admin.catalog.form.type')}</FieldLabel>
         <div className={styles.choices} role="group" aria-label={t('admin.catalog.form.type')}>
           {REWARD_TYPE_OPTIONS.map((type) => (
-            <Chip
+            <ThemedChip
               key={type}
-              type="button"
+              type={type}
               selected={draft.type === type}
               disabled={disabled}
               onClick={() => onChange({ ...draft, type })}
             >
-              <span
-                aria-hidden="true"
-                className={cn(
-                  type === 'reward' && 'i-ph:cube-duotone',
-                  type === 'privilege' && 'i-ph:star-four-fill',
-                )}
-              />
               {t(`admin.catalog.type.${type}`)}
-            </Chip>
+            </ThemedChip>
           ))}
         </div>
         {errors.type && <FieldError>{t(errors.type)}</FieldError>}
@@ -119,24 +101,25 @@ export function RewardFields({ draft, errors, disabled = false, onChange }: Rewa
       <Field>
         <FieldLabel>{t('admin.catalog.form.category')}</FieldLabel>
         <div className={styles.choices} role="group" aria-label={t('admin.catalog.form.category')}>
-          <Chip
-            type="button"
+          <ThemedChip
+            icon={false}
             selected={!draft.courseCategory}
             disabled={disabled}
             onClick={() => onChange({ ...draft, courseCategory: null })}
           >
             {t('admin.catalog.category.none')}
-          </Chip>
+          </ThemedChip>
           {REWARD_FORM_CATEGORY_OPTIONS.map((category) => (
-            <Chip
+            <ThemedChip
               key={category}
-              type="button"
+              type="category"
+              value={category}
               selected={draft.courseCategory === category}
               disabled={disabled}
               onClick={() => onChange({ ...draft, courseCategory: category })}
             >
               {t('course.category', { category })}
-            </Chip>
+            </ThemedChip>
           ))}
         </div>
         {errors.courseCategory && <FieldError>{t(errors.courseCategory)}</FieldError>}

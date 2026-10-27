@@ -82,7 +82,7 @@ function CourseDetailsPage() {
             {!!state.groups.length && (
               <div className={styles.groups}>
                 {state.groups.map((group) => (
-                  <CourseGroupRow key={group.id} group={group} />
+                  <CourseGroupRow key={group.id} group={group} category={state.course?.category} />
                 ))}
               </div>
             )}

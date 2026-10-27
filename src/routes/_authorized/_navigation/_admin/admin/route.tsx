@@ -1,4 +1,6 @@
-import { Outlet, createFileRoute, useLocation } from '@tanstack/react-router'
+import { Outlet, createFileRoute } from '@tanstack/react-router'
+
+import { useResolvedPathname } from '#/routes/-hooks'
 
 import { AdminLearningNav, AdminPeopleNav } from './-components'
 
@@ -7,8 +9,7 @@ export const Route = createFileRoute('/_authorized/_navigation/_admin/admin')({
 })
 
 function AdminLayout() {
-  const location = useLocation()
-  const pathname = location.pathname.replace(/\/+$/, '') || '/'
+  const pathname = useResolvedPathname()
   const isLearningSection =
     pathname === '/admin' ||
     pathname.startsWith('/admin/groups') ||

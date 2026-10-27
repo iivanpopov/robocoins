@@ -9,4 +9,3 @@ export type GroupErrorKey =
   | 'admin.groups.teachers.error'
   | 'admin.groups.teachers.error.validation'
   | 'admin.groups.teachers.error.rejected'
-  | 'admin.groups.bulk.read-error'

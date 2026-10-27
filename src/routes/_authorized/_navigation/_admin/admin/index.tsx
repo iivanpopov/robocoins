@@ -9,10 +9,6 @@ import {
   InputGroupAddon,
   InputGroupInput,
   Loader,
-  Popover,
-  PopoverClose,
-  PopoverContent,
-  PopoverTrigger,
 } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 
@@ -57,26 +53,6 @@ function AdminGroupsPage() {
         <div className={styles.heading}>
           <h1 className={styles.title}>{t('admin.groups.title')}</h1>
           <div className={styles['header-actions']}>
-            <Popover>
-              <PopoverTrigger
-                render={
-                  <IconButton
-                    aria-label={t('admin.groups.actions.more')}
-                    title={t('admin.groups.actions.more')}
-                  />
-                }
-              >
-                <span aria-hidden="true" className="i-ph:dots-three-bold" />
-              </PopoverTrigger>
-              <PopoverContent align="end" sideOffset={8}>
-                <PopoverClose
-                  render={<Link to="/admin/groups/teachers" className={styles['menu-item']} />}
-                >
-                  <span aria-hidden="true" className="i-ph:chalkboard-teacher-duotone" />
-                  {t('admin.groups.bulk.entry')}
-                </PopoverClose>
-              </PopoverContent>
-            </Popover>
             <Button nativeButton={false} render={<Link to="/admin/groups/create" />}>
               <span aria-hidden="true" className="i-ph:plus-bold" />
               {t('admin.learning.create')}

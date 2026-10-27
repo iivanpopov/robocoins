@@ -76,6 +76,10 @@
   color: var(--foreground);
 }
 
+.price > [aria-hidden='true'] {
+  color: var(--brand);
+}
+
 .chevron {
   flex: 0 0 auto;
   font-size: 0.875rem;

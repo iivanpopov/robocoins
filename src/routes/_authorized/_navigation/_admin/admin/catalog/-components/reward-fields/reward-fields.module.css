@@ -19,10 +19,11 @@
 
 .textarea::placeholder {
   color: var(--muted-foreground);
+  transition: color 0.15s ease;
 }
 
-.textarea:focus-visible {
-  outline: 2px solid var(--brand);
+.textarea:focus::placeholder {
+  color: var(--brand);
 }
 
 .textarea:disabled {
@@ -32,6 +33,13 @@
 
 .choices {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: var(--spacing-sm);
+  padding-bottom: var(--spacing-xs);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.choices::-webkit-scrollbar {
+  display: none;
 }

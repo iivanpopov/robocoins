@@ -55,10 +55,6 @@ function CourseCategoriesPage() {
                     <span className={styles.name}>
                       {t('course.category', { category: summary.category })}
                     </span>
-                    <span className={styles.counts}>
-                      {t('admin.courses.courses-count', { count: summary.courses.length })},{' '}
-                      {t('admin.courses.groups-count', { count: summary.groupsCount })}
-                    </span>
                   </span>
                   <span aria-hidden="true" className={styles.caret} />
                 </summary>
@@ -89,11 +85,6 @@ function CourseCategoriesPage() {
                             className={styles['course-link']}
                           >
                             <span className={styles['course-name']}>{course.name}</span>
-                            <span className={styles['course-meta']}>
-                              {t('admin.courses.groups-count', {
-                                count: course.groups_count ?? course.groups?.length ?? 0,
-                              })}
-                            </span>
                           </Link>
                           <Link
                             to="/admin/courses/$courseId/category"

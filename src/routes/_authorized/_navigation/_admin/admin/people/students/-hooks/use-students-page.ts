@@ -7,9 +7,11 @@ import { UKRAINIAN_LOCALE } from '#/routes/-constants'
 
 import type { StudentRowData } from '../-components'
 import { combineCourseGroups, getApiErrorKind, getStudentCourseNames } from '../-utils'
+import { GROUP_FILTER_ALL } from '../../../-constants'
 
 export function useStudentsPage() {
   const [search, setSearch] = useState('')
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<CourseCategoryKey | 'all'>('all')
   const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null)
   const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null)
@@ -25,13 +27,19 @@ export function useStudentsPage() {
     setSearch('')
   }
 
-  function handleCategorySelect(category: CourseCategoryKey | 'all') {
+  function handleFiltersToggle() {
+    setIsFiltersOpen((isOpen) => !isOpen)
+  }
+
+  function handleCategorySelect(value: string) {
+    const category = value === GROUP_FILTER_ALL ? 'all' : (value as CourseCategoryKey)
     setSelectedCategory(category)
     setSelectedCourseId(null)
     setSelectedGroupId(null)
   }
 
-  function handleCourseSelect(courseId: number | null) {
+  function handleCourseSelect(value: string) {
+    const courseId = value === GROUP_FILTER_ALL ? null : Number(value)
     setSelectedCourseId(courseId)
     if (courseId === null) {
       setSelectedGroupId(null)
@@ -41,7 +49,8 @@ export function useStudentsPage() {
     if (selectedGroup && selectedGroup.courseId !== courseId) setSelectedGroupId(null)
   }
 
-  function handleGroupSelect(groupId: number | null) {
+  function handleGroupSelect(value: string) {
+    const groupId = value === GROUP_FILTER_ALL ? null : Number(value)
     setSelectedGroupId(groupId)
     if (groupId === null) return
     const group = groups.find((candidate) => candidate.id === groupId)
@@ -66,6 +75,10 @@ export function useStudentsPage() {
   const selectedCourse = courses.find((course) => course.id === selectedCourseId) ?? null
   const groupsForCourse =
     selectedCourseId === null ? [] : groups.filter((group) => group.courseId === selectedCourseId)
+  const groupsForSelect =
+    selectedCourseId === null
+      ? groups.filter((group) => courses.some((course) => course.id === group.courseId))
+      : groupsForCourse
   const categoryCourseNames = courses.map((course) => course.name)
   const categoryGroupIds = groups
     .filter((group) => courses.some((course) => course.id === group.courseId))
@@ -116,12 +129,14 @@ export function useStudentsPage() {
   return {
     state: {
       search,
+      isFiltersOpen,
       selectedCategory,
       selectedCourseId,
       selectedGroupId,
       categories: [...new Set((coursesQuery.data ?? []).map((course) => course.category))],
       courses,
       groupsForCourse,
+      groupsForSelect,
       students,
       allCount: allStudents.length,
       errorKind: getApiErrorKind(error),
@@ -133,6 +148,7 @@ export function useStudentsPage() {
     functions: {
       handleSearchChange,
       handleClearSearch,
+      handleFiltersToggle,
       handleCategorySelect,
       handleCourseSelect,
       handleGroupSelect,

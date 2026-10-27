@@ -45,7 +45,6 @@ function TeacherRegistrationPage() {
         </IconButton>
         <div className={styles['header-text']}>
           <h1 className={styles.title}>{t('admin.teachers.register.title')}</h1>
-          <p className={styles.description}>{t('admin.teachers.register.description')}</p>
         </div>
       </header>
 

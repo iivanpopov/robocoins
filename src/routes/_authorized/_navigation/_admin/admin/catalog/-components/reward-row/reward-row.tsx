@@ -29,8 +29,7 @@ export function RewardRow({ reward }: RewardRowProps) {
       <span className={styles.details}>
         <span className={styles.name}>{reward.name}</span>
         <span className={styles.meta}>
-          <span>{t(`admin.catalog.type.${reward.type}`)}</span>
-          <span aria-hidden="true">·</span>
+          <span>{t(`admin.catalog.type.${reward.type}`)},</span>
           <RewardCategoryName category={reward.course_category} />
         </span>
       </span>

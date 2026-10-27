@@ -2,7 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { cn } from 'cn'
 
-import { Button, Loader } from '#/components/ui'
+import { Button, IconButton, Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 
 import { RewardCategoryName, RewardFields, RewardImagePicker } from '../-components'
@@ -22,16 +22,19 @@ function CreateRewardPage() {
 
   return (
     <section className={styles.page}>
-      <Link to="/admin/catalog" className={styles.back}>
-        <span className="i-ph:caret-left-bold" aria-hidden="true" />
-        {t('admin.catalog.back')}
-      </Link>
-
       {!state.createdReward && (
         <>
           <header className={styles.header}>
-            <h1 className={styles.title}>{t('admin.catalog.create.title')}</h1>
-            <p className={styles.description}>{t('admin.catalog.create.description')}</p>
+            <IconButton
+              nativeButton={false}
+              render={<Link to="/admin/catalog" />}
+              title={t('admin.catalog.back')}
+            >
+              <span aria-hidden="true" className="i-ph:arrow-left" />
+            </IconButton>
+            <div className={styles['header-copy']}>
+              <h1 className={styles.title}>{t('admin.catalog.create.title')}</h1>
+            </div>
           </header>
 
           <form className={styles.form} noValidate onSubmit={functions.handleSubmit}>

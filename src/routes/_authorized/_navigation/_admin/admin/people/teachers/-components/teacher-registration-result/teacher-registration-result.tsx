@@ -25,14 +25,19 @@ export function TeacherRegistrationResult({
   if (isCopied) copyLabel = t('admin.teachers.result.copied')
 
   return (
-    <section className={styles.root}>
+    <section className={styles.page}>
       <header className={styles.header}>
-        <span className={styles['success-icon']} aria-hidden="true">
-          <span className="i-ph:check-bold" />
-        </span>
-        <h1 className={styles.title}>{t('admin.teachers.result.title')}</h1>
-        <p className={styles.name}>{result.name}</p>
-        <p className={styles.description}>{t('admin.teachers.result.description')}</p>
+        <IconButton
+          nativeButton={false}
+          render={<Link to="/admin/people/teachers" />}
+          title={t('admin.teachers.result.list')}
+        >
+          <span aria-hidden="true" className="i-ph:arrow-left" />
+        </IconButton>
+        <div className={styles['header-copy']}>
+          <h1 className={styles.title}>{t('admin.teachers.result.title')}</h1>
+          <p className={styles.name}>{result.name}</p>
+        </div>
       </header>
 
       <div className={styles.credentials}>
@@ -55,6 +60,8 @@ export function TeacherRegistrationResult({
         </span>
       </div>
 
+      <p className={styles.description}>{t('admin.teachers.result.description')}</p>
+
       <div className={styles.actions}>
         <Button
           nativeButton={false}
@@ -66,10 +73,6 @@ export function TeacherRegistrationResult({
           {t('admin.teachers.result.another')}
         </Button>
       </div>
-
-      <Link to="/admin/people/teachers" className={styles.back}>
-        {t('admin.teachers.result.list')}
-      </Link>
     </section>
   )
 }

@@ -64,15 +64,6 @@
   color: var(--foreground);
 }
 
-.counts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-sm);
-  font-size: 0.75rem;
-  font-weight: 450;
-  color: var(--muted-foreground);
-}
-
 .caret {
   flex-shrink: 0;
   font-size: 1rem;
@@ -140,7 +131,6 @@
   display: flex;
   gap: var(--spacing-xs);
   align-items: center;
-  border-top: 1px solid var(--muted);
 }
 
 .course-link {
@@ -159,12 +149,6 @@
   font-weight: 600;
   color: var(--foreground);
   white-space: nowrap;
-}
-
-.course-meta {
-  font-size: 0.75rem;
-  font-weight: 450;
-  color: var(--muted-foreground);
 }
 
 .change-link {

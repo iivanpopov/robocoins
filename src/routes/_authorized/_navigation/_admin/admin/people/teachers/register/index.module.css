@@ -32,13 +32,6 @@
   color: var(--foreground);
 }
 
-.description {
-  font-size: 0.875rem;
-  font-weight: 450;
-  line-height: 1.5;
-  color: var(--muted-foreground);
-}
-
 .form {
   display: flex;
   flex-direction: column;

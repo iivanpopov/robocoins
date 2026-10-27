@@ -410,13 +410,6 @@ export default {
       "Навчання"
     ]
   },
-  "navbar.operations": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Операції"
-    ]
-  },
   "navbar.people": {
     "type": "message",
     "declarations": [],
@@ -1098,211 +1091,6 @@ export default {
       "Оберіть не більше двох різних викладачів."
     ]
   },
-  "admin.groups.bulk.title": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Масове призначення"
-    ]
-  },
-  "admin.groups.bulk.description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Один склад викладачів для кількох груп."
-    ]
-  },
-  "admin.groups.bulk.note": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Кожна група оновлюється окремо, спільної транзакції немає. Порожній вибір викладачів знімає їх з усіх обраних груп."
-    ]
-  },
-  "admin.groups.bulk.entry": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Масове призначення"
-    ]
-  },
-  "admin.groups.bulk.submit": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Застосувати склад"
-    ]
-  },
-  "admin.groups.bulk.submit-empty": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Зняти викладачів"
-    ]
-  },
-  "admin.groups.bulk.groups.label": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Групи"
-    ]
-  },
-  "admin.groups.bulk.groups.search-label": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Пошук груп"
-    ]
-  },
-  "admin.groups.bulk.groups.search-placeholder": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Назва групи, курсу або викладача"
-    ]
-  },
-  "admin.groups.bulk.groups.selected": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Обрано груп: ",
-      {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "count"
-        },
-        "functionRef": {
-          "type": "function",
-          "name": "number"
-        }
-      }
-    ]
-  },
-  "admin.groups.bulk.groups.hint": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Оберіть хоча б одну групу. Склад кожної групи буде замінено."
-    ]
-  },
-  "admin.groups.bulk.groups.search-empty": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Груп за запитом не знайдено."
-    ]
-  },
-  "admin.groups.bulk.groups.no-teachers": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Без викладачів"
-    ]
-  },
-  "admin.groups.bulk.groups.empty-title": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Немає груп для призначення"
-    ]
-  },
-  "admin.groups.bulk.groups.empty-description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Спочатку створіть групу, а потім призначте до неї викладачів."
-    ]
-  },
-  "admin.groups.bulk.read-error": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Не вдалося завантажити групи або викладачів."
-    ]
-  },
-  "admin.groups.bulk.results.title": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Результат по групах"
-    ]
-  },
-  "admin.groups.bulk.results.pending": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Оновлюємо"
-    ]
-  },
-  "admin.groups.bulk.results.success": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Викладачів оновлено"
-    ]
-  },
-  "admin.groups.bulk.results.error": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Сервер відхилив зміну."
-    ]
-  },
-  "admin.groups.bulk.results.error-status": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Сервер відхилив зміну (код ",
-      {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "status"
-        },
-        "functionRef": {
-          "type": "function",
-          "name": "number"
-        }
-      },
-      ")."
-    ]
-  },
-  "admin.groups.bulk.results.unknown-description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Результат невідомий. Перевірте групу перед повторенням."
-    ]
-  },
-  "admin.groups.bulk.results.retry": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Повторити невдалі"
-    ]
-  },
-  "admin.groups.bulk.results.retry-note": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Повторюються лише групи з однозначною помилкою. Успішні та невідомі записи не повторюються."
-    ]
-  },
-  "admin.groups.bulk.results.open": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Відкрити групу ",
-      {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "group"
-        }
-      }
-    ]
-  },
   "admin.groups.create.title": {
     "type": "message",
     "declarations": [],
@@ -1785,6 +1573,13 @@ export default {
       "Очистити пошук"
     ]
   },
+  "students.filters.toggle": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Фільтри"
+    ]
+  },
   "students.filters.category": {
     "type": "message",
     "declarations": [],
@@ -1987,6 +1782,20 @@ export default {
     "declarations": [],
     "pattern": [
       "Назад до учнів"
+    ]
+  },
+  "students.profile.manage": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Керування учнем"
+    ]
+  },
+  "students.profile.delete-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальна перевірка без зміни даних."
     ]
   },
   "students.profile.error": {
@@ -5426,20 +5235,6 @@ export default {
       "Ім’я, доступ, призначення на групи та видалення. Дії без серверних операцій покажуть локальний результат."
     ]
   },
-  "admin.teachers.profile.assign": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Призначити на групи"
-    ]
-  },
-  "admin.teachers.profile.assign-description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Обрати групи та замінити склад викладачів у них."
-    ]
-  },
   "admin.teachers.profile.rename": {
     "type": "message",
     "declarations": [],
@@ -6728,7 +6523,7 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Групи курсу"
+      "Групи"
     ]
   },
   "admin.courses.detail.groups-empty": {
@@ -7326,11 +7121,18 @@ export default {
       "Пошук нагороди"
     ]
   },
-  "admin.catalog.filters.all": {
+  "admin.catalog.filters.all-types": {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Усі"
+      "Усі типи"
+    ]
+  },
+  "admin.catalog.filters.all-categories": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Усі категорії"
     ]
   },
   "admin.catalog.filters.type": {
@@ -7429,6 +7231,13 @@ export default {
     "declarations": [],
     "pattern": [
       "Сервер не прийняв дані. Перевірте поля."
+    ]
+  },
+  "admin.catalog.details.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нагорода"
     ]
   },
   "admin.catalog.details.type": {
@@ -7672,13 +7481,6 @@ export default {
       "100"
     ]
   },
-  "admin.catalog.form.price.description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Ціле число, не менше нуля."
-    ]
-  },
   "admin.catalog.form.description": {
     "type": "message",
     "declarations": [],
@@ -7749,13 +7551,6 @@ export default {
       "Нова нагорода"
     ]
   },
-  "admin.catalog.create.description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Заповніть підтримувані поля. Зображення залишиться локальним."
-    ]
-  },
   "admin.catalog.create.error": {
     "type": "message",
     "declarations": [],
@@ -7824,20 +7619,6 @@ export default {
     "declarations": [],
     "pattern": [
       "Зображення"
-    ]
-  },
-  "admin.catalog.image.description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Посилання або файл із телефона. Це локальний перегляд."
-    ]
-  },
-  "admin.catalog.image.unsupported": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Сервер не має поля зображення та завантаження файлів. Вибір не буде збережено."
     ]
   },
   "admin.catalog.image.mode.link": {

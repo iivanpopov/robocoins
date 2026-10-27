@@ -5,37 +5,25 @@
   width: 100%;
   max-width: 36rem;
   min-height: 100%;
-  padding: var(--spacing-xl);
+  padding: var(--spacing-lg) var(--spacing-md) 4rem;
   margin: 0 auto;
-}
-
-.back {
-  display: inline-flex;
-  gap: var(--spacing-xs);
-  align-items: center;
-  align-self: flex-start;
-  min-height: 2.25rem;
-  padding: 0;
-  font-family: inherit;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--brand);
-  cursor: pointer;
-  outline: none;
-  background: none;
-  border: none;
-  border-radius: var(--rounded-sm);
-}
-
-.back:focus-visible {
-  outline: 2px solid var(--brand);
-  outline-offset: 2px;
 }
 
 .header {
   display: flex;
+  gap: var(--spacing-sm);
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.header-copy {
+  display: flex;
+  flex: 1;
   flex-direction: column;
   gap: var(--spacing-xs);
+  align-items: flex-end;
+  min-width: 0;
+  text-align: right;
 }
 
 .title {
