@@ -12,7 +12,7 @@ import {
 
 const FULL_SWIPE_WIDTH_RATIO = 0.75
 const CONFIRM_DELAY_IN_MS = 1500
-const CANCEL_WINDOW_IN_MS = 10 * 60 * 1000
+const CANCEL_WINDOW_IN_MS = 24 * 60 * 60 * 1000
 
 interface UseTransactionSwipeProps {
   enabled: boolean

@@ -48,6 +48,7 @@
 }
 
 .gap {
+  max-width: 60ch;
   font-size: 0.8125rem;
   line-height: 1.35;
   color: var(--muted-foreground);

@@ -70,6 +70,7 @@
 }
 
 .reason {
+  max-width: 60ch;
   font-size: 0.9375rem;
   font-weight: 500;
   line-height: 1.35;

@@ -50,9 +50,8 @@
   --avatar-size: 3.25rem;
 }
 
-.current .figure .avatar[data-slot='avatar'] {
-  outline: 2px solid var(--brand);
-  outline-offset: 2px;
+.current .name {
+  color: var(--brand);
 }
 
 .place[data-place='1'] .figure .avatar[data-slot='avatar'] {
