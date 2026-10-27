@@ -117,7 +117,22 @@
   color: var(--amber-700);
 }
 
+.stage[data-status='unknown'] {
+  background: var(--amber-50);
+}
+
+.stage[data-status='unknown'] .stage-value {
+  color: var(--amber-700);
+}
+
 .partial {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--amber-700);
+}
+
+.unknown {
   font-size: 0.8125rem;
   font-weight: 600;
   line-height: 1.45;

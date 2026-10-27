@@ -118,6 +118,7 @@ function GroupStudentsPage() {
               targetGroupName={state.resultTargetGroupName}
               isOperating={state.membership.isOperating}
               hasFailures={state.membership.hasFailures}
+              hasUnknown={state.membership.hasUnknown}
               hasPartial={state.membership.hasPartial}
               hasSessionFailure={state.membership.hasSessionFailure}
               hasForbiddenFailure={state.membership.hasForbiddenFailure}

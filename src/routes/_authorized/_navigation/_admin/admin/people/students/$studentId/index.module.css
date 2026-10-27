@@ -183,6 +183,20 @@
   gap: var(--spacing-sm);
 }
 
+.section-header {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.section-link {
+  flex-shrink: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--brand);
+}
+
 .section-title {
   font-size: 1.125rem;
   font-weight: 800;

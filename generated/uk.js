@@ -2187,6 +2187,13 @@ export default {
       "Членство"
     ]
   },
+  "students.profile.memberships.manage": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Керувати групами"
+    ]
+  },
   "students.profile.memberships.empty": {
     "type": "message",
     "declarations": [],
@@ -10879,6 +10886,13 @@ export default {
       "не додано"
     ]
   },
+  "admin.membership.addition.unknown": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "результат невідомий"
+    ]
+  },
   "admin.membership.removal.pending": {
     "type": "message",
     "declarations": [],
@@ -10905,6 +10919,13 @@ export default {
     "declarations": [],
     "pattern": [
       "не прибрано"
+    ]
+  },
+  "admin.membership.removal.unknown": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "результат невідомий"
     ]
   },
   "admin.membership.result.add.title": {
@@ -10995,6 +11016,13 @@ export default {
       "Частину операцій не завершено. Повторіть лише етапи з помилкою."
     ]
   },
+  "admin.membership.result.unknown": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Результат частини операцій невідомий. Перед повторенням перевірте актуальне членство. Учня не буде прибрано з групи без підтвердженого додавання."
+    ]
+  },
   "admin.membership.result.session": {
     "type": "message",
     "declarations": [],
@@ -11013,7 +11041,7 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Повторити невдалі"
+      "Перевірити й повторити"
     ]
   },
   "admin.membership.result.reset": {

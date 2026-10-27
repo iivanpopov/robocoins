@@ -240,6 +240,7 @@ declare module '@kanjou/react' {
       'students.profile.metrics.groups': {}
       'students.profile.metrics.courses': {}
       'students.profile.memberships': {}
+      'students.profile.memberships.manage': {}
       'students.profile.memberships.empty': {}
       'admin.balance.title': {}
       'admin.balance.back': {}
@@ -1217,10 +1218,12 @@ declare module '@kanjou/react' {
       'admin.membership.addition.added': {}
       'admin.membership.addition.skipped': {}
       'admin.membership.addition.failed': {}
+      'admin.membership.addition.unknown': {}
       'admin.membership.removal.pending': {}
       'admin.membership.removal.waiting': {}
       'admin.membership.removal.removed': {}
       'admin.membership.removal.failed': {}
+      'admin.membership.removal.unknown': {}
       'admin.membership.result.add.title': {}
       'admin.membership.result.add.description': { target: DefaultMessageValue }
       'admin.membership.result.transfer.title': {}
@@ -1234,6 +1237,7 @@ declare module '@kanjou/react' {
       }
       'admin.membership.result.partial': {}
       'admin.membership.result.failure': {}
+      'admin.membership.result.unknown': {}
       'admin.membership.result.session': {}
       'admin.membership.result.forbidden': {}
       'admin.membership.result.retry': {}

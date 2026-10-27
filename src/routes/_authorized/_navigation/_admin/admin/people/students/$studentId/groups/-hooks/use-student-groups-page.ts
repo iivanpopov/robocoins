@@ -7,7 +7,7 @@ import { useGetStudentByIdStudentStudentIdGet } from '#/api/hooks/useGetStudentB
 import { getApiErrorKind } from '../../../-utils'
 import { useMembershipOperations } from '../../../../../-hooks'
 import type { MembershipStudentCandidate } from '../../../../../-types'
-import { combineAdminGroups } from '../../../../../-utils'
+import { combineCourseGroups } from '../../../../../-utils'
 
 export function useStudentGroupsPage() {
   const navigate = useNavigate()
@@ -137,7 +137,7 @@ export function useStudentGroupsPage() {
   }
 
   const student = studentQuery.data ?? null
-  const groups = combineAdminGroups(coursesQuery.data)
+  const groups = combineCourseGroups(coursesQuery.data)
   const memberships = student ? groups.filter((group) => student.group_ids.includes(group.id)) : []
   const targetGroups = student
     ? groups.filter((group) => !student.group_ids.includes(group.id))

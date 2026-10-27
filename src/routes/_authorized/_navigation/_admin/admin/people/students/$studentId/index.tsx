@@ -189,7 +189,16 @@ function StudentProfilePage() {
           </Link>
 
           <section className={styles.section}>
-            <h2 className={styles['section-title']}>{t('students.profile.memberships')}</h2>
+            <div className={styles['section-header']}>
+              <h2 className={styles['section-title']}>{t('students.profile.memberships')}</h2>
+              <Link
+                to="/admin/people/students/$studentId/groups"
+                params={{ studentId: state.student.id }}
+                className={styles['section-link']}
+              >
+                {t('students.profile.memberships.manage')}
+              </Link>
+            </div>
             {!!state.memberships.length && (
               <div className={styles.memberships}>
                 {state.memberships.map((group) => (

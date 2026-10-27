@@ -15,6 +15,8 @@ import type {
 } from '../-types'
 import { getResponseErrorStatus, invalidateMembershipCaches } from '../-utils'
 
+type MembershipReadResult = 'member' | 'notMember' | 'unknown'
+
 function createResult(
   student: MembershipStudentCandidate,
   mode: MembershipOperationMode,
@@ -57,20 +59,33 @@ export function useMembershipOperations() {
     mutation: { retry: false },
   })
 
-  async function verifyMembership(studentId: number, groupId: number) {
+  async function readMembership(studentId: number, groupId: number): Promise<MembershipReadResult> {
     try {
-      const student = await queryClient.fetchQuery(
-        getStudentByIdStudentStudentIdGetQueryOptions({ path: { student_id: studentId } }),
-      )
-      return student.group_ids.includes(groupId)
+      const student = await queryClient.fetchQuery({
+        ...getStudentByIdStudentStudentIdGetQueryOptions({ path: { student_id: studentId } }),
+        staleTime: 0,
+        retry: false,
+      })
+      if (student.group_ids.includes(groupId)) return 'member' as const
+      return 'notMember' as const
     } catch {
-      return null
+      return 'unknown' as const
     }
   }
 
-  async function attemptAddition(student: MembershipStudentCandidate, targetGroupId: number) {
-    if (student.groupIds.includes(targetGroupId)) {
-      return { addition: 'skipped' as const, errorStatus: null }
+  async function attemptAddition(
+    student: MembershipStudentCandidate,
+    targetGroupId: number,
+    shouldReconcile: boolean,
+  ) {
+    if (shouldReconcile) {
+      const membership = await readMembership(student.id, targetGroupId)
+      if (membership === 'member') {
+        return { addition: 'skipped' as const, errorStatus: null }
+      }
+      if (membership === 'unknown') {
+        return { addition: 'unknown' as const, errorStatus: null }
+      }
     }
 
     try {
@@ -80,21 +95,47 @@ export function useMembershipOperations() {
       })
       return { addition: 'added' as const, errorStatus: null }
     } catch (error) {
-      const isMember = await verifyMembership(student.id, targetGroupId)
-      if (isMember === true) return { addition: 'added' as const, errorStatus: null }
+      const membership = await readMembership(student.id, targetGroupId)
+      if (membership === 'member') return { addition: 'added' as const, errorStatus: null }
+      if (membership === 'unknown') {
+        return {
+          addition: 'unknown' as const,
+          errorStatus: getResponseErrorStatus(error),
+        }
+      }
       return { addition: 'failed' as const, errorStatus: getResponseErrorStatus(error) }
     }
   }
 
-  async function attemptRemoval(student: MembershipStudentCandidate, sourceGroupId: number) {
+  async function attemptRemoval(
+    student: MembershipStudentCandidate,
+    sourceGroupId: number,
+    shouldReconcile: boolean,
+  ) {
+    if (shouldReconcile) {
+      const membership = await readMembership(student.id, sourceGroupId)
+      if (membership === 'notMember') {
+        return { removal: 'removed' as const, errorStatus: null }
+      }
+      if (membership === 'unknown') {
+        return { removal: 'unknown' as const, errorStatus: null }
+      }
+    }
+
     try {
       await removeStudentMutation.mutateAsync({
         path: { group_id: sourceGroupId, student_id: student.id },
       })
       return { removal: 'removed' as const, errorStatus: null }
     } catch (error) {
-      const isMember = await verifyMembership(student.id, sourceGroupId)
-      if (isMember === false) return { removal: 'removed' as const, errorStatus: null }
+      const membership = await readMembership(student.id, sourceGroupId)
+      if (membership === 'notMember') return { removal: 'removed' as const, errorStatus: null }
+      if (membership === 'unknown') {
+        return {
+          removal: 'unknown' as const,
+          errorStatus: getResponseErrorStatus(error),
+        }
+      }
       return { removal: 'failed' as const, errorStatus: getResponseErrorStatus(error) }
     }
   }
@@ -102,6 +143,7 @@ export function useMembershipOperations() {
   async function execute(
     input: MembershipOperationInput,
     existingResults: MembershipOperationResult[],
+    isRetry: boolean,
   ) {
     if (isOperatingReference.current) return
 
@@ -133,7 +175,8 @@ export function useMembershipOperations() {
           if (input.targetGroupId === null) {
             result = { ...result, addition: 'failed', additionErrorStatus: null }
           } else {
-            const outcome = await attemptAddition(student, input.targetGroupId)
+            const shouldReconcile = isRetry || student.groupIds.includes(input.targetGroupId)
+            const outcome = await attemptAddition(student, input.targetGroupId, shouldReconcile)
             result = {
               ...result,
               addition: outcome.addition,
@@ -141,7 +184,11 @@ export function useMembershipOperations() {
             }
           }
 
-          if (result.addition === 'failed' && input.mode === 'transfer') {
+          if (
+            input.mode === 'transfer' &&
+            result.addition !== 'added' &&
+            result.addition !== 'skipped'
+          ) {
             result = { ...result, removal: 'waiting' }
           }
           if (input.mode === 'add') result = { ...result, removal: 'notRequired' }
@@ -163,7 +210,7 @@ export function useMembershipOperations() {
           nextResults[index] = result
           setResults([...nextResults])
 
-          const outcome = await attemptRemoval(student, input.sourceGroupId)
+          const outcome = await attemptRemoval(student, input.sourceGroupId, isRetry)
           result = {
             ...result,
             removal: outcome.removal,
@@ -191,14 +238,14 @@ export function useMembershipOperations() {
     assignStudentMutation.reset()
     removeStudentMutation.reset()
 
-    await execute(input, [])
+    await execute(input, [], false)
   }
 
   async function handleRetryFailed() {
     const input = operationReference.current
     if (!input || isOperatingReference.current) return
 
-    await execute(input, results)
+    await execute(input, results, true)
   }
 
   function handleReset() {
@@ -215,6 +262,9 @@ export function useMembershipOperations() {
 
   const hasFailures = results.some(
     (result) => result.addition === 'failed' || result.removal === 'failed',
+  )
+  const hasUnknown = results.some(
+    (result) => result.addition === 'unknown' || result.removal === 'unknown',
   )
   const hasPartial = results.some(
     (result) =>
@@ -235,6 +285,7 @@ export function useMembershipOperations() {
       targetGroupId,
       isOperating,
       hasFailures,
+      hasUnknown,
       hasPartial,
       hasSessionFailure,
       hasForbiddenFailure,

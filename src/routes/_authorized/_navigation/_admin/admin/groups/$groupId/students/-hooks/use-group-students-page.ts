@@ -10,7 +10,7 @@ import type { GroupErrorKey } from '../../../-types'
 import { getGroupErrorKey } from '../../../-utils'
 import { useMembershipOperations } from '../../../../-hooks'
 import type { MembershipStudentCandidate } from '../../../../-types'
-import { combineAdminGroups, getResponseErrorStatus } from '../../../../-utils'
+import { combineCourseGroups, getResponseErrorStatus } from '../../../../-utils'
 
 export function useGroupStudentsPage() {
   const navigate = useNavigate()
@@ -199,7 +199,9 @@ export function useGroupStudentsPage() {
   const students = (group?.students ?? []).map(toCandidate)
   const currentMemberIds = new Set(students.map((student) => student.id))
   const allStudents = (studentsQuery.data ?? []).map(toCandidate)
-  const availableStudents = allStudents.filter((student) => !currentMemberIds.has(student.id))
+  const availableStudents = allStudents.filter(
+    (student) => !currentMemberIds.has(student.id) && !student.groupIds.includes(groupId),
+  )
   const selectedCandidates = availableStudents.filter((student) =>
     selectedCandidateIds.includes(student.id),
   )
@@ -208,7 +210,7 @@ export function useGroupStudentsPage() {
     if (!normalizedSearch) return true
     return student.name.toLocaleLowerCase(UKRAINIAN_LOCALE).includes(normalizedSearch)
   })
-  const groups = combineAdminGroups(coursesQuery.data)
+  const groups = combineCourseGroups(coursesQuery.data)
   const targetGroups = groups.filter((candidate) => candidate.id !== groupId)
   const targetGroup = targetGroups.find((candidate) => String(candidate.id) === targetGroupValue)
   const selectedMembers = students.filter((student) => selectedMemberIds.includes(student.id))

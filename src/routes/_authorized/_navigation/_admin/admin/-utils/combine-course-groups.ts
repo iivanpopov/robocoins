@@ -1,6 +1,6 @@
 import type { CourseCategoryKey, CourseResponse } from '#/api/types'
 
-export interface AdminGroupRecord {
+export interface StudentGroup {
   id: number
   name: string
   courseId: number
@@ -9,7 +9,7 @@ export interface AdminGroupRecord {
   studentsCount: number
 }
 
-export function combineAdminGroups(courses: CourseResponse[] | undefined) {
+export function combineCourseGroups(courses: CourseResponse[] | undefined) {
   if (!courses) return []
 
   return courses.flatMap((course) =>
@@ -22,7 +22,7 @@ export function combineAdminGroups(courses: CourseResponse[] | undefined) {
           courseName: course.name,
           category: course.category,
           studentsCount: group.students_count ?? 0,
-        }) satisfies AdminGroupRecord,
+        }) satisfies StudentGroup,
     ),
   )
 }

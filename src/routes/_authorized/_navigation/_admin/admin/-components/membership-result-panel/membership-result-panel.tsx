@@ -19,6 +19,7 @@ export interface MembershipResultPanelProps {
   targetGroupName: string | null
   isOperating: boolean
   hasFailures: boolean
+  hasUnknown: boolean
   hasPartial: boolean
   hasSessionFailure: boolean
   hasForbiddenFailure: boolean
@@ -34,6 +35,7 @@ export function MembershipResultPanel({
   targetGroupName,
   isOperating,
   hasFailures,
+  hasUnknown,
   hasPartial,
   hasSessionFailure,
   hasForbiddenFailure,
@@ -48,6 +50,7 @@ export function MembershipResultPanel({
     if (status === 'added') return t('admin.membership.addition.added')
     if (status === 'skipped') return t('admin.membership.addition.skipped')
     if (status === 'failed') return t('admin.membership.addition.failed')
+    if (status === 'unknown') return t('admin.membership.addition.unknown')
     return t('admin.membership.status.not-required')
   }
 
@@ -56,6 +59,7 @@ export function MembershipResultPanel({
     if (status === 'waiting') return t('admin.membership.removal.waiting')
     if (status === 'removed') return t('admin.membership.removal.removed')
     if (status === 'failed') return t('admin.membership.removal.failed')
+    if (status === 'unknown') return t('admin.membership.removal.unknown')
     return t('admin.membership.status.not-required')
   }
 
@@ -78,6 +82,8 @@ export function MembershipResultPanel({
       source: sourceGroupName ?? '',
     })
   }
+
+  const hasRetryable = hasFailures || hasUnknown
 
   return (
     <section className={styles.panel} aria-live="polite">
@@ -129,6 +135,11 @@ export function MembershipResultPanel({
           {t('admin.membership.result.failure')}
         </p>
       )}
+      {hasUnknown && (
+        <p role="alert" className={styles.unknown}>
+          {t('admin.membership.result.unknown')}
+        </p>
+      )}
       {hasSessionFailure && (
         <p role="alert" className={styles.failure}>
           {t('admin.membership.result.session')}
@@ -141,7 +152,7 @@ export function MembershipResultPanel({
       )}
 
       <div className={styles.actions}>
-        {hasFailures && (
+        {hasRetryable && (
           <Button onClick={onRetry} disabled={isOperating} aria-busy={isOperating}>
             {isOperating && <Loader />}
             {t('admin.membership.result.retry')}

@@ -1,8 +1,20 @@
 export type MembershipOperationMode = 'add' | 'transfer' | 'remove'
 
-export type MembershipAdditionStatus = 'pending' | 'added' | 'skipped' | 'failed' | 'notRequired'
+export type MembershipAdditionStatus =
+  | 'pending'
+  | 'added'
+  | 'skipped'
+  | 'failed'
+  | 'unknown'
+  | 'notRequired'
 
-export type MembershipRemovalStatus = 'pending' | 'waiting' | 'removed' | 'failed' | 'notRequired'
+export type MembershipRemovalStatus =
+  | 'pending'
+  | 'waiting'
+  | 'removed'
+  | 'failed'
+  | 'unknown'
+  | 'notRequired'
 
 export interface MembershipStudentCandidate {
   id: number
