@@ -4,8 +4,8 @@ import type { ReactNode } from 'react'
 import styles from './course-page-layout.module.css'
 
 export interface CoursePageLayoutProps {
-  title: string
-  description?: string
+  title: ReactNode
+  description?: ReactNode
   back?: ReactNode
   actions?: ReactNode
   children: ReactNode

@@ -126,6 +126,30 @@
   padding: 0 var(--spacing-md) var(--spacing-sm);
 }
 
+.category-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  padding: var(--spacing-xs) 0 var(--spacing-sm);
+}
+
+.category-action {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+
+.category-action[data-tone='error'] {
+  color: var(--error);
+}
+
+.category-action > [aria-hidden='true'] {
+  font-size: 1rem;
+}
+
 .empty {
   padding: var(--spacing-sm) 0;
   font-size: 0.8125rem;

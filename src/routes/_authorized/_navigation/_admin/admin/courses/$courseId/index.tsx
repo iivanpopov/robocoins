@@ -25,18 +25,15 @@ function CourseDetailsPage() {
 
   const t = useTranslate()
 
-  let title = t('admin.courses.detail.title')
-  let description = t('admin.courses.description')
-
-  if (state.course) {
-    title = state.course.name
-    description = t('course.category', { category: state.course.category })
-  }
-
   return (
     <CoursePageLayout
-      title={title}
-      description={description}
+      title={
+        <>
+          {!state.course && t('admin.courses.detail.title')}
+          {state.course && state.course.name}
+        </>
+      }
+      description={state.course && t('course.category', { category: state.course.category })}
       back={
         <IconButton
           nativeButton={false}

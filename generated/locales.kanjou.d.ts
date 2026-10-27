@@ -226,6 +226,48 @@ declare module '@kanjou/react' {
       'admin.courses.categories.fixed': {}
       'admin.courses.categories.empty': {}
       'admin.courses.categories.change': { course: DefaultMessageValue }
+      'admin.courses.categories.back': {}
+      'admin.courses.categories.create': {}
+      'admin.courses.categories.rename-action': {}
+      'admin.courses.categories.delete-action': {}
+      'admin.courses.categories.rename-label': { category: DefaultMessageValue }
+      'admin.courses.categories.delete-label': { category: DefaultMessageValue }
+      'admin.courses.categories.name-label': {}
+      'admin.courses.categories.name-placeholder': {}
+      'admin.courses.categories.name-error': {}
+      'admin.courses.categories.create.title': {}
+      'admin.courses.categories.create.description': {}
+      'admin.courses.categories.create.note': {}
+      'admin.courses.categories.create.submit': {}
+      'admin.courses.categories.create.another': {}
+      'admin.courses.categories.create.result-title': {}
+      'admin.courses.categories.create.result-description': {}
+      'admin.courses.categories.create.result-name': {}
+      'admin.courses.categories.rename.title': {}
+      'admin.courses.categories.rename.description': {
+        category: DefaultMessageValue
+      }
+      'admin.courses.categories.rename.note': {}
+      'admin.courses.categories.rename.submit': {}
+      'admin.courses.categories.rename.result-title': {}
+      'admin.courses.categories.rename.result-description': {}
+      'admin.courses.categories.rename.current': {}
+      'admin.courses.categories.rename.proposed': {}
+      'admin.courses.categories.delete.title': {}
+      'admin.courses.categories.delete.description': {
+        category: DefaultMessageValue
+      }
+      'admin.courses.categories.delete.note': {}
+      'admin.courses.categories.delete.warning': {}
+      'admin.courses.categories.delete.submit': {}
+      'admin.courses.categories.delete.dialog-title': {}
+      'admin.courses.categories.delete.dialog-description': {
+        category: DefaultMessageValue
+      }
+      'admin.courses.categories.delete.dialog-action': {}
+      'admin.courses.categories.delete.result-title': {}
+      'admin.courses.categories.delete.result-description': {}
+      'admin.courses.categories.delete.result-category': {}
       'shop.balance': { count: { __fn: 'number' } }
       'shop.balance.amount': { count: { __fn: 'number' } }
       'shop.reward.back': {}

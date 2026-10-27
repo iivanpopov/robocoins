@@ -1,5 +1,5 @@
 import { useTranslate } from '@kanjou/react'
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link, useParams } from '@tanstack/react-router'
 
 import {
   AlertDialog,
@@ -36,24 +36,31 @@ export const Route = createFileRoute(
 )({
   head: () => ({ meta: [{ title: 'Видалення курсу | Robocoins' }] }),
   params: { parse: (params) => parseCourseIdParams(params) },
-  component: CourseDeletePage,
+  component: CourseDeleteRoute,
 })
+
+function CourseDeleteRoute() {
+  const params = useParams({
+    from: '/_authorized/_navigation/_admin/admin/courses/$courseId/delete/',
+  })
+
+  return <CourseDeletePage key={params.courseId} />
+}
 
 function CourseDeletePage() {
   const { state, functions, features } = useCourseDeletePage()
 
   const t = useTranslate()
 
-  let description = t('admin.courses.delete.description-empty')
-
-  if (state.course) {
-    description = t('admin.courses.delete.description', { course: state.course.name })
-  }
-
   return (
     <CoursePageLayout
       title={t('admin.courses.delete.title')}
-      description={description}
+      description={
+        <>
+          {!state.course && t('admin.courses.delete.description-empty')}
+          {state.course && t('admin.courses.delete.description', { course: state.course.name })}
+        </>
+      }
       back={
         <IconButton
           nativeButton={false}

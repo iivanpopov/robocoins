@@ -1,5 +1,5 @@
 import { useTranslate } from '@kanjou/react'
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link, useParams } from '@tanstack/react-router'
 
 import {
   Button,
@@ -29,24 +29,31 @@ export const Route = createFileRoute(
 )({
   head: () => ({ meta: [{ title: 'Перейменування курсу | Robocoins' }] }),
   params: { parse: (params) => parseCourseIdParams(params) },
-  component: CourseRenamePage,
+  component: CourseRenameRoute,
 })
+
+function CourseRenameRoute() {
+  const params = useParams({
+    from: '/_authorized/_navigation/_admin/admin/courses/$courseId/rename/',
+  })
+
+  return <CourseRenamePage key={params.courseId} />
+}
 
 function CourseRenamePage() {
   const { state, functions, features } = useCourseRenamePage()
 
   const t = useTranslate()
 
-  let description = t('admin.courses.rename.description-empty')
-
-  if (state.course) {
-    description = t('admin.courses.rename.description', { course: state.course.name })
-  }
-
   return (
     <CoursePageLayout
       title={t('admin.courses.rename.title')}
-      description={description}
+      description={
+        <>
+          {!state.course && t('admin.courses.rename.description-empty')}
+          {state.course && t('admin.courses.rename.description', { course: state.course.name })}
+        </>
+      }
       back={
         <IconButton
           nativeButton={false}

@@ -19,6 +19,16 @@ export function useCourseDetailsPage() {
     { query: { enabled: !!courseData.course } },
   )
 
+  function handleRetryCourses() {
+    if (courseData.coursesQuery.isFetching) return
+    void courseData.coursesQuery.refetch()
+  }
+
+  function handleRetryGroups() {
+    if (!courseData.course || groupsQuery.isFetching) return
+    void groupsQuery.refetch()
+  }
+
   const groups = groupsQuery.data ?? courseData.course?.groups ?? []
   const groupsCount = groupsQuery.data?.length ?? courseData.course?.groups_count ?? groups.length
 
@@ -35,16 +45,10 @@ export function useCourseDetailsPage() {
   const isCoursesPending = courseData.coursesQuery.isPending
   const isCoursesError = courseData.coursesQuery.isError
   const isNotFound = courseData.coursesQuery.isSuccess && !courseData.course
-
-  function handleRetryCourses() {
-    if (courseData.coursesQuery.isFetching) return
-    void courseData.coursesQuery.refetch()
-  }
-
-  function handleRetryGroups() {
-    if (!courseData.course || groupsQuery.isFetching) return
-    void groupsQuery.refetch()
-  }
+  const isGroupsPending = !!courseData.course && groupsQuery.isPending && !groups.length
+  const isGroupsError = groupsQuery.isError
+  const isGroupsFetching = groupsQuery.isFetching
+  const isCoursesFetching = courseData.coursesQuery.isFetching
 
   return {
     state: {
@@ -56,11 +60,11 @@ export function useCourseDetailsPage() {
       groupsErrorKey,
       isCoursesPending,
       isCoursesError,
-      isCoursesFetching: courseData.coursesQuery.isFetching,
+      isCoursesFetching,
       isNotFound,
-      isGroupsPending: !!courseData.course && groupsQuery.isPending && !groups.length,
-      isGroupsError: groupsQuery.isError,
-      isGroupsFetching: groupsQuery.isFetching,
+      isGroupsPending,
+      isGroupsError,
+      isGroupsFetching,
     },
     queries: {
       courses: courseData.coursesQuery,

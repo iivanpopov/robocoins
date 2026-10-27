@@ -12,15 +12,6 @@ export function useCoursesPage() {
 
   const coursesQuery = useGetCoursesCourseGet()
 
-  const courses = coursesQuery.data ?? []
-  const categoryCounts = countCoursesByCategory(courses)
-  const filteredCourses = filterCourses(courses, { query, category })
-
-  let errorKey: CourseErrorKey | null = null
-  if (coursesQuery.isError) {
-    errorKey = getCourseErrorKey(coursesQuery.error, 'admin.courses.error')
-  }
-
   function handleQueryChange(value: string) {
     setQuery(value)
   }
@@ -32,6 +23,15 @@ export function useCoursesPage() {
   function handleRetry() {
     if (coursesQuery.isFetching) return
     void coursesQuery.refetch()
+  }
+
+  const courses = coursesQuery.data ?? []
+  const categoryCounts = countCoursesByCategory(courses)
+  const filteredCourses = filterCourses(courses, { query, category })
+
+  let errorKey: CourseErrorKey | null = null
+  if (coursesQuery.isError) {
+    errorKey = getCourseErrorKey(coursesQuery.error, 'admin.courses.error')
   }
 
   return {

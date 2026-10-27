@@ -1,5 +1,5 @@
 import { useTranslate } from '@kanjou/react'
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link, useParams } from '@tanstack/react-router'
 
 import { Button, Field, FieldDescription, FieldLabel, IconButton, Loader } from '#/components/ui'
 
@@ -22,24 +22,31 @@ export const Route = createFileRoute(
 )({
   head: () => ({ meta: [{ title: 'Категорія курсу | Robocoins' }] }),
   params: { parse: (params) => parseCourseIdParams(params) },
-  component: CourseCategoryPage,
+  component: CourseCategoryRoute,
 })
+
+function CourseCategoryRoute() {
+  const params = useParams({
+    from: '/_authorized/_navigation/_admin/admin/courses/$courseId/category/',
+  })
+
+  return <CourseCategoryPage key={params.courseId} />
+}
 
 function CourseCategoryPage() {
   const { state, functions, features } = useCourseCategoryPage()
 
   const t = useTranslate()
 
-  let description = t('admin.courses.category.description-empty')
-
-  if (state.course) {
-    description = t('admin.courses.category.description', { course: state.course.name })
-  }
-
   return (
     <CoursePageLayout
       title={t('admin.courses.category.title')}
-      description={description}
+      description={
+        <>
+          {!state.course && t('admin.courses.category.description-empty')}
+          {state.course && t('admin.courses.category.description', { course: state.course.name })}
+        </>
+      }
       back={
         <IconButton
           nativeButton={false}

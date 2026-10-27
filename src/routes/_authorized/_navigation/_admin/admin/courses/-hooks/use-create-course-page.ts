@@ -1,4 +1,4 @@
-import { useForm } from '@tanstack/react-form'
+import { useForm, useSelector } from '@tanstack/react-form'
 import { useQueryClient } from '@tanstack/react-query'
 import type { SyntheticEvent } from 'react'
 import { useState } from 'react'
@@ -44,14 +44,7 @@ export function useCreateCoursePage() {
     },
   })
 
-  let errorKey: CourseErrorKey | null = null
-  if (createCourseMutation.isError) {
-    if (createCourseMutation.error.status === 422) {
-      errorKey = 'admin.courses.create.error.validation'
-    } else {
-      errorKey = getCourseErrorKey(createCourseMutation.error, 'admin.courses.create.error')
-    }
-  }
+  const isFormSubmitting = useSelector(form.store, (state) => state.isSubmitting)
 
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -66,11 +59,22 @@ export function useCreateCoursePage() {
     form.reset()
   }
 
+  let errorKey: CourseErrorKey | null = null
+  if (createCourseMutation.isError) {
+    if (createCourseMutation.error.status === 422) {
+      errorKey = 'admin.courses.create.error.validation'
+    } else {
+      errorKey = getCourseErrorKey(createCourseMutation.error, 'admin.courses.create.error')
+    }
+  }
+
+  const isSubmitting = createCourseMutation.isPending || isFormSubmitting
+
   return {
     state: {
       createdCourse,
       errorKey,
-      isSubmitting: createCourseMutation.isPending || form.state.isSubmitting,
+      isSubmitting,
     },
     mutations: { createCourse: createCourseMutation },
     functions: {

@@ -2156,6 +2156,298 @@ export default {
       "»"
     ]
   },
+  "admin.courses.categories.back": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До категорій"
+    ]
+  },
+  "admin.courses.categories.create": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Створити категорію"
+    ]
+  },
+  "admin.courses.categories.rename-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перейменувати"
+    ]
+  },
+  "admin.courses.categories.delete-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалити"
+    ]
+  },
+  "admin.courses.categories.rename-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перейменувати категорію «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "category"
+        }
+      },
+      "»"
+    ]
+  },
+  "admin.courses.categories.delete-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалити категорію «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "category"
+        }
+      },
+      "»"
+    ]
+  },
+  "admin.courses.categories.name-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назва категорії"
+    ]
+  },
+  "admin.courses.categories.name-placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Наприклад, дизайн"
+    ]
+  },
+  "admin.courses.categories.name-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Введіть назву категорії до 100 символів."
+    ]
+  },
+  "admin.courses.categories.create.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нова категорія"
+    ]
+  },
+  "admin.courses.categories.create.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальна назва нової категорії."
+    ]
+  },
+  "admin.courses.categories.create.note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Серверна операція створення категорії недоступна. Форма покаже локальний результат без збереження."
+    ]
+  },
+  "admin.courses.categories.create.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Створити категорію"
+    ]
+  },
+  "admin.courses.categories.create.another": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Створити ще"
+    ]
+  },
+  "admin.courses.categories.create.result-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальний результат"
+    ]
+  },
+  "admin.courses.categories.create.result-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Категорію не створено. Серверний довідник категорій не змінився."
+    ]
+  },
+  "admin.courses.categories.create.result-name": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Запропонована назва"
+    ]
+  },
+  "admin.courses.categories.rename.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перейменування категорії"
+    ]
+  },
+  "admin.courses.categories.rename.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нова назва для категорії «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "category"
+        }
+      },
+      "»."
+    ]
+  },
+  "admin.courses.categories.rename.note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Серверна операція перейменування категорії недоступна. Форма покаже локальний результат без збереження."
+    ]
+  },
+  "admin.courses.categories.rename.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перейменувати"
+    ]
+  },
+  "admin.courses.categories.rename.result-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальний результат"
+    ]
+  },
+  "admin.courses.categories.rename.result-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Категорію не перейменовано. Серверний довідник і фіксовані значення не змінилися."
+    ]
+  },
+  "admin.courses.categories.rename.current": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Поточна назва"
+    ]
+  },
+  "admin.courses.categories.rename.proposed": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Запропонована назва"
+    ]
+  },
+  "admin.courses.categories.delete.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалення категорії"
+    ]
+  },
+  "admin.courses.categories.delete.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалення категорії «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "category"
+        }
+      },
+      "»."
+    ]
+  },
+  "admin.courses.categories.delete.note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Серверна операція видалення категорії недоступна. Категорія залишиться в довіднику."
+    ]
+  },
+  "admin.courses.categories.delete.warning": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Категорію не буде видалено, бо сервер не має такої операції. Курси й довідник залишаться без змін."
+    ]
+  },
+  "admin.courses.categories.delete.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалити категорію"
+    ]
+  },
+  "admin.courses.categories.delete.dialog-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердити видалення категорії?"
+    ]
+  },
+  "admin.courses.categories.delete.dialog-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердьте намір видалити категорію «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "category"
+        }
+      },
+      "». Серверний довідник залишиться без змін."
+    ]
+  },
+  "admin.courses.categories.delete.dialog-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердити"
+    ]
+  },
+  "admin.courses.categories.delete.result-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальний результат"
+    ]
+  },
+  "admin.courses.categories.delete.result-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Категорію не видалено. Серверний довідник і курси не змінилися."
+    ]
+  },
+  "admin.courses.categories.delete.result-category": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Категорія"
+    ]
+  },
   "shop.balance": {
     "type": "message",
     "declarations": [],

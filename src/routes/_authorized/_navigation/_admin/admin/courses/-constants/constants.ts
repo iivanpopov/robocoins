@@ -1,1 +1,2 @@
 export const COURSE_NAME_MAX_LENGTH = 200
+export const CATEGORY_NAME_MAX_LENGTH = 100

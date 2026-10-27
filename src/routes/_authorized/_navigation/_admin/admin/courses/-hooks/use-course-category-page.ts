@@ -1,4 +1,4 @@
-import { useForm } from '@tanstack/react-form'
+import { useForm, useSelector } from '@tanstack/react-form'
 import { useParams } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
 import { useEffect, useRef, useState } from 'react'
@@ -16,13 +16,14 @@ export function useCourseCategoryPage() {
   })
 
   const courseId = params.courseId
-  const courseData = useCourseRecord(courseId)
 
   const [selectedCategory, setSelectedCategory] = useState<CourseCategoryKey | null>(null)
-  const isSyncedCategoryReference = useRef(false)
+  const syncedCategoryReference = useRef<CourseCategoryKey | null>(null)
+
+  const courseData = useCourseRecord(courseId)
 
   const form = useForm({
-    defaultValues: { category: 'embedded' as CourseCategoryKey },
+    defaultValues: { category: courseData.course?.category ?? 'embedded' },
     validators: { onChange: ChangeCourseCategoryStateSchema },
     onSubmit: ({ value }) => {
       if (!courseData.course || selectedCategory) return
@@ -31,21 +32,15 @@ export function useCourseCategoryPage() {
     },
   })
 
+  const category = useSelector(form.store, (state) => state.values.category)
+
   useEffect(() => {
     const course = courseData.course
     if (!course) return
-    if (isSyncedCategoryReference.current) return
-    isSyncedCategoryReference.current = true
+    if (syncedCategoryReference.current === course.category) return
+    syncedCategoryReference.current = course.category
     form.setFieldValue('category', course.category)
   }, [courseData.course, form])
-
-  const isUnchanged =
-    !!courseData.course && form.state.values.category === courseData.course.category
-
-  let errorKey: CourseErrorKey | null = null
-  if (courseData.coursesQuery.isError) {
-    errorKey = getCourseErrorKey(courseData.coursesQuery.error, 'admin.courses.error')
-  }
 
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -58,6 +53,18 @@ export function useCourseCategoryPage() {
     void courseData.coursesQuery.refetch()
   }
 
+  const isUnchanged = !!courseData.course && category === courseData.course.category
+
+  let errorKey: CourseErrorKey | null = null
+  if (courseData.coursesQuery.isError) {
+    errorKey = getCourseErrorKey(courseData.coursesQuery.error, 'admin.courses.error')
+  }
+
+  const isPending = courseData.coursesQuery.isPending
+  const isError = courseData.coursesQuery.isError
+  const isFetching = courseData.coursesQuery.isFetching
+  const isNotFound = courseData.coursesQuery.isSuccess && !courseData.course
+
   return {
     state: {
       courseId,
@@ -65,10 +72,10 @@ export function useCourseCategoryPage() {
       selectedCategory,
       isUnchanged,
       errorKey,
-      isPending: courseData.coursesQuery.isPending,
-      isError: courseData.coursesQuery.isError,
-      isFetching: courseData.coursesQuery.isFetching,
-      isNotFound: courseData.coursesQuery.isSuccess && !courseData.course,
+      isPending,
+      isError,
+      isFetching,
+      isNotFound,
     },
     queries: { courses: courseData.coursesQuery },
     functions: {

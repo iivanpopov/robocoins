@@ -1,7 +1,7 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
-import { IconButton, Loader } from '#/components/ui'
+import { Button, IconButton, Loader } from '#/components/ui'
 import { CategoryIcon } from '#/routes/-components'
 
 import { CoursePageLayout, CourseRequestError } from '../-components'
@@ -31,6 +31,12 @@ function CourseCategoriesPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
+      }
+      actions={
+        <Button nativeButton={false} render={<Link to="/admin/courses/categories/create" />}>
+          <span aria-hidden="true" className="i-ph:plus-bold" />
+          {t('admin.courses.categories.create')}
+        </Button>
       }
     >
       {state.isPending && <Loader grow />}
@@ -79,6 +85,31 @@ function CourseCategoriesPage() {
                   <span aria-hidden="true" className={styles.caret} />
                 </summary>
                 <div className={styles.body}>
+                  <div className={styles['category-actions']}>
+                    <Link
+                      to="/admin/courses/categories/$category/rename"
+                      params={{ category: summary.category }}
+                      className={styles['category-action']}
+                      aria-label={t('admin.courses.categories.rename-label', {
+                        category: t('course.category', { category: summary.category }),
+                      })}
+                    >
+                      <span aria-hidden="true" className="i-ph:pencil-simple-duotone" />
+                      {t('admin.courses.categories.rename-action')}
+                    </Link>
+                    <Link
+                      to="/admin/courses/categories/$category/delete"
+                      params={{ category: summary.category }}
+                      className={styles['category-action']}
+                      data-tone="error"
+                      aria-label={t('admin.courses.categories.delete-label', {
+                        category: t('course.category', { category: summary.category }),
+                      })}
+                    >
+                      <span aria-hidden="true" className="i-ph:trash-duotone" />
+                      {t('admin.courses.categories.delete-action')}
+                    </Link>
+                  </div>
                   {!summary.courses.length && (
                     <p className={styles.empty}>{t('admin.courses.categories.empty')}</p>
                   )}

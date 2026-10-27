@@ -15,10 +15,11 @@ export function useCourseDeletePage() {
   })
 
   const courseId = params.courseId
-  const courseData = useCourseRecord(courseId)
 
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isDeletedLocally, setIsDeletedLocally] = useState(false)
+
+  const courseData = useCourseRecord(courseId)
 
   const form = useForm({
     defaultValues: { confirmation: '' },
@@ -37,11 +38,6 @@ export function useCourseDeletePage() {
       setIsDialogOpen(true)
     },
   })
-
-  let errorKey: CourseErrorKey | null = null
-  if (courseData.coursesQuery.isError) {
-    errorKey = getCourseErrorKey(courseData.coursesQuery.error, 'admin.courses.error')
-  }
 
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -64,6 +60,16 @@ export function useCourseDeletePage() {
     void courseData.coursesQuery.refetch()
   }
 
+  let errorKey: CourseErrorKey | null = null
+  if (courseData.coursesQuery.isError) {
+    errorKey = getCourseErrorKey(courseData.coursesQuery.error, 'admin.courses.error')
+  }
+
+  const isPending = courseData.coursesQuery.isPending
+  const isError = courseData.coursesQuery.isError
+  const isFetching = courseData.coursesQuery.isFetching
+  const isNotFound = courseData.coursesQuery.isSuccess && !courseData.course
+
   return {
     state: {
       courseId,
@@ -71,10 +77,10 @@ export function useCourseDeletePage() {
       isDialogOpen,
       isDeletedLocally,
       errorKey,
-      isPending: courseData.coursesQuery.isPending,
-      isError: courseData.coursesQuery.isError,
-      isFetching: courseData.coursesQuery.isFetching,
-      isNotFound: courseData.coursesQuery.isSuccess && !courseData.course,
+      isPending,
+      isError,
+      isFetching,
+      isNotFound,
     },
     queries: { courses: courseData.coursesQuery },
     functions: {
