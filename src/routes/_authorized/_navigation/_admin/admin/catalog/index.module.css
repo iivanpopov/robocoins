@@ -75,7 +75,14 @@
 }
 
 .scroll {
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  padding-bottom: var(--spacing-xs);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.scroll::-webkit-scrollbar {
+  display: none;
 }
 
 .list {
