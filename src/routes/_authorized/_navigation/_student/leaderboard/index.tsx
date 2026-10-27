@@ -1,13 +1,14 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { cn } from 'cn'
 
+import { Mascot } from '#/components/mascot'
 import { IconButton, Loader, Typography } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 
-import { LeaderboardRow } from '../-components/leaderboard'
+import { LeaderboardRow, OwnPlace, Podium } from '../-components/leaderboard'
 import { useLeaderboardPage } from './-hooks'
 
-import leaderboardStyles from '../-components/leaderboard/leaderboard.module.css'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_student/leaderboard/')({
@@ -18,47 +19,57 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/leaderbo
 function LeaderboardPage() {
   const { refs, state, queries, functions } = useLeaderboardPage()
   const t = useTranslate()
+  const entries = state.entries.filter((entry) => entry.rank > 3)
 
   return (
-    <main className={styles.page}>
+    <main className={cn(styles.page, 'student-theme')}>
       <header className={styles.header}>
         <IconButton nativeButton={false} render={<Link to="/" />} title={t('leaderboard.back')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
         <Typography variant="subtitle">{t('leaderboard.title')}</Typography>
       </header>
-      <p className={leaderboardStyles.description}>{t('leaderboard.description')}</p>
-      <p className={styles.rules}>{t('leaderboard.rules')}</p>
-      {!(state.ownEntry && state.ownEntry.rank <= 3) && (
-        <section className={styles.own} aria-labelledby="leaderboard-own-title">
-          <h2 id="leaderboard-own-title" className={leaderboardStyles.label}>
-            {t('leaderboard.place')}
-          </h2>
-          {queries.rank.isPending && (
-            <Loader grow role="status" aria-label={t('leaderboard.loading')} />
-          )}
-          {queries.rank.isError && (
-            <InlineError onRetry={functions.handleRetryRank} isRetrying={queries.rank.isFetching}>
-              {t('leaderboard.rank.error')}
-            </InlineError>
-          )}
-          {state.ownEntry && <LeaderboardRow entry={state.ownEntry} isCurrent />}
-          {queries.rank.isSuccess && !state.ownEntry && (
-            <p className={leaderboardStyles.description}>{t('leaderboard.unranked')}</p>
-          )}
-        </section>
+      <p className={styles.description}>{t('leaderboard.description')}</p>
+      <div className={styles.help}>
+        <Mascot mood="explaining" size={96} className={styles['help-mascot']} aria-hidden="true" />
+        <p className={styles.rules}>{t('leaderboard.rules')}</p>
+      </div>
+      {queries.rank.isPending && (
+        <Loader grow role="status" aria-label={t('leaderboard.loading')} />
+      )}
+      {queries.rank.isError && (
+        <InlineError onRetry={functions.handleRetryRank} isRetrying={queries.rank.isFetching}>
+          {t('leaderboard.rank.error')}
+        </InlineError>
       )}
       {queries.leaderboard.isPending && (
         <Loader grow role="status" aria-label={t('leaderboard.loading')} />
       )}
-      {queries.leaderboard.isSuccess && !state.entries.length && <p>{t('leaderboard.empty')}</p>}
-      <ol className={leaderboardStyles.list} aria-label={t('leaderboard.title')}>
-        {state.entries.map((entry) => (
-          <li key={entry.student_id}>
-            <LeaderboardRow entry={entry} isCurrent={entry.student_id === state.studentId} />
-          </li>
-        ))}
-      </ol>
+      {queries.leaderboard.isSuccess && !state.entries.length && (
+        <p className={styles.description}>{t('leaderboard.empty')}</p>
+      )}
+      {!!state.entries.length && <Podium entries={state.entries} studentId={state.studentId} />}
+      {state.ownEntry && state.ownEntry.rank > 3 && (
+        <div className={styles.sticky}>
+          <OwnPlace
+            rank={state.ownEntry.rank}
+            balance={state.ownEntry.balance}
+            neededCoins={state.neededCoins}
+          />
+        </div>
+      )}
+      {queries.rank.isSuccess && !state.ownEntry && (
+        <p className={styles.description}>{t('leaderboard.unranked')}</p>
+      )}
+      {!!entries.length && (
+        <ol className={styles.list} aria-label={t('leaderboard.title')}>
+          {entries.map((entry) => (
+            <li key={entry.student_id}>
+              <LeaderboardRow entry={entry} isCurrent={entry.student_id === state.studentId} />
+            </li>
+          ))}
+        </ol>
+      )}
       {queries.leaderboard.isError && (
         <InlineError onRetry={functions.handleRetry} isRetrying={queries.leaderboard.isFetching}>
           {t('leaderboard.error')}

@@ -1,4 +1,9 @@
 export { LeaderboardPreview } from './leaderboard-preview'
-export { LeaderboardRow } from './-components'
+export { LeaderboardRow, OwnPlace, Podium } from './-components'
 export { useWeeklyLeaderboard } from './-hooks'
-export { getWeeklyLeaderboardQueryOptions, getWeeklyLeaderboardRankQueryOptions } from './-utils'
+export {
+  findNeighborAbove,
+  getWeeklyLeaderboardNeighborQueryOptions,
+  getWeeklyLeaderboardQueryOptions,
+  getWeeklyLeaderboardRankQueryOptions,
+} from './-utils'

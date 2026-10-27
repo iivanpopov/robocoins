@@ -1,0 +1,55 @@
+.own {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-block: var(--spacing-xs);
+}
+
+.top {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.rank {
+  display: inline-flex;
+  gap: 0.375rem;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  color: var(--brand);
+}
+
+.place {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.points {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.coin {
+  font-size: 0.875rem;
+  color: var(--student-coin);
+}
+
+.gap {
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--muted-foreground);
+  overflow-wrap: anywhere;
+}

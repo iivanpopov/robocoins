@@ -4,6 +4,7 @@
 @import './category-colors.css';
 @import './category-choice.css';
 @import './motion.css';
+@import './student-theme.css';
 
 * {
   box-sizing: border-box;

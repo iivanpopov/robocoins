@@ -3,13 +3,21 @@ import { useRouteContext } from '@tanstack/react-router'
 
 import type { StudentProfileResponse } from '#/api/types'
 
-import { getWeeklyLeaderboardQueryOptions, getWeeklyLeaderboardRankQueryOptions } from '../-utils'
+import {
+  findNeighborAbove,
+  getWeeklyLeaderboardNeighborQueryOptions,
+  getWeeklyLeaderboardQueryOptions,
+  getWeeklyLeaderboardRankQueryOptions,
+} from '../-utils'
 
 export function useWeeklyLeaderboard(pageSize: number) {
   const context = useRouteContext({ from: '/_authorized' })
 
   const leaderboardQuery = useInfiniteQuery(getWeeklyLeaderboardQueryOptions(pageSize))
   const rankQuery = useQuery(getWeeklyLeaderboardRankQueryOptions(context.user!.id))
+  const neighborhoodQuery = useQuery(
+    getWeeklyLeaderboardNeighborQueryOptions(context.user!.id, rankQuery.data?.rank ?? null),
+  )
 
   function handleLoadMore() {
     if (leaderboardQuery.isFetching) return
@@ -45,11 +53,18 @@ export function useWeeklyLeaderboard(pageSize: number) {
       balance: rankQuery.data.balance,
       course_names: [],
     }
+  const ownRank = rankQuery.data?.rank ?? null
+  const ownBalance = rankQuery.data?.balance ?? 0
+  const neighbor =
+    ownRank !== null && ownRank > 3
+      ? findNeighborAbove(neighborhoodQuery.data?.entries ?? [], ownRank)
+      : null
+  const neededCoins = neighbor ? Math.max(0, neighbor.balance - ownBalance) : null
   const isInPreview = entries.some((entry) => entry.student_id === profile.id)
 
   return {
-    state: { entries, ownEntry, studentId: profile.id, isInPreview },
-    queries: { leaderboard: leaderboardQuery, rank: rankQuery },
+    state: { entries, ownEntry, neededCoins, studentId: profile.id, isInPreview },
+    queries: { leaderboard: leaderboardQuery, rank: rankQuery, neighborhood: neighborhoodQuery },
     functions: { handleLoadMore, handleRetry, handleRetryRank },
   }
 }

@@ -4,7 +4,7 @@ import { Link } from '@tanstack/react-router'
 import { Button, Loader, Typography } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 
-import { LeaderboardRow } from './-components'
+import { OwnPlace, Podium } from './-components'
 import { useWeeklyLeaderboard } from './-hooks'
 
 import styles from './leaderboard.module.css'
@@ -41,16 +41,9 @@ export function LeaderboardPreview() {
       {queries.leaderboard.isSuccess && !state.entries.length && (
         <p className={styles.description}>{t('leaderboard.empty')}</p>
       )}
-      <ol className={styles.list}>
-        {state.entries.map((entry) => (
-          <li key={entry.student_id}>
-            <LeaderboardRow entry={entry} isCurrent={entry.student_id === state.studentId} />
-          </li>
-        ))}
-      </ol>
+      {!!state.entries.length && <Podium entries={state.entries} studentId={state.studentId} />}
       {!state.isInPreview && (
         <div className={styles.own}>
-          <p className={styles.label}>{t('leaderboard.place')}</p>
           {queries.rank.isPending && (
             <Loader grow role="status" aria-label={t('leaderboard.loading')} />
           )}
@@ -59,7 +52,13 @@ export function LeaderboardPreview() {
               {t('leaderboard.rank.error')}
             </InlineError>
           )}
-          {state.ownEntry && <LeaderboardRow entry={state.ownEntry} isCurrent />}
+          {state.ownEntry && (
+            <OwnPlace
+              rank={state.ownEntry.rank}
+              balance={state.ownEntry.balance}
+              neededCoins={state.neededCoins}
+            />
+          )}
           {queries.rank.isSuccess && !state.ownEntry && (
             <p className={styles.description}>{t('leaderboard.unranked')}</p>
           )}

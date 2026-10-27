@@ -6,13 +6,19 @@ import { getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions } 
 import { getStudentRewardProgressStudentStudentIdRewardProgressGetQueryOptions } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryOptions } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { StudentProfileResponse } from '#/api/types'
-import { Avatar, AvatarFallback, AvatarImage, Button, Loader, Typography } from '#/components/ui'
+import { Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
-import { COOKIE_MAX_AGE, LAST_LOG_ON_COOKIE, type Avatar as AvatarName } from '#/routes/-constants'
-import { getAvatarUrl, getInitial } from '#/routes/-utils'
+import { COOKIE_MAX_AGE, LAST_LOG_ON_COOKIE } from '#/routes/-constants'
 import { readCookie } from '#/utils/cookies'
 
-import { CyberweenBanner, LeaderboardPreview, RulesDrawer } from './-components'
+import {
+  CyberweenBanner,
+  EarnWays,
+  GoalCard,
+  HistoryPreview,
+  LeaderboardPreview,
+  StudentHero,
+} from './-components'
 import {
   getWeeklyLeaderboardQueryOptions,
   getWeeklyLeaderboardRankQueryOptions,
@@ -77,147 +83,42 @@ function StudentPage() {
   const t = useTranslate()
 
   return (
-    <main className={styles.page}>
-      <header className={styles.header}>
-        <button
-          type="button"
-          className={styles['profile-button']}
-          onClick={functions.handleOpenProfile}
-          title={t('step.success.profile')}
-        >
-          <Avatar>
-            <AvatarImage
-              src={getAvatarUrl(state.profile.avatar as AvatarName)}
-              alt={state.profile.name}
-            />
-            <AvatarFallback role="img" aria-label={state.profile.name}>
-              {getInitial(state.profile.name)}
-            </AvatarFallback>
-          </Avatar>
-          <Typography className={styles.name} variant="subtitle">
-            {state.profile.name}
-          </Typography>
-        </button>
-        <div className={styles.balance}>
-          <span>{t('profile.balance.amount', { count: state.profile.balance })}</span>
-          <div aria-hidden="true" className={cn('i-ph:coins-bold', styles['coin-icon'])} />
-        </div>
-      </header>
-      <CyberweenBanner />
-      {state.isGoalPending && <Loader grow />}
+    <main className={cn(styles.page, 'student-theme')}>
+      <StudentHero
+        name={state.profile.name}
+        avatar={state.avatar}
+        balance={state.profile.balance}
+        hasNewReward={state.hasNewReward}
+        onOpenProfile={functions.handleOpenProfile}
+        onOpenShop={functions.handleNavigateToShop}
+      />
+      {state.isGoalPending && <Loader grow role="status" aria-label={t('profile.goal.loading')} />}
       {state.isGoalError && (
         <InlineError onRetry={functions.handleRetryGoal} isRetrying={state.isGoalFetching}>
           {t('group.error')}
         </InlineError>
       )}
-      {!state.isGoalPending && !state.isGoalError && !state.goal && (
-        <article className={cn(styles.goal, styles['goal-empty'])}>
-          <Typography className={styles['product-name']} variant="subtitle">
-            {t('profile.goal.none')}
-          </Typography>
-          <Button
-            className={styles['goal-shop']}
-            variant="ghost"
-            onClick={functions.handleNavigateToShop}
-          >
-            {t('profile.goal.shop')}
-          </Button>
-        </article>
+      {!state.isGoalPending && !state.isGoalError && (
+        <GoalCard
+          goal={state.goal}
+          balance={state.profile.balance}
+          remainingBalance={state.remainingBalance}
+          progressPercent={state.goalProgressDisplay}
+          isCompleted={state.goalCompleted}
+          onOpenShop={functions.handleNavigateToShop}
+        />
       )}
-      {state.goal && (
-        <article className={styles.goal}>
-          <div className={styles['product-heading']}>
-            <Typography className={styles['product-name']} variant="subtitle">
-              {state.goal.name}
-            </Typography>
-            <div aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.chevron)} />
-          </div>
-          <p className={styles.amount}>
-            <strong>{t('profile.balance.amount', { count: state.profile.balance })}</strong>{' '}
-            {t('profile.goal.target', { count: state.goal.price })}{' '}
-            <span aria-hidden="true" className="i-ph:coins-bold" />
-          </p>
-          <div
-            className={styles.progress}
-            role="progressbar"
-            aria-label={state.goal.name}
-            aria-valuenow={state.goalProgressValue}
-            aria-valuemin={0}
-            aria-valuemax={100}
-          >
-            <span
-              data-active={state.profile.balance > 0}
-              data-completed={state.goalCompleted}
-              data-running={state.goalProgressRunning}
-              style={{ width: state.goalProgress }}
-            />
-          </div>
-          <Typography className={styles.label} variant="caption">
-            {state.goalCompleted && (
-              <span className={styles['goal-completed-label']}>{t('profile.goal.completed')}</span>
-            )}
-            {!state.goalCompleted && t('profile.goal.remaining', { count: state.remainingBalance })}
-          </Typography>
-        </article>
-      )}
+      <EarnWays />
+      <CyberweenBanner />
       <LeaderboardPreview />
-      <section className={styles.history}>
-        <div className={styles['section-heading']}>
-          <Typography className={styles['history-title']} variant="subtitle">
-            {t('profile.history.title')}
-          </Typography>
-          <Button
-            className={styles['all-button']}
-            variant="link"
-            onClick={functions.handleViewHistory}
-          >
-            {t('profile.history.all')}
-            <span aria-hidden="true" className="i-ph:caret-right-bold" />
-          </Button>
-        </div>
-        {queries.history.isPending && (
-          <div
-            className={styles['history-loading']}
-            role="status"
-            aria-label={t('profile.history.loading')}
-          >
-            <Loader grow />
-          </div>
-        )}
-        {queries.history.isError && (
-          <InlineError
-            onRetry={functions.handleRetryHistory}
-            isRetrying={queries.history.isFetching}
-          >
-            {t('group.error')}
-          </InlineError>
-        )}
-        {queries.history.isSuccess && !state.groups.length && <p>{t('profile.history.empty')}</p>}
-        {state.groups.map((group) => (
-          <div key={group.date}>
-            <div className={styles['day-heading']}>
-              <span>{group.date}</span>
-              <span>{group.total}</span>
-            </div>
-            {group.transactions.map((transaction) => (
-              <div
-                className={cn(styles.operation, transaction.isNew && styles['operation-today'])}
-                key={transaction.id}
-              >
-                <ul className={styles['operation-reasons']}>
-                  {(transaction.reason ?? []).map((reason, i) => (
-                    <li key={`${reason}-${i}`}>{t.unsafe(`reason.${reason}`)}</li>
-                  ))}
-                </ul>
-                <strong className={cn(transaction.isDeposit && styles['new-amount'])}>
-                  {t('profile.history.amount', { count: transaction.signedAmount })}
-                </strong>
-              </div>
-            ))}
-          </div>
-        ))}
-        <RulesDrawer className={styles['rules-button']} />
-      </section>
+      <HistoryPreview
+        groups={state.groups}
+        isPending={queries.history.isPending}
+        isError={queries.history.isError}
+        isFetching={queries.history.isFetching}
+        onRetry={functions.handleRetryHistory}
+        onViewAll={functions.handleViewHistory}
+      />
     </main>
   )
 }

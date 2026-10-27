@@ -16,6 +16,12 @@ export function getRouter() {
     context: { queryClient },
     defaultPreloadStaleTime: 0,
     scrollRestoration: true,
+    scrollRestorationBehavior: 'instant',
+    getScrollRestorationKey: (location) => {
+      const pathname = location.pathname.replace(/\/+$/, '') || '/'
+      if (pathname === '/') return 'student-home'
+      return location.state.__TSR_key ?? location.href
+    },
     scrollToTopSelectors: ['[data-navigation-scroll]'],
     defaultNotFoundComponent: NotFoundComponent,
     defaultErrorComponent: ErrorComponent,

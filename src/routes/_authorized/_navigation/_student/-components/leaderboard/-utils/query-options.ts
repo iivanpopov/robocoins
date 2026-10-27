@@ -1,4 +1,4 @@
-import { infiniteQueryOptions } from '@tanstack/react-query'
+import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query'
 
 import { getBalanceLeaderboardStudentLeaderboardBalanceGet } from '#/api/clients/getBalanceLeaderboardStudentLeaderboardBalanceGet'
 import { getBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetQueryOptions } from '#/api/hooks/useGetBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGet'
@@ -35,4 +35,23 @@ export function getWeeklyLeaderboardRankQueryOptions(studentId: number) {
     }),
     staleTime: 30_000,
   }
+}
+
+export function getWeeklyLeaderboardNeighborQueryOptions(studentId: number, rank: number | null) {
+  return queryOptions({
+    queryKey: [
+      ...getBalanceLeaderboardStudentLeaderboardBalanceGetQueryKey(),
+      'neighbor',
+      studentId,
+      rank,
+    ],
+    enabled: rank !== null && rank > 3,
+    staleTime: 30_000,
+    queryFn: ({ signal }) =>
+      getBalanceLeaderboardStudentLeaderboardBalanceGet({
+        query: { limit: 5, offset: Math.max(0, (rank ?? 1) - 4) },
+        signal,
+        throwOnError: true,
+      }).unwrap(),
+  })
 }

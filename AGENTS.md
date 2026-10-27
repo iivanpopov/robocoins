@@ -68,3 +68,8 @@ Component-local hooks may deliberately return a bare object of their state and h
 After each change run `bun check`.
 
 To fix CSS warnings try `bun lint:css --fix`
+
+## Design
+
+1. UPPERCASE text is forbidden in UI.
+2. Max. 1-3 cards per page.

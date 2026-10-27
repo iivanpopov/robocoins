@@ -46,7 +46,6 @@
   font-weight: 800;
   line-height: 1.1;
   color: #fff;
-  text-transform: uppercase;
   letter-spacing: 0.015em;
   text-shadow: 0 0 18px rgb(70 130 255 / 65%);
 }
@@ -82,7 +81,6 @@
   padding: 0.1875rem 0.5rem;
   font-size: 0.75rem;
   font-weight: 700;
-  text-transform: uppercase;
   letter-spacing: 0.06em;
   background: #1646ff;
   border-radius: var(--rounded-sm);

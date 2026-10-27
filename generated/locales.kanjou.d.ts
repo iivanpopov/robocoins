@@ -12,6 +12,11 @@ declare module '@kanjou/react' {
       'leaderboard.all': {}
       'leaderboard.you': {}
       'leaderboard.place': {}
+      'leaderboard.podium': {}
+      'leaderboard.own.place': {}
+      'leaderboard.own.points': { count: { __fn: 'number' } }
+      'leaderboard.gap': { count: { __fn: 'number' } }
+      'leaderboard.own.near': {}
       'leaderboard.rank': { rank: { __fn: 'number' } }
       'leaderboard.points': { count: { __fn: 'number' } }
       'leaderboard.points.label': { count: { __fn: 'number' } }
@@ -167,6 +172,19 @@ declare module '@kanjou/react' {
       'reason.incomplete': {}
       'reason.other': {}
       'profile.balance.amount': { count: { __fn: 'number' } }
+      'profile.balance.open-shop': {}
+      'profile.greeting.hello': { name: DefaultMessageValue }
+      'profile.greeting.caption': {}
+      'profile.goal.kicker': {}
+      'profile.goal.loading': {}
+      'profile.goal.progress': {
+        saved: { __fn: 'number' }
+        price: { __fn: 'number' }
+      }
+      'profile.goal.change': {}
+      'profile.goal.claim': {}
+      'profile.goal.choose': {}
+      'profile.earn.title': {}
       'profile.goal.none': {}
       'profile.goal.shop': {}
       'profile.goal.completed': {}
@@ -184,9 +202,10 @@ declare module '@kanjou/react' {
       'profile.history.all': {}
       'profile.history.loading': {}
       'profile.history.empty': {}
+      'profile.history.empty.mascot': {}
       'profile.history.today': {}
       'profile.history.yesterday': {}
-      'profile.history.date': { date: { __fn: 'datetime' } }
+      'profile.history.day': { date: { __fn: 'datetime' } }
       'profile.history.amount': { count: { __fn: 'number' } }
       'profile.rules': {}
       'profile.rules.title': {}

@@ -4,7 +4,8 @@ import { useNavigate, useRouteContext } from '@tanstack/react-router'
 
 import { useGetStudentRewardProgressStudentStudentIdRewardProgressGet } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
 import { useGetStudentTransactionHistoryStudentStudentIdTransactionsGet } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
-import { StudentProfileResponse } from '#/api/types'
+import type { StudentProfileResponse } from '#/api/types'
+import type { Avatar as AvatarName } from '#/routes/-constants'
 import { compareTransactionsByNewest } from '#/routes/-utils'
 
 import { HISTORY_MINIMUM_TRANSACTIONS, HISTORY_TRANSACTION_FETCH_LIMIT } from '../-constants'
@@ -52,7 +53,7 @@ export function useStudentPage() {
 
     if (dateKey === dateToday) return t('profile.history.today')
     if (dateKey === dateYesterday) return t('profile.history.yesterday')
-    return t('profile.history.date', { date: new Date(dateKey) })
+    return t('profile.history.day', { date: new Date(dateKey) })
   }
 
   function handleRetryHistory() {
@@ -112,28 +113,26 @@ export function useStudentPage() {
   ).map(([date, transactions]) => ({
     date,
     transactions: transactions ?? [],
-    total: t('profile.history.amount', {
-      count: (transactions ?? []).reduce(
-        (total, transaction) => total + transaction.signedAmount,
-        0,
-      ),
-    }),
   }))
 
   const goalCompleted = Boolean(goal && (goalQuery.data?.coins_remaining ?? 0) <= 0)
+  const hasNewReward = allTransactions.some(
+    (transaction) => transaction.isNew && transaction.isDeposit,
+  )
+  const avatar = (profile.avatar as AvatarName | null) ?? null
 
   return {
     state: {
       profile,
+      avatar,
       groups,
       goal,
       goalCompleted,
+      hasNewReward,
       isGoalPending,
       isGoalError,
       isGoalFetching: goalQuery.isFetching || categoriesQuery.isFetching,
-      goalProgress: goalProgress.displayWidth,
-      goalProgressValue: goalProgress.currentProgress,
-      goalProgressRunning: goalProgress.isAnimating,
+      goalProgressDisplay: Number.parseFloat(goalProgress.displayWidth),
       remainingBalance: Math.max(0, goalQuery.data?.coins_remaining ?? 0),
     },
     queries: { history: historyQuery },
