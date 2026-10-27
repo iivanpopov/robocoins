@@ -111,7 +111,6 @@ function CreateGroupPage() {
             onSubmit={functions.handleSubmit}
             submitLabel={t('admin.groups.create.submit')}
             isSubmitting={state.isSubmitting}
-            note={t('admin.groups.create.teacher-note')}
           >
             <features.form.Field name="name">
               {(field) => (

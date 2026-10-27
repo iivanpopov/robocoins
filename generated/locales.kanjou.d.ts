@@ -165,7 +165,6 @@ declare module '@kanjou/react' {
       'admin.groups.create.course-label': {}
       'admin.groups.create.course-placeholder': {}
       'admin.groups.create.course-error': {}
-      'admin.groups.create.teacher-note': {}
       'admin.groups.create.courses-empty-title': {}
       'admin.groups.create.courses-empty-description': {}
       'admin.groups.create.submit': {}

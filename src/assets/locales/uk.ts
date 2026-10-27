@@ -176,13 +176,11 @@ export default {
   'admin.groups.bulk.results.open': 'Відкрити групу {$group}',
   'admin.groups.create.title': 'Нова група',
   'admin.groups.create.name-label': 'Назва групи',
-  'admin.groups.create.name-placeholder': 'Наприклад, НД 16:00',
+  'admin.groups.create.name-placeholder': 'Формат: НД 16:00',
   'admin.groups.create.name-error': 'Введіть у форматі НД 16:00: день тижня та час.',
   'admin.groups.create.course-label': 'Курс',
   'admin.groups.create.course-placeholder': 'Оберіть курс',
   'admin.groups.create.course-error': 'Оберіть курс зі списку.',
-  'admin.groups.create.teacher-note':
-    'Можна призначити до двох викладачів або залишити групу без них. Якщо сервер це забороняє, покажемо помилку.',
   'admin.groups.create.courses-empty-title': 'Немає курсів для групи',
   'admin.groups.create.courses-empty-description':
     'Спочатку створіть курс, а потім додайте до нього групу.',

@@ -1501,7 +1501,7 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Наприклад, НД 16:00"
+      "Формат: НД 16:00"
     ]
   },
   "admin.groups.create.name-error": {
@@ -1530,13 +1530,6 @@ export default {
     "declarations": [],
     "pattern": [
       "Оберіть курс зі списку."
-    ]
-  },
-  "admin.groups.create.teacher-note": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Можна призначити до двох викладачів або залишити групу без них. Якщо сервер це забороняє, покажемо помилку."
     ]
   },
   "admin.groups.create.courses-empty-title": {
