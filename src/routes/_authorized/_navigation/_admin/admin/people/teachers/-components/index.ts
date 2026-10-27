@@ -1,6 +1,5 @@
 export * from './teacher-form'
 export * from './teacher-group-row'
-export * from './teacher-page-layout'
 export * from './teacher-registration-result'
 export * from './teacher-request-error'
 export * from './teacher-result-panel'

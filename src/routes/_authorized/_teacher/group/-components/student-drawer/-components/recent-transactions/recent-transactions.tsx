@@ -28,7 +28,7 @@ export function RecentTransactions(props: RecentTransactionsProps) {
           type="button"
           className={styles['history-all']}
           onClick={props.onViewAll}
-          aria-label={t('award.history.view-all')}
+          aria-label={t('history.title')}
         >
           {t('award.history.all')}
           <span aria-hidden="true" className="i-ph:caret-right" />

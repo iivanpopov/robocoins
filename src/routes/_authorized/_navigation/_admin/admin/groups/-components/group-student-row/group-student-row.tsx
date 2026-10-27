@@ -29,7 +29,7 @@ export function GroupStudentRow({ student, className }: GroupStudentRowProps) {
       <span className={styles.details}>
         <span className={styles.name}>{student.name}</span>
         <span className={styles.groups}>
-          {t('students.group-count', { count: student.group_ids.length })}
+          {t('groups.count', { count: student.group_ids.length })}
         </span>
       </span>
     </article>

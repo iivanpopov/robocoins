@@ -51,7 +51,7 @@ export function TransactionRow(props: TransactionRowProps) {
             onClick={() => props.onCancel(props.transaction)}
           >
             <span aria-hidden="true" className="i-ph:arrow-counter-clockwise" />
-            {t('admin.balance.cancel.action')}
+            {t('action.cancel')}
           </Button>
         )}
       </div>

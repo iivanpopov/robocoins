@@ -96,7 +96,7 @@ export function TeacherPicker({
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder={t('admin.groups.teachers.picker.search-placeholder')}
+          placeholder={t('teachers.name')}
           autoComplete="off"
           disabled={disabled}
         />
@@ -109,7 +109,7 @@ export function TeacherPicker({
         </InlineError>
       )}
       {!isPending && !isError && !options.length && (
-        <p className={styles.empty}>{t('admin.groups.teachers.picker.empty')}</p>
+        <p className={styles.empty}>{t('teachers.empty')}</p>
       )}
       {!isPending && !isError && !!options.length && !filteredOptions.length && (
         <p className={styles.empty}>{t('admin.groups.teachers.picker.search-empty')}</p>

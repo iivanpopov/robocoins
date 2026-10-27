@@ -23,7 +23,7 @@ function LeaderboardPage() {
   return (
     <main className={styles.page}>
       <header className={styles.header}>
-        <IconButton nativeButton={false} render={<Link to="/" />} title={t('leaderboard.back')}>
+        <IconButton nativeButton={false} render={<Link to="/" />} title={t('navigation.home')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
         <Typography variant="subtitle">{t('leaderboard.title')}</Typography>

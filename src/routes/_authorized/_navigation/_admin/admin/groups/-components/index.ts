@@ -1,6 +1,5 @@
 export * from './group-empty-state'
 export * from './group-form'
-export * from './group-page-layout'
 export * from './group-request-error'
 export * from './group-result-panel'
 export * from './group-student-row'

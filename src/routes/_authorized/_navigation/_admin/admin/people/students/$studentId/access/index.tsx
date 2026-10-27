@@ -15,8 +15,10 @@ import {
   IconButton,
   Loader,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import { StudentPageLayout, StudentRequestError, StudentResultPanel } from '../-components'
+import { StudentRequestError } from '../-components'
+// import { StudentResultPanel } from '../-components'
 import { parseStudentIdParams } from '../-utils'
 import { StudentAvatar } from '../../-components'
 import { useStudentAccessPage } from './-hooks'
@@ -45,26 +47,25 @@ function StudentAccessPage() {
   const t = useTranslate()
 
   return (
-    <StudentPageLayout
-      title={t('students.access.title')}
-      description={
-        <>
-          {!state.student && t('students.access.description-empty')}
-          {!!state.student && t('students.access.description', { name: state.name })}
-        </>
-      }
-      back={
+    <AdminPageLayout.Root bottomSpace>
+      <AdminPageLayout.Header>
         <IconButton
           nativeButton={false}
           render={
             <Link to="/admin/people/students/$studentId" params={{ studentId: state.studentId }} />
           }
-          title={t('students.manage.back-to-profile')}
+          title={t('navigation.profile')}
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('students.access.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {!state.student && t('students.access.description-empty')}
+            {!!state.student && t('students.access.description', { name: state.name })}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isPending && <Loader grow />}
       {!state.isPending && state.isError && !state.student && (
         <StudentRequestError
@@ -91,7 +92,7 @@ function StudentAccessPage() {
           </article>
 
           <section className={styles.card}>
-            <h2 className={styles['section-title']}>{t('students.access.code.title')}</h2>
+            <h2 className={styles['section-title']}>{t('access.code.label')}</h2>
 
             {state.isCredentialsPending && <Loader grow />}
             {!state.isCredentialsPending && state.isCredentialsError && (
@@ -106,7 +107,7 @@ function StudentAccessPage() {
 
             {!state.isCredentialsPending && !state.isCredentialsError && !!state.code && (
               <>
-                <output className={styles.code} aria-label={t('students.access.code.title')}>
+                <output className={styles.code} aria-label={t('access.code.label')}>
                   {state.code}
                 </output>
                 <div className={styles.actions}>
@@ -130,7 +131,7 @@ function StudentAccessPage() {
                     aria-busy={mutations.reset.isPending}
                   >
                     {mutations.reset.isPending && <Loader />}
-                    {t('students.access.code.reset')}
+                    {t('access.code.reset')}
                   </Button>
                 </div>
                 <p
@@ -141,7 +142,7 @@ function StudentAccessPage() {
                     features.clipboard.state.isCopyError && styles['copy-status-error'],
                   )}
                 >
-                  {features.clipboard.state.isCopied && t('students.register.success.copied')}
+                  {features.clipboard.state.isCopied && t('access.code.copied')}
                   {features.clipboard.state.isCopyError &&
                     t('students.register.success.copy-error')}
                 </p>
@@ -159,13 +160,14 @@ function StudentAccessPage() {
             )}
           </section>
 
+          {/* No API integration: session revocation only updates local state.
           {!state.isRevokedLocally && (
             <section className={styles.card}>
               <h2 className={styles['section-title']}>{t('students.access.sessions.title')}</h2>
               <p className={styles.note}>{t('students.access.sessions.note')}</p>
               <div className={styles.actions}>
                 <Button variant="ghost" onClick={functions.handleOpenRevokeDialog}>
-                  {t('students.access.sessions.action')}
+                  {t('access.sessions.end')}
                 </Button>
               </div>
             </section>
@@ -173,11 +175,11 @@ function StudentAccessPage() {
 
           {state.isRevokedLocally && (
             <StudentResultPanel
-              title={t('students.access.sessions.result-title')}
+              title={t('access.sessions.result-title')}
               description={t('students.access.sessions.result-description')}
               details={[
                 {
-                  label: t('students.delete.result-detail'),
+                  label: t('role.student'),
                   value: state.name,
                 },
               ]}
@@ -194,10 +196,12 @@ function StudentAccessPage() {
                   />
                 }
               >
-                {t('students.manage.back-to-profile')}
+                {t('navigation.profile')}
               </Button>
             </StudentResultPanel>
           )}
+
+          */}
 
           <AlertDialog
             open={state.isResetDialogOpen}
@@ -205,7 +209,7 @@ function StudentAccessPage() {
           >
             <AlertDialogContent size="sm">
               <AlertDialogHeader>
-                <AlertDialogTitle>{t('students.access.code.reset-confirm-title')}</AlertDialogTitle>
+                <AlertDialogTitle>{t('access.code.reset-confirm-title')}</AlertDialogTitle>
                 <AlertDialogDescription>
                   {t('students.access.code.reset-confirm-description', { name: state.name })}
                 </AlertDialogDescription>
@@ -216,19 +220,20 @@ function StudentAccessPage() {
                   onClick={functions.handleConfirmReset}
                   disabled={mutations.reset.isPending}
                 >
-                  {t('students.access.code.reset-confirm-action')}
+                  {t('access.code.reset')}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
 
+          {/* No API integration: this confirmation does not revoke server sessions.
           <AlertDialog
             open={state.isRevokeDialogOpen}
             onOpenChange={functions.handleRevokeDialogOpenChange}
           >
             <AlertDialogContent size="sm">
               <AlertDialogHeader>
-                <AlertDialogTitle>{t('students.access.sessions.confirm-title')}</AlertDialogTitle>
+                <AlertDialogTitle>{t('access.sessions.confirm-title')}</AlertDialogTitle>
                 <AlertDialogDescription>
                   {t('students.access.sessions.confirm-description', { name: state.name })}
                 </AlertDialogDescription>
@@ -236,13 +241,14 @@ function StudentAccessPage() {
               <AlertDialogFooter>
                 <AlertDialogCancel>{t('action.cancel')}</AlertDialogCancel>
                 <AlertDialogAction onClick={functions.handleConfirmRevoke}>
-                  {t('students.access.sessions.confirm-action')}
+                  {t('action.continue-locally')}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
+          */}
         </>
       )}
-    </StudentPageLayout>
+    </AdminPageLayout.Root>
   )
 }

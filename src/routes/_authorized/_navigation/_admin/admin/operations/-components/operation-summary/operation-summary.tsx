@@ -64,7 +64,7 @@ export function OperationSummary({
 
       {canAcknowledgeUnknown && (
         <Button variant="ghost" onClick={onAcknowledgeUnknown} disabled={isRunning}>
-          {t('admin.operations.result.acknowledge')}
+          {t('balance.acknowledge')}
         </Button>
       )}
 

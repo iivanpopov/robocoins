@@ -116,10 +116,10 @@ function StudentProfilePage() {
               </Typography>
               <div
                 className={styles.balance}
-                aria-label={`${t('profile.balance.amount', { count: state.profile.balance })} ${t('profile.balance.caption', { count: state.profile.balance })}`}
+                aria-label={`${t('coins.amount', { count: state.profile.balance })} ${t('coins.unit', { count: state.profile.balance })}`}
               >
                 <span aria-hidden="true">
-                  {t('profile.balance.amount', { count: state.profile.balance })}
+                  {t('coins.amount', { count: state.profile.balance })}
                 </span>
                 <span aria-hidden="true" className={cn('i-ph:coins-bold', styles['coin-icon'])} />
               </div>
@@ -127,7 +127,7 @@ function StudentProfilePage() {
           </article>
           {state.isTeacher && (
             <section className={styles.section}>
-              <h2 className={styles['section-title']}>{t('profile.groups')}</h2>
+              <h2 className={styles['section-title']}>{t('groups.title')}</h2>
               {!!state.groupCards.length && (
                 <div className={styles['group-list']}>
                   {state.groupCards.map((group) => (

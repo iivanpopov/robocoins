@@ -30,7 +30,7 @@ export function StepSuccess() {
         </div>
         <div className={styles.credentials}>
           <div>
-            <Typography variant="subtitle">{t('step.success.password')}</Typography>
+            <Typography variant="subtitle">{t('field.password.caption')}</Typography>
             <Typography variant="caption">{t('step.success.description')}</Typography>
           </div>
           <div className={styles.password}>

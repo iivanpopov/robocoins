@@ -11,6 +11,7 @@ import {
   Loader,
 } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import { AdminGroupRow, AdminSelect } from './-components'
 import { GROUP_FILTER_ALL } from './-constants'
@@ -29,18 +30,18 @@ function AdminGroupsPage() {
   const t = useTranslate()
 
   const courseItems = [
-    { value: GROUP_FILTER_ALL, label: t('admin.groups.filters.course-all') },
+    { value: GROUP_FILTER_ALL, label: t('filters.all-courses') },
     ...state.courses.map((course) => ({ value: String(course.id), label: course.name })),
   ]
   const categoryItems = [
-    { value: GROUP_FILTER_ALL, label: t('admin.groups.filters.category-all') },
+    { value: GROUP_FILTER_ALL, label: t('filters.all-categories') },
     ...Object.values(courseCategory).map((category) => ({
       value: category,
       label: t('course.category', { category }),
     })),
   ]
   const teacherItems = [
-    { value: GROUP_FILTER_ALL, label: t('admin.groups.filters.teacher-all') },
+    { value: GROUP_FILTER_ALL, label: t('filters.all-teachers') },
     ...state.teacherOptions.map((teacher) => ({
       value: String(teacher.userId),
       label: teacher.name ?? t('admin.groups.teacher-unknown', { id: teacher.userId }),
@@ -48,18 +49,18 @@ function AdminGroupsPage() {
   ]
 
   return (
-    <section className={styles.page}>
-      <header className={styles.header}>
-        <div className={styles.heading}>
-          <h1 className={styles.title}>{t('admin.groups.title')}</h1>
-          <div className={styles['header-actions']}>
-            <Button nativeButton={false} render={<Link to="/admin/groups/create" />}>
-              <span aria-hidden="true" className="i-ph:plus-bold" />
-              {t('admin.learning.create')}
-            </Button>
-          </div>
-        </div>
-      </header>
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header>
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('groups.title')}</AdminPageLayout.Title>
+        </AdminPageLayout.Heading>
+        <AdminPageLayout.Actions>
+          <Button nativeButton={false} render={<Link to="/admin/groups/create" />}>
+            <span aria-hidden="true" className="i-ph:plus-bold" />
+            {t('admin.learning.create')}
+          </Button>
+        </AdminPageLayout.Actions>
+      </AdminPageLayout.Header>
 
       <div className={styles.controls}>
         <div className={styles['search-row']}>
@@ -72,13 +73,13 @@ function AdminGroupsPage() {
               value={state.query}
               onChange={(event) => functions.handleQueryChange(event.target.value)}
               placeholder={t('admin.groups.search.placeholder')}
-              aria-label={t('admin.groups.search.label')}
+              aria-label={t('groups.search.label')}
               autoComplete="off"
             />
           </InputGroup>
           <IconButton
-            aria-label={t('admin.groups.filters.toggle')}
-            title={t('admin.groups.filters.toggle')}
+            aria-label={t('filters.toggle')}
+            title={t('filters.toggle')}
             aria-expanded={state.isFiltersOpen}
             aria-pressed={state.isFiltersOpen}
             onClick={functions.handleFiltersToggle}
@@ -92,29 +93,29 @@ function AdminGroupsPage() {
               value={state.courseFilter}
               onValueChange={functions.handleCourseFilterChange}
               items={courseItems}
-              placeholder={t('admin.groups.filters.course-all')}
-              ariaLabel={t('admin.groups.filters.course')}
+              placeholder={t('filters.all-courses')}
+              ariaLabel={t('filters.course')}
             />
             <AdminSelect
               value={state.categoryFilter}
               onValueChange={functions.handleCategoryFilterChange}
               items={categoryItems}
-              placeholder={t('admin.groups.filters.category-all')}
-              ariaLabel={t('admin.groups.filters.category')}
+              placeholder={t('filters.all-categories')}
+              ariaLabel={t('filters.category')}
             />
             <AdminSelect
               value={state.teacherFilter}
               onValueChange={functions.handleTeacherFilterChange}
               items={teacherItems}
-              placeholder={t('admin.groups.filters.teacher-all')}
-              ariaLabel={t('admin.groups.filters.teacher')}
+              placeholder={t('filters.all-teachers')}
+              ariaLabel={t('filters.teacher')}
             />
           </div>
         )}
         {state.hasFilters && (
           <div className={styles.summary}>
             <Button type="button" variant="link" onClick={functions.handleClearFilters}>
-              {t('admin.groups.filters.clear')}
+              {t('filters.clear')}
             </Button>
           </div>
         )}
@@ -126,7 +127,7 @@ function AdminGroupsPage() {
           <InlineError onRetry={functions.handleRetry} isRetrying={state.isFetching}>
             {t(state.errorKey)}
           </InlineError>
-          {state.errorKey === 'admin.groups.error.unauthorized' && (
+          {state.errorKey === 'error.session' && (
             <Button
               variant="link"
               nativeButton={false}
@@ -134,7 +135,7 @@ function AdminGroupsPage() {
               className={styles.login}
             >
               <span aria-hidden="true" className="i-ph:sign-in" />
-              {t('admin.groups.error.login')}
+              {t('action.enter.title')}
             </Button>
           )}
         </div>
@@ -142,7 +143,7 @@ function AdminGroupsPage() {
       {!state.isPending && !state.isError && !state.totalCount && (
         <div className={styles.empty}>
           <span aria-hidden="true" className="i-ph:users-three-duotone" />
-          <p>{t('admin.groups.empty')}</p>
+          <p>{t('groups.empty')}</p>
           <Button nativeButton={false} render={<Link to="/admin/groups/create" />}>
             {t('admin.groups.create-first')}
           </Button>
@@ -151,9 +152,9 @@ function AdminGroupsPage() {
       {!state.isPending && !state.isError && !!state.totalCount && !state.foundCount && (
         <div className={styles.empty}>
           <span aria-hidden="true" className="i-ph:magnifying-glass" />
-          <p>{t('admin.groups.empty-filtered')}</p>
+          <p>{t('groups.empty-filtered')}</p>
           <Button type="button" variant="ghost" onClick={functions.handleClearFilters}>
-            {t('admin.groups.filters.clear')}
+            {t('filters.clear')}
           </Button>
         </div>
       )}
@@ -164,6 +165,6 @@ function AdminGroupsPage() {
           ))}
         </div>
       )}
-    </section>
+    </AdminPageLayout.Root>
   )
 }

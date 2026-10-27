@@ -67,7 +67,7 @@ export function RewardFields({ draft, errors, disabled = false, onChange }: Rewa
       </Field>
 
       <Field>
-        <FieldLabel htmlFor="reward-description">{t('admin.catalog.form.description')}</FieldLabel>
+        <FieldLabel htmlFor="reward-description">{t('field.description.label')}</FieldLabel>
         <textarea
           id="reward-description"
           name="reward-description"
@@ -81,8 +81,8 @@ export function RewardFields({ draft, errors, disabled = false, onChange }: Rewa
       </Field>
 
       <Field>
-        <FieldLabel>{t('admin.catalog.form.type')}</FieldLabel>
-        <div className={styles.choices} role="group" aria-label={t('admin.catalog.form.type')}>
+        <FieldLabel>{t('admin.catalog.type.label')}</FieldLabel>
+        <div className={styles.choices} role="group" aria-label={t('admin.catalog.type.label')}>
           {REWARD_TYPE_OPTIONS.map((type) => (
             <ThemedChip
               key={type}
@@ -99,8 +99,8 @@ export function RewardFields({ draft, errors, disabled = false, onChange }: Rewa
       </Field>
 
       <Field>
-        <FieldLabel>{t('admin.catalog.form.category')}</FieldLabel>
-        <div className={styles.choices} role="group" aria-label={t('admin.catalog.form.category')}>
+        <FieldLabel>{t('categories.label')}</FieldLabel>
+        <div className={styles.choices} role="group" aria-label={t('categories.label')}>
           <ThemedChip
             icon={false}
             selected={!draft.courseCategory}

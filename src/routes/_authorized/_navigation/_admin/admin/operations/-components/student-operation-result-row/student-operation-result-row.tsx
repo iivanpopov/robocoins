@@ -82,7 +82,7 @@ export function StudentOperationResultRow({
           )}
           {result.errorKind === 'session' && (
             <Link to="/login" className={styles.link}>
-              {t('admin.api-error.login')}
+              {t('navigation.login')}
             </Link>
           )}
         </div>

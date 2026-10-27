@@ -21,6 +21,7 @@ import {
   IconButton,
   Loader,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 import { getStudentTransactionsQueryOptions } from '#/routes/_authorized/_navigation/_admin/admin/-utils'
 
 import { ApiErrorNotice } from '../../-components'
@@ -94,16 +95,20 @@ function StudentBalanceContent(props: StudentBalanceContentProps) {
   const t = useTranslate()
 
   return (
-    <section className={styles.page}>
-      <header className={styles.header}>
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header centered>
         <IconButton onClick={functions.handleBack} title={t('admin.balance.back')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <div className={styles.heading}>
-          <h1 className={styles.title}>{t('admin.balance.title')}</h1>
-          {!!state.studentName && <p className={styles.student}>{state.studentName}</p>}
-        </div>
-      </header>
+        <AdminPageLayout.Heading className={styles.heading}>
+          <AdminPageLayout.Title>{t('admin.balance.title')}</AdminPageLayout.Title>
+          {!!state.studentName && (
+            <AdminPageLayout.Description className={styles.student}>
+              {state.studentName}
+            </AdminPageLayout.Description>
+          )}
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
 
       {!!state.unknownResult && (
         <section className={styles.unknown} role="alert">
@@ -140,7 +145,7 @@ function StudentBalanceContent(props: StudentBalanceContentProps) {
           )}
           {state.isUnknownHistoryChecked && (
             <Button variant="ghost" onClick={functions.handleAcknowledgeUnknownResult}>
-              {t('admin.balance.unknown.acknowledge')}
+              {t('balance.acknowledge')}
             </Button>
           )}
         </section>
@@ -189,10 +194,10 @@ function StudentBalanceContent(props: StudentBalanceContentProps) {
             <div className={styles.metric}>
               <span className={styles.label}>{t('admin.balance.summary.balance')}</span>
               <span className={styles['balance-value']}>
-                {t('profile.balance.amount', { count: state.balance })}
+                {t('coins.amount', { count: state.balance })}
               </span>
               <span className={styles['balance-unit']}>
-                {t('admin.balance.coins', { count: state.balance })}
+                {t('coins.unit', { count: state.balance })}
               </span>
             </div>
 
@@ -246,7 +251,7 @@ function StudentBalanceContent(props: StudentBalanceContentProps) {
               <span className={styles.label}>{t('admin.balance.summary.rank')}</span>
               {!!state.rank && state.rank.rank > 0 && (
                 <span className={styles['rank-value']}>
-                  {t('admin.balance.summary.rank-value', { rank: state.rank.rank })}
+                  {t('ranking.place', { rank: state.rank.rank })}
                 </span>
               )}
               {(!state.rank || state.rank.rank <= 0) && (
@@ -259,28 +264,24 @@ function StudentBalanceContent(props: StudentBalanceContentProps) {
 
       <article className={styles.card}>
         <header className={styles['card-header']}>
-          <h2 className={styles['card-title']}>{t('admin.balance.operation.title')}</h2>
+          <h2 className={styles['card-title']}>{t('balance.change')}</h2>
           <p className={styles['card-description']}>{t('admin.balance.operation.description')}</p>
         </header>
 
-        <div
-          className={styles.directions}
-          role="group"
-          aria-label={t('admin.balance.operation.direction')}
-        >
+        <div className={styles.directions} role="group" aria-label={t('balance.direction')}>
           <Chip
             selected={state.direction === BalanceDirection.Reward}
             disabled={mutations.changeBalance.isPending || !!state.unknownResult}
             onClick={() => functions.handleDirectionChange(BalanceDirection.Reward)}
           >
-            {t('admin.balance.operation.reward')}
+            {t('action.award')}
           </Chip>
           <Chip
             selected={state.direction === BalanceDirection.Punish}
             disabled={mutations.changeBalance.isPending || !!state.unknownResult}
             onClick={() => functions.handleDirectionChange(BalanceDirection.Punish)}
           >
-            {t('admin.balance.operation.punish')}
+            {t('action.deduct')}
           </Chip>
         </div>
 
@@ -288,7 +289,7 @@ function StudentBalanceContent(props: StudentBalanceContentProps) {
         {queries.reasons.isError && !!state.reasonsErrorKind && (
           <ApiErrorNotice
             kind={state.reasonsErrorKind}
-            fallback={t('admin.balance.operation.reasons-error')}
+            fallback={t('reasons.error.load')}
             onRetry={functions.handleRetryReasons}
             isRetrying={queries.reasons.isFetching}
             onLogin={functions.handleLogin}
@@ -333,7 +334,7 @@ function StudentBalanceContent(props: StudentBalanceContentProps) {
               onClick={functions.handleChangeSubmit}
             >
               {mutations.changeBalance.isPending && <Loader />}
-              {t('admin.balance.operation.submit')}
+              {t('balance.change')}
             </Button>
           </>
         )}
@@ -354,7 +355,7 @@ function StudentBalanceContent(props: StudentBalanceContentProps) {
         </header>
 
         {queries.history.isPending && (
-          <div role="status" aria-label={t('admin.balance.history.loading')}>
+          <div role="status" aria-label={t('history.loading')}>
             <Loader grow />
           </div>
         )}
@@ -385,7 +386,7 @@ function StudentBalanceContent(props: StudentBalanceContentProps) {
           </ol>
         )}
         {queries.history.isFetchingNextPage && (
-          <div role="status" aria-label={t('admin.balance.history.loading')}>
+          <div role="status" aria-label={t('history.loading')}>
             <Loader grow />
           </div>
         )}
@@ -423,7 +424,7 @@ function StudentBalanceContent(props: StudentBalanceContentProps) {
       >
         <AlertDialogContent size="sm">
           <AlertDialogHeader>
-            <AlertDialogTitle>{t('admin.balance.operation.confirm.title')}</AlertDialogTitle>
+            <AlertDialogTitle>{t('balance.deduct.confirm-title')}</AlertDialogTitle>
             {!!state.pendingDeductionReasons && (
               <AlertDialogDescription>
                 {t('admin.balance.operation.confirm.description', {
@@ -444,11 +445,11 @@ function StudentBalanceContent(props: StudentBalanceContentProps) {
               aria-busy={mutations.changeBalance.isPending}
             >
               {mutations.changeBalance.isPending && <Loader />}
-              {t('admin.balance.operation.confirm.action')}
+              {t('action.deduct')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </section>
+    </AdminPageLayout.Root>
   )
 }

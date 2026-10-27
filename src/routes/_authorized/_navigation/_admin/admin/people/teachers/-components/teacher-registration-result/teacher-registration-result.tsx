@@ -3,6 +3,7 @@ import { Link } from '@tanstack/react-router'
 
 import type { TeacherRegistrationResponse } from '#/api/types'
 import { Button, IconButton } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import styles from './teacher-registration-result.module.css'
 
@@ -22,11 +23,11 @@ export function TeacherRegistrationResult({
   const t = useTranslate()
 
   let copyLabel = t('admin.teachers.result.copy')
-  if (isCopied) copyLabel = t('admin.teachers.result.copied')
+  if (isCopied) copyLabel = t('access.code.copied')
 
   return (
-    <section className={styles.page}>
-      <header className={styles.header}>
+    <AdminPageLayout.Root bottomSpace className={styles.page}>
+      <AdminPageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/people/teachers" />}
@@ -34,14 +35,16 @@ export function TeacherRegistrationResult({
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <div className={styles['header-copy']}>
-          <h1 className={styles.title}>{t('admin.teachers.result.title')}</h1>
-          <p className={styles.name}>{result.name}</p>
-        </div>
-      </header>
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.teachers.result.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description className={styles.name}>
+            {result.name}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
 
       <div className={styles.credentials}>
-        <span className={styles.label}>{t('admin.teachers.result.code')}</span>
+        <span className={styles.label}>{t('access.code.label')}</span>
         <div className={styles['code-row']}>
           <code className={styles.code}>{result.access_code}</code>
           <IconButton
@@ -56,7 +59,7 @@ export function TeacherRegistrationResult({
           </IconButton>
         </div>
         <span className={styles.status} role="status" aria-live="polite">
-          {isCopied && t('admin.teachers.result.copied')}
+          {isCopied && t('access.code.copied')}
         </span>
       </div>
 
@@ -67,12 +70,12 @@ export function TeacherRegistrationResult({
           nativeButton={false}
           render={<Link to="/admin/people/teachers/$userId" params={{ userId: result.user_id }} />}
         >
-          {t('admin.teachers.result.profile')}
+          {t('profile.open')}
         </Button>
         <Button type="button" variant="ghost" onClick={onRegisterAnother}>
           {t('admin.teachers.result.another')}
         </Button>
       </div>
-    </section>
+    </AdminPageLayout.Root>
   )
 }

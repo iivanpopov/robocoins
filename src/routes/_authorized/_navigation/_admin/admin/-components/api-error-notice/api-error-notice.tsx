@@ -25,8 +25,8 @@ export function ApiErrorNotice({
 
   return (
     <div className={styles.notice}>
-      {kind === 'session' && <InlineError>{t('admin.api-error.session')}</InlineError>}
-      {kind === 'forbidden' && <InlineError>{t('admin.api-error.forbidden')}</InlineError>}
+      {kind === 'session' && <InlineError>{t('error.session')}</InlineError>}
+      {kind === 'forbidden' && <InlineError>{t('error.forbidden')}</InlineError>}
       {kind === 'other' && (
         <InlineError onRetry={onRetry} isRetrying={isRetrying}>
           {fallback}
@@ -34,7 +34,7 @@ export function ApiErrorNotice({
       )}
       {kind === 'session' && (
         <Button variant="ghost" onClick={onLogin}>
-          {t('admin.api-error.login')}
+          {t('navigation.login')}
         </Button>
       )}
     </div>

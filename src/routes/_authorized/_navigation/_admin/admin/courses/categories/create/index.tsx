@@ -10,8 +10,9 @@ import {
   IconButton,
   Input,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import { CourseForm, CoursePageLayout, ResultPanel } from '../../-components'
+import { CourseForm, ResultPanel } from '../../-components'
 import { useCategoryCreatePage } from '../../-hooks'
 
 import styles from './index.module.css'
@@ -29,9 +30,8 @@ function CategoryCreatePage() {
   const t = useTranslate()
 
   return (
-    <CoursePageLayout
-      title={t('admin.courses.categories.create.title')}
-      back={
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/courses/categories" />}
@@ -39,23 +39,27 @@ function CategoryCreatePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>
+            {t('admin.courses.categories.create.title')}
+          </AdminPageLayout.Title>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.createdName && (
         <ResultPanel
           tone="local"
-          title={t('admin.courses.categories.create.result-title')}
+          title={t('admin.shared.local-result')}
           description={t('admin.courses.categories.create.result-description')}
           details={[
             {
-              label: t('admin.courses.categories.create.result-name'),
+              label: t('field.proposed-name'),
               value: state.createdName,
             },
           ]}
         >
           <div className={styles.actions}>
             <Button variant="ghost" onClick={functions.handleCreateAnother}>
-              {t('admin.courses.categories.create.another')}
+              {t('action.create-another')}
             </Button>
             <Button nativeButton={false} render={<Link to="/admin/courses/categories" />}>
               {t('admin.courses.categories.back')}
@@ -96,6 +100,6 @@ function CategoryCreatePage() {
           </features.form.Field>
         </CourseForm>
       )}
-    </CoursePageLayout>
+    </AdminPageLayout.Root>
   )
 }

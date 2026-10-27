@@ -29,7 +29,7 @@ export function GroupRequestError({
       <InlineError onRetry={onRetry} isRetrying={isRetrying}>
         {t(messageKey)}
       </InlineError>
-      {messageKey === 'admin.groups.error.unauthorized' && (
+      {messageKey === 'error.session' && (
         <Button
           variant="link"
           nativeButton={false}
@@ -37,7 +37,7 @@ export function GroupRequestError({
           className={styles.login}
         >
           <span aria-hidden="true" className="i-ph:sign-in" />
-          {t('admin.groups.error.login')}
+          {t('action.enter.title')}
         </Button>
       )}
     </div>

@@ -14,8 +14,9 @@ import {
 } from '#/components/ui'
 import { AVATARS } from '#/routes/-constants'
 import { getAvatarUrl } from '#/routes/-utils'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import { StudentPageLayout, StudentRequestError } from '../-components'
+import { StudentRequestError } from '../-components'
 import { parseStudentIdParams } from '../-utils'
 import { StudentAvatar } from '../../-components'
 import { useStudentEditPage } from './-hooks'
@@ -44,21 +45,24 @@ function StudentEditPage() {
   const t = useTranslate()
 
   return (
-    <StudentPageLayout
-      title={t('students.edit.title')}
-      description={t('students.edit.description')}
-      back={
+    <AdminPageLayout.Root bottomSpace>
+      <AdminPageLayout.Header>
         <IconButton
           nativeButton={false}
           render={
             <Link to="/admin/people/students/$studentId" params={{ studentId: state.studentId }} />
           }
-          title={t('students.manage.back-to-profile')}
+          title={t('navigation.profile')}
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('students.edit.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {t('students.edit.description')}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isPending && <Loader grow />}
       {!state.isPending && state.isError && !state.student && (
         <StudentRequestError
@@ -87,13 +91,13 @@ function StudentEditPage() {
           </article>
 
           <section className={styles.card}>
-            <h2 className={styles['section-title']}>{t('students.edit.nickname.title')}</h2>
+            <h2 className={styles['section-title']}>{t('field.nickname.label')}</h2>
             <form className={styles.form} onSubmit={functions.handleSubmitNickname} noValidate>
               <features.nicknameForm.Field name="nickname">
                 {(field) => (
                   <Field>
                     <FieldLabel htmlFor="student-edit-nickname">
-                      {t('students.edit.nickname.label')}
+                      {t('field.student-nickname.placeholder')}
                     </FieldLabel>
                     <Input
                       id="student-edit-nickname"
@@ -101,7 +105,7 @@ function StudentEditPage() {
                       value={field.state.value}
                       maxLength={200}
                       autoComplete="off"
-                      placeholder={t('students.edit.nickname.placeholder')}
+                      placeholder={t('field.student-nickname.placeholder')}
                       aria-invalid={!!field.state.meta.errors.length}
                       onChange={(event) => field.handleChange(event.target.value)}
                       onBlur={field.handleBlur}
@@ -137,23 +141,19 @@ function StudentEditPage() {
                   aria-busy={mutations.nickname.isPending}
                 >
                   {mutations.nickname.isPending && <Loader />}
-                  {t('students.edit.nickname.submit')}
+                  {t('action.save-nickname')}
                 </Button>
               </div>
             </form>
           </section>
 
           <section className={styles.card}>
-            <h2 className={styles['section-title']}>{t('students.edit.avatar.title')}</h2>
+            <h2 className={styles['section-title']}>{t('field.avatar.label')}</h2>
             <p className={styles.note}>{t('students.edit.avatar.description')}</p>
             <form className={styles.form} onSubmit={functions.handleSubmitAvatar} noValidate>
               <features.avatarForm.Field name="avatar">
                 {(field) => (
-                  <div
-                    className={styles.avatars}
-                    role="group"
-                    aria-label={t('students.edit.avatar.title')}
-                  >
+                  <div className={styles.avatars} role="group" aria-label={t('field.avatar.label')}>
                     {AVATARS.map((avatar, index) => (
                       <button
                         key={avatar}
@@ -195,13 +195,13 @@ function StudentEditPage() {
                   aria-busy={mutations.avatar.isPending}
                 >
                   {mutations.avatar.isPending && <Loader />}
-                  {t('students.edit.avatar.submit')}
+                  {t('action.save-avatar')}
                 </Button>
               </div>
             </form>
           </section>
         </>
       )}
-    </StudentPageLayout>
+    </AdminPageLayout.Root>
   )
 }

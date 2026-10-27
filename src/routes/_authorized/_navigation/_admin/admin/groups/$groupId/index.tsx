@@ -2,10 +2,10 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { IconButton, Loader } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import {
   GroupEmptyState,
-  GroupPageLayout,
   GroupRequestError,
   GroupStudentRow,
   GroupTeacherRow,
@@ -26,34 +26,29 @@ function GroupDetailsPage() {
 
   const t = useTranslate()
 
-  const groupName = state.group?.name ?? t('admin.groups.detail.title')
+  const groupName = state.group?.name ?? t('groups.label')
 
   return (
-    <GroupPageLayout
-      title={groupName}
-      description={
-        <>
-          {state.course && <>{state.course.name}</>}
-          {!state.course && state.group && (
-            <>
-              {t('admin.groups.detail.course-fallback', {
-                id: state.group.course_id,
-              })}
-            </>
-          )}
-          {!state.group && <>{t('admin.groups.detail.description-empty')}</>}
-        </>
-      }
-      back={
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin" />}
-          title={t('admin.groups.back')}
+          title={t('navigation.groups')}
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{groupName}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {state.course && state.course.name}
+            {!state.course &&
+              state.group &&
+              t('admin.groups.detail.course-fallback', { id: state.group.course_id })}
+            {!state.group && t('admin.groups.detail.description-empty')}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.errorKey && (
         <GroupRequestError
@@ -69,7 +64,7 @@ function GroupDetailsPage() {
           description={t('admin.groups.not-found.description')}
         >
           <Link to="/admin" className={styles.back}>
-            {t('admin.groups.back')}
+            {t('navigation.groups')}
           </Link>
         </GroupEmptyState>
       )}
@@ -78,7 +73,7 @@ function GroupDetailsPage() {
         <>
           <section className={styles.section}>
             <div className={styles['section-header']}>
-              <h2 className={styles['section-title']}>{t('admin.groups.detail.teachers')}</h2>
+              <h2 className={styles['section-title']}>{t('admin.groups.teachers.title')}</h2>
               <Link
                 to="/admin/groups/$groupId/teachers"
                 params={{ groupId: state.groupId }}
@@ -143,15 +138,14 @@ function GroupDetailsPage() {
                   <span className="i-ph:check-circle-duotone" />
                 </span>
                 <span className={styles['action-copy']}>
-                  <span className={styles['action-title']}>
-                    {t('admin.groups.detail.practice')}
-                  </span>
+                  <span className={styles['action-title']}>{t('group.practice.title')}</span>
                   <span className={styles['action-description']}>
                     {t('admin.groups.detail.practice-description')}
                   </span>
                 </span>
                 <span aria-hidden="true" className="i-ph:caret-right-bold" />
               </Link>
+              {/* No API integration: rename, course change, and deletion only update local state.
               <Link
                 to="/admin/groups/$groupId/rename"
                 params={{ groupId: state.groupId }}
@@ -178,7 +172,7 @@ function GroupDetailsPage() {
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>
-                    {t('admin.groups.detail.change-course')}
+                    {t('admin.groups.change-course.action')}
                   </span>
                   <span className={styles['action-description']}>
                     {t('admin.groups.detail.change-course-description')}
@@ -196,17 +190,18 @@ function GroupDetailsPage() {
                   <span className="i-ph:trash-duotone" />
                 </span>
                 <span className={styles['action-copy']}>
-                  <span className={styles['action-title']}>{t('admin.groups.detail.delete')}</span>
+                  <span className={styles['action-title']}>{t('admin.groups.delete.action')}</span>
                   <span className={styles['action-description']}>
                     {t('admin.groups.detail.delete-description')}
                   </span>
                 </span>
                 <span aria-hidden="true" className="i-ph:caret-right-bold" />
               </Link>
+              */}
             </div>
           </section>
         </>
       )}
-    </GroupPageLayout>
+    </AdminPageLayout.Root>
   )
 }

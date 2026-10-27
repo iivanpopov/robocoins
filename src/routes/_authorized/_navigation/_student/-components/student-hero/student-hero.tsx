@@ -47,10 +47,10 @@ export function StudentHero(props: StudentHeroProps) {
           className={styles.balance}
           onClick={props.onOpenShop}
           data-new={props.hasNewReward}
-          aria-label={`${t('profile.balance.amount', { count: props.balance })} ${t('profile.balance.caption', { count: props.balance })}. ${t('profile.balance.open-shop')}`}
+          aria-label={`${t('coins.amount', { count: props.balance })} ${t('coins.unit', { count: props.balance })}. ${t('profile.balance.open-shop')}`}
         >
           <span className={styles['balance-value']}>
-            {t('profile.balance.amount', { count: props.balance })}
+            {t('coins.amount', { count: props.balance })}
           </span>
           <span aria-hidden="true" className={cn('i-ph:coin-fill', styles.coin)} />
         </button>

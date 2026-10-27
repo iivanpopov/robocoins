@@ -1,4 +1,4 @@
 export type AdminGroupsErrorKey =
-  | 'admin.groups.error'
-  | 'admin.groups.error.unauthorized'
+  | 'groups.error.load'
+  | 'error.session'
   | 'admin.groups.error.forbidden'

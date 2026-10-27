@@ -34,9 +34,7 @@ export function BulkStudentRow({ student, selected, disabled, onToggle }: BulkSt
       />
       <label className={styles.label} htmlFor={checkboxId}>
         <span className={styles.name}>{student.name}</span>
-        <span className={styles.balance}>
-          {t('admin.balance.coins', { count: student.balance })}
-        </span>
+        <span className={styles.balance}>{t('coins.unit', { count: student.balance })}</span>
       </label>
     </div>
   )

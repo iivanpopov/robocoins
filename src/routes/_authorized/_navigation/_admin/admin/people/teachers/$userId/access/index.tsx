@@ -11,13 +11,9 @@ import {
   IconButton,
   Loader,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import {
-  TeacherPageLayout,
-  TeacherRequestError,
-  TeacherResultPanel,
-  TeacherUnavailable,
-} from '../../-components'
+import { TeacherRequestError, TeacherResultPanel, TeacherUnavailable } from '../../-components'
 import { TeacherAccessAction } from '../../-constants'
 import { useTeacherAccessPage } from '../../-hooks'
 import { parseTeacherIdParams } from '../../-utils'
@@ -54,7 +50,7 @@ const ACCESS_ACTIONS = [
     icon: 'i-ph:key-duotone',
     title: 'admin.teachers.access.reset-code',
     description: 'admin.teachers.access.reset-code-description',
-    confirmTitle: 'admin.teachers.access.reset-code-confirm-title',
+    confirmTitle: 'access.code.reset-confirm-title',
     confirmDescription: 'admin.teachers.access.reset-code-confirm-description',
     confirmLabel: 'admin.teachers.access.reset-code-confirm-action',
     resultTitle: 'admin.teachers.access.reset-code-result-title',
@@ -64,12 +60,12 @@ const ACCESS_ACTIONS = [
   {
     value: TeacherAccessAction.RevokeSessions,
     icon: 'i-ph:sign-out-duotone',
-    title: 'admin.teachers.access.revoke-sessions',
+    title: 'access.sessions.end',
     description: 'admin.teachers.access.revoke-sessions-description',
-    confirmTitle: 'admin.teachers.access.revoke-sessions-confirm-title',
+    confirmTitle: 'access.sessions.confirm-title',
     confirmDescription: 'admin.teachers.access.revoke-sessions-confirm-description',
     confirmLabel: 'admin.teachers.access.revoke-sessions-confirm-action',
-    resultTitle: 'admin.teachers.access.revoke-sessions-result-title',
+    resultTitle: 'access.sessions.result-title',
     resultDescription: 'admin.teachers.access.revoke-sessions-result-description',
     resultAction: 'admin.teachers.access.revoke-sessions-result-action',
   },
@@ -104,24 +100,23 @@ function TeacherAccessPage() {
   )
 
   return (
-    <TeacherPageLayout
-      title={t('admin.teachers.access.title')}
-      description={
-        <>
-          {!state.isAvailable && t('admin.teachers.access.description-empty')}
-          {state.isAvailable && t('admin.teachers.access.description', { name: state.name })}
-        </>
-      }
-      back={
+    <AdminPageLayout.Root bottomSpace>
+      <AdminPageLayout.Header>
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/people/teachers/$userId" params={{ userId: state.teacherId }} />}
-          title={t('admin.teachers.back-to-profile')}
+          title={t('navigation.profile')}
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.teachers.access.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {!state.isAvailable && t('admin.teachers.access.description-empty')}
+            {state.isAvailable && t('admin.teachers.access.description', { name: state.name })}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isPending && <Loader grow />}
       {!state.isPending && state.isError && !state.notFound && (
         <TeacherRequestError
@@ -169,11 +164,11 @@ function TeacherAccessPage() {
           description={t(completedActionItem.resultDescription)}
           details={[
             {
-              label: t('admin.teachers.teacher'),
+              label: t('role.teacher'),
               value: state.name,
             },
             {
-              label: t('admin.teachers.action'),
+              label: t('field.action.label'),
               value: t(completedActionItem.resultAction),
             },
           ]}
@@ -185,7 +180,7 @@ function TeacherAccessPage() {
                 <Link to="/admin/people/teachers/$userId" params={{ userId: state.teacherId }} />
               }
             >
-              {t('admin.teachers.back-to-profile')}
+              {t('navigation.profile')}
             </Button>
             <Button type="button" variant="ghost" onClick={functions.handleResetResult}>
               {t('admin.teachers.access.again')}
@@ -220,6 +215,6 @@ function TeacherAccessPage() {
           )}
         </DrawerContent>
       </Drawer>
-    </TeacherPageLayout>
+    </AdminPageLayout.Root>
   )
 }

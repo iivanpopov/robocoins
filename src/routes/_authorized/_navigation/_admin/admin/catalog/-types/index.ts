@@ -21,7 +21,7 @@ export type RewardDraftErrors = Partial<Record<RewardDraftField, RewardDraftErro
 export type CatalogErrorKey =
   | 'admin.catalog.error.load'
   | 'admin.catalog.error.request'
-  | 'admin.catalog.error.unauthorized'
+  | 'error.session'
   | 'admin.catalog.error.forbidden'
   | 'admin.catalog.error.not-found'
   | 'admin.catalog.error.validation'

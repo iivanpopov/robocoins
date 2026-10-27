@@ -1,6 +1,6 @@
 import { useQueryClient, type QueryClient } from '@tanstack/react-query'
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import * as v from 'valibot'
 
 import { useEditStudentAvatarStudentStudentIdAvatarPatch } from '#/api/hooks/useEditStudentAvatarStudentStudentIdAvatarPatch'
@@ -23,7 +23,6 @@ import { AVATARS, type Avatar } from '#/routes/-constants'
 import { StudentNicknameSchema } from '../-schemas'
 
 export function useStudentEditPage() {
-  const queryClient = useQueryClient()
   const navigate = useNavigate()
   const params = useParams({ from: '/_authorized/_teacher/student/$studentId/edit/' })
   const search = useSearch({ from: '/_authorized/_teacher/student/$studentId/edit/' })
@@ -31,21 +30,13 @@ export function useStudentEditPage() {
   const studentId = params.studentId
   const fromGroupId = search.fromGroupId ?? null
 
-  const [nickname, setNickname] = useState('')
-  const [isNicknameDirty, setIsNicknameDirty] = useState(false)
-  const [selectedAvatar, setSelectedAvatar] = useState<Avatar | null>(null)
+  const [nicknameDraft, setNicknameDraft] = useState<string | null>(null)
   const [pickerAvatar, setPickerAvatar] = useState<Avatar>(AVATARS[0])
   const [isAvatarPickerOpen, setIsAvatarPickerOpen] = useState(false)
   const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
-  const isNicknameSyncedReference = useRef(false)
-  const isAvatarSyncedReference = useRef(false)
-  const [isMounted, setIsMounted] = useState(false)
-
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
+  const queryClient = useQueryClient()
 
   const studentQuery = useGetStudentByIdStudentStudentIdGet({
     path: { student_id: studentId },
@@ -84,14 +75,18 @@ export function useStudentEditPage() {
   const nicknameMutation = useEditStudentNicknameStudentStudentIdNicknamePatch({
     mutation: {
       retry: false,
-      onSuccess: async (_data, variables) => {
+      onSuccess: async (data, variables) => {
+        queryClient.setQueryData(
+          getStudentByIdStudentStudentIdGetQueryKey({ path: variables.path }),
+          data,
+        )
+        setNicknameDraft(null)
         await Promise.all([
           queryClient.invalidateQueries({
             queryKey: getStudentByIdStudentStudentIdGetQueryKey({ path: variables.path }),
           }),
           invalidateStudentQueries(queryClient),
         ])
-        setIsNicknameDirty(false)
       },
     },
   })
@@ -99,38 +94,21 @@ export function useStudentEditPage() {
   const avatarMutation = useEditStudentAvatarStudentStudentIdAvatarPatch({
     mutation: {
       retry: false,
-      onSuccess: async (_data, variables) => {
+      onSuccess: async (data, variables) => {
+        queryClient.setQueryData(
+          getStudentByIdStudentStudentIdGetQueryKey({ path: variables.path }),
+          data,
+        )
+        setIsAvatarPickerOpen(false)
         await Promise.all([
           queryClient.invalidateQueries({
             queryKey: getStudentByIdStudentStudentIdGetQueryKey({ path: variables.path }),
           }),
           invalidateStudentQueries(queryClient),
         ])
-        setSelectedAvatar(variables.body.new_avatar as Avatar)
-        setIsAvatarPickerOpen(false)
       },
     },
   })
-
-  useEffect(() => {
-    const student = studentQuery.data
-    if (!student) return
-    if (!isNicknameSyncedReference.current) {
-      isNicknameSyncedReference.current = true
-      setNickname(student.name)
-      return
-    }
-    if (!isNicknameDirty) setNickname(student.name)
-  }, [studentQuery.data, isNicknameDirty])
-
-  useEffect(() => {
-    const student = studentQuery.data
-    if (!student) return
-    if (isAvatarSyncedReference.current) return
-    isAvatarSyncedReference.current = true
-    const avatar = AVATARS.find((candidate) => candidate === student.avatar)
-    if (avatar) setSelectedAvatar(avatar)
-  }, [studentQuery.data])
 
   function invalidateStudentQueries(client: QueryClient) {
     return Promise.all([
@@ -141,20 +119,15 @@ export function useStudentEditPage() {
 
   function handleNicknameChange(value: string) {
     if (nicknameMutation.isPending) return
-    setIsNicknameDirty(true)
-    setNickname(value)
+    setNicknameDraft(value)
   }
 
   function handleSaveNickname() {
     if (nicknameMutation.isPending) return
     const result = v.safeParse(StudentNicknameSchema, nickname)
-    if (!result.success) {
-      setIsNicknameDirty(true)
-      return
-    }
+    if (!result.success) return
     if (!studentQuery.data || studentQuery.data.name === result.output) {
-      setIsNicknameDirty(false)
-      setNickname(studentQuery.data?.name ?? nickname)
+      setNicknameDraft(null)
       return
     }
     const body: StudentNicknameEditRequest = { new_nickname: result.output }
@@ -163,7 +136,7 @@ export function useStudentEditPage() {
 
   function handleOpenAvatarPicker() {
     if (avatarMutation.isPending) return
-    setPickerAvatar(selectedAvatar ?? AVATARS[0])
+    setPickerAvatar(avatar)
     avatarMutation.reset()
     setIsAvatarPickerOpen(true)
   }
@@ -179,7 +152,7 @@ export function useStudentEditPage() {
   }
 
   function handleSaveAvatar() {
-    if (avatarMutation.isPending || selectedAvatar === pickerAvatar) {
+    if (avatarMutation.isPending || avatar === pickerAvatar) {
       setIsAvatarPickerOpen(false)
       return
     }
@@ -190,7 +163,7 @@ export function useStudentEditPage() {
   }
 
   function handleRetryAvatar() {
-    if (avatarMutation.isPending || selectedAvatar === pickerAvatar) return
+    if (avatarMutation.isPending || avatar === pickerAvatar) return
     avatarMutation.reset()
     handleSaveAvatar()
   }
@@ -238,6 +211,7 @@ export function useStudentEditPage() {
 
   const profile = studentQuery.data
   const avatar = AVATARS.find((candidate) => candidate === profile?.avatar) ?? AVATARS[0]
+  const nickname = nicknameDraft ?? profile?.name ?? ''
   const password = credentialsQuery.data?.access_code ?? ''
 
   return {
@@ -247,7 +221,6 @@ export function useStudentEditPage() {
       isAvailable: !!profile,
       name: profile?.name ?? '',
       avatar,
-      selectedAvatar: selectedAvatar ?? avatar,
       pickerAvatar,
       groupIds: profile?.group_ids ?? [],
       nickname,
@@ -256,8 +229,6 @@ export function useStudentEditPage() {
       isPasswordDialogOpen,
       isPasswordVisible,
       password,
-      isPasswordUnavailable: isMounted && credentialsQuery.isError,
-      isPasswordLoading: isMounted && credentialsQuery.isPending,
     },
     queries: { student: studentQuery, credentials: credentialsQuery },
     mutations: {

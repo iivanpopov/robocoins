@@ -21,13 +21,13 @@ const NAVIGATION_ITEMS = {
       to: '/admin/people',
       path: '/admin/people/students',
       icon: 'i-ph:users-three-bold',
-      label: 'navbar.people',
+      label: 'people.title',
     },
     { to: '/admin/catalog', icon: 'i-ph:storefront-bold', label: 'navbar.catalog' },
   ],
   teacher: [
     { to: '/settings', icon: 'i-ph:gear', label: 'navbar.settings' },
-    { to: '/group', icon: 'i-ph:users-three', label: 'navbar.groups' },
+    { to: '/group', icon: 'i-ph:users-three', label: 'groups.title' },
   ],
   student: [
     { to: '/settings', icon: 'i-ph:gear-bold', label: 'navbar.settings' },

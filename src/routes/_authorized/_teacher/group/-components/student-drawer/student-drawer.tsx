@@ -63,7 +63,7 @@ export function StudentDrawer(props: StudentDrawerProps) {
                     <span className={styles['student-name']}>{props.student.name}</span>
                     <span
                       className={styles['student-balance']}
-                      aria-label={`${t('profile.balance.amount', { count: props.student.balance })} ${t('profile.balance.caption', { count: props.student.balance })}`}
+                      aria-label={`${t('coins.amount', { count: props.student.balance })} ${t('coins.unit', { count: props.student.balance })}`}
                     >
                       <span aria-hidden="true">{props.student.balance}</span>
                       <span

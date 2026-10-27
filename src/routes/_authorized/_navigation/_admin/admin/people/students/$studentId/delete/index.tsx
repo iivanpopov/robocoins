@@ -18,8 +18,9 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import { StudentPageLayout, StudentRequestError, StudentResultPanel } from '../-components'
+import { StudentRequestError, StudentResultPanel } from '../-components'
 import { parseStudentIdParams } from '../-utils'
 import { StudentAvatar } from '../../-components'
 import { useStudentDeletePage } from './-hooks'
@@ -48,26 +49,25 @@ function StudentDeletePage() {
   const t = useTranslate()
 
   return (
-    <StudentPageLayout
-      title={t('students.delete.title')}
-      description={
-        <>
-          {!state.student && t('students.delete.description-empty')}
-          {!!state.student && t('students.delete.description', { name: state.student.name })}
-        </>
-      }
-      back={
+    <AdminPageLayout.Root bottomSpace>
+      <AdminPageLayout.Header>
         <IconButton
           nativeButton={false}
           render={
             <Link to="/admin/people/students/$studentId" params={{ studentId: state.studentId }} />
           }
-          title={t('students.manage.back-to-profile')}
+          title={t('navigation.profile')}
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('students.delete.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {!state.student && t('students.delete.description-empty')}
+            {!!state.student && t('students.delete.description', { name: state.student.name })}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isPending && <Loader grow />}
       {!state.isPending && state.isError && !state.student && (
         <StudentRequestError
@@ -112,7 +112,7 @@ function StudentDeletePage() {
                       value={field.state.value}
                       maxLength={200}
                       autoComplete="off"
-                      placeholder={t('students.delete.confirmation-placeholder')}
+                      placeholder={t('field.student-nickname.placeholder')}
                       aria-invalid={!!field.state.meta.errors.length}
                       onChange={(event) => field.handleChange(event.target.value)}
                       onBlur={field.handleBlur}
@@ -140,11 +140,11 @@ function StudentDeletePage() {
           description={t('students.delete.result-description')}
           details={[
             {
-              label: t('students.delete.result-detail'),
+              label: t('role.student'),
               value: state.student.name,
             },
             {
-              label: t('students.delete.result-action'),
+              label: t('field.action.label'),
               value: t('students.delete.result-action-value'),
             },
           ]}
@@ -162,7 +162,7 @@ function StudentDeletePage() {
               />
             }
           >
-            {t('students.manage.back-to-profile')}
+            {t('navigation.profile')}
           </Button>
           <Button variant="ghost" onClick={functions.handleResetResult}>
             {t('students.delete.again')}
@@ -182,12 +182,12 @@ function StudentDeletePage() {
             <AlertDialogFooter>
               <AlertDialogCancel>{t('action.cancel')}</AlertDialogCancel>
               <AlertDialogAction onClick={functions.handleConfirmDelete}>
-                {t('students.delete.dialog-action')}
+                {t('action.continue-locally')}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
       )}
-    </StudentPageLayout>
+    </AdminPageLayout.Root>
   )
 }

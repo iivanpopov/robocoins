@@ -19,6 +19,7 @@ import { Route as AuthRegisterIndexRouteImport } from './../src/routes/_auth/reg
 import { Route as AuthorizedNavigationAdminRouteImport } from './../src/routes/_authorized/_navigation/_admin'
 import { Route as AuthorizedNavigationStudentRouteImport } from './../src/routes/_authorized/_navigation/_student'
 import { Route as AuthorizedNavigationTeacherRouteImport } from './../src/routes/_authorized/_navigation/_teacher'
+import { Route as AuthorizedNavigationSettingsRouteRouteImport } from './../src/routes/_authorized/_navigation/settings/route'
 import { Route as AuthorizedNavigationAdminAdminRouteRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/route'
 import { Route as AuthorizedNavigationStudentIndexRouteImport } from './../src/routes/_authorized/_navigation/_student/index'
 import { Route as AuthorizedNavigationSettingsIndexRouteImport } from './../src/routes/_authorized/_navigation/settings/index'
@@ -119,6 +120,12 @@ const AuthorizedNavigationTeacherRoute =
     id: '/_teacher',
     getParentRoute: () => AuthorizedNavigationRoute,
   } as any)
+const AuthorizedNavigationSettingsRouteRoute =
+  AuthorizedNavigationSettingsRouteRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthorizedNavigationRoute,
+  } as any)
 const AuthorizedNavigationAdminAdminRouteRoute =
   AuthorizedNavigationAdminAdminRouteRouteImport.update({
     id: '/admin',
@@ -133,9 +140,9 @@ const AuthorizedNavigationStudentIndexRoute =
   } as any)
 const AuthorizedNavigationSettingsIndexRoute =
   AuthorizedNavigationSettingsIndexRouteImport.update({
-    id: '/settings/',
-    path: '/settings/',
-    getParentRoute: () => AuthorizedNavigationRoute,
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthorizedNavigationSettingsRouteRoute,
   } as any)
 const AuthorizedTeacherGroupGroupIdRoute =
   AuthorizedTeacherGroupGroupIdRouteImport.update({
@@ -461,6 +468,7 @@ const AuthorizedNavigationAdminAdminPeopleTeachersUserIdRenameIndexRoute =
 export interface FileRoutesByFullPath {
   '/': typeof AuthorizedNavigationStudentIndexRoute
   '/register': typeof AuthRegisterRouteRouteWithChildren
+  '/settings': typeof AuthorizedNavigationSettingsRouteRouteWithChildren
   '/login/': typeof AuthLoginIndexRoute
   '/register/': typeof AuthRegisterIndexRoute
   '/admin': typeof AuthorizedNavigationAdminAdminRouteRouteWithChildren
@@ -578,6 +586,7 @@ export interface FileRoutesById {
   '/_auth/register': typeof AuthRegisterRouteRouteWithChildren
   '/_authorized/_navigation': typeof AuthorizedNavigationRouteWithChildren
   '/_authorized/_teacher': typeof AuthorizedTeacherRouteWithChildren
+  '/_authorized/_navigation/settings': typeof AuthorizedNavigationSettingsRouteRouteWithChildren
   '/_authorized/_navigation/_admin': typeof AuthorizedNavigationAdminRouteWithChildren
   '/_authorized/_navigation/_student': typeof AuthorizedNavigationStudentRouteWithChildren
   '/_authorized/_navigation/_teacher': typeof AuthorizedNavigationTeacherRouteWithChildren
@@ -642,6 +651,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/register'
+    | '/settings'
     | '/login/'
     | '/register/'
     | '/admin'
@@ -758,6 +768,7 @@ export interface FileRouteTypes {
     | '/_auth/register'
     | '/_authorized/_navigation'
     | '/_authorized/_teacher'
+    | '/_authorized/_navigation/settings'
     | '/_authorized/_navigation/_admin'
     | '/_authorized/_navigation/_student'
     | '/_authorized/_navigation/_teacher'
@@ -895,6 +906,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthorizedNavigationTeacherRouteImport
       parentRoute: typeof AuthorizedNavigationRoute
     }
+    '/_authorized/_navigation/settings': {
+      id: '/_authorized/_navigation/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthorizedNavigationSettingsRouteRouteImport
+      parentRoute: typeof AuthorizedNavigationRoute
+    }
     '/_authorized/_navigation/_admin/admin': {
       id: '/_authorized/_navigation/_admin/admin'
       path: '/admin'
@@ -911,10 +929,10 @@ declare module '@tanstack/react-router' {
     }
     '/_authorized/_navigation/settings/': {
       id: '/_authorized/_navigation/settings/'
-      path: '/settings'
+      path: '/'
       fullPath: '/settings/'
       preLoaderRoute: typeof AuthorizedNavigationSettingsIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationRoute
+      parentRoute: typeof AuthorizedNavigationSettingsRouteRoute
     }
     '/_authorized/_teacher/group/$groupId': {
       id: '/_authorized/_teacher/group/$groupId'
@@ -1292,6 +1310,21 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
+interface AuthorizedNavigationSettingsRouteRouteChildren {
+  AuthorizedNavigationSettingsIndexRoute: typeof AuthorizedNavigationSettingsIndexRoute
+}
+
+const AuthorizedNavigationSettingsRouteRouteChildren: AuthorizedNavigationSettingsRouteRouteChildren =
+  {
+    AuthorizedNavigationSettingsIndexRoute:
+      AuthorizedNavigationSettingsIndexRoute,
+  }
+
+const AuthorizedNavigationSettingsRouteRouteWithChildren =
+  AuthorizedNavigationSettingsRouteRoute._addFileChildren(
+    AuthorizedNavigationSettingsRouteRouteChildren,
+  )
+
 interface AuthorizedNavigationAdminAdminCatalogRouteRouteChildren {
   AuthorizedNavigationAdminAdminCatalogIndexRoute: typeof AuthorizedNavigationAdminAdminCatalogIndexRoute
   AuthorizedNavigationAdminAdminCatalogRewardIdIndexRoute: typeof AuthorizedNavigationAdminAdminCatalogRewardIdIndexRoute
@@ -1497,20 +1530,20 @@ const AuthorizedNavigationTeacherRouteWithChildren =
   )
 
 interface AuthorizedNavigationRouteChildren {
+  AuthorizedNavigationSettingsRouteRoute: typeof AuthorizedNavigationSettingsRouteRouteWithChildren
   AuthorizedNavigationAdminRoute: typeof AuthorizedNavigationAdminRouteWithChildren
   AuthorizedNavigationStudentRoute: typeof AuthorizedNavigationStudentRouteWithChildren
   AuthorizedNavigationTeacherRoute: typeof AuthorizedNavigationTeacherRouteWithChildren
-  AuthorizedNavigationSettingsIndexRoute: typeof AuthorizedNavigationSettingsIndexRoute
 }
 
 const AuthorizedNavigationRouteChildren: AuthorizedNavigationRouteChildren = {
+  AuthorizedNavigationSettingsRouteRoute:
+    AuthorizedNavigationSettingsRouteRouteWithChildren,
   AuthorizedNavigationAdminRoute: AuthorizedNavigationAdminRouteWithChildren,
   AuthorizedNavigationStudentRoute:
     AuthorizedNavigationStudentRouteWithChildren,
   AuthorizedNavigationTeacherRoute:
     AuthorizedNavigationTeacherRouteWithChildren,
-  AuthorizedNavigationSettingsIndexRoute:
-    AuthorizedNavigationSettingsIndexRoute,
 }
 
 const AuthorizedNavigationRouteWithChildren =

@@ -2,11 +2,11 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { Button, Field, FieldError, FieldLabel, IconButton, Input, Loader } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import {
   GroupEmptyState,
   GroupForm,
-  GroupPageLayout,
   GroupRequestError,
   GroupResultPanel,
   TeacherPicker,
@@ -25,18 +25,19 @@ function CreateGroupPage() {
   const t = useTranslate()
 
   return (
-    <GroupPageLayout
-      title={t('admin.groups.create.title')}
-      back={
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin" />}
-          title={t('admin.groups.back')}
+          title={t('navigation.groups')}
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.groups.create.title')}</AdminPageLayout.Title>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.createdGroup && (
         <GroupResultPanel
           tone="success"
@@ -51,11 +52,11 @@ function CreateGroupPage() {
           })}
           details={[
             {
-              label: t('admin.groups.create.name-label'),
+              label: t('groups.name'),
               value: state.createdGroup.name,
             },
             {
-              label: t('admin.groups.create.course-label'),
+              label: t('courses.label'),
               value:
                 state.createdCourse?.name ??
                 t('admin.groups.detail.course-fallback', {
@@ -73,10 +74,10 @@ function CreateGroupPage() {
             {t('admin.groups.create.open')}
           </Button>
           <Button type="button" variant="ghost" onClick={functions.handleCreateAnother}>
-            {t('admin.groups.create.another')}
+            {t('action.create-another')}
           </Button>
           <Button variant="link" nativeButton={false} render={<Link to="/admin" />}>
-            {t('admin.groups.back')}
+            {t('navigation.groups')}
           </Button>
         </GroupResultPanel>
       )}
@@ -99,7 +100,7 @@ function CreateGroupPage() {
             description={t('admin.groups.create.courses-empty-description')}
           >
             <Button nativeButton={false} render={<Link to="/admin/courses/create" />}>
-              {t('admin.courses.create')}
+              {t('admin.courses.create.action')}
             </Button>
           </GroupEmptyState>
         )}
@@ -115,9 +116,7 @@ function CreateGroupPage() {
             <features.form.Field name="name">
               {(field) => (
                 <Field>
-                  <FieldLabel htmlFor="group-create-name">
-                    {t('admin.groups.create.name-label')}
-                  </FieldLabel>
+                  <FieldLabel htmlFor="group-create-name">{t('groups.name')}</FieldLabel>
                   <Input
                     id="group-create-name"
                     name={field.name}
@@ -139,9 +138,7 @@ function CreateGroupPage() {
             <features.form.Field name="courseId">
               {(field) => (
                 <Field>
-                  <FieldLabel htmlFor="group-create-course">
-                    {t('admin.groups.create.course-label')}
-                  </FieldLabel>
+                  <FieldLabel htmlFor="group-create-course">{t('courses.label')}</FieldLabel>
                   <AdminSelect
                     id="group-create-course"
                     name={field.name}
@@ -149,7 +146,7 @@ function CreateGroupPage() {
                     onValueChange={(value) => field.handleChange(value)}
                     items={state.courseItems}
                     placeholder={t('admin.groups.create.course-placeholder')}
-                    ariaLabel={t('admin.groups.create.course-label')}
+                    ariaLabel={t('courses.label')}
                     disabled={state.isSubmitting}
                   />
                   {!!field.state.meta.errors.length && (
@@ -162,7 +159,7 @@ function CreateGroupPage() {
             <features.form.Field name="teacherIds">
               {(field) => (
                 <TeacherPicker
-                  label={t('admin.groups.teachers.picker.label')}
+                  label={t('teachers.title')}
                   options={state.teacherOptions}
                   selectedIds={field.state.value}
                   onChange={(teacherIds) => field.handleChange(teacherIds)}
@@ -179,6 +176,6 @@ function CreateGroupPage() {
             {state.errorKey && <GroupRequestError messageKey={state.errorKey} />}
           </GroupForm>
         )}
-    </GroupPageLayout>
+    </AdminPageLayout.Root>
   )
 }

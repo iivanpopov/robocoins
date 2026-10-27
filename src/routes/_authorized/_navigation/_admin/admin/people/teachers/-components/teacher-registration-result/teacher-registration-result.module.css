@@ -1,36 +1,5 @@
 .page {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-  width: 100%;
   max-width: 36rem;
-  min-height: 100%;
-  padding: var(--spacing-lg) var(--spacing-md) 4rem;
-  margin: 0 auto;
-}
-
-.header {
-  display: flex;
-  gap: var(--spacing-sm);
-  align-items: flex-start;
-  justify-content: space-between;
-}
-
-.header-copy {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-  align-items: flex-end;
-  min-width: 0;
-  text-align: right;
-}
-
-.title {
-  font-size: 1.5rem;
-  font-weight: 800;
-  line-height: 1.2;
-  color: var(--foreground);
 }
 
 .name {

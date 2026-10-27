@@ -1,6 +1,6 @@
 import { useTranslate } from '@kanjou/react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { useAssignGroupStudentGroupIdGroupIdStudentPut } from '#/api/hooks/useAssignGroupStudentGroupIdGroupIdStudentPut'
 import { getAllStudentsStudentGetQueryKey } from '#/api/hooks/useGetAllStudentsStudentGet'
@@ -30,22 +30,24 @@ interface AssignmentSnapshot {
 type AssignmentOutcome = 'error' | 'partial' | null
 
 export function useStudentGroupAssignment(props: StudentGroupAssignmentProps) {
-  const queryClient = useQueryClient()
-  const t = useTranslate()
-
-  const [sourceId, setSourceId] = useState<number | null>(null)
-  const [targetId, setTargetId] = useState<number | null>(null)
+  const [selectedSourceId, setSelectedSourceId] = useState<number | null>(() => {
+    if (props.fromGroupId !== null && props.groupIds.includes(props.fromGroupId)) {
+      return props.fromGroupId
+    }
+    return null
+  })
+  const [selectedTargetId, setSelectedTargetId] = useState<number | null>(null)
   const [removePrevious, setRemovePrevious] = useState(false)
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
   const [isKickConfirmOpen, setIsKickConfirmOpen] = useState(false)
   const [isKickError, setIsKickError] = useState(false)
   const [outcome, setOutcome] = useState<AssignmentOutcome>(null)
   const [isOperating, setIsOperating] = useState(false)
-  const [isSourceNotice, setIsSourceNotice] = useState(false)
-  const [isTargetNotice, setIsTargetNotice] = useState(false)
 
-  const isSourcePreselectedReference = useRef(false)
   const snapshotReference = useRef<AssignmentSnapshot | null>(null)
+
+  const queryClient = useQueryClient()
+  const t = useTranslate()
 
   const coursesQuery = useQuery(getCoursesCourseGetQueryOptions())
   const teacherGroupsQuery = useQuery(getTeacherGroupsTeacherGroupsGetQueryOptions())
@@ -56,50 +58,6 @@ export function useStudentGroupAssignment(props: StudentGroupAssignmentProps) {
   const removeStudentMutation = useRemoveGroupStudentGroupIdGroupIdStudentStudentIdDelete({
     mutation: { retry: false },
   })
-
-  const isOptionsPending = coursesQuery.isPending || teacherGroupsQuery.isPending
-  const isOptionsError = coursesQuery.isError || teacherGroupsQuery.isError
-  const isOptionsRetrying = coursesQuery.isFetching || teacherGroupsQuery.isFetching
-
-  const groups = (teacherGroupsQuery.data ?? []).flatMap((group) => {
-    const course = coursesQuery.data?.find((candidate) => candidate.id === group.course_id)
-    if (!course) return []
-    return [
-      {
-        id: group.id,
-        name: group.name,
-        courseName: course.name,
-        category: course.category,
-        schedule: parseGroupSchedule(group.name),
-        studentsCount: group.students_count ?? 0,
-      } satisfies GroupCardData,
-    ]
-  })
-  const sourceGroups = groups.filter((group) => props.groupIds.includes(group.id))
-  const targetGroups = groups.filter((group) => !props.groupIds.includes(group.id))
-
-  useEffect(() => {
-    if (isOptionsPending || isOptionsError) return
-    if (isSourcePreselectedReference.current) return
-    isSourcePreselectedReference.current = true
-    if (props.fromGroupId && props.groupIds.includes(props.fromGroupId)) {
-      setSourceId(props.fromGroupId)
-    }
-  }, [isOptionsPending, isOptionsError, props.fromGroupId, props.groupIds])
-
-  useEffect(() => {
-    const isSourceStale = sourceId !== null && !props.groupIds.includes(sourceId)
-    const isTargetStale = targetId !== null && props.groupIds.includes(targetId)
-    if (isSourceStale) {
-      setSourceId(null)
-      setIsSourceNotice(true)
-    }
-    if (isTargetStale) {
-      setTargetId(null)
-      setIsTargetNotice(true)
-      setOutcome(null)
-    }
-  }, [props.groupIds, sourceId, targetId])
 
   function refetchStudent() {
     return queryClient
@@ -164,6 +122,11 @@ export function useStudentGroupAssignment(props: StudentGroupAssignmentProps) {
       return
     }
     await invalidateAfterAssignment()
+    setSelectedTargetId(null)
+    if (snapshot.removePrevious) {
+      setSelectedSourceId(null)
+      setRemovePrevious(false)
+    }
     setOutcome(null)
     setIsConfirmOpen(false)
     setIsOperating(false)
@@ -173,16 +136,15 @@ export function useStudentGroupAssignment(props: StudentGroupAssignmentProps) {
 
   function handleSourceSelect(groupId: number) {
     if (isOperating) return
-    setIsSourceNotice(false)
+    if (sourceId === null) setRemovePrevious(false)
     setOutcome(null)
-    setSourceId(groupId)
+    setSelectedSourceId(groupId)
   }
 
   function handleTargetSelect(groupId: number) {
     if (isOperating) return
-    setIsTargetNotice(false)
     setOutcome(null)
-    setTargetId(groupId === targetId ? null : groupId)
+    setSelectedTargetId(groupId === targetId ? null : groupId)
   }
 
   function handleRemovePreviousChange(checked: boolean | 'indeterminate') {
@@ -201,11 +163,10 @@ export function useStudentGroupAssignment(props: StudentGroupAssignmentProps) {
 
   function handleConfirm() {
     if (isOperating || targetId === null) return
-    if (removePrevious && sourceId === null) return
     void runAssignment({
       targetId,
       sourceId,
-      removePrevious,
+      removePrevious: shouldRemovePrevious,
       knownGroupIds: props.groupIds,
     })
   }
@@ -252,6 +213,8 @@ export function useStudentGroupAssignment(props: StudentGroupAssignmentProps) {
       }
     }
     await invalidateAfterAssignment()
+    setSelectedSourceId(null)
+    setRemovePrevious(false)
     setIsKickConfirmOpen(false)
     setIsKickError(false)
     setIsOperating(false)
@@ -264,13 +227,38 @@ export function useStudentGroupAssignment(props: StudentGroupAssignmentProps) {
     void runKick()
   }
 
+  const isOptionsPending = coursesQuery.isPending || teacherGroupsQuery.isPending
+  const isOptionsError = coursesQuery.isError || teacherGroupsQuery.isError
+  const isOptionsRetrying = coursesQuery.isFetching || teacherGroupsQuery.isFetching
+  const groups = (teacherGroupsQuery.data ?? []).flatMap((group) => {
+    const course = coursesQuery.data?.find((candidate) => candidate.id === group.course_id)
+    if (!course) return []
+    return [
+      {
+        id: group.id,
+        name: group.name,
+        courseName: course.name,
+        category: course.category,
+        schedule: parseGroupSchedule(group.name),
+        studentsCount: group.students_count ?? 0,
+      } satisfies GroupCardData,
+    ]
+  })
+  const sourceGroups = groups.filter((group) => props.groupIds.includes(group.id))
+  const targetGroups = groups.filter((group) => !props.groupIds.includes(group.id))
+  const isSourceNotice = selectedSourceId !== null && !props.groupIds.includes(selectedSourceId)
+  const isTargetNotice = selectedTargetId !== null && props.groupIds.includes(selectedTargetId)
+  const sourceId = sourceGroups.find((group) => group.id === selectedSourceId)?.id ?? null
+  const targetId = targetGroups.find((group) => group.id === selectedTargetId)?.id ?? null
+  const shouldRemovePrevious = removePrevious && sourceId !== null
+  const visibleOutcome = isTargetNotice && outcome === 'error' ? null : outcome
   const sourceName =
     sourceId !== null ? (sourceGroups.find((group) => group.id === sourceId)?.name ?? null) : null
   const targetName =
     targetId !== null ? (targetGroups.find((group) => group.id === targetId)?.name ?? null) : null
   const isTransfer = sourceId !== null
   const canRemovePrevious = sourceId !== null
-  const canSubmit = targetId !== null && (!removePrevious || sourceId !== null)
+  const canSubmit = targetId !== null
 
   return {
     state: {
@@ -280,9 +268,9 @@ export function useStudentGroupAssignment(props: StudentGroupAssignmentProps) {
       targetId,
       sourceName,
       targetName,
-      removePrevious,
+      removePrevious: shouldRemovePrevious,
       isConfirmOpen,
-      outcome,
+      outcome: visibleOutcome,
       isOperating,
       isOptionsPending,
       isOptionsError,

@@ -71,7 +71,7 @@ export function AvatarPicker(props: AvatarPickerProps) {
             aria-busy={props.isSaving}
           >
             {props.isSaving && <Loader />}
-            {t('student.edit.avatar.save')}
+            {t('action.save-avatar')}
           </Button>
         </div>
       </DrawerContent>

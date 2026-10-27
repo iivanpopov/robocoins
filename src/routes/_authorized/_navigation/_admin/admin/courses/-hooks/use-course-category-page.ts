@@ -57,7 +57,7 @@ export function useCourseCategoryPage() {
 
   let errorKey: CourseErrorKey | null = null
   if (courseData.coursesQuery.isError) {
-    errorKey = getCourseErrorKey(courseData.coursesQuery.error, 'admin.courses.error')
+    errorKey = getCourseErrorKey(courseData.coursesQuery.error, 'courses.error.load')
   }
 
   const isPending = courseData.coursesQuery.isPending

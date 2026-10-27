@@ -2,14 +2,9 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { Button, Field, FieldError, FieldLabel, IconButton, Input } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import {
-  CourseCategoryChips,
-  CourseForm,
-  CoursePageLayout,
-  CourseRequestError,
-  ResultPanel,
-} from '../-components'
+import { CourseCategoryChips, CourseForm, CourseRequestError, ResultPanel } from '../-components'
 import { CourseCategoryFilter } from '../-constants'
 import { useCreateCoursePage } from '../-hooks'
 
@@ -26,9 +21,8 @@ function CreateCoursePage() {
   const t = useTranslate()
 
   return (
-    <CoursePageLayout
-      title={t('admin.courses.create.title')}
-      back={
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/courses" />}
@@ -36,8 +30,10 @@ function CreateCoursePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.courses.create.title')}</AdminPageLayout.Title>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.createdCourse && (
         <ResultPanel
           tone="success"
@@ -47,7 +43,7 @@ function CreateCoursePage() {
           })}
           details={[
             {
-              label: t('admin.courses.form.category-label'),
+              label: t('categories.label'),
               value: t('course.category', { category: state.createdCourse.category }),
             },
           ]}
@@ -62,7 +58,7 @@ function CreateCoursePage() {
               {t('admin.courses.open')}
             </Button>
             <Button variant="ghost" onClick={functions.handleCreateAnother}>
-              {t('admin.courses.create.another')}
+              {t('action.create-another')}
             </Button>
           </div>
         </ResultPanel>
@@ -71,13 +67,13 @@ function CreateCoursePage() {
       {!state.createdCourse && (
         <CourseForm
           onSubmit={functions.handleSubmit}
-          submitLabel={t('admin.courses.create.submit')}
+          submitLabel={t('admin.courses.create.action')}
           isSubmitting={state.isSubmitting}
         >
           <features.form.Field name="category">
             {(field) => (
               <Field>
-                <FieldLabel>{t('admin.courses.form.category-label')}</FieldLabel>
+                <FieldLabel>{t('categories.label')}</FieldLabel>
                 <CourseCategoryChips
                   value={field.state.value}
                   onSelect={(category) => {
@@ -92,9 +88,7 @@ function CreateCoursePage() {
           <features.form.Field name="name">
             {(field) => (
               <Field>
-                <FieldLabel htmlFor="course-create-name">
-                  {t('admin.courses.form.name-label')}
-                </FieldLabel>
+                <FieldLabel htmlFor="course-create-name">{t('courses.name')}</FieldLabel>
                 <Input
                   id="course-create-name"
                   name={field.name}
@@ -116,6 +110,6 @@ function CreateCoursePage() {
           {state.errorKey && <CourseRequestError messageKey={state.errorKey} />}
         </CourseForm>
       )}
-    </CoursePageLayout>
+    </AdminPageLayout.Root>
   )
 }

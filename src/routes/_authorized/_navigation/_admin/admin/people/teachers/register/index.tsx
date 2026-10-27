@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Button, Field, FieldError, FieldLabel, IconButton, Input, Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import { TeacherRegistrationResult } from '../-components'
 import { useTeacherRegistrationPage } from '../-hooks'
@@ -33,8 +34,8 @@ function TeacherRegistrationPage() {
   }
 
   return (
-    <section className={styles.page}>
-      <header className={styles.header}>
+    <AdminPageLayout.Root bottomSpace className={styles.page}>
+      <AdminPageLayout.Header align="end" className={styles.header}>
         <IconButton
           onClick={functions.handleBack}
           title={t('admin.teachers.profile.back')}
@@ -43,25 +44,23 @@ function TeacherRegistrationPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <div className={styles['header-text']}>
-          <h1 className={styles.title}>{t('admin.teachers.register.title')}</h1>
-        </div>
-      </header>
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.teachers.register.title')}</AdminPageLayout.Title>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
 
       <form className={styles.form} onSubmit={functions.handleSubmit}>
         <features.form.Field name="name">
           {(field) => (
             <Field>
-              <FieldLabel htmlFor="teacher-registration-name">
-                {t('admin.teachers.register.name.label')}
-              </FieldLabel>
+              <FieldLabel htmlFor="teacher-registration-name">{t('teachers.name')}</FieldLabel>
               <Input
                 id="teacher-registration-name"
                 name={field.name}
                 value={field.state.value}
                 maxLength={200}
                 autoComplete="off"
-                placeholder={t('admin.teachers.register.name.placeholder')}
+                placeholder={t('field.full-name.placeholder')}
                 aria-invalid={!!field.state.meta.errors.length}
                 onBlur={field.handleBlur}
                 onChange={(event) => field.handleChange(event.target.value)}
@@ -75,7 +74,7 @@ function TeacherRegistrationPage() {
 
         {mutations.register.isError && (
           <InlineError>
-            {state.errorStatus === 401 && t('admin.teachers.error.unauthorized')}
+            {state.errorStatus === 401 && t('error.session')}
             {state.errorStatus === 403 && t('admin.teachers.error.forbidden')}
             {state.errorStatus !== 401 &&
               state.errorStatus !== 403 &&
@@ -89,9 +88,9 @@ function TeacherRegistrationPage() {
           aria-busy={mutations.register.isPending}
         >
           {mutations.register.isPending && <Loader />}
-          {t('admin.teachers.register.submit')}
+          {t('action.register')}
         </Button>
       </form>
-    </section>
+    </AdminPageLayout.Root>
   )
 }

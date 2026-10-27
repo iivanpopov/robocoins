@@ -7,9 +7,9 @@ import { getTabViewTransition } from '#/routes/-utils'
 import styles from './admin-learning-nav.module.css'
 
 const LEARNING_TABS = [
-  { to: '/admin', label: 'navbar.groups' },
-  { to: '/admin/courses', label: 'admin.courses.title' },
-  { to: '/admin/courses/categories', label: 'admin.courses.categories' },
+  { to: '/admin', label: 'groups.title' },
+  { to: '/admin/courses', label: 'courses.title' },
+  { to: '/admin/courses/categories', label: 'categories.title' },
 ] as const
 
 export function AdminLearningNav() {

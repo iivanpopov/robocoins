@@ -1,42 +1,11 @@
 .page {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-  width: 100%;
   max-width: 36rem;
-  min-height: 100%;
-  padding: var(--spacing-lg) var(--spacing-md);
-  margin: 0 auto;
-}
-
-.header {
-  display: flex;
-  gap: var(--spacing-sm);
-  align-items: center;
-}
-
-.header > :last-child {
-  margin-left: auto;
-}
-
-.title {
-  font-size: 1.5rem;
-  font-weight: 800;
-  line-height: 1.2;
-  color: var(--foreground);
 }
 
 .form {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xl);
-}
-
-.description {
-  font-size: 0.875rem;
-  font-weight: 450;
-  line-height: 1.45;
-  color: var(--muted-foreground);
 }
 
 .section {

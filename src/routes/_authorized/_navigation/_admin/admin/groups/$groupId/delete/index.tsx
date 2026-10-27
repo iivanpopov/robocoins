@@ -19,14 +19,9 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import {
-  GroupEmptyState,
-  GroupForm,
-  GroupPageLayout,
-  GroupRequestError,
-  GroupResultPanel,
-} from '../../-components'
+import { GroupEmptyState, GroupForm, GroupRequestError, GroupResultPanel } from '../../-components'
 import { useGroupDeletePage } from '../../-hooks'
 import { parseGroupIdParams } from '../../-utils'
 
@@ -54,15 +49,8 @@ function GroupDeletePage() {
   const t = useTranslate()
 
   return (
-    <GroupPageLayout
-      title={t('admin.groups.delete.title')}
-      description={
-        <>
-          {!state.group && t('admin.groups.delete.description-empty')}
-          {state.group && t('admin.groups.delete.description', { group: state.group.name })}
-        </>
-      }
-      back={
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/groups/$groupId" params={{ groupId: state.groupId }} />}
@@ -70,8 +58,14 @@ function GroupDeletePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.groups.delete.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {!state.group && t('admin.groups.delete.description-empty')}
+            {state.group && t('admin.groups.delete.description', { group: state.group.name })}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.errorKey && (
         <GroupRequestError
@@ -87,7 +81,7 @@ function GroupDeletePage() {
           description={t('admin.groups.not-found.description')}
         >
           <Button nativeButton={false} render={<Link to="/admin" />}>
-            {t('admin.groups.back')}
+            {t('navigation.groups')}
           </Button>
         </GroupEmptyState>
       )}
@@ -95,7 +89,7 @@ function GroupDeletePage() {
       {state.group && !state.isDeletedLocally && (
         <GroupForm
           onSubmit={functions.handleSubmit}
-          submitLabel={t('admin.groups.delete.submit')}
+          submitLabel={t('admin.groups.delete.action')}
           submitClassName={styles.danger}
           note={t('admin.groups.delete.note')}
         >
@@ -110,7 +104,7 @@ function GroupDeletePage() {
                   id="group-delete-confirmation"
                   name={field.name}
                   value={field.state.value}
-                  placeholder={t('admin.groups.delete.confirm-placeholder')}
+                  placeholder={t('groups.name')}
                   autoComplete="off"
                   aria-invalid={!!field.state.meta.errors.length}
                   onChange={(event) => field.handleChange(event.target.value)}
@@ -129,7 +123,7 @@ function GroupDeletePage() {
         <AlertDialog open={state.isDialogOpen} onOpenChange={functions.handleDialogOpenChange}>
           <AlertDialogContent size="sm">
             <AlertDialogHeader>
-              <AlertDialogTitle>{t('admin.groups.delete.dialog-title')}</AlertDialogTitle>
+              <AlertDialogTitle>{t('action.delete.confirm-title')}</AlertDialogTitle>
               <AlertDialogDescription>
                 {t('admin.groups.delete.dialog-description', { group: state.group.name })}
               </AlertDialogDescription>
@@ -137,7 +131,7 @@ function GroupDeletePage() {
             <AlertDialogFooter>
               <AlertDialogCancel>{t('action.cancel')}</AlertDialogCancel>
               <AlertDialogAction onClick={functions.handleConfirmDelete}>
-                {t('admin.groups.delete.dialog-action')}
+                {t('action.confirm')}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
@@ -147,11 +141,11 @@ function GroupDeletePage() {
       {state.group && state.isDeletedLocally && (
         <GroupResultPanel
           tone="local"
-          title={t('admin.groups.delete.result-title')}
+          title={t('admin.shared.local-result')}
           description={t('admin.groups.delete.result-description')}
           details={[
             {
-              label: t('admin.groups.delete.result-group'),
+              label: t('groups.label'),
               value: state.group.name,
             },
           ]}
@@ -163,10 +157,10 @@ function GroupDeletePage() {
             {t('admin.groups.back-to-group')}
           </Button>
           <Button variant="ghost" nativeButton={false} render={<Link to="/admin" />}>
-            {t('admin.groups.back')}
+            {t('navigation.groups')}
           </Button>
         </GroupResultPanel>
       )}
-    </GroupPageLayout>
+    </AdminPageLayout.Root>
   )
 }

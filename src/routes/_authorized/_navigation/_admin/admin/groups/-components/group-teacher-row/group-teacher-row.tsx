@@ -39,7 +39,7 @@ export function GroupTeacherRow({ userId, name, className }: GroupTeacherRowProp
       to="/admin/people/teachers/$userId"
       params={{ userId }}
       className={cn(styles.row, className)}
-      aria-label={t('admin.teachers.open', { name })}
+      aria-label={t('profile.open-label', { name })}
     >
       {content}
       <span aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.caret)} />

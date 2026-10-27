@@ -187,7 +187,7 @@ export function StudentGroupAssignment(props: StudentGroupAssignmentProps) {
                 aria-busy={assignment.state.isOperating}
               >
                 {assignment.state.isOperating && <Loader />}
-                {t('student.edit.groups.confirm.submit')}
+                {t('action.confirm')}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

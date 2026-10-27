@@ -18,11 +18,11 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import {
   TeacherForm,
   TeacherGroupRow,
-  TeacherPageLayout,
   TeacherRequestError,
   TeacherResultPanel,
   TeacherUnavailable,
@@ -54,24 +54,23 @@ function TeacherDeletePage() {
   const t = useTranslate()
 
   return (
-    <TeacherPageLayout
-      title={t('admin.teachers.delete.title')}
-      description={
-        <>
-          {!state.isAvailable && t('admin.teachers.delete.description-empty')}
-          {state.isAvailable && t('admin.teachers.delete.description', { name: state.name })}
-        </>
-      }
-      back={
+    <AdminPageLayout.Root bottomSpace>
+      <AdminPageLayout.Header>
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/people/teachers/$userId" params={{ userId: state.teacherId }} />}
-          title={t('admin.teachers.back-to-profile')}
+          title={t('navigation.profile')}
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.teachers.delete.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {!state.isAvailable && t('admin.teachers.delete.description-empty')}
+            {state.isAvailable && t('admin.teachers.delete.description', { name: state.name })}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isPending && <Loader grow />}
       {!state.isPending && state.isError && !state.notFound && (
         <TeacherRequestError
@@ -90,7 +89,7 @@ function TeacherDeletePage() {
       {state.isAvailable && !state.isDeletedLocally && (
         <>
           <section className={styles.section}>
-            <h2 className={styles['section-title']}>{t('admin.teachers.delete.groups-title')}</h2>
+            <h2 className={styles['section-title']}>{t('admin.teachers.delete.groups')}</h2>
             {!!state.groups.length && (
               <div className={styles.groups}>
                 {state.groups.map((group) => (
@@ -106,7 +105,7 @@ function TeacherDeletePage() {
 
           <TeacherForm
             onSubmit={functions.handleSubmit}
-            submitLabel={t('admin.teachers.delete.submit')}
+            submitLabel={t('admin.teachers.delete.action')}
             submitClassName={styles.danger}
             note={t('admin.teachers.delete.note')}
           >
@@ -122,7 +121,7 @@ function TeacherDeletePage() {
                     value={state.confirmation}
                     maxLength={200}
                     autoComplete="off"
-                    placeholder={t('admin.teachers.delete.confirm-placeholder')}
+                    placeholder={t('teachers.name')}
                     aria-invalid={!!field.state.meta.errors.length}
                     onChange={(event) => field.handleChange(event.target.value)}
                     onBlur={field.handleBlur}
@@ -141,7 +140,7 @@ function TeacherDeletePage() {
         <AlertDialog open={state.isDialogOpen} onOpenChange={functions.handleDialogOpenChange}>
           <AlertDialogContent size="sm">
             <AlertDialogHeader>
-              <AlertDialogTitle>{t('admin.teachers.delete.dialog-title')}</AlertDialogTitle>
+              <AlertDialogTitle>{t('action.delete.confirm-title')}</AlertDialogTitle>
               <AlertDialogDescription>
                 {t('admin.teachers.delete.dialog-description', { name: state.name })}
               </AlertDialogDescription>
@@ -149,7 +148,7 @@ function TeacherDeletePage() {
             <AlertDialogFooter>
               <AlertDialogCancel>{t('action.cancel')}</AlertDialogCancel>
               <AlertDialogAction onClick={functions.handleConfirmDelete}>
-                {t('admin.teachers.delete.dialog-action')}
+                {t('action.confirm')}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
@@ -158,16 +157,16 @@ function TeacherDeletePage() {
 
       {state.isAvailable && state.isDeletedLocally && (
         <TeacherResultPanel
-          title={t('admin.teachers.delete.result-title')}
+          title={t('admin.shared.local-result')}
           description={t('admin.teachers.delete.result-description')}
           details={[
             {
-              label: t('admin.teachers.teacher'),
+              label: t('role.teacher'),
               value: state.name,
             },
             {
-              label: t('admin.teachers.delete.result-groups'),
-              value: t('admin.teachers.profile.groups-count', { count: state.groups.length }),
+              label: t('admin.teachers.delete.groups'),
+              value: t('groups.count', { count: state.groups.length }),
             },
           ]}
         >
@@ -178,7 +177,7 @@ function TeacherDeletePage() {
                 <Link to="/admin/people/teachers/$userId" params={{ userId: state.teacherId }} />
               }
             >
-              {t('admin.teachers.back-to-profile')}
+              {t('navigation.profile')}
             </Button>
             <Button
               variant="ghost"
@@ -190,6 +189,6 @@ function TeacherDeletePage() {
           </div>
         </TeacherResultPanel>
       )}
-    </TeacherPageLayout>
+    </AdminPageLayout.Root>
   )
 }

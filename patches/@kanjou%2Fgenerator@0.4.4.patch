@@ -1,0 +1,13 @@
+diff --git a/dist/index.mjs b/dist/index.mjs
+index 27657ade7f4ed182cb1e5e18c273cea004d0fb48..80c449e0b642c712b65fe046f266ea8896c2ebd7 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -34,7 +34,7 @@ function parse(file) {
+ 		relative: path.join(parsed.dir, parsed.base)
+ 	};
+ }
+-const jiti = createJiti(import.meta.url, { moduleCache: false });
++const jiti = createJiti(import.meta.url, { moduleCache: false, tryNative: false });
+ const LOCALE_EXTENSIONS = /* @__PURE__ */ new Set([
+ 	".ts",
+ 	".js",

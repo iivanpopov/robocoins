@@ -59,7 +59,7 @@ export function HistoryPreview(props: HistoryPreviewProps) {
         )}
       </div>
       {props.isPending && (
-        <div className={styles.loading} role="status" aria-label={t('profile.history.loading')}>
+        <div className={styles.loading} role="status" aria-label={t('history.loading')}>
           <Loader grow />
         </div>
       )}

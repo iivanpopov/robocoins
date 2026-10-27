@@ -80,7 +80,7 @@ export function TransactionItem(props: TransactionItemProps) {
           className={styles['confirm-action']}
           data-confirm-action=""
         >
-          {t('award.cancel.confirm.action')}
+          {t('balance.cancel.action')}
         </button>
       </div>
       <button

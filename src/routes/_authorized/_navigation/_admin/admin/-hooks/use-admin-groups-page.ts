@@ -155,11 +155,11 @@ export function useAdminGroupsPage() {
   const isUsersError = usersQuery.isError
   const isGroupsError = groupsQueries.some((groupsQuery) => groupsQuery.isError)
 
-  let errorKey: AdminGroupsErrorKey = 'admin.groups.error'
-  if (isCoursesError) errorKey = getAdminGroupsErrorKey(coursesQuery.error, 'admin.groups.error')
-  if (isUsersError) errorKey = getAdminGroupsErrorKey(usersQuery.error, 'admin.groups.error')
+  let errorKey: AdminGroupsErrorKey = 'groups.error.load'
+  if (isCoursesError) errorKey = getAdminGroupsErrorKey(coursesQuery.error, 'groups.error.load')
+  if (isUsersError) errorKey = getAdminGroupsErrorKey(usersQuery.error, 'groups.error.load')
   const groupsQueryError = groupsQueries.find((groupsQuery) => groupsQuery.isError)?.error
-  if (isGroupsError) errorKey = getAdminGroupsErrorKey(groupsQueryError, 'admin.groups.error')
+  if (isGroupsError) errorKey = getAdminGroupsErrorKey(groupsQueryError, 'groups.error.load')
 
   return {
     state: {
@@ -200,7 +200,7 @@ function getAdminGroupsErrorKey(
   fallback: AdminGroupsErrorKey,
 ): AdminGroupsErrorKey {
   if (!ResponseError.is(error)) return fallback
-  if (error.status === 401) return 'admin.groups.error.unauthorized'
+  if (error.status === 401) return 'error.session'
   if (error.status === 403) return 'admin.groups.error.forbidden'
   return fallback
 }

@@ -7,6 +7,7 @@ import { Button, Field, FieldLabel, IconButton, Input, Loader } from '#/componen
 import { CategoryIcon, ThemedChip } from '#/routes/-components'
 import { AVATARS } from '#/routes/-constants'
 import { getAvatarUrl } from '#/routes/-utils'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import { ApiErrorNotice } from '../-components'
 import { useRegisterStudentPage } from './-hooks'
@@ -29,13 +30,15 @@ function RegisterStudentPage() {
   const t = useTranslate()
 
   return (
-    <section className={styles.page}>
-      <header className={styles.header}>
+    <AdminPageLayout.Root className={styles.page}>
+      <AdminPageLayout.Header align="end" centered>
         <IconButton onClick={functions.handleBack} title={t('students.profile.back')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <h1 className={styles.title}>{t('students.register.title')}</h1>
-      </header>
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('students.register.title')}</AdminPageLayout.Title>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
 
       {state.created && (
         <article className={styles.success}>
@@ -48,8 +51,8 @@ function RegisterStudentPage() {
             {t('students.register.success.description', { name: state.created.name })}
           </p>
           <div className={styles['code-block']}>
-            <span className={styles['code-label']}>{t('students.register.success.code')}</span>
-            <output className={styles.code} aria-label={t('students.register.success.code')}>
+            <span className={styles['code-label']}>{t('access.code.label')}</span>
+            <output className={styles.code} aria-label={t('access.code.label')}>
               {state.created.accessCode}
             </output>
           </div>
@@ -74,7 +77,7 @@ function RegisterStudentPage() {
               features.clipboard.state.isCopyError && styles['copy-status-error'],
             )}
           >
-            {features.clipboard.state.isCopied && t('students.register.success.copied')}
+            {features.clipboard.state.isCopied && t('access.code.copied')}
             {features.clipboard.state.isCopyError && t('students.register.success.copy-error')}
           </p>
           <div className={styles['success-actions']}>
@@ -83,7 +86,7 @@ function RegisterStudentPage() {
               params={{ studentId: state.created.id }}
               className={styles['primary-link']}
             >
-              {t('students.register.success.profile')}
+              {t('profile.open')}
             </Link>
             <Link to="/admin/people/students" className={styles['secondary-link']}>
               {t('students.register.success.list')}
@@ -121,14 +124,10 @@ function RegisterStudentPage() {
           </section>
 
           <section className={styles.section}>
-            <h2 className={styles['section-title']}>{t('students.register.avatar.label')}</h2>
+            <h2 className={styles['section-title']}>{t('field.avatar.label')}</h2>
             <features.form.Field name="avatar">
               {(field) => (
-                <div
-                  className={styles.avatars}
-                  role="group"
-                  aria-label={t('students.register.avatar.label')}
-                >
+                <div className={styles.avatars} role="group" aria-label={t('field.avatar.label')}>
                   {AVATARS.map((avatar, index) => (
                     <button
                       key={avatar}
@@ -151,7 +150,7 @@ function RegisterStudentPage() {
           </section>
 
           <section className={styles.section}>
-            <h2 className={styles['section-title']}>{t('students.register.groups.label')}</h2>
+            <h2 className={styles['section-title']}>{t('groups.title')}</h2>
             <p className={styles['section-description']}>
               {t('students.register.groups.description')}
             </p>
@@ -159,7 +158,7 @@ function RegisterStudentPage() {
             {state.isGroupsError && (
               <ApiErrorNotice
                 kind={state.groupsErrorKind}
-                fallback={t('students.register.groups.error')}
+                fallback={t('groups.error.load')}
                 onRetry={functions.handleRetryGroups}
                 isRetrying={state.isGroupsRetrying}
                 onLogin={functions.handleLogin}
@@ -174,16 +173,14 @@ function RegisterStudentPage() {
                   <>
                     <div className={styles.filters}>
                       <div className={styles['filter-group']}>
-                        <span className={styles['filter-label']}>
-                          {t('admin.catalog.filters.category')}
-                        </span>
+                        <span className={styles['filter-label']}>{t('categories.label')}</span>
                         <div className={cn(styles.chips, styles.scroll)}>
                           <ThemedChip
                             icon={false}
                             selected={state.categoryFilter === 'all'}
                             onClick={() => functions.handleCategoryChange('all')}
                           >
-                            {t('admin.catalog.filters.all-categories')}
+                            {t('filters.all-catalog-categories')}
                           </ThemedChip>
                           {state.categories.map((category) => (
                             <ThemedChip
@@ -199,9 +196,7 @@ function RegisterStudentPage() {
                         </div>
                       </div>
                       <div className={styles['filter-group']}>
-                        <span className={styles['filter-label']}>
-                          {t('students.register.courses.label')}
-                        </span>
+                        <span className={styles['filter-label']}>{t('courses.title')}</span>
                         <div className={cn(styles.chips, styles.scroll)}>
                           {state.courses.map((course) => (
                             <ThemedChip
@@ -217,11 +212,7 @@ function RegisterStudentPage() {
                         </div>
                       </div>
                     </div>
-                    <div
-                      className={styles.groups}
-                      role="group"
-                      aria-label={t('students.register.groups.label')}
-                    >
+                    <div className={styles.groups} role="group" aria-label={t('groups.title')}>
                       {state.filteredGroups.map((group) => {
                         const isSelected = field.state.value.includes(group.id)
 
@@ -287,10 +278,10 @@ function RegisterStudentPage() {
             aria-busy={mutations.create.isPending}
           >
             {mutations.create.isPending && <Loader />}
-            {t('students.register.submit')}
+            {t('action.register')}
           </Button>
         </form>
       )}
-    </section>
+    </AdminPageLayout.Root>
   )
 }

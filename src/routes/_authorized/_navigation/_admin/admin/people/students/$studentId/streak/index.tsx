@@ -23,6 +23,7 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import { ApiErrorNotice } from '../../-components'
 import { useStudentStreakPage } from './-hooks'
@@ -72,8 +73,8 @@ function StudentStreakPage() {
   const t = useTranslate()
 
   return (
-    <section className={styles.page}>
-      <header className={styles.header}>
+    <AdminPageLayout.Root className={styles.page}>
+      <AdminPageLayout.Header>
         <IconButton
           nativeButton={false}
           render={
@@ -83,11 +84,13 @@ function StudentStreakPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <div className={styles.heading}>
-          <h1 className={styles.title}>{t('admin.streak.title')}</h1>
-          <p className={styles.description}>{t('admin.streak.description')}</p>
-        </div>
-      </header>
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.streak.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description className={styles.description}>
+            {t('admin.streak.description')}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
 
       {state.isPending && <Loader grow />}
 
@@ -251,7 +254,7 @@ function StudentStreakPage() {
                       onBlur={field.handleBlur}
                     />
                     <FieldDescription id="streak-days-description">
-                      {state.isActive && t('admin.streak.update.description')}
+                      {state.isActive && t('admin.streak.validation.days')}
                       {!state.isActive && t('admin.streak.update.unavailable')}
                     </FieldDescription>
                     {!!field.state.meta.errors.length && (
@@ -290,11 +293,11 @@ function StudentStreakPage() {
               onClick={functions.handleConfirmEnd}
               disabled={!state.isActive || state.isBusy}
             >
-              {t('admin.streak.end.confirm.action')}
+              {t('action.finish.title')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </section>
+    </AdminPageLayout.Root>
   )
 }

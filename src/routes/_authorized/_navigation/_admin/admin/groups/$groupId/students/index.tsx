@@ -18,8 +18,9 @@ import {
   Loader,
 } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import { GroupEmptyState, GroupPageLayout, GroupRequestError } from '../../-components'
+import { GroupEmptyState, GroupRequestError } from '../../-components'
 import { parseGroupIdParams } from '../../-utils'
 import { AdminSelect, MembershipResultPanel } from '../../../-components'
 import { MembershipStudentOption } from './-components'
@@ -57,15 +58,8 @@ function GroupStudentsPage() {
   }))
 
   return (
-    <GroupPageLayout
-      title={t('admin.groups.membership.title')}
-      description={
-        <>
-          {!state.group && t('admin.groups.membership.description-empty')}
-          {!!state.group && t('admin.groups.membership.description', { group: state.group.name })}
-        </>
-      }
-      back={
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/groups/$groupId" params={{ groupId: state.groupId }} />}
@@ -73,8 +67,14 @@ function GroupStudentsPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.groups.membership.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {!state.group && t('admin.groups.membership.description-empty')}
+            {!!state.group && t('admin.groups.membership.description', { group: state.group.name })}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.groupErrorKey && (
         <GroupRequestError
@@ -90,7 +90,7 @@ function GroupStudentsPage() {
           description={t('admin.groups.not-found.description')}
         >
           <Button nativeButton={false} render={<Link to="/admin" />}>
-            {t('admin.groups.back')}
+            {t('navigation.groups')}
           </Button>
         </GroupEmptyState>
       )}
@@ -100,9 +100,7 @@ function GroupStudentsPage() {
           <section className={styles.summary}>
             <div className={styles.stat}>
               <span className={styles['stat-value']}>{state.studentsCount}</span>
-              <span className={styles['stat-label']}>
-                {t('admin.groups.detail.students-count')}
-              </span>
+              <span className={styles['stat-label']}>{t('students.title')}</span>
             </div>
             <div className={styles.stat}>
               <span className={styles['stat-value']}>{state.availableCount}</span>
@@ -148,7 +146,7 @@ function GroupStudentsPage() {
                 </InlineError>
                 {state.studentsErrorStatus === 401 && (
                   <Button variant="ghost" onClick={functions.handleLogin}>
-                    {t('students.action.login')}
+                    {t('navigation.login')}
                   </Button>
                 )}
               </div>
@@ -184,7 +182,7 @@ function GroupStudentsPage() {
                         student={student}
                         checked={state.selectedCandidateIds.includes(student.id)}
                         disabled={state.membership.isOperating}
-                        meta={t('students.group-count', { count: student.groupIds.length })}
+                        meta={t('groups.count', { count: student.groupIds.length })}
                         onCheckedChange={functions.handleCandidateToggle}
                       />
                     ))}
@@ -230,7 +228,7 @@ function GroupStudentsPage() {
                     student={student}
                     checked={state.selectedMemberIds.includes(student.id)}
                     disabled={state.membership.isOperating}
-                    meta={t('students.group-count', { count: student.groupIds.length })}
+                    meta={t('groups.count', { count: student.groupIds.length })}
                     onCheckedChange={functions.handleMemberToggle}
                   />
                 ))}
@@ -266,7 +264,7 @@ function GroupStudentsPage() {
                     </InlineError>
                     {state.coursesErrorStatus === 401 && (
                       <Button variant="ghost" onClick={functions.handleLogin}>
-                        {t('students.action.login')}
+                        {t('navigation.login')}
                       </Button>
                     )}
                   </div>
@@ -279,7 +277,7 @@ function GroupStudentsPage() {
                         value={state.targetGroupValue}
                         onValueChange={functions.handleTargetGroupChange}
                         items={targetGroupItems}
-                        placeholder={t('admin.groups.membership.transfer.placeholder')}
+                        placeholder={t('groups.select.placeholder')}
                         ariaLabel={t('admin.groups.membership.transfer.target-label')}
                         disabled={state.membership.isOperating}
                       />
@@ -304,9 +302,7 @@ function GroupStudentsPage() {
                     </>
                   )}
                 {!state.isCoursesPending && !state.isCoursesError && !state.targetGroups.length && (
-                  <p className={styles.note}>
-                    {t('admin.groups.membership.transfer.targets-empty')}
-                  </p>
+                  <p className={styles.note}>{t('groups.transfer.empty')}</p>
                 )}
               </div>
             )}
@@ -335,7 +331,7 @@ function GroupStudentsPage() {
                   onClick={functions.handleConfirmRemove}
                   disabled={state.membership.isOperating}
                 >
-                  {t('admin.groups.membership.remove.dialog-action')}
+                  {t('groups.remove.action')}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
@@ -368,13 +364,13 @@ function GroupStudentsPage() {
                   onClick={functions.handleConfirmTransfer}
                   disabled={state.membership.isOperating}
                 >
-                  {t('admin.groups.membership.transfer.dialog-action')}
+                  {t('groups.transfer.action')}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
         </>
       )}
-    </GroupPageLayout>
+    </AdminPageLayout.Root>
   )
 }

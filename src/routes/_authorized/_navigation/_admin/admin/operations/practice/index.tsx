@@ -17,6 +17,7 @@ import {
   InputGroupInput,
   Loader,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import { AdminSelect, ApiErrorNotice } from '../../-components'
 import { GROUP_FILTER_ALL } from '../../-constants'
@@ -46,29 +47,31 @@ function PracticeContent() {
   const t = useTranslate()
 
   const courseItems = [
-    { value: GROUP_FILTER_ALL, label: t('admin.operations.practice.course-all') },
+    { value: GROUP_FILTER_ALL, label: t('filters.all-courses') },
     ...state.courses.map((course) => ({ value: String(course.id), label: course.name })),
   ]
 
   return (
-    <section className={styles.page}>
-      <header className={styles.header}>
+    <AdminPageLayout.Root className={styles.page}>
+      <AdminPageLayout.Header centered>
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/operations" />}
-          title={t('admin.operations.practice.back')}
+          title={t('admin.operations.back-to-list')}
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <div className={styles.heading}>
-          <h1 className={styles.title}>{t('admin.operations.practice.title')}</h1>
-          <p className={styles.description}>{t('admin.operations.practice.description')}</p>
-        </div>
-      </header>
+        <AdminPageLayout.Heading className={styles.heading}>
+          <AdminPageLayout.Title>{t('group.practice.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {t('admin.operations.practice.description')}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
 
       <article className={styles.card}>
         <header className={styles['card-header']}>
-          <h2 className={styles['card-title']}>{t('admin.operations.practice.select-title')}</h2>
+          <h2 className={styles['card-title']}>{t('groups.select.placeholder')}</h2>
           <p className={styles['card-description']}>
             {t('admin.operations.practice.select-description')}
           </p>
@@ -78,7 +81,7 @@ function PracticeContent() {
         {state.coursesIsError && !!state.coursesErrorKind && (
           <ApiErrorNotice
             kind={state.coursesErrorKind}
-            fallback={t('admin.operations.practice.courses-error')}
+            fallback={t('courses.error.load')}
             onRetry={functions.handleRetryCourses}
             isRetrying={state.coursesIsFetching}
             onLogin={functions.handleLogin}
@@ -97,7 +100,7 @@ function PracticeContent() {
                   value={state.query}
                   onChange={(event) => functions.handleQueryChange(event.target.value)}
                   placeholder={t('admin.operations.practice.search-placeholder')}
-                  aria-label={t('admin.operations.practice.search-label')}
+                  aria-label={t('groups.search.label')}
                   autoComplete="off"
                 />
               </InputGroup>
@@ -105,8 +108,8 @@ function PracticeContent() {
                 value={state.courseFilter}
                 onValueChange={functions.handleCourseFilterChange}
                 items={courseItems}
-                placeholder={t('admin.operations.practice.course-all')}
-                ariaLabel={t('admin.operations.practice.course-filter')}
+                placeholder={t('filters.all-courses')}
+                ariaLabel={t('filters.course')}
               />
             </div>
 
@@ -114,7 +117,7 @@ function PracticeContent() {
             {state.groupsIsError && !!state.groupsErrorKind && (
               <ApiErrorNotice
                 kind={state.groupsErrorKind}
-                fallback={t('admin.operations.practice.groups-error')}
+                fallback={t('groups.error.load')}
                 onRetry={functions.handleRetryGroups}
                 isRetrying={state.groupsIsFetching}
                 onLogin={functions.handleLogin}
@@ -126,22 +129,20 @@ function PracticeContent() {
                 {!state.totalGroupCount && (
                   <div className={styles.empty}>
                     <span aria-hidden="true" className="i-ph:users-three-duotone" />
-                    <p>{t('admin.operations.practice.groups-empty')}</p>
+                    <p>{t('groups.empty')}</p>
                     <Button nativeButton={false} render={<Link to="/admin" />}>
-                      {t('admin.operations.practice.go-to-groups')}
+                      {t('navigation.groups')}
                     </Button>
                   </div>
                 )}
                 {!!state.totalGroupCount && !state.groups.length && (
-                  <p className={styles.empty}>
-                    {t('admin.operations.practice.groups-empty-filtered')}
-                  </p>
+                  <p className={styles.empty}>{t('groups.empty-filtered')}</p>
                 )}
                 {!!state.groups.length && (
                   <div
                     className={styles.groups}
                     role="group"
-                    aria-label={t('admin.operations.practice.select-title')}
+                    aria-label={t('groups.select.placeholder')}
                   >
                     {state.groups.map((group) => (
                       <PracticeGroupOption
@@ -241,7 +242,7 @@ function PracticeContent() {
             )}
             {state.unknownHistoryChecked && (
               <Button variant="ghost" onClick={functions.handleAcknowledgeUnknown}>
-                {t('admin.balance.unknown.acknowledge')}
+                {t('balance.acknowledge')}
               </Button>
             )}
           </section>
@@ -283,11 +284,11 @@ function PracticeContent() {
               aria-busy={state.isAwarding}
             >
               {state.isAwarding && <Loader />}
-              {t('admin.operations.practice.confirm.action')}
+              {t('action.award')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </section>
+    </AdminPageLayout.Root>
   )
 }

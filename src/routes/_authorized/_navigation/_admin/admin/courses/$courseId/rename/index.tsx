@@ -11,14 +11,9 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import {
-  CourseEmptyState,
-  CourseForm,
-  CoursePageLayout,
-  CourseRequestError,
-  ResultPanel,
-} from '../../-components'
+import { CourseEmptyState, CourseForm, CourseRequestError, ResultPanel } from '../../-components'
 import { useCourseRenamePage } from '../../-hooks'
 import { parseCourseIdParams } from '../../-utils'
 
@@ -46,15 +41,8 @@ function CourseRenamePage() {
   const t = useTranslate()
 
   return (
-    <CoursePageLayout
-      title={t('admin.courses.rename.title')}
-      description={
-        <>
-          {!state.course && t('admin.courses.rename.description-empty')}
-          {state.course && t('admin.courses.rename.description', { course: state.course.name })}
-        </>
-      }
-      back={
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/courses/$courseId" params={{ courseId: state.courseId }} />}
@@ -62,8 +50,14 @@ function CourseRenamePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.courses.rename.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {!state.course && t('admin.courses.rename.description-empty')}
+            {state.course && t('admin.courses.rename.description', { course: state.course.name })}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.errorKey && (
         <CourseRequestError
@@ -87,15 +81,13 @@ function CourseRenamePage() {
       {state.course && !state.renamedName && (
         <CourseForm
           onSubmit={functions.handleSubmit}
-          submitLabel={t('admin.courses.rename.submit')}
+          submitLabel={t('action.rename')}
           submitDisabled={state.isUnchanged}
         >
           <features.form.Field name="name">
             {(field) => (
               <Field>
-                <FieldLabel htmlFor="course-rename-name">
-                  {t('admin.courses.form.name-label')}
-                </FieldLabel>
+                <FieldLabel htmlFor="course-rename-name">{t('courses.name')}</FieldLabel>
                 <Input
                   id="course-rename-name"
                   name={field.name}
@@ -110,7 +102,7 @@ function CourseRenamePage() {
                   <FieldError>{t('admin.courses.form.name-error')}</FieldError>
                 )}
                 {state.isUnchanged && (
-                  <FieldDescription>{t('admin.courses.rename.same')}</FieldDescription>
+                  <FieldDescription>{t('validation.name-unchanged')}</FieldDescription>
                 )}
               </Field>
             )}
@@ -121,15 +113,15 @@ function CourseRenamePage() {
       {state.course && !!state.renamedName && (
         <ResultPanel
           tone="local"
-          title={t('admin.courses.rename.result-title')}
+          title={t('admin.shared.local-result')}
           description={t('admin.courses.rename.result-description')}
           details={[
             {
-              label: t('admin.courses.rename.current'),
+              label: t('field.current-name'),
               value: state.course.name,
             },
             {
-              label: t('admin.courses.rename.proposed'),
+              label: t('field.proposed-name'),
               value: state.renamedName,
             },
           ]}
@@ -147,6 +139,6 @@ function CourseRenamePage() {
           </div>
         </ResultPanel>
       )}
-    </CoursePageLayout>
+    </AdminPageLayout.Root>
   )
 }

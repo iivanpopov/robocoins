@@ -29,14 +29,14 @@ export function CourseRequestError({
       <InlineError onRetry={onRetry} isRetrying={isRetrying}>
         {t(messageKey)}
       </InlineError>
-      {messageKey === 'admin.courses.error.unauthorized' && (
+      {messageKey === 'error.session' && (
         <Button
           variant="link"
           nativeButton={false}
           render={<Link to="/login" />}
           className={styles.login}
         >
-          {t('admin.courses.error.login')}
+          {t('action.enter.title')}
         </Button>
       )}
     </div>

@@ -11,10 +11,10 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import {
   TeacherForm,
-  TeacherPageLayout,
   TeacherRequestError,
   TeacherResultPanel,
   TeacherUnavailable,
@@ -46,24 +46,23 @@ function TeacherRenamePage() {
   const t = useTranslate()
 
   return (
-    <TeacherPageLayout
-      title={t('admin.teachers.rename.title')}
-      description={
-        <>
-          {!state.isAvailable && t('admin.teachers.rename.description-empty')}
-          {state.isAvailable && t('admin.teachers.rename.description', { name: state.name })}
-        </>
-      }
-      back={
+    <AdminPageLayout.Root bottomSpace>
+      <AdminPageLayout.Header>
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/people/teachers/$userId" params={{ userId: state.teacherId }} />}
-          title={t('admin.teachers.back-to-profile')}
+          title={t('navigation.profile')}
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.teachers.rename.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {!state.isAvailable && t('admin.teachers.rename.description-empty')}
+            {state.isAvailable && t('admin.teachers.rename.description', { name: state.name })}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isPending && <Loader grow />}
       {!state.isPending && state.isError && !state.notFound && (
         <TeacherRequestError
@@ -89,16 +88,14 @@ function TeacherRenamePage() {
           <features.form.Field name="name">
             {(field) => (
               <Field>
-                <FieldLabel htmlFor="teacher-rename-name">
-                  {t('admin.teachers.rename.name-label')}
-                </FieldLabel>
+                <FieldLabel htmlFor="teacher-rename-name">{t('teachers.name')}</FieldLabel>
                 <Input
                   id="teacher-rename-name"
                   name={field.name}
                   value={state.proposedName}
                   maxLength={200}
                   autoComplete="off"
-                  placeholder={t('admin.teachers.rename.name-placeholder')}
+                  placeholder={t('field.full-name.placeholder')}
                   aria-invalid={!!field.state.meta.errors.length}
                   onChange={(event) => field.handleChange(event.target.value)}
                   onBlur={field.handleBlur}
@@ -117,7 +114,7 @@ function TeacherRenamePage() {
 
       {state.isAvailable && !!state.renamedName && (
         <TeacherResultPanel
-          title={t('admin.teachers.rename.result-title')}
+          title={t('admin.shared.local-result')}
           description={t('admin.teachers.rename.result-description')}
           details={[
             {
@@ -137,7 +134,7 @@ function TeacherRenamePage() {
                 <Link to="/admin/people/teachers/$userId" params={{ userId: state.teacherId }} />
               }
             >
-              {t('admin.teachers.back-to-profile')}
+              {t('navigation.profile')}
             </Button>
             <Button
               variant="ghost"
@@ -149,6 +146,6 @@ function TeacherRenamePage() {
           </div>
         </TeacherResultPanel>
       )}
-    </TeacherPageLayout>
+    </AdminPageLayout.Root>
   )
 }

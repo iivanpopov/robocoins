@@ -43,12 +43,8 @@ export function CancelTransactionDialog(props: CancelTransactionDialogProps) {
           )}
         </AlertDialogHeader>
 
-        {props.errorKind === 'session' && (
-          <p className={styles.error}>{t('students.error.session')}</p>
-        )}
-        {props.errorKind === 'forbidden' && (
-          <p className={styles.error}>{t('students.error.forbidden')}</p>
-        )}
+        {props.errorKind === 'session' && <p className={styles.error}>{t('error.session')}</p>}
+        {props.errorKind === 'forbidden' && <p className={styles.error}>{t('error.forbidden')}</p>}
         {props.errorKind === 'other' && (
           <p className={styles.error}>{t('admin.balance.cancel.error')}</p>
         )}
@@ -61,7 +57,7 @@ export function CancelTransactionDialog(props: CancelTransactionDialogProps) {
             aria-busy={props.isPending}
           >
             {props.isPending && <Loader />}
-            {t('admin.balance.cancel.confirm.action')}
+            {t('balance.cancel.action')}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

@@ -3,12 +3,12 @@ import { createFileRoute, Link, useParams, useSearch } from '@tanstack/react-rou
 import * as v from 'valibot'
 
 import { Button, Field, FieldDescription, FieldLabel, IconButton, Loader } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import {
   CourseCategoryChips,
   CourseEmptyState,
   CourseForm,
-  CoursePageLayout,
   CourseRequestError,
   ResultPanel,
 } from '../../-components'
@@ -73,16 +73,19 @@ function CourseCategoryPage() {
   }
 
   return (
-    <CoursePageLayout
-      title={t('admin.courses.category.title')}
-      description={
-        <>
-          {!state.course && t('admin.courses.category.description-empty')}
-          {state.course && <>{state.course.name}</>}
-        </>
-      }
-      back={backButton}
-    >
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header align="end">
+        {backButton}
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.courses.category.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            <>
+              {!state.course && t('admin.courses.category.description-empty')}
+              {state.course && <>{state.course.name}</>}
+            </>
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.errorKey && (
         <CourseRequestError
@@ -106,13 +109,13 @@ function CourseCategoryPage() {
       {state.course && state.selectedCategory === null && (
         <CourseForm
           onSubmit={functions.handleSubmit}
-          submitLabel={t('admin.courses.category.submit')}
+          submitLabel={t('admin.courses.category.action')}
           submitDisabled={state.isUnchanged}
         >
           <features.form.Field name="category">
             {(field) => (
               <Field>
-                <FieldLabel>{t('admin.courses.form.category-label')}</FieldLabel>
+                <FieldLabel>{t('categories.label')}</FieldLabel>
                 <CourseCategoryChips
                   value={field.state.value}
                   onSelect={(category) => {
@@ -132,7 +135,7 @@ function CourseCategoryPage() {
       {state.course && state.selectedCategory !== null && (
         <ResultPanel
           tone="local"
-          title={t('admin.courses.category.result-title')}
+          title={t('admin.shared.local-result')}
           description={t('admin.courses.category.result-description')}
           details={[
             {
@@ -167,6 +170,6 @@ function CourseCategoryPage() {
           </div>
         </ResultPanel>
       )}
-    </CoursePageLayout>
+    </AdminPageLayout.Root>
   )
 }

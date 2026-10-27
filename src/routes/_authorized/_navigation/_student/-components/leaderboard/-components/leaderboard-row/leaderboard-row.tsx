@@ -18,7 +18,7 @@ export function LeaderboardRow({ entry, isCurrent }: LeaderboardRowProps) {
 
   return (
     <div className={cn(styles.row, isCurrent && styles.current)}>
-      <span className={styles.rank} aria-label={t('leaderboard.rank', { rank: entry.rank })}>
+      <span className={styles.rank} aria-label={t('ranking.place', { rank: entry.rank })}>
         {entry.rank <= 3 && <span aria-hidden="true">{['🥇', '🥈', '🥉'][entry.rank - 1]}</span>}
         {entry.rank > 3 && <span aria-hidden="true">#{entry.rank}</span>}
       </span>
@@ -34,7 +34,7 @@ export function LeaderboardRow({ entry, isCurrent }: LeaderboardRowProps) {
         className={styles.points}
         aria-label={t('leaderboard.points.label', { count: entry.balance })}
       >
-        {t('leaderboard.points', { count: entry.balance })}
+        {t('coins.amount', { count: entry.balance })}
         <span aria-hidden="true" className="i-ph:coins-bold" />
       </strong>
     </div>

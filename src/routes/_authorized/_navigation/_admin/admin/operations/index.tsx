@@ -20,6 +20,7 @@ import {
   InputGroupInput,
   Loader,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import { ApiErrorNotice } from '../-components'
 import {
@@ -67,19 +68,19 @@ function OperationsPage() {
     : ''
 
   return (
-    <section className={styles.page}>
-      <header className={styles.header}>
+    <AdminPageLayout.Root className={styles.page}>
+      <AdminPageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin" />}
-          title={t('admin.operations.back')}
+          title={t('navigation.groups')}
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <div className={styles.heading}>
-          <h1 className={styles.title}>{t('admin.operations.title')}</h1>
-        </div>
-      </header>
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.operations.title')}</AdminPageLayout.Title>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
 
       <OperationsLinks />
 
@@ -92,7 +93,7 @@ function OperationsPage() {
         {state.studentsIsError && !!state.studentsErrorKind && (
           <ApiErrorNotice
             kind={state.studentsErrorKind}
-            fallback={t('admin.operations.students.error')}
+            fallback={t('students.error.load')}
             onRetry={functions.handleRetryStudents}
             isRetrying={state.studentsIsFetching}
             onLogin={functions.handleLogin}
@@ -101,9 +102,7 @@ function OperationsPage() {
 
         {!state.studentsIsPending && !state.studentsIsError && (
           <>
-            {!state.totalCount && (
-              <p className={styles.empty}>{t('admin.operations.students.empty')}</p>
-            )}
+            {!state.totalCount && <p className={styles.empty}>{t('students.empty')}</p>}
             {!!state.totalCount && (
               <>
                 <InputGroup>
@@ -149,7 +148,7 @@ function OperationsPage() {
                 </div>
 
                 {!state.foundCount && (
-                  <p className={styles.empty}>{t('admin.operations.students.empty-filtered')}</p>
+                  <p className={styles.empty}>{t('students.empty-filtered')}</p>
                 )}
                 {!!state.foundCount && (
                   <div className={styles.students}>
@@ -169,24 +168,20 @@ function OperationsPage() {
           </>
         )}
 
-        <div
-          className={styles.directions}
-          role="group"
-          aria-label={t('admin.operations.direction.label')}
-        >
+        <div className={styles.directions} role="group" aria-label={t('balance.direction')}>
           <Chip
             selected={state.direction === OperationDirection.Reward}
             disabled={state.isRunning}
             onClick={() => functions.handleDirectionChange(OperationDirection.Reward)}
           >
-            {t('admin.balance.operation.reward')}
+            {t('action.award')}
           </Chip>
           <Chip
             selected={state.direction === OperationDirection.Punish}
             disabled={state.isRunning}
             onClick={() => functions.handleDirectionChange(OperationDirection.Punish)}
           >
-            {t('admin.balance.operation.punish')}
+            {t('action.deduct')}
           </Chip>
         </div>
 
@@ -194,7 +189,7 @@ function OperationsPage() {
         {state.reasonsIsError && !!state.reasonsErrorKind && (
           <ApiErrorNotice
             kind={state.reasonsErrorKind}
-            fallback={t('admin.operations.reasons.error')}
+            fallback={t('reasons.error.load')}
             onRetry={functions.handleRetryReasons}
             isRetrying={state.reasonsIsFetching}
             onLogin={functions.handleLogin}
@@ -331,6 +326,6 @@ function OperationsPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </section>
+    </AdminPageLayout.Root>
   )
 }

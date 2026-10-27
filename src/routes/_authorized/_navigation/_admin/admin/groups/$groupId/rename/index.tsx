@@ -11,14 +11,9 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import {
-  GroupEmptyState,
-  GroupForm,
-  GroupPageLayout,
-  GroupRequestError,
-  GroupResultPanel,
-} from '../../-components'
+import { GroupEmptyState, GroupForm, GroupRequestError, GroupResultPanel } from '../../-components'
 import { useGroupRenamePage } from '../../-hooks'
 import { parseGroupIdParams } from '../../-utils'
 
@@ -44,15 +39,8 @@ function GroupRenamePage() {
   const t = useTranslate()
 
   return (
-    <GroupPageLayout
-      title={t('admin.groups.rename.title')}
-      description={
-        <>
-          {!state.group && t('admin.groups.rename.description-empty')}
-          {state.group && t('admin.groups.rename.description', { group: state.group.name })}
-        </>
-      }
-      back={
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/groups/$groupId" params={{ groupId: state.groupId }} />}
@@ -60,8 +48,14 @@ function GroupRenamePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.groups.rename.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {!state.group && t('admin.groups.rename.description-empty')}
+            {state.group && t('admin.groups.rename.description', { group: state.group.name })}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.errorKey && (
         <GroupRequestError
@@ -77,7 +71,7 @@ function GroupRenamePage() {
           description={t('admin.groups.not-found.description')}
         >
           <Button nativeButton={false} render={<Link to="/admin" />}>
-            {t('admin.groups.back')}
+            {t('navigation.groups')}
           </Button>
         </GroupEmptyState>
       )}
@@ -85,16 +79,14 @@ function GroupRenamePage() {
       {state.group && !state.renamedName && (
         <GroupForm
           onSubmit={functions.handleSubmit}
-          submitLabel={t('admin.groups.rename.submit')}
+          submitLabel={t('action.rename')}
           submitDisabled={state.isUnchanged}
           note={t('admin.groups.rename.note')}
         >
           <features.form.Field name="name">
             {(field) => (
               <Field>
-                <FieldLabel htmlFor="group-rename-name">
-                  {t('admin.groups.create.name-label')}
-                </FieldLabel>
+                <FieldLabel htmlFor="group-rename-name">{t('groups.name')}</FieldLabel>
                 <Input
                   id="group-rename-name"
                   name={field.name}
@@ -109,7 +101,7 @@ function GroupRenamePage() {
                   <FieldError>{t('admin.groups.create.name-error')}</FieldError>
                 )}
                 {state.isUnchanged && (
-                  <FieldDescription>{t('admin.groups.rename.same')}</FieldDescription>
+                  <FieldDescription>{t('validation.name-unchanged')}</FieldDescription>
                 )}
               </Field>
             )}
@@ -120,15 +112,15 @@ function GroupRenamePage() {
       {state.group && !!state.renamedName && (
         <GroupResultPanel
           tone="local"
-          title={t('admin.groups.rename.result-title')}
+          title={t('admin.shared.local-result')}
           description={t('admin.groups.rename.result-description')}
           details={[
             {
-              label: t('admin.groups.rename.current'),
+              label: t('field.current-name'),
               value: state.group.name,
             },
             {
-              label: t('admin.groups.rename.proposed'),
+              label: t('field.proposed-name'),
               value: state.renamedName,
             },
           ]}
@@ -140,10 +132,10 @@ function GroupRenamePage() {
             {t('admin.groups.back-to-group')}
           </Button>
           <Button variant="ghost" nativeButton={false} render={<Link to="/admin" />}>
-            {t('admin.groups.back')}
+            {t('navigation.groups')}
           </Button>
         </GroupResultPanel>
       )}
-    </GroupPageLayout>
+    </AdminPageLayout.Root>
   )
 }

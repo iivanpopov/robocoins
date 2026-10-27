@@ -18,14 +18,9 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import {
-  CourseEmptyState,
-  CourseForm,
-  CoursePageLayout,
-  CourseRequestError,
-  ResultPanel,
-} from '../../-components'
+import { CourseEmptyState, CourseForm, CourseRequestError, ResultPanel } from '../../-components'
 import { useCourseDeletePage } from '../../-hooks'
 import { parseCourseIdParams } from '../../-utils'
 
@@ -53,15 +48,8 @@ function CourseDeletePage() {
   const t = useTranslate()
 
   return (
-    <CoursePageLayout
-      title={t('admin.courses.delete.title')}
-      description={
-        <>
-          {!state.course && t('admin.courses.delete.description-empty')}
-          {state.course && t('admin.courses.delete.description', { course: state.course.name })}
-        </>
-      }
-      back={
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/courses/$courseId" params={{ courseId: state.courseId }} />}
@@ -69,8 +57,14 @@ function CourseDeletePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.courses.delete.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {!state.course && t('admin.courses.delete.description-empty')}
+            {state.course && t('admin.courses.delete.description', { course: state.course.name })}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.errorKey && (
         <CourseRequestError
@@ -94,7 +88,7 @@ function CourseDeletePage() {
       {state.course && !state.isDeletedLocally && (
         <CourseForm
           onSubmit={functions.handleSubmit}
-          submitLabel={t('admin.courses.delete.submit')}
+          submitLabel={t('admin.courses.delete.action')}
           submitClassName={styles.danger}
         >
           <features.form.Field name="confirmation">
@@ -107,7 +101,7 @@ function CourseDeletePage() {
                   id="course-delete-confirmation"
                   name={field.name}
                   value={field.state.value}
-                  placeholder={t('admin.courses.delete.confirm-placeholder')}
+                  placeholder={t('courses.name')}
                   autoComplete="off"
                   aria-invalid={!!field.state.meta.errors.length}
                   onChange={(event) => field.handleChange(event.target.value)}
@@ -126,7 +120,7 @@ function CourseDeletePage() {
         <AlertDialog open={state.isDialogOpen} onOpenChange={functions.handleDialogOpenChange}>
           <AlertDialogContent size="sm">
             <AlertDialogHeader>
-              <AlertDialogTitle>{t('admin.courses.delete.dialog-title')}</AlertDialogTitle>
+              <AlertDialogTitle>{t('action.delete.confirm-title')}</AlertDialogTitle>
               <AlertDialogDescription>
                 {t('admin.courses.delete.dialog-description', { course: state.course.name })}
               </AlertDialogDescription>
@@ -134,7 +128,7 @@ function CourseDeletePage() {
             <AlertDialogFooter>
               <AlertDialogCancel>{t('action.cancel')}</AlertDialogCancel>
               <AlertDialogAction onClick={functions.handleConfirmDelete}>
-                {t('admin.courses.delete.dialog-action')}
+                {t('action.confirm')}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
@@ -144,11 +138,11 @@ function CourseDeletePage() {
       {state.course && state.isDeletedLocally && (
         <ResultPanel
           tone="local"
-          title={t('admin.courses.delete.result-title')}
+          title={t('admin.shared.local-result')}
           description={t('admin.courses.delete.result-description')}
           details={[
             {
-              label: t('admin.courses.delete.result-course'),
+              label: t('courses.label'),
               value: state.course.name,
             },
           ]}
@@ -166,6 +160,6 @@ function CourseDeletePage() {
           </div>
         </ResultPanel>
       )}
-    </CoursePageLayout>
+    </AdminPageLayout.Root>
   )
 }

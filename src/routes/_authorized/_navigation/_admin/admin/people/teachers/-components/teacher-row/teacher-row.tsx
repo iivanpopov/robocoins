@@ -23,7 +23,7 @@ export function TeacherRow({ teacher }: TeacherRowProps) {
       to="/admin/people/teachers/$userId"
       params={{ userId: teacher.userId }}
       className={styles.row}
-      aria-label={t('admin.teachers.open', { name: teacher.name })}
+      aria-label={t('profile.open-label', { name: teacher.name })}
     >
       <span className={styles.avatar} aria-hidden="true">
         {getInitial(teacher.name)}

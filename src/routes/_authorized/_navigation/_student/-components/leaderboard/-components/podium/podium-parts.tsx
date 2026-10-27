@@ -40,7 +40,7 @@ export function PodiumPoints(props: PodiumPointsProps) {
       aria-label={t('leaderboard.points.label', { count: props.entry.balance })}
     >
       <span aria-hidden="true" className={cn('i-ph:coin-fill', props.coinClassName)} />
-      {t('leaderboard.points', { count: props.entry.balance })}
+      {t('coins.amount', { count: props.entry.balance })}
     </strong>
   )
 }

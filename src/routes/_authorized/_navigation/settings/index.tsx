@@ -55,7 +55,7 @@ function SettingsPage() {
                 value={state.password}
                 readOnly
                 autoComplete="off"
-                placeholder={t('field.password.placeholder')}
+                placeholder={t('field.password.caption')}
               />
               <InputGroupAddon align="inline-end">
                 <InputGroupButton

@@ -27,7 +27,7 @@ export function RewardHistory(props: RewardHistoryProps) {
       </header>
       {props.studentName && <p className={styles.name}>{props.studentName}</p>}
       {queries.history.isPending && (
-        <div role="status" aria-label={t('profile.history.loading')}>
+        <div role="status" aria-label={t('history.loading')}>
           <Loader />
         </div>
       )}
@@ -71,7 +71,7 @@ export function RewardHistory(props: RewardHistoryProps) {
       </ol>
       <div ref={refs.sentinel} aria-hidden="true" />
       {queries.history.isFetchingNextPage && (
-        <div role="status" aria-label={t('profile.history.loading')}>
+        <div role="status" aria-label={t('history.loading')}>
           <Loader />
         </div>
       )}

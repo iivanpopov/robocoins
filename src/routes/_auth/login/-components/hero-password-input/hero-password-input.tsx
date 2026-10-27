@@ -27,7 +27,7 @@ export function HeroPasswordInput({ className, ...props }: HeroPasswordInputProp
 
   return (
     <HeroInputGroup className={className}>
-      <HeroInput {...props} placeholder={t('field.password.placeholder')} type={type} />
+      <HeroInput {...props} placeholder={t('field.password.caption')} type={type} />
       <HeroInputGroupButton
         onClick={() => toggleRevealed()}
         aria-pressed={isRevealed}

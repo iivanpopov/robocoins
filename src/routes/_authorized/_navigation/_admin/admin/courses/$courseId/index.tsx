@@ -2,13 +2,9 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { Button, IconButton, Loader } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import {
-  CourseEmptyState,
-  CourseGroupRow,
-  CoursePageLayout,
-  CourseRequestError,
-} from '../-components'
+import { CourseEmptyState, CourseGroupRow, CourseRequestError } from '../-components'
 import { useCourseDetailsPage } from '../-hooks'
 import { parseCourseIdParams } from '../-utils'
 
@@ -26,15 +22,8 @@ function CourseDetailsPage() {
   const t = useTranslate()
 
   return (
-    <CoursePageLayout
-      title={
-        <>
-          {!state.course && t('admin.courses.detail.title')}
-          {state.course && state.course.name}
-        </>
-      }
-      description={state.course && t('course.category', { category: state.course.category })}
-      back={
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/courses" />}
@@ -42,8 +31,18 @@ function CourseDetailsPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>
+            {!state.course && t('courses.label')}
+            {state.course && state.course.name}
+          </AdminPageLayout.Title>
+          {state.course && (
+            <AdminPageLayout.Description>
+              {t('course.category', { category: state.course.category })}
+            </AdminPageLayout.Description>
+          )}
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isCoursesPending && <Loader grow />}
       {state.isCoursesError && state.coursesErrorKey && (
         <CourseRequestError
@@ -67,7 +66,7 @@ function CourseDetailsPage() {
       {state.course && (
         <>
           <section className={styles.section}>
-            <h2 className={styles['section-title']}>{t('admin.courses.detail.groups')}</h2>
+            <h2 className={styles['section-title']}>{t('groups.title')}</h2>
             {state.isGroupsPending && <Loader />}
             {state.isGroupsError && state.groupsErrorKey && (
               <CourseRequestError
@@ -88,6 +87,7 @@ function CourseDetailsPage() {
             )}
           </section>
 
+          {/* No API integration: rename, category change, and deletion only update local state.
           <section className={styles.section}>
             <h2 className={styles['section-title']}>{t('admin.courses.detail.manage')}</h2>
             <div className={styles.actions}>
@@ -117,7 +117,7 @@ function CourseDetailsPage() {
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>
-                    {t('admin.courses.detail.change-category')}
+                    {t('admin.courses.category.action')}
                   </span>
                   <span className={styles['action-description']}>
                     {t('admin.courses.detail.change-category-description')}
@@ -135,7 +135,7 @@ function CourseDetailsPage() {
                   <span className="i-ph:trash-duotone" />
                 </span>
                 <span className={styles['action-copy']}>
-                  <span className={styles['action-title']}>{t('admin.courses.detail.delete')}</span>
+                  <span className={styles['action-title']}>{t('admin.courses.delete.action')}</span>
                   <span className={styles['action-description']}>
                     {t('admin.courses.detail.delete-description')}
                   </span>
@@ -144,8 +144,9 @@ function CourseDetailsPage() {
               </Link>
             </div>
           </section>
+          */}
         </>
       )}
-    </CoursePageLayout>
+    </AdminPageLayout.Root>
   )
 }

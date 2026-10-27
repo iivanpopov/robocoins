@@ -4,6 +4,7 @@ import * as v from 'valibot'
 
 import { Button, IconButton, Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import { RewardActionNotice, RewardFields, RewardImagePicker } from '../../-components'
 import { RewardParamsSchema } from '../../-schemas'
@@ -37,8 +38,8 @@ function RewardEditContent() {
   const t = useTranslate()
 
   return (
-    <section className={styles.page}>
-      <header className={styles.header}>
+    <AdminPageLayout.Root bottomSpace className={styles.page}>
+      <AdminPageLayout.Header align="end">
         <IconButton
           onClick={functions.handleBack}
           title={t('admin.catalog.edit.back')}
@@ -46,11 +47,13 @@ function RewardEditContent() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <div className={styles['header-copy']}>
-          <h1 className={styles.title}>{t('admin.catalog.edit.title')}</h1>
-          <p className={styles.description}>{t('admin.catalog.edit.description')}</p>
-        </div>
-      </header>
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.catalog.edit.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {t('admin.catalog.edit.description')}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
 
       {state.isPending && <Loader grow />}
 
@@ -93,6 +96,6 @@ function RewardEditContent() {
           </form>
         </>
       )}
-    </section>
+    </AdminPageLayout.Root>
   )
 }

@@ -4,8 +4,10 @@ import { cn } from 'cn'
 
 import { Button, IconButton, Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import { RewardCategoryName, RewardFields, RewardImagePicker } from '../-components'
+import { RewardCategoryName, RewardFields } from '../-components'
+// import { RewardImagePicker } from '../-components'
 import { useCreateRewardPage } from './-hooks'
 
 import styles from './index.module.css'
@@ -16,26 +18,27 @@ export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/cata
 })
 
 function CreateRewardPage() {
-  const { state, mutations, functions, features } = useCreateRewardPage()
+  const { state, mutations, functions } = useCreateRewardPage()
+  // const { state, mutations, functions, features } = useCreateRewardPage()
 
   const t = useTranslate()
 
   return (
-    <section className={styles.page}>
+    <AdminPageLayout.Root bottomSpace className={styles.page}>
       {!state.createdReward && (
         <>
-          <header className={styles.header}>
+          <AdminPageLayout.Header align="end">
             <IconButton
               nativeButton={false}
               render={<Link to="/admin/catalog" />}
-              title={t('admin.catalog.back')}
+              title={t('navigation.catalog')}
             >
               <span aria-hidden="true" className="i-ph:arrow-left" />
             </IconButton>
-            <div className={styles['header-copy']}>
-              <h1 className={styles.title}>{t('admin.catalog.create.title')}</h1>
-            </div>
-          </header>
+            <AdminPageLayout.Heading>
+              <AdminPageLayout.Title>{t('admin.catalog.create.title')}</AdminPageLayout.Title>
+            </AdminPageLayout.Heading>
+          </AdminPageLayout.Header>
 
           <form className={styles.form} noValidate onSubmit={functions.handleSubmit}>
             <RewardFields
@@ -44,10 +47,12 @@ function CreateRewardPage() {
               disabled={mutations.create.isPending}
               onChange={functions.handleDraftChange}
             />
+            {/* No API integration: selected images are not included in the create request.
             <RewardImagePicker
               picker={features.imagePicker}
               disabled={mutations.create.isPending}
             />
+            */}
 
             {mutations.create.isError && (
               <InlineError onRetry={functions.handleRetry} isRetrying={mutations.create.isPending}>
@@ -69,10 +74,12 @@ function CreateRewardPage() {
             className={cn('i-ph:check-circle-duotone', styles['success-icon'])}
             aria-hidden="true"
           />
-          <div className={styles['success-heading']}>
-            <h1 className={styles.title}>{t('admin.catalog.create.success.title')}</h1>
-            <p className={styles.description}>{t('admin.catalog.create.success.description')}</p>
-          </div>
+          <AdminPageLayout.Heading>
+            <AdminPageLayout.Title>{t('admin.catalog.create.success.title')}</AdminPageLayout.Title>
+            <AdminPageLayout.Description>
+              {t('admin.catalog.create.success.description')}
+            </AdminPageLayout.Description>
+          </AdminPageLayout.Heading>
 
           <dl className={styles.summary}>
             <div className={styles['summary-row']}>
@@ -82,22 +89,23 @@ function CreateRewardPage() {
             <div className={styles['summary-row']}>
               <dt>{t('admin.catalog.form.price')}</dt>
               <dd>
-                {t('shop.reward.price', { count: state.createdReward.price })}
+                {t('coins.amount', { count: state.createdReward.price })}
                 <span className="i-ph:coins-bold" aria-hidden="true" />
               </dd>
             </div>
             <div className={styles['summary-row']}>
-              <dt>{t('admin.catalog.form.type')}</dt>
+              <dt>{t('admin.catalog.type.label')}</dt>
               <dd>{t(`admin.catalog.type.${state.createdReward.type}`)}</dd>
             </div>
             <div className={styles['summary-row']}>
-              <dt>{t('admin.catalog.form.category')}</dt>
+              <dt>{t('categories.label')}</dt>
               <dd>
                 <RewardCategoryName category={state.createdReward.course_category} />
               </dd>
             </div>
           </dl>
 
+          {/* No API integration: image previews do not represent saved reward images.
           {features.imagePicker.state.selection && (
             <div className={styles['image-preview']}>
               <h2 className={styles['preview-title']}>{t('admin.catalog.create.success.image')}</h2>
@@ -129,6 +137,7 @@ function CreateRewardPage() {
           {!features.imagePicker.state.selection && (
             <p className={styles['image-empty']}>{t('admin.catalog.create.success.no-image')}</p>
           )}
+          */}
 
           <div className={styles.actions}>
             <Link
@@ -146,11 +155,11 @@ function CreateRewardPage() {
               {t('admin.catalog.create.success.another')}
             </button>
             <Link to="/admin/catalog" className={styles['secondary-action']}>
-              {t('admin.catalog.create.success.catalog')}
+              {t('navigation.catalog')}
             </Link>
           </div>
         </section>
       )}
-    </section>
+    </AdminPageLayout.Root>
   )
 }

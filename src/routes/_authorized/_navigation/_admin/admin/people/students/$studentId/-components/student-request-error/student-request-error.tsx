@@ -31,9 +31,9 @@ export function StudentRequestError({
   return (
     <div className={cn(styles.wrapper, className)}>
       <InlineError onRetry={onRetry} isRetrying={isRetrying}>
-        {status === 401 && t('students.error.session')}
-        {status === 403 && (forbiddenMessage ?? t('students.error.forbidden'))}
-        {status === 404 && (notFoundMessage ?? t('students.manage.not-found'))}
+        {status === 401 && t('error.session')}
+        {status === 403 && (forbiddenMessage ?? t('error.forbidden'))}
+        {status === 404 && (notFoundMessage ?? t('students.not-found'))}
         {status !== 401 && status !== 403 && status !== 404 && message}
       </InlineError>
       {status === 401 && (
@@ -43,7 +43,7 @@ export function StudentRequestError({
           render={<Link to="/login" />}
           className={styles.login}
         >
-          {t('students.action.login')}
+          {t('navigation.login')}
         </Button>
       )}
     </div>

@@ -50,7 +50,7 @@ export function MembershipResultPanel({
     if (status === 'added') return t('admin.membership.addition.added')
     if (status === 'skipped') return t('admin.membership.addition.skipped')
     if (status === 'failed') return t('admin.membership.addition.failed')
-    if (status === 'unknown') return t('admin.membership.addition.unknown')
+    if (status === 'unknown') return t('admin.membership.status.unknown')
     return t('admin.membership.status.not-required')
   }
 
@@ -59,7 +59,7 @@ export function MembershipResultPanel({
     if (status === 'waiting') return t('admin.membership.removal.waiting')
     if (status === 'removed') return t('admin.membership.removal.removed')
     if (status === 'failed') return t('admin.membership.removal.failed')
-    if (status === 'unknown') return t('admin.membership.removal.unknown')
+    if (status === 'unknown') return t('admin.membership.status.unknown')
     return t('admin.membership.status.not-required')
   }
 
@@ -163,7 +163,7 @@ export function MembershipResultPanel({
         </Button>
         {hasSessionFailure && (
           <Button variant="ghost" onClick={onLogin}>
-            {t('students.action.login')}
+            {t('navigation.login')}
           </Button>
         )}
       </div>

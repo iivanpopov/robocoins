@@ -113,7 +113,7 @@ export function useLocalSettingsPage() {
   )
   const studentItems = students.map((student) => ({
     value: String(student.id),
-    label: `${student.name} · ${t('admin.balance.coins', { count: student.balance })}`,
+    label: `${student.name} · ${t('coins.unit', { count: student.balance })}`,
   }))
   const selectedStudent =
     students.find((student) => String(student.id) === correctionValues.studentId) ?? null

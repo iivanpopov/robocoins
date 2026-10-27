@@ -2,8 +2,9 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link, useParams } from '@tanstack/react-router'
 
 import { Button, Field, FieldError, FieldLabel, IconButton, Input } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import { CourseForm, CoursePageLayout, ResultPanel } from '../../../-components'
+import { CourseForm, ResultPanel } from '../../../-components'
 import { useCategoryRenamePage } from '../../../-hooks'
 import { parseCategoryKeyParams } from '../../../-utils'
 
@@ -32,12 +33,8 @@ function CategoryRenamePage() {
   const categoryLabel = t('course.category', { category: state.category })
 
   return (
-    <CoursePageLayout
-      title={t('admin.courses.categories.rename.title')}
-      description={t('admin.courses.categories.rename.description', {
-        category: categoryLabel,
-      })}
-      back={
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/courses/categories" />}
@@ -45,13 +42,17 @@ function CategoryRenamePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>
+            {t('admin.courses.categories.rename.title')}
+          </AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {t('admin.courses.categories.rename.description', { category: categoryLabel })}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {!state.renamedName && (
-        <CourseForm
-          onSubmit={functions.handleSubmit}
-          submitLabel={t('admin.courses.categories.rename.submit')}
-        >
+        <CourseForm onSubmit={functions.handleSubmit} submitLabel={t('action.rename')}>
           <features.form.Field name="name">
             {(field) => (
               <Field>
@@ -80,15 +81,15 @@ function CategoryRenamePage() {
       {!!state.renamedName && (
         <ResultPanel
           tone="local"
-          title={t('admin.courses.categories.rename.result-title')}
+          title={t('admin.shared.local-result')}
           description={t('admin.courses.categories.rename.result-description')}
           details={[
             {
-              label: t('admin.courses.categories.rename.current'),
+              label: t('field.current-name'),
               value: categoryLabel,
             },
             {
-              label: t('admin.courses.categories.rename.proposed'),
+              label: t('field.proposed-name'),
               value: state.renamedName,
             },
           ]}
@@ -100,6 +101,6 @@ function CategoryRenamePage() {
           </div>
         </ResultPanel>
       )}
-    </CoursePageLayout>
+    </AdminPageLayout.Root>
   )
 }

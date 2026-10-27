@@ -12,13 +12,14 @@ export function OperationsLinks() {
       <Link to="/admin/operations/practice" className={styles.link}>
         <span aria-hidden="true" className={cn('i-ph:check-circle-duotone', styles.icon)} />
         <span className={styles.copy}>
-          <span className={styles.title}>{t('admin.operations.links.practice')}</span>
+          <span className={styles.title}>{t('group.practice.title')}</span>
           <span className={styles.description}>
             {t('admin.operations.links.practice-description')}
           </span>
         </span>
         <span aria-hidden="true" className="i-ph:caret-right-bold" />
       </Link>
+      {/* No API integration: balance corrections and tariffs are local drafts only.
       <Link to="/admin/operations/settings" className={styles.link}>
         <span aria-hidden="true" className={cn('i-ph:sliders-horizontal-duotone', styles.icon)} />
         <span className={styles.copy}>
@@ -29,6 +30,7 @@ export function OperationsLinks() {
         </span>
         <span aria-hidden="true" className="i-ph:caret-right-bold" />
       </Link>
+      */}
     </nav>
   )
 }

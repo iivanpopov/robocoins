@@ -11,6 +11,7 @@ import {
   Loader,
 } from '#/components/ui'
 import { InlineError, ThemedChip } from '#/routes/-components'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import { RewardRow } from './-components'
 import { ALL_FILTER, REWARD_FILTER_CATEGORY_OPTIONS, REWARD_TYPE_OPTIONS } from './-constants'
@@ -29,14 +30,18 @@ function CatalogPage() {
   const t = useTranslate()
 
   return (
-    <section className={styles.page}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>{t('admin.catalog.title')}</h1>
-        <Button nativeButton={false} render={<Link to="/admin/catalog/create" />}>
-          <span className="i-ph:plus-bold" aria-hidden="true" />
-          {t('admin.catalog.add')}
-        </Button>
-      </header>
+    <AdminPageLayout.Root className={styles.page}>
+      <AdminPageLayout.Header centered>
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.catalog.title')}</AdminPageLayout.Title>
+        </AdminPageLayout.Heading>
+        <AdminPageLayout.Actions>
+          <Button nativeButton={false} render={<Link to="/admin/catalog/create" />}>
+            <span className="i-ph:plus-bold" aria-hidden="true" />
+            {t('admin.catalog.add')}
+          </Button>
+        </AdminPageLayout.Actions>
+      </AdminPageLayout.Header>
 
       <div className={styles.filters}>
         <InputGroup>
@@ -63,14 +68,14 @@ function CatalogPage() {
         </InputGroup>
 
         <div className={styles['filter-group']}>
-          <span className={styles['filter-label']}>{t('admin.catalog.filters.type')}</span>
-          <div className={styles.chips} role="group" aria-label={t('admin.catalog.filters.type')}>
+          <span className={styles['filter-label']}>{t('admin.catalog.type.label')}</span>
+          <div className={styles.chips} role="group" aria-label={t('admin.catalog.type.label')}>
             <ThemedChip
               icon={false}
               selected={state.type === ALL_FILTER}
               onClick={() => functions.handleTypeChange(ALL_FILTER)}
             >
-              {t('admin.catalog.filters.all-types')}
+              {t('filters.all-types')}
             </ThemedChip>
             {REWARD_TYPE_OPTIONS.map((type) => (
               <ThemedChip
@@ -86,14 +91,14 @@ function CatalogPage() {
         </div>
 
         <div className={styles['filter-group']}>
-          <span className={styles['filter-label']}>{t('admin.catalog.filters.category')}</span>
+          <span className={styles['filter-label']}>{t('categories.label')}</span>
           <div className={cn(styles.chips, styles.scroll)}>
             <ThemedChip
               icon={false}
               selected={state.category === ALL_FILTER}
               onClick={() => functions.handleCategoryChange(ALL_FILTER)}
             >
-              {t('admin.catalog.filters.all-categories')}
+              {t('filters.all-catalog-categories')}
             </ThemedChip>
             {REWARD_FILTER_CATEGORY_OPTIONS.map((category) => (
               <ThemedChip
@@ -130,7 +135,7 @@ function CatalogPage() {
               className={styles['reset-button']}
               onClick={functions.handleResetFilters}
             >
-              {t('admin.catalog.empty.reset')}
+              {t('filters.clear')}
             </button>
           )}
         </div>
@@ -145,6 +150,6 @@ function CatalogPage() {
           ))}
         </ul>
       )}
-    </section>
+    </AdminPageLayout.Root>
   )
 }

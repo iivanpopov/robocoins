@@ -42,7 +42,7 @@ export function BalanceChange(props: BalanceChangeProps) {
       >
         <AlertDialogContent initialFocus={refs.cancelButton}>
           <AlertDialogHeader>
-            <AlertDialogTitle>{t('award.deduct.confirm.title')}</AlertDialogTitle>
+            <AlertDialogTitle>{t('balance.deduct.confirm-title')}</AlertDialogTitle>
             <AlertDialogDescription>
               {state.pendingDeduction &&
                 t('award.deduct.confirm.description', {

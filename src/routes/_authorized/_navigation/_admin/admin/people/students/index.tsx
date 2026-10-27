@@ -11,6 +11,7 @@ import {
   InputGroupInput,
   Loader,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import { AdminSelect } from '../../-components'
 import { GROUP_FILTER_ALL } from '../../-constants'
@@ -30,30 +31,34 @@ function StudentsPage() {
   const t = useTranslate()
 
   const categoryItems = [
-    { value: GROUP_FILTER_ALL, label: t('students.filters.all-categories') },
+    { value: GROUP_FILTER_ALL, label: t('filters.all-categories') },
     ...state.categories.map((category) => ({
       value: category,
       label: t('course.category', { category }),
     })),
   ]
   const courseItems = [
-    { value: GROUP_FILTER_ALL, label: t('students.filters.all-courses') },
+    { value: GROUP_FILTER_ALL, label: t('filters.all-courses') },
     ...state.courses.map((course) => ({ value: String(course.id), label: course.name })),
   ]
   const groupItems = [
-    { value: GROUP_FILTER_ALL, label: t('students.filters.all-groups') },
+    { value: GROUP_FILTER_ALL, label: t('filters.all-groups') },
     ...state.groupsForSelect.map((group) => ({ value: String(group.id), label: group.name })),
   ]
 
   return (
-    <section className={styles.page}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>{t('students.title')}</h1>
-        <Button nativeButton={false} render={<Link to="/admin/people/students/register" />}>
-          <span aria-hidden="true" className="i-ph:plus-bold" />
-          {t('students.register.action')}
-        </Button>
-      </header>
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header className={styles.header}>
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('students.title')}</AdminPageLayout.Title>
+        </AdminPageLayout.Heading>
+        <AdminPageLayout.Actions>
+          <Button nativeButton={false} render={<Link to="/admin/people/students/register" />}>
+            <span aria-hidden="true" className="i-ph:plus-bold" />
+            {t('students.register.action')}
+          </Button>
+        </AdminPageLayout.Actions>
+      </AdminPageLayout.Header>
 
       <div className={styles.controls}>
         <div className={styles['search-row']}>
@@ -72,8 +77,8 @@ function StudentsPage() {
               <InputGroupAddon align="inline-end">
                 <InputGroupButton
                   onClick={functions.handleClearSearch}
-                  aria-label={t('students.search.clear')}
-                  title={t('students.search.clear')}
+                  aria-label={t('action.clear-search.title')}
+                  title={t('action.clear-search.title')}
                 >
                   <span aria-hidden="true" className="i-ph:x" />
                 </InputGroupButton>
@@ -81,8 +86,8 @@ function StudentsPage() {
             )}
           </InputGroup>
           <IconButton
-            aria-label={t('students.filters.toggle')}
-            title={t('students.filters.toggle')}
+            aria-label={t('filters.toggle')}
+            title={t('filters.toggle')}
             aria-expanded={state.isFiltersOpen}
             aria-pressed={state.isFiltersOpen}
             onClick={functions.handleFiltersToggle}
@@ -97,7 +102,7 @@ function StudentsPage() {
               value={state.selectedCategory}
               onValueChange={functions.handleCategorySelect}
               items={categoryItems}
-              placeholder={t('students.filters.all-categories')}
+              placeholder={t('filters.all-categories')}
               ariaLabel={t('students.filters.category')}
             />
             <AdminSelect
@@ -106,8 +111,8 @@ function StudentsPage() {
               }
               onValueChange={functions.handleCourseSelect}
               items={courseItems}
-              placeholder={t('students.filters.all-courses')}
-              ariaLabel={t('students.filters.courses')}
+              placeholder={t('filters.all-courses')}
+              ariaLabel={t('courses.title')}
             />
             <AdminSelect
               value={
@@ -115,8 +120,8 @@ function StudentsPage() {
               }
               onValueChange={functions.handleGroupSelect}
               items={groupItems}
-              placeholder={t('students.filters.all-groups')}
-              ariaLabel={t('students.filters.groups')}
+              placeholder={t('filters.all-groups')}
+              ariaLabel={t('groups.title')}
             />
           </div>
         )}
@@ -154,6 +159,6 @@ function StudentsPage() {
           ))}
         </div>
       )}
-    </section>
+    </AdminPageLayout.Root>
   )
 }

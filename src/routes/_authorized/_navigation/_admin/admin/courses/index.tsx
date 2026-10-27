@@ -2,14 +2,9 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { Button, InputGroup, InputGroupAddon, InputGroupInput, Loader } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import {
-  CourseCategoryChips,
-  CourseEmptyState,
-  CoursePageLayout,
-  CourseRequestError,
-  CourseRow,
-} from './-components'
+import { CourseCategoryChips, CourseEmptyState, CourseRequestError, CourseRow } from './-components'
 import { useCoursesPage } from './-hooks'
 
 import styles from './index.module.css'
@@ -25,15 +20,18 @@ function CoursesPage() {
   const t = useTranslate()
 
   return (
-    <CoursePageLayout
-      title={t('admin.courses.title')}
-      headingAction={
-        <Button nativeButton={false} render={<Link to="/admin/courses/create" />}>
-          <span aria-hidden="true" className="i-ph:plus-bold" />
-          {t('admin.learning.create')}
-        </Button>
-      }
-    >
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header>
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('courses.title')}</AdminPageLayout.Title>
+        </AdminPageLayout.Heading>
+        <AdminPageLayout.Actions>
+          <Button nativeButton={false} render={<Link to="/admin/courses/create" />}>
+            <span aria-hidden="true" className="i-ph:plus-bold" />
+            {t('admin.learning.create')}
+          </Button>
+        </AdminPageLayout.Actions>
+      </AdminPageLayout.Header>
       <div className={styles.controls}>
         <InputGroup>
           <InputGroupAddon aria-hidden="true">
@@ -72,7 +70,7 @@ function CoursesPage() {
           description={t('admin.courses.list.empty-all-description')}
         >
           <Button nativeButton={false} render={<Link to="/admin/courses/create" />}>
-            {t('admin.courses.create')}
+            {t('admin.courses.create.action')}
           </Button>
         </CourseEmptyState>
       )}
@@ -90,6 +88,6 @@ function CoursesPage() {
           ))}
         </div>
       )}
-    </CoursePageLayout>
+    </AdminPageLayout.Root>
   )
 }

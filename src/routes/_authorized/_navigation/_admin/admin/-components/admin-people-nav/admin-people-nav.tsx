@@ -8,7 +8,7 @@ import styles from '../admin-learning-nav/admin-learning-nav.module.css'
 
 const PEOPLE_TABS = [
   { to: '/admin/people/students', label: 'students.title' },
-  { to: '/admin/people/teachers', label: 'admin.people.teachers.title' },
+  { to: '/admin/people/teachers', label: 'teachers.title' },
 ] as const
 
 export function AdminPeopleNav() {
@@ -20,7 +20,7 @@ export function AdminPeopleNav() {
   if (isTeachers) currentIndex = 1
 
   return (
-    <nav className={styles.nav} aria-label={t('admin.people.title')}>
+    <nav className={styles.nav} aria-label={t('people.title')}>
       {PEOPLE_TABS.map((tab, index) => (
         <Link
           key={tab.to}

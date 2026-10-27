@@ -63,7 +63,7 @@ function ShopPage() {
           </div>
         )}
         <div className={styles.balance} aria-label={t('shop.balance', { count: state.balance })}>
-          <span>{t('shop.balance.amount', { count: state.balance })}</span>
+          <span>{t('coins.amount', { count: state.balance })}</span>
           <span className="i-ph:coins-bold" aria-hidden="true" />
         </div>
       </header>
@@ -94,7 +94,7 @@ function ShopPage() {
             onFocus={(event) => functions.handleFocusStar(star, event)}
             style={{ '--glow': star.glow } as React.CSSProperties}
             aria-label={star.reward.name}
-            aria-description={`${t(`shop.reward.type.${star.reward.type}`)} · ${t('shop.reward.cost')}: ${t('shop.reward.price', { count: star.reward.price })}`}
+            aria-description={`${t(`shop.reward.type.${star.reward.type}`)} · ${t('shop.reward.cost')}: ${t('coins.amount', { count: star.reward.price })}`}
           >
             <span className={styles['star-visual']} aria-hidden="true">
               {star.reward.type === 'privilege' && (
@@ -108,7 +108,7 @@ function ShopPage() {
             <span className={styles['star-label']} data-star-label="" aria-hidden="true">
               <span className={styles['star-name']}>{star.reward.name}</span>
               <span className={styles['star-price']}>
-                {t('shop.reward.price', { count: star.reward.price })}
+                {t('coins.amount', { count: star.reward.price })}
                 <span className="i-ph:coins-bold" />
               </span>
             </span>
@@ -138,7 +138,7 @@ function ShopPage() {
                       {t(`shop.reward.type.${reward.type}`)}
                     </span>
                     <span className={styles['card-price']}>
-                      {t('shop.reward.price', { count: reward.price })}
+                      {t('coins.amount', { count: reward.price })}
                       <span className="i-ph:coins-bold" aria-hidden="true" />
                     </span>
                   </span>
@@ -195,7 +195,7 @@ function ShopPage() {
           </div>
           <div className={styles['detail-footer']}>
             <div className={styles.price}>
-              {t('shop.reward.price', { count: state.selectedReward.price })}
+              {t('coins.amount', { count: state.selectedReward.price })}
               <span className="i-ph:coins-bold" aria-hidden="true" />
             </div>
             <button className={styles.buy} disabled={!state.canClaimReward}>

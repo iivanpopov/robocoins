@@ -1,32 +1,5 @@
-.page {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-  width: 100%;
-  min-height: 100%;
-  padding: var(--spacing-lg) var(--spacing-md);
-  margin: 0 auto;
-}
-
 .header {
-  display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-sm);
-  align-items: flex-start;
-  justify-content: space-between;
-}
-
-.title {
-  font-size: 1.5rem;
-  font-weight: 800;
-  line-height: 1.2;
-  color: var(--foreground);
-}
-
-.description {
-  font-size: 0.875rem;
-  font-weight: 450;
-  color: var(--muted-foreground);
 }
 
 .list {

@@ -34,7 +34,7 @@ export function useCourseDetailsPage() {
 
   let coursesErrorKey: CourseErrorKey | null = null
   if (courseData.coursesQuery.isError) {
-    coursesErrorKey = getCourseErrorKey(courseData.coursesQuery.error, 'admin.courses.error')
+    coursesErrorKey = getCourseErrorKey(courseData.coursesQuery.error, 'courses.error.load')
   }
 
   let groupsErrorKey: CourseErrorKey | null = null

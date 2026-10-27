@@ -1,0 +1,11 @@
+diff --git a/client.d.ts b/client.d.ts
+index a380fcedbdbfe7e2edd3294b4b2d769e398cef63..4ef6f7743e0ae8adad6101db74195767f208650a 100644
+--- a/client.d.ts
++++ b/client.d.ts
+@@ -1,5 +1,5 @@
+ declare module 'virtual:kanjou/*' {
+-  const messages: import('@kanjou/react').Messages
++  const messages: Record<string, import('@kanjou/react').Message>
+   export default messages
+ }
+ 

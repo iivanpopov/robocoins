@@ -34,7 +34,7 @@ export function RewardRow({ reward }: RewardRowProps) {
         </span>
       </span>
       <span className={styles.price}>
-        {t('shop.reward.price', { count: reward.price })}
+        {t('coins.amount', { count: reward.price })}
         <span className="i-ph:coins-bold" aria-hidden="true" />
       </span>
       <span className={cn('i-ph:caret-right-bold', styles.chevron)} aria-hidden="true" />

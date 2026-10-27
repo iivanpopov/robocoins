@@ -1,14 +1,11 @@
 import { useTranslate } from '@kanjou/react'
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 import { IconButton, Loader } from '#/components/ui'
+// import { Link } from '@tanstack/react-router'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import {
-  TeacherGroupRow,
-  TeacherPageLayout,
-  TeacherRequestError,
-  TeacherUnavailable,
-} from '../-components'
+import { TeacherGroupRow, TeacherRequestError, TeacherUnavailable } from '../-components'
 import { useTeacherProfilePage } from '../-hooks'
 import { parseTeacherIdParams } from '../-utils'
 
@@ -28,10 +25,8 @@ function TeacherProfilePage() {
   const t = useTranslate()
 
   return (
-    <TeacherPageLayout
-      title={state.name ?? t('role.teacher')}
-      description={state.profile && t('role.teacher')}
-      back={
+    <AdminPageLayout.Root bottomSpace>
+      <AdminPageLayout.Header>
         <IconButton
           onClick={functions.handleBack}
           title={t('admin.teachers.profile.back')}
@@ -39,8 +34,13 @@ function TeacherProfilePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{state.name ?? t('role.teacher')}</AdminPageLayout.Title>
+          {state.profile && (
+            <AdminPageLayout.Description>{t('role.teacher')}</AdminPageLayout.Description>
+          )}
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isPending && <Loader grow />}
       {!state.isPending && state.isError && !state.notFound && (
         <TeacherRequestError
@@ -59,7 +59,7 @@ function TeacherProfilePage() {
       {state.profile && (
         <>
           <section className={styles.section}>
-            <h2 className={styles['section-title']}>{t('admin.teachers.profile.groups')}</h2>
+            <h2 className={styles['section-title']}>{t('groups.title')}</h2>
             {!!state.groups.length && (
               <div className={styles.groups}>
                 {state.groups.map((group) => (
@@ -72,6 +72,7 @@ function TeacherProfilePage() {
             )}
           </section>
 
+          {/* No API integration: rename, access management, and deletion only update local state.
           <section className={styles.section}>
             <h2 className={styles['section-title']}>{t('admin.teachers.profile.manage')}</h2>
             <div className={styles.actions}>
@@ -122,7 +123,7 @@ function TeacherProfilePage() {
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>
-                    {t('admin.teachers.profile.delete')}
+                    {t('admin.teachers.delete.action')}
                   </span>
                   <span className={styles['action-description']}>
                     {t('admin.teachers.profile.delete-description')}
@@ -132,8 +133,9 @@ function TeacherProfilePage() {
               </Link>
             </div>
           </section>
+          */}
         </>
       )}
-    </TeacherPageLayout>
+    </AdminPageLayout.Root>
   )
 }

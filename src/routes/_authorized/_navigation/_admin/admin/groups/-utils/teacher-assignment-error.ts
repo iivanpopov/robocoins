@@ -20,7 +20,7 @@ export function getTeacherAssignmentErrorKey(
   fallback: GroupErrorKey,
 ): GroupErrorKey {
   if (!ResponseError.is(error)) return fallback
-  if (error.status === 401) return 'admin.groups.error.unauthorized'
+  if (error.status === 401) return 'error.session'
   if (error.status === 403) return 'admin.groups.error.forbidden'
   if (error.status === 422) return 'admin.groups.teachers.error.validation'
   if (isDefiniteTeacherAssignmentFailure(error)) return 'admin.groups.teachers.error.rejected'

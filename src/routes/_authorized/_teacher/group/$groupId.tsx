@@ -156,7 +156,7 @@ function GroupStudentsPage() {
                 aria-busy={mutations.awardPractice.isPending}
               >
                 {mutations.awardPractice.isPending && <Loader />}
-                {t('group.practice.confirm.action')}
+                {t('action.award')}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

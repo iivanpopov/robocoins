@@ -12,6 +12,7 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import {
   AMOUNT_INPUT_MAX_LENGTH,
@@ -43,20 +44,22 @@ function LocalSettingsPage() {
   const t = useTranslate()
 
   return (
-    <section className={styles.page}>
-      <header className={styles.header}>
+    <AdminPageLayout.Root className={styles.page}>
+      <AdminPageLayout.Header centered>
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/operations" />}
-          title={t('admin.operations.settings.back')}
+          title={t('admin.operations.back-to-list')}
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <div className={styles.heading}>
-          <h1 className={styles.title}>{t('admin.operations.settings.title')}</h1>
-          <p className={styles.description}>{t('admin.operations.settings.description')}</p>
-        </div>
-      </header>
+        <AdminPageLayout.Heading className={styles.heading}>
+          <AdminPageLayout.Title>{t('admin.operations.settings.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {t('admin.operations.settings.description')}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
 
       <article className={styles.card}>
         <header className={styles['card-header']}>
@@ -72,7 +75,7 @@ function LocalSettingsPage() {
         {state.studentsIsError && !!state.studentsErrorKind && (
           <ApiErrorNotice
             kind={state.studentsErrorKind}
-            fallback={t('admin.operations.students.error')}
+            fallback={t('students.error.load')}
             onRetry={functions.handleRetryStudents}
             isRetrying={state.studentsIsFetching}
             onLogin={functions.handleLogin}
@@ -89,7 +92,7 @@ function LocalSettingsPage() {
               {(field) => (
                 <Field>
                   <FieldLabel htmlFor="operations-correction-student">
-                    {t('admin.operations.settings.correction.student')}
+                    {t('role.student')}
                   </FieldLabel>
                   <AdminSelect
                     id="operations-correction-student"
@@ -97,7 +100,7 @@ function LocalSettingsPage() {
                     onValueChange={field.handleChange}
                     items={state.studentItems}
                     placeholder={t('admin.operations.settings.correction.student-placeholder')}
-                    ariaLabel={t('admin.operations.settings.correction.student')}
+                    ariaLabel={t('role.student')}
                     disabled={!state.students.length}
                   />
                   {!!field.state.meta.errors.length && (
@@ -192,12 +195,12 @@ function LocalSettingsPage() {
           >
             <dl className={styles.draft}>
               <div className={styles['draft-row']}>
-                <dt>{t('admin.operations.settings.correction.student')}</dt>
+                <dt>{t('role.student')}</dt>
                 <dd>{state.correctionDraft.studentName}</dd>
               </div>
               <div className={styles['draft-row']}>
                 <dt>{t('admin.operations.settings.correction.amount')}</dt>
-                <dd>{t('admin.balance.coins', { count: state.correctionDraft.amount })}</dd>
+                <dd>{t('coins.unit', { count: state.correctionDraft.amount })}</dd>
               </div>
               <div className={styles['draft-row']}>
                 <dt>{t('admin.operations.settings.correction.explanation')}</dt>
@@ -220,7 +223,7 @@ function LocalSettingsPage() {
         {state.reasonsIsError && !!state.reasonsErrorKind && (
           <ApiErrorNotice
             kind={state.reasonsErrorKind}
-            fallback={t('admin.operations.reasons.error')}
+            fallback={t('reasons.error.load')}
             onRetry={functions.handleRetryReasons}
             isRetrying={state.reasonsIsFetching}
             onLogin={functions.handleLogin}
@@ -314,6 +317,6 @@ function LocalSettingsPage() {
           />
         )}
       </article>
-    </section>
+    </AdminPageLayout.Root>
   )
 }

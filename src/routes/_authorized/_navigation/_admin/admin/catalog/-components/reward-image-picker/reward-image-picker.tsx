@@ -72,7 +72,7 @@ export function RewardImagePicker({ picker, disabled = false }: RewardImagePicke
               disabled={disabled || !picker.state.canApplyLink}
               onClick={picker.functions.handleApplyLink}
             >
-              {t('admin.catalog.image.link.preview')}
+              {t('action.show')}
             </Button>
           </div>
           {picker.state.linkError && (
@@ -152,7 +152,7 @@ export function RewardImagePicker({ picker, disabled = false }: RewardImagePicke
                 disabled={disabled}
                 onClick={picker.functions.handleRemove}
               >
-                {t('admin.catalog.image.remove')}
+                {t('action.delete')}
               </button>
             </div>
           </div>

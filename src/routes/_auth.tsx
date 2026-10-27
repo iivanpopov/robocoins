@@ -1,5 +1,7 @@
 import { createFileRoute, redirect, Outlet } from '@tanstack/react-router'
+import messages from 'virtual:messages/uk/auth'
 
+import { TranslationProvider } from '#/lib/translations'
 import { getHomePath } from '#/routes/-utils'
 import { AuthWatermark } from '#/routes/_auth/-components'
 
@@ -16,9 +18,11 @@ export const Route = createFileRoute('/_auth')({
 
 function RouteComponent() {
   return (
-    <div className={styles.wrapper}>
-      <AuthWatermark />
-      <Outlet />
-    </div>
+    <TranslationProvider messages={messages}>
+      <div className={styles.wrapper}>
+        <AuthWatermark />
+        <Outlet />
+      </div>
+    </TranslationProvider>
   )
 }

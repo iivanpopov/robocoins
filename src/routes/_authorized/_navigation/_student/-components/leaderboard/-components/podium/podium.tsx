@@ -27,13 +27,13 @@ export function Podium(props: PodiumProps) {
           className={cn(styles.place, entry.student_id === props.studentId && styles.current)}
           data-place={entry.rank}
         >
-          <span className={styles['sr-only']}>{t('leaderboard.rank', { rank: entry.rank })}</span>
+          <span className={styles['sr-only']}>{t('ranking.place', { rank: entry.rank })}</span>
           <span className={styles.figure}>
             <Link
               className={styles['avatar-link']}
               to="/student/$studentId"
               params={{ studentId: entry.student_id }}
-              aria-label={t('leaderboard.profile.open', { name: entry.name })}
+              aria-label={t('profile.open-label', { name: entry.name })}
             >
               <PodiumAvatar entry={entry} className={styles.avatar} />
             </Link>

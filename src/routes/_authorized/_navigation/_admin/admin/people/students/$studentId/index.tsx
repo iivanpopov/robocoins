@@ -6,6 +6,7 @@ import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourse
 import { getStudentByIdStudentStudentIdGetQueryOptions } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
 import { IconButton, Loader } from '#/components/ui'
 import { CategoryIcon } from '#/routes/-components'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import { ApiErrorNotice } from '../-components'
 import { useStudentProfilePage } from './-hooks'
@@ -50,16 +51,20 @@ function StudentProfilePage() {
   const t = useTranslate()
 
   return (
-    <section className={styles.page}>
-      <header className={styles.header}>
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header align="end">
         <IconButton onClick={functions.handleBack} title={t('students.profile.back')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <div className={styles['header-copy']}>
-          <h1 className={styles.title}>{state.student?.name ?? t('students.profile.title')}</h1>
-          {!!state.student && <p className={styles.role}>{t('role.student')}</p>}
-        </div>
-      </header>
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title className={styles.title}>
+            {state.student?.name ?? t('students.profile.title')}
+          </AdminPageLayout.Title>
+          {!!state.student && (
+            <AdminPageLayout.Description>{t('role.student')}</AdminPageLayout.Description>
+          )}
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
 
       {state.isPending && <Loader grow />}
       {state.isError && (
@@ -144,6 +149,7 @@ function StudentProfilePage() {
                 <span aria-hidden="true" className="i-ph:caret-right-bold" />
               </Link>
 
+              {/* No API integration: student deletion only updates local state.
               <Link
                 to="/admin/people/students/$studentId/delete"
                 params={{ studentId: state.student.id }}
@@ -161,6 +167,7 @@ function StudentProfilePage() {
                 </span>
                 <span aria-hidden="true" className="i-ph:caret-right-bold" />
               </Link>
+              */}
             </div>
           </section>
 
@@ -196,11 +203,11 @@ function StudentProfilePage() {
               </div>
             )}
             {!state.memberships.length && (
-              <p className={styles.empty}>{t('students.profile.memberships.empty')}</p>
+              <p className={styles.empty}>{t('students.groups.empty')}</p>
             )}
           </section>
         </>
       )}
-    </section>
+    </AdminPageLayout.Root>
   )
 }

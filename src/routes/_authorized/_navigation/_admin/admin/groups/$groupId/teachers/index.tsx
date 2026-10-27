@@ -2,11 +2,11 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link, useParams } from '@tanstack/react-router'
 
 import { Button, IconButton, Loader } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import {
   GroupEmptyState,
   GroupForm,
-  GroupPageLayout,
   GroupRequestError,
   GroupResultPanel,
   TeacherCompositionLabel,
@@ -39,18 +39,8 @@ function GroupTeachersPage() {
   const savedTeacherIds = state.savedTeacherIds
 
   return (
-    <GroupPageLayout
-      title={t('admin.groups.teachers.title')}
-      description={
-        <>
-          {!state.group && t('admin.groups.teachers.description-empty')}
-          {state.group &&
-            t('admin.groups.teachers.description', {
-              group: state.group.name,
-            })}
-        </>
-      }
-      back={
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/groups/$groupId" params={{ groupId: state.groupId }} />}
@@ -58,8 +48,14 @@ function GroupTeachersPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.groups.teachers.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {!state.group && t('admin.groups.teachers.description-empty')}
+            {state.group && t('admin.groups.teachers.description', { group: state.group.name })}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.errorKey && (
         <GroupRequestError
@@ -75,7 +71,7 @@ function GroupTeachersPage() {
           description={t('admin.groups.not-found.description')}
         >
           <Button nativeButton={false} render={<Link to="/admin" />}>
-            {t('admin.groups.back')}
+            {t('navigation.groups')}
           </Button>
         </GroupEmptyState>
       )}
@@ -91,7 +87,7 @@ function GroupTeachersPage() {
           <features.form.Field name="teacherIds">
             {(field) => (
               <TeacherPicker
-                label={t('admin.groups.teachers.picker.label')}
+                label={t('teachers.title')}
                 options={state.pickerOptions}
                 selectedIds={field.state.value}
                 onChange={(teacherIds) => field.handleChange(teacherIds)}
@@ -118,7 +114,7 @@ function GroupTeachersPage() {
           })}
           details={[
             {
-              label: t('admin.groups.teachers.result-group'),
+              label: t('groups.label'),
               value: state.group.name,
             },
             {
@@ -140,6 +136,6 @@ function GroupTeachersPage() {
           </Button>
         </GroupResultPanel>
       )}
-    </GroupPageLayout>
+    </AdminPageLayout.Root>
   )
 }

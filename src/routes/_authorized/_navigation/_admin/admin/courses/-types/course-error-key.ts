@@ -1,7 +1,7 @@
 export type CourseErrorKey =
-  | 'admin.courses.error'
+  | 'courses.error.load'
   | 'admin.courses.error.groups'
-  | 'admin.courses.error.unauthorized'
-  | 'admin.courses.error.forbidden'
+  | 'error.session'
+  | 'error.forbidden'
   | 'admin.courses.create.error'
   | 'admin.courses.create.error.validation'

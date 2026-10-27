@@ -36,9 +36,7 @@ export function CourseRow({ course, className }: CourseRowProps) {
         {!!groupNames && <span className={styles.groups}>{groupNames}</span>}
       </div>
       <div className={styles.meta}>
-        <span className={styles.count}>
-          {t('admin.courses.groups-count', { count: groupsCount })}
-        </span>
+        <span className={styles.count}>{t('groups.count', { count: groupsCount })}</span>
         <span aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.caret)} />
       </div>
     </Link>

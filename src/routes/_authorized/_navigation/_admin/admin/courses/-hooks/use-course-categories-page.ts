@@ -16,7 +16,7 @@ export function useCourseCategoriesPage() {
 
   let errorKey: CourseErrorKey | null = null
   if (coursesQuery.isError) {
-    errorKey = getCourseErrorKey(coursesQuery.error, 'admin.courses.error')
+    errorKey = getCourseErrorKey(coursesQuery.error, 'courses.error.load')
   }
 
   return {

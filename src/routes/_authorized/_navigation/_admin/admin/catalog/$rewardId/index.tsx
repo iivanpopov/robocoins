@@ -1,8 +1,9 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, notFound } from '@tanstack/react-router'
-import { cn } from 'cn'
+// import { cn } from 'cn'
 import * as v from 'valibot'
 
+/*
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,12 +13,14 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  IconButton,
-  Loader,
 } from '#/components/ui'
+*/
+import { IconButton, Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import { RewardActionNotice, RewardCategoryName } from '../-components'
+import { RewardCategoryName } from '../-components'
+// import { RewardActionNotice } from '../-components'
 import { RewardParamsSchema } from '../-schemas'
 import { useRewardDetailPage } from './-hooks'
 
@@ -47,17 +50,19 @@ function RewardDetailContent() {
   const t = useTranslate()
 
   return (
-    <section className={styles.page}>
-      <header className={styles.header}>
+    <AdminPageLayout.Root bottomSpace className={styles.page}>
+      <AdminPageLayout.Header align="end">
         <IconButton
           onClick={functions.handleBack}
-          title={t('admin.catalog.back')}
-          aria-label={t('admin.catalog.back')}
+          title={t('navigation.catalog')}
+          aria-label={t('navigation.catalog')}
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <div className={styles['header-copy']}>
-          <h1 className={styles.title}>{state.reward?.name ?? t('admin.catalog.details.title')}</h1>
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title className={styles.title}>
+            {state.reward?.name ?? t('admin.catalog.details.title')}
+          </AdminPageLayout.Title>
           {!!state.reward && (
             <p className={styles.meta}>
               <span>{t(`admin.catalog.type.${state.reward.type}`)},</span>
@@ -66,12 +71,12 @@ function RewardDetailContent() {
           )}
           {!!state.reward && (
             <p className={styles.price}>
-              {t('shop.reward.price', { count: state.reward.price })}
+              {t('coins.amount', { count: state.reward.price })}
               <span className="i-ph:coins-bold" aria-hidden="true" />
             </p>
           )}
-        </div>
-      </header>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
 
       {state.isPending && <Loader grow />}
 
@@ -85,11 +90,12 @@ function RewardDetailContent() {
         <>
           {!!state.reward.description?.trim() && (
             <section className={styles.section}>
-              <h2 className={styles['section-title']}>{t('admin.catalog.details.description')}</h2>
+              <h2 className={styles['section-title']}>{t('field.description.label')}</h2>
               <p className={styles.description}>{state.reward.description}</p>
             </section>
           )}
 
+          {/* No API integration: editing, visibility changes, and deletion only update local state.
           <section className={styles.section}>
             <h2 className={styles['section-title']}>{t('admin.catalog.details.manage')}</h2>
             <div className={styles.actions}>
@@ -127,14 +133,14 @@ function RewardDetailContent() {
 
             {state.notice === 'hide' && (
               <RewardActionNotice
-                title={t('admin.catalog.details.hide.result.title')}
+                title={t('admin.catalog.availability.result-title')}
                 description={t('admin.catalog.details.hide.result.description')}
                 onDismiss={functions.handleDismissNotice}
               />
             )}
             {state.notice === 'show' && (
               <RewardActionNotice
-                title={t('admin.catalog.details.show.result.title')}
+                title={t('admin.catalog.availability.result-title')}
                 description={t('admin.catalog.details.show.result.description')}
                 onDismiss={functions.handleDismissNotice}
               />
@@ -147,9 +153,11 @@ function RewardDetailContent() {
               />
             )}
           </section>
+          */}
         </>
       )}
 
+      {/* No API integration: these confirmations only update local state.
       <AlertDialog open={state.isHideOpen} onOpenChange={functions.handleHideOpenChange}>
         <AlertDialogContent size="sm">
           <AlertDialogHeader>
@@ -182,7 +190,7 @@ function RewardDetailContent() {
           <AlertDialogFooter>
             <AlertDialogCancel>{t('action.cancel')}</AlertDialogCancel>
             <AlertDialogAction onClick={functions.handleConfirmShow}>
-              {t('admin.catalog.details.show.confirm.action')}
+              {t('action.show')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -201,11 +209,12 @@ function RewardDetailContent() {
           <AlertDialogFooter>
             <AlertDialogCancel>{t('action.cancel')}</AlertDialogCancel>
             <AlertDialogAction onClick={functions.handleConfirmDelete}>
-              {t('admin.catalog.details.delete.confirm.action')}
+              {t('action.delete')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </section>
+      */}
+    </AdminPageLayout.Root>
   )
 }

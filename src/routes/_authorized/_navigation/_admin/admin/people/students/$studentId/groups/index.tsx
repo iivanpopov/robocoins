@@ -14,8 +14,8 @@ import {
   IconButton,
   Loader,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import { StudentPageLayout } from '../-components'
 import { parseStudentIdParams } from '../-utils'
 import { ApiErrorNotice, StudentAvatar } from '../../-components'
 import { AdminSelect, MembershipResultPanel } from '../../../../-components'
@@ -67,26 +67,26 @@ function StudentGroupsPage() {
   }))
 
   return (
-    <StudentPageLayout
-      title={t('admin.students.groups.title')}
-      description={
-        <>
-          {!state.student && t('admin.students.groups.description-empty')}
-          {!!state.student && t('admin.students.groups.description', { name: state.student.name })}
-        </>
-      }
-      back={
+    <AdminPageLayout.Root bottomSpace>
+      <AdminPageLayout.Header>
         <IconButton
           nativeButton={false}
           render={
             <Link to="/admin/people/students/$studentId" params={{ studentId: state.studentId }} />
           }
-          title={t('students.manage.back-to-profile')}
+          title={t('navigation.profile')}
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.students.groups.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {!state.student && t('admin.students.groups.description-empty')}
+            {!!state.student &&
+              t('admin.students.groups.description', { name: state.student.name })}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && (
         <ApiErrorNotice
@@ -110,7 +110,7 @@ function StudentGroupsPage() {
             <div className={styles['identity-copy']}>
               <span className={styles.name}>{state.student.name}</span>
               <span className={styles.hint}>
-                {t('students.group-count', { count: state.memberships.length })}
+                {t('groups.count', { count: state.memberships.length })}
               </span>
             </div>
           </article>
@@ -135,7 +135,7 @@ function StudentGroupsPage() {
 
           <section className={styles.section}>
             <header className={styles['section-header']}>
-              <h2 className={styles['section-title']}>{t('admin.students.groups.add.title')}</h2>
+              <h2 className={styles['section-title']}>{t('groups.add.action')}</h2>
               <p className={styles.note}>{t('admin.students.groups.add.description')}</p>
             </header>
 
@@ -145,8 +145,8 @@ function StudentGroupsPage() {
                   value={state.addTargetValue}
                   onValueChange={functions.handleAddTargetChange}
                   items={addGroupItems}
-                  placeholder={t('admin.students.groups.add.placeholder')}
-                  ariaLabel={t('admin.students.groups.add.target-label')}
+                  placeholder={t('groups.select.placeholder')}
+                  ariaLabel={t('groups.label')}
                   disabled={state.membership.isOperating}
                 />
                 <Button
@@ -155,7 +155,7 @@ function StudentGroupsPage() {
                   aria-busy={state.membership.isOperating}
                 >
                   {state.membership.isOperating && state.membership.mode === 'add' && <Loader />}
-                  {t('admin.students.groups.add.submit')}
+                  {t('groups.add.action')}
                 </Button>
               </div>
             )}
@@ -173,10 +173,10 @@ function StudentGroupsPage() {
             </header>
 
             {!state.memberships.length && (
-              <p className={styles.empty}>{t('admin.students.groups.transfer.source-empty')}</p>
+              <p className={styles.empty}>{t('students.groups.empty')}</p>
             )}
             {!!state.memberships.length && !state.targetGroups.length && (
-              <p className={styles.empty}>{t('admin.students.groups.transfer.target-empty')}</p>
+              <p className={styles.empty}>{t('groups.transfer.empty')}</p>
             )}
             {!!state.memberships.length && !!state.targetGroups.length && (
               <div className={styles['transfer-controls']}>
@@ -184,7 +184,7 @@ function StudentGroupsPage() {
                   value={state.transferSourceValue}
                   onValueChange={functions.handleTransferSourceChange}
                   items={transferSourceItems}
-                  placeholder={t('admin.students.groups.transfer.placeholder')}
+                  placeholder={t('groups.select.placeholder')}
                   ariaLabel={t('admin.students.groups.transfer.source-label')}
                   disabled={state.membership.isOperating}
                 />
@@ -192,7 +192,7 @@ function StudentGroupsPage() {
                   value={state.transferTargetValue}
                   onValueChange={functions.handleTransferTargetChange}
                   items={transferTargetItems}
-                  placeholder={t('admin.students.groups.transfer.placeholder')}
+                  placeholder={t('groups.select.placeholder')}
                   ariaLabel={t('admin.students.groups.transfer.target-label')}
                   disabled={state.membership.isOperating}
                 />
@@ -204,7 +204,7 @@ function StudentGroupsPage() {
                   {state.membership.isOperating && state.membership.mode === 'transfer' && (
                     <Loader />
                   )}
-                  {t('admin.students.groups.transfer.submit')}
+                  {t('groups.transfer.action')}
                 </Button>
               </div>
             )}
@@ -219,7 +219,7 @@ function StudentGroupsPage() {
             </header>
 
             {!state.memberships.length && (
-              <p className={styles.empty}>{t('students.profile.memberships.empty')}</p>
+              <p className={styles.empty}>{t('students.groups.empty')}</p>
             )}
             {!!state.memberships.length && (
               <div className={styles.memberships}>
@@ -270,7 +270,7 @@ function StudentGroupsPage() {
                   onClick={functions.handleConfirmRemove}
                   disabled={state.membership.isOperating}
                 >
-                  {t('admin.students.groups.remove.dialog-action')}
+                  {t('groups.remove.action')}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
@@ -304,13 +304,13 @@ function StudentGroupsPage() {
                   onClick={functions.handleConfirmTransfer}
                   disabled={state.membership.isOperating}
                 >
-                  {t('admin.students.groups.transfer.dialog-action')}
+                  {t('groups.transfer.action')}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
         </>
       )}
-    </StudentPageLayout>
+    </AdminPageLayout.Root>
   )
 }

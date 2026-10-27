@@ -10,14 +10,9 @@ import {
   IconButton,
   Loader,
 } from '#/components/ui'
+import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
-import {
-  GroupEmptyState,
-  GroupForm,
-  GroupPageLayout,
-  GroupRequestError,
-  GroupResultPanel,
-} from '../../-components'
+import { GroupEmptyState, GroupForm, GroupRequestError, GroupResultPanel } from '../../-components'
 import { useGroupCoursePage } from '../../-hooks'
 import { parseGroupIdParams } from '../../-utils'
 import { AdminSelect } from '../../../-components'
@@ -44,15 +39,8 @@ function GroupCoursePage() {
   const t = useTranslate()
 
   return (
-    <GroupPageLayout
-      title={t('admin.groups.change-course.title')}
-      description={
-        <>
-          {!state.group && t('admin.groups.change-course.description-empty')}
-          {state.group && t('admin.groups.change-course.description', { group: state.group.name })}
-        </>
-      }
-      back={
+    <AdminPageLayout.Root>
+      <AdminPageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/groups/$groupId" params={{ groupId: state.groupId }} />}
@@ -60,8 +48,15 @@ function GroupCoursePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-      }
-    >
+        <AdminPageLayout.Heading>
+          <AdminPageLayout.Title>{t('admin.groups.change-course.title')}</AdminPageLayout.Title>
+          <AdminPageLayout.Description>
+            {!state.group && t('admin.groups.change-course.description-empty')}
+            {state.group &&
+              t('admin.groups.change-course.description', { group: state.group.name })}
+          </AdminPageLayout.Description>
+        </AdminPageLayout.Heading>
+      </AdminPageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.errorKey && (
         <GroupRequestError
@@ -77,7 +72,7 @@ function GroupCoursePage() {
           description={t('admin.groups.not-found.description')}
         >
           <Button nativeButton={false} render={<Link to="/admin" />}>
-            {t('admin.groups.back')}
+            {t('navigation.groups')}
           </Button>
         </GroupEmptyState>
       )}
@@ -89,7 +84,7 @@ function GroupCoursePage() {
           description={t('admin.groups.change-course.courses-empty-description')}
         >
           <Button nativeButton={false} render={<Link to="/admin/courses/create" />}>
-            {t('admin.courses.create')}
+            {t('admin.courses.create.action')}
           </Button>
         </GroupEmptyState>
       )}
@@ -97,16 +92,14 @@ function GroupCoursePage() {
       {state.group && !state.errorKey && !!state.courses.length && !state.selectedCourseId && (
         <GroupForm
           onSubmit={functions.handleSubmit}
-          submitLabel={t('admin.groups.change-course.submit')}
+          submitLabel={t('admin.groups.change-course.action')}
           submitDisabled={state.isUnchanged}
           note={t('admin.groups.change-course.note')}
         >
           <features.form.Field name="courseId">
             {(field) => (
               <Field>
-                <FieldLabel htmlFor="group-change-course">
-                  {t('admin.groups.create.course-label')}
-                </FieldLabel>
+                <FieldLabel htmlFor="group-change-course">{t('courses.label')}</FieldLabel>
                 <AdminSelect
                   id="group-change-course"
                   name={field.name}
@@ -114,7 +107,7 @@ function GroupCoursePage() {
                   onValueChange={(value) => field.handleChange(value)}
                   items={state.courseItems}
                   placeholder={t('admin.groups.create.course-placeholder')}
-                  ariaLabel={t('admin.groups.create.course-label')}
+                  ariaLabel={t('courses.label')}
                 />
                 {!!field.state.meta.errors.length && (
                   <FieldError>{t('admin.groups.create.course-error')}</FieldError>
@@ -131,7 +124,7 @@ function GroupCoursePage() {
       {state.group && !!state.selectedCourseId && (
         <GroupResultPanel
           tone="local"
-          title={t('admin.groups.change-course.result-title')}
+          title={t('admin.shared.local-result')}
           description={t('admin.groups.change-course.result-description')}
           details={[
             {
@@ -167,10 +160,10 @@ function GroupCoursePage() {
             {t('admin.groups.back-to-group')}
           </Button>
           <Button variant="ghost" nativeButton={false} render={<Link to="/admin" />}>
-            {t('admin.groups.back')}
+            {t('navigation.groups')}
           </Button>
         </GroupResultPanel>
       )}
-    </GroupPageLayout>
+    </AdminPageLayout.Root>
   )
 }

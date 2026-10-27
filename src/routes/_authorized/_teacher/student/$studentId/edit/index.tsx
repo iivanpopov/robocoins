@@ -61,6 +61,7 @@ export const Route = createFileRoute('/_authorized/_teacher/student/$studentId/e
     const result = v.safeParse(EditSearchSchema, search)
     return result.success ? result.output : {}
   },
+  remountDeps: ({ params }) => params.studentId,
   loader: async ({ context, params }) => {
     const student = await context.queryClient
       .query(
@@ -131,14 +132,12 @@ function StudentEditPage() {
           <section className={styles.section}>
             <h2 className={styles['section-title']}>{t('settings.section.account')}</h2>
             <Field>
-              <FieldLabel htmlFor="student-edit-nickname">
-                {t('student.edit.nickname.label')}
-              </FieldLabel>
+              <FieldLabel htmlFor="student-edit-nickname">{t('field.nickname.label')}</FieldLabel>
               <div className={styles['nickname-row']}>
                 <Input
                   id="student-edit-nickname"
                   value={state.nickname}
-                  placeholder={t('student.edit.nickname.placeholder')}
+                  placeholder={t('field.student-nickname.placeholder')}
                   maxLength={200}
                   autoComplete="off"
                   onChange={(event) => functions.handleNicknameChange(event.target.value)}
@@ -147,8 +146,8 @@ function StudentEditPage() {
                   className={styles['nickname-save']}
                   onClick={functions.handleSaveNickname}
                   disabled={mutations.nickname.isPending || !state.canSaveNickname}
-                  aria-label={t('student.edit.nickname.save')}
-                  title={t('student.edit.nickname.save')}
+                  aria-label={t('action.save-nickname')}
+                  title={t('action.save-nickname')}
                 >
                   {mutations.nickname.isPending && <Loader />}
                   {!mutations.nickname.isPending && (
@@ -183,11 +182,11 @@ function StudentEditPage() {
               )}
             </Field>
             <Field>
-              <FieldLabel>{t('student.edit.avatar.label')}</FieldLabel>
+              <FieldLabel>{t('field.avatar.label')}</FieldLabel>
               <div className={styles['avatar-field']}>
                 <Avatar size="lg">
                   <AvatarImage
-                    src={getAvatarUrl(state.selectedAvatar as AvatarName)}
+                    src={getAvatarUrl(state.avatar as AvatarName)}
                     alt=""
                     aria-hidden="true"
                   />
@@ -234,7 +233,7 @@ function StudentEditPage() {
             </AlertDialog>
           </section>
           <section className={styles.section}>
-            <h2 className={styles['section-title']}>{t('student.edit.section.groups')}</h2>
+            <h2 className={styles['section-title']}>{t('groups.title')}</h2>
             <StudentGroupAssignment
               studentId={state.studentId}
               studentName={state.name}
