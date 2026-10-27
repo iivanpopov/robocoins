@@ -43,6 +43,7 @@ declare module '@kanjou/react' {
       'navbar.learning': {}
       'navbar.people': {}
       'navbar.catalog': {}
+      'navbar.operations': {}
       'admin.groups.title': {}
       'admin.groups.description': {}
       'admin.groups.empty': {}
@@ -96,6 +97,8 @@ declare module '@kanjou/react' {
       'admin.groups.detail.rename-description': {}
       'admin.groups.detail.change-course': {}
       'admin.groups.detail.change-course-description': {}
+      'admin.groups.detail.practice': {}
+      'admin.groups.detail.practice-description': {}
       'admin.groups.detail.delete': {}
       'admin.groups.detail.delete-description': {}
       'admin.groups.detail.error': {}
@@ -444,6 +447,12 @@ declare module '@kanjou/react' {
       'admin.operations.result.checking': {}
       'admin.operations.result.check-again': {}
       'admin.operations.result.history-checked': {}
+      'admin.operations.result.history-acknowledged': {}
+      'admin.operations.result.acknowledge': {}
+      'admin.operations.result.batch': {
+        direction: DefaultMessageValue
+        reasons: DefaultMessageValue
+      }
       'admin.operations.result.success-count': { count: { __fn: 'number' } }
       'admin.operations.result.failure-count': { count: { __fn: 'number' } }
       'admin.operations.result.unknown-count': { count: { __fn: 'number' } }
@@ -462,10 +471,13 @@ declare module '@kanjou/react' {
       'admin.operations.confirm.title': {}
       'admin.operations.confirm.description': {
         count: { __fn: 'number' }
+        direction: { __fn: 'string' }
         reasons: { __fn: 'string' }
       }
       'admin.operations.confirm.retry-description': {
         count: { __fn: 'number' }
+        direction: { __fn: 'string' }
+        reasons: { __fn: 'string' }
       }
       'admin.operations.confirm.action': {}
       'admin.operations.confirm.retry-action': {}

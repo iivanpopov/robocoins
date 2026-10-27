@@ -124,9 +124,16 @@ export function StudentOperationResultRow({
           )}
           {result.historyCheck === 'checked' && (
             <>
-              <p className={styles['success-text']}>
-                {t('admin.operations.result.history-checked')}
-              </p>
+              {result.historyAcknowledged && (
+                <p className={styles['success-text']}>
+                  {t('admin.operations.result.history-acknowledged')}
+                </p>
+              )}
+              {!result.historyAcknowledged && (
+                <p className={styles['success-text']}>
+                  {t('admin.operations.result.history-checked')}
+                </p>
+              )}
               <Link
                 to="/admin/people/students/$studentId/balance"
                 params={{ studentId: result.studentId }}

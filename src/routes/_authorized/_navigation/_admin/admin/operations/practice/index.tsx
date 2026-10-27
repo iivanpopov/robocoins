@@ -1,5 +1,5 @@
 import { useTranslate } from '@kanjou/react'
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link, useSearch } from '@tanstack/react-router'
 
 import {
   AlertDialog,
@@ -33,6 +33,14 @@ export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/oper
 })
 
 function PracticePage() {
+  const search = useSearch({
+    from: '/_authorized/_navigation/_admin/admin/operations/practice/',
+  })
+
+  return <PracticeContent key={search.groupId ?? 'none'} />
+}
+
+function PracticeContent() {
   const { state, functions } = usePracticePage()
 
   const t = useTranslate()

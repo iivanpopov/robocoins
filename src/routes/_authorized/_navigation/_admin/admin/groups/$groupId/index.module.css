@@ -107,6 +107,11 @@
   background: color-mix(in srgb, var(--brand) 12%, transparent);
 }
 
+.action-icon[data-icon='practice'] {
+  color: var(--green-700);
+  background: color-mix(in srgb, var(--green-400) 14%, transparent);
+}
+
 .action[data-tone='error'] .action-icon {
   color: var(--error);
   background: color-mix(in srgb, var(--error) 12%, transparent);

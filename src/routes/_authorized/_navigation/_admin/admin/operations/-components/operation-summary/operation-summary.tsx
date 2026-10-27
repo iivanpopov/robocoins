@@ -11,10 +11,12 @@ export interface OperationSummaryProps {
   retryableCount: number
   pendingCount: number
   hasUnresolvedUnknown: boolean
+  canAcknowledgeUnknown: boolean
   isRunning: boolean
   refreshError: boolean
   isRefreshing: boolean
   onRetryFailed: () => void
+  onAcknowledgeUnknown: () => void
   onRefreshData: () => void
 }
 
@@ -25,10 +27,12 @@ export function OperationSummary({
   retryableCount,
   pendingCount,
   hasUnresolvedUnknown,
+  canAcknowledgeUnknown,
   isRunning,
   refreshError,
   isRefreshing,
   onRetryFailed,
+  onAcknowledgeUnknown,
   onRefreshData,
 }: OperationSummaryProps) {
   const t = useTranslate()
@@ -56,6 +60,12 @@ export function OperationSummary({
 
       {hasUnresolvedUnknown && (
         <p className={styles.warning}>{t('admin.operations.result.unknown-blocked')}</p>
+      )}
+
+      {canAcknowledgeUnknown && (
+        <Button variant="ghost" onClick={onAcknowledgeUnknown} disabled={isRunning}>
+          {t('admin.operations.result.acknowledge')}
+        </Button>
       )}
 
       {!hasUnresolvedUnknown && !!unknownCount && (

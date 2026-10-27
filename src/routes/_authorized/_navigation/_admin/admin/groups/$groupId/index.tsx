@@ -159,6 +159,24 @@ function GroupDetailsPage() {
             <p className={styles.note}>{t('admin.groups.detail.local-note')}</p>
             <div className={styles.actions}>
               <Link
+                to="/admin/operations/practice"
+                search={{ groupId: state.groupId }}
+                className={styles.action}
+              >
+                <span aria-hidden="true" className={styles['action-icon']} data-icon="practice">
+                  <span className="i-ph:check-circle-duotone" />
+                </span>
+                <span className={styles['action-copy']}>
+                  <span className={styles['action-title']}>
+                    {t('admin.groups.detail.practice')}
+                  </span>
+                  <span className={styles['action-description']}>
+                    {t('admin.groups.detail.practice-description')}
+                  </span>
+                </span>
+                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+              </Link>
+              <Link
                 to="/admin/groups/$groupId/teachers"
                 params={{ groupId: state.groupId }}
                 className={styles.action}

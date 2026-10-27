@@ -53,9 +53,18 @@ function OperationsPage() {
 
   const confirmStudentCount = state.pendingOperation?.studentIds.length ?? 0
   const isRetry = state.pendingOperation?.kind === OperationBatchKind.Retry
-  const reasonsLabel = state.selectedReasons
+  const pendingReasonsLabel = (state.pendingOperation?.reasons ?? [])
     .map((reason) => t.unsafe(`reason.${reason}`))
     .join(', ')
+  const pendingDirectionLabel = state.pendingOperation
+    ? t.unsafe(`admin.operations.direction.${state.pendingOperation.direction}`)
+    : ''
+  const batchReasonsLabel = (state.batchSnapshot?.reasons ?? [])
+    .map((reason) => t.unsafe(`reason.${reason}`))
+    .join(', ')
+  const batchDirectionLabel = state.batchSnapshot
+    ? t.unsafe(`admin.operations.direction.${state.batchSnapshot.direction}`)
+    : ''
 
   return (
     <section className={styles.page}>
@@ -249,6 +258,14 @@ function OperationsPage() {
           <header className={styles['card-header']}>
             <h2 className={styles['card-title']}>{t('admin.operations.result.title')}</h2>
             <p className={styles['card-description']}>{t('admin.operations.result.description')}</p>
+            {!!state.batchSnapshot && (
+              <p className={styles['batch-summary']}>
+                {t('admin.operations.result.batch', {
+                  direction: batchDirectionLabel,
+                  reasons: batchReasonsLabel,
+                })}
+              </p>
+            )}
           </header>
 
           <OperationSummary
@@ -258,10 +275,12 @@ function OperationsPage() {
             retryableCount={state.retryableCount}
             pendingCount={state.pendingCount}
             hasUnresolvedUnknown={state.hasUnresolvedUnknown}
+            canAcknowledgeUnknown={state.canAcknowledgeUnknown}
             isRunning={state.isRunning}
             refreshError={state.refreshError}
             isRefreshing={state.isRefreshing}
             onRetryFailed={functions.handleRequestRetry}
+            onAcknowledgeUnknown={functions.handleAcknowledgeUnknownResults}
             onRefreshData={functions.handleRefreshData}
           />
 
@@ -286,13 +305,18 @@ function OperationsPage() {
               <AlertDialogDescription>
                 {t('admin.operations.confirm.description', {
                   count: confirmStudentCount,
-                  reasons: reasonsLabel,
+                  direction: pendingDirectionLabel,
+                  reasons: pendingReasonsLabel,
                 })}
               </AlertDialogDescription>
             )}
             {isRetry && (
               <AlertDialogDescription>
-                {t('admin.operations.confirm.retry-description', { count: confirmStudentCount })}
+                {t('admin.operations.confirm.retry-description', {
+                  count: confirmStudentCount,
+                  direction: pendingDirectionLabel,
+                  reasons: pendingReasonsLabel,
+                })}
               </AlertDialogDescription>
             )}
           </AlertDialogHeader>

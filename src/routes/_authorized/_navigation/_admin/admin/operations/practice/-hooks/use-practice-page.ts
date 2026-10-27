@@ -196,12 +196,16 @@ export function usePracticePage() {
       await Promise.all(
         studentIds.map(async (studentId) => {
           await Promise.all([
-            queryClient.fetchInfiniteQuery(getStudentTransactionsQueryOptions(studentId)),
-            queryClient.fetchQuery(
-              getStudentBalanceByIdStudentStudentIdBalanceGetQueryOptions({
+            queryClient.fetchInfiniteQuery({
+              ...getStudentTransactionsQueryOptions(studentId),
+              staleTime: 0,
+            }),
+            queryClient.fetchQuery({
+              ...getStudentBalanceByIdStudentStudentIdBalanceGetQueryOptions({
                 path: { student_id: studentId },
               }),
-            ),
+              staleTime: 0,
+            }),
           ])
         }),
       )

@@ -424,6 +424,13 @@ export default {
       "Каталог"
     ]
   },
+  "navbar.operations": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Операції"
+    ]
+  },
   "admin.groups.title": {
     "type": "message",
     "declarations": [],
@@ -1003,6 +1010,20 @@ export default {
     "declarations": [],
     "pattern": [
       "Перенести групу в інший курс."
+    ]
+  },
+  "admin.groups.detail.practice": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Практика групи"
+    ]
+  },
+  "admin.groups.detail.practice-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нарахувати робокоїни всій групі за практику."
     ]
   },
   "admin.groups.detail.delete": {
@@ -3968,7 +3989,44 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Історію перевірено. Повтор автоматично не виконується."
+      "Історію перевірено. Підтвердьте перевірку, щоб розблокувати нові операції."
+    ]
+  },
+  "admin.operations.result.history-acknowledged": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевірку підтверджено. Повтор автоматично не виконується."
+    ]
+  },
+  "admin.operations.result.acknowledge": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердити перевірку"
+    ]
+  },
+  "admin.operations.result.batch": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Операція: ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "direction"
+        }
+      },
+      ". Причини: ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "reasons"
+        }
+      },
+      "."
     ]
   },
   "admin.operations.result.success-count": {
@@ -4048,14 +4106,14 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Спочатку перевірте історію учнів із невідомим результатом. Нові операції заблоковані, доки перевірка не завершиться."
+      "Перевірте історію учнів із невідомим результатом і підтвердьте перевірку. Нові операції заблоковані, доки ви не підтвердите результат."
     ]
   },
   "admin.operations.result.unknown-note": {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Невідомий результат не повторюється автоматично. Перевірте історію в профілі учня."
+      "Невідомий результат не повторюється автоматично. Перевірте історію в профілі учня. Стан перевірки діє лише на цій сторінці й не зберігається після переходу."
     ]
   },
   "admin.operations.result.refresh-error": {
@@ -4160,6 +4218,21 @@ export default {
       },
       {
         "type": "input",
+        "name": "direction",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "direction"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "string"
+          }
+        }
+      },
+      {
+        "type": "input",
         "name": "reasons",
         "value": {
           "type": "expression",
@@ -4189,7 +4262,15 @@ export default {
           }
         ],
         "value": [
-          "Буде застосовано до ",
+          "Напрямок: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "direction"
+            }
+          },
+          ". Буде застосовано до ",
           {
             "type": "expression",
             "arg": {
@@ -4216,7 +4297,15 @@ export default {
           }
         ],
         "value": [
-          "Буде застосовано до ",
+          "Напрямок: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "direction"
+            }
+          },
+          ". Буде застосовано до ",
           {
             "type": "expression",
             "arg": {
@@ -4243,7 +4332,15 @@ export default {
           }
         ],
         "value": [
-          "Буде застосовано до ",
+          "Напрямок: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "direction"
+            }
+          },
+          ". Буде застосовано до ",
           {
             "type": "expression",
             "arg": {
@@ -4269,7 +4366,15 @@ export default {
           }
         ],
         "value": [
-          "Буде застосовано до ",
+          "Напрямок: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "direction"
+            }
+          },
+          ". Буде застосовано до ",
           {
             "type": "expression",
             "arg": {
@@ -4307,6 +4412,36 @@ export default {
             "name": "number"
           }
         }
+      },
+      {
+        "type": "input",
+        "name": "direction",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "direction"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "string"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "name": "reasons",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "reasons"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "string"
+          }
+        }
       }
     ],
     "selectors": [
@@ -4332,7 +4467,23 @@ export default {
               "name": "count"
             }
           },
-          " учня? Повторюються лише однозначні відмови."
+          " учня з початковими параметрами? Напрямок: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "direction"
+            }
+          },
+          ". Причини: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "reasons"
+            }
+          },
+          ". Повторюються лише однозначні відмови."
         ]
       },
       {
@@ -4351,7 +4502,23 @@ export default {
               "name": "count"
             }
           },
-          " учнів? Повторюються лише однозначні відмови."
+          " учнів з початковими параметрами? Напрямок: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "direction"
+            }
+          },
+          ". Причини: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "reasons"
+            }
+          },
+          ". Повторюються лише однозначні відмови."
         ]
       },
       {
@@ -4370,7 +4537,23 @@ export default {
               "name": "count"
             }
           },
-          " учнів? Повторюються лише однозначні відмови."
+          " учнів з початковими параметрами? Напрямок: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "direction"
+            }
+          },
+          ". Причини: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "reasons"
+            }
+          },
+          ". Повторюються лише однозначні відмови."
         ]
       },
       {
@@ -4388,7 +4571,23 @@ export default {
               "name": "count"
             }
           },
-          " учня? Повторюються лише однозначні відмови."
+          " учня з початковими параметрами? Напрямок: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "direction"
+            }
+          },
+          ". Причини: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "reasons"
+            }
+          },
+          ". Повторюються лише однозначні відмови."
         ]
       }
     ]
@@ -4551,7 +4750,7 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Зв’язок урвався до підтвердження. Перевірте історію учнів групи, не повторюйте нарахування навмання."
+      "Зв’язок урвався до підтвердження. Перевірте історію учнів групи, не повторюйте нарахування навмання. Стан перевірки діє лише на цій сторінці й не зберігається після переходу."
     ]
   },
   "admin.operations.practice.unknown-verify-error": {

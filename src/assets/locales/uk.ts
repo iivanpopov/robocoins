@@ -41,6 +41,7 @@ export default {
   'navbar.learning': 'Навчання',
   'navbar.people': 'Люди',
   'navbar.catalog': 'Каталог',
+  'navbar.operations': 'Операції',
   'admin.groups.title': 'Навчання',
   'admin.groups.description': 'Усі групи школи, курси та викладачі.',
   'admin.groups.empty': 'Груп поки немає.',
@@ -107,6 +108,8 @@ export default {
   'admin.groups.detail.rename-description': 'Змінити назву групи.',
   'admin.groups.detail.change-course': 'Змінити курс',
   'admin.groups.detail.change-course-description': 'Перенести групу в інший курс.',
+  'admin.groups.detail.practice': 'Практика групи',
+  'admin.groups.detail.practice-description': 'Нарахувати робокоїни всій групі за практику.',
   'admin.groups.detail.delete': 'Видалити групу',
   'admin.groups.detail.delete-description': 'Прибрати групу зі списку разом із складом.',
   'admin.groups.detail.error': 'Не вдалося завантажити групу.',
@@ -501,15 +504,19 @@ export default {
   'admin.operations.result.checking': 'Перевіряємо історію…',
   'admin.operations.result.check-again': 'Перевірити ще раз',
   'admin.operations.result.history-checked':
-    'Історію перевірено. Повтор автоматично не виконується.',
+    'Історію перевірено. Підтвердьте перевірку, щоб розблокувати нові операції.',
+  'admin.operations.result.history-acknowledged':
+    'Перевірку підтверджено. Повтор автоматично не виконується.',
+  'admin.operations.result.acknowledge': 'Підтвердити перевірку',
+  'admin.operations.result.batch': 'Операція: {$direction}. Причини: {$reasons}.',
   'admin.operations.result.success-count': 'Успішно: {$count :number}',
   'admin.operations.result.failure-count': 'Відмови: {$count :number}',
   'admin.operations.result.unknown-count': 'Невідомо: {$count :number}',
   'admin.operations.result.running': 'У черзі ще {$pending :number} операцій.',
   'admin.operations.result.unknown-blocked':
-    'Спочатку перевірте історію учнів із невідомим результатом. Нові операції заблоковані, доки перевірка не завершиться.',
+    'Перевірте історію учнів із невідомим результатом і підтвердьте перевірку. Нові операції заблоковані, доки ви не підтвердите результат.',
   'admin.operations.result.unknown-note':
-    'Невідомий результат не повторюється автоматично. Перевірте історію в профілі учня.',
+    'Невідомий результат не повторюється автоматично. Перевірте історію в профілі учня. Стан перевірки діє лише на цій сторінці й не зберігається після переходу.',
   'admin.operations.result.refresh-error':
     'Операцію підтверджено, але не вдалося оновити баланс, історію та групи. Оновіть дані.',
   'admin.operations.result.retry': 'Повторити невдалі ({$count :number})',
@@ -524,19 +531,22 @@ export default {
   'admin.operations.confirm.title': 'Підтвердити масову операцію?',
   'admin.operations.confirm.description': `
     .input {$count :number}
+    .input {$direction :string}
     .input {$reasons :string}
     .match $count
-    one {{Буде застосовано до {$count} учня. Причини: {$reasons}. Кожен учень обробляється окремо.}}
-    few {{Буде застосовано до {$count} учнів. Причини: {$reasons}. Кожен учень обробляється окремо.}}
-    many {{Буде застосовано до {$count} учнів. Причини: {$reasons}. Кожен учень обробляється окремо.}}
-    * {{Буде застосовано до {$count} учня. Причини: {$reasons}. Кожен учень обробляється окремо.}}`,
+    one {{Напрямок: {$direction}. Буде застосовано до {$count} учня. Причини: {$reasons}. Кожен учень обробляється окремо.}}
+    few {{Напрямок: {$direction}. Буде застосовано до {$count} учнів. Причини: {$reasons}. Кожен учень обробляється окремо.}}
+    many {{Напрямок: {$direction}. Буде застосовано до {$count} учнів. Причини: {$reasons}. Кожен учень обробляється окремо.}}
+    * {{Напрямок: {$direction}. Буде застосовано до {$count} учня. Причини: {$reasons}. Кожен учень обробляється окремо.}}`,
   'admin.operations.confirm.retry-description': `
     .input {$count :number}
+    .input {$direction :string}
+    .input {$reasons :string}
     .match $count
-    one {{Повторити операцію для {$count} учня? Повторюються лише однозначні відмови.}}
-    few {{Повторити операції для {$count} учнів? Повторюються лише однозначні відмови.}}
-    many {{Повторити операції для {$count} учнів? Повторюються лише однозначні відмови.}}
-    * {{Повторити операцію для {$count} учня? Повторюються лише однозначні відмови.}}`,
+    one {{Повторити операцію для {$count} учня з початковими параметрами? Напрямок: {$direction}. Причини: {$reasons}. Повторюються лише однозначні відмови.}}
+    few {{Повторити операції для {$count} учнів з початковими параметрами? Напрямок: {$direction}. Причини: {$reasons}. Повторюються лише однозначні відмови.}}
+    many {{Повторити операції для {$count} учнів з початковими параметрами? Напрямок: {$direction}. Причини: {$reasons}. Повторюються лише однозначні відмови.}}
+    * {{Повторити операцію для {$count} учня з початковими параметрами? Напрямок: {$direction}. Причини: {$reasons}. Повторюються лише однозначні відмови.}}`,
   'admin.operations.confirm.action': 'Застосувати',
   'admin.operations.confirm.retry-action': 'Повторити',
   'admin.operations.practice.back': 'До операцій',
@@ -562,7 +572,7 @@ export default {
     'Сервер нарахує робокоїни кожному учню групи. Операція не пов’язана з розкладом або відвідуваністю.',
   'admin.operations.practice.error': 'Не вдалося нарахувати практику.',
   'admin.operations.practice.unknown-description':
-    'Зв’язок урвався до підтвердження. Перевірте історію учнів групи, не повторюйте нарахування навмання.',
+    'Зв’язок урвався до підтвердження. Перевірте історію учнів групи, не повторюйте нарахування навмання. Стан перевірки діє лише на цій сторінці й не зберігається після переходу.',
   'admin.operations.practice.unknown-verify-error':
     'Не вдалося перевірити історію учнів групи. Спробуйте ще раз.',
   'admin.operations.practice.confirm.title': 'Нарахувати практику групі?',

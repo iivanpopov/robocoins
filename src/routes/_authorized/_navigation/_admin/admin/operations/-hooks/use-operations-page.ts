@@ -17,7 +17,7 @@ import {
 } from '#/routes/_authorized/_navigation/_admin/admin/-utils'
 
 import { OperationBatchKind, OperationDirection } from '../-constants'
-import type { PendingOperation, StudentOperationResult } from '../-types'
+import type { OperationBatchSnapshot, PendingOperation, StudentOperationResult } from '../-types'
 import { getFinancialFailureOutcome } from '../-utils'
 
 export function useOperationsPage() {
@@ -26,6 +26,7 @@ export function useOperationsPage() {
   const [selectedReasons, setSelectedReasons] = useState<BalanceChangeReasonsKey[]>([])
   const [selectedIds, setSelectedIds] = useState<number[]>([])
   const [pendingOperation, setPendingOperation] = useState<PendingOperation | null>(null)
+  const [batchSnapshot, setBatchSnapshot] = useState<OperationBatchSnapshot | null>(null)
   const [results, setResults] = useState<StudentOperationResult[]>([])
   const [isRunning, setIsRunning] = useState(false)
   const [refreshError, setRefreshError] = useState(false)
@@ -117,18 +118,28 @@ export function useOperationsPage() {
     const studentIds = selectedStudents.map((student) => student.id)
     if (!studentIds.length || !selectedReasons.length) return
 
-    setPendingOperation({ kind: OperationBatchKind.Initial, studentIds })
+    setPendingOperation({
+      kind: OperationBatchKind.Initial,
+      studentIds,
+      direction,
+      reasons: [...selectedReasons],
+    })
   }
 
   function handleRequestRetry() {
-    if (isRunningReference.current || isRunning) return
+    if (isRunningReference.current || isRunning || !batchSnapshot) return
 
     const studentIds = results
       .filter((result) => result.status === 'failure' && result.isRetryable)
       .map((result) => result.studentId)
     if (!studentIds.length) return
 
-    setPendingOperation({ kind: OperationBatchKind.Retry, studentIds })
+    setPendingOperation({
+      kind: OperationBatchKind.Retry,
+      studentIds,
+      direction: batchSnapshot.direction,
+      reasons: [...batchSnapshot.reasons],
+    })
   }
 
   function handleConfirmOpenChange(open: boolean) {
@@ -148,29 +159,49 @@ export function useOperationsPage() {
 
     const operation = pendingOperation
     setPendingOperation(null)
-    void runBatch(operation.studentIds, operation.kind)
+    void runBatch(operation.studentIds, operation.kind, {
+      direction: operation.direction,
+      reasons: operation.reasons,
+    })
   }
 
   async function handleCheckHistory(studentId: number) {
     const result = results.find((currentResult) => currentResult.studentId === studentId)
     if (!result || result.historyCheck === 'checking' || result.historyCheck === 'checked') return
 
-    updateResult(studentId, { historyCheck: 'checking' })
+    updateResult(studentId, { historyCheck: 'checking', historyAcknowledged: false })
 
     try {
       const [balance] = await Promise.all([
-        queryClient.fetchQuery(
-          getStudentBalanceByIdStudentStudentIdBalanceGetQueryOptions({
+        queryClient.fetchQuery({
+          ...getStudentBalanceByIdStudentStudentIdBalanceGetQueryOptions({
             path: { student_id: studentId },
           }),
-        ),
-        queryClient.fetchInfiniteQuery(getStudentTransactionsQueryOptions(studentId)),
+          staleTime: 0,
+        }),
+        queryClient.fetchInfiniteQuery({
+          ...getStudentTransactionsQueryOptions(studentId),
+          staleTime: 0,
+        }),
       ])
 
-      updateResult(studentId, { historyCheck: 'checked', balance: balance.balance })
+      updateResult(studentId, {
+        historyCheck: 'checked',
+        historyAcknowledged: false,
+        balance: balance.balance,
+      })
     } catch {
-      updateResult(studentId, { historyCheck: 'error' })
+      updateResult(studentId, { historyCheck: 'error', historyAcknowledged: false })
     }
+  }
+
+  function handleAcknowledgeUnknownResults() {
+    setResults((currentResults) =>
+      currentResults.map((result) => {
+        if (result.status !== 'unknown' || result.historyCheck !== 'checked') return result
+        return { ...result, historyAcknowledged: true }
+      }),
+    )
   }
 
   async function handleRefreshData() {
@@ -197,11 +228,15 @@ export function useOperationsPage() {
     window.location.assign('/login')
   }
 
-  async function runBatch(studentIds: number[], kind: PendingOperation['kind']) {
+  async function runBatch(
+    studentIds: number[],
+    kind: PendingOperation['kind'],
+    snapshot: OperationBatchSnapshot,
+  ) {
     if (
       isRunningReference.current ||
       !studentIds.length ||
-      !selectedReasons.length ||
+      !snapshot.reasons.length ||
       (kind === OperationBatchKind.Initial && hasUnresolvedUnknown)
     ) {
       return
@@ -211,10 +246,11 @@ export function useOperationsPage() {
     setIsRunning(true)
     setRefreshError(false)
 
-    const reasons = [...selectedReasons]
+    const reasons = [...snapshot.reasons]
     const studentNames = new Map(students.map((student) => [student.id, student.name] as const))
 
     if (kind === OperationBatchKind.Initial) {
+      setBatchSnapshot(snapshot)
       setResults(
         studentIds.map((studentId) =>
           createPendingResult(
@@ -237,6 +273,7 @@ export function useOperationsPage() {
             errorKey: null,
             isRetryable: false,
             historyCheck: 'idle',
+            historyAcknowledged: false,
           }
         }),
       )
@@ -262,6 +299,7 @@ export function useOperationsPage() {
           errorKey: null,
           isRetryable: false,
           historyCheck: 'idle',
+          historyAcknowledged: false,
         })
       } catch (error) {
         const outcome = getFinancialFailureOutcome(error)
@@ -273,6 +311,7 @@ export function useOperationsPage() {
           errorKey: outcome.errorKey,
           isRetryable: outcome.isRetryable,
           historyCheck: 'idle',
+          historyAcknowledged: false,
         })
       }
     }
@@ -324,9 +363,13 @@ export function useOperationsPage() {
   const retryableCount = results.filter(
     (result) => result.status === 'failure' && result.isRetryable,
   ).length
-  const hasUnresolvedUnknown = results.some(
-    (result) => result.status === 'unknown' && result.historyCheck !== 'checked',
+  const unacknowledgedUnknownResults = results.filter(
+    (result) => result.status === 'unknown' && !result.historyAcknowledged,
   )
+  const hasUnresolvedUnknown = !!unacknowledgedUnknownResults.length
+  const canAcknowledgeUnknown =
+    !!unacknowledgedUnknownResults.length &&
+    unacknowledgedUnknownResults.every((result) => result.historyCheck === 'checked')
   const pendingCount = results.filter((result) => result.status === 'pending').length
   const studentsErrorKind = studentsQuery.error ? getApiErrorKind(studentsQuery.error) : null
   const reasonsErrorKind = reasonsQuery.error ? getApiErrorKind(reasonsQuery.error) : null
@@ -345,6 +388,7 @@ export function useOperationsPage() {
       totalCount: students.length,
       reasons,
       results,
+      batchSnapshot,
       pendingOperation,
       successCount,
       failureCount,
@@ -352,6 +396,7 @@ export function useOperationsPage() {
       retryableCount,
       pendingCount,
       hasUnresolvedUnknown,
+      canAcknowledgeUnknown,
       isRunning,
       refreshError,
       isRefreshing,
@@ -380,6 +425,7 @@ export function useOperationsPage() {
       handleConfirmOpenChange,
       handleConfirm,
       handleCheckHistory,
+      handleAcknowledgeUnknownResults,
       handleRefreshData,
       handleLogin,
     },
@@ -397,5 +443,6 @@ function createPendingResult(studentId: number, studentName: string): StudentOpe
     errorKey: null,
     isRetryable: false,
     historyCheck: 'idle',
+    historyAcknowledged: false,
   }
 }

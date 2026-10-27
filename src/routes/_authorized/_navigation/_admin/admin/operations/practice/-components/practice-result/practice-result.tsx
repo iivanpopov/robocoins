@@ -5,6 +5,13 @@ import { Button, Loader } from '#/components/ui'
 
 import styles from './practice-result.module.css'
 
+function getSignedAmount(
+  transaction: GroupPracticeAwardResponse['students'][number]['transaction'],
+) {
+  if (transaction.operation === 'deposit') return transaction.amount
+  return -transaction.amount
+}
+
 export interface PracticeResultProps {
   result: GroupPracticeAwardResponse
   studentNames: Map<number, string>
@@ -69,10 +76,7 @@ export function PracticeResult({
               </span>
               <span className={styles.amount}>
                 {t('profile.history.amount', {
-                  count:
-                    student.transaction.operation === 'deposit'
-                      ? student.transaction.amount
-                      : -student.transaction.amount,
+                  count: getSignedAmount(student.transaction),
                 })}
               </span>
               <span className={styles.balance}>
