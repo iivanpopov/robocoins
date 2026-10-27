@@ -28,7 +28,6 @@ function CreateCoursePage() {
   return (
     <CoursePageLayout
       title={t('admin.courses.create.title')}
-      description={t('admin.courses.create.description')}
       back={
         <IconButton
           nativeButton={false}
@@ -75,6 +74,21 @@ function CreateCoursePage() {
           submitLabel={t('admin.courses.create.submit')}
           isSubmitting={state.isSubmitting}
         >
+          <features.form.Field name="category">
+            {(field) => (
+              <Field>
+                <FieldLabel>{t('admin.courses.form.category-label')}</FieldLabel>
+                <CourseCategoryChips
+                  value={field.state.value}
+                  onSelect={(category) => {
+                    if (category === CourseCategoryFilter.All) return
+                    field.handleChange(category)
+                  }}
+                />
+              </Field>
+            )}
+          </features.form.Field>
+
           <features.form.Field name="name">
             {(field) => (
               <Field>
@@ -95,21 +109,6 @@ function CreateCoursePage() {
                 {!!field.state.meta.errors.length && (
                   <FieldError>{t('admin.courses.form.name-error')}</FieldError>
                 )}
-              </Field>
-            )}
-          </features.form.Field>
-
-          <features.form.Field name="category">
-            {(field) => (
-              <Field>
-                <FieldLabel>{t('admin.courses.form.category-label')}</FieldLabel>
-                <CourseCategoryChips
-                  value={field.state.value}
-                  onSelect={(category) => {
-                    if (category === CourseCategoryFilter.All) return
-                    field.handleChange(category)
-                  }}
-                />
               </Field>
             )}
           </features.form.Field>

@@ -27,7 +27,6 @@ function CreateGroupPage() {
   return (
     <GroupPageLayout
       title={t('admin.groups.create.title')}
-      description={t('admin.groups.create.description')}
       back={
         <IconButton
           nativeButton={false}

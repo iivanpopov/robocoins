@@ -1490,13 +1490,6 @@ export default {
       "Нова група"
     ]
   },
-  "admin.groups.create.description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Вкажіть назву та оберіть існуючий курс."
-    ]
-  },
   "admin.groups.create.name-label": {
     "type": "message",
     "declarations": [],
@@ -7053,13 +7046,6 @@ export default {
     "declarations": [],
     "pattern": [
       "Новий курс"
-    ]
-  },
-  "admin.courses.create.description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Заповніть назву та оберіть категорію."
     ]
   },
   "admin.courses.create.submit": {

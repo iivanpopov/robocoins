@@ -175,7 +175,6 @@ export default {
     'Повторюються лише групи з однозначною помилкою. Успішні та невідомі записи не повторюються.',
   'admin.groups.bulk.results.open': 'Відкрити групу {$group}',
   'admin.groups.create.title': 'Нова група',
-  'admin.groups.create.description': 'Вкажіть назву та оберіть існуючий курс.',
   'admin.groups.create.name-label': 'Назва групи',
   'admin.groups.create.name-placeholder': 'Наприклад, НД 16:00',
   'admin.groups.create.name-error': 'Введіть у форматі НД 16:00: день тижня та час.',
@@ -862,7 +861,6 @@ export default {
   'admin.courses.form.name-error': 'Введіть назву курсу до 200 символів.',
   'admin.courses.form.category-label': 'Категорія',
   'admin.courses.create.title': 'Новий курс',
-  'admin.courses.create.description': 'Заповніть назву та оберіть категорію.',
   'admin.courses.create.submit': 'Створити курс',
   'admin.courses.create.error': 'Не вдалося створити курс. Спробуйте ще раз.',
   'admin.courses.create.error.validation':

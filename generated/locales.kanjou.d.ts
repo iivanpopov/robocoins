@@ -159,7 +159,6 @@ declare module '@kanjou/react' {
       'admin.groups.bulk.results.retry-note': {}
       'admin.groups.bulk.results.open': { group: DefaultMessageValue }
       'admin.groups.create.title': {}
-      'admin.groups.create.description': {}
       'admin.groups.create.name-label': {}
       'admin.groups.create.name-placeholder': {}
       'admin.groups.create.name-error': {}
@@ -753,7 +752,6 @@ declare module '@kanjou/react' {
       'admin.courses.form.name-error': {}
       'admin.courses.form.category-label': {}
       'admin.courses.create.title': {}
-      'admin.courses.create.description': {}
       'admin.courses.create.submit': {}
       'admin.courses.create.error': {}
       'admin.courses.create.error.validation': {}
