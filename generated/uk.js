@@ -1874,13 +1874,6 @@ export default {
       "Учні"
     ]
   },
-  "students.description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Пошук, фільтри та профілі учнів школи."
-    ]
-  },
   "students.register.action": {
     "type": "message",
     "declarations": [],
@@ -7440,13 +7433,6 @@ export default {
       "Каталог нагород"
     ]
   },
-  "admin.catalog.description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Нагороди та привілеї для учнів."
-    ]
-  },
   "admin.catalog.add": {
     "type": "message",
     "declarations": [],
@@ -8273,20 +8259,6 @@ export default {
       "Адміністрування"
     ]
   },
-  "settings.account.name": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Ім’я"
-    ]
-  },
-  "settings.account.role": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Роль"
-    ]
-  },
   "role.student": {
     "type": "message",
     "declarations": [],
@@ -8341,13 +8313,6 @@ export default {
     "declarations": [],
     "pattern": [
       "Анімації вже зменшено налаштуваннями системи. Цей перемикач не може їх увімкнути."
-    ]
-  },
-  "student.password.unavailable": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Перегляд пароля учня поки недоступний."
     ]
   },
   "student.password.regenerate": {

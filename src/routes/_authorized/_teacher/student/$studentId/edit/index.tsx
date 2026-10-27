@@ -1,6 +1,5 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, notFound } from '@tanstack/react-router'
-import { cn } from 'cn'
 import * as v from 'valibot'
 
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
@@ -24,10 +23,6 @@ import {
   FieldLabel,
   IconButton,
   Input,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
   Loader,
 } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
@@ -166,52 +161,18 @@ function StudentEditPage() {
               )}
             </Field>
             <Field>
-              <FieldLabel htmlFor="student-edit-password">{t('settings.password')}</FieldLabel>
-              <div className={styles['password-row']}>
-                <InputGroup>
-                  <InputGroupInput
-                    id="student-edit-password"
-                    type={state.isPasswordVisible ? 'text' : 'password'}
-                    value={state.password}
-                    readOnly
-                    autoComplete="new-password"
-                  />
-                  <InputGroupAddon align="inline-end">
-                    <InputGroupButton
-                      onClick={functions.handleTogglePassword}
-                      disabled={state.isPasswordLoading}
-                      aria-label={
-                        state.isPasswordVisible
-                          ? t('field.password.hide')
-                          : t('field.password.show')
-                      }
-                      aria-pressed={state.isPasswordVisible}
-                    >
-                      {state.isPasswordLoading && <Loader />}
-                      {!state.isPasswordLoading && (
-                        <span
-                          aria-hidden="true"
-                          className={cn(
-                            state.isPasswordVisible && 'i-ph:eye-slash-bold',
-                            !state.isPasswordVisible && 'i-ph:eye-bold',
-                          )}
-                        />
-                      )}
-                    </InputGroupButton>
-                  </InputGroupAddon>
-                </InputGroup>
-                <IconButton
-                  className={styles['password-regenerate']}
-                  onClick={functions.handleOpenPasswordDialog}
-                  aria-label={t('student.password.regenerate')}
-                  title={t('student.password.regenerate')}
-                >
+              <FieldLabel>{t('settings.password')}</FieldLabel>
+              <Button
+                variant="ghost"
+                onClick={functions.handleOpenPasswordDialog}
+                disabled={mutations.passwordRegeneration.isPending}
+              >
+                {mutations.passwordRegeneration.isPending && <Loader />}
+                {!mutations.passwordRegeneration.isPending && (
                   <span aria-hidden="true" className="i-ph:arrows-clockwise-bold" />
-                </IconButton>
-              </div>
-              {state.isPasswordUnavailable && (
-                <InlineError>{t('student.password.unavailable')}</InlineError>
-              )}
+                )}
+                {t('student.password.regenerate')}
+              </Button>
               {mutations.passwordRegeneration.isError && (
                 <InlineError
                   onRetry={functions.handleRetryPasswordRegeneration}

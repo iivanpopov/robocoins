@@ -43,21 +43,9 @@ function SettingsPage() {
     <section className={styles.page}>
       <h1 className={styles.title}>{t('navbar.settings')}</h1>
 
-      <section className={styles.section}>
-        <h2 className={styles['section-title']}>{t('settings.section.account')}</h2>
-        <div className={styles.identity}>
-          <div className={styles['identity-row']}>
-            <span className={styles['identity-label']}>{t('settings.account.name')}</span>
-            <span className={styles['identity-value']}>{state.user?.name}</span>
-          </div>
-          <div className={styles['identity-row']}>
-            <span className={styles['identity-label']}>{t('settings.account.role')}</span>
-            <span className={styles['identity-value']}>
-              {state.user?.role && t.unsafe(`role.${state.user.role}`)}
-            </span>
-          </div>
-        </div>
-        {state.isStudent && (
+      {state.isStudent && (
+        <section className={styles.section}>
+          <h2 className={styles['section-title']}>{t('settings.section.account')}</h2>
           <Field>
             <FieldLabel htmlFor="settings-password">{t('settings.password')}</FieldLabel>
             <InputGroup>
@@ -96,8 +84,8 @@ function SettingsPage() {
               </InlineError>
             )}
           </Field>
-        )}
-      </section>
+        </section>
+      )}
 
       <section className={styles.section}>
         <h2 className={styles['section-title']}>{t('settings.section.appearance')}</h2>

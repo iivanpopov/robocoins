@@ -67,17 +67,3 @@
   gap: var(--spacing-md);
   align-items: center;
 }
-
-.password-row {
-  display: flex;
-  gap: var(--spacing-sm);
-  align-items: center;
-}
-
-.password-row > :first-child {
-  flex: 1;
-}
-
-.password-regenerate {
-  flex-shrink: 0;
-}

@@ -209,7 +209,6 @@ declare module '@kanjou/react' {
       'admin.people.teachers.title': {}
       'admin.people.teachers.description': {}
       'students.title': {}
-      'students.description': {}
       'students.register.action': {}
       'students.search.placeholder': {}
       'students.search.clear': {}
@@ -803,7 +802,6 @@ declare module '@kanjou/react' {
       'admin.courses.categories.rename.current': {}
       'admin.courses.categories.rename.proposed': {}
       'admin.catalog.title': {}
-      'admin.catalog.description': {}
       'admin.catalog.add': {}
       'admin.catalog.back': {}
       'admin.catalog.search.placeholder': {}
@@ -920,8 +918,6 @@ declare module '@kanjou/react' {
       'settings.password': {}
       'settings.section.account': {}
       'settings.section.admin': {}
-      'settings.account.name': {}
-      'settings.account.role': {}
       'role.student': {}
       'role.teacher': {}
       'role.admin': {}
@@ -930,7 +926,6 @@ declare module '@kanjou/react' {
       'settings.password.description': {}
       'settings.animations.disable': {}
       'settings.animations.system': {}
-      'student.password.unavailable': {}
       'student.password.regenerate': {}
       'student.password.regenerate.confirm.title': {}
       'student.password.regenerate.confirm.description': {

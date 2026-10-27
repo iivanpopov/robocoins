@@ -10,14 +10,10 @@
 
 .header {
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-}
-
-.heading {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  align-items: center;
+  justify-content: space-between;
 }
 
 .title {
@@ -25,18 +21,6 @@
   font-weight: 800;
   line-height: 1.2;
   color: var(--foreground);
-}
-
-.description {
-  font-size: 0.875rem;
-  font-weight: 450;
-  color: var(--muted-foreground);
-}
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-sm);
 }
 
 .controls {

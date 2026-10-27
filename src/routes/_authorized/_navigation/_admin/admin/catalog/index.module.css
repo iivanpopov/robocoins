@@ -11,17 +11,10 @@
 
 .header {
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-  align-items: flex-start;
-}
-
-.heading {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-  min-width: 10rem;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  align-items: center;
+  justify-content: space-between;
 }
 
 .title {
@@ -29,13 +22,6 @@
   font-weight: 800;
   line-height: 1.2;
   color: var(--foreground);
-}
-
-.description {
-  font-size: 0.875rem;
-  font-weight: 450;
-  line-height: 1.45;
-  color: var(--muted-foreground);
 }
 
 .add {
@@ -95,7 +81,11 @@
   flex-wrap: nowrap;
   padding-bottom: var(--spacing-xs);
   overflow-x: auto;
-  scrollbar-width: thin;
+  scrollbar-width: none;
+}
+
+.scroll::-webkit-scrollbar {
+  display: none;
 }
 
 .list {

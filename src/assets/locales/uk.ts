@@ -233,7 +233,6 @@ export default {
   'admin.people.teachers.title': 'Викладачі',
   'admin.people.teachers.description': 'Список, профіль і реєстрація викладачів.',
   'students.title': 'Учні',
-  'students.description': 'Пошук, фільтри та профілі учнів школи.',
   'students.register.action': 'Зареєструвати учня',
   'students.search.placeholder': 'Пошук за іменем',
   'students.search.clear': 'Очистити пошук',
@@ -913,7 +912,6 @@ export default {
   'admin.courses.categories.rename.current': 'Поточна назва',
   'admin.courses.categories.rename.proposed': 'Запропонована назва',
   'admin.catalog.title': 'Каталог нагород',
-  'admin.catalog.description': 'Нагороди та привілеї для учнів.',
   'admin.catalog.add': 'Додати нагороду',
   'admin.catalog.back': 'До каталогу',
   'admin.catalog.search.placeholder': 'Пошук нагороди',
@@ -1035,8 +1033,6 @@ export default {
   'settings.password': 'Пароль',
   'settings.section.account': 'Обліковий запис',
   'settings.section.admin': 'Адміністрування',
-  'settings.account.name': 'Ім’я',
-  'settings.account.role': 'Роль',
   'role.student': 'Учень',
   'role.teacher': 'Викладач',
   'role.admin': 'Адміністратор',
@@ -1047,7 +1043,6 @@ export default {
   'settings.animations.disable': 'Вимкнути анімації',
   'settings.animations.system':
     'Анімації вже зменшено налаштуваннями системи. Цей перемикач не може їх увімкнути.',
-  'student.password.unavailable': 'Перегляд пароля учня поки недоступний.',
   'student.password.regenerate': 'Згенерувати новий пароль',
   'student.password.regenerate.confirm.title': 'Згенерувати новий пароль?',
   'student.password.regenerate.confirm.description':

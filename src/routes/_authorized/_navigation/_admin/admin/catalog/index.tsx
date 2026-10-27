@@ -31,10 +31,7 @@ function CatalogPage() {
   return (
     <section className={styles.page}>
       <header className={styles.header}>
-        <div className={styles.heading}>
-          <h1 className={styles.title}>{t('admin.catalog.title')}</h1>
-          <p className={styles.description}>{t('admin.catalog.description')}</p>
-        </div>
+        <h1 className={styles.title}>{t('admin.catalog.title')}</h1>
         <Link to="/admin/catalog/create" className={styles.add}>
           <span className="i-ph:plus-bold" aria-hidden="true" />
           {t('admin.catalog.add')}

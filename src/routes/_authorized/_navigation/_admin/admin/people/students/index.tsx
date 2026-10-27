@@ -30,16 +30,11 @@ function StudentsPage() {
   return (
     <section className={styles.page}>
       <header className={styles.header}>
-        <div className={styles.heading}>
-          <h1 className={styles.title}>{t('students.title')}</h1>
-          <p className={styles.description}>{t('students.description')}</p>
-        </div>
-        <div className={styles.actions}>
-          <Button nativeButton={false} render={<Link to="/admin/people/students/register" />}>
-            <span aria-hidden="true" className="i-ph:plus-bold" />
-            {t('students.register.action')}
-          </Button>
-        </div>
+        <h1 className={styles.title}>{t('students.title')}</h1>
+        <Button nativeButton={false} render={<Link to="/admin/people/students/register" />}>
+          <span aria-hidden="true" className="i-ph:plus-bold" />
+          {t('students.register.action')}
+        </Button>
       </header>
 
       <div className={styles.controls}>
