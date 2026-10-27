@@ -24,6 +24,7 @@ import { Route as AuthorizedNavigationSettingsIndexRouteImport } from './../src/
 import { Route as AuthorizedTeacherGroupGroupIdRouteImport } from './../src/routes/_authorized/_teacher/group/$groupId'
 import { Route as AuthorizedStudentStudentIdIndexRouteImport } from './../src/routes/_authorized/student/$studentId/index'
 import { Route as AuthorizedNavigationAdminAdminIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/index'
+import { Route as AuthorizedNavigationAdminAdminCatalogRouteRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/catalog/route'
 import { Route as AuthorizedNavigationStudentHistoryIndexRouteImport } from './../src/routes/_authorized/_navigation/_student/history/index'
 import { Route as AuthorizedNavigationStudentLeaderboardIndexRouteImport } from './../src/routes/_authorized/_navigation/_student/leaderboard/index'
 import { Route as AuthorizedNavigationStudentShopIndexRouteImport } from './../src/routes/_authorized/_navigation/_student/shop/index'
@@ -32,11 +33,14 @@ import { Route as AuthorizedNavigationAdminAdminCatalogIndexRouteImport } from '
 import { Route as AuthorizedNavigationAdminAdminCoursesIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/courses/index'
 import { Route as AuthorizedNavigationAdminAdminPeopleIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/people/index'
 import { Route as AuthorizedTeacherStudentStudentIdEditIndexRouteImport } from './../src/routes/_authorized/_teacher/student/$studentId/edit/index'
+import { Route as AuthorizedNavigationAdminAdminCatalogRewardIdIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/catalog/$rewardId/index'
+import { Route as AuthorizedNavigationAdminAdminCatalogCreateIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/catalog/create/index'
 import { Route as AuthorizedNavigationAdminAdminCoursesCourseIdIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/courses/$courseId/index'
 import { Route as AuthorizedNavigationAdminAdminCoursesCategoriesIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/courses/categories/index'
 import { Route as AuthorizedNavigationAdminAdminCoursesCreateIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/courses/create/index'
 import { Route as AuthorizedNavigationAdminAdminPeopleStudentsIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/people/students/index'
 import { Route as AuthorizedNavigationAdminAdminPeopleTeachersIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/people/teachers/index'
+import { Route as AuthorizedNavigationAdminAdminCatalogRewardIdEditIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/catalog/$rewardId/edit/index'
 import { Route as AuthorizedNavigationAdminAdminCoursesCourseIdCategoryIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/courses/$courseId/category/index'
 import { Route as AuthorizedNavigationAdminAdminCoursesCourseIdDeleteIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/courses/$courseId/delete/index'
 import { Route as AuthorizedNavigationAdminAdminCoursesCourseIdRenameIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/courses/$courseId/rename/index'
@@ -125,6 +129,12 @@ const AuthorizedNavigationAdminAdminIndexRoute =
     path: '/admin/',
     getParentRoute: () => AuthorizedNavigationAdminRoute,
   } as any)
+const AuthorizedNavigationAdminAdminCatalogRouteRoute =
+  AuthorizedNavigationAdminAdminCatalogRouteRouteImport.update({
+    id: '/admin/catalog',
+    path: '/admin/catalog',
+    getParentRoute: () => AuthorizedNavigationAdminRoute,
+  } as any)
 const AuthorizedNavigationStudentHistoryIndexRoute =
   AuthorizedNavigationStudentHistoryIndexRouteImport.update({
     id: '/history/',
@@ -151,9 +161,9 @@ const AuthorizedNavigationTeacherGroupIndexRoute =
   } as any)
 const AuthorizedNavigationAdminAdminCatalogIndexRoute =
   AuthorizedNavigationAdminAdminCatalogIndexRouteImport.update({
-    id: '/admin/catalog/',
-    path: '/admin/catalog/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminCatalogRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminCoursesIndexRoute =
   AuthorizedNavigationAdminAdminCoursesIndexRouteImport.update({
@@ -172,6 +182,18 @@ const AuthorizedTeacherStudentStudentIdEditIndexRoute =
     id: '/student/$studentId/edit/',
     path: '/student/$studentId/edit/',
     getParentRoute: () => AuthorizedTeacherRoute,
+  } as any)
+const AuthorizedNavigationAdminAdminCatalogRewardIdIndexRoute =
+  AuthorizedNavigationAdminAdminCatalogRewardIdIndexRouteImport.update({
+    id: '/$rewardId/',
+    path: '/$rewardId/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminCatalogRouteRoute,
+  } as any)
+const AuthorizedNavigationAdminAdminCatalogCreateIndexRoute =
+  AuthorizedNavigationAdminAdminCatalogCreateIndexRouteImport.update({
+    id: '/create/',
+    path: '/create/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminCatalogRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminCoursesCourseIdIndexRoute =
   AuthorizedNavigationAdminAdminCoursesCourseIdIndexRouteImport.update({
@@ -202,6 +224,12 @@ const AuthorizedNavigationAdminAdminPeopleTeachersIndexRoute =
     id: '/admin/people/teachers/',
     path: '/admin/people/teachers/',
     getParentRoute: () => AuthorizedNavigationAdminRoute,
+  } as any)
+const AuthorizedNavigationAdminAdminCatalogRewardIdEditIndexRoute =
+  AuthorizedNavigationAdminAdminCatalogRewardIdEditIndexRouteImport.update({
+    id: '/$rewardId/edit/',
+    path: '/$rewardId/edit/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminCatalogRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminCoursesCourseIdCategoryIndexRoute =
   AuthorizedNavigationAdminAdminCoursesCourseIdCategoryIndexRouteImport.update({
@@ -282,6 +310,7 @@ export interface FileRoutesByFullPath {
   '/group/$groupId': typeof AuthorizedTeacherGroupGroupIdRoute
   '/settings/': typeof AuthorizedNavigationSettingsIndexRoute
   '/student/$studentId/': typeof AuthorizedStudentStudentIdIndexRoute
+  '/admin/catalog': typeof AuthorizedNavigationAdminAdminCatalogRouteRouteWithChildren
   '/admin/': typeof AuthorizedNavigationAdminAdminIndexRoute
   '/history/': typeof AuthorizedNavigationStudentHistoryIndexRoute
   '/leaderboard/': typeof AuthorizedNavigationStudentLeaderboardIndexRoute
@@ -291,11 +320,14 @@ export interface FileRoutesByFullPath {
   '/admin/courses/': typeof AuthorizedNavigationAdminAdminCoursesIndexRoute
   '/admin/people/': typeof AuthorizedNavigationAdminAdminPeopleIndexRoute
   '/student/$studentId/edit/': typeof AuthorizedTeacherStudentStudentIdEditIndexRoute
+  '/admin/catalog/$rewardId/': typeof AuthorizedNavigationAdminAdminCatalogRewardIdIndexRoute
+  '/admin/catalog/create/': typeof AuthorizedNavigationAdminAdminCatalogCreateIndexRoute
   '/admin/courses/$courseId/': typeof AuthorizedNavigationAdminAdminCoursesCourseIdIndexRoute
   '/admin/courses/categories/': typeof AuthorizedNavigationAdminAdminCoursesCategoriesIndexRoute
   '/admin/courses/create/': typeof AuthorizedNavigationAdminAdminCoursesCreateIndexRoute
   '/admin/people/students/': typeof AuthorizedNavigationAdminAdminPeopleStudentsIndexRoute
   '/admin/people/teachers/': typeof AuthorizedNavigationAdminAdminPeopleTeachersIndexRoute
+  '/admin/catalog/$rewardId/edit/': typeof AuthorizedNavigationAdminAdminCatalogRewardIdEditIndexRoute
   '/admin/courses/$courseId/category/': typeof AuthorizedNavigationAdminAdminCoursesCourseIdCategoryIndexRoute
   '/admin/courses/$courseId/delete/': typeof AuthorizedNavigationAdminAdminCoursesCourseIdDeleteIndexRoute
   '/admin/courses/$courseId/rename/': typeof AuthorizedNavigationAdminAdminCoursesCourseIdRenameIndexRoute
@@ -324,11 +356,14 @@ export interface FileRoutesByTo {
   '/admin/courses': typeof AuthorizedNavigationAdminAdminCoursesIndexRoute
   '/admin/people': typeof AuthorizedNavigationAdminAdminPeopleIndexRoute
   '/student/$studentId/edit': typeof AuthorizedTeacherStudentStudentIdEditIndexRoute
+  '/admin/catalog/$rewardId': typeof AuthorizedNavigationAdminAdminCatalogRewardIdIndexRoute
+  '/admin/catalog/create': typeof AuthorizedNavigationAdminAdminCatalogCreateIndexRoute
   '/admin/courses/$courseId': typeof AuthorizedNavigationAdminAdminCoursesCourseIdIndexRoute
   '/admin/courses/categories': typeof AuthorizedNavigationAdminAdminCoursesCategoriesIndexRoute
   '/admin/courses/create': typeof AuthorizedNavigationAdminAdminCoursesCreateIndexRoute
   '/admin/people/students': typeof AuthorizedNavigationAdminAdminPeopleStudentsIndexRoute
   '/admin/people/teachers': typeof AuthorizedNavigationAdminAdminPeopleTeachersIndexRoute
+  '/admin/catalog/$rewardId/edit': typeof AuthorizedNavigationAdminAdminCatalogRewardIdEditIndexRoute
   '/admin/courses/$courseId/category': typeof AuthorizedNavigationAdminAdminCoursesCourseIdCategoryIndexRoute
   '/admin/courses/$courseId/delete': typeof AuthorizedNavigationAdminAdminCoursesCourseIdDeleteIndexRoute
   '/admin/courses/$courseId/rename': typeof AuthorizedNavigationAdminAdminCoursesCourseIdRenameIndexRoute
@@ -357,6 +392,7 @@ export interface FileRoutesById {
   '/_authorized/_navigation/_student/': typeof AuthorizedNavigationStudentIndexRoute
   '/_authorized/_navigation/settings/': typeof AuthorizedNavigationSettingsIndexRoute
   '/_authorized/student/$studentId/': typeof AuthorizedStudentStudentIdIndexRoute
+  '/_authorized/_navigation/_admin/admin/catalog': typeof AuthorizedNavigationAdminAdminCatalogRouteRouteWithChildren
   '/_authorized/_navigation/_admin/admin/': typeof AuthorizedNavigationAdminAdminIndexRoute
   '/_authorized/_navigation/_student/history/': typeof AuthorizedNavigationStudentHistoryIndexRoute
   '/_authorized/_navigation/_student/leaderboard/': typeof AuthorizedNavigationStudentLeaderboardIndexRoute
@@ -366,11 +402,14 @@ export interface FileRoutesById {
   '/_authorized/_navigation/_admin/admin/courses/': typeof AuthorizedNavigationAdminAdminCoursesIndexRoute
   '/_authorized/_navigation/_admin/admin/people/': typeof AuthorizedNavigationAdminAdminPeopleIndexRoute
   '/_authorized/_teacher/student/$studentId/edit/': typeof AuthorizedTeacherStudentStudentIdEditIndexRoute
+  '/_authorized/_navigation/_admin/admin/catalog/$rewardId/': typeof AuthorizedNavigationAdminAdminCatalogRewardIdIndexRoute
+  '/_authorized/_navigation/_admin/admin/catalog/create/': typeof AuthorizedNavigationAdminAdminCatalogCreateIndexRoute
   '/_authorized/_navigation/_admin/admin/courses/$courseId/': typeof AuthorizedNavigationAdminAdminCoursesCourseIdIndexRoute
   '/_authorized/_navigation/_admin/admin/courses/categories/': typeof AuthorizedNavigationAdminAdminCoursesCategoriesIndexRoute
   '/_authorized/_navigation/_admin/admin/courses/create/': typeof AuthorizedNavigationAdminAdminCoursesCreateIndexRoute
   '/_authorized/_navigation/_admin/admin/people/students/': typeof AuthorizedNavigationAdminAdminPeopleStudentsIndexRoute
   '/_authorized/_navigation/_admin/admin/people/teachers/': typeof AuthorizedNavigationAdminAdminPeopleTeachersIndexRoute
+  '/_authorized/_navigation/_admin/admin/catalog/$rewardId/edit/': typeof AuthorizedNavigationAdminAdminCatalogRewardIdEditIndexRoute
   '/_authorized/_navigation/_admin/admin/courses/$courseId/category/': typeof AuthorizedNavigationAdminAdminCoursesCourseIdCategoryIndexRoute
   '/_authorized/_navigation/_admin/admin/courses/$courseId/delete/': typeof AuthorizedNavigationAdminAdminCoursesCourseIdDeleteIndexRoute
   '/_authorized/_navigation/_admin/admin/courses/$courseId/rename/': typeof AuthorizedNavigationAdminAdminCoursesCourseIdRenameIndexRoute
@@ -393,6 +432,7 @@ export interface FileRouteTypes {
     | '/group/$groupId'
     | '/settings/'
     | '/student/$studentId/'
+    | '/admin/catalog'
     | '/admin/'
     | '/history/'
     | '/leaderboard/'
@@ -402,11 +442,14 @@ export interface FileRouteTypes {
     | '/admin/courses/'
     | '/admin/people/'
     | '/student/$studentId/edit/'
+    | '/admin/catalog/$rewardId/'
+    | '/admin/catalog/create/'
     | '/admin/courses/$courseId/'
     | '/admin/courses/categories/'
     | '/admin/courses/create/'
     | '/admin/people/students/'
     | '/admin/people/teachers/'
+    | '/admin/catalog/$rewardId/edit/'
     | '/admin/courses/$courseId/category/'
     | '/admin/courses/$courseId/delete/'
     | '/admin/courses/$courseId/rename/'
@@ -435,11 +478,14 @@ export interface FileRouteTypes {
     | '/admin/courses'
     | '/admin/people'
     | '/student/$studentId/edit'
+    | '/admin/catalog/$rewardId'
+    | '/admin/catalog/create'
     | '/admin/courses/$courseId'
     | '/admin/courses/categories'
     | '/admin/courses/create'
     | '/admin/people/students'
     | '/admin/people/teachers'
+    | '/admin/catalog/$rewardId/edit'
     | '/admin/courses/$courseId/category'
     | '/admin/courses/$courseId/delete'
     | '/admin/courses/$courseId/rename'
@@ -467,6 +513,7 @@ export interface FileRouteTypes {
     | '/_authorized/_navigation/_student/'
     | '/_authorized/_navigation/settings/'
     | '/_authorized/student/$studentId/'
+    | '/_authorized/_navigation/_admin/admin/catalog'
     | '/_authorized/_navigation/_admin/admin/'
     | '/_authorized/_navigation/_student/history/'
     | '/_authorized/_navigation/_student/leaderboard/'
@@ -476,11 +523,14 @@ export interface FileRouteTypes {
     | '/_authorized/_navigation/_admin/admin/courses/'
     | '/_authorized/_navigation/_admin/admin/people/'
     | '/_authorized/_teacher/student/$studentId/edit/'
+    | '/_authorized/_navigation/_admin/admin/catalog/$rewardId/'
+    | '/_authorized/_navigation/_admin/admin/catalog/create/'
     | '/_authorized/_navigation/_admin/admin/courses/$courseId/'
     | '/_authorized/_navigation/_admin/admin/courses/categories/'
     | '/_authorized/_navigation/_admin/admin/courses/create/'
     | '/_authorized/_navigation/_admin/admin/people/students/'
     | '/_authorized/_navigation/_admin/admin/people/teachers/'
+    | '/_authorized/_navigation/_admin/admin/catalog/$rewardId/edit/'
     | '/_authorized/_navigation/_admin/admin/courses/$courseId/category/'
     | '/_authorized/_navigation/_admin/admin/courses/$courseId/delete/'
     | '/_authorized/_navigation/_admin/admin/courses/$courseId/rename/'
@@ -606,6 +656,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminIndexRouteImport
       parentRoute: typeof AuthorizedNavigationAdminRoute
     }
+    '/_authorized/_navigation/_admin/admin/catalog': {
+      id: '/_authorized/_navigation/_admin/admin/catalog'
+      path: '/admin/catalog'
+      fullPath: '/admin/catalog'
+      preLoaderRoute: typeof AuthorizedNavigationAdminAdminCatalogRouteRouteImport
+      parentRoute: typeof AuthorizedNavigationAdminRoute
+    }
     '/_authorized/_navigation/_student/history/': {
       id: '/_authorized/_navigation/_student/history/'
       path: '/history'
@@ -636,10 +693,10 @@ declare module '@tanstack/react-router' {
     }
     '/_authorized/_navigation/_admin/admin/catalog/': {
       id: '/_authorized/_navigation/_admin/admin/catalog/'
-      path: '/admin/catalog'
+      path: '/'
       fullPath: '/admin/catalog/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminCatalogIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminCatalogRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/courses/': {
       id: '/_authorized/_navigation/_admin/admin/courses/'
@@ -661,6 +718,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/student/$studentId/edit/'
       preLoaderRoute: typeof AuthorizedTeacherStudentStudentIdEditIndexRouteImport
       parentRoute: typeof AuthorizedTeacherRoute
+    }
+    '/_authorized/_navigation/_admin/admin/catalog/$rewardId/': {
+      id: '/_authorized/_navigation/_admin/admin/catalog/$rewardId/'
+      path: '/$rewardId'
+      fullPath: '/admin/catalog/$rewardId/'
+      preLoaderRoute: typeof AuthorizedNavigationAdminAdminCatalogRewardIdIndexRouteImport
+      parentRoute: typeof AuthorizedNavigationAdminAdminCatalogRouteRoute
+    }
+    '/_authorized/_navigation/_admin/admin/catalog/create/': {
+      id: '/_authorized/_navigation/_admin/admin/catalog/create/'
+      path: '/create'
+      fullPath: '/admin/catalog/create/'
+      preLoaderRoute: typeof AuthorizedNavigationAdminAdminCatalogCreateIndexRouteImport
+      parentRoute: typeof AuthorizedNavigationAdminAdminCatalogRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/courses/$courseId/': {
       id: '/_authorized/_navigation/_admin/admin/courses/$courseId/'
@@ -696,6 +767,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/people/teachers/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminPeopleTeachersIndexRouteImport
       parentRoute: typeof AuthorizedNavigationAdminRoute
+    }
+    '/_authorized/_navigation/_admin/admin/catalog/$rewardId/edit/': {
+      id: '/_authorized/_navigation/_admin/admin/catalog/$rewardId/edit/'
+      path: '/$rewardId/edit'
+      fullPath: '/admin/catalog/$rewardId/edit/'
+      preLoaderRoute: typeof AuthorizedNavigationAdminAdminCatalogRewardIdEditIndexRouteImport
+      parentRoute: typeof AuthorizedNavigationAdminAdminCatalogRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/courses/$courseId/category/': {
       id: '/_authorized/_navigation/_admin/admin/courses/$courseId/category/'
@@ -800,9 +878,33 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
-interface AuthorizedNavigationAdminRouteChildren {
-  AuthorizedNavigationAdminAdminIndexRoute: typeof AuthorizedNavigationAdminAdminIndexRoute
+interface AuthorizedNavigationAdminAdminCatalogRouteRouteChildren {
   AuthorizedNavigationAdminAdminCatalogIndexRoute: typeof AuthorizedNavigationAdminAdminCatalogIndexRoute
+  AuthorizedNavigationAdminAdminCatalogRewardIdIndexRoute: typeof AuthorizedNavigationAdminAdminCatalogRewardIdIndexRoute
+  AuthorizedNavigationAdminAdminCatalogCreateIndexRoute: typeof AuthorizedNavigationAdminAdminCatalogCreateIndexRoute
+  AuthorizedNavigationAdminAdminCatalogRewardIdEditIndexRoute: typeof AuthorizedNavigationAdminAdminCatalogRewardIdEditIndexRoute
+}
+
+const AuthorizedNavigationAdminAdminCatalogRouteRouteChildren: AuthorizedNavigationAdminAdminCatalogRouteRouteChildren =
+  {
+    AuthorizedNavigationAdminAdminCatalogIndexRoute:
+      AuthorizedNavigationAdminAdminCatalogIndexRoute,
+    AuthorizedNavigationAdminAdminCatalogRewardIdIndexRoute:
+      AuthorizedNavigationAdminAdminCatalogRewardIdIndexRoute,
+    AuthorizedNavigationAdminAdminCatalogCreateIndexRoute:
+      AuthorizedNavigationAdminAdminCatalogCreateIndexRoute,
+    AuthorizedNavigationAdminAdminCatalogRewardIdEditIndexRoute:
+      AuthorizedNavigationAdminAdminCatalogRewardIdEditIndexRoute,
+  }
+
+const AuthorizedNavigationAdminAdminCatalogRouteRouteWithChildren =
+  AuthorizedNavigationAdminAdminCatalogRouteRoute._addFileChildren(
+    AuthorizedNavigationAdminAdminCatalogRouteRouteChildren,
+  )
+
+interface AuthorizedNavigationAdminRouteChildren {
+  AuthorizedNavigationAdminAdminCatalogRouteRoute: typeof AuthorizedNavigationAdminAdminCatalogRouteRouteWithChildren
+  AuthorizedNavigationAdminAdminIndexRoute: typeof AuthorizedNavigationAdminAdminIndexRoute
   AuthorizedNavigationAdminAdminCoursesIndexRoute: typeof AuthorizedNavigationAdminAdminCoursesIndexRoute
   AuthorizedNavigationAdminAdminPeopleIndexRoute: typeof AuthorizedNavigationAdminAdminPeopleIndexRoute
   AuthorizedNavigationAdminAdminCoursesCourseIdIndexRoute: typeof AuthorizedNavigationAdminAdminCoursesCourseIdIndexRoute
@@ -824,10 +926,10 @@ interface AuthorizedNavigationAdminRouteChildren {
 
 const AuthorizedNavigationAdminRouteChildren: AuthorizedNavigationAdminRouteChildren =
   {
+    AuthorizedNavigationAdminAdminCatalogRouteRoute:
+      AuthorizedNavigationAdminAdminCatalogRouteRouteWithChildren,
     AuthorizedNavigationAdminAdminIndexRoute:
       AuthorizedNavigationAdminAdminIndexRoute,
-    AuthorizedNavigationAdminAdminCatalogIndexRoute:
-      AuthorizedNavigationAdminAdminCatalogIndexRoute,
     AuthorizedNavigationAdminAdminCoursesIndexRoute:
       AuthorizedNavigationAdminAdminCoursesIndexRoute,
     AuthorizedNavigationAdminAdminPeopleIndexRoute:

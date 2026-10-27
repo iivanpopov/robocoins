@@ -1,0 +1,145 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  width: 100%;
+  max-width: 36rem;
+  min-height: 100%;
+  padding: var(--spacing-xl);
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.heading {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 10rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--foreground);
+}
+
+.description {
+  font-size: 0.875rem;
+  font-weight: 450;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+.add {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: var(--spacing-xs);
+  align-items: center;
+  min-height: 2.5rem;
+  padding: 0 var(--spacing-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--brand-foreground);
+  white-space: nowrap;
+  background: var(--brand);
+  border-radius: var(--rounded-lg);
+  transition: background-color 160ms ease;
+}
+
+.add:hover {
+  background: var(--brand-hover);
+}
+
+.add:focus-visible {
+  outline: 3px solid var(--brand-hover);
+  outline-offset: 2px;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  width: 100%;
+  padding: var(--spacing-md);
+  background: var(--surface);
+  border-radius: var(--rounded-lg);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.filter-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.scroll {
+  flex-wrap: nowrap;
+  padding-bottom: var(--spacing-xs);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  text-align: center;
+}
+
+.empty > [aria-hidden='true'] {
+  font-size: 2.5rem;
+}
+
+.reset-button {
+  padding: 0;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--brand);
+  text-decoration: underline;
+  cursor: pointer;
+  outline: none;
+  background: none;
+  border: none;
+}
+
+.reset-button:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}

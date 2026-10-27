@@ -133,8 +133,6 @@ declare module '@kanjou/react' {
       'admin.teachers.result.profile': {}
       'admin.teachers.result.list': {}
       'admin.teachers.result.another': {}
-      'admin.catalog.title': {}
-      'admin.catalog.description': {}
       'admin.courses.title': {}
       'admin.courses.description': {}
       'admin.courses.link': {}
@@ -267,6 +265,101 @@ declare module '@kanjou/react' {
       'admin.courses.categories.delete.result-title': {}
       'admin.courses.categories.delete.result-description': {}
       'admin.courses.categories.delete.result-category': {}
+      'admin.catalog.title': {}
+      'admin.catalog.description': {}
+      'admin.catalog.add': {}
+      'admin.catalog.back': {}
+      'admin.catalog.search.placeholder': {}
+      'admin.catalog.filters.all': {}
+      'admin.catalog.filters.type': {}
+      'admin.catalog.filters.category': {}
+      'admin.catalog.type.reward': {}
+      'admin.catalog.type.privilege': {}
+      'admin.catalog.category.none': {}
+      'admin.catalog.empty': {}
+      'admin.catalog.empty.filtered': {}
+      'admin.catalog.empty.reset': {}
+      'admin.catalog.error.load': {}
+      'admin.catalog.error.request': {}
+      'admin.catalog.error.unauthorized': {}
+      'admin.catalog.error.forbidden': {}
+      'admin.catalog.error.not-found': {}
+      'admin.catalog.error.validation': {}
+      'admin.catalog.details.type': {}
+      'admin.catalog.details.category': {}
+      'admin.catalog.details.description': {}
+      'admin.catalog.details.no-description': {}
+      'admin.catalog.details.image': {}
+      'admin.catalog.details.image.none': {}
+      'admin.catalog.details.manage': {}
+      'admin.catalog.details.manage.description': {}
+      'admin.catalog.details.edit': {}
+      'admin.catalog.details.hide': {}
+      'admin.catalog.details.delete': {}
+      'admin.catalog.details.hide.confirm.title': {}
+      'admin.catalog.details.hide.confirm.description': {
+        name: DefaultMessageValue
+      }
+      'admin.catalog.details.hide.confirm.action': {}
+      'admin.catalog.details.hide.result.title': {}
+      'admin.catalog.details.hide.result.description': {}
+      'admin.catalog.details.delete.confirm.title': {}
+      'admin.catalog.details.delete.confirm.description': {
+        name: DefaultMessageValue
+      }
+      'admin.catalog.details.delete.confirm.action': {}
+      'admin.catalog.details.delete.result.title': {}
+      'admin.catalog.details.delete.result.description': {}
+      'admin.catalog.form.name': {}
+      'admin.catalog.form.name.placeholder': {}
+      'admin.catalog.form.price': {}
+      'admin.catalog.form.price.placeholder': {}
+      'admin.catalog.form.price.description': {}
+      'admin.catalog.form.description': {}
+      'admin.catalog.form.description.placeholder': {}
+      'admin.catalog.form.type': {}
+      'admin.catalog.form.category': {}
+      'admin.catalog.form.submit': {}
+      'admin.catalog.validation.name': {}
+      'admin.catalog.validation.price': {}
+      'admin.catalog.validation.type': {}
+      'admin.catalog.validation.category': {}
+      'admin.catalog.create.title': {}
+      'admin.catalog.create.description': {}
+      'admin.catalog.create.error': {}
+      'admin.catalog.create.success.title': {}
+      'admin.catalog.create.success.description': {}
+      'admin.catalog.create.success.open': {}
+      'admin.catalog.create.success.another': {}
+      'admin.catalog.create.success.catalog': {}
+      'admin.catalog.create.success.image': {}
+      'admin.catalog.create.success.image.description': {}
+      'admin.catalog.create.success.no-image': {}
+      'admin.catalog.image.title': {}
+      'admin.catalog.image.description': {}
+      'admin.catalog.image.unsupported': {}
+      'admin.catalog.image.mode.link': {}
+      'admin.catalog.image.mode.file': {}
+      'admin.catalog.image.link.placeholder': {}
+      'admin.catalog.image.link.preview': {}
+      'admin.catalog.image.link.replace': {}
+      'admin.catalog.image.file.choose': {}
+      'admin.catalog.image.file.replace': {}
+      'admin.catalog.image.file.hint': {}
+      'admin.catalog.image.remove': {}
+      'admin.catalog.image.selected': {}
+      'admin.catalog.image.unsaved': {}
+      'admin.catalog.image.error.link': {}
+      'admin.catalog.image.error.preview': {}
+      'admin.catalog.image.error.file-type': {}
+      'admin.catalog.image.error.file-size': {}
+      'admin.catalog.edit.back': {}
+      'admin.catalog.edit.title': {}
+      'admin.catalog.edit.description': {}
+      'admin.catalog.edit.submit': {}
+      'admin.catalog.edit.reset': {}
+      'admin.catalog.edit.notice.title': {}
+      'admin.catalog.edit.notice.description': {}
       'shop.balance': { count: { __fn: 'number' } }
       'shop.balance.amount': { count: { __fn: 'number' } }
       'shop.reward.back': {}
@@ -304,6 +397,7 @@ declare module '@kanjou/react' {
       'settings.logout.confirm.title': {}
       'settings.logout.confirm.description': {}
       'action.cancel': {}
+      'action.close': {}
       'group.practice.award': {}
       'group.practice.confirm.title': {}
       'group.practice.confirm.description': { count: { __fn: 'number' } }

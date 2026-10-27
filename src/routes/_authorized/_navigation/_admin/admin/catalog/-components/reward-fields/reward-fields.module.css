@@ -1,0 +1,37 @@
+.fields {
+  gap: var(--spacing-lg);
+}
+
+.textarea {
+  width: 100%;
+  min-height: 6rem;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--foreground);
+  resize: vertical;
+  outline: none;
+  background: var(--surface);
+  border: none;
+  border-radius: var(--rounded-md);
+}
+
+.textarea::placeholder {
+  color: var(--muted-foreground);
+}
+
+.textarea:focus-visible {
+  outline: 2px solid var(--brand);
+}
+
+.textarea:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
