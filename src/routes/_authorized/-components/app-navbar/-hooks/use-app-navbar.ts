@@ -33,6 +33,19 @@ const NAVIGATION_ITEMS = {
   ],
 } as const satisfies Record<UserRoleKey, readonly NavigationItem[]>
 
+function getActivePath(items: readonly NavigationItem[], currentPath: string) {
+  const matches = items
+    .map((item) => item.to)
+    .filter((to) => {
+      if (to === currentPath) return true
+      if (to === '/') return false
+      return currentPath.startsWith(`${to}/`)
+    })
+    .sort((first, second) => second.length - first.length)
+
+  return matches[0] ?? currentPath
+}
+
 export function useAppNavbar() {
   const { user } = useRouteContext({ from: '/_authorized' })
   const role = user?.role ?? 'student'
@@ -45,7 +58,7 @@ export function useAppNavbar() {
     if (to === currentPath) return
 
     const items = NAVIGATION_ITEMS[role]
-    const currentIndex = items.findIndex((item) => item.to === currentPath)
+    const currentIndex = items.findIndex((item) => item.to === getActivePath(items, currentPath))
     const nextIndex = items.findIndex((item) => item.to === to)
     let viewTransition: NavigateOptions['viewTransition'] = false
 
@@ -59,6 +72,7 @@ export function useAppNavbar() {
   }
 
   const items = NAVIGATION_ITEMS[role]
+  const activePath = getActivePath(items, currentPath)
 
-  return { currentPath, handleNavigate, items }
+  return { activePath, currentPath, handleNavigate, items }
 }

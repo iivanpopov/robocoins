@@ -3,8 +3,8 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
-import { GroupCard } from '#/routes/_authorized/-components/group-card'
 
+import { AdminGroupRow } from './-components'
 import { useAdminGroupsPage } from './-hooks'
 
 import styles from './index.module.css'
@@ -41,7 +41,7 @@ function AdminGroupsPage() {
       {!state.isPending && !state.isError && !!state.groups.length && (
         <div className={styles.groups}>
           {state.groups.map((group) => (
-            <GroupCard key={group.id} group={group} />
+            <AdminGroupRow key={group.id} group={group} />
           ))}
         </div>
       )}

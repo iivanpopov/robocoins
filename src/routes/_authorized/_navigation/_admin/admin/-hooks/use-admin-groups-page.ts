@@ -2,8 +2,8 @@ import { useQueries } from '@tanstack/react-query'
 
 import { useGetCoursesCourseGet } from '#/api/hooks/useGetCoursesCourseGet'
 import { getGroupsByCourseIdGroupCourseCourseIdGetQueryOptions } from '#/api/hooks/useGetGroupsByCourseIdGroupCourseCourseIdGet'
-import { parseGroupSchedule } from '#/routes/-utils'
-import type { GroupCardData } from '#/routes/_authorized/-components/group-card'
+
+import type { AdminGroupRowData } from '../-components'
 
 export function useAdminGroupsPage() {
   const coursesQuery = useGetCoursesCourseGet()
@@ -33,9 +33,8 @@ export function useAdminGroupsPage() {
           name: group.name,
           courseName: course.name,
           category: course.category,
-          schedule: parseGroupSchedule(group.name),
           studentsCount: group.students_count ?? 0,
-        }) satisfies GroupCardData,
+        }) satisfies AdminGroupRowData,
     )
   })
 

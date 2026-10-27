@@ -26,7 +26,7 @@ export function AppNavbar() {
       {navbar.items.map((item) => (
         <NavbarItem
           key={item.to}
-          active={navbar.currentPath === item.to}
+          active={navbar.activePath === item.to}
           onClick={() => navbar.handleNavigate(item.to)}
           aria-label={t(item.label)}
         >
