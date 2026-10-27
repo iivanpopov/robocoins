@@ -2843,6 +2843,388 @@ export default {
       "Повернутися до форми"
     ]
   },
+  "admin.streak.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Стрик учня"
+    ]
+  },
+  "admin.streak.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Поточний і максимальний стрик, запуск і завершення."
+    ]
+  },
+  "admin.streak.back": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назад до профілю учня"
+    ]
+  },
+  "admin.streak.days": {
+    "type": "select",
+    "declarations": [
+      {
+        "type": "input",
+        "name": "count",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "count"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "number"
+          }
+        }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "count"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " день"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " дні"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " днів"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " дня"
+        ]
+      }
+    ]
+  },
+  "admin.streak.date": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "date"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "datetime",
+          "options": {
+            "day": {
+              "type": "literal",
+              "value": "numeric"
+            },
+            "month": {
+              "type": "literal",
+              "value": "long"
+            },
+            "year": {
+              "type": "literal",
+              "value": "numeric"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "admin.streak.started-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Початок"
+    ]
+  },
+  "admin.streak.finished-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Завершення"
+    ]
+  },
+  "admin.streak.current.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Поточний стрик"
+    ]
+  },
+  "admin.streak.current.active": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Активний"
+    ]
+  },
+  "admin.streak.current.ended": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Завершено"
+    ]
+  },
+  "admin.streak.current.none": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Немає активного стрику"
+    ]
+  },
+  "admin.streak.current.none-value": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Немає"
+    ]
+  },
+  "admin.streak.longest.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Максимальний стрик"
+    ]
+  },
+  "admin.streak.longest.hint": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Найдовший результат учня."
+    ]
+  },
+  "admin.streak.actions.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Керування стриком"
+    ]
+  },
+  "admin.streak.actions.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Запуск, завершення та кількість днів."
+    ]
+  },
+  "admin.streak.actions.start": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Запустити стрик"
+    ]
+  },
+  "admin.streak.actions.end": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Завершити стрик"
+    ]
+  },
+  "admin.streak.actions.active-note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Стрик уже активний."
+    ]
+  },
+  "admin.streak.actions.inactive-note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Активного стрику немає."
+    ]
+  },
+  "admin.streak.end.confirm.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Завершити стрик?"
+    ]
+  },
+  "admin.streak.end.confirm.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Поточний стрик буде завершено. Кількість днів залишиться в показниках."
+    ]
+  },
+  "admin.streak.end.confirm.action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Завершити"
+    ]
+  },
+  "admin.streak.update.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Кількість днів"
+    ]
+  },
+  "admin.streak.update.label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Дні"
+    ]
+  },
+  "admin.streak.update.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вкажіть ціле число від 0."
+    ]
+  },
+  "admin.streak.update.unavailable": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Спочатку запустіть стрик, щоб змінити кількість днів."
+    ]
+  },
+  "admin.streak.update.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зберегти"
+    ]
+  },
+  "admin.streak.validation.days": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вкажіть ціле число від 0."
+    ]
+  },
+  "admin.streak.result.started": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Стрик запущено."
+    ]
+  },
+  "admin.streak.result.ended": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Стрик завершено."
+    ]
+  },
+  "admin.streak.result.updated": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Кількість днів оновлено."
+    ]
+  },
+  "admin.streak.error.load": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити стрик."
+    ]
+  },
+  "admin.streak.error.action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося виконати дію зі стриком."
+    ]
+  },
+  "admin.streak.error.unauthorized": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сесія завершилася. Увійдіть знову, щоб продовжити."
+    ]
+  },
+  "admin.streak.error.forbidden": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Недостатньо прав для керування стриком."
+    ]
+  },
+  "admin.streak.error.not-found": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Учня або стрик не знайдено."
+    ]
+  },
+  "admin.streak.error.validation": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевірте кількість днів."
+    ]
+  },
   "students.register.title": {
     "type": "message",
     "declarations": [],

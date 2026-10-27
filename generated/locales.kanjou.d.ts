@@ -312,6 +312,44 @@ declare module '@kanjou/react' {
       'students.delete.result-action': {}
       'students.delete.result-action-value': {}
       'students.delete.again': {}
+      'admin.streak.title': {}
+      'admin.streak.description': {}
+      'admin.streak.back': {}
+      'admin.streak.days': { count: { __fn: 'number' } }
+      'admin.streak.date': { date: { __fn: 'datetime' } }
+      'admin.streak.started-label': {}
+      'admin.streak.finished-label': {}
+      'admin.streak.current.title': {}
+      'admin.streak.current.active': {}
+      'admin.streak.current.ended': {}
+      'admin.streak.current.none': {}
+      'admin.streak.current.none-value': {}
+      'admin.streak.longest.title': {}
+      'admin.streak.longest.hint': {}
+      'admin.streak.actions.title': {}
+      'admin.streak.actions.description': {}
+      'admin.streak.actions.start': {}
+      'admin.streak.actions.end': {}
+      'admin.streak.actions.active-note': {}
+      'admin.streak.actions.inactive-note': {}
+      'admin.streak.end.confirm.title': {}
+      'admin.streak.end.confirm.description': {}
+      'admin.streak.end.confirm.action': {}
+      'admin.streak.update.title': {}
+      'admin.streak.update.label': {}
+      'admin.streak.update.description': {}
+      'admin.streak.update.unavailable': {}
+      'admin.streak.update.submit': {}
+      'admin.streak.validation.days': {}
+      'admin.streak.result.started': {}
+      'admin.streak.result.ended': {}
+      'admin.streak.result.updated': {}
+      'admin.streak.error.load': {}
+      'admin.streak.error.action': {}
+      'admin.streak.error.unauthorized': {}
+      'admin.streak.error.forbidden': {}
+      'admin.streak.error.not-found': {}
+      'admin.streak.error.validation': {}
       'students.register.title': {}
       'students.register.description': {}
       'students.register.name.label': {}
