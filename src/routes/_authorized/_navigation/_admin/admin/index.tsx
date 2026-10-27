@@ -23,7 +23,7 @@ import { useAdminGroupsPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/')({
-  head: () => ({ meta: [{ title: 'Навчання | Robocoins' }] }),
+  head: () => ({ meta: [{ title: 'Групи | Robocoins' }] }),
   component: AdminGroupsPage,
 })
 
@@ -135,14 +135,13 @@ function AdminGroupsPage() {
             />
           </div>
         )}
-        <div className={styles.summary}>
-          <span>{t('admin.groups.found', { count: state.foundCount })}</span>
-          {state.hasFilters && (
+        {state.hasFilters && (
+          <div className={styles.summary}>
             <Button type="button" variant="link" onClick={functions.handleClearFilters}>
               {t('admin.groups.filters.clear')}
             </Button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       {state.isPending && <Loader grow />}

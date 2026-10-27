@@ -7,6 +7,7 @@ import { useCreateStudentStudentRegisterPost } from '#/api/hooks/useCreateStuden
 import { getAllStudentsStudentGetQueryKey } from '#/api/hooks/useGetAllStudentsStudentGet'
 import { useGetCoursesCourseGet } from '#/api/hooks/useGetCoursesCourseGet'
 import type { StudentProfileResponse } from '#/api/types'
+import type { CourseCategoryKey } from '#/api/types'
 import { AVATARS, UKRAINIAN_LOCALE } from '#/routes/-constants'
 
 import { RegisterStudentFormSchema, type RegisterStudentFormValues } from '../-schemas'
@@ -24,6 +25,8 @@ export function useRegisterStudentPage() {
   const queryClient = useQueryClient()
 
   const [created, setCreated] = useState<CreatedStudent | null>(null)
+  const [categoryFilter, setCategoryFilter] = useState<CourseCategoryKey | 'all'>('all')
+  const [courseFilter, setCourseFilter] = useState<number | null>(null)
 
   const coursesQuery = useGetCoursesCourseGet()
 
@@ -117,6 +120,24 @@ export function useRegisterStudentPage() {
   }
 
   const groups = combineCourseGroups(coursesQuery.data)
+  const categories = [...new Set(groups.map((group) => group.category))]
+  const categoryGroups = groups.filter(
+    (group) => categoryFilter === 'all' || group.category === categoryFilter,
+  )
+  const courses = [
+    ...new Map(
+      categoryGroups.map((group) => [
+        group.courseId,
+        { id: group.courseId, name: group.courseName, category: group.category },
+      ]),
+    ).values(),
+  ]
+  const filteredGroups = groups.filter((group) => {
+    const matchesCategory = categoryFilter === 'all' || group.category === categoryFilter
+    const matchesCourse = courseFilter === null || group.courseId === courseFilter
+
+    return matchesCategory && matchesCourse
+  })
   const isGroupsPending = coursesQuery.isPending
   const isGroupsError = coursesQuery.isError
   const isGroupsRetrying = coursesQuery.isFetching
@@ -126,6 +147,11 @@ export function useRegisterStudentPage() {
     state: {
       created,
       groups,
+      categories,
+      courses,
+      filteredGroups,
+      categoryFilter,
+      courseFilter,
       isGroupsPending,
       isGroupsError,
       isGroupsRetrying,
@@ -139,6 +165,16 @@ export function useRegisterStudentPage() {
       handleSubmit,
       handleRetrySubmit,
       handleGroupToggle,
+      handleCategoryChange: (category: CourseCategoryKey | 'all') => {
+        setCategoryFilter(category)
+        setCourseFilter(null)
+      },
+      handleCourseFilterChange: (courseId: number) => {
+        setCourseFilter((current) => {
+          if (current === courseId) return null
+          return courseId
+        })
+      },
       handleBack,
       handleLogin,
       handleRetryGroups,

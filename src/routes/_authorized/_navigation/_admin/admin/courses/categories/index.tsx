@@ -10,7 +10,7 @@ import { useCourseCategoriesPage } from '../-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/courses/categories/')({
-  head: () => ({ meta: [{ title: 'Категорії курсів | Robocoins' }] }),
+  head: () => ({ meta: [{ title: 'Категорії | Robocoins' }] }),
   component: CourseCategoriesPage,
 })
 
@@ -40,13 +40,6 @@ function CourseCategoriesPage() {
 
       {!state.isPending && !state.isError && (
         <>
-          <div className={styles.summary}>
-            <span>
-              {t('admin.courses.courses-count', { count: state.totalCourses })},{' '}
-              {t('admin.courses.groups-count', { count: state.totalGroups })}
-            </span>
-          </div>
-
           <div className={styles.categories}>
             {state.summaries.map((summary) => (
               <details

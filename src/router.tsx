@@ -5,7 +5,7 @@ import { setupRouterSsrQueryIntegration } from '@tanstack/react-router-ssr-query
 import { createQueryClient } from '#/lib/query'
 import { ErrorComponent } from '#/routes/-components/error-component'
 import { NotFoundComponent } from '#/routes/-components/not-found-component'
-import { PendingComponent } from '#/routes/-components/pending'
+import { PendingComponent } from '#/routes/-components/pending-component'
 
 import { routeTree } from '../generated/routeTree.gen'
 

@@ -4,13 +4,13 @@ import { cn } from 'cn'
 
 import {
   Button,
-  Chip,
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
   Loader,
 } from '#/components/ui'
+import { ThemedChip } from '#/routes/-components'
 
 import { ApiErrorNotice, StudentRow } from './-components'
 import { useStudentsPage } from './-hooks'
@@ -62,24 +62,57 @@ function StudentsPage() {
           )}
         </InputGroup>
 
+        {!!state.categories.length && (
+          <div className={styles['filter-block']}>
+            <span className={styles['filter-label']}>{t('students.filters.category')}</span>
+            <div
+              className={styles.filters}
+              role="group"
+              aria-label={t('students.filters.category')}
+            >
+              <ThemedChip
+                icon={false}
+                selected={state.selectedCategory === 'all'}
+                onClick={() => functions.handleCategorySelect('all')}
+              >
+                {t('students.filters.all-categories')}
+              </ThemedChip>
+              {state.categories.map((category) => (
+                <ThemedChip
+                  key={category}
+                  type="category"
+                  value={category}
+                  selected={state.selectedCategory === category}
+                  onClick={() => functions.handleCategorySelect(category)}
+                >
+                  {t('course.category', { category })}
+                </ThemedChip>
+              ))}
+            </div>
+          </div>
+        )}
+
         {!!state.courses.length && (
           <div className={styles['filter-block']}>
             <span className={styles['filter-label']}>{t('students.filters.courses')}</span>
             <div className={styles.filters} role="group" aria-label={t('students.filters.courses')}>
-              <Chip
+              <ThemedChip
+                icon={false}
                 selected={state.selectedCourseId === null}
                 onClick={() => functions.handleCourseSelect(null)}
               >
                 {t('students.filters.all-courses')}
-              </Chip>
+              </ThemedChip>
               {state.courses.map((course) => (
-                <Chip
+                <ThemedChip
                   key={course.id}
+                  type="course"
+                  category={course.category}
                   selected={state.selectedCourseId === course.id}
                   onClick={() => functions.handleCourseSelect(course.id)}
                 >
                   {course.name}
-                </Chip>
+                </ThemedChip>
               ))}
             </div>
           </div>
@@ -89,20 +122,21 @@ function StudentsPage() {
           <div className={styles['filter-block']}>
             <span className={styles['filter-label']}>{t('students.filters.groups')}</span>
             <div className={styles.filters} role="group" aria-label={t('students.filters.groups')}>
-              <Chip
+              <ThemedChip
+                icon={false}
                 selected={state.selectedGroupId === null}
                 onClick={() => functions.handleGroupSelect(null)}
               >
                 {t('students.filters.all-groups')}
-              </Chip>
+              </ThemedChip>
               {state.groupsForCourse.map((group) => (
-                <Chip
+                <ThemedChip
                   key={group.id}
                   selected={state.selectedGroupId === group.id}
                   onClick={() => functions.handleGroupSelect(group.id)}
                 >
                   {group.name}
-                </Chip>
+                </ThemedChip>
               ))}
             </div>
           </div>
@@ -135,14 +169,11 @@ function StudentsPage() {
         </div>
       )}
       {!state.isPending && !state.isError && !!state.students.length && (
-        <>
-          <p className={styles.summary}>{t('students.found', { count: state.foundCount })}</p>
-          <div className={styles.list}>
-            {state.students.map((student) => (
-              <StudentRow key={student.id} student={student} />
-            ))}
-          </div>
-        </>
+        <div className={styles.list}>
+          {state.students.map((student) => (
+            <StudentRow key={student.id} student={student} />
+          ))}
+        </div>
       )}
     </section>
   )

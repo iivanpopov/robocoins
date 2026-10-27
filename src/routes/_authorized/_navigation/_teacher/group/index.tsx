@@ -4,8 +4,8 @@ import { cn } from 'cn'
 
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
 import { getTeacherGroupsTeacherGroupsGetQueryOptions } from '#/api/hooks/useGetTeacherGroupsTeacherGroupsGet'
-import { Chip, Loader } from '#/components/ui'
-import { CategoryIcon, InlineError } from '#/routes/-components'
+import { Loader } from '#/components/ui'
+import { CategoryIcon, InlineError, ThemedChip } from '#/routes/-components'
 
 import { GroupFilter } from './-constants'
 import { useGroupPage } from './-hooks'
@@ -33,24 +33,24 @@ function GroupPage() {
       </header>
 
       <div className={styles['themes-bar']}>
-        <Chip
+        <ThemedChip
+          icon={false}
           selected={state.selectedTheme === GroupFilter.All}
           onClick={() => functions.handleThemeSelect(GroupFilter.All)}
         >
           {t('group.filter.all', { count: state.allGroupsCount })}
-        </Chip>
-        {state.categories.map((category) => {
-          return (
-            <Chip
-              key={category}
-              selected={state.selectedTheme === category}
-              onClick={() => functions.handleThemeSelect(category)}
-            >
-              <CategoryIcon category={category} />
-              <span>{t('course.category', { category })}</span>
-            </Chip>
-          )
-        })}
+        </ThemedChip>
+        {state.categories.map((category) => (
+          <ThemedChip
+            key={category}
+            type="category"
+            value={category}
+            selected={state.selectedTheme === category}
+            onClick={() => functions.handleThemeSelect(category)}
+          >
+            {t('course.category', { category })}
+          </ThemedChip>
+        ))}
       </div>
 
       {state.isPending && <Loader grow />}

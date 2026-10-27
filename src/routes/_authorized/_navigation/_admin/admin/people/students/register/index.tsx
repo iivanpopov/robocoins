@@ -4,6 +4,7 @@ import { cn } from 'cn'
 
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
 import { Button, Field, FieldLabel, IconButton, Input, Loader } from '#/components/ui'
+import { CategoryIcon, ThemedChip } from '#/routes/-components'
 import { AVATARS } from '#/routes/-constants'
 import { getAvatarUrl } from '#/routes/-utils'
 
@@ -93,8 +94,6 @@ function RegisterStudentPage() {
 
       {!state.created && (
         <form className={styles.form} onSubmit={functions.handleSubmit} noValidate>
-          <p className={styles.description}>{t('students.register.description')}</p>
-
           <section className={styles.section}>
             <features.form.Field name="name">
               {(field) => (
@@ -173,22 +172,75 @@ function RegisterStudentPage() {
               <features.form.Field name="groupIds">
                 {(field) => (
                   <>
+                    <div className={styles.filters}>
+                      <div className={styles['filter-group']}>
+                        <span className={styles['filter-label']}>
+                          {t('admin.catalog.filters.category')}
+                        </span>
+                        <div className={cn(styles.chips, styles.scroll)}>
+                          <ThemedChip
+                            icon={false}
+                            selected={state.categoryFilter === 'all'}
+                            onClick={() => functions.handleCategoryChange('all')}
+                          >
+                            {t('admin.catalog.filters.all')}
+                          </ThemedChip>
+                          {state.categories.map((category) => (
+                            <ThemedChip
+                              key={category}
+                              type="category"
+                              value={category}
+                              selected={state.categoryFilter === category}
+                              onClick={() => functions.handleCategoryChange(category)}
+                            >
+                              {t('course.category', { category })}
+                            </ThemedChip>
+                          ))}
+                        </div>
+                      </div>
+                      <div className={styles['filter-group']}>
+                        <span className={styles['filter-label']}>
+                          {t('students.register.courses.label')}
+                        </span>
+                        <div className={cn(styles.chips, styles.scroll)}>
+                          {state.courses.map((course) => (
+                            <ThemedChip
+                              key={course.id}
+                              type="course"
+                              category={course.category}
+                              selected={state.courseFilter === course.id}
+                              onClick={() => functions.handleCourseFilterChange(course.id)}
+                            >
+                              {course.name}
+                            </ThemedChip>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                     <div
                       className={styles.groups}
                       role="group"
                       aria-label={t('students.register.groups.label')}
                     >
-                      {state.groups.map((group) => {
+                      {state.filteredGroups.map((group) => {
                         const isSelected = field.state.value.includes(group.id)
 
                         return (
                           <button
                             key={group.id}
                             type="button"
-                            className={cn(styles['group-option'], isSelected && styles.selected)}
+                            className={styles['group-option']}
+                            data-category={group.category}
                             aria-pressed={isSelected}
                             onClick={() => functions.handleGroupToggle(group.id)}
                           >
+                            <span className={styles['group-icon']}>
+                              <CategoryIcon category={group.category} />
+                            </span>
+                            <span className={styles['group-details']}>
+                              <span className={styles['group-course']}>{group.courseName}</span>
+                              <span className={styles['group-name']}>{group.name}</span>
+                            </span>
                             <span
                               aria-hidden="true"
                               className={cn(
@@ -197,10 +249,6 @@ function RegisterStudentPage() {
                                 !isSelected && styles['group-check-hidden'],
                               )}
                             />
-                            <span className={styles['group-details']}>
-                              <span className={styles['group-course']}>{group.courseName}</span>
-                              <span className={styles['group-name']}>{group.name}</span>
-                            </span>
                           </button>
                         )
                       })}

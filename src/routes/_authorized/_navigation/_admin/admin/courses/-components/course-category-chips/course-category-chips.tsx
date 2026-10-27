@@ -2,8 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { cn } from 'cn'
 
 import type { CourseCategoryKey } from '#/api/types'
-import { Chip } from '#/components/ui'
-import { CategoryIcon } from '#/routes/-components'
+import { ThemedChip } from '#/routes/-components'
 
 import { COURSE_CATEGORIES, CourseCategoryFilter } from '../../-constants'
 
@@ -31,24 +30,26 @@ export function CourseCategoryChips({
   return (
     <div className={cn(styles.chips, className)}>
       {showAll && (
-        <Chip
+        <ThemedChip
+          icon={false}
           selected={value === CourseCategoryFilter.All}
           onClick={() => onSelect(CourseCategoryFilter.All)}
         >
           {t('admin.courses.filter.all', { count: allCount })}
-        </Chip>
+        </ThemedChip>
       )}
       {COURSE_CATEGORIES.map((category) => (
-        <Chip
+        <ThemedChip
           key={category}
+          type="category"
+          value={category}
+          className={styles.chip}
           selected={value === category}
           onClick={() => onSelect(category)}
-          className={styles.chip}
         >
-          <CategoryIcon category={category} />
-          <span>{t('course.category', { category })}</span>
+          {t('course.category', { category })}
           {counts && <span className={styles.count}>({counts[category]})</span>}
-        </Chip>
+        </ThemedChip>
       ))}
     </div>
   )

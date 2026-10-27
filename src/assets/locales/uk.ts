@@ -42,7 +42,7 @@ export default {
   'navbar.operations': 'Операції',
   'navbar.people': 'Люди',
   'navbar.catalog': 'Каталог',
-  'admin.groups.title': 'Навчання',
+  'admin.groups.title': 'Групи',
   'admin.groups.description': 'Усі групи школи, курси та викладачі.',
   'admin.groups.empty': 'Груп поки немає.',
   'admin.groups.error': 'Не вдалося завантажити групи.',
@@ -63,13 +63,6 @@ export default {
   'admin.groups.filters.clear': 'Скинути фільтри',
   'admin.groups.actions.more': 'Більше дій',
   'admin.learning.create': 'Створити',
-  'admin.groups.found': `
-    .input {$count :number}
-    .match $count
-    one {{Знайдено {$count} групу}}
-    few {{Знайдено {$count} групи}}
-    many {{Знайдено {$count} груп}}
-    * {{Знайдено {$count} групи}}`,
   'admin.groups.empty-filtered': 'За такими умовами груп не знайдено.',
   'admin.groups.no-teacher': 'Без викладача',
   'admin.groups.teacher-unknown': 'Викладач #{$id :number}',
@@ -235,11 +228,12 @@ export default {
   'students.register.action': 'Зареєструвати учня',
   'students.search.placeholder': 'Пошук за іменем',
   'students.search.clear': 'Очистити пошук',
+  'students.filters.category': 'Напрямок',
   'students.filters.courses': 'Курси',
   'students.filters.groups': 'Групи',
+  'students.filters.all-categories': 'Усі напрямки',
   'students.filters.all-courses': 'Усі курси',
   'students.filters.all-groups': 'Усі групи',
-  'students.found': 'Знайдено: {$count :number}',
   'students.empty': 'Учнів поки немає.',
   'students.empty-filtered': 'За таким запитом учнів не знайдено.',
   'students.no-groups': 'Без груп',
@@ -625,6 +619,7 @@ export default {
   'students.register.avatar.label': 'Аватар',
   'students.register.avatar.option': 'Варіант аватара {$number :number}',
   'students.register.groups.label': 'Групи',
+  'students.register.courses.label': 'Курси',
   'students.register.groups.description': 'Можна обрати одну або кілька груп.',
   'students.register.groups.empty': 'Немає доступних груп. Спочатку створіть групу.',
   'students.register.groups.error': 'Не вдалося завантажити групи.',
@@ -880,7 +875,7 @@ export default {
   'admin.courses.delete.result-description':
     'Курс не видалено. Серверна операція недоступна, тому список курсів не змінився.',
   'admin.courses.delete.result-course': 'Курс',
-  'admin.courses.categories.title': 'Категорії курсів',
+  'admin.courses.categories.title': 'Категорії',
   'admin.courses.categories.empty': 'Курсів у цій категорії немає.',
   'admin.courses.categories.change': 'Змінити категорію курсу «{$course}»',
   'admin.courses.categories.back': 'До категорій',

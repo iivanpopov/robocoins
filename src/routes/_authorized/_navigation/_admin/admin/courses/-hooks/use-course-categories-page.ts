@@ -13,7 +13,6 @@ export function useCourseCategoriesPage() {
 
   const courses = coursesQuery.data ?? []
   const summaries = summarizeCategories(courses)
-  const totalGroups = summaries.reduce((total, summary) => total + summary.groupsCount, 0)
 
   let errorKey: CourseErrorKey | null = null
   if (coursesQuery.isError) {
@@ -23,8 +22,6 @@ export function useCourseCategoriesPage() {
   return {
     state: {
       summaries,
-      totalCourses: courses.length,
-      totalGroups,
       errorKey,
       isPending: coursesQuery.isPending,
       isError: coursesQuery.isError,

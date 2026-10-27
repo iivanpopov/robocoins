@@ -3,14 +3,13 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { cn } from 'cn'
 
 import {
-  Chip,
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
   Loader,
 } from '#/components/ui'
-import { InlineError } from '#/routes/-components'
+import { InlineError, ThemedChip } from '#/routes/-components'
 
 import { RewardRow } from './-components'
 import { ALL_FILTER, REWARD_FILTER_CATEGORY_OPTIONS, REWARD_TYPE_OPTIONS } from './-constants'
@@ -64,23 +63,23 @@ function CatalogPage() {
 
         <div className={styles['filter-group']}>
           <span className={styles['filter-label']}>{t('admin.catalog.filters.type')}</span>
-          <div className={styles.chips}>
-            <Chip
-              type="button"
+          <div className={styles.chips} role="group" aria-label={t('admin.catalog.filters.type')}>
+            <ThemedChip
+              icon={false}
               selected={state.type === ALL_FILTER}
               onClick={() => functions.handleTypeChange(ALL_FILTER)}
             >
               {t('admin.catalog.filters.all')}
-            </Chip>
+            </ThemedChip>
             {REWARD_TYPE_OPTIONS.map((type) => (
-              <Chip
+              <ThemedChip
                 key={type}
-                type="button"
+                icon={false}
                 selected={state.type === type}
                 onClick={() => functions.handleTypeChange(type)}
               >
                 {t(`admin.catalog.type.${type}`)}
-              </Chip>
+              </ThemedChip>
             ))}
           </div>
         </div>
@@ -88,23 +87,24 @@ function CatalogPage() {
         <div className={styles['filter-group']}>
           <span className={styles['filter-label']}>{t('admin.catalog.filters.category')}</span>
           <div className={cn(styles.chips, styles.scroll)}>
-            <Chip
-              type="button"
+            <ThemedChip
+              icon={false}
               selected={state.category === ALL_FILTER}
               onClick={() => functions.handleCategoryChange(ALL_FILTER)}
             >
               {t('admin.catalog.filters.all')}
-            </Chip>
+            </ThemedChip>
             {REWARD_FILTER_CATEGORY_OPTIONS.map((category) => (
-              <Chip
+              <ThemedChip
                 key={category}
-                type="button"
+                type="category"
+                value={category}
                 selected={state.category === category}
                 onClick={() => functions.handleCategoryChange(category)}
               >
                 {category === 'no category' && t('admin.catalog.category.none')}
                 {category !== 'no category' && t('course.category', { category })}
-              </Chip>
+              </ThemedChip>
             ))}
           </div>
         </div>

@@ -49,12 +49,6 @@
   align-items: center;
 }
 
-.count {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--muted-foreground);
-}
-
 .arrow {
   font-size: 1rem;
   color: var(--muted-foreground);

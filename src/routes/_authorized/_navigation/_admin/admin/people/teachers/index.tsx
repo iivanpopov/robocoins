@@ -1,7 +1,7 @@
 import { useTranslate } from '@kanjou/react'
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { Button, IconButton, Loader } from '#/components/ui'
+import { Button, Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 
 import { TeacherRow, TeacherSearch } from './-components'
@@ -22,26 +22,11 @@ function TeachersPage() {
   return (
     <section className={styles.page}>
       <header className={styles.header}>
-        <div className={styles.heading}>
-          <IconButton
-            nativeButton={false}
-            render={<Link to="/admin/people" />}
-            title={t('admin.teachers.back')}
-            aria-label={t('admin.teachers.back')}
-          >
-            <span aria-hidden="true" className="i-ph:arrow-left" />
-          </IconButton>
-          <div className={styles['header-text']}>
-            <h1 className={styles.title}>{t('admin.teachers.title')}</h1>
-            <p className={styles.description}>{t('admin.teachers.description')}</p>
-          </div>
-        </div>
-        <div className={styles['header-actions']}>
-          <Button type="button" onClick={functions.handleRegister}>
-            <span aria-hidden="true" className="i-ph:plus-bold" />
-            {t('admin.teachers.register')}
-          </Button>
-        </div>
+        <h1 className={styles.title}>{t('admin.teachers.title')}</h1>
+        <Button type="button" onClick={functions.handleRegister}>
+          <span aria-hidden="true" className="i-ph:plus-bold" />
+          {t('admin.teachers.register')}
+        </Button>
       </header>
 
       <TeacherSearch

@@ -11,7 +11,6 @@ export interface StudentRowData {
   name: string
   avatar?: string | null
   courseNames: string[]
-  groupCount: number
 }
 
 export interface StudentRowProps {
@@ -31,18 +30,13 @@ export function StudentRow({ student }: StudentRowProps) {
       <div className={styles.details}>
         <span className={styles.name}>{student.name}</span>
         {!!student.courseNames.length && (
-          <span className={styles.courses}>{student.courseNames.join(' · ')}</span>
+          <span className={styles.courses}>{student.courseNames.join(', ')}</span>
         )}
         {!student.courseNames.length && (
           <span className={styles.courses}>{t('students.no-groups')}</span>
         )}
       </div>
       <div className={styles.aside}>
-        {!!student.groupCount && (
-          <span className={styles.count}>
-            {t('students.group-count', { count: student.groupCount })}
-          </span>
-        )}
         <span aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.arrow)} />
       </div>
     </Link>

@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { useGetAllStudentsStudentGet } from '#/api/hooks/useGetAllStudentsStudentGet'
 import { useGetCoursesCourseGet } from '#/api/hooks/useGetCoursesCourseGet'
+import { type CourseCategoryKey } from '#/api/types'
 import { UKRAINIAN_LOCALE } from '#/routes/-constants'
 
 import type { StudentRowData } from '../-components'
@@ -9,6 +10,7 @@ import { combineCourseGroups, getApiErrorKind, getStudentCourseNames } from '../
 
 export function useStudentsPage() {
   const [search, setSearch] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState<CourseCategoryKey | 'all'>('all')
   const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null)
   const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null)
 
@@ -21,6 +23,12 @@ export function useStudentsPage() {
 
   function handleClearSearch() {
     setSearch('')
+  }
+
+  function handleCategorySelect(category: CourseCategoryKey | 'all') {
+    setSelectedCategory(category)
+    setSelectedCourseId(null)
+    setSelectedGroupId(null)
   }
 
   function handleCourseSelect(courseId: number | null) {
@@ -50,9 +58,18 @@ export function useStudentsPage() {
   }
 
   const groups = combineCourseGroups(coursesQuery.data)
-  const selectedCourse = coursesQuery.data?.find((course) => course.id === selectedCourseId) ?? null
+  const allCourses = coursesQuery.data ?? []
+  const courses =
+    selectedCategory === 'all'
+      ? allCourses
+      : allCourses.filter((course) => course.category === selectedCategory)
+  const selectedCourse = courses.find((course) => course.id === selectedCourseId) ?? null
   const groupsForCourse =
     selectedCourseId === null ? [] : groups.filter((group) => group.courseId === selectedCourseId)
+  const categoryCourseNames = courses.map((course) => course.name)
+  const categoryGroupIds = groups
+    .filter((group) => courses.some((course) => course.id === group.courseId))
+    .map((group) => group.id)
 
   const normalizedSearch = search.trim().toLocaleLowerCase(UKRAINIAN_LOCALE)
   const allStudents = studentsQuery.data ?? []
@@ -65,14 +82,23 @@ export function useStudentsPage() {
         return false
       }
       if (selectedGroupId !== null) return student.group_ids.includes(selectedGroupId)
-      if (selectedCourseId === null) return true
+      if (selectedCourseId !== null) {
+        const courseGroupIds = groupsForCourse.map((group) => group.id)
+        const hasCourseGroup = student.group_ids.some((groupId) => courseGroupIds.includes(groupId))
+        const hasCourseName = selectedCourse
+          ? student.course_names.includes(selectedCourse.name)
+          : false
+        return hasCourseGroup || hasCourseName
+      }
+      if (selectedCategory === 'all') return true
 
-      const courseGroupIds = groupsForCourse.map((group) => group.id)
-      const hasCourseGroup = student.group_ids.some((groupId) => courseGroupIds.includes(groupId))
-      const hasCourseName = selectedCourse
-        ? student.course_names.includes(selectedCourse.name)
-        : false
-      return hasCourseGroup || hasCourseName
+      const hasCategoryGroup = student.group_ids.some((groupId) =>
+        categoryGroupIds.includes(groupId),
+      )
+      const hasCategoryName = student.course_names.some((name) =>
+        categoryCourseNames.includes(name),
+      )
+      return hasCategoryGroup || hasCategoryName
     })
     .toSorted((first, second) => first.name.localeCompare(second.name, UKRAINIAN_LOCALE))
 
@@ -83,7 +109,6 @@ export function useStudentsPage() {
         name: student.name,
         avatar: student.avatar,
         courseNames: getStudentCourseNames(student.course_names, student.group_ids, groups),
-        groupCount: groups.filter((group) => student.group_ids.includes(group.id)).length,
       }) satisfies StudentRowData,
   )
   const error = studentsQuery.error ?? coursesQuery.error ?? null
@@ -91,12 +116,13 @@ export function useStudentsPage() {
   return {
     state: {
       search,
+      selectedCategory,
       selectedCourseId,
       selectedGroupId,
-      courses: coursesQuery.data ?? [],
+      categories: [...new Set((coursesQuery.data ?? []).map((course) => course.category))],
+      courses,
       groupsForCourse,
       students,
-      foundCount: students.length,
       allCount: allStudents.length,
       errorKind: getApiErrorKind(error),
       isPending: studentsQuery.isPending || coursesQuery.isPending,
@@ -107,6 +133,7 @@ export function useStudentsPage() {
     functions: {
       handleSearchChange,
       handleClearSearch,
+      handleCategorySelect,
       handleCourseSelect,
       handleGroupSelect,
       handleRetry,

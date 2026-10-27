@@ -1,6 +1,6 @@
 import { Loader } from '#/components/ui/loader'
 
-import styles from './pending.module.css'
+import styles from './pending-component.module.css'
 
 export function PendingComponent() {
   return (

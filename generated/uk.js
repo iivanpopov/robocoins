@@ -435,7 +435,7 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Навчання"
+      "Групи"
     ]
   },
   "admin.groups.description": {
@@ -576,109 +576,6 @@ export default {
     "declarations": [],
     "pattern": [
       "Створити"
-    ]
-  },
-  "admin.groups.found": {
-    "type": "select",
-    "declarations": [
-      {
-        "type": "input",
-        "name": "count",
-        "value": {
-          "type": "expression",
-          "arg": {
-            "type": "variable",
-            "name": "count"
-          },
-          "functionRef": {
-            "type": "function",
-            "name": "number"
-          }
-        }
-      }
-    ],
-    "selectors": [
-      {
-        "type": "variable",
-        "name": "count"
-      }
-    ],
-    "variants": [
-      {
-        "keys": [
-          {
-            "type": "literal",
-            "value": "one"
-          }
-        ],
-        "value": [
-          "Знайдено ",
-          {
-            "type": "expression",
-            "arg": {
-              "type": "variable",
-              "name": "count"
-            }
-          },
-          " групу"
-        ]
-      },
-      {
-        "keys": [
-          {
-            "type": "literal",
-            "value": "few"
-          }
-        ],
-        "value": [
-          "Знайдено ",
-          {
-            "type": "expression",
-            "arg": {
-              "type": "variable",
-              "name": "count"
-            }
-          },
-          " групи"
-        ]
-      },
-      {
-        "keys": [
-          {
-            "type": "literal",
-            "value": "many"
-          }
-        ],
-        "value": [
-          "Знайдено ",
-          {
-            "type": "expression",
-            "arg": {
-              "type": "variable",
-              "name": "count"
-            }
-          },
-          " груп"
-        ]
-      },
-      {
-        "keys": [
-          {
-            "type": "*"
-          }
-        ],
-        "value": [
-          "Знайдено ",
-          {
-            "type": "expression",
-            "arg": {
-              "type": "variable",
-              "name": "count"
-            }
-          },
-          " групи"
-        ]
-      }
     ]
   },
   "admin.groups.empty-filtered": {
@@ -1888,6 +1785,13 @@ export default {
       "Очистити пошук"
     ]
   },
+  "students.filters.category": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Напрямок"
+    ]
+  },
   "students.filters.courses": {
     "type": "message",
     "declarations": [],
@@ -1902,6 +1806,13 @@ export default {
       "Групи"
     ]
   },
+  "students.filters.all-categories": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Усі напрямки"
+    ]
+  },
   "students.filters.all-courses": {
     "type": "message",
     "declarations": [],
@@ -1914,24 +1825,6 @@ export default {
     "declarations": [],
     "pattern": [
       "Усі групи"
-    ]
-  },
-  "students.found": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Знайдено: ",
-      {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "count"
-        },
-        "functionRef": {
-          "type": "function",
-          "name": "number"
-        }
-      }
     ]
   },
   "students.empty": {
@@ -5273,6 +5166,13 @@ export default {
       "Групи"
     ]
   },
+  "students.register.courses.label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курси"
+    ]
+  },
   "students.register.groups.description": {
     "type": "message",
     "declarations": [],
@@ -7210,7 +7110,7 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Категорії курсів"
+      "Категорії"
     ]
   },
   "admin.courses.categories.empty": {

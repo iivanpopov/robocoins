@@ -65,7 +65,6 @@ declare module '@kanjou/react' {
       'admin.groups.filters.clear': {}
       'admin.groups.actions.more': {}
       'admin.learning.create': {}
-      'admin.groups.found': { count: { __fn: 'number' } }
       'admin.groups.empty-filtered': {}
       'admin.groups.no-teacher': {}
       'admin.groups.teacher-unknown': { id: { __fn: 'number' } }
@@ -211,11 +210,12 @@ declare module '@kanjou/react' {
       'students.register.action': {}
       'students.search.placeholder': {}
       'students.search.clear': {}
+      'students.filters.category': {}
       'students.filters.courses': {}
       'students.filters.groups': {}
+      'students.filters.all-categories': {}
       'students.filters.all-courses': {}
       'students.filters.all-groups': {}
-      'students.found': { count: { __fn: 'number' } }
       'students.empty': {}
       'students.empty-filtered': {}
       'students.no-groups': {}
@@ -555,6 +555,7 @@ declare module '@kanjou/react' {
       'students.register.avatar.label': {}
       'students.register.avatar.option': { number: { __fn: 'number' } }
       'students.register.groups.label': {}
+      'students.register.courses.label': {}
       'students.register.groups.description': {}
       'students.register.groups.empty': {}
       'students.register.groups.error': {}

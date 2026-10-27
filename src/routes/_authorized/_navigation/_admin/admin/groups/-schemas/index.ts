@@ -1,5 +1,7 @@
 import * as v from 'valibot'
 
+import { GROUP_NAME_PATTERN } from '#/routes/-utils'
+
 import { TEACHER_ASSIGNMENT_MAX } from '../../-constants'
 
 export const GroupIdParamsSchema = v.object({
@@ -12,11 +14,7 @@ export const GroupIdParamsSchema = v.object({
   ),
 })
 
-export const GroupNameSchema = v.pipe(
-  v.string(),
-  v.trim(),
-  v.regex(/^(ПН|ВТ|СР|ЧТ|ПТ|СБ|НД) ([01]\d|2[0-3]):[0-5]\d$/),
-)
+export const GroupNameSchema = v.pipe(v.string(), v.trim(), v.regex(GROUP_NAME_PATTERN))
 
 export const TeacherIdsSchema = v.pipe(
   v.array(v.pipe(v.number(), v.safeInteger(), v.minValue(1))),
