@@ -400,7 +400,6 @@ declare module '@kanjou/react' {
       'admin.api-error.forbidden': {}
       'admin.api-error.login': {}
       'admin.operations.title': {}
-      'admin.operations.description': {}
       'admin.operations.back': {}
       'admin.operations.links.label': {}
       'admin.operations.links.practice': {}
@@ -408,7 +407,6 @@ declare module '@kanjou/react' {
       'admin.operations.links.settings': {}
       'admin.operations.links.settings-description': {}
       'admin.operations.bulk.title': {}
-      'admin.operations.bulk.description': {}
       'admin.operations.bulk.submit': {}
       'admin.operations.students.error': {}
       'admin.operations.students.empty': {}
@@ -425,7 +423,6 @@ declare module '@kanjou/react' {
       'admin.operations.direction.reward': {}
       'admin.operations.direction.punish': {}
       'admin.operations.result.title': {}
-      'admin.operations.result.description': {}
       'admin.operations.result.success': {}
       'admin.operations.result.failure': {}
       'admin.operations.result.unknown': {}

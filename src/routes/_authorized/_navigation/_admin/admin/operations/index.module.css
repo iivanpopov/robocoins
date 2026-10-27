@@ -11,14 +11,17 @@
 .header {
   display: flex;
   gap: var(--spacing-sm);
-  align-items: center;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .heading {
   display: flex;
   flex-direction: column;
   gap: 0.125rem;
+  align-items: flex-end;
   min-width: 0;
+  text-align: right;
 }
 
 .title {
@@ -28,20 +31,10 @@
   color: var(--foreground);
 }
 
-.description {
-  font-size: 0.875rem;
-  font-weight: 450;
-  line-height: 1.45;
-  color: var(--muted-foreground);
-}
-
 .card {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
-  padding: var(--spacing-lg);
-  background: var(--surface);
-  border-radius: var(--rounded-lg);
 }
 
 .card-header {
@@ -54,13 +47,6 @@
   font-size: 1.125rem;
   font-weight: 800;
   color: var(--foreground);
-}
-
-.card-description {
-  font-size: 0.8125rem;
-  font-weight: 450;
-  line-height: 1.45;
-  color: var(--muted-foreground);
 }
 
 .batch-summary {

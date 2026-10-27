@@ -453,7 +453,6 @@ export default {
   'admin.api-error.forbidden': 'Недостатньо прав для цієї дії.',
   'admin.api-error.login': 'До входу',
   'admin.operations.title': 'Операції з балансом',
-  'admin.operations.description': 'Масові нарахування та списання для вибраних учнів.',
   'admin.operations.back': 'До груп',
   'admin.operations.links.label': 'Інші операції',
   'admin.operations.links.practice': 'Практика групи',
@@ -462,8 +461,6 @@ export default {
   'admin.operations.links.settings-description':
     'Довільна сума, причини та тарифи без зміни сервера.',
   'admin.operations.bulk.title': 'Масові операції',
-  'admin.operations.bulk.description':
-    'Оберіть учнів і причини. Кожен учень обробляється окремою операцією; спільної транзакції немає.',
   'admin.operations.bulk.submit': 'Застосувати до вибраних',
   'admin.operations.students.error': 'Не вдалося завантажити учнів.',
   'admin.operations.students.empty': 'Учнів поки немає.',
@@ -480,7 +477,6 @@ export default {
   'admin.operations.direction.reward': 'Нарахування',
   'admin.operations.direction.punish': 'Списання',
   'admin.operations.result.title': 'Результати',
-  'admin.operations.result.description': 'Кожен рядок показує результат окремої операції.',
   'admin.operations.result.success': 'Успішно',
   'admin.operations.result.failure': 'Відмова',
   'admin.operations.result.unknown': 'Невідомо',

@@ -78,7 +78,6 @@ function OperationsPage() {
         </IconButton>
         <div className={styles.heading}>
           <h1 className={styles.title}>{t('admin.operations.title')}</h1>
-          <p className={styles.description}>{t('admin.operations.description')}</p>
         </div>
       </header>
 
@@ -87,7 +86,6 @@ function OperationsPage() {
       <article className={styles.card}>
         <header className={styles['card-header']}>
           <h2 className={styles['card-title']}>{t('admin.operations.bulk.title')}</h2>
-          <p className={styles['card-description']}>{t('admin.operations.bulk.description')}</p>
         </header>
 
         {state.studentsIsPending && <Loader grow />}
@@ -257,7 +255,6 @@ function OperationsPage() {
         <article className={styles.card}>
           <header className={styles['card-header']}>
             <h2 className={styles['card-title']}>{t('admin.operations.result.title')}</h2>
-            <p className={styles['card-description']}>{t('admin.operations.result.description')}</p>
             {!!state.batchSnapshot && (
               <p className={styles['batch-summary']}>
                 {t('admin.operations.result.batch', {

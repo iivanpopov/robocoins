@@ -54,9 +54,6 @@
   flex-direction: column;
   gap: var(--spacing-md);
   width: 100%;
-  padding: var(--spacing-md);
-  background: var(--surface);
-  border-radius: var(--rounded-lg);
 }
 
 .filter-group {
@@ -78,14 +75,7 @@
 }
 
 .scroll {
-  flex-wrap: nowrap;
-  padding-bottom: var(--spacing-xs);
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.scroll::-webkit-scrollbar {
-  display: none;
+  flex-wrap: wrap;
 }
 
 .list {

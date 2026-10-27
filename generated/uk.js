@@ -3626,13 +3626,6 @@ export default {
       "Операції з балансом"
     ]
   },
-  "admin.operations.description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Масові нарахування та списання для вибраних учнів."
-    ]
-  },
   "admin.operations.back": {
     "type": "message",
     "declarations": [],
@@ -3680,13 +3673,6 @@ export default {
     "declarations": [],
     "pattern": [
       "Масові операції"
-    ]
-  },
-  "admin.operations.bulk.description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Оберіть учнів і причини. Кожен учень обробляється окремою операцією; спільної транзакції немає."
     ]
   },
   "admin.operations.bulk.submit": {
@@ -3832,13 +3818,6 @@ export default {
     "declarations": [],
     "pattern": [
       "Результати"
-    ]
-  },
-  "admin.operations.result.description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Кожен рядок показує результат окремої операції."
     ]
   },
   "admin.operations.result.success": {
