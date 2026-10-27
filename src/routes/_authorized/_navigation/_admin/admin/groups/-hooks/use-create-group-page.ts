@@ -14,9 +14,9 @@ import type { AdminSelectOption } from '../../-components'
 import { useTeacherOptions } from './use-teacher-options'
 
 export function useCreateGroupPage() {
-  const queryClient = useQueryClient()
-
   const [createdGroup, setCreatedGroup] = useState<GroupResponse | null>(null)
+
+  const queryClient = useQueryClient()
 
   const coursesQuery = useGetCoursesCourseGet()
   const teacherOptions = useTeacherOptions()

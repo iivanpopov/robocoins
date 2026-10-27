@@ -23,7 +23,6 @@ export function useGroupTeachersBulkPage() {
   const search = useSearch({
     from: '/_authorized/_navigation/_admin/admin/groups/teachers/',
   })
-  const queryClient = useQueryClient()
 
   const [selectedGroupIds, setSelectedGroupIds] = useState<number[]>([])
   const [selectedTeacherIds, setSelectedTeacherIds] = useState<number[]>(() => {
@@ -35,6 +34,8 @@ export function useGroupTeachersBulkPage() {
 
   const operationTeacherIdsReference = useRef<number[]>([])
   const isOperatingReference = useRef(false)
+
+  const queryClient = useQueryClient()
 
   const coursesQuery = useGetCoursesCourseGet()
   const groupsQueries = useQueries({

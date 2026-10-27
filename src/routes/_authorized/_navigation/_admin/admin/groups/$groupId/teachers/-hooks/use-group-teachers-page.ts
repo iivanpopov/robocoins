@@ -20,12 +20,13 @@ export function useGroupTeachersPage() {
   const params = useParams({
     from: '/_authorized/_navigation/_admin/admin/groups/$groupId/teachers/',
   })
-  const queryClient = useQueryClient()
 
   const groupId = params.groupId
 
   const [savedTeacherIds, setSavedTeacherIds] = useState<number[] | null>(null)
   const syncedGroupIdReference = useRef<number | null>(null)
+
+  const queryClient = useQueryClient()
 
   const groupData = useGroupRecord(groupId)
   const teacherOptions = useTeacherOptions()
