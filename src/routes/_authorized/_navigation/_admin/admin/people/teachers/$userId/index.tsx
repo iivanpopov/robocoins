@@ -1,31 +1,20 @@
 import { useTranslate } from '@kanjou/react'
-import { createFileRoute, notFound } from '@tanstack/react-router'
-import * as v from 'valibot'
+import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { IconButton, Loader } from '#/components/ui'
-import { InlineError } from '#/routes/-components'
 import { getInitial } from '#/routes/-utils'
 
-import { TeacherGroupRow } from '../-components'
+import { TeacherGroupRow, TeacherRequestError, TeacherUnavailable } from '../-components'
 import { useTeacherProfilePage } from '../-hooks'
+import { parseTeacherIdParams } from '../-utils'
 
 import styles from './index.module.css'
-
-const TeacherParamsSchema = v.object({
-  userId: v.pipe(v.string(), v.regex(/^\d+$/), v.transform(Number), v.safeInteger(), v.minValue(1)),
-})
 
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/people/teachers/$userId/',
 )({
   head: () => ({ meta: [{ title: 'Профіль викладача | Robocoins' }] }),
-  params: {
-    parse: (params) => {
-      const result = v.safeParse(TeacherParamsSchema, params)
-      if (!result.success) throw notFound()
-      return result.output
-    },
-  },
+  params: { parse: (params) => parseTeacherIdParams(params) },
   component: TeacherProfilePage,
 })
 
@@ -47,27 +36,19 @@ function TeacherProfilePage() {
       </header>
 
       {state.isPending && <Loader grow />}
-      {state.notFound && (
-        <div className={styles.empty}>
-          <span aria-hidden="true" className="i-ph:user-minus-duotone" />
-          <p>{t('admin.teachers.profile.not-found')}</p>
-        </div>
+      {!state.isPending && state.isError && !state.notFound && (
+        <TeacherRequestError
+          status={state.errorStatus}
+          message={t('admin.teachers.profile.error')}
+          onRetry={functions.handleRetry}
+          isRetrying={state.isFetching}
+        />
       )}
-      {!state.notFound && state.isError && (
-        <InlineError onRetry={functions.handleRetry} isRetrying={state.isRetrying}>
-          {state.errorStatus === 401 && t('admin.teachers.error.unauthorized')}
-          {state.errorStatus === 403 && t('admin.teachers.error.forbidden')}
-          {state.errorStatus !== 401 &&
-            state.errorStatus !== 403 &&
-            t('admin.teachers.profile.error')}
-        </InlineError>
-      )}
-      {!state.isPending && !state.isError && state.notTeacher && (
-        <InlineError>{t('admin.teachers.profile.not-teacher')}</InlineError>
-      )}
-      {!state.isPending && !state.isError && state.isMismatch && (
-        <InlineError>{t('admin.teachers.profile.mismatch')}</InlineError>
-      )}
+      <TeacherUnavailable
+        notFound={state.notFound}
+        notTeacher={state.notTeacher}
+        isMismatch={state.isMismatch}
+      />
 
       {state.profile && (
         <>
@@ -93,6 +74,68 @@ function TeacherProfilePage() {
             {!state.groups.length && (
               <p className={styles['groups-empty']}>{t('admin.teachers.profile.groups.empty')}</p>
             )}
+          </section>
+
+          <section className={styles.section}>
+            <h2 className={styles['section-title']}>{t('admin.teachers.profile.manage')}</h2>
+            <p className={styles.note}>{t('admin.teachers.profile.manage-note')}</p>
+            <div className={styles.actions}>
+              <Link
+                to="/admin/people/teachers/$userId/rename"
+                params={{ userId: state.teacherId }}
+                className={styles.action}
+              >
+                <span aria-hidden="true" className={styles['action-icon']}>
+                  <span className="i-ph:pencil-simple-duotone" />
+                </span>
+                <span className={styles['action-copy']}>
+                  <span className={styles['action-title']}>
+                    {t('admin.teachers.profile.rename')}
+                  </span>
+                  <span className={styles['action-description']}>
+                    {t('admin.teachers.profile.rename-description')}
+                  </span>
+                </span>
+                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+              </Link>
+              <Link
+                to="/admin/people/teachers/$userId/access"
+                params={{ userId: state.teacherId }}
+                className={styles.action}
+              >
+                <span aria-hidden="true" className={styles['action-icon']}>
+                  <span className="i-ph:lock-key-duotone" />
+                </span>
+                <span className={styles['action-copy']}>
+                  <span className={styles['action-title']}>
+                    {t('admin.teachers.profile.access')}
+                  </span>
+                  <span className={styles['action-description']}>
+                    {t('admin.teachers.profile.access-description')}
+                  </span>
+                </span>
+                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+              </Link>
+              <Link
+                to="/admin/people/teachers/$userId/delete"
+                params={{ userId: state.teacherId }}
+                className={styles.action}
+                data-tone="error"
+              >
+                <span aria-hidden="true" className={styles['action-icon']}>
+                  <span className="i-ph:trash-duotone" />
+                </span>
+                <span className={styles['action-copy']}>
+                  <span className={styles['action-title']}>
+                    {t('admin.teachers.profile.delete')}
+                  </span>
+                  <span className={styles['action-description']}>
+                    {t('admin.teachers.profile.delete-description')}
+                  </span>
+                </span>
+                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+              </Link>
+            </div>
           </section>
         </>
       )}

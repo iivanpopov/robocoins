@@ -1071,6 +1071,729 @@ export default {
       "Цей акаунт не є викладачем."
     ]
   },
+  "admin.teachers.profile.manage": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Керування викладачем"
+    ]
+  },
+  "admin.teachers.profile.manage-note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ім’я, доступ і видалення. Дії без серверних операцій покажуть локальний результат."
+    ]
+  },
+  "admin.teachers.profile.rename": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Редагувати ім’я"
+    ]
+  },
+  "admin.teachers.profile.rename-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Змінити ім’я в акаунті викладача."
+    ]
+  },
+  "admin.teachers.profile.access": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Керувати доступом"
+    ]
+  },
+  "admin.teachers.profile.access-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Блокування, код доступу та сесії."
+    ]
+  },
+  "admin.teachers.profile.delete": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалити викладача"
+    ]
+  },
+  "admin.teachers.profile.delete-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевірити пов’язані групи перед видаленням."
+    ]
+  },
+  "admin.teachers.profile.groups-count": {
+    "type": "select",
+    "declarations": [
+      {
+        "type": "input",
+        "name": "count",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "count"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "number"
+          }
+        }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "count"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " група"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " групи"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " груп"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " групи"
+        ]
+      }
+    ]
+  },
+  "admin.teachers.error.login": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До входу"
+    ]
+  },
+  "admin.teachers.back-to-profile": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До профілю"
+    ]
+  },
+  "admin.teachers.teacher": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладач"
+    ]
+  },
+  "admin.teachers.action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Дія"
+    ]
+  },
+  "admin.teachers.rename.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Редагування імені"
+    ]
+  },
+  "admin.teachers.rename.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нове ім’я для ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "name"
+        }
+      },
+      "."
+    ]
+  },
+  "admin.teachers.rename.description-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нове ім’я для вибраного викладача."
+    ]
+  },
+  "admin.teachers.rename.name-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ім’я викладача"
+    ]
+  },
+  "admin.teachers.rename.name-placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ім’я та прізвище"
+    ]
+  },
+  "admin.teachers.rename.name-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Введіть ім’я до 200 символів."
+    ]
+  },
+  "admin.teachers.rename.note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Серверна операція зміни імені недоступна. Форма покаже локальний результат без зміни акаунта."
+    ]
+  },
+  "admin.teachers.rename.same": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Введіть ім’я, відмінне від поточного."
+    ]
+  },
+  "admin.teachers.rename.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зберегти ім’я"
+    ]
+  },
+  "admin.teachers.rename.result-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальний результат"
+    ]
+  },
+  "admin.teachers.rename.result-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ім’я не збережено на сервері. Акаунт залишиться з попереднім ім’ям."
+    ]
+  },
+  "admin.teachers.rename.current": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Поточне ім’я"
+    ]
+  },
+  "admin.teachers.rename.proposed": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Запропоноване ім’я"
+    ]
+  },
+  "admin.teachers.delete.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалення викладача"
+    ]
+  },
+  "admin.teachers.delete.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалення профілю ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "name"
+        }
+      },
+      "."
+    ]
+  },
+  "admin.teachers.delete.description-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалення вибраного викладача."
+    ]
+  },
+  "admin.teachers.delete.groups-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Пов’язані групи"
+    ]
+  },
+  "admin.teachers.delete.groups-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Пов’язаних груп немає."
+    ]
+  },
+  "admin.teachers.delete.reassign-note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Групи не видаляються разом із профілем. Щоб зберегти заняття, переназначте їх на іншого викладача окремою дією в розділі груп."
+    ]
+  },
+  "admin.teachers.delete.note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Серверна операція видалення недоступна. Форма перевірить підтвердження та покаже, що профіль не видалено."
+    ]
+  },
+  "admin.teachers.delete.confirm-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Введіть ім’я викладача для підтвердження"
+    ]
+  },
+  "admin.teachers.delete.confirm-placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ім’я викладача"
+    ]
+  },
+  "admin.teachers.delete.confirm-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ім’я не збігається з ім’ям викладача."
+    ]
+  },
+  "admin.teachers.delete.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалити викладача"
+    ]
+  },
+  "admin.teachers.delete.dialog-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердити видалення?"
+    ]
+  },
+  "admin.teachers.delete.dialog-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердьте намір видалити профіль ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "name"
+        }
+      },
+      ". Пов’язані групи залишаться без змін, бо серверна операція недоступна."
+    ]
+  },
+  "admin.teachers.delete.dialog-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердити"
+    ]
+  },
+  "admin.teachers.delete.result-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальний результат"
+    ]
+  },
+  "admin.teachers.delete.result-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Профіль не видалено. Серверна операція недоступна, тому викладач і групи залишилися без змін."
+    ]
+  },
+  "admin.teachers.delete.result-groups": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Пов’язані групи"
+    ]
+  },
+  "admin.teachers.access.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Доступ викладача"
+    ]
+  },
+  "admin.teachers.access.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальні дії для ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "name"
+        }
+      },
+      "."
+    ]
+  },
+  "admin.teachers.access.description-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальні дії для вибраного викладача."
+    ]
+  },
+  "admin.teachers.access.note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ці дії не мають серверних операцій. Підтвердження покаже локальний результат без зміни доступу, коду чи сесій."
+    ]
+  },
+  "admin.teachers.access.actions": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Дії з доступом"
+    ]
+  },
+  "admin.teachers.access.again": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Інші дії"
+    ]
+  },
+  "admin.teachers.access.block": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Заблокувати доступ"
+    ]
+  },
+  "admin.teachers.access.block-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Тимчасово закрити вхід до акаунта."
+    ]
+  },
+  "admin.teachers.access.block-confirm-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Заблокувати доступ?"
+    ]
+  },
+  "admin.teachers.access.block-confirm-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердьте блокування доступу для ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "name"
+        }
+      },
+      ". Серверна операція недоступна, тому доступ не зміниться."
+    ]
+  },
+  "admin.teachers.access.block-confirm-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердити блокування"
+    ]
+  },
+  "admin.teachers.access.block-result-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Доступ не заблоковано"
+    ]
+  },
+  "admin.teachers.access.block-result-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Серверна операція блокування недоступна. Поточний доступ викладача не змінився."
+    ]
+  },
+  "admin.teachers.access.block-result-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Блокування доступу"
+    ]
+  },
+  "admin.teachers.access.unblock": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Розблокувати доступ"
+    ]
+  },
+  "admin.teachers.access.unblock-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Відновити вхід після блокування."
+    ]
+  },
+  "admin.teachers.access.unblock-confirm-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Розблокувати доступ?"
+    ]
+  },
+  "admin.teachers.access.unblock-confirm-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердьте розблокування доступу для ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "name"
+        }
+      },
+      ". Серверна операція недоступна, тому доступ не зміниться."
+    ]
+  },
+  "admin.teachers.access.unblock-confirm-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердити розблокування"
+    ]
+  },
+  "admin.teachers.access.unblock-result-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Доступ не розблоковано"
+    ]
+  },
+  "admin.teachers.access.unblock-result-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Серверна операція розблокування недоступна. Поточний доступ викладача не змінився."
+    ]
+  },
+  "admin.teachers.access.unblock-result-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Розблокування доступу"
+    ]
+  },
+  "admin.teachers.access.reset-code": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Скинути код доступу"
+    ]
+  },
+  "admin.teachers.access.reset-code-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підготувати новий код доступу замість поточного."
+    ]
+  },
+  "admin.teachers.access.reset-code-confirm-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Скинути код доступу?"
+    ]
+  },
+  "admin.teachers.access.reset-code-confirm-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердьте скидання коду для ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "name"
+        }
+      },
+      ". Новий код не буде створено, а поточний не зміниться."
+    ]
+  },
+  "admin.teachers.access.reset-code-confirm-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердити скидання"
+    ]
+  },
+  "admin.teachers.access.reset-code-result-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Код не скинуто"
+    ]
+  },
+  "admin.teachers.access.reset-code-result-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Серверна операція скидання коду недоступна. Код доступу не змінено, новий код не створено."
+    ]
+  },
+  "admin.teachers.access.reset-code-result-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Скидання коду"
+    ]
+  },
+  "admin.teachers.access.revoke-sessions": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Завершити сесії"
+    ]
+  },
+  "admin.teachers.access.revoke-sessions-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Завершити активні сесії на всіх пристроях."
+    ]
+  },
+  "admin.teachers.access.revoke-sessions-confirm-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Завершити сесії?"
+    ]
+  },
+  "admin.teachers.access.revoke-sessions-confirm-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердьте завершення сесій для ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "name"
+        }
+      },
+      ". Активні сесії залишаться без змін."
+    ]
+  },
+  "admin.teachers.access.revoke-sessions-confirm-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердити завершення"
+    ]
+  },
+  "admin.teachers.access.revoke-sessions-result-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сесії не завершено"
+    ]
+  },
+  "admin.teachers.access.revoke-sessions-result-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Серверна операція відкликання сесій недоступна. Активні сесії залишилися без змін."
+    ]
+  },
+  "admin.teachers.access.revoke-sessions-result-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Завершення сесій"
+    ]
+  },
   "admin.teachers.register.title": {
     "type": "message",
     "declarations": [],

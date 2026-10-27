@@ -117,6 +117,95 @@ declare module '@kanjou/react' {
       'admin.teachers.profile.not-found': {}
       'admin.teachers.profile.mismatch': {}
       'admin.teachers.profile.not-teacher': {}
+      'admin.teachers.profile.manage': {}
+      'admin.teachers.profile.manage-note': {}
+      'admin.teachers.profile.rename': {}
+      'admin.teachers.profile.rename-description': {}
+      'admin.teachers.profile.access': {}
+      'admin.teachers.profile.access-description': {}
+      'admin.teachers.profile.delete': {}
+      'admin.teachers.profile.delete-description': {}
+      'admin.teachers.profile.groups-count': { count: { __fn: 'number' } }
+      'admin.teachers.error.login': {}
+      'admin.teachers.back-to-profile': {}
+      'admin.teachers.teacher': {}
+      'admin.teachers.action': {}
+      'admin.teachers.rename.title': {}
+      'admin.teachers.rename.description': { name: DefaultMessageValue }
+      'admin.teachers.rename.description-empty': {}
+      'admin.teachers.rename.name-label': {}
+      'admin.teachers.rename.name-placeholder': {}
+      'admin.teachers.rename.name-error': {}
+      'admin.teachers.rename.note': {}
+      'admin.teachers.rename.same': {}
+      'admin.teachers.rename.submit': {}
+      'admin.teachers.rename.result-title': {}
+      'admin.teachers.rename.result-description': {}
+      'admin.teachers.rename.current': {}
+      'admin.teachers.rename.proposed': {}
+      'admin.teachers.delete.title': {}
+      'admin.teachers.delete.description': { name: DefaultMessageValue }
+      'admin.teachers.delete.description-empty': {}
+      'admin.teachers.delete.groups-title': {}
+      'admin.teachers.delete.groups-empty': {}
+      'admin.teachers.delete.reassign-note': {}
+      'admin.teachers.delete.note': {}
+      'admin.teachers.delete.confirm-label': {}
+      'admin.teachers.delete.confirm-placeholder': {}
+      'admin.teachers.delete.confirm-error': {}
+      'admin.teachers.delete.submit': {}
+      'admin.teachers.delete.dialog-title': {}
+      'admin.teachers.delete.dialog-description': { name: DefaultMessageValue }
+      'admin.teachers.delete.dialog-action': {}
+      'admin.teachers.delete.result-title': {}
+      'admin.teachers.delete.result-description': {}
+      'admin.teachers.delete.result-groups': {}
+      'admin.teachers.access.title': {}
+      'admin.teachers.access.description': { name: DefaultMessageValue }
+      'admin.teachers.access.description-empty': {}
+      'admin.teachers.access.note': {}
+      'admin.teachers.access.actions': {}
+      'admin.teachers.access.again': {}
+      'admin.teachers.access.block': {}
+      'admin.teachers.access.block-description': {}
+      'admin.teachers.access.block-confirm-title': {}
+      'admin.teachers.access.block-confirm-description': {
+        name: DefaultMessageValue
+      }
+      'admin.teachers.access.block-confirm-action': {}
+      'admin.teachers.access.block-result-title': {}
+      'admin.teachers.access.block-result-description': {}
+      'admin.teachers.access.block-result-action': {}
+      'admin.teachers.access.unblock': {}
+      'admin.teachers.access.unblock-description': {}
+      'admin.teachers.access.unblock-confirm-title': {}
+      'admin.teachers.access.unblock-confirm-description': {
+        name: DefaultMessageValue
+      }
+      'admin.teachers.access.unblock-confirm-action': {}
+      'admin.teachers.access.unblock-result-title': {}
+      'admin.teachers.access.unblock-result-description': {}
+      'admin.teachers.access.unblock-result-action': {}
+      'admin.teachers.access.reset-code': {}
+      'admin.teachers.access.reset-code-description': {}
+      'admin.teachers.access.reset-code-confirm-title': {}
+      'admin.teachers.access.reset-code-confirm-description': {
+        name: DefaultMessageValue
+      }
+      'admin.teachers.access.reset-code-confirm-action': {}
+      'admin.teachers.access.reset-code-result-title': {}
+      'admin.teachers.access.reset-code-result-description': {}
+      'admin.teachers.access.reset-code-result-action': {}
+      'admin.teachers.access.revoke-sessions': {}
+      'admin.teachers.access.revoke-sessions-description': {}
+      'admin.teachers.access.revoke-sessions-confirm-title': {}
+      'admin.teachers.access.revoke-sessions-confirm-description': {
+        name: DefaultMessageValue
+      }
+      'admin.teachers.access.revoke-sessions-confirm-action': {}
+      'admin.teachers.access.revoke-sessions-result-title': {}
+      'admin.teachers.access.revoke-sessions-result-description': {}
+      'admin.teachers.access.revoke-sessions-result-action': {}
       'admin.teachers.register.title': {}
       'admin.teachers.register.description': {}
       'admin.teachers.register.name.label': {}

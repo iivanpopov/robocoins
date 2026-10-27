@@ -1,5 +1,7 @@
 import * as v from 'valibot'
 
+import { TeacherNameSchema } from './teacher-name'
+
 export const TeacherRegistrationSchema = v.object({
-  name: v.pipe(v.string(), v.trim(), v.minLength(1), v.maxLength(200)),
+  name: TeacherNameSchema,
 })

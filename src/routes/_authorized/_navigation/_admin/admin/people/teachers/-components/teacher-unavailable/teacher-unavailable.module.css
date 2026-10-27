@@ -1,0 +1,20 @@
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  text-align: center;
+}
+
+.empty > [aria-hidden='true'] {
+  font-size: 2.5rem;
+  color: var(--muted-foreground);
+}
+
+.title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--foreground);
+}

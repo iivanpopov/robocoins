@@ -122,6 +122,110 @@ export default {
   'admin.teachers.profile.not-found': 'Викладача не знайдено.',
   'admin.teachers.profile.mismatch': 'Не вдалося зіставити акаунт і профіль викладача.',
   'admin.teachers.profile.not-teacher': 'Цей акаунт не є викладачем.',
+  'admin.teachers.profile.manage': 'Керування викладачем',
+  'admin.teachers.profile.manage-note':
+    'Ім’я, доступ і видалення. Дії без серверних операцій покажуть локальний результат.',
+  'admin.teachers.profile.rename': 'Редагувати ім’я',
+  'admin.teachers.profile.rename-description': 'Змінити ім’я в акаунті викладача.',
+  'admin.teachers.profile.access': 'Керувати доступом',
+  'admin.teachers.profile.access-description': 'Блокування, код доступу та сесії.',
+  'admin.teachers.profile.delete': 'Видалити викладача',
+  'admin.teachers.profile.delete-description': 'Перевірити пов’язані групи перед видаленням.',
+  'admin.teachers.profile.groups-count': `
+    .input {$count :number}
+    .match $count
+    one {{{$count} група}}
+    few {{{$count} групи}}
+    many {{{$count} груп}}
+    * {{{$count} групи}}`,
+  'admin.teachers.error.login': 'До входу',
+  'admin.teachers.back-to-profile': 'До профілю',
+  'admin.teachers.teacher': 'Викладач',
+  'admin.teachers.action': 'Дія',
+  'admin.teachers.rename.title': 'Редагування імені',
+  'admin.teachers.rename.description': 'Нове ім’я для {$name}.',
+  'admin.teachers.rename.description-empty': 'Нове ім’я для вибраного викладача.',
+  'admin.teachers.rename.name-label': 'Ім’я викладача',
+  'admin.teachers.rename.name-placeholder': 'Ім’я та прізвище',
+  'admin.teachers.rename.name-error': 'Введіть ім’я до 200 символів.',
+  'admin.teachers.rename.note':
+    'Серверна операція зміни імені недоступна. Форма покаже локальний результат без зміни акаунта.',
+  'admin.teachers.rename.same': 'Введіть ім’я, відмінне від поточного.',
+  'admin.teachers.rename.submit': 'Зберегти ім’я',
+  'admin.teachers.rename.result-title': 'Локальний результат',
+  'admin.teachers.rename.result-description':
+    'Ім’я не збережено на сервері. Акаунт залишиться з попереднім ім’ям.',
+  'admin.teachers.rename.current': 'Поточне ім’я',
+  'admin.teachers.rename.proposed': 'Запропоноване ім’я',
+  'admin.teachers.delete.title': 'Видалення викладача',
+  'admin.teachers.delete.description': 'Видалення профілю {$name}.',
+  'admin.teachers.delete.description-empty': 'Видалення вибраного викладача.',
+  'admin.teachers.delete.groups-title': 'Пов’язані групи',
+  'admin.teachers.delete.groups-empty': 'Пов’язаних груп немає.',
+  'admin.teachers.delete.reassign-note':
+    'Групи не видаляються разом із профілем. Щоб зберегти заняття, переназначте їх на іншого викладача окремою дією в розділі груп.',
+  'admin.teachers.delete.note':
+    'Серверна операція видалення недоступна. Форма перевірить підтвердження та покаже, що профіль не видалено.',
+  'admin.teachers.delete.confirm-label': 'Введіть ім’я викладача для підтвердження',
+  'admin.teachers.delete.confirm-placeholder': 'Ім’я викладача',
+  'admin.teachers.delete.confirm-error': 'Ім’я не збігається з ім’ям викладача.',
+  'admin.teachers.delete.submit': 'Видалити викладача',
+  'admin.teachers.delete.dialog-title': 'Підтвердити видалення?',
+  'admin.teachers.delete.dialog-description':
+    'Підтвердьте намір видалити профіль {$name}. Пов’язані групи залишаться без змін, бо серверна операція недоступна.',
+  'admin.teachers.delete.dialog-action': 'Підтвердити',
+  'admin.teachers.delete.result-title': 'Локальний результат',
+  'admin.teachers.delete.result-description':
+    'Профіль не видалено. Серверна операція недоступна, тому викладач і групи залишилися без змін.',
+  'admin.teachers.delete.result-groups': 'Пов’язані групи',
+  'admin.teachers.access.title': 'Доступ викладача',
+  'admin.teachers.access.description': 'Локальні дії для {$name}.',
+  'admin.teachers.access.description-empty': 'Локальні дії для вибраного викладача.',
+  'admin.teachers.access.note':
+    'Ці дії не мають серверних операцій. Підтвердження покаже локальний результат без зміни доступу, коду чи сесій.',
+  'admin.teachers.access.actions': 'Дії з доступом',
+  'admin.teachers.access.again': 'Інші дії',
+  'admin.teachers.access.block': 'Заблокувати доступ',
+  'admin.teachers.access.block-description': 'Тимчасово закрити вхід до акаунта.',
+  'admin.teachers.access.block-confirm-title': 'Заблокувати доступ?',
+  'admin.teachers.access.block-confirm-description':
+    'Підтвердьте блокування доступу для {$name}. Серверна операція недоступна, тому доступ не зміниться.',
+  'admin.teachers.access.block-confirm-action': 'Підтвердити блокування',
+  'admin.teachers.access.block-result-title': 'Доступ не заблоковано',
+  'admin.teachers.access.block-result-description':
+    'Серверна операція блокування недоступна. Поточний доступ викладача не змінився.',
+  'admin.teachers.access.block-result-action': 'Блокування доступу',
+  'admin.teachers.access.unblock': 'Розблокувати доступ',
+  'admin.teachers.access.unblock-description': 'Відновити вхід після блокування.',
+  'admin.teachers.access.unblock-confirm-title': 'Розблокувати доступ?',
+  'admin.teachers.access.unblock-confirm-description':
+    'Підтвердьте розблокування доступу для {$name}. Серверна операція недоступна, тому доступ не зміниться.',
+  'admin.teachers.access.unblock-confirm-action': 'Підтвердити розблокування',
+  'admin.teachers.access.unblock-result-title': 'Доступ не розблоковано',
+  'admin.teachers.access.unblock-result-description':
+    'Серверна операція розблокування недоступна. Поточний доступ викладача не змінився.',
+  'admin.teachers.access.unblock-result-action': 'Розблокування доступу',
+  'admin.teachers.access.reset-code': 'Скинути код доступу',
+  'admin.teachers.access.reset-code-description':
+    'Підготувати новий код доступу замість поточного.',
+  'admin.teachers.access.reset-code-confirm-title': 'Скинути код доступу?',
+  'admin.teachers.access.reset-code-confirm-description':
+    'Підтвердьте скидання коду для {$name}. Новий код не буде створено, а поточний не зміниться.',
+  'admin.teachers.access.reset-code-confirm-action': 'Підтвердити скидання',
+  'admin.teachers.access.reset-code-result-title': 'Код не скинуто',
+  'admin.teachers.access.reset-code-result-description':
+    'Серверна операція скидання коду недоступна. Код доступу не змінено, новий код не створено.',
+  'admin.teachers.access.reset-code-result-action': 'Скидання коду',
+  'admin.teachers.access.revoke-sessions': 'Завершити сесії',
+  'admin.teachers.access.revoke-sessions-description': 'Завершити активні сесії на всіх пристроях.',
+  'admin.teachers.access.revoke-sessions-confirm-title': 'Завершити сесії?',
+  'admin.teachers.access.revoke-sessions-confirm-description':
+    'Підтвердьте завершення сесій для {$name}. Активні сесії залишаться без змін.',
+  'admin.teachers.access.revoke-sessions-confirm-action': 'Підтвердити завершення',
+  'admin.teachers.access.revoke-sessions-result-title': 'Сесії не завершено',
+  'admin.teachers.access.revoke-sessions-result-description':
+    'Серверна операція відкликання сесій недоступна. Активні сесії залишилися без змін.',
+  'admin.teachers.access.revoke-sessions-result-action': 'Завершення сесій',
   'admin.teachers.register.title': 'Новий викладач',
   'admin.teachers.register.description':
     'Вкажіть ім’я, щоб створити акаунт і отримати код доступу.',
