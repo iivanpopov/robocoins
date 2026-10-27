@@ -1,0 +1,61 @@
+.row {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--surface);
+  border-radius: var(--rounded-md);
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.row:active {
+  background: var(--taupe-100);
+  transform: scale(0.99);
+}
+
+.details {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--foreground);
+  white-space: nowrap;
+}
+
+.courses {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.8125rem;
+  font-weight: 450;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.aside {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--spacing-xs);
+  align-items: center;
+}
+
+.count {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+
+.arrow {
+  font-size: 1rem;
+  color: var(--muted-foreground);
+}

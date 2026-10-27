@@ -1,0 +1,115 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  width: 100%;
+  min-height: 100%;
+  padding: var(--spacing-lg) var(--spacing-md);
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--foreground);
+}
+
+.description {
+  font-size: 0.875rem;
+  font-weight: 450;
+  color: var(--muted-foreground);
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.card {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  width: 100%;
+  padding: var(--spacing-md);
+  background: var(--surface);
+  border-radius: var(--rounded-lg);
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.card:active {
+  background: var(--taupe-100);
+  transform: scale(0.99);
+}
+
+.disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.disabled:active {
+  background: var(--surface);
+  transform: none;
+}
+
+.icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.75rem;
+  color: var(--taupe-700);
+  background: var(--taupe-100);
+  border-radius: var(--rounded-md);
+}
+
+.details {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.card-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--foreground);
+  white-space: nowrap;
+}
+
+.card-description {
+  font-size: 0.8125rem;
+  font-weight: 450;
+  line-height: 1.35;
+  color: var(--muted-foreground);
+}
+
+.arrow {
+  flex-shrink: 0;
+  font-size: 1rem;
+  color: var(--muted-foreground);
+}
+
+.badge {
+  flex-shrink: 0;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  background: var(--background);
+  border-radius: var(--rounded-full);
+}

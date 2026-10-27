@@ -463,7 +463,486 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Тут будуть викладачі та учні."
+      "Учні та викладачі школи."
+    ]
+  },
+  "admin.people.students.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Список, профіль і реєстрація учнів."
+    ]
+  },
+  "admin.people.teachers.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладачі"
+    ]
+  },
+  "admin.people.teachers.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Розділ з’явиться в наступному оновленні."
+    ]
+  },
+  "admin.people.soon": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Скоро"
+    ]
+  },
+  "students.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Учні"
+    ]
+  },
+  "students.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Пошук, фільтри та профілі учнів школи."
+    ]
+  },
+  "students.register.action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зареєструвати учня"
+    ]
+  },
+  "students.search.placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Пошук за іменем"
+    ]
+  },
+  "students.search.clear": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Очистити пошук"
+    ]
+  },
+  "students.filters.courses": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курси"
+    ]
+  },
+  "students.filters.groups": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Групи"
+    ]
+  },
+  "students.filters.all-courses": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Усі курси"
+    ]
+  },
+  "students.filters.all-groups": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Усі групи"
+    ]
+  },
+  "students.found": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Знайдено: ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      }
+    ]
+  },
+  "students.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Учнів поки немає."
+    ]
+  },
+  "students.empty-filtered": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "За таким запитом учнів не знайдено."
+    ]
+  },
+  "students.no-groups": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Без груп"
+    ]
+  },
+  "students.group-count": {
+    "type": "select",
+    "declarations": [
+      {
+        "type": "input",
+        "name": "count",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "count"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "number"
+          }
+        }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "count"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " група"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " групи"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " груп"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " групи"
+        ]
+      }
+    ]
+  },
+  "students.error.load": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити учнів."
+    ]
+  },
+  "students.error.session": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сесія завершилася. Увійдіть знову."
+    ]
+  },
+  "students.error.forbidden": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Недостатньо прав для цієї дії."
+    ]
+  },
+  "students.action.login": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До входу"
+    ]
+  },
+  "students.profile.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Профіль учня"
+    ]
+  },
+  "students.profile.back": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назад до учнів"
+    ]
+  },
+  "students.profile.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити профіль учня."
+    ]
+  },
+  "students.profile.metrics.groups": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Групи"
+    ]
+  },
+  "students.profile.metrics.courses": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курси"
+    ]
+  },
+  "students.profile.memberships": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Членство"
+    ]
+  },
+  "students.profile.memberships.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Учень поки не входить до жодної групи."
+    ]
+  },
+  "students.register.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Новий учень"
+    ]
+  },
+  "students.register.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Додайте ім’я, аватар і хоча б одну групу."
+    ]
+  },
+  "students.register.name.label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ім’я"
+    ]
+  },
+  "students.register.name.placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ім’я та прізвище учня"
+    ]
+  },
+  "students.register.name.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вкажіть ім’я учня."
+    ]
+  },
+  "students.register.avatar.label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Аватар"
+    ]
+  },
+  "students.register.avatar.option": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Варіант аватара ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "number"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      }
+    ]
+  },
+  "students.register.groups.label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Групи"
+    ]
+  },
+  "students.register.groups.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Можна обрати одну або кілька груп."
+    ]
+  },
+  "students.register.groups.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Немає доступних груп. Спочатку створіть групу."
+    ]
+  },
+  "students.register.groups.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити групи."
+    ]
+  },
+  "students.register.groups.validation": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть хоча б одну групу."
+    ]
+  },
+  "students.register.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зареєструвати"
+    ]
+  },
+  "students.register.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося зареєструвати учня. Спробуйте ще раз."
+    ]
+  },
+  "students.register.success.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Учня створено"
+    ]
+  },
+  "students.register.success.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Код доступу для ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "name"
+        }
+      },
+      ". Покажіть його зараз — після оновлення сторінки він зникне."
+    ]
+  },
+  "students.register.success.code": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Код доступу"
+    ]
+  },
+  "students.register.success.copy": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Копіювати код"
+    ]
+  },
+  "students.register.success.copied": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Код скопійовано"
+    ]
+  },
+  "students.register.success.copy-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося скопіювати код. Виділіть його вручну."
+    ]
+  },
+  "students.register.success.profile": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Відкрити профіль"
+    ]
+  },
+  "students.register.success.list": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До списку учнів"
     ]
   },
   "admin.catalog.title": {

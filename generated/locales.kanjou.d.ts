@@ -49,6 +49,57 @@ declare module '@kanjou/react' {
       'admin.groups.error': {}
       'admin.people.title': {}
       'admin.people.description': {}
+      'admin.people.students.description': {}
+      'admin.people.teachers.title': {}
+      'admin.people.teachers.description': {}
+      'admin.people.soon': {}
+      'students.title': {}
+      'students.description': {}
+      'students.register.action': {}
+      'students.search.placeholder': {}
+      'students.search.clear': {}
+      'students.filters.courses': {}
+      'students.filters.groups': {}
+      'students.filters.all-courses': {}
+      'students.filters.all-groups': {}
+      'students.found': { count: { __fn: 'number' } }
+      'students.empty': {}
+      'students.empty-filtered': {}
+      'students.no-groups': {}
+      'students.group-count': { count: { __fn: 'number' } }
+      'students.error.load': {}
+      'students.error.session': {}
+      'students.error.forbidden': {}
+      'students.action.login': {}
+      'students.profile.title': {}
+      'students.profile.back': {}
+      'students.profile.error': {}
+      'students.profile.metrics.groups': {}
+      'students.profile.metrics.courses': {}
+      'students.profile.memberships': {}
+      'students.profile.memberships.empty': {}
+      'students.register.title': {}
+      'students.register.description': {}
+      'students.register.name.label': {}
+      'students.register.name.placeholder': {}
+      'students.register.name.error': {}
+      'students.register.avatar.label': {}
+      'students.register.avatar.option': { number: { __fn: 'number' } }
+      'students.register.groups.label': {}
+      'students.register.groups.description': {}
+      'students.register.groups.empty': {}
+      'students.register.groups.error': {}
+      'students.register.groups.validation': {}
+      'students.register.submit': {}
+      'students.register.error': {}
+      'students.register.success.title': {}
+      'students.register.success.description': { name: DefaultMessageValue }
+      'students.register.success.code': {}
+      'students.register.success.copy': {}
+      'students.register.success.copied': {}
+      'students.register.success.copy-error': {}
+      'students.register.success.profile': {}
+      'students.register.success.list': {}
       'admin.catalog.title': {}
       'admin.catalog.description': {}
       'shop.balance': { count: { __fn: 'number' } }
