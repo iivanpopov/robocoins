@@ -79,7 +79,6 @@ declare module '@kanjou/react' {
       'admin.groups.detail.description-empty': {}
       'admin.groups.detail.course-fallback': { id: { __fn: 'number' } }
       'admin.groups.detail.students-count': {}
-      'admin.groups.detail.teachers-count': {}
       'admin.groups.detail.teachers': {}
       'admin.groups.detail.teachers-empty': {}
       'admin.groups.detail.students': {}
@@ -725,7 +724,6 @@ declare module '@kanjou/react' {
       'admin.courses.not-found.title': {}
       'admin.courses.not-found.description': {}
       'admin.courses.detail.title': {}
-      'admin.courses.detail.category': {}
       'admin.courses.detail.groups': {}
       'admin.courses.detail.groups-empty': {}
       'admin.courses.detail.manage': {}
@@ -735,7 +733,6 @@ declare module '@kanjou/react' {
       'admin.courses.detail.change-category-description': {}
       'admin.courses.detail.delete': {}
       'admin.courses.detail.delete-description': {}
-      'admin.courses.detail.local-note': {}
       'admin.courses.form.name-label': {}
       'admin.courses.form.name-placeholder': {}
       'admin.courses.form.name-error': {}

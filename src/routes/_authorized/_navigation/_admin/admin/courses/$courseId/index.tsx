@@ -66,21 +66,6 @@ function CourseDetailsPage() {
 
       {state.course && (
         <>
-          <section className={styles.meta}>
-            <div className={styles['meta-row']}>
-              <span className={styles['meta-label']}>{t('admin.courses.detail.category')}</span>
-              <span className={styles['meta-value']}>
-                {t('course.category', { category: state.course.category })}
-              </span>
-            </div>
-            <div className={styles['meta-row']}>
-              <span className={styles['meta-label']}>{t('admin.courses.detail.groups')}</span>
-              <span className={styles['meta-value']}>
-                {t('admin.courses.groups-count', { count: state.groupsCount })}
-              </span>
-            </div>
-          </section>
-
           <section className={styles.section}>
             <h2 className={styles['section-title']}>{t('admin.courses.detail.groups')}</h2>
             {state.isGroupsPending && <Loader />}
@@ -105,7 +90,6 @@ function CourseDetailsPage() {
 
           <section className={styles.section}>
             <h2 className={styles['section-title']}>{t('admin.courses.detail.manage')}</h2>
-            <p className={styles.note}>{t('admin.courses.detail.local-note')}</p>
             <div className={styles.actions}>
               <Link
                 to="/admin/courses/$courseId/rename"

@@ -893,13 +893,6 @@ export default {
       "Учні"
     ]
   },
-  "admin.groups.detail.teachers-count": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Викладачі"
-    ]
-  },
   "admin.groups.detail.teachers": {
     "type": "message",
     "declarations": [],
@@ -6866,13 +6859,6 @@ export default {
       "Курс"
     ]
   },
-  "admin.courses.detail.category": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Категорія"
-    ]
-  },
   "admin.courses.detail.groups": {
     "type": "message",
     "declarations": [],
@@ -6934,13 +6920,6 @@ export default {
     "declarations": [],
     "pattern": [
       "Прибрати курс зі списку разом із групами."
-    ]
-  },
-  "admin.courses.detail.local-note": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Ці дії не мають серверних операцій. Форми перевірять дані та покажуть локальний результат без збереження."
     ]
   },
   "admin.courses.form.name-label": {

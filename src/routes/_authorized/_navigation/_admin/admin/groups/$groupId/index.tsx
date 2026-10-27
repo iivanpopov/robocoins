@@ -76,25 +76,6 @@ function GroupDetailsPage() {
 
       {state.group && (
         <>
-          <section className={styles.meta}>
-            <div className={styles['meta-row']}>
-              <span className={styles['meta-label']}>
-                {t('admin.groups.detail.students-count')}
-              </span>
-              <span className={styles['meta-value']}>
-                {t('group.students-count', { count: state.studentsCount })}
-              </span>
-            </div>
-            <div className={styles['meta-row']}>
-              <span className={styles['meta-label']}>
-                {t('admin.groups.detail.teachers-count')}
-              </span>
-              <span className={styles['meta-value']}>
-                {t('admin.groups.teachers-count', { count: state.teachersCount })}
-              </span>
-            </div>
-          </section>
-
           <section className={styles.section}>
             <h2 className={styles['section-title']}>{t('admin.groups.detail.teachers')}</h2>
             {!state.teachers.length && (
@@ -121,7 +102,6 @@ function GroupDetailsPage() {
                 params={{ groupId: state.groupId }}
                 className={styles['students-link']}
               >
-                <span aria-hidden="true" className="i-ph:users-three-duotone" />
                 <span>{t('admin.groups.detail.students-manage')}</span>
                 <span aria-hidden="true" className="i-ph:caret-right-bold" />
               </Link>
