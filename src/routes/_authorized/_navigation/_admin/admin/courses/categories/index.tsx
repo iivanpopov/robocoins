@@ -82,18 +82,6 @@ function CourseCategoriesPage() {
                       <span aria-hidden="true" className="i-ph:pencil-simple-duotone" />
                       {t('admin.courses.categories.rename-action')}
                     </Link>
-                    <Link
-                      to="/admin/courses/categories/$category/delete"
-                      params={{ category: summary.category }}
-                      className={styles['category-action']}
-                      data-tone="error"
-                      aria-label={t('admin.courses.categories.delete-label', {
-                        category: t('course.category', { category: summary.category }),
-                      })}
-                    >
-                      <span aria-hidden="true" className="i-ph:trash-duotone" />
-                      {t('admin.courses.categories.delete-action')}
-                    </Link>
                   </div>
                   {!summary.courses.length && (
                     <p className={styles.empty}>{t('admin.courses.categories.empty')}</p>

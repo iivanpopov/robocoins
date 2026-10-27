@@ -78,7 +78,7 @@ function CourseCategoryPage() {
       description={
         <>
           {!state.course && t('admin.courses.category.description-empty')}
-          {state.course && t('admin.courses.category.description', { course: state.course.name })}
+          {state.course && <>{state.course.name}</>}
         </>
       }
       back={backButton}

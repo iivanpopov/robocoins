@@ -1,5 +1,4 @@
 export * from './use-category-create-page'
-export * from './use-category-delete-page'
 export * from './use-category-rename-page'
 export * from './use-course-categories-page'
 export * from './use-course-category-page'

@@ -7106,21 +7106,6 @@ export default {
       "Зміна категорії"
     ]
   },
-  "admin.courses.category.description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Нова категорія для курсу «",
-      {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "course"
-        }
-      },
-      "»."
-    ]
-  },
   "admin.courses.category.description-empty": {
     "type": "message",
     "declarations": [],
@@ -7327,33 +7312,11 @@ export default {
       "Перейменувати"
     ]
   },
-  "admin.courses.categories.delete-action": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Видалити"
-    ]
-  },
   "admin.courses.categories.rename-label": {
     "type": "message",
     "declarations": [],
     "pattern": [
       "Перейменувати категорію «",
-      {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "category"
-        }
-      },
-      "»"
-    ]
-  },
-  "admin.courses.categories.delete-label": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Видалити категорію «",
       {
         "type": "expression",
         "arg": {
@@ -7489,99 +7452,6 @@ export default {
     "declarations": [],
     "pattern": [
       "Запропонована назва"
-    ]
-  },
-  "admin.courses.categories.delete.title": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Видалення категорії"
-    ]
-  },
-  "admin.courses.categories.delete.description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Видалення категорії «",
-      {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "category"
-        }
-      },
-      "»."
-    ]
-  },
-  "admin.courses.categories.delete.note": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Серверна операція видалення категорії недоступна. Категорія залишиться в довіднику."
-    ]
-  },
-  "admin.courses.categories.delete.warning": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Категорію не буде видалено, бо сервер не має такої операції. Курси й довідник залишаться без змін."
-    ]
-  },
-  "admin.courses.categories.delete.submit": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Видалити категорію"
-    ]
-  },
-  "admin.courses.categories.delete.dialog-title": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Підтвердити видалення категорії?"
-    ]
-  },
-  "admin.courses.categories.delete.dialog-description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Підтвердьте намір видалити категорію «",
-      {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "category"
-        }
-      },
-      "». Серверний довідник залишиться без змін."
-    ]
-  },
-  "admin.courses.categories.delete.dialog-action": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Підтвердити"
-    ]
-  },
-  "admin.courses.categories.delete.result-title": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Локальний результат"
-    ]
-  },
-  "admin.courses.categories.delete.result-description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Категорію не видалено. Серверний довідник і курси не змінилися."
-    ]
-  },
-  "admin.courses.categories.delete.result-category": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Категорія"
     ]
   },
   "admin.catalog.title": {
