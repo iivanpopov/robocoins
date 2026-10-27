@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from 'react'
 const COPY_FEEDBACK_DURATION = 2000
 
 export function useCopyAccessCode(code: string) {
-  const [isCopied, setIsCopied] = useState(false)
-  const [isCopyError, setIsCopyError] = useState(false)
+  const [copiedCode, setCopiedCode] = useState<string | null>(null)
+  const [copyErrorCode, setCopyErrorCode] = useState<string | null>(null)
   const timeoutReference = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
@@ -18,18 +18,21 @@ export function useCopyAccessCode(code: string) {
 
     try {
       await navigator.clipboard.writeText(code)
-      setIsCopyError(false)
-      setIsCopied(true)
+      setCopyErrorCode(null)
+      setCopiedCode(code)
       if (timeoutReference.current) clearTimeout(timeoutReference.current)
       timeoutReference.current = setTimeout(() => {
-        setIsCopied(false)
+        setCopiedCode(null)
         timeoutReference.current = null
       }, COPY_FEEDBACK_DURATION)
     } catch {
-      setIsCopied(false)
-      setIsCopyError(true)
+      setCopiedCode(null)
+      setCopyErrorCode(code)
     }
   }
+
+  const isCopied = !!code && copiedCode === code
+  const isCopyError = !!code && copyErrorCode === code
 
   return {
     state: { isCopied, isCopyError },

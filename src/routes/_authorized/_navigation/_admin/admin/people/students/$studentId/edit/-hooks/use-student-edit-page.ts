@@ -20,10 +20,11 @@ export function useStudentEditPage() {
   const params = useParams({
     from: '/_authorized/_navigation/_admin/admin/people/students/$studentId/edit/',
   })
-  const queryClient = useQueryClient()
 
   const studentId = Number(params.studentId)
   const syncedStudentIdReference = useRef<number | null>(null)
+
+  const queryClient = useQueryClient()
 
   const studentQuery = useGetStudentByIdStudentStudentIdGet({
     path: { student_id: studentId },

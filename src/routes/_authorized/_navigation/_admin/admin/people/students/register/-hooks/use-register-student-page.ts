@@ -10,8 +10,8 @@ import type { StudentProfileResponse } from '#/api/types'
 import { AVATARS, UKRAINIAN_LOCALE } from '#/routes/-constants'
 
 import { RegisterStudentFormSchema, type RegisterStudentFormValues } from '../-schemas'
+import { useCopyAccessCode } from '../../-hooks'
 import { combineCourseGroups, getApiErrorKind, invalidateStudentCaches } from '../../-utils'
-import { useCopyAccessCode } from './use-copy-access-code'
 
 interface CreatedStudent {
   id: number

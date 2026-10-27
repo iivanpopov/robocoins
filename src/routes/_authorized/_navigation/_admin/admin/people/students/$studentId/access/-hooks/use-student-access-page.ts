@@ -10,20 +10,21 @@ import {
 } from '#/api/hooks/useShowStudentCredentialsStudentStudentIdCredentialsGet'
 
 import { getRequestErrorStatus } from '../../-utils'
-import { useCopyAccessCode } from './use-copy-access-code'
+import { useCopyAccessCode } from '../../../-hooks'
 
 export function useStudentAccessPage() {
   const navigate = useNavigate()
   const params = useParams({
     from: '/_authorized/_navigation/_admin/admin/people/students/$studentId/access/',
   })
-  const queryClient = useQueryClient()
 
   const studentId = Number(params.studentId)
 
   const [isResetDialogOpen, setIsResetDialogOpen] = useState(false)
   const [isRevokeDialogOpen, setIsRevokeDialogOpen] = useState(false)
   const [isRevokedLocally, setIsRevokedLocally] = useState(false)
+
+  const queryClient = useQueryClient()
 
   const studentQuery = useGetStudentByIdStudentStudentIdGet({
     path: { student_id: studentId },
