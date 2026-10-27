@@ -100,6 +100,40 @@ declare module '@kanjou/react' {
       'students.register.success.copy-error': {}
       'students.register.success.profile': {}
       'students.register.success.list': {}
+      'admin.teachers.title': {}
+      'admin.teachers.description': {}
+      'admin.teachers.search.placeholder': {}
+      'admin.teachers.search.empty': {}
+      'admin.teachers.empty': {}
+      'admin.teachers.register': {}
+      'admin.teachers.back': {}
+      'admin.teachers.open': { name: DefaultMessageValue }
+      'admin.teachers.error': {}
+      'admin.teachers.error.unauthorized': {}
+      'admin.teachers.error.forbidden': {}
+      'admin.teachers.profile.back': {}
+      'admin.teachers.profile.groups': {}
+      'admin.teachers.profile.groups.empty': {}
+      'admin.teachers.profile.error': {}
+      'admin.teachers.profile.not-found': {}
+      'admin.teachers.profile.mismatch': {}
+      'admin.teachers.profile.not-teacher': {}
+      'admin.teachers.register.title': {}
+      'admin.teachers.register.description': {}
+      'admin.teachers.register.name.label': {}
+      'admin.teachers.register.name.placeholder': {}
+      'admin.teachers.register.name.error': {}
+      'admin.teachers.register.submit': {}
+      'admin.teachers.register.error': {}
+      'admin.teachers.result.title': {}
+      'admin.teachers.result.description': {}
+      'admin.teachers.result.code': {}
+      'admin.teachers.result.copy': {}
+      'admin.teachers.result.copied': {}
+      'admin.teachers.result.copy-error': {}
+      'admin.teachers.result.profile': {}
+      'admin.teachers.result.list': {}
+      'admin.teachers.result.another': {}
       'admin.catalog.title': {}
       'admin.catalog.description': {}
       'shop.balance': { count: { __fn: 'number' } }

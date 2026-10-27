@@ -945,6 +945,251 @@ export default {
       "До списку учнів"
     ]
   },
+  "admin.teachers.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладачі"
+    ]
+  },
+  "admin.teachers.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Команда школи."
+    ]
+  },
+  "admin.teachers.search.placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Пошук викладача за іменем…"
+    ]
+  },
+  "admin.teachers.search.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладачів за вашим запитом не знайдено."
+    ]
+  },
+  "admin.teachers.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладачів поки немає."
+    ]
+  },
+  "admin.teachers.register": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зареєструвати"
+    ]
+  },
+  "admin.teachers.back": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назад до людей"
+    ]
+  },
+  "admin.teachers.open": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Відкрити профіль ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "name"
+        }
+      }
+    ]
+  },
+  "admin.teachers.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити викладачів."
+    ]
+  },
+  "admin.teachers.error.unauthorized": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сесія завершилася. Увійдіть знову, щоб продовжити."
+    ]
+  },
+  "admin.teachers.error.forbidden": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Недостатньо прав для перегляду викладачів."
+    ]
+  },
+  "admin.teachers.profile.back": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назад до викладачів"
+    ]
+  },
+  "admin.teachers.profile.groups": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Групи"
+    ]
+  },
+  "admin.teachers.profile.groups.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладач ще не має груп."
+    ]
+  },
+  "admin.teachers.profile.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити профіль викладача."
+    ]
+  },
+  "admin.teachers.profile.not-found": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладача не знайдено."
+    ]
+  },
+  "admin.teachers.profile.mismatch": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося зіставити акаунт і профіль викладача."
+    ]
+  },
+  "admin.teachers.profile.not-teacher": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Цей акаунт не є викладачем."
+    ]
+  },
+  "admin.teachers.register.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Новий викладач"
+    ]
+  },
+  "admin.teachers.register.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вкажіть ім’я, щоб створити акаунт і отримати код доступу."
+    ]
+  },
+  "admin.teachers.register.name.label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ім’я викладача"
+    ]
+  },
+  "admin.teachers.register.name.placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ім’я та прізвище"
+    ]
+  },
+  "admin.teachers.register.name.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вкажіть ім’я до 200 символів."
+    ]
+  },
+  "admin.teachers.register.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зареєструвати"
+    ]
+  },
+  "admin.teachers.register.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося зареєструвати викладача. Спробуйте ще раз."
+    ]
+  },
+  "admin.teachers.result.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладача створено"
+    ]
+  },
+  "admin.teachers.result.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Передайте код доступу викладачу. Після виходу зі сторінки код більше не відображатиметься."
+    ]
+  },
+  "admin.teachers.result.code": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Код доступу"
+    ]
+  },
+  "admin.teachers.result.copy": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Скопіювати код"
+    ]
+  },
+  "admin.teachers.result.copied": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Код скопійовано"
+    ]
+  },
+  "admin.teachers.result.copy-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося скопіювати код."
+    ]
+  },
+  "admin.teachers.result.profile": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Відкрити профіль"
+    ]
+  },
+  "admin.teachers.result.list": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До списку викладачів"
+    ]
+  },
+  "admin.teachers.result.another": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зареєструвати ще одного"
+    ]
+  },
   "admin.catalog.title": {
     "type": "message",
     "declarations": [],

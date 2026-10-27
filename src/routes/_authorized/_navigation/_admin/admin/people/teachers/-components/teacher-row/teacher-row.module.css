@@ -1,0 +1,57 @@
+.row {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--surface);
+  border-radius: var(--rounded-md);
+  transition: background-color 0.15s ease;
+}
+
+.row:active {
+  background: var(--taupe-100);
+}
+
+.avatar {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--taupe-700);
+  background: var(--taupe-100);
+  border-radius: var(--rounded-full);
+}
+
+.details {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--foreground);
+  white-space: nowrap;
+}
+
+.role {
+  font-size: 0.8125rem;
+  font-weight: 450;
+  color: var(--muted-foreground);
+}
+
+.arrow {
+  flex: 0 0 auto;
+  font-size: 1.125rem;
+  color: var(--muted-foreground);
+}
