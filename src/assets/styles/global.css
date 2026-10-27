@@ -18,8 +18,8 @@
   --brand: var(--blue-500);
   --brand-hover: var(--blue-600);
   --brand-foreground: white;
-  --error: var(--red-600);
-  --error-hover: var(--red-700);
+  --error: var(--red-400);
+  --error-hover: var(--red-500);
   --error-foreground: white;
   --muted: var(--taupe-300);
   --muted-foreground: var(--mist-600);

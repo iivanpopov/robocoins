@@ -12,7 +12,11 @@ import { COOKIE_MAX_AGE, LAST_LOG_ON_COOKIE, type Avatar as AvatarName } from '#
 import { getAvatarUrl, getInitial } from '#/routes/-utils'
 import { readCookie } from '#/utils/cookies'
 
-import { CyberweenBanner, RulesDrawer } from './-components'
+import { CyberweenBanner, LeaderboardPreview, RulesDrawer } from './-components'
+import {
+  getWeeklyLeaderboardQueryOptions,
+  getWeeklyLeaderboardRankQueryOptions,
+} from './-components/leaderboard'
 import { HISTORY_TRANSACTION_FETCH_LIMIT } from './-constants'
 import { useStudentPage } from './-hooks'
 import { getGoalProgressCookieName, getStudentRewardCategoriesQueryOptions } from './-utils'
@@ -48,6 +52,10 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/')({
       ),
       context.queryClient
         .query(getStudentRewardCategoriesQueryOptions(context.queryClient, profile))
+        .catch(() => undefined),
+      context.queryClient.infiniteQuery(getWeeklyLeaderboardQueryOptions(3)).catch(() => undefined),
+      context.queryClient
+        .query(getWeeklyLeaderboardRankQueryOptions(profile.id))
         .catch(() => undefined),
     ])
   },
@@ -96,7 +104,7 @@ function StudentPage() {
         </div>
       </header>
       <CyberweenBanner />
-      {state.isGoalPending && <Loader />}
+      {state.isGoalPending && <Loader grow />}
       {state.isGoalError && (
         <InlineError onRetry={functions.handleRetryGoal} isRetrying={state.isGoalFetching}>
           {t('group.error')}
@@ -152,6 +160,7 @@ function StudentPage() {
           </Typography>
         </article>
       )}
+      <LeaderboardPreview />
       <section className={styles.history}>
         <div className={styles['section-heading']}>
           <Typography className={styles['history-title']} variant="subtitle">
@@ -163,6 +172,7 @@ function StudentPage() {
             onClick={functions.handleViewHistory}
           >
             {t('profile.history.all')}
+            <span aria-hidden="true" className="i-ph:caret-right-bold" />
           </Button>
         </div>
         {queries.history.isPending && (
@@ -171,7 +181,7 @@ function StudentPage() {
             role="status"
             aria-label={t('profile.history.loading')}
           >
-            <Loader />
+            <Loader grow />
           </div>
         )}
         {queries.history.isError && (

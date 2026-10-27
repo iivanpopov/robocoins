@@ -1,4 +1,5 @@
 export * from './use-boolean'
+export * from './use-intersection-observer'
 export * from './use-motion-preference'
 export * from './use-ref-state'
 export * from './use-rerender'

@@ -1,0 +1,34 @@
+.sentinel {
+  height: 1px;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  width: min(100%, 430px);
+  min-height: 100%;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.own {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding-block: var(--spacing-md);
+  background: var(--background);
+}
+
+.rules {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--foreground);
+}

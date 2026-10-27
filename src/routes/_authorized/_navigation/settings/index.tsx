@@ -56,7 +56,6 @@ function SettingsPage() {
                 readOnly
                 autoComplete="off"
                 placeholder={t('field.password.placeholder')}
-                aria-describedby="settings-password-description"
               />
               <InputGroupAddon align="inline-end">
                 <InputGroupButton
@@ -76,9 +75,6 @@ function SettingsPage() {
                 </InputGroupButton>
               </InputGroupAddon>
             </InputGroup>
-            <FieldDescription id="settings-password-description">
-              {t('settings.password.description')}
-            </FieldDescription>
             {queries.credentials.isError && (
               <InlineError
                 onRetry={functions.handleRetryCredentials}

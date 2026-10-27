@@ -12,7 +12,7 @@ export const Route = createFileRoute('/_authorized/_navigation')({
 function NavigationLayout() {
   return (
     <div className={styles.layout}>
-      <main className={cn(styles.content)}>
+      <main className={cn(styles.content)} data-navigation-scroll>
         <Outlet />
       </main>
       <AppNavbar />

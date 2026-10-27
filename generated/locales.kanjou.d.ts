@@ -6,6 +6,22 @@ declare module '@kanjou/react' {
   export interface Register {
     locale: 'uk'
     messages: {
+      'leaderboard.title': {}
+      'leaderboard.description': {}
+      'leaderboard.rules': {}
+      'leaderboard.all': {}
+      'leaderboard.you': {}
+      'leaderboard.place': {}
+      'leaderboard.rank': { rank: { __fn: 'number' } }
+      'leaderboard.points': { count: { __fn: 'number' } }
+      'leaderboard.points.label': { count: { __fn: 'number' } }
+      'leaderboard.empty': {}
+      'leaderboard.unranked': {}
+      'leaderboard.error': {}
+      'leaderboard.rank.error': {}
+      'leaderboard.loading': {}
+      'leaderboard.more': {}
+      'leaderboard.back': {}
       'profile.cyberween.open': {}
       'profile.cyberween.tagline': {}
       'profile.cyberween.period': {}
