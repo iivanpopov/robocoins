@@ -13,6 +13,7 @@ import {
 } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 import { UKRAINIAN_LOCALE } from '#/routes/-constants'
+import { getInitial } from '#/routes/-utils'
 
 import type { TeacherOption } from '../../-types'
 import { TEACHER_ASSIGNMENT_MAX } from '../../../-constants'
@@ -112,20 +113,27 @@ export function TeacherPicker({
             const isSelected = selectedIds.includes(option.userId)
             const isLimited = !isSelected && selectedIds.length >= TEACHER_ASSIGNMENT_MAX
             const optionId = `${searchId}-teacher-${option.userId}`
+            const optionName =
+              option.name ?? t('admin.groups.teacher-unknown', { id: option.userId })
             return (
-              <Field key={option.userId} orientation="horizontal" className={styles.option}>
+              <Field
+                key={option.userId}
+                orientation="horizontal"
+                className={cn(styles.option, isSelected && styles['option-selected'])}
+              >
+                <span className={styles.avatar} aria-hidden="true">
+                  {getInitial(optionName)}
+                </span>
+                <FieldLabel htmlFor={optionId} className={styles['option-label']}>
+                  <span className={styles.name}>{optionName}</span>
+                  <span className={styles.role}>{t('role.teacher')}</span>
+                </FieldLabel>
                 <Checkbox
                   id={optionId}
                   checked={isSelected}
                   disabled={disabled || isLimited}
                   onCheckedChange={(checked) => handleToggle(option.userId, checked)}
                 />
-                <FieldLabel htmlFor={optionId} className={styles['option-label']}>
-                  <span className={styles.name}>
-                    {option.name ?? t('admin.groups.teacher-unknown', { id: option.userId })}
-                  </span>
-                  <span className={styles.role}>{t('role.teacher')}</span>
-                </FieldLabel>
               </Field>
             )
           })}

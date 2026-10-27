@@ -1508,14 +1508,14 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Наприклад, Python, субота, 12:00"
+      "Наприклад, НД 16:00"
     ]
   },
   "admin.groups.create.name-error": {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Введіть назву групи до 200 символів."
+      "Введіть у форматі НД 16:00: день тижня та час."
     ]
   },
   "admin.groups.create.course-label": {

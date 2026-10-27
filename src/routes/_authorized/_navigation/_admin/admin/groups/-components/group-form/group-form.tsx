@@ -47,7 +47,7 @@ export function GroupForm({
           {isSubmitting && <Loader />}
           {submitLabel}
         </Button>
-        {cancel}
+        {cancel && <div className={styles.cancel}>{cancel}</div>}
       </div>
     </form>
   )

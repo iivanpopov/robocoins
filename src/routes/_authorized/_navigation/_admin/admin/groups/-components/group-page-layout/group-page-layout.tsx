@@ -21,13 +21,13 @@ export function GroupPageLayout({
   return (
     <section className={cn(styles.page, className)}>
       <header className={styles.header}>
-        <div className={styles.heading}>
+        <div className={cn(styles.heading, back && styles['heading-split'])}>
           {back}
           <div className={styles.copy}>
             <h1 className={styles.title}>{title}</h1>
-            {description && <p className={styles.description}>{description}</p>}
           </div>
         </div>
+        {description && <p className={styles.description}>{description}</p>}
       </header>
       {children}
     </section>

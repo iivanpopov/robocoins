@@ -28,6 +28,15 @@
   min-width: 0;
 }
 
+.heading-split {
+  justify-content: space-between;
+}
+
+.heading-split .copy {
+  align-items: flex-end;
+  text-align: right;
+}
+
 .title {
   font-size: 1.5rem;
   font-weight: 800;

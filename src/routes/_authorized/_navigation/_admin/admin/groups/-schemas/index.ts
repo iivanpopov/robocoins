@@ -1,6 +1,6 @@
 import * as v from 'valibot'
 
-import { GROUP_NAME_MAX_LENGTH, TEACHER_ASSIGNMENT_MAX } from '../../-constants'
+import { TEACHER_ASSIGNMENT_MAX } from '../../-constants'
 
 export const GroupIdParamsSchema = v.object({
   groupId: v.pipe(
@@ -15,8 +15,7 @@ export const GroupIdParamsSchema = v.object({
 export const GroupNameSchema = v.pipe(
   v.string(),
   v.trim(),
-  v.minLength(1),
-  v.maxLength(GROUP_NAME_MAX_LENGTH),
+  v.regex(/^(ПН|ВТ|СР|ЧТ|ПТ|СБ|НД) ([01]\d|2[0-3]):[0-5]\d$/),
 )
 
 export const TeacherIdsSchema = v.pipe(
