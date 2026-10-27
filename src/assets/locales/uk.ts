@@ -86,28 +86,18 @@ export default {
   'admin.groups.not-found.title': 'Групу не знайдено',
   'admin.groups.not-found.description': 'Можливо, групу видалено або адресу змінено.',
   'admin.groups.detail.title': 'Група',
-  'admin.groups.detail.description': '{$course} · {$category}',
   'admin.groups.detail.description-empty': 'Група школи.',
   'admin.groups.detail.course-fallback': 'Курс #{$id :number}',
-  'admin.groups.detail.course': 'Курс',
-  'admin.groups.detail.category': 'Напрямок',
-  'admin.groups.detail.category-unknown': 'Не вказано',
   'admin.groups.detail.students-count': 'Учні',
   'admin.groups.detail.teachers-count': 'Викладачі',
   'admin.groups.detail.teachers': 'Викладачі групи',
   'admin.groups.detail.teachers-empty': 'Викладачів не призначено.',
-  'admin.groups.detail.teachers-note':
-    'Призначити або змінити склад викладачів можна в керуванні групою.',
   'admin.groups.detail.students': 'Учні групи',
   'admin.groups.detail.students-empty': 'У групі ще немає учнів.',
   'admin.groups.detail.students-unavailable':
     'Сервер повідомляє про учнів, але список імен недоступний.',
-  'admin.groups.detail.students-note':
-    'Керуйте складом окремо: додавайте учнів, переводьте між групами або прибирайте з групи.',
   'admin.groups.detail.students-manage': 'Керувати складом',
   'admin.groups.detail.manage': 'Керування групою',
-  'admin.groups.detail.local-note':
-    'Перейменування, зміна курсу та видалення не мають серверних операцій. Призначення викладачів зберігається на сервері.',
   'admin.groups.detail.rename': 'Перейменувати групу',
   'admin.groups.detail.rename-description': 'Змінити назву групи.',
   'admin.groups.detail.change-course': 'Змінити курс',

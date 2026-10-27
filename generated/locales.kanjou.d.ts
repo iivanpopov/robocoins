@@ -76,27 +76,17 @@ declare module '@kanjou/react' {
       'admin.groups.not-found.title': {}
       'admin.groups.not-found.description': {}
       'admin.groups.detail.title': {}
-      'admin.groups.detail.description': {
-        course: DefaultMessageValue
-        category: DefaultMessageValue
-      }
       'admin.groups.detail.description-empty': {}
       'admin.groups.detail.course-fallback': { id: { __fn: 'number' } }
-      'admin.groups.detail.course': {}
-      'admin.groups.detail.category': {}
-      'admin.groups.detail.category-unknown': {}
       'admin.groups.detail.students-count': {}
       'admin.groups.detail.teachers-count': {}
       'admin.groups.detail.teachers': {}
       'admin.groups.detail.teachers-empty': {}
-      'admin.groups.detail.teachers-note': {}
       'admin.groups.detail.students': {}
       'admin.groups.detail.students-empty': {}
       'admin.groups.detail.students-unavailable': {}
-      'admin.groups.detail.students-note': {}
       'admin.groups.detail.students-manage': {}
       'admin.groups.detail.manage': {}
-      'admin.groups.detail.local-note': {}
       'admin.groups.detail.rename': {}
       'admin.groups.detail.rename-description': {}
       'admin.groups.detail.change-course': {}

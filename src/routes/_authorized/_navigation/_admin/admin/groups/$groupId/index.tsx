@@ -33,14 +33,7 @@ function GroupDetailsPage() {
       title={groupName}
       description={
         <>
-          {state.course && (
-            <>
-              {t('admin.groups.detail.description', {
-                course: state.course.name,
-                category: t('course.category', { category: state.course.category }),
-              })}
-            </>
-          )}
+          {state.course && <>{state.course.name}</>}
           {!state.course && state.group && (
             <>
               {t('admin.groups.detail.course-fallback', {
@@ -85,21 +78,6 @@ function GroupDetailsPage() {
         <>
           <section className={styles.meta}>
             <div className={styles['meta-row']}>
-              <span className={styles['meta-label']}>{t('admin.groups.detail.course')}</span>
-              <span className={styles['meta-value']}>
-                {state.course && state.course.name}
-                {!state.course &&
-                  t('admin.groups.detail.course-fallback', { id: state.group.course_id })}
-              </span>
-            </div>
-            <div className={styles['meta-row']}>
-              <span className={styles['meta-label']}>{t('admin.groups.detail.category')}</span>
-              <span className={styles['meta-value']}>
-                {state.course && t('course.category', { category: state.course.category })}
-                {!state.course && t('admin.groups.detail.category-unknown')}
-              </span>
-            </div>
-            <div className={styles['meta-row']}>
               <span className={styles['meta-label']}>
                 {t('admin.groups.detail.students-count')}
               </span>
@@ -133,11 +111,21 @@ function GroupDetailsPage() {
                 ))}
               </div>
             )}
-            <p className={styles.note}>{t('admin.groups.detail.teachers-note')}</p>
           </section>
 
           <section className={styles.section}>
-            <h2 className={styles['section-title']}>{t('admin.groups.detail.students')}</h2>
+            <div className={styles['section-header']}>
+              <h2 className={styles['section-title']}>{t('admin.groups.detail.students')}</h2>
+              <Link
+                to="/admin/groups/$groupId/students"
+                params={{ groupId: state.groupId }}
+                className={styles['students-link']}
+              >
+                <span aria-hidden="true" className="i-ph:users-three-duotone" />
+                <span>{t('admin.groups.detail.students-manage')}</span>
+                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+              </Link>
+            </div>
             {!state.students.length && !state.studentsCount && (
               <p className={styles.empty}>{t('admin.groups.detail.students-empty')}</p>
             )}
@@ -151,21 +139,10 @@ function GroupDetailsPage() {
                 ))}
               </div>
             )}
-            <p className={styles.note}>{t('admin.groups.detail.students-note')}</p>
-            <Link
-              to="/admin/groups/$groupId/students"
-              params={{ groupId: state.groupId }}
-              className={styles['students-link']}
-            >
-              <span aria-hidden="true" className="i-ph:users-three-duotone" />
-              <span>{t('admin.groups.detail.students-manage')}</span>
-              <span aria-hidden="true" className="i-ph:caret-right-bold" />
-            </Link>
           </section>
 
           <section className={styles.section}>
             <h2 className={styles['section-title']}>{t('admin.groups.detail.manage')}</h2>
-            <p className={styles.note}>{t('admin.groups.detail.local-note')}</p>
             <div className={styles.actions}>
               <Link
                 to="/admin/operations/practice"

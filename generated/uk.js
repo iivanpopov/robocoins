@@ -861,27 +861,6 @@ export default {
       "Група"
     ]
   },
-  "admin.groups.detail.description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "course"
-        }
-      },
-      " · ",
-      {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "category"
-        }
-      }
-    ]
-  },
   "admin.groups.detail.description-empty": {
     "type": "message",
     "declarations": [],
@@ -905,27 +884,6 @@ export default {
           "name": "number"
         }
       }
-    ]
-  },
-  "admin.groups.detail.course": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Курс"
-    ]
-  },
-  "admin.groups.detail.category": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Напрямок"
-    ]
-  },
-  "admin.groups.detail.category-unknown": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Не вказано"
     ]
   },
   "admin.groups.detail.students-count": {
@@ -956,13 +914,6 @@ export default {
       "Викладачів не призначено."
     ]
   },
-  "admin.groups.detail.teachers-note": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Призначити або змінити склад викладачів можна в керуванні групою."
-    ]
-  },
   "admin.groups.detail.students": {
     "type": "message",
     "declarations": [],
@@ -984,13 +935,6 @@ export default {
       "Сервер повідомляє про учнів, але список імен недоступний."
     ]
   },
-  "admin.groups.detail.students-note": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Керуйте складом окремо: додавайте учнів, переводьте між групами або прибирайте з групи."
-    ]
-  },
   "admin.groups.detail.students-manage": {
     "type": "message",
     "declarations": [],
@@ -1003,13 +947,6 @@ export default {
     "declarations": [],
     "pattern": [
       "Керування групою"
-    ]
-  },
-  "admin.groups.detail.local-note": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Перейменування, зміна курсу та видалення не мають серверних операцій. Призначення викладачів зберігається на сервері."
     ]
   },
   "admin.groups.detail.rename": {
