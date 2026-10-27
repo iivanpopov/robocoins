@@ -34,6 +34,12 @@ export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/cata
 })
 
 function RewardDetailPage() {
+  const params = Route.useParams()
+
+  return <RewardDetailContent key={params.rewardId} />
+}
+
+function RewardDetailContent() {
   const { state, functions } = useRewardDetailPage()
 
   const t = useTranslate()
@@ -102,6 +108,9 @@ function RewardDetailPage() {
               <button type="button" className={styles.action} onClick={functions.handleOpenHide}>
                 {t('admin.catalog.details.hide')}
               </button>
+              <button type="button" className={styles.action} onClick={functions.handleOpenShow}>
+                {t('admin.catalog.details.show')}
+              </button>
               <button type="button" className={styles.delete} onClick={functions.handleOpenDelete}>
                 {t('admin.catalog.details.delete')}
               </button>
@@ -111,6 +120,13 @@ function RewardDetailPage() {
               <RewardActionNotice
                 title={t('admin.catalog.details.hide.result.title')}
                 description={t('admin.catalog.details.hide.result.description')}
+                onDismiss={functions.handleDismissNotice}
+              />
+            )}
+            {state.notice === 'show' && (
+              <RewardActionNotice
+                title={t('admin.catalog.details.show.result.title')}
+                description={t('admin.catalog.details.show.result.description')}
                 onDismiss={functions.handleDismissNotice}
               />
             )}
@@ -139,6 +155,25 @@ function RewardDetailPage() {
             <AlertDialogCancel>{t('action.cancel')}</AlertDialogCancel>
             <AlertDialogAction onClick={functions.handleConfirmHide}>
               {t('admin.catalog.details.hide.confirm.action')}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog open={state.isShowOpen} onOpenChange={functions.handleShowOpenChange}>
+        <AlertDialogContent size="sm">
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t('admin.catalog.details.show.confirm.title')}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {t('admin.catalog.details.show.confirm.description', {
+                name: state.reward?.name ?? '',
+              })}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{t('action.cancel')}</AlertDialogCancel>
+            <AlertDialogAction onClick={functions.handleConfirmShow}>
+              {t('admin.catalog.details.show.confirm.action')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

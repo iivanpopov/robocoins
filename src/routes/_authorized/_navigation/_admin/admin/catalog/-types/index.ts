@@ -40,4 +40,4 @@ export interface RewardImageSelection {
   fileName?: string
 }
 
-export type RewardActionNotice = 'hide' | 'delete'
+export type RewardActionNotice = 'hide' | 'show' | 'delete'

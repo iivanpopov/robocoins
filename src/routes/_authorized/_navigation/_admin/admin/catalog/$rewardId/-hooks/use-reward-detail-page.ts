@@ -13,6 +13,7 @@ export function useRewardDetailPage() {
   })
 
   const [isHideOpen, setIsHideOpen] = useState(false)
+  const [isShowOpen, setIsShowOpen] = useState(false)
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
   const [notice, setNotice] = useState<RewardActionNotice | null>(null)
 
@@ -25,6 +26,10 @@ export function useRewardDetailPage() {
     setIsHideOpen(isOpen)
   }
 
+  function handleShowOpenChange(isOpen: boolean) {
+    setIsShowOpen(isOpen)
+  }
+
   function handleDeleteOpenChange(isOpen: boolean) {
     setIsDeleteOpen(isOpen)
   }
@@ -32,6 +37,11 @@ export function useRewardDetailPage() {
   function handleOpenHide() {
     setNotice(null)
     setIsHideOpen(true)
+  }
+
+  function handleOpenShow() {
+    setNotice(null)
+    setIsShowOpen(true)
   }
 
   function handleOpenDelete() {
@@ -42,6 +52,11 @@ export function useRewardDetailPage() {
   function handleConfirmHide() {
     setIsHideOpen(false)
     setNotice('hide')
+  }
+
+  function handleConfirmShow() {
+    setIsShowOpen(false)
+    setNotice('show')
   }
 
   function handleConfirmDelete() {
@@ -81,6 +96,7 @@ export function useRewardDetailPage() {
       isFetching: rewardQuery.isFetching,
       errorKey,
       isHideOpen,
+      isShowOpen,
       isDeleteOpen,
       notice,
     },
@@ -89,10 +105,13 @@ export function useRewardDetailPage() {
     },
     functions: {
       handleHideOpenChange,
+      handleShowOpenChange,
       handleDeleteOpenChange,
       handleOpenHide,
+      handleOpenShow,
       handleOpenDelete,
       handleConfirmHide,
+      handleConfirmShow,
       handleConfirmDelete,
       handleDismissNotice,
       handleRetry,

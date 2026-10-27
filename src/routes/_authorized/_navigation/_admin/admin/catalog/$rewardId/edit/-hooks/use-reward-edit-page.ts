@@ -23,12 +23,12 @@ export function useRewardEditPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isNoticeVisible, setIsNoticeVisible] = useState(false)
 
-  const imagePicker = useRewardImagePicker()
-
   const rewardQuery = useGetShopRewardShopRewardIdGet(
     { path: { reward_id: params.rewardId } },
     { query: { retry: false } },
   )
+
+  const imagePicker = useRewardImagePicker()
 
   function handleDraftChange(nextDraft: RewardDraft) {
     setDraftState(nextDraft)

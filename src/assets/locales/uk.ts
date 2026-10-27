@@ -328,17 +328,25 @@ export default {
   'admin.catalog.details.image.none': 'У нагороди немає збереженого зображення.',
   'admin.catalog.details.manage': 'Керування нагородою',
   'admin.catalog.details.manage.description':
-    'Редагування, доступність і видалення не підтримуються сервером. Дії нижче не змінюють збережену нагороду.',
+    'Сервер не має операцій редагування, доступності чи видалення і не повертає стан доступності. Дії нижче не змінюють збережену нагороду.',
   'admin.catalog.details.edit': 'Редагувати',
   'admin.catalog.details.hide': 'Приховати з каталогу',
+  'admin.catalog.details.show': 'Показати в каталозі',
   'admin.catalog.details.delete': 'Видалити нагороду',
   'admin.catalog.details.hide.confirm.title': 'Приховати нагороду?',
   'admin.catalog.details.hide.confirm.description':
-    'Нагорода «{$name}» має стати недоступною в каталозі. Сервер поки не має цієї операції, тому зміну не буде збережено.',
+    'Нагорода «{$name}» має стати недоступною в каталозі. Сервер не має операції доступності, тому зміну не буде збережено.',
   'admin.catalog.details.hide.confirm.action': 'Приховати',
   'admin.catalog.details.hide.result.title': 'Доступність не змінено',
   'admin.catalog.details.hide.result.description':
     'Сервер не має операції для приховування чи показу нагород. Нагорода залишилася без змін.',
+  'admin.catalog.details.show.confirm.title': 'Показати нагороду в каталозі?',
+  'admin.catalog.details.show.confirm.description':
+    'Нагорода «{$name}» має стати доступною в каталозі. Сервер не має операції доступності, тому зміну не буде збережено.',
+  'admin.catalog.details.show.confirm.action': 'Показати',
+  'admin.catalog.details.show.result.title': 'Доступність не змінено',
+  'admin.catalog.details.show.result.description':
+    'Сервер не має операції для показу чи приховування нагород. Нагорода залишилася без змін.',
   'admin.catalog.details.delete.confirm.title': 'Видалити нагороду?',
   'admin.catalog.details.delete.confirm.description':
     'Нагорода «{$name}» має зникнути з каталогу. Сервер поки не має операції видалення, тому нагороду не буде видалено.',

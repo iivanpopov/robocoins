@@ -1187,14 +1187,703 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Каталог"
+      "Каталог нагород"
     ]
   },
   "admin.catalog.description": {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Тут будуть нагороди та категорії."
+      "Нагороди та привілеї для учнів."
+    ]
+  },
+  "admin.catalog.add": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Додати нагороду"
+    ]
+  },
+  "admin.catalog.back": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До каталогу"
+    ]
+  },
+  "admin.catalog.search.placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Пошук нагороди"
+    ]
+  },
+  "admin.catalog.filters.all": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Усі"
+    ]
+  },
+  "admin.catalog.filters.type": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Тип"
+    ]
+  },
+  "admin.catalog.filters.category": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Категорія"
+    ]
+  },
+  "admin.catalog.type.reward": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нагорода"
+    ]
+  },
+  "admin.catalog.type.privilege": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Привілей"
+    ]
+  },
+  "admin.catalog.category.none": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Без категорії"
+    ]
+  },
+  "admin.catalog.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нагород поки немає."
+    ]
+  },
+  "admin.catalog.empty.filtered": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "За цими фільтрами нагород не знайдено."
+    ]
+  },
+  "admin.catalog.empty.reset": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Скинути фільтри"
+    ]
+  },
+  "admin.catalog.error.load": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити нагороди."
+    ]
+  },
+  "admin.catalog.error.request": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося виконати запит. Спробуйте ще раз."
+    ]
+  },
+  "admin.catalog.error.unauthorized": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сесія завершилася. Увійдіть знову, щоб керувати каталогом."
+    ]
+  },
+  "admin.catalog.error.forbidden": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Немає доступу до каталогу нагород."
+    ]
+  },
+  "admin.catalog.error.not-found": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нагороду не знайдено."
+    ]
+  },
+  "admin.catalog.error.validation": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер не прийняв дані. Перевірте поля."
+    ]
+  },
+  "admin.catalog.details.type": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Тип"
+    ]
+  },
+  "admin.catalog.details.category": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Категорія"
+    ]
+  },
+  "admin.catalog.details.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Опис"
+    ]
+  },
+  "admin.catalog.details.no-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Опис не додано."
+    ]
+  },
+  "admin.catalog.details.image": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зображення"
+    ]
+  },
+  "admin.catalog.details.image.none": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "У нагороди немає збереженого зображення."
+    ]
+  },
+  "admin.catalog.details.manage": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Керування нагородою"
+    ]
+  },
+  "admin.catalog.details.manage.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер не має операцій редагування, доступності чи видалення і не повертає стан доступності. Дії нижче не змінюють збережену нагороду."
+    ]
+  },
+  "admin.catalog.details.edit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Редагувати"
+    ]
+  },
+  "admin.catalog.details.hide": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Приховати з каталогу"
+    ]
+  },
+  "admin.catalog.details.show": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Показати в каталозі"
+    ]
+  },
+  "admin.catalog.details.delete": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалити нагороду"
+    ]
+  },
+  "admin.catalog.details.hide.confirm.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Приховати нагороду?"
+    ]
+  },
+  "admin.catalog.details.hide.confirm.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нагорода «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "name"
+        }
+      },
+      "» має стати недоступною в каталозі. Сервер не має операції доступності, тому зміну не буде збережено."
+    ]
+  },
+  "admin.catalog.details.hide.confirm.action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Приховати"
+    ]
+  },
+  "admin.catalog.details.hide.result.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Доступність не змінено"
+    ]
+  },
+  "admin.catalog.details.hide.result.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер не має операції для приховування чи показу нагород. Нагорода залишилася без змін."
+    ]
+  },
+  "admin.catalog.details.show.confirm.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Показати нагороду в каталозі?"
+    ]
+  },
+  "admin.catalog.details.show.confirm.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нагорода «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "name"
+        }
+      },
+      "» має стати доступною в каталозі. Сервер не має операції доступності, тому зміну не буде збережено."
+    ]
+  },
+  "admin.catalog.details.show.confirm.action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Показати"
+    ]
+  },
+  "admin.catalog.details.show.result.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Доступність не змінено"
+    ]
+  },
+  "admin.catalog.details.show.result.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер не має операції для показу чи приховування нагород. Нагорода залишилася без змін."
+    ]
+  },
+  "admin.catalog.details.delete.confirm.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалити нагороду?"
+    ]
+  },
+  "admin.catalog.details.delete.confirm.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нагорода «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "name"
+        }
+      },
+      "» має зникнути з каталогу. Сервер поки не має операції видалення, тому нагороду не буде видалено."
+    ]
+  },
+  "admin.catalog.details.delete.confirm.action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалити"
+    ]
+  },
+  "admin.catalog.details.delete.result.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нагороду не видалено"
+    ]
+  },
+  "admin.catalog.details.delete.result.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер не має операції видалення нагород. Нагорода залишилася в каталозі."
+    ]
+  },
+  "admin.catalog.form.name": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назва"
+    ]
+  },
+  "admin.catalog.form.name.placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Наприклад, робоксі"
+    ]
+  },
+  "admin.catalog.form.price": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ціна в робокоїнах"
+    ]
+  },
+  "admin.catalog.form.price.placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "100"
+    ]
+  },
+  "admin.catalog.form.price.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ціле число, не менше нуля."
+    ]
+  },
+  "admin.catalog.form.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Опис"
+    ]
+  },
+  "admin.catalog.form.description.placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Що отримає учень"
+    ]
+  },
+  "admin.catalog.form.type": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Тип"
+    ]
+  },
+  "admin.catalog.form.category": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Категорія"
+    ]
+  },
+  "admin.catalog.form.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Створити нагороду"
+    ]
+  },
+  "admin.catalog.validation.name": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вкажіть назву нагороди."
+    ]
+  },
+  "admin.catalog.validation.price": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вкажіть ціну цілим числом від 0."
+    ]
+  },
+  "admin.catalog.validation.type": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть тип нагороди."
+    ]
+  },
+  "admin.catalog.validation.category": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть категорію або «Без категорії»."
+    ]
+  },
+  "admin.catalog.create.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нова нагорода"
+    ]
+  },
+  "admin.catalog.create.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Заповніть підтримувані поля. Зображення залишиться локальним."
+    ]
+  },
+  "admin.catalog.create.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося створити нагороду. Спробуйте ще раз."
+    ]
+  },
+  "admin.catalog.create.success.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нагороду створено"
+    ]
+  },
+  "admin.catalog.create.success.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нагорода збережена в каталозі."
+    ]
+  },
+  "admin.catalog.create.success.open": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Відкрити нагороду"
+    ]
+  },
+  "admin.catalog.create.success.another": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Додати ще"
+    ]
+  },
+  "admin.catalog.create.success.catalog": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До каталогу"
+    ]
+  },
+  "admin.catalog.create.success.image": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зображення не збережено"
+    ]
+  },
+  "admin.catalog.create.success.image.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер не має поля зображення та завантаження файлів. Локальний вибір не пов’язаний зі збереженою нагородою."
+    ]
+  },
+  "admin.catalog.create.success.no-image": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нагороду створено без зображення."
+    ]
+  },
+  "admin.catalog.image.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зображення"
+    ]
+  },
+  "admin.catalog.image.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Посилання або файл із телефона. Це локальний перегляд."
+    ]
+  },
+  "admin.catalog.image.unsupported": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер не має поля зображення та завантаження файлів. Вибір не буде збережено."
+    ]
+  },
+  "admin.catalog.image.mode.link": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Посилання"
+    ]
+  },
+  "admin.catalog.image.mode.file": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вибрати файл"
+    ]
+  },
+  "admin.catalog.image.link.placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "https://…"
+    ]
+  },
+  "admin.catalog.image.link.preview": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Показати"
+    ]
+  },
+  "admin.catalog.image.link.replace": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Замінити посилання"
+    ]
+  },
+  "admin.catalog.image.file.choose": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вибрати файл"
+    ]
+  },
+  "admin.catalog.image.file.replace": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Замінити файл"
+    ]
+  },
+  "admin.catalog.image.file.hint": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Формати: jpeg, png, webp або gif до 5 мегабайт."
+    ]
+  },
+  "admin.catalog.image.remove": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалити"
+    ]
+  },
+  "admin.catalog.image.selected": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальний перегляд"
+    ]
+  },
+  "admin.catalog.image.unsaved": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не збережено"
+    ]
+  },
+  "admin.catalog.image.error.link": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вкажіть коректне посилання на зображення."
+    ]
+  },
+  "admin.catalog.image.error.preview": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити зображення за цим посиланням."
+    ]
+  },
+  "admin.catalog.image.error.file-type": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть файл зображення."
+    ]
+  },
+  "admin.catalog.image.error.file-size": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Файл завеликий. Оберіть зображення до 5 мегабайт."
+    ]
+  },
+  "admin.catalog.edit.back": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До нагороди"
+    ]
+  },
+  "admin.catalog.edit.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Редагування нагороди"
+    ]
+  },
+  "admin.catalog.edit.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Змініть базові поля. Сервер поки не зберігає ці зміни."
+    ]
+  },
+  "admin.catalog.edit.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зберегти зміни"
+    ]
+  },
+  "admin.catalog.edit.reset": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Скинути зміни"
+    ]
+  },
+  "admin.catalog.edit.notice.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зміни не збережено"
+    ]
+  },
+  "admin.catalog.edit.notice.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер не має операції редагування нагород. Поточна нагорода залишилася без змін."
     ]
   },
   "admin.courses.title": {
@@ -2724,6 +3413,13 @@ export default {
     "declarations": [],
     "pattern": [
       "Скасувати"
+    ]
+  },
+  "action.close": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Закрити"
     ]
   },
   "group.practice.award": {

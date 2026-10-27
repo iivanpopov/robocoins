@@ -19,8 +19,6 @@ export function useCreateRewardPage() {
   const [draft, setDraft] = useState(createEmptyRewardDraft)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const imagePicker = useRewardImagePicker()
-
   const createMutation = useCreateRewardRewardsPost({
     mutation: {
       retry: false,
@@ -32,6 +30,8 @@ export function useCreateRewardPage() {
       },
     },
   })
+
+  const imagePicker = useRewardImagePicker()
 
   function handleDraftChange(nextDraft: RewardDraft) {
     setDraft(nextDraft)

@@ -26,6 +26,12 @@ export const Route = createFileRoute(
 })
 
 function RewardEditPage() {
+  const params = Route.useParams()
+
+  return <RewardEditContent key={params.rewardId} />
+}
+
+function RewardEditContent() {
   const { state, functions, features } = useRewardEditPage()
 
   const t = useTranslate()

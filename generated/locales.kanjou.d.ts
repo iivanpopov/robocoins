@@ -295,6 +295,7 @@ declare module '@kanjou/react' {
       'admin.catalog.details.manage.description': {}
       'admin.catalog.details.edit': {}
       'admin.catalog.details.hide': {}
+      'admin.catalog.details.show': {}
       'admin.catalog.details.delete': {}
       'admin.catalog.details.hide.confirm.title': {}
       'admin.catalog.details.hide.confirm.description': {
@@ -303,6 +304,13 @@ declare module '@kanjou/react' {
       'admin.catalog.details.hide.confirm.action': {}
       'admin.catalog.details.hide.result.title': {}
       'admin.catalog.details.hide.result.description': {}
+      'admin.catalog.details.show.confirm.title': {}
+      'admin.catalog.details.show.confirm.description': {
+        name: DefaultMessageValue
+      }
+      'admin.catalog.details.show.confirm.action': {}
+      'admin.catalog.details.show.result.title': {}
+      'admin.catalog.details.show.result.description': {}
       'admin.catalog.details.delete.confirm.title': {}
       'admin.catalog.details.delete.confirm.description': {
         name: DefaultMessageValue
