@@ -61,6 +61,29 @@
   color: var(--muted-foreground);
 }
 
+.students-link {
+  display: inline-flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+  align-self: flex-start;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--brand);
+  background: color-mix(in srgb, var(--brand) 8%, transparent);
+  border-radius: var(--rounded-full);
+  transition: background-color 0.15s ease;
+}
+
+.students-link:active {
+  background: color-mix(in srgb, var(--brand) 14%, transparent);
+}
+
+.students-link:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
 .actions {
   display: flex;
   flex-direction: column;

@@ -152,6 +152,15 @@ function GroupDetailsPage() {
               </div>
             )}
             <p className={styles.note}>{t('admin.groups.detail.students-note')}</p>
+            <Link
+              to="/admin/groups/$groupId/students"
+              params={{ groupId: state.groupId }}
+              className={styles['students-link']}
+            >
+              <span aria-hidden="true" className="i-ph:users-three-duotone" />
+              <span>{t('admin.groups.detail.students-manage')}</span>
+              <span aria-hidden="true" className="i-ph:caret-right-bold" />
+            </Link>
           </section>
 
           <section className={styles.section}>

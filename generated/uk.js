@@ -960,7 +960,14 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Додавання, переведення та відрахування учнів з’являться в наступних оновленнях."
+      "Керуйте складом окремо: додавайте учнів, переводьте між групами або прибирайте з групи."
+    ]
+  },
+  "admin.groups.detail.students-manage": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Керувати складом"
     ]
   },
   "admin.groups.detail.manage": {

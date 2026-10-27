@@ -90,6 +90,7 @@ declare module '@kanjou/react' {
       'admin.groups.detail.students-empty': {}
       'admin.groups.detail.students-unavailable': {}
       'admin.groups.detail.students-note': {}
+      'admin.groups.detail.students-manage': {}
       'admin.groups.detail.manage': {}
       'admin.groups.detail.local-note': {}
       'admin.groups.detail.rename': {}
