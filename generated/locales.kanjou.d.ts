@@ -40,6 +40,17 @@ declare module '@kanjou/react' {
       'navbar.home': {}
       'navbar.shop': {}
       'navbar.groups': {}
+      'navbar.learning': {}
+      'navbar.people': {}
+      'navbar.catalog': {}
+      'admin.groups.title': {}
+      'admin.groups.description': {}
+      'admin.groups.empty': {}
+      'admin.groups.error': {}
+      'admin.people.title': {}
+      'admin.people.description': {}
+      'admin.catalog.title': {}
+      'admin.catalog.description': {}
       'shop.balance': { count: { __fn: 'number' } }
       'shop.balance.amount': { count: { __fn: 'number' } }
       'shop.reward.back': {}
@@ -54,6 +65,11 @@ declare module '@kanjou/react' {
       'shop.view.list': {}
       'settings.password': {}
       'settings.section.account': {}
+      'settings.account.name': {}
+      'settings.account.role': {}
+      'role.student': {}
+      'role.teacher': {}
+      'role.admin': {}
       'settings.section.appearance': {}
       'settings.section.session': {}
       'settings.password.description': {}

@@ -50,10 +50,6 @@
   --avatar-size: 3.25rem;
 }
 
-.current .name {
-  color: var(--brand);
-}
-
 .place[data-place='1'] .figure .avatar[data-slot='avatar'] {
   --avatar-size: 4.25rem;
 }
@@ -89,6 +85,10 @@
   line-height: 1.2;
   overflow-wrap: anywhere;
   -webkit-box-orient: vertical;
+}
+
+.current .name {
+  color: var(--brand);
 }
 
 .points {

@@ -13,7 +13,10 @@ export function useSettingsPage() {
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false)
   const motionPreference = useMotionPreference(context.animationsDisabled)
   const queryClient = useQueryClient()
-  const credentialsQuery = useGetStudentCredentialsAuthMeCredentialsGet()
+  const isStudent = context.user?.role === 'student'
+  const credentialsQuery = useGetStudentCredentialsAuthMeCredentialsGet({
+    query: { enabled: isStudent },
+  })
   const logoutMutation = useLogoutAuthLogoutPost({
     mutation: {
       retry: false,
@@ -53,6 +56,7 @@ export function useSettingsPage() {
   return {
     state: {
       user: context.user,
+      isStudent,
       isPasswordVisible,
       isLogoutDialogOpen,
       animationsReduced: motionPreference.reducedMotion,

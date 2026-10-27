@@ -403,6 +403,83 @@ export default {
       "Групи"
     ]
   },
+  "navbar.learning": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Навчання"
+    ]
+  },
+  "navbar.people": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Люди"
+    ]
+  },
+  "navbar.catalog": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Каталог"
+    ]
+  },
+  "admin.groups.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Навчання"
+    ]
+  },
+  "admin.groups.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Групи школи."
+    ]
+  },
+  "admin.groups.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Груп поки немає."
+    ]
+  },
+  "admin.groups.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити групи."
+    ]
+  },
+  "admin.people.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Люди"
+    ]
+  },
+  "admin.people.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Тут будуть викладачі та учні."
+    ]
+  },
+  "admin.catalog.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Каталог"
+    ]
+  },
+  "admin.catalog.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Тут будуть нагороди та категорії."
+    ]
+  },
   "shop.balance": {
     "type": "message",
     "declarations": [],
@@ -531,6 +608,41 @@ export default {
     "declarations": [],
     "pattern": [
       "Обліковий запис"
+    ]
+  },
+  "settings.account.name": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ім’я"
+    ]
+  },
+  "settings.account.role": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Роль"
+    ]
+  },
+  "role.student": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Учень"
+    ]
+  },
+  "role.teacher": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладач"
+    ]
+  },
+  "role.admin": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Адміністратор"
     ]
   },
   "settings.section.appearance": {
