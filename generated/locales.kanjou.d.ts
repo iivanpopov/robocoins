@@ -251,6 +251,67 @@ declare module '@kanjou/react' {
       'admin.balance.refresh.title': {}
       'admin.balance.refresh.error': {}
       'admin.balance.refresh.action': {}
+      'students.manage.back-to-profile': {}
+      'students.manage.not-found': {}
+      'students.edit.title': {}
+      'students.edit.description': {}
+      'students.edit.nickname.title': {}
+      'students.edit.nickname.description': {}
+      'students.edit.nickname.label': {}
+      'students.edit.nickname.placeholder': {}
+      'students.edit.nickname.error': {}
+      'students.edit.nickname.same': {}
+      'students.edit.nickname.submit': {}
+      'students.edit.nickname.saved': {}
+      'students.edit.nickname.save-error': {}
+      'students.edit.avatar.title': {}
+      'students.edit.avatar.description': {}
+      'students.edit.avatar.submit': {}
+      'students.edit.avatar.saved': {}
+      'students.edit.avatar.save-error': {}
+      'students.access.title': {}
+      'students.access.description': { name: DefaultMessageValue }
+      'students.access.description-empty': {}
+      'students.access.code.title': {}
+      'students.access.code.note': {}
+      'students.access.code.error': {}
+      'students.access.code.forbidden': {}
+      'students.access.code.reset': {}
+      'students.access.code.reset-confirm-title': {}
+      'students.access.code.reset-confirm-description': {
+        name: DefaultMessageValue
+      }
+      'students.access.code.reset-confirm-action': {}
+      'students.access.code.reset-error': {}
+      'students.access.code.reset-forbidden': {}
+      'students.access.sessions.title': {}
+      'students.access.sessions.action': {}
+      'students.access.sessions.note': {}
+      'students.access.sessions.confirm-title': {}
+      'students.access.sessions.confirm-description': {
+        name: DefaultMessageValue
+      }
+      'students.access.sessions.confirm-action': {}
+      'students.access.sessions.result-title': {}
+      'students.access.sessions.result-description': {}
+      'students.access.sessions.again': {}
+      'students.delete.title': {}
+      'students.delete.description': { name: DefaultMessageValue }
+      'students.delete.description-empty': {}
+      'students.delete.note': {}
+      'students.delete.confirmation-label': {}
+      'students.delete.confirmation-placeholder': {}
+      'students.delete.confirmation-error': {}
+      'students.delete.submit': {}
+      'students.delete.dialog-title': {}
+      'students.delete.dialog-description': { name: DefaultMessageValue }
+      'students.delete.dialog-action': {}
+      'students.delete.result-title': {}
+      'students.delete.result-description': {}
+      'students.delete.result-detail': {}
+      'students.delete.result-action': {}
+      'students.delete.result-action-value': {}
+      'students.delete.again': {}
       'students.register.title': {}
       'students.register.description': {}
       'students.register.name.label': {}
