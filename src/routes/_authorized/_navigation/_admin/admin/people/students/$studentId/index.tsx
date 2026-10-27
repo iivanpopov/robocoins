@@ -97,6 +97,53 @@ function StudentProfilePage() {
             </div>
           </article>
 
+          <nav className={styles.actions}>
+            <Link
+              to="/admin/people/students/$studentId/edit"
+              params={{ studentId: state.student.id }}
+              className={styles['action-link']}
+            >
+              <span
+                aria-hidden="true"
+                className={cn('i-ph:pencil-simple-duotone', styles['action-icon'])}
+              />
+              <span className={styles['action-title']}>{t('students.edit.title')}</span>
+              <span
+                aria-hidden="true"
+                className={cn('i-ph:caret-right-bold', styles['action-arrow'])}
+              />
+            </Link>
+
+            <Link
+              to="/admin/people/students/$studentId/access"
+              params={{ studentId: state.student.id }}
+              className={styles['action-link']}
+            >
+              <span aria-hidden="true" className={cn('i-ph:key-duotone', styles['action-icon'])} />
+              <span className={styles['action-title']}>{t('students.access.title')}</span>
+              <span
+                aria-hidden="true"
+                className={cn('i-ph:caret-right-bold', styles['action-arrow'])}
+              />
+            </Link>
+
+            <Link
+              to="/admin/people/students/$studentId/delete"
+              params={{ studentId: state.student.id }}
+              className={styles['action-link']}
+            >
+              <span
+                aria-hidden="true"
+                className={cn('i-ph:user-minus-duotone', styles['action-icon'])}
+              />
+              <span className={styles['action-title']}>{t('students.delete.title')}</span>
+              <span
+                aria-hidden="true"
+                className={cn('i-ph:caret-right-bold', styles['action-arrow'])}
+              />
+            </Link>
+          </nav>
+
           <Link
             to="/admin/people/students/$studentId/balance"
             params={{ studentId: state.student.id }}
