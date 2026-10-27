@@ -25,9 +25,9 @@ export function GroupPageLayout({
           {back}
           <div className={styles.copy}>
             <h1 className={styles.title}>{title}</h1>
+            {description && <p className={styles.description}>{description}</p>}
           </div>
         </div>
-        {description && <p className={styles.description}>{description}</p>}
       </header>
       {children}
     </section>
