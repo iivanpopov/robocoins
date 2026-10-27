@@ -2,10 +2,12 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { cn } from 'cn'
 
-import { Loader } from '#/components/ui'
+import { courseCategory } from '#/api/types'
+import { Button, InputGroup, InputGroupAddon, InputGroupInput, Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 
-import { AdminGroupRow } from './-components'
+import { AdminGroupRow, AdminSelect } from './-components'
+import { GROUP_FILTER_ALL } from './-constants'
 import { useAdminGroupsPage } from './-hooks'
 
 import styles from './index.module.css'
@@ -20,11 +22,36 @@ function AdminGroupsPage() {
 
   const t = useTranslate()
 
+  const courseItems = [
+    { value: GROUP_FILTER_ALL, label: t('admin.groups.filters.course-all') },
+    ...state.courses.map((course) => ({ value: String(course.id), label: course.name })),
+  ]
+  const categoryItems = [
+    { value: GROUP_FILTER_ALL, label: t('admin.groups.filters.category-all') },
+    ...Object.values(courseCategory).map((category) => ({
+      value: category,
+      label: t('course.category', { category }),
+    })),
+  ]
+  const teacherItems = [
+    { value: GROUP_FILTER_ALL, label: t('admin.groups.filters.teacher-all') },
+    ...state.teacherOptions.map((teacher) => ({
+      value: String(teacher.userId),
+      label: teacher.name ?? t('admin.groups.teacher-unknown', { id: teacher.userId }),
+    })),
+  ]
+
   return (
     <section className={styles.page}>
       <header className={styles.header}>
-        <h1 className={styles.title}>{t('admin.groups.title')}</h1>
-        <p className={styles.description}>{t('admin.groups.description')}</p>
+        <div className={styles['header-copy']}>
+          <h1 className={styles.title}>{t('admin.groups.title')}</h1>
+          <p className={styles.description}>{t('admin.groups.description')}</p>
+        </div>
+        <Button nativeButton={false} render={<Link to="/admin/groups/create" />}>
+          <span aria-hidden="true" className="i-ph:plus-bold" />
+          {t('admin.groups.create')}
+        </Button>
       </header>
 
       <Link to="/admin/courses" className={styles['courses-link']}>
@@ -39,19 +66,91 @@ function AdminGroupsPage() {
         />
       </Link>
 
+      <div className={styles.controls}>
+        <InputGroup>
+          <InputGroupAddon aria-hidden="true">
+            <span className="i-ph:magnifying-glass" />
+          </InputGroupAddon>
+          <InputGroupInput
+            type="search"
+            value={state.query}
+            onChange={(event) => functions.handleQueryChange(event.target.value)}
+            placeholder={t('admin.groups.search.placeholder')}
+            aria-label={t('admin.groups.search.label')}
+            autoComplete="off"
+          />
+        </InputGroup>
+        <div className={styles.filters}>
+          <AdminSelect
+            value={state.courseFilter}
+            onValueChange={functions.handleCourseFilterChange}
+            items={courseItems}
+            placeholder={t('admin.groups.filters.course-all')}
+            ariaLabel={t('admin.groups.filters.course')}
+          />
+          <AdminSelect
+            value={state.categoryFilter}
+            onValueChange={functions.handleCategoryFilterChange}
+            items={categoryItems}
+            placeholder={t('admin.groups.filters.category-all')}
+            ariaLabel={t('admin.groups.filters.category')}
+          />
+          <AdminSelect
+            value={state.teacherFilter}
+            onValueChange={functions.handleTeacherFilterChange}
+            items={teacherItems}
+            placeholder={t('admin.groups.filters.teacher-all')}
+            ariaLabel={t('admin.groups.filters.teacher')}
+          />
+        </div>
+        <div className={styles.summary}>
+          <span>{t('admin.groups.found', { count: state.foundCount })}</span>
+          {state.hasFilters && (
+            <Button type="button" variant="link" onClick={functions.handleClearFilters}>
+              {t('admin.groups.filters.clear')}
+            </Button>
+          )}
+        </div>
+      </div>
+
       {state.isPending && <Loader grow />}
       {state.isError && (
-        <InlineError onRetry={functions.handleRetry} isRetrying={state.isRetrying}>
-          {t('admin.groups.error')}
-        </InlineError>
+        <div className={styles.error}>
+          <InlineError onRetry={functions.handleRetry} isRetrying={state.isFetching}>
+            {t(state.errorKey)}
+          </InlineError>
+          {state.errorKey === 'admin.groups.error.unauthorized' && (
+            <Button
+              variant="link"
+              nativeButton={false}
+              render={<Link to="/login" />}
+              className={styles.login}
+            >
+              <span aria-hidden="true" className="i-ph:sign-in" />
+              {t('admin.groups.error.login')}
+            </Button>
+          )}
+        </div>
       )}
-      {!state.isPending && !state.isError && !state.groups.length && (
+      {!state.isPending && !state.isError && !state.totalCount && (
         <div className={styles.empty}>
           <span aria-hidden="true" className="i-ph:users-three-duotone" />
           <p>{t('admin.groups.empty')}</p>
+          <Button nativeButton={false} render={<Link to="/admin/groups/create" />}>
+            {t('admin.groups.create-first')}
+          </Button>
         </div>
       )}
-      {!state.isPending && !state.isError && !!state.groups.length && (
+      {!state.isPending && !state.isError && !!state.totalCount && !state.foundCount && (
+        <div className={styles.empty}>
+          <span aria-hidden="true" className="i-ph:magnifying-glass" />
+          <p>{t('admin.groups.empty-filtered')}</p>
+          <Button type="button" variant="ghost" onClick={functions.handleClearFilters}>
+            {t('admin.groups.filters.clear')}
+          </Button>
+        </div>
+      )}
+      {!state.isPending && !state.isError && !!state.foundCount && (
         <div className={styles.groups}>
           {state.groups.map((group) => (
             <AdminGroupRow key={group.id} group={group} />

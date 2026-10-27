@@ -47,6 +47,116 @@ declare module '@kanjou/react' {
       'admin.groups.description': {}
       'admin.groups.empty': {}
       'admin.groups.error': {}
+      'admin.groups.error.unauthorized': {}
+      'admin.groups.error.forbidden': {}
+      'admin.groups.error.login': {}
+      'admin.groups.create': {}
+      'admin.groups.create-first': {}
+      'admin.groups.search.label': {}
+      'admin.groups.search.placeholder': {}
+      'admin.groups.filters.course': {}
+      'admin.groups.filters.course-all': {}
+      'admin.groups.filters.category': {}
+      'admin.groups.filters.category-all': {}
+      'admin.groups.filters.teacher': {}
+      'admin.groups.filters.teacher-all': {}
+      'admin.groups.filters.clear': {}
+      'admin.groups.found': { count: { __fn: 'number' } }
+      'admin.groups.empty-filtered': {}
+      'admin.groups.no-teacher': {}
+      'admin.groups.teacher-unknown': { id: { __fn: 'number' } }
+      'admin.groups.open': { name: DefaultMessageValue }
+      'admin.groups.back': {}
+      'admin.groups.back-to-group': {}
+      'admin.groups.teachers-count': { count: { __fn: 'number' } }
+      'admin.groups.not-found.title': {}
+      'admin.groups.not-found.description': {}
+      'admin.groups.detail.title': {}
+      'admin.groups.detail.description': {
+        course: DefaultMessageValue
+        category: DefaultMessageValue
+      }
+      'admin.groups.detail.description-empty': {}
+      'admin.groups.detail.course-fallback': { id: { __fn: 'number' } }
+      'admin.groups.detail.course': {}
+      'admin.groups.detail.category': {}
+      'admin.groups.detail.category-unknown': {}
+      'admin.groups.detail.students-count': {}
+      'admin.groups.detail.teachers-count': {}
+      'admin.groups.detail.teachers': {}
+      'admin.groups.detail.teachers-empty': {}
+      'admin.groups.detail.teachers-note': {}
+      'admin.groups.detail.students': {}
+      'admin.groups.detail.students-empty': {}
+      'admin.groups.detail.students-unavailable': {}
+      'admin.groups.detail.students-note': {}
+      'admin.groups.detail.manage': {}
+      'admin.groups.detail.local-note': {}
+      'admin.groups.detail.rename': {}
+      'admin.groups.detail.rename-description': {}
+      'admin.groups.detail.change-course': {}
+      'admin.groups.detail.change-course-description': {}
+      'admin.groups.detail.delete': {}
+      'admin.groups.detail.delete-description': {}
+      'admin.groups.detail.error': {}
+      'admin.groups.create.title': {}
+      'admin.groups.create.description': {}
+      'admin.groups.create.name-label': {}
+      'admin.groups.create.name-placeholder': {}
+      'admin.groups.create.name-error': {}
+      'admin.groups.create.course-label': {}
+      'admin.groups.create.course-placeholder': {}
+      'admin.groups.create.course-error': {}
+      'admin.groups.create.teacher-note': {}
+      'admin.groups.create.courses-empty-title': {}
+      'admin.groups.create.courses-empty-description': {}
+      'admin.groups.create.submit': {}
+      'admin.groups.create.error': {}
+      'admin.groups.create.error.validation': {}
+      'admin.groups.create.success-title': {}
+      'admin.groups.create.success-description': {
+        group: DefaultMessageValue
+        course: DefaultMessageValue
+      }
+      'admin.groups.create.open': {}
+      'admin.groups.create.another': {}
+      'admin.groups.rename.title': {}
+      'admin.groups.rename.description': { group: DefaultMessageValue }
+      'admin.groups.rename.description-empty': {}
+      'admin.groups.rename.note': {}
+      'admin.groups.rename.same': {}
+      'admin.groups.rename.submit': {}
+      'admin.groups.rename.result-title': {}
+      'admin.groups.rename.result-description': {}
+      'admin.groups.rename.current': {}
+      'admin.groups.rename.proposed': {}
+      'admin.groups.change-course.title': {}
+      'admin.groups.change-course.description': { group: DefaultMessageValue }
+      'admin.groups.change-course.description-empty': {}
+      'admin.groups.change-course.note': {}
+      'admin.groups.change-course.same': {}
+      'admin.groups.change-course.submit': {}
+      'admin.groups.change-course.courses-empty-title': {}
+      'admin.groups.change-course.courses-empty-description': {}
+      'admin.groups.change-course.result-title': {}
+      'admin.groups.change-course.result-description': {}
+      'admin.groups.change-course.current': {}
+      'admin.groups.change-course.proposed': {}
+      'admin.groups.delete.title': {}
+      'admin.groups.delete.description': { group: DefaultMessageValue }
+      'admin.groups.delete.description-empty': {}
+      'admin.groups.delete.note': {}
+      'admin.groups.delete.warning': {}
+      'admin.groups.delete.confirm-label': {}
+      'admin.groups.delete.confirm-placeholder': {}
+      'admin.groups.delete.confirm-error': {}
+      'admin.groups.delete.submit': {}
+      'admin.groups.delete.dialog-title': {}
+      'admin.groups.delete.dialog-description': { group: DefaultMessageValue }
+      'admin.groups.delete.dialog-action': {}
+      'admin.groups.delete.result-title': {}
+      'admin.groups.delete.result-description': {}
+      'admin.groups.delete.result-group': {}
       'admin.people.title': {}
       'admin.people.description': {}
       'admin.people.students.description': {}

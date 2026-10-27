@@ -1,0 +1,7 @@
+.danger {
+  background: var(--error);
+}
+
+.danger:hover {
+  background: var(--error-hover);
+}

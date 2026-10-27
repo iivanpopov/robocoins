@@ -42,9 +42,141 @@ export default {
   'navbar.people': 'Люди',
   'navbar.catalog': 'Каталог',
   'admin.groups.title': 'Навчання',
-  'admin.groups.description': 'Групи школи.',
+  'admin.groups.description': 'Усі групи школи, курси та викладачі.',
   'admin.groups.empty': 'Груп поки немає.',
   'admin.groups.error': 'Не вдалося завантажити групи.',
+  'admin.groups.error.unauthorized': 'Сесія завершилася. Увійдіть знову, щоб продовжити.',
+  'admin.groups.error.forbidden': 'Недостатньо прав для перегляду груп.',
+  'admin.groups.error.login': 'Увійти',
+  'admin.groups.create': 'Створити групу',
+  'admin.groups.create-first': 'Створити першу групу',
+  'admin.groups.search.label': 'Пошук груп',
+  'admin.groups.search.placeholder': 'Назва групи, курсу або викладача',
+  'admin.groups.filters.course': 'Фільтр за курсом',
+  'admin.groups.filters.course-all': 'Усі курси',
+  'admin.groups.filters.category': 'Фільтр за напрямком',
+  'admin.groups.filters.category-all': 'Усі напрямки',
+  'admin.groups.filters.teacher': 'Фільтр за викладачем',
+  'admin.groups.filters.teacher-all': 'Усі викладачі',
+  'admin.groups.filters.clear': 'Скинути фільтри',
+  'admin.groups.found': `
+    .input {$count :number}
+    .match $count
+    one {{Знайдено {$count} групу}}
+    few {{Знайдено {$count} групи}}
+    many {{Знайдено {$count} груп}}
+    * {{Знайдено {$count} групи}}`,
+  'admin.groups.empty-filtered': 'За такими умовами груп не знайдено.',
+  'admin.groups.no-teacher': 'Без викладача',
+  'admin.groups.teacher-unknown': 'Викладач #{$id :number}',
+  'admin.groups.open': 'Відкрити групу {$name}',
+  'admin.groups.back': 'До груп',
+  'admin.groups.back-to-group': 'До групи',
+  'admin.groups.teachers-count': `
+    .input {$count :number}
+    .match $count
+    one {{{$count} викладач}}
+    few {{{$count} викладачі}}
+    many {{{$count} викладачів}}
+    * {{{$count} викладача}}`,
+  'admin.groups.not-found.title': 'Групу не знайдено',
+  'admin.groups.not-found.description': 'Можливо, групу видалено або адресу змінено.',
+  'admin.groups.detail.title': 'Група',
+  'admin.groups.detail.description': '{$course} · {$category}',
+  'admin.groups.detail.description-empty': 'Група школи.',
+  'admin.groups.detail.course-fallback': 'Курс #{$id :number}',
+  'admin.groups.detail.course': 'Курс',
+  'admin.groups.detail.category': 'Напрямок',
+  'admin.groups.detail.category-unknown': 'Не вказано',
+  'admin.groups.detail.students-count': 'Учні',
+  'admin.groups.detail.teachers-count': 'Викладачі',
+  'admin.groups.detail.teachers': 'Викладачі групи',
+  'admin.groups.detail.teachers-empty': 'Викладачів не призначено.',
+  'admin.groups.detail.teachers-note':
+    'Призначення та зміна викладачів з’являться в наступних оновленнях.',
+  'admin.groups.detail.students': 'Учні групи',
+  'admin.groups.detail.students-empty': 'У групі ще немає учнів.',
+  'admin.groups.detail.students-unavailable':
+    'Сервер повідомляє про учнів, але список імен недоступний.',
+  'admin.groups.detail.students-note':
+    'Додавання, переведення та відрахування учнів з’являться в наступних оновленнях.',
+  'admin.groups.detail.manage': 'Керування групою',
+  'admin.groups.detail.local-note':
+    'Ці дії не мають серверних операцій. Форми перевірять дані та покажуть локальний результат без збереження.',
+  'admin.groups.detail.rename': 'Перейменувати групу',
+  'admin.groups.detail.rename-description': 'Змінити назву групи.',
+  'admin.groups.detail.change-course': 'Змінити курс',
+  'admin.groups.detail.change-course-description': 'Перенести групу в інший курс.',
+  'admin.groups.detail.delete': 'Видалити групу',
+  'admin.groups.detail.delete-description': 'Прибрати групу зі списку разом із складом.',
+  'admin.groups.detail.error': 'Не вдалося завантажити групу.',
+  'admin.groups.create.title': 'Нова група',
+  'admin.groups.create.description': 'Вкажіть назву та оберіть існуючий курс.',
+  'admin.groups.create.name-label': 'Назва групи',
+  'admin.groups.create.name-placeholder': 'Наприклад, Python, субота, 12:00',
+  'admin.groups.create.name-error': 'Введіть назву групи до 200 символів.',
+  'admin.groups.create.course-label': 'Курс',
+  'admin.groups.create.course-placeholder': 'Оберіть курс',
+  'admin.groups.create.course-error': 'Оберіть курс зі списку.',
+  'admin.groups.create.teacher-note':
+    'Групу можна створити без викладача. Якщо сервер вимагає викладача, він поверне помилку, і ми її покажемо.',
+  'admin.groups.create.courses-empty-title': 'Немає курсів для групи',
+  'admin.groups.create.courses-empty-description':
+    'Спочатку створіть курс, а потім додайте до нього групу.',
+  'admin.groups.create.submit': 'Створити групу',
+  'admin.groups.create.error': 'Не вдалося створити групу. Спробуйте ще раз.',
+  'admin.groups.create.error.validation':
+    'Сервер відхилив дані групи. Перевірте назву, курс і вимоги сервера.',
+  'admin.groups.create.success-title': 'Групу створено',
+  'admin.groups.create.success-description': 'Група «{$group}» додана до курсу «{$course}».',
+  'admin.groups.create.open': 'Відкрити групу',
+  'admin.groups.create.another': 'Створити ще',
+  'admin.groups.rename.title': 'Перейменування групи',
+  'admin.groups.rename.description': 'Нова назва для групи «{$group}».',
+  'admin.groups.rename.description-empty': 'Нова назва для вибраної групи.',
+  'admin.groups.rename.note':
+    'Серверна операція перейменування недоступна. Форма покаже локальний результат без зміни групи.',
+  'admin.groups.rename.same': 'Введіть нову назву, відмінну від поточної.',
+  'admin.groups.rename.submit': 'Перейменувати',
+  'admin.groups.rename.result-title': 'Локальний результат',
+  'admin.groups.rename.result-description':
+    'Назву не збережено на сервері. Група залишиться з попередньою назвою.',
+  'admin.groups.rename.current': 'Поточна назва',
+  'admin.groups.rename.proposed': 'Запропонована назва',
+  'admin.groups.change-course.title': 'Зміна курсу',
+  'admin.groups.change-course.description': 'Новий курс для групи «{$group}».',
+  'admin.groups.change-course.description-empty': 'Новий курс для вибраної групи.',
+  'admin.groups.change-course.note':
+    'Серверна операція зміни курсу недоступна. Форма покаже локальний результат без зміни групи.',
+  'admin.groups.change-course.same': 'Оберіть інший курс, щоб продовжити.',
+  'admin.groups.change-course.submit': 'Змінити курс',
+  'admin.groups.change-course.courses-empty-title': 'Немає доступних курсів',
+  'admin.groups.change-course.courses-empty-description':
+    'Створіть курс, щоб перенести до нього групу.',
+  'admin.groups.change-course.result-title': 'Локальний результат',
+  'admin.groups.change-course.result-description':
+    'Курс не змінено на сервері. Група залишиться в попередньому курсі.',
+  'admin.groups.change-course.current': 'Поточний курс',
+  'admin.groups.change-course.proposed': 'Запропонований курс',
+  'admin.groups.delete.title': 'Видалення групи',
+  'admin.groups.delete.description': 'Видалення групи «{$group}».',
+  'admin.groups.delete.description-empty': 'Видалення вибраної групи.',
+  'admin.groups.delete.note':
+    'Серверна операція видалення недоступна. Форма перевірить підтвердження та покаже, що групу не видалено.',
+  'admin.groups.delete.warning':
+    'Групу не буде видалено, бо сервер не має такої операції. Список груп залишиться без змін.',
+  'admin.groups.delete.confirm-label': 'Введіть назву групи для підтвердження',
+  'admin.groups.delete.confirm-placeholder': 'Назва групи',
+  'admin.groups.delete.confirm-error': 'Назва не збігається з назвою групи.',
+  'admin.groups.delete.submit': 'Видалити групу',
+  'admin.groups.delete.dialog-title': 'Підтвердити видалення?',
+  'admin.groups.delete.dialog-description':
+    'Підтвердьте намір видалити групу «{$group}». Оскільки сервер не має видалення, група залишиться на сервері.',
+  'admin.groups.delete.dialog-action': 'Підтвердити',
+  'admin.groups.delete.result-title': 'Локальний результат',
+  'admin.groups.delete.result-description':
+    'Групу не видалено. Серверна операція недоступна, тому список груп не змінився.',
+  'admin.groups.delete.result-group': 'Група',
   'admin.people.title': 'Люди',
   'admin.people.description': 'Учні та викладачі школи.',
   'admin.people.students.description': 'Список, профіль і реєстрація учнів.',

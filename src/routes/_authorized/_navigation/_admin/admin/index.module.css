@@ -10,8 +10,18 @@
 
 .header {
   display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.header-copy {
+  display: flex;
+  flex: 1;
   flex-direction: column;
   gap: var(--spacing-xs);
+  min-width: 0;
 }
 
 .title {
@@ -48,6 +58,39 @@
   margin-left: auto;
   font-size: 1rem;
   color: var(--muted-foreground);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--spacing-xs);
+}
+
+.summary {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  align-items: flex-start;
+}
+
+.login {
+  align-self: flex-start;
 }
 
 .groups {

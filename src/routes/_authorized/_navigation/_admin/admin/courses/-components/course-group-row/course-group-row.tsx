@@ -1,4 +1,5 @@
 import { useTranslate } from '@kanjou/react'
+import { Link } from '@tanstack/react-router'
 import { cn } from 'cn'
 
 import type { CourseGroupResponse } from '#/api/types'
@@ -17,7 +18,12 @@ export function CourseGroupRow({ group, className }: CourseGroupRowProps) {
   const teachersCount = group.teacher_ids?.length ?? 0
 
   return (
-    <article className={cn(styles.row, className)}>
+    <Link
+      to="/admin/groups/$groupId"
+      params={{ groupId: group.id }}
+      className={cn(styles.row, className)}
+      aria-label={t('admin.groups.open', { name: group.name })}
+    >
       <span aria-hidden="true" className={styles.icon} />
       <div className={styles.details}>
         <h3 className={styles.name}>{group.name}</h3>
@@ -26,6 +32,7 @@ export function CourseGroupRow({ group, className }: CourseGroupRowProps) {
           <span>{t('admin.courses.teachers-count', { count: teachersCount })}</span>
         </div>
       </div>
-    </article>
+      <span aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.caret)} />
+    </Link>
   )
 }

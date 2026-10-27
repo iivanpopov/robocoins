@@ -5,6 +5,14 @@
   padding: var(--spacing-sm) var(--spacing-md);
   background: var(--surface);
   border-radius: var(--rounded-md);
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.row:active {
+  background: var(--muted);
+  transform: scale(0.995);
 }
 
 .icon {
@@ -39,5 +47,11 @@
   gap: var(--spacing-sm);
   font-size: 0.75rem;
   font-weight: 450;
+  color: var(--muted-foreground);
+}
+
+.caret {
+  flex: 0 0 auto;
+  font-size: 1rem;
   color: var(--muted-foreground);
 }

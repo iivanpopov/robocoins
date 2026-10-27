@@ -1,0 +1,134 @@
+.meta {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--muted);
+}
+
+.meta-row {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: baseline;
+  justify-content: space-between;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--muted);
+}
+
+.meta-label {
+  font-size: 0.8125rem;
+  font-weight: 450;
+  color: var(--muted-foreground);
+}
+
+.meta-value {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--foreground);
+  text-align: right;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.section-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.empty {
+  padding: var(--spacing-lg);
+  font-size: 0.875rem;
+  font-weight: 450;
+  color: var(--muted-foreground);
+  text-align: center;
+  background: var(--surface);
+  border-radius: var(--rounded-md);
+}
+
+.note {
+  font-size: 0.8125rem;
+  font-weight: 450;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.action {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--surface);
+  border-radius: var(--rounded-md);
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.action:active {
+  background: var(--muted);
+  transform: scale(0.995);
+}
+
+.action-icon {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 1.25rem;
+  color: var(--muted-foreground);
+  background: var(--taupe-100);
+  border-radius: var(--rounded-sm);
+}
+
+.action-icon[data-icon='course'] {
+  color: var(--category-embedded);
+  background: color-mix(in srgb, var(--category-embedded) 12%, transparent);
+}
+
+.action[data-tone='error'] .action-icon {
+  color: var(--error);
+  background: color-mix(in srgb, var(--error) 12%, transparent);
+}
+
+.action-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.0625rem;
+  min-width: 0;
+}
+
+.action-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.action-description {
+  font-size: 0.75rem;
+  font-weight: 450;
+  color: var(--muted-foreground);
+}
+
+.back {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--brand);
+}
