@@ -1,12 +1,15 @@
 import { cn } from 'cn'
 
+import type { CourseCategoryKey } from '#/api/types'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '#/components/ui'
+import { CategoryIcon } from '#/routes/-components'
 
 import styles from './admin-select.module.css'
 
 export interface AdminSelectOption {
   value: string
   label: string
+  category?: CourseCategoryKey
 }
 
 export interface AdminSelectProps {
@@ -36,6 +39,8 @@ export function AdminSelect({
     onValueChange(nextValue ?? '')
   }
 
+  const selectedItem = items.find((item) => item.value === value)
+
   return (
     <Select
       value={value}
@@ -50,12 +55,24 @@ export function AdminSelect({
         className={cn(styles.trigger, className)}
         disabled={disabled}
       >
+        {selectedItem?.category && (
+          <span className={styles['trigger-icon']} aria-hidden="true">
+            <CategoryIcon category={selectedItem.category} />
+          </span>
+        )}
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
         {items.map((item) => (
           <SelectItem key={item.value} value={item.value}>
-            {item.label}
+            <span className={styles['item-content']}>
+              {item.category && (
+                <span className={styles['item-icon']} aria-hidden="true">
+                  <CategoryIcon category={item.category} />
+                </span>
+              )}
+              <span className={styles['item-label']}>{item.label}</span>
+            </span>
           </SelectItem>
         ))}
       </SelectContent>

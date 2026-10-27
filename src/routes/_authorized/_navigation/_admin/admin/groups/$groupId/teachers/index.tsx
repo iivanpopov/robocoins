@@ -87,15 +87,6 @@ function GroupTeachersPage() {
           submitDisabled={!state.isReady}
           isSubmitting={state.isSubmitting}
           note={t('admin.groups.teachers.note')}
-          cancel={
-            <Button
-              variant="ghost"
-              nativeButton={false}
-              render={<Link to="/admin/groups/$groupId" params={{ groupId: state.groupId }} />}
-            >
-              {t('action.cancel')}
-            </Button>
-          }
         >
           <features.form.Field name="teacherIds">
             {(field) => (

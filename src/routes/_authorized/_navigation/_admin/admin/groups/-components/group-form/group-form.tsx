@@ -12,7 +12,6 @@ export interface GroupFormProps {
   submitDisabled?: boolean
   submitClassName?: string
   note?: string
-  cancel?: ReactNode
   children: ReactNode
   className?: string
 }
@@ -24,7 +23,6 @@ export function GroupForm({
   submitDisabled,
   submitClassName,
   note,
-  cancel,
   children,
   className,
 }: GroupFormProps) {
@@ -47,7 +45,6 @@ export function GroupForm({
           {isSubmitting && <Loader />}
           {submitLabel}
         </Button>
-        {cancel && <div className={styles.cancel}>{cancel}</div>}
       </div>
     </form>
   )

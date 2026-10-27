@@ -74,11 +74,6 @@ function CreateCoursePage() {
           onSubmit={functions.handleSubmit}
           submitLabel={t('admin.courses.create.submit')}
           isSubmitting={state.isSubmitting}
-          cancel={
-            <Button variant="ghost" nativeButton={false} render={<Link to="/admin/courses" />}>
-              {t('action.cancel')}
-            </Button>
-          }
         >
           <features.form.Field name="name">
             {(field) => (

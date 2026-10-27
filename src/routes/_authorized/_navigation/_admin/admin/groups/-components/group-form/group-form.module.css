@@ -31,9 +31,3 @@
   gap: var(--spacing-sm);
   align-items: center;
 }
-
-.cancel {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-}

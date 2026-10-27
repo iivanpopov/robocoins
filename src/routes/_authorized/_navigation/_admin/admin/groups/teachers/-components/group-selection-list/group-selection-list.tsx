@@ -2,7 +2,15 @@ import { useTranslate } from '@kanjou/react'
 import { cn } from 'cn'
 import { useId, useState } from 'react'
 
-import { Checkbox, Field, FieldDescription, FieldLabel, Input } from '#/components/ui'
+import {
+  Checkbox,
+  Field,
+  FieldDescription,
+  FieldLabel,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '#/components/ui'
 import { UKRAINIAN_LOCALE } from '#/routes/-constants'
 
 import styles from './group-selection-list.module.css'
@@ -78,15 +86,20 @@ export function GroupSelectionList({
       <label className={styles['search-label']} htmlFor={searchId}>
         {t('admin.groups.bulk.groups.search-label')}
       </label>
-      <Input
-        id={searchId}
-        type="search"
-        value={query}
-        onChange={(event) => setQuery(event.target.value)}
-        placeholder={t('admin.groups.bulk.groups.search-placeholder')}
-        autoComplete="off"
-        disabled={disabled}
-      />
+      <InputGroup>
+        <InputGroupAddon align="inline-start">
+          <span aria-hidden="true" className="i-ph:magnifying-glass" />
+        </InputGroupAddon>
+        <InputGroupInput
+          id={searchId}
+          type="search"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder={t('admin.groups.bulk.groups.search-placeholder')}
+          autoComplete="off"
+          disabled={disabled}
+        />
+      </InputGroup>
 
       {!filteredGroups.length && (
         <p className={styles.empty}>{t('admin.groups.bulk.groups.search-empty')}</p>

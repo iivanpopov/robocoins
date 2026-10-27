@@ -1,7 +1,15 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
-import { Button, Field, FieldError, FieldLabel, IconButton, Input } from '#/components/ui'
+import {
+  Button,
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+  IconButton,
+  Input,
+} from '#/components/ui'
 
 import { CourseForm, CoursePageLayout, ResultPanel } from '../../-components'
 import { useCategoryCreatePage } from '../../-hooks'
@@ -23,7 +31,6 @@ function CategoryCreatePage() {
   return (
     <CoursePageLayout
       title={t('admin.courses.categories.create.title')}
-      description={t('admin.courses.categories.create.description')}
       back={
         <IconButton
           nativeButton={false}
@@ -61,15 +68,6 @@ function CategoryCreatePage() {
         <CourseForm
           onSubmit={functions.handleSubmit}
           submitLabel={t('admin.courses.categories.create.submit')}
-          cancel={
-            <Button
-              variant="ghost"
-              nativeButton={false}
-              render={<Link to="/admin/courses/categories" />}
-            >
-              {t('action.cancel')}
-            </Button>
-          }
         >
           <features.form.Field name="name">
             {(field) => (
@@ -87,6 +85,9 @@ function CategoryCreatePage() {
                   onChange={(event) => field.handleChange(event.target.value)}
                   onBlur={field.handleBlur}
                 />
+                <FieldDescription>
+                  {t('admin.courses.categories.create.description')}
+                </FieldDescription>
                 {!!field.state.meta.errors.length && (
                   <FieldError>{t('admin.courses.categories.name-error')}</FieldError>
                 )}

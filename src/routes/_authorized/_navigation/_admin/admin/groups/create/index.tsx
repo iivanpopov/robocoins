@@ -113,11 +113,6 @@ function CreateGroupPage() {
             submitLabel={t('admin.groups.create.submit')}
             isSubmitting={state.isSubmitting}
             note={t('admin.groups.create.teacher-note')}
-            cancel={
-              <Button variant="ghost" nativeButton={false} render={<Link to="/admin" />}>
-                {t('action.cancel')}
-              </Button>
-            }
           >
             <features.form.Field name="name">
               {(field) => (

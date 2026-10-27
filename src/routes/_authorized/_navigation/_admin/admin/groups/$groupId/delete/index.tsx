@@ -98,15 +98,6 @@ function GroupDeletePage() {
           submitLabel={t('admin.groups.delete.submit')}
           submitClassName={styles.danger}
           note={t('admin.groups.delete.note')}
-          cancel={
-            <Button
-              variant="ghost"
-              nativeButton={false}
-              render={<Link to="/admin/groups/$groupId" params={{ groupId: state.groupId }} />}
-            >
-              {t('action.cancel')}
-            </Button>
-          }
         >
           <FieldDescription>{t('admin.groups.delete.warning')}</FieldDescription>
           <features.form.Field name="confirmation">

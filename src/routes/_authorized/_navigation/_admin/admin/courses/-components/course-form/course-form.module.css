@@ -16,9 +16,3 @@
   align-items: center;
   padding-top: var(--spacing-xs);
 }
-
-.cancel {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-}

@@ -82,15 +82,6 @@ function CourseCategoryPage() {
           onSubmit={functions.handleSubmit}
           submitLabel={t('admin.courses.category.submit')}
           submitDisabled={state.isUnchanged}
-          cancel={
-            <Button
-              variant="ghost"
-              nativeButton={false}
-              render={<Link to="/admin/courses/$courseId" params={{ courseId: state.courseId }} />}
-            >
-              {t('action.cancel')}
-            </Button>
-          }
         >
           <features.form.Field name="category">
             {(field) => (

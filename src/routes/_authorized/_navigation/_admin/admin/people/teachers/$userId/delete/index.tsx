@@ -109,17 +109,6 @@ function TeacherDeletePage() {
             submitLabel={t('admin.teachers.delete.submit')}
             submitClassName={styles.danger}
             note={t('admin.teachers.delete.note')}
-            cancel={
-              <Button
-                variant="ghost"
-                nativeButton={false}
-                render={
-                  <Link to="/admin/people/teachers/$userId" params={{ userId: state.teacherId }} />
-                }
-              >
-                {t('action.cancel')}
-              </Button>
-            }
           >
             <features.form.Field name="confirmation">
               {(field) => (

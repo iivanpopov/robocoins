@@ -96,15 +96,6 @@ function CourseDeletePage() {
           onSubmit={functions.handleSubmit}
           submitLabel={t('admin.courses.delete.submit')}
           submitClassName={styles.danger}
-          cancel={
-            <Button
-              variant="ghost"
-              nativeButton={false}
-              render={<Link to="/admin/courses/$courseId" params={{ courseId: state.courseId }} />}
-            >
-              {t('action.cancel')}
-            </Button>
-          }
         >
           <features.form.Field name="confirmation">
             {(field) => (

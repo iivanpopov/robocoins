@@ -72,6 +72,7 @@ export function useGroupCoursePage() {
   const courseItems: AdminSelectOption[] = courses.map((course) => ({
     value: String(course.id),
     label: course.name,
+    category: course.category,
   }))
 
   let selectedCourseFallbackId: number | null = null

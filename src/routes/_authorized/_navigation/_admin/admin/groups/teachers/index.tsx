@@ -80,11 +80,6 @@ function GroupTeachersBulkPage() {
           submitDisabled={!state.canSubmit}
           isSubmitting={state.isOperating}
           note={t('admin.groups.bulk.note')}
-          cancel={
-            <Button variant="ghost" nativeButton={false} render={<Link to="/admin" />}>
-              {t('action.cancel')}
-            </Button>
-          }
         >
           <TeacherPicker
             label={t('admin.groups.teachers.picker.label')}

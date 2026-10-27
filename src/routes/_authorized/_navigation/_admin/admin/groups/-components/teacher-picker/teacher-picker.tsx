@@ -8,7 +8,9 @@ import {
   FieldDescription,
   FieldError,
   FieldLabel,
-  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
   Loader,
 } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
@@ -85,15 +87,20 @@ export function TeacherPicker({
       <label className={styles['search-label']} htmlFor={searchId}>
         {t('admin.groups.teachers.picker.search-label')}
       </label>
-      <Input
-        id={searchId}
-        type="search"
-        value={query}
-        onChange={(event) => setQuery(event.target.value)}
-        placeholder={t('admin.groups.teachers.picker.search-placeholder')}
-        autoComplete="off"
-        disabled={disabled}
-      />
+      <InputGroup>
+        <InputGroupAddon align="inline-start">
+          <span aria-hidden="true" className="i-ph:magnifying-glass" />
+        </InputGroupAddon>
+        <InputGroupInput
+          id={searchId}
+          type="search"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder={t('admin.groups.teachers.picker.search-placeholder')}
+          autoComplete="off"
+          disabled={disabled}
+        />
+      </InputGroup>
 
       {isPending && <Loader />}
       {isError && (
@@ -116,11 +123,7 @@ export function TeacherPicker({
             const optionName =
               option.name ?? t('admin.groups.teacher-unknown', { id: option.userId })
             return (
-              <Field
-                key={option.userId}
-                orientation="horizontal"
-                className={cn(styles.option, isSelected && styles['option-selected'])}
-              >
+              <Field key={option.userId} orientation="horizontal" className={styles.option}>
                 <span className={styles.avatar} aria-hidden="true">
                   {getInitial(optionName)}
                 </span>

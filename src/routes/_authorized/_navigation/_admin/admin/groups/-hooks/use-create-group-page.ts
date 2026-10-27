@@ -79,6 +79,7 @@ export function useCreateGroupPage() {
   const courseItems: AdminSelectOption[] = courses.map((course) => ({
     value: String(course.id),
     label: course.name,
+    category: course.category,
   }))
   const createdCourse = courses.find((course) => course.id === createdGroup?.course_id) ?? null
 

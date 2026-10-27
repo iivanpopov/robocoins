@@ -12,7 +12,6 @@ export interface TeacherFormProps {
   submitDisabled?: boolean
   submitClassName?: string
   note?: string
-  cancel?: ReactNode
   children: ReactNode
   className?: string
 }
@@ -24,7 +23,6 @@ export function TeacherForm({
   submitDisabled,
   submitClassName,
   note,
-  cancel,
   children,
   className,
 }: TeacherFormProps) {
@@ -47,7 +45,6 @@ export function TeacherForm({
           {isSubmitting && <Loader />}
           {submitLabel}
         </Button>
-        {cancel}
       </div>
     </form>
   )

@@ -51,15 +51,6 @@ function CategoryRenamePage() {
         <CourseForm
           onSubmit={functions.handleSubmit}
           submitLabel={t('admin.courses.categories.rename.submit')}
-          cancel={
-            <Button
-              variant="ghost"
-              nativeButton={false}
-              render={<Link to="/admin/courses/categories" />}
-            >
-              {t('action.cancel')}
-            </Button>
-          }
         >
           <features.form.Field name="name">
             {(field) => (

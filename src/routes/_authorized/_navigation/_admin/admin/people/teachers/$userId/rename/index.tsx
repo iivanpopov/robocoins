@@ -85,17 +85,6 @@ function TeacherRenamePage() {
           submitLabel={t('admin.teachers.rename.submit')}
           submitDisabled={state.isUnchanged}
           note={t('admin.teachers.rename.note')}
-          cancel={
-            <Button
-              variant="ghost"
-              nativeButton={false}
-              render={
-                <Link to="/admin/people/teachers/$userId" params={{ userId: state.teacherId }} />
-              }
-            >
-              {t('action.cancel')}
-            </Button>
-          }
         >
           <features.form.Field name="name">
             {(field) => (

@@ -100,15 +100,6 @@ function GroupCoursePage() {
           submitLabel={t('admin.groups.change-course.submit')}
           submitDisabled={state.isUnchanged}
           note={t('admin.groups.change-course.note')}
-          cancel={
-            <Button
-              variant="ghost"
-              nativeButton={false}
-              render={<Link to="/admin/groups/$groupId" params={{ groupId: state.groupId }} />}
-            >
-              {t('action.cancel')}
-            </Button>
-          }
         >
           <features.form.Field name="courseId">
             {(field) => (

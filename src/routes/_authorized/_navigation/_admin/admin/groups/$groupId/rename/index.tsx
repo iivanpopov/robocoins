@@ -88,15 +88,6 @@ function GroupRenamePage() {
           submitLabel={t('admin.groups.rename.submit')}
           submitDisabled={state.isUnchanged}
           note={t('admin.groups.rename.note')}
-          cancel={
-            <Button
-              variant="ghost"
-              nativeButton={false}
-              render={<Link to="/admin/groups/$groupId" params={{ groupId: state.groupId }} />}
-            >
-              {t('action.cancel')}
-            </Button>
-          }
         >
           <features.form.Field name="name">
             {(field) => (
