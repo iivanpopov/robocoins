@@ -765,6 +765,638 @@ export default {
       "Учень поки не входить до жодної групи."
     ]
   },
+  "admin.balance.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Баланс і історія"
+    ]
+  },
+  "admin.balance.back": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назад до профілю"
+    ]
+  },
+  "admin.balance.profile.link": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Баланс учня"
+    ]
+  },
+  "admin.balance.profile.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Рахунок, прогрес нагороди та історія операцій."
+    ]
+  },
+  "admin.balance.coins": {
+    "type": "select",
+    "declarations": [
+      {
+        "type": "input",
+        "name": "count",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "count"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "number"
+          }
+        }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "count"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          "робокоїн"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          "робокоїни"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          "робокоїнів"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          "робокоїна"
+        ]
+      }
+    ]
+  },
+  "admin.balance.summary.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Стан учня"
+    ]
+  },
+  "admin.balance.summary.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Поточний баланс, нагорода та місце в рейтингу."
+    ]
+  },
+  "admin.balance.summary.balance": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Баланс"
+    ]
+  },
+  "admin.balance.summary.reward": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Прогрес нагороди"
+    ]
+  },
+  "admin.balance.summary.reward-progress": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "saved"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      },
+      " з ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "price"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      },
+      " робокоїнів"
+    ]
+  },
+  "admin.balance.summary.reward-remaining": {
+    "type": "select",
+    "declarations": [
+      {
+        "type": "input",
+        "name": "count",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "count"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "number"
+          }
+        }
+      },
+      {
+        "type": "local",
+        "name": "countText",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "count"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "string"
+          }
+        }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "count"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          "Залишився ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "countText"
+            }
+          },
+          " робокоїн"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          "Залишилося ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "countText"
+            }
+          },
+          " робокоїни"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          "Залишилося ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "countText"
+            }
+          },
+          " робокоїнів"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          "Залишилося ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "countText"
+            }
+          },
+          " робокоїна"
+        ]
+      }
+    ]
+  },
+  "admin.balance.summary.reward-ready": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Достатньо робокоїнів для нагороди"
+    ]
+  },
+  "admin.balance.summary.reward-none": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нагороду не обрано"
+    ]
+  },
+  "admin.balance.summary.rank": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Місце в рейтингу"
+    ]
+  },
+  "admin.balance.summary.rank-value": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Місце ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "rank"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      }
+    ]
+  },
+  "admin.balance.summary.rank-none": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ще немає місця"
+    ]
+  },
+  "admin.balance.summary.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити стан учня."
+    ]
+  },
+  "admin.balance.operation.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Змінити баланс"
+    ]
+  },
+  "admin.balance.operation.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть причини. Суму нарахування або списання визначає сервер."
+    ]
+  },
+  "admin.balance.operation.direction": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Напрямок операції"
+    ]
+  },
+  "admin.balance.operation.reward": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нарахувати"
+    ]
+  },
+  "admin.balance.operation.punish": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Списати"
+    ]
+  },
+  "admin.balance.operation.reasons": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Причини"
+    ]
+  },
+  "admin.balance.operation.reasons-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Немає доступних причин для цього напрямку."
+    ]
+  },
+  "admin.balance.operation.reasons-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити причини."
+    ]
+  },
+  "admin.balance.operation.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Змінити баланс"
+    ]
+  },
+  "admin.balance.operation.success": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Баланс оновлено."
+    ]
+  },
+  "admin.balance.operation.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося змінити баланс. Перевірте баланс та історію."
+    ]
+  },
+  "admin.balance.operation.confirm.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердити списання?"
+    ]
+  },
+  "admin.balance.operation.confirm.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Буде списано робокоїни за причини: ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "reasons"
+        }
+      },
+      "."
+    ]
+  },
+  "admin.balance.operation.confirm.action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Списати"
+    ]
+  },
+  "admin.balance.history.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Історія транзакцій"
+    ]
+  },
+  "admin.balance.history.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Останні нарахування та списання цього учня."
+    ]
+  },
+  "admin.balance.history.loading": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Завантаження історії…"
+    ]
+  },
+  "admin.balance.history.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Транзакцій поки немає."
+    ]
+  },
+  "admin.balance.history.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити історію."
+    ]
+  },
+  "admin.balance.history.load-more": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Показати ще"
+    ]
+  },
+  "admin.balance.history.end": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Це вся історія."
+    ]
+  },
+  "admin.balance.cancel.action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Скасувати"
+    ]
+  },
+  "admin.balance.cancel.trigger": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Скасувати транзакцію на суму ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "amount"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      }
+    ]
+  },
+  "admin.balance.cancel.confirm.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Скасувати транзакцію?"
+    ]
+  },
+  "admin.balance.cancel.confirm.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Операцію на суму ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "amount"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      },
+      " буде скасовано, а баланс перераховано."
+    ]
+  },
+  "admin.balance.cancel.confirm.action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Скасувати транзакцію"
+    ]
+  },
+  "admin.balance.cancel.success": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Транзакцію скасовано."
+    ]
+  },
+  "admin.balance.cancel.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося скасувати транзакцію."
+    ]
+  },
+  "admin.balance.cancel.already": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Транзакцію вже скасовано. Історію оновлено."
+    ]
+  },
+  "admin.balance.unknown.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Результат невідомий"
+    ]
+  },
+  "admin.balance.unknown.change": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зв’язок урвався до підтвердження. Не повторюйте зміну навмання — перевірте історію."
+    ]
+  },
+  "admin.balance.unknown.cancel": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зв’язок урвався до підтвердження. Перевірте історію, перш ніж повторювати скасування."
+    ]
+  },
+  "admin.balance.unknown.verify": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевірити історію"
+    ]
+  },
+  "admin.balance.unknown.checked": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Історію оновлено. Перегляньте операції нижче та підтвердьте, що результат зрозумілий."
+    ]
+  },
+  "admin.balance.unknown.acknowledge": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердити перевірку"
+    ]
+  },
+  "admin.balance.unknown.verify-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося оновити історію та баланс. Перевірте зв’язок і спробуйте ще раз."
+    ]
+  },
+  "admin.balance.refresh.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Дані не оновлено"
+    ]
+  },
+  "admin.balance.refresh.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Операцію підтверджено, але не вдалося оновити баланс та історію. Оновіть дані, щоб побачити результат."
+    ]
+  },
+  "admin.balance.refresh.action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оновити дані"
+    ]
+  },
   "students.register.title": {
     "type": "message",
     "declarations": [],

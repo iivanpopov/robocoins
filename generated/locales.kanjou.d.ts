@@ -135,6 +135,12 @@ declare module '@kanjou/react' {
       'admin.balance.unknown.change': {}
       'admin.balance.unknown.cancel': {}
       'admin.balance.unknown.verify': {}
+      'admin.balance.unknown.checked': {}
+      'admin.balance.unknown.acknowledge': {}
+      'admin.balance.unknown.verify-error': {}
+      'admin.balance.refresh.title': {}
+      'admin.balance.refresh.error': {}
+      'admin.balance.refresh.action': {}
       'students.register.title': {}
       'students.register.description': {}
       'students.register.name.label': {}

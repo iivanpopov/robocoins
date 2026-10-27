@@ -1,6 +1,6 @@
 import { useTranslate } from '@kanjou/react'
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query'
-import { useNavigate, useParams } from '@tanstack/react-router'
+import { useNavigate } from '@tanstack/react-router'
 import { useRef, useState } from 'react'
 
 import { cancelStudentTransactionStudentTransactionsTransactionIdCancelPost } from '#/api/clients/cancelStudentTransactionStudentTransactionsTransactionIdCancelPost'
@@ -25,14 +25,8 @@ import {
 } from '../-utils'
 import { getApiErrorKind } from '../../../-utils'
 
-export function useStudentBalancePage() {
+export function useStudentBalancePage(studentId: number) {
   const navigate = useNavigate()
-  const params = useParams({
-    from: '/_authorized/_navigation/_admin/admin/people/students/$studentId/balance/',
-  })
-
-  const t = useTranslate()
-  const queryClient = useQueryClient()
 
   const [direction, setDirection] = useState<BalanceDirection>(BalanceDirection.Reward)
   const [selectedReasons, setSelectedReasons] = useState<BalanceChangeReasonsKey[]>([])
@@ -42,24 +36,31 @@ export function useStudentBalancePage() {
   const [pendingCancelTransaction, setPendingCancelTransaction] =
     useState<BalanceTransactionResponse | null>(null)
   const [unknownResult, setUnknownResult] = useState<BalanceMutationKind | null>(null)
+  const [isUnknownHistoryChecked, setIsUnknownHistoryChecked] = useState(false)
+  const [unknownReadError, setUnknownReadError] = useState(false)
+  const [readRefreshError, setReadRefreshError] = useState(false)
   const [isVerifyingUnknown, setIsVerifyingUnknown] = useState(false)
+  const [isRefreshingRead, setIsRefreshingRead] = useState(false)
   const submittingReference = useRef(false)
   const cancellingReference = useRef(false)
 
+  const t = useTranslate()
+  const queryClient = useQueryClient()
+
   const studentQuery = useGetStudentByIdStudentStudentIdGet({
-    path: { student_id: params.studentId },
+    path: { student_id: studentId },
   })
   const balanceQuery = useGetStudentBalanceByIdStudentStudentIdBalanceGet({
-    path: { student_id: params.studentId },
+    path: { student_id: studentId },
   })
   const rewardProgressQuery = useGetStudentRewardProgressStudentStudentIdRewardProgressGet({
-    path: { student_id: params.studentId },
+    path: { student_id: studentId },
   })
   const rankQuery = useGetBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGet({
-    path: { student_id: params.studentId },
+    path: { student_id: studentId },
   })
   const reasonsQuery = useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet()
-  const historyQuery = useInfiniteQuery(getStudentTransactionsQueryOptions(params.studentId))
+  const historyQuery = useInfiniteQuery(getStudentTransactionsQueryOptions(studentId))
 
   const changeBalanceMutation = useChangeStudentBalanceStudentStudentIdBalanceTransactionsPost({
     mutation: {
@@ -71,18 +72,15 @@ export function useStudentBalancePage() {
             signal,
           }).unwrap(),
         ),
-      onSuccess: async () => {
-        setUnknownResult(null)
+      onSuccess: () => {
         setSelectedReasons([])
         setPendingDeductionReasons(null)
+        setReadRefreshError(false)
         toast.add({ title: t('admin.balance.operation.success'), type: 'success' })
-        await invalidateStudentBalanceCaches(queryClient, params.studentId)
+        void refreshBalanceAfterConfirmedResult()
       },
       onError: (error) => {
-        if (!isUnknownResultError(error)) return
-        setUnknownResult(BalanceMutationKind.Change)
-        setSelectedReasons([])
-        setPendingDeductionReasons(null)
+        if (isUnknownResultError(error)) markUnknownResult(BalanceMutationKind.Change)
       },
       onSettled: () => {
         submittingReference.current = false
@@ -101,17 +99,14 @@ export function useStudentBalancePage() {
               signal,
             }).unwrap(),
           ),
-        onSuccess: async () => {
-          setUnknownResult(null)
+        onSuccess: () => {
           setPendingCancelTransaction(null)
+          setReadRefreshError(false)
           toast.add({ title: t('admin.balance.cancel.success'), type: 'success' })
-          await invalidateStudentBalanceCaches(queryClient, params.studentId)
+          void refreshBalanceAfterConfirmedResult()
         },
         onError: (error) => {
-          if (isUnknownResultError(error)) {
-            setUnknownResult(BalanceMutationKind.Cancel)
-            setPendingCancelTransaction(null)
-          }
+          if (isUnknownResultError(error)) markUnknownResult(BalanceMutationKind.Cancel)
         },
         onSettled: () => {
           cancellingReference.current = false
@@ -119,10 +114,36 @@ export function useStudentBalancePage() {
       },
     })
 
+  async function refreshBalanceData() {
+    await invalidateStudentBalanceCaches(queryClient, studentId, {
+      throwOnError: true,
+      cancelRefetch: false,
+    })
+  }
+
+  async function refreshBalanceAfterConfirmedResult() {
+    try {
+      await refreshBalanceData()
+      setReadRefreshError(false)
+    } catch {
+      setReadRefreshError(true)
+    }
+  }
+
+  function markUnknownResult(kind: BalanceMutationKind) {
+    setUnknownResult(kind)
+    setIsUnknownHistoryChecked(false)
+    setUnknownReadError(false)
+    setReadRefreshError(false)
+    setSelectedReasons([])
+    setPendingDeductionReasons(null)
+    setPendingCancelTransaction(null)
+  }
+
   function handleBack() {
     void navigate({
       to: '/admin/people/students/$studentId',
-      params: { studentId: params.studentId },
+      params: { studentId },
     })
   }
 
@@ -140,6 +161,20 @@ export function useStudentBalancePage() {
 
   function handleRetryReasons() {
     if (!reasonsQuery.isFetching) void reasonsQuery.refetch()
+  }
+
+  async function handleRefreshReadData() {
+    if (isRefreshingRead) return
+
+    setIsRefreshingRead(true)
+    try {
+      await refreshBalanceData()
+      setReadRefreshError(false)
+    } catch {
+      setReadRefreshError(true)
+    } finally {
+      setIsRefreshingRead(false)
+    }
   }
 
   function handleDirectionChange(nextDirection: BalanceDirection) {
@@ -185,7 +220,7 @@ export function useStudentBalancePage() {
 
     submittingReference.current = true
     changeBalanceMutation.mutate({
-      path: { student_id: params.studentId },
+      path: { student_id: studentId },
       body: { reason: reasons },
     })
   }
@@ -199,6 +234,7 @@ export function useStudentBalancePage() {
       unknownResult
     )
       return
+
     if (direction === BalanceDirection.Punish) {
       setPendingDeductionReasons([...selectedReasons])
       return
@@ -219,7 +255,7 @@ export function useStudentBalancePage() {
   function handleRequestCancel(transaction: BalanceTransactionResponse) {
     if (
       transaction.cancelled_at ||
-      transaction.student_id !== params.studentId ||
+      transaction.student_id !== studentId ||
       cancelTransactionMutation.isPending ||
       cancellingReference.current ||
       unknownResult
@@ -239,7 +275,7 @@ export function useStudentBalancePage() {
   function handleConfirmCancel() {
     if (
       !pendingCancelTransaction ||
-      pendingCancelTransaction.student_id !== params.studentId ||
+      pendingCancelTransaction.student_id !== studentId ||
       cancellingReference.current ||
       cancelTransactionMutation.isPending ||
       unknownResult
@@ -252,7 +288,7 @@ export function useStudentBalancePage() {
 
     if (currentTransaction?.cancelled_at) {
       setPendingCancelTransaction(null)
-      void invalidateStudentBalanceCaches(queryClient, params.studentId)
+      void refreshBalanceAfterConfirmedResult()
       toast.add({ title: t('admin.balance.cancel.already') })
       return
     }
@@ -277,20 +313,32 @@ export function useStudentBalancePage() {
   }
 
   async function handleVerifyUnknownResult() {
-    if (isVerifyingUnknown) return
+    if (isVerifyingUnknown || isUnknownHistoryChecked) return
 
     setIsVerifyingUnknown(true)
+    setUnknownReadError(false)
     try {
-      await invalidateStudentBalanceCaches(queryClient, params.studentId)
-      changeBalanceMutation.reset()
-      cancelTransactionMutation.reset()
-      setUnknownResult(null)
+      await refreshBalanceData()
+      setIsUnknownHistoryChecked(true)
+    } catch {
+      setIsUnknownHistoryChecked(false)
+      setUnknownReadError(true)
     } finally {
       setIsVerifyingUnknown(false)
     }
   }
 
-  const summaryError = balanceQuery.error ?? rewardProgressQuery.error ?? rankQuery.error ?? null
+  function handleAcknowledgeUnknownResult() {
+    if (!isUnknownHistoryChecked || !unknownResult) return
+
+    changeBalanceMutation.reset()
+    cancelTransactionMutation.reset()
+    setUnknownResult(null)
+    setIsUnknownHistoryChecked(false)
+    setUnknownReadError(false)
+  }
+
+  const balance = balanceQuery.data?.balance ?? 0
   const transactions = Array.from(
     new Map(
       (historyQuery.data?.pages ?? [])
@@ -306,11 +354,13 @@ export function useStudentBalancePage() {
     rewardProgress?.progress_percent === null || rewardProgress?.progress_percent === undefined
       ? null
       : Math.max(0, Math.min(100, rewardProgress.progress_percent))
+  const summaryError = balanceQuery.error ?? rewardProgressQuery.error ?? rankQuery.error ?? null
+  const isCancelling = cancelTransactionMutation.isPending
 
   return {
     state: {
       studentName: studentQuery.data?.name ?? null,
-      balance: balanceQuery.data?.balance ?? null,
+      balance,
       rewardProgress,
       rewardProgressPercent: progressPercent,
       rank: rankQuery.data ?? null,
@@ -327,7 +377,12 @@ export function useStudentBalancePage() {
       pendingDeductionReasons,
       pendingCancelTransaction,
       unknownResult,
+      isUnknownHistoryChecked,
+      unknownReadError,
+      readRefreshError,
       isVerifyingUnknown,
+      isRefreshingRead,
+      isCancelling,
       historyErrorKind: historyQuery.error ? getApiErrorKind(historyQuery.error) : null,
       reasonsErrorKind: reasonsQuery.error ? getApiErrorKind(reasonsQuery.error) : null,
       changeErrorKind: changeBalanceMutation.error
@@ -354,6 +409,7 @@ export function useStudentBalancePage() {
       handleLogin,
       handleRetrySummary,
       handleRetryReasons,
+      handleRefreshReadData,
       handleDirectionChange,
       handleReasonToggle,
       handleChangeSubmit,
@@ -365,6 +421,7 @@ export function useStudentBalancePage() {
       handleLoadMore,
       handleRetryHistory,
       handleVerifyUnknownResult,
+      handleAcknowledgeUnknownResult,
     },
   }
 }

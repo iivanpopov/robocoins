@@ -148,6 +148,15 @@ export default {
   'admin.balance.unknown.cancel':
     'Зв’язок урвався до підтвердження. Перевірте історію, перш ніж повторювати скасування.',
   'admin.balance.unknown.verify': 'Перевірити історію',
+  'admin.balance.unknown.checked':
+    'Історію оновлено. Перегляньте операції нижче та підтвердьте, що результат зрозумілий.',
+  'admin.balance.unknown.acknowledge': 'Підтвердити перевірку',
+  'admin.balance.unknown.verify-error':
+    'Не вдалося оновити історію та баланс. Перевірте зв’язок і спробуйте ще раз.',
+  'admin.balance.refresh.title': 'Дані не оновлено',
+  'admin.balance.refresh.error':
+    'Операцію підтверджено, але не вдалося оновити баланс та історію. Оновіть дані, щоб побачити результат.',
+  'admin.balance.refresh.action': 'Оновити дані',
   'students.register.title': 'Новий учень',
   'students.register.description': 'Додайте ім’я, аватар і хоча б одну групу.',
   'students.register.name.label': 'Ім’я',

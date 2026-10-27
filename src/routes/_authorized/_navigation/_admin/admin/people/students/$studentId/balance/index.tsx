@@ -1,5 +1,5 @@
 import { useTranslate } from '@kanjou/react'
-import { createFileRoute, notFound } from '@tanstack/react-router'
+import { createFileRoute, notFound, useParams } from '@tanstack/react-router'
 import * as v from 'valibot'
 
 import { getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions } from '#/api/hooks/useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet'
@@ -77,12 +77,21 @@ export const Route = createFileRoute(
 })
 
 function StudentBalancePage() {
-  const { state, queries, mutations, functions } = useStudentBalancePage()
+  const params = useParams({
+    from: '/_authorized/_navigation/_admin/admin/people/students/$studentId/balance/',
+  })
+
+  return <StudentBalanceContent key={params.studentId} studentId={params.studentId} />
+}
+
+interface StudentBalanceContentProps {
+  studentId: number
+}
+
+function StudentBalanceContent(props: StudentBalanceContentProps) {
+  const { state, queries, mutations, functions } = useStudentBalancePage(props.studentId)
 
   const t = useTranslate()
-
-  const balance = state.balance ?? 0
-  const isCancelling = mutations.cancelTransaction.isPending
 
   return (
     <section className={styles.page}>
@@ -109,15 +118,51 @@ function StudentBalancePage() {
             {state.unknownResult === BalanceMutationKind.Cancel && (
               <p className={styles['unknown-description']}>{t('admin.balance.unknown.cancel')}</p>
             )}
+            {state.isUnknownHistoryChecked && (
+              <p className={styles['unknown-success']}>{t('admin.balance.unknown.checked')}</p>
+            )}
+            {state.unknownReadError && (
+              <p className={styles['unknown-error']} role="status">
+                {t('admin.balance.unknown.verify-error')}
+              </p>
+            )}
+          </div>
+          {!state.isUnknownHistoryChecked && (
+            <Button
+              variant="ghost"
+              onClick={functions.handleVerifyUnknownResult}
+              disabled={state.isVerifyingUnknown}
+              aria-busy={state.isVerifyingUnknown}
+            >
+              {state.isVerifyingUnknown && <Loader />}
+              {t('admin.balance.unknown.verify')}
+            </Button>
+          )}
+          {state.isUnknownHistoryChecked && (
+            <Button variant="ghost" onClick={functions.handleAcknowledgeUnknownResult}>
+              {t('admin.balance.unknown.acknowledge')}
+            </Button>
+          )}
+        </section>
+      )}
+
+      {state.readRefreshError && !state.unknownResult && (
+        <section className={styles.unknown} role="alert">
+          <span aria-hidden="true" className={styles['unknown-icon']}>
+            <span className="i-ph:arrows-clockwise" />
+          </span>
+          <div className={styles['unknown-details']}>
+            <h2 className={styles['unknown-title']}>{t('admin.balance.refresh.title')}</h2>
+            <p className={styles['unknown-description']}>{t('admin.balance.refresh.error')}</p>
           </div>
           <Button
             variant="ghost"
-            onClick={functions.handleVerifyUnknownResult}
-            disabled={state.isVerifyingUnknown}
-            aria-busy={state.isVerifyingUnknown}
+            onClick={functions.handleRefreshReadData}
+            disabled={state.isRefreshingRead}
+            aria-busy={state.isRefreshingRead}
           >
-            {state.isVerifyingUnknown && <Loader />}
-            {t('admin.balance.unknown.verify')}
+            {state.isRefreshingRead && <Loader />}
+            {t('admin.balance.refresh.action')}
           </Button>
         </section>
       )}
@@ -144,10 +189,10 @@ function StudentBalancePage() {
             <div className={styles.metric}>
               <span className={styles.label}>{t('admin.balance.summary.balance')}</span>
               <span className={styles['balance-value']}>
-                {t('profile.balance.amount', { count: balance })}
+                {t('profile.balance.amount', { count: state.balance })}
               </span>
               <span className={styles['balance-unit']}>
-                {t('admin.balance.coins', { count: balance })}
+                {t('admin.balance.coins', { count: state.balance })}
               </span>
             </div>
 
@@ -333,7 +378,7 @@ function StudentBalancePage() {
               <TransactionRow
                 key={transaction.id}
                 transaction={transaction}
-                cancelDisabled={isCancelling || !!state.unknownResult}
+                cancelDisabled={state.isCancelling || !!state.unknownResult}
                 onCancel={functions.handleRequestCancel}
               />
             ))}
@@ -366,7 +411,7 @@ function StudentBalancePage() {
       <CancelTransactionDialog
         open={!!state.pendingCancelTransaction}
         transaction={state.pendingCancelTransaction}
-        isPending={isCancelling}
+        isPending={state.isCancelling}
         errorKind={state.cancelErrorKind}
         onOpenChange={functions.handleCancelDialogOpenChange}
         onConfirm={functions.handleConfirmCancel}

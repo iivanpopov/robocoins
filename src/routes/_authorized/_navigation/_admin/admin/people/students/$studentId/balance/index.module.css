@@ -75,6 +75,20 @@
   color: var(--muted-foreground);
 }
 
+.unknown-success {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--green-700);
+}
+
+.unknown-error {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--error);
+}
+
 .card {
   display: flex;
   flex-direction: column;
