@@ -9,6 +9,7 @@ import {
   GroupPageLayout,
   GroupRequestError,
   GroupResultPanel,
+  TeacherPicker,
 } from '../-components'
 import { useCreateGroupPage } from '../-hooks'
 import { AdminSelect } from '../../-components'
@@ -162,6 +163,23 @@ function CreateGroupPage() {
                     <FieldError>{t('admin.groups.create.course-error')}</FieldError>
                   )}
                 </Field>
+              )}
+            </features.form.Field>
+
+            <features.form.Field name="teacherIds">
+              {(field) => (
+                <TeacherPicker
+                  label={t('admin.groups.teachers.picker.label')}
+                  options={state.teacherOptions}
+                  selectedIds={field.state.value}
+                  onChange={(teacherIds) => field.handleChange(teacherIds)}
+                  disabled={state.isSubmitting}
+                  isPending={state.isTeachersPending}
+                  isError={state.isTeachersError}
+                  isRetrying={state.isTeachersFetching}
+                  onRetry={functions.handleRetryTeachers}
+                  isInvalid={field.state.meta.errors.length > 0}
+                />
               )}
             </features.form.Field>
 

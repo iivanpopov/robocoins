@@ -48,10 +48,20 @@ function AdminGroupsPage() {
           <h1 className={styles.title}>{t('admin.groups.title')}</h1>
           <p className={styles.description}>{t('admin.groups.description')}</p>
         </div>
-        <Button nativeButton={false} render={<Link to="/admin/groups/create" />}>
-          <span aria-hidden="true" className="i-ph:plus-bold" />
-          {t('admin.groups.create')}
-        </Button>
+        <div className={styles['header-actions']}>
+          <Button
+            variant="ghost"
+            nativeButton={false}
+            render={<Link to="/admin/groups/teachers" />}
+          >
+            <span aria-hidden="true" className="i-ph:chalkboard-teacher-duotone" />
+            {t('admin.groups.bulk.entry')}
+          </Button>
+          <Button nativeButton={false} render={<Link to="/admin/groups/create" />}>
+            <span aria-hidden="true" className="i-ph:plus-bold" />
+            {t('admin.groups.create')}
+          </Button>
+        </div>
       </header>
 
       <Link to="/admin/courses" className={styles['courses-link']}>

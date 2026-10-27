@@ -932,7 +932,7 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Призначення та зміна викладачів з’являться в наступних оновленнях."
+      "Призначити або змінити склад викладачів можна в керуванні групою."
     ]
   },
   "admin.groups.detail.students": {
@@ -974,7 +974,7 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Ці дії не мають серверних операцій. Форми перевірять дані та покажуть локальний результат без збереження."
+      "Перейменування, зміна курсу та видалення не мають серверних операцій. Призначення викладачів зберігається на сервері."
     ]
   },
   "admin.groups.detail.rename": {
@@ -1024,6 +1024,414 @@ export default {
     "declarations": [],
     "pattern": [
       "Не вдалося завантажити групу."
+    ]
+  },
+  "admin.groups.teachers.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладачі групи"
+    ]
+  },
+  "admin.groups.teachers.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Склад для групи «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "group"
+        }
+      },
+      "»."
+    ]
+  },
+  "admin.groups.teachers.description-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Склад викладачів групи."
+    ]
+  },
+  "admin.groups.teachers.note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть до двох викладачів або залиште список порожнім. Кожне збереження замінює склад групи; якщо сервер забороняє порожній список, покажемо помилку."
+    ]
+  },
+  "admin.groups.teachers.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зберегти склад"
+    ]
+  },
+  "admin.groups.teachers.entry": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Керувати викладачами"
+    ]
+  },
+  "admin.groups.teachers.entry-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Призначити, замінити або зняти до двох викладачів."
+    ]
+  },
+  "admin.groups.teachers.success-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладачів оновлено"
+    ]
+  },
+  "admin.groups.teachers.success-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Склад групи «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "group"
+        }
+      },
+      "» збережено на сервері."
+    ]
+  },
+  "admin.groups.teachers.result-group": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Група"
+    ]
+  },
+  "admin.groups.teachers.result-new": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Новий склад"
+    ]
+  },
+  "admin.groups.teachers.no-teachers": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Без викладачів"
+    ]
+  },
+  "admin.groups.teachers.read": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити викладачів групи."
+    ]
+  },
+  "admin.groups.teachers.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося змінити викладачів групи. Спробуйте ще раз."
+    ]
+  },
+  "admin.groups.teachers.error.validation": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер відхилив склад. Перевірте кількість викладачів і чи можна залишити групу без них."
+    ]
+  },
+  "admin.groups.teachers.error.rejected": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер відхилив зміну складу. Перевірте вимоги до викладачів групи."
+    ]
+  },
+  "admin.groups.teachers.picker.label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладачі"
+    ]
+  },
+  "admin.groups.teachers.picker.search-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Пошук викладача"
+    ]
+  },
+  "admin.groups.teachers.picker.search-placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ім’я викладача"
+    ]
+  },
+  "admin.groups.teachers.picker.selected": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Обрано ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      },
+      " з 2"
+    ]
+  },
+  "admin.groups.teachers.picker.limit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Можна обрати не більше двох викладачів."
+    ]
+  },
+  "admin.groups.teachers.picker.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладачів поки немає."
+    ]
+  },
+  "admin.groups.teachers.picker.search-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладачів за запитом не знайдено."
+    ]
+  },
+  "admin.groups.teachers.picker.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити список викладачів."
+    ]
+  },
+  "admin.groups.teachers.picker.validation": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть не більше двох різних викладачів."
+    ]
+  },
+  "admin.groups.bulk.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Масове призначення"
+    ]
+  },
+  "admin.groups.bulk.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Один склад викладачів для кількох груп."
+    ]
+  },
+  "admin.groups.bulk.note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Кожна група оновлюється окремо, спільної транзакції немає. Порожній вибір викладачів знімає їх з усіх обраних груп."
+    ]
+  },
+  "admin.groups.bulk.entry": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Масове призначення"
+    ]
+  },
+  "admin.groups.bulk.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Застосувати склад"
+    ]
+  },
+  "admin.groups.bulk.submit-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зняти викладачів"
+    ]
+  },
+  "admin.groups.bulk.groups.label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Групи"
+    ]
+  },
+  "admin.groups.bulk.groups.search-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Пошук груп"
+    ]
+  },
+  "admin.groups.bulk.groups.search-placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назва групи, курсу або викладача"
+    ]
+  },
+  "admin.groups.bulk.groups.selected": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Обрано груп: ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      }
+    ]
+  },
+  "admin.groups.bulk.groups.hint": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть хоча б одну групу. Склад кожної групи буде замінено."
+    ]
+  },
+  "admin.groups.bulk.groups.search-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Груп за запитом не знайдено."
+    ]
+  },
+  "admin.groups.bulk.groups.no-teachers": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Без викладачів"
+    ]
+  },
+  "admin.groups.bulk.groups.empty-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Немає груп для призначення"
+    ]
+  },
+  "admin.groups.bulk.groups.empty-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Спочатку створіть групу, а потім призначте до неї викладачів."
+    ]
+  },
+  "admin.groups.bulk.read-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити групи або викладачів."
+    ]
+  },
+  "admin.groups.bulk.results.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Результат по групах"
+    ]
+  },
+  "admin.groups.bulk.results.pending": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оновлюємо"
+    ]
+  },
+  "admin.groups.bulk.results.success": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладачів оновлено"
+    ]
+  },
+  "admin.groups.bulk.results.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер відхилив зміну."
+    ]
+  },
+  "admin.groups.bulk.results.error-status": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер відхилив зміну (код ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "status"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      },
+      ")."
+    ]
+  },
+  "admin.groups.bulk.results.unknown-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Результат невідомий. Перевірте групу перед повторенням."
+    ]
+  },
+  "admin.groups.bulk.results.retry": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Повторити невдалі"
+    ]
+  },
+  "admin.groups.bulk.results.retry-note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Повторюються лише групи з однозначною помилкою. Успішні та невідомі записи не повторюються."
+    ]
+  },
+  "admin.groups.bulk.results.open": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Відкрити групу ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "group"
+        }
+      }
     ]
   },
   "admin.groups.create.title": {
@@ -1086,7 +1494,7 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Групу можна створити без викладача. Якщо сервер вимагає викладача, він поверне помилку, і ми її покажемо."
+      "Можна призначити до двох викладачів або залишити групу без них. Якщо сервер це забороняє, покажемо помилку."
     ]
   },
   "admin.groups.create.courses-empty-title": {
@@ -1121,7 +1529,7 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Сервер відхилив дані групи. Перевірте назву, курс і вимоги сервера."
+      "Сервер відхилив дані групи. Перевірте назву, курс, викладачів і вимоги сервера."
     ]
   },
   "admin.groups.create.success-title": {
@@ -3542,7 +3950,21 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Ім’я, доступ і видалення. Дії без серверних операцій покажуть локальний результат."
+      "Ім’я, доступ, призначення на групи та видалення. Дії без серверних операцій покажуть локальний результат."
+    ]
+  },
+  "admin.teachers.profile.assign": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Призначити на групи"
+    ]
+  },
+  "admin.teachers.profile.assign-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Обрати групи та замінити склад викладачів у них."
     ]
   },
   "admin.teachers.profile.rename": {

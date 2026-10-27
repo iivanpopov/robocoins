@@ -5,3 +5,8 @@ export type GroupErrorKey =
   | 'admin.groups.detail.error'
   | 'admin.groups.create.error'
   | 'admin.groups.create.error.validation'
+  | 'admin.groups.teachers.read'
+  | 'admin.groups.teachers.error'
+  | 'admin.groups.teachers.error.validation'
+  | 'admin.groups.teachers.error.rejected'
+  | 'admin.groups.bulk.read-error'

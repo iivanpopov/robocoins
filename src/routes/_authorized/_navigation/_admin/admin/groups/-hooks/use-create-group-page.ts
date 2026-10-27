@@ -5,12 +5,13 @@ import { useState } from 'react'
 
 import { useCreateGroupGroupCreatePost } from '#/api/hooks/useCreateGroupGroupCreatePost'
 import { useGetCoursesCourseGet } from '#/api/hooks/useGetCoursesCourseGet'
-import type { GroupResponse } from '#/api/types'
+import type { GroupCreateRequest, GroupResponse } from '#/api/types'
 
 import { CreateGroupStateSchema } from '../-schemas'
 import type { GroupErrorKey } from '../-types'
 import { getGroupErrorKey, invalidateGroupCaches } from '../-utils'
 import type { AdminSelectOption } from '../../-components'
+import { useTeacherOptions } from './use-teacher-options'
 
 export function useCreateGroupPage() {
   const queryClient = useQueryClient()
@@ -18,12 +19,14 @@ export function useCreateGroupPage() {
   const [createdGroup, setCreatedGroup] = useState<GroupResponse | null>(null)
 
   const coursesQuery = useGetCoursesCourseGet()
+  const teacherOptions = useTeacherOptions()
   const createGroupMutation = useCreateGroupGroupCreatePost()
 
   const form = useForm({
     defaultValues: {
       name: '',
       courseId: '',
+      teacherIds: [] as number[],
     },
     validators: { onChange: CreateGroupStateSchema },
     listeners: {
@@ -33,9 +36,12 @@ export function useCreateGroupPage() {
       if (createGroupMutation.isPending || createdGroup) return
 
       try {
-        const group = await createGroupMutation.mutateAsync({
-          body: { name: value.name.trim(), course_id: Number(value.courseId) },
-        })
+        const body: GroupCreateRequest = {
+          name: value.name.trim(),
+          course_id: Number(value.courseId),
+        }
+        if (value.teacherIds.length) body.teacher_ids = value.teacherIds
+        const group = await createGroupMutation.mutateAsync({ body })
         setCreatedGroup(group)
         await invalidateGroupCaches(queryClient).catch(() => undefined)
       } catch {
@@ -62,6 +68,11 @@ export function useCreateGroupPage() {
   function handleRetryCourses() {
     if (coursesQuery.isFetching) return
     void coursesQuery.refetch()
+  }
+
+  function handleRetryTeachers() {
+    if (teacherOptions.isFetching) return
+    void teacherOptions.usersQuery.refetch()
   }
 
   const courses = coursesQuery.data ?? []
@@ -91,17 +102,21 @@ export function useCreateGroupPage() {
       createdCourse,
       courses,
       courseItems,
+      teacherOptions: teacherOptions.options,
       hasCourses: !!courses.length,
       coursesErrorKey,
       errorKey,
       isCoursesPending: coursesQuery.isPending,
       isCoursesError: coursesQuery.isError,
       isCoursesFetching: coursesQuery.isFetching,
+      isTeachersPending: teacherOptions.isPending,
+      isTeachersError: teacherOptions.isError,
+      isTeachersFetching: teacherOptions.isFetching,
       isSubmitting: createGroupMutation.isPending || isFormSubmitting,
     },
-    queries: { courses: coursesQuery },
+    queries: { courses: coursesQuery, users: teacherOptions.usersQuery },
     mutations: { createGroup: createGroupMutation },
-    functions: { handleSubmit, handleCreateAnother, handleRetryCourses },
+    functions: { handleSubmit, handleCreateAnother, handleRetryCourses, handleRetryTeachers },
     features: { form },
   }
 }

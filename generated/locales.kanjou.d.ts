@@ -99,6 +99,58 @@ declare module '@kanjou/react' {
       'admin.groups.detail.delete': {}
       'admin.groups.detail.delete-description': {}
       'admin.groups.detail.error': {}
+      'admin.groups.teachers.title': {}
+      'admin.groups.teachers.description': { group: DefaultMessageValue }
+      'admin.groups.teachers.description-empty': {}
+      'admin.groups.teachers.note': {}
+      'admin.groups.teachers.submit': {}
+      'admin.groups.teachers.entry': {}
+      'admin.groups.teachers.entry-description': {}
+      'admin.groups.teachers.success-title': {}
+      'admin.groups.teachers.success-description': {
+        group: DefaultMessageValue
+      }
+      'admin.groups.teachers.result-group': {}
+      'admin.groups.teachers.result-new': {}
+      'admin.groups.teachers.no-teachers': {}
+      'admin.groups.teachers.read': {}
+      'admin.groups.teachers.error': {}
+      'admin.groups.teachers.error.validation': {}
+      'admin.groups.teachers.error.rejected': {}
+      'admin.groups.teachers.picker.label': {}
+      'admin.groups.teachers.picker.search-label': {}
+      'admin.groups.teachers.picker.search-placeholder': {}
+      'admin.groups.teachers.picker.selected': { count: { __fn: 'number' } }
+      'admin.groups.teachers.picker.limit': {}
+      'admin.groups.teachers.picker.empty': {}
+      'admin.groups.teachers.picker.search-empty': {}
+      'admin.groups.teachers.picker.error': {}
+      'admin.groups.teachers.picker.validation': {}
+      'admin.groups.bulk.title': {}
+      'admin.groups.bulk.description': {}
+      'admin.groups.bulk.note': {}
+      'admin.groups.bulk.entry': {}
+      'admin.groups.bulk.submit': {}
+      'admin.groups.bulk.submit-empty': {}
+      'admin.groups.bulk.groups.label': {}
+      'admin.groups.bulk.groups.search-label': {}
+      'admin.groups.bulk.groups.search-placeholder': {}
+      'admin.groups.bulk.groups.selected': { count: { __fn: 'number' } }
+      'admin.groups.bulk.groups.hint': {}
+      'admin.groups.bulk.groups.search-empty': {}
+      'admin.groups.bulk.groups.no-teachers': {}
+      'admin.groups.bulk.groups.empty-title': {}
+      'admin.groups.bulk.groups.empty-description': {}
+      'admin.groups.bulk.read-error': {}
+      'admin.groups.bulk.results.title': {}
+      'admin.groups.bulk.results.pending': {}
+      'admin.groups.bulk.results.success': {}
+      'admin.groups.bulk.results.error': {}
+      'admin.groups.bulk.results.error-status': { status: { __fn: 'number' } }
+      'admin.groups.bulk.results.unknown-description': {}
+      'admin.groups.bulk.results.retry': {}
+      'admin.groups.bulk.results.retry-note': {}
+      'admin.groups.bulk.results.open': { group: DefaultMessageValue }
       'admin.groups.create.title': {}
       'admin.groups.create.description': {}
       'admin.groups.create.name-label': {}
@@ -392,6 +444,8 @@ declare module '@kanjou/react' {
       'admin.teachers.profile.not-teacher': {}
       'admin.teachers.profile.manage': {}
       'admin.teachers.profile.manage-note': {}
+      'admin.teachers.profile.assign': {}
+      'admin.teachers.profile.assign-description': {}
       'admin.teachers.profile.rename': {}
       'admin.teachers.profile.rename-description': {}
       'admin.teachers.profile.access': {}

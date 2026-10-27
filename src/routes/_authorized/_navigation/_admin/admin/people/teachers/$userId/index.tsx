@@ -81,6 +81,24 @@ function TeacherProfilePage() {
             <p className={styles.note}>{t('admin.teachers.profile.manage-note')}</p>
             <div className={styles.actions}>
               <Link
+                to="/admin/groups/teachers"
+                search={{ teacherId: state.teacherId }}
+                className={styles.action}
+              >
+                <span aria-hidden="true" className={styles['action-icon']}>
+                  <span className="i-ph:chalkboard-teacher-duotone" />
+                </span>
+                <span className={styles['action-copy']}>
+                  <span className={styles['action-title']}>
+                    {t('admin.teachers.profile.assign')}
+                  </span>
+                  <span className={styles['action-description']}>
+                    {t('admin.teachers.profile.assign-description')}
+                  </span>
+                </span>
+                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+              </Link>
+              <Link
                 to="/admin/people/teachers/$userId/rename"
                 params={{ userId: state.teacherId }}
                 className={styles.action}
