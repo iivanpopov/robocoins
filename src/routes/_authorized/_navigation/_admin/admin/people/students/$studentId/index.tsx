@@ -100,18 +100,44 @@ function StudentProfilePage() {
           <Link
             to="/admin/people/students/$studentId/balance"
             params={{ studentId: state.student.id }}
-            className={styles['balance-link']}
+            className={styles['profile-link']}
           >
-            <span aria-hidden="true" className={cn('i-ph:coins-duotone', styles['balance-icon'])} />
-            <span className={styles['balance-details']}>
-              <span className={styles['balance-title']}>{t('admin.balance.profile.link')}</span>
-              <span className={styles['balance-description']}>
+            <span
+              aria-hidden="true"
+              className={cn('i-ph:coins-duotone', styles['profile-link-icon'])}
+            />
+            <span className={styles['profile-link-details']}>
+              <span className={styles['profile-link-title']}>
+                {t('admin.balance.profile.link')}
+              </span>
+              <span className={styles['profile-link-description']}>
                 {t('admin.balance.profile.description')}
               </span>
             </span>
             <span
               aria-hidden="true"
-              className={cn('i-ph:caret-right-bold', styles['balance-arrow'])}
+              className={cn('i-ph:caret-right-bold', styles['profile-link-arrow'])}
+            />
+          </Link>
+
+          <Link
+            to="/admin/people/students/$studentId/streak"
+            params={{ studentId: state.student.id }}
+            className={styles['profile-link']}
+          >
+            <span
+              aria-hidden="true"
+              className={cn('i-ph:fire-duotone', styles['profile-link-icon'])}
+            />
+            <span className={styles['profile-link-details']}>
+              <span className={styles['profile-link-title']}>{t('admin.streak.title')}</span>
+              <span className={styles['profile-link-description']}>
+                {t('admin.streak.description')}
+              </span>
+            </span>
+            <span
+              aria-hidden="true"
+              className={cn('i-ph:caret-right-bold', styles['profile-link-arrow'])}
             />
           </Link>
 

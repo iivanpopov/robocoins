@@ -27,6 +27,10 @@ export function useStudentStreakPage() {
     from: '/_authorized/_navigation/_admin/admin/people/students/$studentId/streak/',
   })
 
+  const [result, setResult] = useState<StreakActionResult | null>(null)
+  const [isEndOpen, setIsEndOpen] = useState(false)
+  const syncedStreakIdReference = useRef<number | null>(null)
+
   const queryClient = useQueryClient()
   const currentQueryKey = getStudentStreakStudentStudentIdStreakGetQueryKey({
     path: { student_id: params.studentId },
@@ -34,10 +38,6 @@ export function useStudentStreakPage() {
   const longestQueryKey = getStudentLongestStreakStudentStudentIdLongestStreakGetQueryKey({
     path: { student_id: params.studentId },
   })
-
-  const [result, setResult] = useState<StreakActionResult | null>(null)
-  const [isEndOpen, setIsEndOpen] = useState(false)
-  const syncedStreakIdReference = useRef<number | null>(null)
 
   const currentQuery = useGetStudentStreakStudentStudentIdStreakGet(
     { path: { student_id: params.studentId } },
@@ -120,10 +120,17 @@ export function useStudentStreakPage() {
     form.reset({ days: String(streak.days) })
   }, [currentQuery.data, currentQuery.error, form])
 
+  function clearOtherActionErrors(action: 'start' | 'end' | 'update') {
+    if (action !== 'start' && startMutation.isError) startMutation.reset()
+    if (action !== 'end' && endMutation.isError) endMutation.reset()
+    if (action !== 'update' && updateMutation.isError) updateMutation.reset()
+  }
+
   function handleStart() {
     if (startMutation.isPending || endMutation.isPending || updateMutation.isPending) return
     if (isActive) return
 
+    clearOtherActionErrors('start')
     setResult(null)
     startMutation.mutate({ path: { student_id: params.studentId } })
   }
@@ -145,6 +152,7 @@ export function useStudentStreakPage() {
     if (!isActive || startMutation.isPending || endMutation.isPending) return
     if (updateMutation.isPending) return
 
+    clearOtherActionErrors('end')
     setResult(null)
     endMutation.mutate({ path: { student_id: params.studentId } })
   }
@@ -152,6 +160,7 @@ export function useStudentStreakPage() {
   function handleUpdateSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
     if (!isActive || updateMutation.isPending || isFormSubmitting) return
+    clearOtherActionErrors('update')
     setResult(null)
     void form.handleSubmit()
   }

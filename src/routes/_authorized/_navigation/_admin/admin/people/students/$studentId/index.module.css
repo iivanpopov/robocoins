@@ -76,7 +76,7 @@
   color: var(--muted-foreground);
 }
 
-.balance-link {
+.profile-link {
   display: flex;
   gap: var(--spacing-md);
   align-items: center;
@@ -88,12 +88,12 @@
     transform 0.15s ease;
 }
 
-.balance-link:active {
+.profile-link:active {
   background: var(--taupe-100);
   transform: scale(0.99);
 }
 
-.balance-icon {
+.profile-link-icon {
   display: flex;
   flex-shrink: 0;
   align-items: center;
@@ -106,7 +106,7 @@
   border-radius: var(--rounded-md);
 }
 
-.balance-details {
+.profile-link-details {
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -114,20 +114,20 @@
   min-width: 0;
 }
 
-.balance-title {
+.profile-link-title {
   font-size: 0.9375rem;
   font-weight: 700;
   color: var(--foreground);
 }
 
-.balance-description {
+.profile-link-description {
   font-size: 0.8125rem;
   font-weight: 450;
   line-height: 1.35;
   color: var(--muted-foreground);
 }
 
-.balance-arrow {
+.profile-link-arrow {
   flex-shrink: 0;
   font-size: 1rem;
   color: var(--muted-foreground);
