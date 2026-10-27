@@ -143,6 +143,122 @@ export default {
   'admin.teachers.result.another': 'Зареєструвати ще одного',
   'admin.catalog.title': 'Каталог',
   'admin.catalog.description': 'Тут будуть нагороди та категорії.',
+  'admin.courses.title': 'Курси',
+  'admin.courses.description': 'Усі курси школи, їхні категорії та групи.',
+  'admin.courses.link': 'Курси',
+  'admin.courses.create': 'Створити курс',
+  'admin.courses.categories': 'Категорії',
+  'admin.courses.open': 'Відкрити курс',
+  'admin.courses.back': 'До курсів',
+  'admin.courses.back-to-course': 'До курсу',
+  'admin.courses.search.label': 'Пошук курсів',
+  'admin.courses.search.placeholder': 'Назва курсу або групи',
+  'admin.courses.filter.all': 'Усі ({$count :number})',
+  'admin.courses.list.empty': 'Курсів за вашим запитом не знайдено.',
+  'admin.courses.list.empty-description': 'Змініть запит або оберіть іншу категорію.',
+  'admin.courses.list.empty-all': 'Курсів поки немає.',
+  'admin.courses.list.empty-all-description': 'Створіть перший курс, щоб додати до нього групи.',
+  'admin.courses.groups-count': `
+    .input {$count :number}
+    .match $count
+    one {{{$count} група}}
+    few {{{$count} групи}}
+    many {{{$count} груп}}
+    * {{{$count} групи}}`,
+  'admin.courses.courses-count': `
+    .input {$count :number}
+    .match $count
+    one {{{$count} курс}}
+    few {{{$count} курси}}
+    many {{{$count} курсів}}
+    * {{{$count} курсу}}`,
+  'admin.courses.teachers-count': `
+    .input {$count :number}
+    .match $count
+    one {{{$count} викладач}}
+    few {{{$count} викладачі}}
+    many {{{$count} викладачів}}
+    * {{{$count} викладача}}`,
+  'admin.courses.error': 'Не вдалося завантажити курси.',
+  'admin.courses.error.groups': 'Не вдалося завантажити групи курсу.',
+  'admin.courses.error.unauthorized': 'Сесія завершилася. Увійдіть знову, щоб продовжити.',
+  'admin.courses.error.forbidden': 'Недостатньо прав для цієї дії.',
+  'admin.courses.error.login': 'Увійти',
+  'admin.courses.not-found.title': 'Курс не знайдено',
+  'admin.courses.not-found.description': 'Можливо, курс видалено або адресу змінено.',
+  'admin.courses.detail.title': 'Курс',
+  'admin.courses.detail.category': 'Категорія',
+  'admin.courses.detail.groups': 'Групи курсу',
+  'admin.courses.detail.groups-empty': 'У курсі ще немає груп.',
+  'admin.courses.detail.manage': 'Керування курсом',
+  'admin.courses.detail.rename': 'Перейменувати курс',
+  'admin.courses.detail.rename-description': 'Змінити назву курсу.',
+  'admin.courses.detail.change-category': 'Змінити категорію',
+  'admin.courses.detail.change-category-description': 'Перенести курс в інший напрямок.',
+  'admin.courses.detail.delete': 'Видалити курс',
+  'admin.courses.detail.delete-description': 'Прибрати курс зі списку разом із групами.',
+  'admin.courses.detail.local-note':
+    'Ці дії не мають серверних операцій. Форми перевірять дані та покажуть локальний результат без збереження.',
+  'admin.courses.form.name-label': 'Назва курсу',
+  'admin.courses.form.name-placeholder': 'Наприклад, Python для початківців',
+  'admin.courses.form.name-error': 'Введіть назву курсу до 200 символів.',
+  'admin.courses.form.category-label': 'Категорія',
+  'admin.courses.create.title': 'Новий курс',
+  'admin.courses.create.description': 'Заповніть назву та оберіть категорію.',
+  'admin.courses.create.submit': 'Створити курс',
+  'admin.courses.create.error': 'Не вдалося створити курс. Спробуйте ще раз.',
+  'admin.courses.create.error.validation':
+    'Сервер відхилив дані курсу. Перевірте назву та категорію.',
+  'admin.courses.create.success-title': 'Курс створено',
+  'admin.courses.create.success-description': 'Курс «{$course}» з’явився у списку.',
+  'admin.courses.create.another': 'Створити ще',
+  'admin.courses.rename.title': 'Перейменування курсу',
+  'admin.courses.rename.description': 'Нова назва для курсу «{$course}».',
+  'admin.courses.rename.description-empty': 'Нова назва для вибраного курсу.',
+  'admin.courses.rename.note':
+    'Серверна операція перейменування недоступна. Форма покаже локальний результат без зміни курсу.',
+  'admin.courses.rename.same': 'Введіть нову назву, відмінну від поточної.',
+  'admin.courses.rename.submit': 'Перейменувати',
+  'admin.courses.rename.result-title': 'Локальний результат',
+  'admin.courses.rename.result-description':
+    'Назву не збережено на сервері. Курс залишиться з попередньою назвою.',
+  'admin.courses.rename.current': 'Поточна назва',
+  'admin.courses.rename.proposed': 'Запропонована назва',
+  'admin.courses.category.title': 'Зміна категорії',
+  'admin.courses.category.description': 'Нова категорія для курсу «{$course}».',
+  'admin.courses.category.description-empty': 'Нова категорія для вибраного курсу.',
+  'admin.courses.category.note':
+    'Серверна операція зміни категорії недоступна. Форма покаже локальний результат без зміни курсу.',
+  'admin.courses.category.same': 'Оберіть іншу категорію, щоб продовжити.',
+  'admin.courses.category.submit': 'Змінити категорію',
+  'admin.courses.category.result-title': 'Локальний результат',
+  'admin.courses.category.result-description':
+    'Категорію не збережено на сервері. Курс залишиться в попередній категорії.',
+  'admin.courses.category.current': 'Поточна категорія',
+  'admin.courses.category.proposed': 'Запропонована категорія',
+  'admin.courses.delete.title': 'Видалення курсу',
+  'admin.courses.delete.description': 'Видалення курсу «{$course}».',
+  'admin.courses.delete.description-empty': 'Видалення вибраного курсу.',
+  'admin.courses.delete.note':
+    'Серверна операція видалення недоступна. Форма перевірить підтвердження та покаже, що курс не видалено.',
+  'admin.courses.delete.confirm-label': 'Введіть назву курсу для підтвердження',
+  'admin.courses.delete.confirm-placeholder': 'Назва курсу',
+  'admin.courses.delete.confirm-error': 'Назва не збігається з назвою курсу.',
+  'admin.courses.delete.submit': 'Видалити курс',
+  'admin.courses.delete.dialog-title': 'Підтвердити видалення?',
+  'admin.courses.delete.dialog-description':
+    'Підтвердьте намір видалити курс «{$course}». Оскільки сервер не має видалення, курс залишиться на сервері.',
+  'admin.courses.delete.dialog-action': 'Підтвердити',
+  'admin.courses.delete.result-title': 'Локальний результат',
+  'admin.courses.delete.result-description':
+    'Курс не видалено. Серверна операція недоступна, тому список курсів не змінився.',
+  'admin.courses.delete.result-course': 'Курс',
+  'admin.courses.categories.title': 'Категорії курсів',
+  'admin.courses.categories.description': 'Фіксований довідник напрямків і курси в кожному з них.',
+  'admin.courses.categories.fixed':
+    'Категорії задає сервер. Створення, перейменування та видалення категорій недоступні.',
+  'admin.courses.categories.empty': 'Курсів у цій категорії немає.',
+  'admin.courses.categories.change': 'Змінити категорію курсу «{$course}»',
   'shop.balance': 'Баланс: {$count :number} робокоїнів',
   'shop.balance.amount': '{$count :number}',
   'shop.reward.back': 'Назад до галактики',

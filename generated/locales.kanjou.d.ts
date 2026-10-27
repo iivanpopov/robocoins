@@ -136,6 +136,96 @@ declare module '@kanjou/react' {
       'admin.teachers.result.another': {}
       'admin.catalog.title': {}
       'admin.catalog.description': {}
+      'admin.courses.title': {}
+      'admin.courses.description': {}
+      'admin.courses.link': {}
+      'admin.courses.create': {}
+      'admin.courses.categories': {}
+      'admin.courses.open': {}
+      'admin.courses.back': {}
+      'admin.courses.back-to-course': {}
+      'admin.courses.search.label': {}
+      'admin.courses.search.placeholder': {}
+      'admin.courses.filter.all': { count: { __fn: 'number' } }
+      'admin.courses.list.empty': {}
+      'admin.courses.list.empty-description': {}
+      'admin.courses.list.empty-all': {}
+      'admin.courses.list.empty-all-description': {}
+      'admin.courses.groups-count': { count: { __fn: 'number' } }
+      'admin.courses.courses-count': { count: { __fn: 'number' } }
+      'admin.courses.teachers-count': { count: { __fn: 'number' } }
+      'admin.courses.error': {}
+      'admin.courses.error.groups': {}
+      'admin.courses.error.unauthorized': {}
+      'admin.courses.error.forbidden': {}
+      'admin.courses.error.login': {}
+      'admin.courses.not-found.title': {}
+      'admin.courses.not-found.description': {}
+      'admin.courses.detail.title': {}
+      'admin.courses.detail.category': {}
+      'admin.courses.detail.groups': {}
+      'admin.courses.detail.groups-empty': {}
+      'admin.courses.detail.manage': {}
+      'admin.courses.detail.rename': {}
+      'admin.courses.detail.rename-description': {}
+      'admin.courses.detail.change-category': {}
+      'admin.courses.detail.change-category-description': {}
+      'admin.courses.detail.delete': {}
+      'admin.courses.detail.delete-description': {}
+      'admin.courses.detail.local-note': {}
+      'admin.courses.form.name-label': {}
+      'admin.courses.form.name-placeholder': {}
+      'admin.courses.form.name-error': {}
+      'admin.courses.form.category-label': {}
+      'admin.courses.create.title': {}
+      'admin.courses.create.description': {}
+      'admin.courses.create.submit': {}
+      'admin.courses.create.error': {}
+      'admin.courses.create.error.validation': {}
+      'admin.courses.create.success-title': {}
+      'admin.courses.create.success-description': {
+        course: DefaultMessageValue
+      }
+      'admin.courses.create.another': {}
+      'admin.courses.rename.title': {}
+      'admin.courses.rename.description': { course: DefaultMessageValue }
+      'admin.courses.rename.description-empty': {}
+      'admin.courses.rename.note': {}
+      'admin.courses.rename.same': {}
+      'admin.courses.rename.submit': {}
+      'admin.courses.rename.result-title': {}
+      'admin.courses.rename.result-description': {}
+      'admin.courses.rename.current': {}
+      'admin.courses.rename.proposed': {}
+      'admin.courses.category.title': {}
+      'admin.courses.category.description': { course: DefaultMessageValue }
+      'admin.courses.category.description-empty': {}
+      'admin.courses.category.note': {}
+      'admin.courses.category.same': {}
+      'admin.courses.category.submit': {}
+      'admin.courses.category.result-title': {}
+      'admin.courses.category.result-description': {}
+      'admin.courses.category.current': {}
+      'admin.courses.category.proposed': {}
+      'admin.courses.delete.title': {}
+      'admin.courses.delete.description': { course: DefaultMessageValue }
+      'admin.courses.delete.description-empty': {}
+      'admin.courses.delete.note': {}
+      'admin.courses.delete.confirm-label': {}
+      'admin.courses.delete.confirm-placeholder': {}
+      'admin.courses.delete.confirm-error': {}
+      'admin.courses.delete.submit': {}
+      'admin.courses.delete.dialog-title': {}
+      'admin.courses.delete.dialog-description': { course: DefaultMessageValue }
+      'admin.courses.delete.dialog-action': {}
+      'admin.courses.delete.result-title': {}
+      'admin.courses.delete.result-description': {}
+      'admin.courses.delete.result-course': {}
+      'admin.courses.categories.title': {}
+      'admin.courses.categories.description': {}
+      'admin.courses.categories.fixed': {}
+      'admin.courses.categories.empty': {}
+      'admin.courses.categories.change': { course: DefaultMessageValue }
       'shop.balance': { count: { __fn: 'number' } }
       'shop.balance.amount': { count: { __fn: 'number' } }
       'shop.reward.back': {}

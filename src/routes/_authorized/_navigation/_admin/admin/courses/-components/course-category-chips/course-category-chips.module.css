@@ -1,0 +1,23 @@
+.chips {
+  --chip-color: var(--muted-foreground);
+
+  display: flex;
+  gap: var(--spacing-xs);
+  padding-bottom: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex-shrink: 0;
+}
+
+.count {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}

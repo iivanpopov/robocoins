@@ -1,5 +1,6 @@
 import { useTranslate } from '@kanjou/react'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
+import { cn } from 'cn'
 
 import { Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
@@ -25,6 +26,18 @@ function AdminGroupsPage() {
         <h1 className={styles.title}>{t('admin.groups.title')}</h1>
         <p className={styles.description}>{t('admin.groups.description')}</p>
       </header>
+
+      <Link to="/admin/courses" className={styles['courses-link']}>
+        <span
+          aria-hidden="true"
+          className={cn('i-ph:books-duotone', styles['courses-link-icon'])}
+        />
+        <span>{t('admin.courses.link')}</span>
+        <span
+          aria-hidden="true"
+          className={cn('i-ph:caret-right-bold', styles['courses-link-caret'])}
+        />
+      </Link>
 
       {state.isPending && <Loader grow />}
       {state.isError && (

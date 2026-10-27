@@ -1204,6 +1204,958 @@ export default {
       "Тут будуть нагороди та категорії."
     ]
   },
+  "admin.courses.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курси"
+    ]
+  },
+  "admin.courses.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Усі курси школи, їхні категорії та групи."
+    ]
+  },
+  "admin.courses.link": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курси"
+    ]
+  },
+  "admin.courses.create": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Створити курс"
+    ]
+  },
+  "admin.courses.categories": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Категорії"
+    ]
+  },
+  "admin.courses.open": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Відкрити курс"
+    ]
+  },
+  "admin.courses.back": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До курсів"
+    ]
+  },
+  "admin.courses.back-to-course": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До курсу"
+    ]
+  },
+  "admin.courses.search.label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Пошук курсів"
+    ]
+  },
+  "admin.courses.search.placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назва курсу або групи"
+    ]
+  },
+  "admin.courses.filter.all": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Усі (",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      },
+      ")"
+    ]
+  },
+  "admin.courses.list.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курсів за вашим запитом не знайдено."
+    ]
+  },
+  "admin.courses.list.empty-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Змініть запит або оберіть іншу категорію."
+    ]
+  },
+  "admin.courses.list.empty-all": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курсів поки немає."
+    ]
+  },
+  "admin.courses.list.empty-all-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Створіть перший курс, щоб додати до нього групи."
+    ]
+  },
+  "admin.courses.groups-count": {
+    "type": "select",
+    "declarations": [
+      {
+        "type": "input",
+        "name": "count",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "count"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "number"
+          }
+        }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "count"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " група"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " групи"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " груп"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " групи"
+        ]
+      }
+    ]
+  },
+  "admin.courses.courses-count": {
+    "type": "select",
+    "declarations": [
+      {
+        "type": "input",
+        "name": "count",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "count"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "number"
+          }
+        }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "count"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " курс"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " курси"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " курсів"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " курсу"
+        ]
+      }
+    ]
+  },
+  "admin.courses.teachers-count": {
+    "type": "select",
+    "declarations": [
+      {
+        "type": "input",
+        "name": "count",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "count"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "number"
+          }
+        }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "count"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " викладач"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " викладачі"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " викладачів"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " викладача"
+        ]
+      }
+    ]
+  },
+  "admin.courses.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити курси."
+    ]
+  },
+  "admin.courses.error.groups": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити групи курсу."
+    ]
+  },
+  "admin.courses.error.unauthorized": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сесія завершилася. Увійдіть знову, щоб продовжити."
+    ]
+  },
+  "admin.courses.error.forbidden": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Недостатньо прав для цієї дії."
+    ]
+  },
+  "admin.courses.error.login": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Увійти"
+    ]
+  },
+  "admin.courses.not-found.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курс не знайдено"
+    ]
+  },
+  "admin.courses.not-found.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Можливо, курс видалено або адресу змінено."
+    ]
+  },
+  "admin.courses.detail.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курс"
+    ]
+  },
+  "admin.courses.detail.category": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Категорія"
+    ]
+  },
+  "admin.courses.detail.groups": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Групи курсу"
+    ]
+  },
+  "admin.courses.detail.groups-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "У курсі ще немає груп."
+    ]
+  },
+  "admin.courses.detail.manage": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Керування курсом"
+    ]
+  },
+  "admin.courses.detail.rename": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перейменувати курс"
+    ]
+  },
+  "admin.courses.detail.rename-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Змінити назву курсу."
+    ]
+  },
+  "admin.courses.detail.change-category": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Змінити категорію"
+    ]
+  },
+  "admin.courses.detail.change-category-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перенести курс в інший напрямок."
+    ]
+  },
+  "admin.courses.detail.delete": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалити курс"
+    ]
+  },
+  "admin.courses.detail.delete-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Прибрати курс зі списку разом із групами."
+    ]
+  },
+  "admin.courses.detail.local-note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ці дії не мають серверних операцій. Форми перевірять дані та покажуть локальний результат без збереження."
+    ]
+  },
+  "admin.courses.form.name-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назва курсу"
+    ]
+  },
+  "admin.courses.form.name-placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Наприклад, Python для початківців"
+    ]
+  },
+  "admin.courses.form.name-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Введіть назву курсу до 200 символів."
+    ]
+  },
+  "admin.courses.form.category-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Категорія"
+    ]
+  },
+  "admin.courses.create.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Новий курс"
+    ]
+  },
+  "admin.courses.create.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Заповніть назву та оберіть категорію."
+    ]
+  },
+  "admin.courses.create.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Створити курс"
+    ]
+  },
+  "admin.courses.create.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося створити курс. Спробуйте ще раз."
+    ]
+  },
+  "admin.courses.create.error.validation": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер відхилив дані курсу. Перевірте назву та категорію."
+    ]
+  },
+  "admin.courses.create.success-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курс створено"
+    ]
+  },
+  "admin.courses.create.success-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курс «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "course"
+        }
+      },
+      "» з’явився у списку."
+    ]
+  },
+  "admin.courses.create.another": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Створити ще"
+    ]
+  },
+  "admin.courses.rename.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перейменування курсу"
+    ]
+  },
+  "admin.courses.rename.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нова назва для курсу «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "course"
+        }
+      },
+      "»."
+    ]
+  },
+  "admin.courses.rename.description-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нова назва для вибраного курсу."
+    ]
+  },
+  "admin.courses.rename.note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Серверна операція перейменування недоступна. Форма покаже локальний результат без зміни курсу."
+    ]
+  },
+  "admin.courses.rename.same": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Введіть нову назву, відмінну від поточної."
+    ]
+  },
+  "admin.courses.rename.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перейменувати"
+    ]
+  },
+  "admin.courses.rename.result-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальний результат"
+    ]
+  },
+  "admin.courses.rename.result-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назву не збережено на сервері. Курс залишиться з попередньою назвою."
+    ]
+  },
+  "admin.courses.rename.current": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Поточна назва"
+    ]
+  },
+  "admin.courses.rename.proposed": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Запропонована назва"
+    ]
+  },
+  "admin.courses.category.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зміна категорії"
+    ]
+  },
+  "admin.courses.category.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нова категорія для курсу «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "course"
+        }
+      },
+      "»."
+    ]
+  },
+  "admin.courses.category.description-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нова категорія для вибраного курсу."
+    ]
+  },
+  "admin.courses.category.note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Серверна операція зміни категорії недоступна. Форма покаже локальний результат без зміни курсу."
+    ]
+  },
+  "admin.courses.category.same": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть іншу категорію, щоб продовжити."
+    ]
+  },
+  "admin.courses.category.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Змінити категорію"
+    ]
+  },
+  "admin.courses.category.result-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальний результат"
+    ]
+  },
+  "admin.courses.category.result-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Категорію не збережено на сервері. Курс залишиться в попередній категорії."
+    ]
+  },
+  "admin.courses.category.current": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Поточна категорія"
+    ]
+  },
+  "admin.courses.category.proposed": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Запропонована категорія"
+    ]
+  },
+  "admin.courses.delete.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалення курсу"
+    ]
+  },
+  "admin.courses.delete.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалення курсу «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "course"
+        }
+      },
+      "»."
+    ]
+  },
+  "admin.courses.delete.description-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалення вибраного курсу."
+    ]
+  },
+  "admin.courses.delete.note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Серверна операція видалення недоступна. Форма перевірить підтвердження та покаже, що курс не видалено."
+    ]
+  },
+  "admin.courses.delete.confirm-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Введіть назву курсу для підтвердження"
+    ]
+  },
+  "admin.courses.delete.confirm-placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назва курсу"
+    ]
+  },
+  "admin.courses.delete.confirm-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назва не збігається з назвою курсу."
+    ]
+  },
+  "admin.courses.delete.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалити курс"
+    ]
+  },
+  "admin.courses.delete.dialog-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердити видалення?"
+    ]
+  },
+  "admin.courses.delete.dialog-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердьте намір видалити курс «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "course"
+        }
+      },
+      "». Оскільки сервер не має видалення, курс залишиться на сервері."
+    ]
+  },
+  "admin.courses.delete.dialog-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердити"
+    ]
+  },
+  "admin.courses.delete.result-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальний результат"
+    ]
+  },
+  "admin.courses.delete.result-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курс не видалено. Серверна операція недоступна, тому список курсів не змінився."
+    ]
+  },
+  "admin.courses.delete.result-course": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курс"
+    ]
+  },
+  "admin.courses.categories.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Категорії курсів"
+    ]
+  },
+  "admin.courses.categories.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Фіксований довідник напрямків і курси в кожному з них."
+    ]
+  },
+  "admin.courses.categories.fixed": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Категорії задає сервер. Створення, перейменування та видалення категорій недоступні."
+    ]
+  },
+  "admin.courses.categories.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курсів у цій категорії немає."
+    ]
+  },
+  "admin.courses.categories.change": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Змінити категорію курсу «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "course"
+        }
+      },
+      "»"
+    ]
+  },
   "shop.balance": {
     "type": "message",
     "declarations": [],
