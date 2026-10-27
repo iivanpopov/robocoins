@@ -564,6 +564,20 @@ export default {
       "Скинути фільтри"
     ]
   },
+  "admin.groups.actions.more": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Більше дій"
+    ]
+  },
+  "admin.learning.create": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Створити"
+    ]
+  },
   "admin.groups.found": {
     "type": "select",
     "declarations": [
@@ -6473,13 +6487,6 @@ export default {
       "Курси"
     ]
   },
-  "admin.courses.description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Усі курси школи, їхні категорії та групи."
-    ]
-  },
   "admin.courses.link": {
     "type": "message",
     "declarations": [],
@@ -7380,13 +7387,6 @@ export default {
     "declarations": [],
     "pattern": [
       "Категорії курсів"
-    ]
-  },
-  "admin.courses.categories.description": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Фіксований довідник напрямків і курси в кожному з них."
     ]
   },
   "admin.courses.categories.fixed": {

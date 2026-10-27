@@ -1,14 +1,7 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
-import {
-  Button,
-  IconButton,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-  Loader,
-} from '#/components/ui'
+import { Button, InputGroup, InputGroupAddon, InputGroupInput, Loader } from '#/components/ui'
 
 import {
   CourseCategoryChips,
@@ -34,16 +27,10 @@ function CoursesPage() {
   return (
     <CoursePageLayout
       title={t('admin.courses.title')}
-      description={t('admin.courses.description')}
-      back={
-        <IconButton nativeButton={false} render={<Link to="/admin" />} title={t('navbar.learning')}>
-          <span aria-hidden="true" className="i-ph:arrow-left" />
-        </IconButton>
-      }
-      actions={
+      headingAction={
         <Button nativeButton={false} render={<Link to="/admin/courses/create" />}>
           <span aria-hidden="true" className="i-ph:plus-bold" />
-          {t('admin.courses.create')}
+          {t('admin.learning.create')}
         </Button>
       }
     >

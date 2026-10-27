@@ -7,6 +7,7 @@ export interface CoursePageLayoutProps {
   title: ReactNode
   description?: ReactNode
   back?: ReactNode
+  headingAction?: ReactNode
   actions?: ReactNode
   children: ReactNode
   className?: string
@@ -16,6 +17,7 @@ export function CoursePageLayout({
   title,
   description,
   back,
+  headingAction,
   actions,
   children,
   className,
@@ -27,9 +29,10 @@ export function CoursePageLayout({
           {back}
           <div className={styles.copy}>
             <h1 className={styles.title}>{title}</h1>
-            {description && <p className={styles.description}>{description}</p>}
           </div>
+          {headingAction && <div className={styles['heading-action']}>{headingAction}</div>}
         </div>
+        {description && <p className={styles.description}>{description}</p>}
       </header>
       {actions && <div className={styles.actions}>{actions}</div>}
       {children}

@@ -1,7 +1,7 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
-import { Button, IconButton, Loader } from '#/components/ui'
+import { Button, Loader } from '#/components/ui'
 import { CategoryIcon } from '#/routes/-components'
 
 import { CoursePageLayout, CourseRequestError } from '../-components'
@@ -22,20 +22,10 @@ function CourseCategoriesPage() {
   return (
     <CoursePageLayout
       title={t('admin.courses.categories.title')}
-      description={t('admin.courses.categories.description')}
-      back={
-        <IconButton
-          nativeButton={false}
-          render={<Link to="/admin/courses" />}
-          title={t('admin.courses.back')}
-        >
-          <span aria-hidden="true" className="i-ph:arrow-left" />
-        </IconButton>
-      }
-      actions={
+      headingAction={
         <Button nativeButton={false} render={<Link to="/admin/courses/categories/create" />}>
           <span aria-hidden="true" className="i-ph:plus-bold" />
-          {t('admin.courses.categories.create')}
+          {t('admin.learning.create')}
         </Button>
       }
     >

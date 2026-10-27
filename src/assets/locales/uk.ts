@@ -61,6 +61,8 @@ export default {
   'admin.groups.filters.teacher-all': 'Усі викладачі',
   'admin.groups.filters.toggle': 'Фільтри',
   'admin.groups.filters.clear': 'Скинути фільтри',
+  'admin.groups.actions.more': 'Більше дій',
+  'admin.learning.create': 'Створити',
   'admin.groups.found': `
     .input {$count :number}
     .match $count
@@ -801,7 +803,6 @@ export default {
   'admin.teachers.result.list': 'До списку викладачів',
   'admin.teachers.result.another': 'Зареєструвати ще одного',
   'admin.courses.title': 'Курси',
-  'admin.courses.description': 'Усі курси школи, їхні категорії та групи.',
   'admin.courses.link': 'Курси',
   'admin.courses.create': 'Створити курс',
   'admin.courses.categories': 'Категорії',
@@ -911,7 +912,6 @@ export default {
     'Курс не видалено. Серверна операція недоступна, тому список курсів не змінився.',
   'admin.courses.delete.result-course': 'Курс',
   'admin.courses.categories.title': 'Категорії курсів',
-  'admin.courses.categories.description': 'Фіксований довідник напрямків і курси в кожному з них.',
   'admin.courses.categories.fixed':
     'Категорії задає сервер. Створення, перейменування та видалення категорій недоступні.',
   'admin.courses.categories.empty': 'Курсів у цій категорії немає.',
