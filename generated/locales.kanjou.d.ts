@@ -765,7 +765,6 @@ declare module '@kanjou/react' {
       'admin.courses.rename.title': {}
       'admin.courses.rename.description': { course: DefaultMessageValue }
       'admin.courses.rename.description-empty': {}
-      'admin.courses.rename.note': {}
       'admin.courses.rename.same': {}
       'admin.courses.rename.submit': {}
       'admin.courses.rename.result-title': {}
@@ -775,7 +774,6 @@ declare module '@kanjou/react' {
       'admin.courses.category.title': {}
       'admin.courses.category.description': { course: DefaultMessageValue }
       'admin.courses.category.description-empty': {}
-      'admin.courses.category.note': {}
       'admin.courses.category.same': {}
       'admin.courses.category.submit': {}
       'admin.courses.category.result-title': {}
@@ -785,7 +783,6 @@ declare module '@kanjou/react' {
       'admin.courses.delete.title': {}
       'admin.courses.delete.description': { course: DefaultMessageValue }
       'admin.courses.delete.description-empty': {}
-      'admin.courses.delete.note': {}
       'admin.courses.delete.confirm-label': {}
       'admin.courses.delete.confirm-placeholder': {}
       'admin.courses.delete.confirm-error': {}
@@ -797,7 +794,6 @@ declare module '@kanjou/react' {
       'admin.courses.delete.result-description': {}
       'admin.courses.delete.result-course': {}
       'admin.courses.categories.title': {}
-      'admin.courses.categories.fixed': {}
       'admin.courses.categories.empty': {}
       'admin.courses.categories.change': { course: DefaultMessageValue }
       'admin.courses.categories.back': {}
@@ -811,7 +807,6 @@ declare module '@kanjou/react' {
       'admin.courses.categories.name-error': {}
       'admin.courses.categories.create.title': {}
       'admin.courses.categories.create.description': {}
-      'admin.courses.categories.create.note': {}
       'admin.courses.categories.create.submit': {}
       'admin.courses.categories.create.another': {}
       'admin.courses.categories.create.result-title': {}
@@ -821,7 +816,6 @@ declare module '@kanjou/react' {
       'admin.courses.categories.rename.description': {
         category: DefaultMessageValue
       }
-      'admin.courses.categories.rename.note': {}
       'admin.courses.categories.rename.submit': {}
       'admin.courses.categories.rename.result-title': {}
       'admin.courses.categories.rename.result-description': {}

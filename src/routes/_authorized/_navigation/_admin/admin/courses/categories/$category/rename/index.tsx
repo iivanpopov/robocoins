@@ -51,7 +51,6 @@ function CategoryRenamePage() {
         <CourseForm
           onSubmit={functions.handleSubmit}
           submitLabel={t('admin.courses.categories.rename.submit')}
-          note={t('admin.courses.categories.rename.note')}
           cancel={
             <Button
               variant="ghost"

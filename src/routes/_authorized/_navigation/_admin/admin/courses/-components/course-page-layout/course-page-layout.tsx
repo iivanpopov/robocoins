@@ -25,7 +25,7 @@ export function CoursePageLayout({
   return (
     <section className={cn(styles.page, className)}>
       <header className={styles.header}>
-        <div className={styles.heading}>
+        <div className={cn(styles.heading, back && !headingAction && styles['heading-split'])}>
           {back}
           <div className={styles.copy}>
             <h1 className={styles.title}>{title}</h1>

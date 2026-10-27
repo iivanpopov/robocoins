@@ -89,7 +89,6 @@ function CourseRenamePage() {
           onSubmit={functions.handleSubmit}
           submitLabel={t('admin.courses.rename.submit')}
           submitDisabled={state.isUnchanged}
-          note={t('admin.courses.rename.note')}
           cancel={
             <Button
               variant="ghost"

@@ -7141,13 +7141,6 @@ export default {
       "Нова назва для вибраного курсу."
     ]
   },
-  "admin.courses.rename.note": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Серверна операція перейменування недоступна. Форма покаже локальний результат без зміни курсу."
-    ]
-  },
   "admin.courses.rename.same": {
     "type": "message",
     "declarations": [],
@@ -7219,13 +7212,6 @@ export default {
       "Нова категорія для вибраного курсу."
     ]
   },
-  "admin.courses.category.note": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Серверна операція зміни категорії недоступна. Форма покаже локальний результат без зміни курсу."
-    ]
-  },
   "admin.courses.category.same": {
     "type": "message",
     "declarations": [],
@@ -7295,13 +7281,6 @@ export default {
     "declarations": [],
     "pattern": [
       "Видалення вибраного курсу."
-    ]
-  },
-  "admin.courses.delete.note": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Серверна операція видалення недоступна. Форма перевірить підтвердження та покаже, що курс не видалено."
     ]
   },
   "admin.courses.delete.confirm-label": {
@@ -7387,13 +7366,6 @@ export default {
     "declarations": [],
     "pattern": [
       "Категорії курсів"
-    ]
-  },
-  "admin.courses.categories.fixed": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Категорії задає сервер. Створення, перейменування та видалення категорій недоступні."
     ]
   },
   "admin.courses.categories.empty": {
@@ -7511,13 +7483,6 @@ export default {
       "Локальна назва нової категорії."
     ]
   },
-  "admin.courses.categories.create.note": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Серверна операція створення категорії недоступна. Форма покаже локальний результат без збереження."
-    ]
-  },
   "admin.courses.categories.create.submit": {
     "type": "message",
     "declarations": [],
@@ -7573,13 +7538,6 @@ export default {
         }
       },
       "»."
-    ]
-  },
-  "admin.courses.categories.rename.note": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Серверна операція перейменування категорії недоступна. Форма покаже локальний результат без збереження."
     ]
   },
   "admin.courses.categories.rename.submit": {

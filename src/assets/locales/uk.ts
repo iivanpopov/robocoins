@@ -873,8 +873,6 @@ export default {
   'admin.courses.rename.title': 'Перейменування курсу',
   'admin.courses.rename.description': 'Нова назва для курсу «{$course}».',
   'admin.courses.rename.description-empty': 'Нова назва для вибраного курсу.',
-  'admin.courses.rename.note':
-    'Серверна операція перейменування недоступна. Форма покаже локальний результат без зміни курсу.',
   'admin.courses.rename.same': 'Введіть нову назву, відмінну від поточної.',
   'admin.courses.rename.submit': 'Перейменувати',
   'admin.courses.rename.result-title': 'Локальний результат',
@@ -885,8 +883,6 @@ export default {
   'admin.courses.category.title': 'Зміна категорії',
   'admin.courses.category.description': 'Нова категорія для курсу «{$course}».',
   'admin.courses.category.description-empty': 'Нова категорія для вибраного курсу.',
-  'admin.courses.category.note':
-    'Серверна операція зміни категорії недоступна. Форма покаже локальний результат без зміни курсу.',
   'admin.courses.category.same': 'Оберіть іншу категорію, щоб продовжити.',
   'admin.courses.category.submit': 'Змінити категорію',
   'admin.courses.category.result-title': 'Локальний результат',
@@ -897,8 +893,6 @@ export default {
   'admin.courses.delete.title': 'Видалення курсу',
   'admin.courses.delete.description': 'Видалення курсу «{$course}».',
   'admin.courses.delete.description-empty': 'Видалення вибраного курсу.',
-  'admin.courses.delete.note':
-    'Серверна операція видалення недоступна. Форма перевірить підтвердження та покаже, що курс не видалено.',
   'admin.courses.delete.confirm-label': 'Введіть назву курсу для підтвердження',
   'admin.courses.delete.confirm-placeholder': 'Назва курсу',
   'admin.courses.delete.confirm-error': 'Назва не збігається з назвою курсу.',
@@ -912,8 +906,6 @@ export default {
     'Курс не видалено. Серверна операція недоступна, тому список курсів не змінився.',
   'admin.courses.delete.result-course': 'Курс',
   'admin.courses.categories.title': 'Категорії курсів',
-  'admin.courses.categories.fixed':
-    'Категорії задає сервер. Створення, перейменування та видалення категорій недоступні.',
   'admin.courses.categories.empty': 'Курсів у цій категорії немає.',
   'admin.courses.categories.change': 'Змінити категорію курсу «{$course}»',
   'admin.courses.categories.back': 'До категорій',
@@ -927,8 +919,6 @@ export default {
   'admin.courses.categories.name-error': 'Введіть назву категорії до 100 символів.',
   'admin.courses.categories.create.title': 'Нова категорія',
   'admin.courses.categories.create.description': 'Локальна назва нової категорії.',
-  'admin.courses.categories.create.note':
-    'Серверна операція створення категорії недоступна. Форма покаже локальний результат без збереження.',
   'admin.courses.categories.create.submit': 'Створити категорію',
   'admin.courses.categories.create.another': 'Створити ще',
   'admin.courses.categories.create.result-title': 'Локальний результат',
@@ -937,8 +927,6 @@ export default {
   'admin.courses.categories.create.result-name': 'Запропонована назва',
   'admin.courses.categories.rename.title': 'Перейменування категорії',
   'admin.courses.categories.rename.description': 'Нова назва для категорії «{$category}».',
-  'admin.courses.categories.rename.note':
-    'Серверна операція перейменування категорії недоступна. Форма покаже локальний результат без збереження.',
   'admin.courses.categories.rename.submit': 'Перейменувати',
   'admin.courses.categories.rename.result-title': 'Локальний результат',
   'admin.courses.categories.rename.result-description':

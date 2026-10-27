@@ -82,7 +82,6 @@ function CourseCategoryPage() {
           onSubmit={functions.handleSubmit}
           submitLabel={t('admin.courses.category.submit')}
           submitDisabled={state.isUnchanged}
-          note={t('admin.courses.category.note')}
           cancel={
             <Button
               variant="ghost"

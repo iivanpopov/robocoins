@@ -96,7 +96,6 @@ function CourseDeletePage() {
           onSubmit={functions.handleSubmit}
           submitLabel={t('admin.courses.delete.submit')}
           submitClassName={styles.danger}
-          note={t('admin.courses.delete.note')}
           cancel={
             <Button
               variant="ghost"

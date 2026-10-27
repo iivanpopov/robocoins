@@ -61,7 +61,6 @@ function CategoryCreatePage() {
         <CourseForm
           onSubmit={functions.handleSubmit}
           submitLabel={t('admin.courses.categories.create.submit')}
-          note={t('admin.courses.categories.create.note')}
           cancel={
             <Button
               variant="ghost"

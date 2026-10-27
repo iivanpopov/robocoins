@@ -11,7 +11,6 @@ export interface CourseFormProps {
   isSubmitting?: boolean
   submitDisabled?: boolean
   submitClassName?: string
-  note?: string
   cancel?: ReactNode
   children: ReactNode
   className?: string
@@ -23,19 +22,12 @@ export function CourseForm({
   isSubmitting,
   submitDisabled,
   submitClassName,
-  note,
   cancel,
   children,
   className,
 }: CourseFormProps) {
   return (
     <form className={cn(styles.form, className)} onSubmit={onSubmit} noValidate>
-      {note && (
-        <p className={styles.note}>
-          <span aria-hidden="true" className="i-ph:info-duotone" />
-          <span>{note}</span>
-        </p>
-      )}
       <div className={styles.fields}>{children}</div>
       <div className={styles.actions}>
         <Button
@@ -47,7 +39,7 @@ export function CourseForm({
           {isSubmitting && <Loader />}
           {submitLabel}
         </Button>
-        {cancel}
+        {cancel && <div className={styles.cancel}>{cancel}</div>}
       </div>
     </form>
   )
