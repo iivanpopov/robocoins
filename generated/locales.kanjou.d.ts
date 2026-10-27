@@ -77,6 +77,64 @@ declare module '@kanjou/react' {
       'students.profile.metrics.courses': {}
       'students.profile.memberships': {}
       'students.profile.memberships.empty': {}
+      'admin.balance.title': {}
+      'admin.balance.back': {}
+      'admin.balance.profile.link': {}
+      'admin.balance.profile.description': {}
+      'admin.balance.coins': { count: { __fn: 'number' } }
+      'admin.balance.summary.title': {}
+      'admin.balance.summary.description': {}
+      'admin.balance.summary.balance': {}
+      'admin.balance.summary.reward': {}
+      'admin.balance.summary.reward-progress': {
+        saved: { __fn: 'number' }
+        price: { __fn: 'number' }
+      }
+      'admin.balance.summary.reward-remaining': {
+        count: { __fn: 'number' }
+        countText: DefaultMessageValue
+      }
+      'admin.balance.summary.reward-ready': {}
+      'admin.balance.summary.reward-none': {}
+      'admin.balance.summary.rank': {}
+      'admin.balance.summary.rank-value': { rank: { __fn: 'number' } }
+      'admin.balance.summary.rank-none': {}
+      'admin.balance.summary.error': {}
+      'admin.balance.operation.title': {}
+      'admin.balance.operation.description': {}
+      'admin.balance.operation.direction': {}
+      'admin.balance.operation.reward': {}
+      'admin.balance.operation.punish': {}
+      'admin.balance.operation.reasons': {}
+      'admin.balance.operation.reasons-empty': {}
+      'admin.balance.operation.reasons-error': {}
+      'admin.balance.operation.submit': {}
+      'admin.balance.operation.success': {}
+      'admin.balance.operation.error': {}
+      'admin.balance.operation.confirm.title': {}
+      'admin.balance.operation.confirm.description': {
+        reasons: DefaultMessageValue
+      }
+      'admin.balance.operation.confirm.action': {}
+      'admin.balance.history.title': {}
+      'admin.balance.history.description': {}
+      'admin.balance.history.loading': {}
+      'admin.balance.history.empty': {}
+      'admin.balance.history.error': {}
+      'admin.balance.history.load-more': {}
+      'admin.balance.history.end': {}
+      'admin.balance.cancel.action': {}
+      'admin.balance.cancel.trigger': { amount: { __fn: 'number' } }
+      'admin.balance.cancel.confirm.title': {}
+      'admin.balance.cancel.confirm.description': { amount: { __fn: 'number' } }
+      'admin.balance.cancel.confirm.action': {}
+      'admin.balance.cancel.success': {}
+      'admin.balance.cancel.error': {}
+      'admin.balance.cancel.already': {}
+      'admin.balance.unknown.title': {}
+      'admin.balance.unknown.change': {}
+      'admin.balance.unknown.cancel': {}
+      'admin.balance.unknown.verify': {}
       'students.register.title': {}
       'students.register.description': {}
       'students.register.name.label': {}

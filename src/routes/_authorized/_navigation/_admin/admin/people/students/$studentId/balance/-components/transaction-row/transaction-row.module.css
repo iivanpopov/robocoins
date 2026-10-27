@@ -1,0 +1,69 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--muted);
+}
+
+.item:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.top {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.amount {
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.deposit {
+  color: var(--green-600);
+}
+
+.deduct {
+  color: var(--error);
+}
+
+.cancelled .amount {
+  color: var(--muted-foreground);
+  text-decoration: line-through;
+}
+
+.date {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 450;
+  color: var(--muted-foreground);
+}
+
+.reasons {
+  font-size: 0.8125rem;
+  font-weight: 450;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+
+.footer {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 1.75rem;
+}
+
+.badge {
+  padding: 0.125rem var(--spacing-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  background: var(--background);
+  border-radius: var(--rounded-full);
+}

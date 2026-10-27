@@ -81,6 +81,73 @@ export default {
   'students.profile.metrics.courses': 'Курси',
   'students.profile.memberships': 'Членство',
   'students.profile.memberships.empty': 'Учень поки не входить до жодної групи.',
+  'admin.balance.title': 'Баланс і історія',
+  'admin.balance.back': 'Назад до профілю',
+  'admin.balance.profile.link': 'Баланс учня',
+  'admin.balance.profile.description': 'Рахунок, прогрес нагороди та історія операцій.',
+  'admin.balance.coins': `
+    .input {$count :number}
+    .match $count
+    one {{робокоїн}}
+    few {{робокоїни}}
+    many {{робокоїнів}}
+    * {{робокоїна}}`,
+  'admin.balance.summary.title': 'Стан учня',
+  'admin.balance.summary.description': 'Поточний баланс, нагорода та місце в рейтингу.',
+  'admin.balance.summary.balance': 'Баланс',
+  'admin.balance.summary.reward': 'Прогрес нагороди',
+  'admin.balance.summary.reward-progress': '{$saved :number} з {$price :number} робокоїнів',
+  'admin.balance.summary.reward-remaining': `
+    .input {$count :number}
+    .local $countText = {$count :string}
+    .match $count
+    one {{Залишився {$countText} робокоїн}}
+    few {{Залишилося {$countText} робокоїни}}
+    many {{Залишилося {$countText} робокоїнів}}
+    * {{Залишилося {$countText} робокоїна}}`,
+  'admin.balance.summary.reward-ready': 'Достатньо робокоїнів для нагороди',
+  'admin.balance.summary.reward-none': 'Нагороду не обрано',
+  'admin.balance.summary.rank': 'Місце в рейтингу',
+  'admin.balance.summary.rank-value': 'Місце {$rank :number}',
+  'admin.balance.summary.rank-none': 'Ще немає місця',
+  'admin.balance.summary.error': 'Не вдалося завантажити стан учня.',
+  'admin.balance.operation.title': 'Змінити баланс',
+  'admin.balance.operation.description':
+    'Оберіть причини. Суму нарахування або списання визначає сервер.',
+  'admin.balance.operation.direction': 'Напрямок операції',
+  'admin.balance.operation.reward': 'Нарахувати',
+  'admin.balance.operation.punish': 'Списати',
+  'admin.balance.operation.reasons': 'Причини',
+  'admin.balance.operation.reasons-empty': 'Немає доступних причин для цього напрямку.',
+  'admin.balance.operation.reasons-error': 'Не вдалося завантажити причини.',
+  'admin.balance.operation.submit': 'Змінити баланс',
+  'admin.balance.operation.success': 'Баланс оновлено.',
+  'admin.balance.operation.error': 'Не вдалося змінити баланс. Перевірте баланс та історію.',
+  'admin.balance.operation.confirm.title': 'Підтвердити списання?',
+  'admin.balance.operation.confirm.description': 'Буде списано робокоїни за причини: {$reasons}.',
+  'admin.balance.operation.confirm.action': 'Списати',
+  'admin.balance.history.title': 'Історія транзакцій',
+  'admin.balance.history.description': 'Останні нарахування та списання цього учня.',
+  'admin.balance.history.loading': 'Завантаження історії…',
+  'admin.balance.history.empty': 'Транзакцій поки немає.',
+  'admin.balance.history.error': 'Не вдалося завантажити історію.',
+  'admin.balance.history.load-more': 'Показати ще',
+  'admin.balance.history.end': 'Це вся історія.',
+  'admin.balance.cancel.action': 'Скасувати',
+  'admin.balance.cancel.trigger': 'Скасувати транзакцію на суму {$amount :number}',
+  'admin.balance.cancel.confirm.title': 'Скасувати транзакцію?',
+  'admin.balance.cancel.confirm.description':
+    'Операцію на суму {$amount :number} буде скасовано, а баланс перераховано.',
+  'admin.balance.cancel.confirm.action': 'Скасувати транзакцію',
+  'admin.balance.cancel.success': 'Транзакцію скасовано.',
+  'admin.balance.cancel.error': 'Не вдалося скасувати транзакцію.',
+  'admin.balance.cancel.already': 'Транзакцію вже скасовано. Історію оновлено.',
+  'admin.balance.unknown.title': 'Результат невідомий',
+  'admin.balance.unknown.change':
+    'Зв’язок урвався до підтвердження. Не повторюйте зміну навмання — перевірте історію.',
+  'admin.balance.unknown.cancel':
+    'Зв’язок урвався до підтвердження. Перевірте історію, перш ніж повторювати скасування.',
+  'admin.balance.unknown.verify': 'Перевірити історію',
   'students.register.title': 'Новий учень',
   'students.register.description': 'Додайте ім’я, аватар і хоча б одну групу.',
   'students.register.name.label': 'Ім’я',

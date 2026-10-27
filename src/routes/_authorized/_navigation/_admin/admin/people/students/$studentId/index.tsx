@@ -1,5 +1,6 @@
 import { useTranslate } from '@kanjou/react'
-import { createFileRoute, notFound } from '@tanstack/react-router'
+import { createFileRoute, Link, notFound } from '@tanstack/react-router'
+import { cn } from 'cn'
 import * as v from 'valibot'
 
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
@@ -95,6 +96,24 @@ function StudentProfilePage() {
               </div>
             </div>
           </article>
+
+          <Link
+            to="/admin/people/students/$studentId/balance"
+            params={{ studentId: state.student.id }}
+            className={styles['balance-link']}
+          >
+            <span aria-hidden="true" className={cn('i-ph:coins-duotone', styles['balance-icon'])} />
+            <span className={styles['balance-details']}>
+              <span className={styles['balance-title']}>{t('admin.balance.profile.link')}</span>
+              <span className={styles['balance-description']}>
+                {t('admin.balance.profile.description')}
+              </span>
+            </span>
+            <span
+              aria-hidden="true"
+              className={cn('i-ph:caret-right-bold', styles['balance-arrow'])}
+            />
+          </Link>
 
           <section className={styles.section}>
             <h2 className={styles['section-title']}>{t('students.profile.memberships')}</h2>
