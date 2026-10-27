@@ -3,6 +3,7 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { cn } from 'cn'
 
 import {
+  Button,
   Chip,
   InputGroup,
   InputGroupAddon,
@@ -33,10 +34,12 @@ function StudentsPage() {
           <h1 className={styles.title}>{t('students.title')}</h1>
           <p className={styles.description}>{t('students.description')}</p>
         </div>
-        <Link to="/admin/people/students/register" className={styles['register-link']}>
-          <span aria-hidden="true" className="i-ph:user-plus-bold" />
-          {t('students.register.action')}
-        </Link>
+        <div className={styles.actions}>
+          <Button nativeButton={false} render={<Link to="/admin/people/students/register" />}>
+            <span aria-hidden="true" className="i-ph:plus-bold" />
+            {t('students.register.action')}
+          </Button>
+        </div>
       </header>
 
       <div className={styles.controls}>

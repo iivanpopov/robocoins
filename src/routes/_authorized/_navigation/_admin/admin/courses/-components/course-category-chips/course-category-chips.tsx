@@ -47,7 +47,7 @@ export function CourseCategoryChips({
         >
           <CategoryIcon category={category} />
           <span>{t('course.category', { category })}</span>
-          {counts && <span className={styles.count}>{counts[category]}</span>}
+          {counts && <span className={styles.count}>({counts[category]})</span>}
         </Chip>
       ))}
     </div>

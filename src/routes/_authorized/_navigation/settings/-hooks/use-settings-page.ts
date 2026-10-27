@@ -57,7 +57,6 @@ export function useSettingsPage() {
     state: {
       user: context.user,
       isStudent,
-      isAdmin: context.user?.role === 'admin',
       isPasswordVisible,
       isLogoutDialogOpen,
       animationsReduced: motionPreference.reducedMotion,

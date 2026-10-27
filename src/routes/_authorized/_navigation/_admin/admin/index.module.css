@@ -44,33 +44,25 @@
   color: var(--muted-foreground);
 }
 
-.courses-link {
-  display: flex;
-  gap: var(--spacing-sm);
-  align-items: center;
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--foreground);
-  background: var(--surface);
-  border-radius: var(--rounded-md);
-}
-
-.courses-link-icon {
-  font-size: 1.25rem;
-  color: var(--muted-foreground);
-}
-
-.courses-link-caret {
-  margin-left: auto;
-  font-size: 1rem;
-  color: var(--muted-foreground);
-}
-
 .controls {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
+}
+
+.search-row {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+}
+
+.search-row > :first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-row > [aria-pressed='true'] {
+  color: var(--brand);
 }
 
 .filters {

@@ -1,5 +1,5 @@
 import { useTranslate } from '@kanjou/react'
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import { cn } from 'cn'
 
 import {
@@ -98,24 +98,6 @@ function SettingsPage() {
           </Field>
         )}
       </section>
-
-      {state.isAdmin && (
-        <section className={styles.section}>
-          <h2 className={styles['section-title']}>{t('settings.section.admin')}</h2>
-          <Link to="/admin/operations" className={styles['admin-link']}>
-            <span aria-hidden="true" className={styles['admin-link-icon']}>
-              <span className="i-ph:arrows-left-right-duotone" />
-            </span>
-            <span className={styles['admin-link-copy']}>
-              <span className={styles['admin-link-title']}>{t('admin.operations.title')}</span>
-              <span className={styles['admin-link-description']}>
-                {t('admin.operations.description')}
-              </span>
-            </span>
-            <span aria-hidden="true" className="i-ph:caret-right-bold" />
-          </Link>
-        </section>
-      )}
 
       <section className={styles.section}>
         <h2 className={styles['section-title']}>{t('settings.section.appearance')}</h2>

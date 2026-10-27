@@ -50,14 +50,11 @@ function CourseCategoriesPage() {
 
       {!state.isPending && !state.isError && (
         <>
-          <p className={styles.note}>
-            <span aria-hidden="true" className="i-ph:lock-simple-duotone" />
-            <span>{t('admin.courses.categories.fixed')}</span>
-          </p>
-
           <div className={styles.summary}>
-            <span>{t('admin.courses.courses-count', { count: state.totalCourses })}</span>
-            <span>{t('admin.courses.groups-count', { count: state.totalGroups })}</span>
+            <span>
+              {t('admin.courses.courses-count', { count: state.totalCourses })},{' '}
+              {t('admin.courses.groups-count', { count: state.totalGroups })}
+            </span>
           </div>
 
           <div className={styles.categories}>
@@ -76,10 +73,8 @@ function CourseCategoriesPage() {
                       {t('course.category', { category: summary.category })}
                     </span>
                     <span className={styles.counts}>
-                      <span>
-                        {t('admin.courses.courses-count', { count: summary.courses.length })}
-                      </span>
-                      <span>{t('admin.courses.groups-count', { count: summary.groupsCount })}</span>
+                      {t('admin.courses.courses-count', { count: summary.courses.length })},{' '}
+                      {t('admin.courses.groups-count', { count: summary.groupsCount })}
                     </span>
                   </span>
                   <span aria-hidden="true" className={styles.caret} />

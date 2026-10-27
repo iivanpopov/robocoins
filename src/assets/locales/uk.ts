@@ -39,6 +39,7 @@ export default {
   'navbar.shop': 'Магазин',
   'navbar.groups': 'Групи',
   'navbar.learning': 'Навчання',
+  'navbar.operations': 'Операції',
   'navbar.people': 'Люди',
   'navbar.catalog': 'Каталог',
   'admin.groups.title': 'Навчання',
@@ -58,6 +59,7 @@ export default {
   'admin.groups.filters.category-all': 'Усі напрямки',
   'admin.groups.filters.teacher': 'Фільтр за викладачем',
   'admin.groups.filters.teacher-all': 'Усі викладачі',
+  'admin.groups.filters.toggle': 'Фільтри',
   'admin.groups.filters.clear': 'Скинути фільтри',
   'admin.groups.found': `
     .input {$count :number}

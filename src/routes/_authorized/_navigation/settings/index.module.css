@@ -35,47 +35,6 @@
   border-radius: var(--rounded-lg);
 }
 
-.admin-link {
-  display: flex;
-  gap: var(--spacing-sm);
-  align-items: center;
-  padding: var(--spacing-md);
-  background: var(--surface);
-  border-radius: var(--rounded-lg);
-}
-
-.admin-link-icon {
-  display: flex;
-  flex: none;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  font-size: 1.25rem;
-  color: var(--brand);
-}
-
-.admin-link-copy {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 0.125rem;
-  min-width: 0;
-}
-
-.admin-link-title {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--foreground);
-}
-
-.admin-link-description {
-  font-size: 0.75rem;
-  font-weight: 450;
-  line-height: 1.4;
-  color: var(--muted-foreground);
-}
-
 .identity-row {
   display: flex;
   gap: var(--spacing-md);

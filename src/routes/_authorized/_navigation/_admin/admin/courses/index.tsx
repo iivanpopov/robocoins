@@ -41,20 +41,10 @@ function CoursesPage() {
         </IconButton>
       }
       actions={
-        <>
-          <Button nativeButton={false} render={<Link to="/admin/courses/create" />}>
-            <span aria-hidden="true" className="i-ph:plus-bold" />
-            {t('admin.courses.create')}
-          </Button>
-          <Button
-            variant="ghost"
-            nativeButton={false}
-            render={<Link to="/admin/courses/categories" />}
-          >
-            <span aria-hidden="true" className="i-ph:shapes-duotone" />
-            {t('admin.courses.categories')}
-          </Button>
-        </>
+        <Button nativeButton={false} render={<Link to="/admin/courses/create" />}>
+          <span aria-hidden="true" className="i-ph:plus-bold" />
+          {t('admin.courses.create')}
+        </Button>
       }
     >
       <div className={styles.controls}>

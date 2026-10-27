@@ -19,6 +19,7 @@ import { Route as AuthRegisterIndexRouteImport } from './../src/routes/_auth/reg
 import { Route as AuthorizedNavigationAdminRouteImport } from './../src/routes/_authorized/_navigation/_admin'
 import { Route as AuthorizedNavigationStudentRouteImport } from './../src/routes/_authorized/_navigation/_student'
 import { Route as AuthorizedNavigationTeacherRouteImport } from './../src/routes/_authorized/_navigation/_teacher'
+import { Route as AuthorizedNavigationAdminAdminRouteRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/route'
 import { Route as AuthorizedNavigationStudentIndexRouteImport } from './../src/routes/_authorized/_navigation/_student/index'
 import { Route as AuthorizedNavigationSettingsIndexRouteImport } from './../src/routes/_authorized/_navigation/settings/index'
 import { Route as AuthorizedTeacherGroupGroupIdRouteImport } from './../src/routes/_authorized/_teacher/group/$groupId'
@@ -120,6 +121,12 @@ const AuthorizedNavigationTeacherRoute =
     id: '/_teacher',
     getParentRoute: () => AuthorizedNavigationRoute,
   } as any)
+const AuthorizedNavigationAdminAdminRouteRoute =
+  AuthorizedNavigationAdminAdminRouteRouteImport.update({
+    id: '/admin',
+    path: '/admin',
+    getParentRoute: () => AuthorizedNavigationAdminRoute,
+  } as any)
 const AuthorizedNavigationStudentIndexRoute =
   AuthorizedNavigationStudentIndexRouteImport.update({
     id: '/',
@@ -146,15 +153,15 @@ const AuthorizedStudentStudentIdIndexRoute =
   } as any)
 const AuthorizedNavigationAdminAdminIndexRoute =
   AuthorizedNavigationAdminAdminIndexRouteImport.update({
-    id: '/admin/',
-    path: '/admin/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminCatalogRouteRoute =
   AuthorizedNavigationAdminAdminCatalogRouteRouteImport.update({
-    id: '/admin/catalog',
-    path: '/admin/catalog',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/catalog',
+    path: '/catalog',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationStudentHistoryIndexRoute =
   AuthorizedNavigationStudentHistoryIndexRouteImport.update({
@@ -188,27 +195,27 @@ const AuthorizedNavigationAdminAdminCatalogIndexRoute =
   } as any)
 const AuthorizedNavigationAdminAdminCoursesIndexRoute =
   AuthorizedNavigationAdminAdminCoursesIndexRouteImport.update({
-    id: '/admin/courses/',
-    path: '/admin/courses/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/courses/',
+    path: '/courses/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminGroupsIndexRoute =
   AuthorizedNavigationAdminAdminGroupsIndexRouteImport.update({
-    id: '/admin/groups/',
-    path: '/admin/groups/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/groups/',
+    path: '/groups/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminOperationsIndexRoute =
   AuthorizedNavigationAdminAdminOperationsIndexRouteImport.update({
-    id: '/admin/operations/',
-    path: '/admin/operations/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/operations/',
+    path: '/operations/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminPeopleIndexRoute =
   AuthorizedNavigationAdminAdminPeopleIndexRouteImport.update({
-    id: '/admin/people/',
-    path: '/admin/people/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/people/',
+    path: '/people/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedTeacherStudentStudentIdEditIndexRoute =
   AuthorizedTeacherStudentStudentIdEditIndexRouteImport.update({
@@ -230,63 +237,63 @@ const AuthorizedNavigationAdminAdminCatalogCreateIndexRoute =
   } as any)
 const AuthorizedNavigationAdminAdminCoursesCourseIdIndexRoute =
   AuthorizedNavigationAdminAdminCoursesCourseIdIndexRouteImport.update({
-    id: '/admin/courses/$courseId/',
-    path: '/admin/courses/$courseId/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/courses/$courseId/',
+    path: '/courses/$courseId/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminCoursesCategoriesIndexRoute =
   AuthorizedNavigationAdminAdminCoursesCategoriesIndexRouteImport.update({
-    id: '/admin/courses/categories/',
-    path: '/admin/courses/categories/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/courses/categories/',
+    path: '/courses/categories/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminCoursesCreateIndexRoute =
   AuthorizedNavigationAdminAdminCoursesCreateIndexRouteImport.update({
-    id: '/admin/courses/create/',
-    path: '/admin/courses/create/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/courses/create/',
+    path: '/courses/create/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminGroupsGroupIdIndexRoute =
   AuthorizedNavigationAdminAdminGroupsGroupIdIndexRouteImport.update({
-    id: '/admin/groups/$groupId/',
-    path: '/admin/groups/$groupId/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/groups/$groupId/',
+    path: '/groups/$groupId/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminGroupsCreateIndexRoute =
   AuthorizedNavigationAdminAdminGroupsCreateIndexRouteImport.update({
-    id: '/admin/groups/create/',
-    path: '/admin/groups/create/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/groups/create/',
+    path: '/groups/create/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminGroupsTeachersIndexRoute =
   AuthorizedNavigationAdminAdminGroupsTeachersIndexRouteImport.update({
-    id: '/admin/groups/teachers/',
-    path: '/admin/groups/teachers/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/groups/teachers/',
+    path: '/groups/teachers/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminOperationsPracticeIndexRoute =
   AuthorizedNavigationAdminAdminOperationsPracticeIndexRouteImport.update({
-    id: '/admin/operations/practice/',
-    path: '/admin/operations/practice/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/operations/practice/',
+    path: '/operations/practice/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminOperationsSettingsIndexRoute =
   AuthorizedNavigationAdminAdminOperationsSettingsIndexRouteImport.update({
-    id: '/admin/operations/settings/',
-    path: '/admin/operations/settings/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/operations/settings/',
+    path: '/operations/settings/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminPeopleStudentsIndexRoute =
   AuthorizedNavigationAdminAdminPeopleStudentsIndexRouteImport.update({
-    id: '/admin/people/students/',
-    path: '/admin/people/students/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/people/students/',
+    path: '/people/students/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminPeopleTeachersIndexRoute =
   AuthorizedNavigationAdminAdminPeopleTeachersIndexRouteImport.update({
-    id: '/admin/people/teachers/',
-    path: '/admin/people/teachers/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/people/teachers/',
+    path: '/people/teachers/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminCatalogRewardIdEditIndexRoute =
   AuthorizedNavigationAdminAdminCatalogRewardIdEditIndexRouteImport.update({
@@ -296,81 +303,81 @@ const AuthorizedNavigationAdminAdminCatalogRewardIdEditIndexRoute =
   } as any)
 const AuthorizedNavigationAdminAdminCoursesCourseIdCategoryIndexRoute =
   AuthorizedNavigationAdminAdminCoursesCourseIdCategoryIndexRouteImport.update({
-    id: '/admin/courses/$courseId/category/',
-    path: '/admin/courses/$courseId/category/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/courses/$courseId/category/',
+    path: '/courses/$courseId/category/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminCoursesCourseIdDeleteIndexRoute =
   AuthorizedNavigationAdminAdminCoursesCourseIdDeleteIndexRouteImport.update({
-    id: '/admin/courses/$courseId/delete/',
-    path: '/admin/courses/$courseId/delete/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/courses/$courseId/delete/',
+    path: '/courses/$courseId/delete/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminCoursesCourseIdRenameIndexRoute =
   AuthorizedNavigationAdminAdminCoursesCourseIdRenameIndexRouteImport.update({
-    id: '/admin/courses/$courseId/rename/',
-    path: '/admin/courses/$courseId/rename/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/courses/$courseId/rename/',
+    path: '/courses/$courseId/rename/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminCoursesCategoriesCreateIndexRoute =
   AuthorizedNavigationAdminAdminCoursesCategoriesCreateIndexRouteImport.update({
-    id: '/admin/courses/categories/create/',
-    path: '/admin/courses/categories/create/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/courses/categories/create/',
+    path: '/courses/categories/create/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminGroupsGroupIdCourseIndexRoute =
   AuthorizedNavigationAdminAdminGroupsGroupIdCourseIndexRouteImport.update({
-    id: '/admin/groups/$groupId/course/',
-    path: '/admin/groups/$groupId/course/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/groups/$groupId/course/',
+    path: '/groups/$groupId/course/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminGroupsGroupIdDeleteIndexRoute =
   AuthorizedNavigationAdminAdminGroupsGroupIdDeleteIndexRouteImport.update({
-    id: '/admin/groups/$groupId/delete/',
-    path: '/admin/groups/$groupId/delete/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/groups/$groupId/delete/',
+    path: '/groups/$groupId/delete/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminGroupsGroupIdRenameIndexRoute =
   AuthorizedNavigationAdminAdminGroupsGroupIdRenameIndexRouteImport.update({
-    id: '/admin/groups/$groupId/rename/',
-    path: '/admin/groups/$groupId/rename/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/groups/$groupId/rename/',
+    path: '/groups/$groupId/rename/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminGroupsGroupIdStudentsIndexRoute =
   AuthorizedNavigationAdminAdminGroupsGroupIdStudentsIndexRouteImport.update({
-    id: '/admin/groups/$groupId/students/',
-    path: '/admin/groups/$groupId/students/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/groups/$groupId/students/',
+    path: '/groups/$groupId/students/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminGroupsGroupIdTeachersIndexRoute =
   AuthorizedNavigationAdminAdminGroupsGroupIdTeachersIndexRouteImport.update({
-    id: '/admin/groups/$groupId/teachers/',
-    path: '/admin/groups/$groupId/teachers/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/groups/$groupId/teachers/',
+    path: '/groups/$groupId/teachers/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminPeopleStudentsStudentIdIndexRoute =
   AuthorizedNavigationAdminAdminPeopleStudentsStudentIdIndexRouteImport.update({
-    id: '/admin/people/students/$studentId/',
-    path: '/admin/people/students/$studentId/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/people/students/$studentId/',
+    path: '/people/students/$studentId/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminPeopleStudentsRegisterIndexRoute =
   AuthorizedNavigationAdminAdminPeopleStudentsRegisterIndexRouteImport.update({
-    id: '/admin/people/students/register/',
-    path: '/admin/people/students/register/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/people/students/register/',
+    path: '/people/students/register/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminPeopleTeachersUserIdIndexRoute =
   AuthorizedNavigationAdminAdminPeopleTeachersUserIdIndexRouteImport.update({
-    id: '/admin/people/teachers/$userId/',
-    path: '/admin/people/teachers/$userId/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/people/teachers/$userId/',
+    path: '/people/teachers/$userId/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminPeopleTeachersRegisterIndexRoute =
   AuthorizedNavigationAdminAdminPeopleTeachersRegisterIndexRouteImport.update({
-    id: '/admin/people/teachers/register/',
-    path: '/admin/people/teachers/register/',
-    getParentRoute: () => AuthorizedNavigationAdminRoute,
+    id: '/people/teachers/register/',
+    path: '/people/teachers/register/',
+    getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
   } as any)
 const AuthorizedTeacherGroupGroupIdStudentStudentIdHistoryIndexRoute =
   AuthorizedTeacherGroupGroupIdStudentStudentIdHistoryIndexRouteImport.update({
@@ -381,89 +388,89 @@ const AuthorizedTeacherGroupGroupIdStudentStudentIdHistoryIndexRoute =
 const AuthorizedNavigationAdminAdminCoursesCategoriesCategoryDeleteIndexRoute =
   AuthorizedNavigationAdminAdminCoursesCategoriesCategoryDeleteIndexRouteImport.update(
     {
-      id: '/admin/courses/categories/$category/delete/',
-      path: '/admin/courses/categories/$category/delete/',
-      getParentRoute: () => AuthorizedNavigationAdminRoute,
+      id: '/courses/categories/$category/delete/',
+      path: '/courses/categories/$category/delete/',
+      getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
     } as any,
   )
 const AuthorizedNavigationAdminAdminCoursesCategoriesCategoryRenameIndexRoute =
   AuthorizedNavigationAdminAdminCoursesCategoriesCategoryRenameIndexRouteImport.update(
     {
-      id: '/admin/courses/categories/$category/rename/',
-      path: '/admin/courses/categories/$category/rename/',
-      getParentRoute: () => AuthorizedNavigationAdminRoute,
+      id: '/courses/categories/$category/rename/',
+      path: '/courses/categories/$category/rename/',
+      getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
     } as any,
   )
 const AuthorizedNavigationAdminAdminPeopleStudentsStudentIdAccessIndexRoute =
   AuthorizedNavigationAdminAdminPeopleStudentsStudentIdAccessIndexRouteImport.update(
     {
-      id: '/admin/people/students/$studentId/access/',
-      path: '/admin/people/students/$studentId/access/',
-      getParentRoute: () => AuthorizedNavigationAdminRoute,
+      id: '/people/students/$studentId/access/',
+      path: '/people/students/$studentId/access/',
+      getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
     } as any,
   )
 const AuthorizedNavigationAdminAdminPeopleStudentsStudentIdBalanceIndexRoute =
   AuthorizedNavigationAdminAdminPeopleStudentsStudentIdBalanceIndexRouteImport.update(
     {
-      id: '/admin/people/students/$studentId/balance/',
-      path: '/admin/people/students/$studentId/balance/',
-      getParentRoute: () => AuthorizedNavigationAdminRoute,
+      id: '/people/students/$studentId/balance/',
+      path: '/people/students/$studentId/balance/',
+      getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
     } as any,
   )
 const AuthorizedNavigationAdminAdminPeopleStudentsStudentIdDeleteIndexRoute =
   AuthorizedNavigationAdminAdminPeopleStudentsStudentIdDeleteIndexRouteImport.update(
     {
-      id: '/admin/people/students/$studentId/delete/',
-      path: '/admin/people/students/$studentId/delete/',
-      getParentRoute: () => AuthorizedNavigationAdminRoute,
+      id: '/people/students/$studentId/delete/',
+      path: '/people/students/$studentId/delete/',
+      getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
     } as any,
   )
 const AuthorizedNavigationAdminAdminPeopleStudentsStudentIdEditIndexRoute =
   AuthorizedNavigationAdminAdminPeopleStudentsStudentIdEditIndexRouteImport.update(
     {
-      id: '/admin/people/students/$studentId/edit/',
-      path: '/admin/people/students/$studentId/edit/',
-      getParentRoute: () => AuthorizedNavigationAdminRoute,
+      id: '/people/students/$studentId/edit/',
+      path: '/people/students/$studentId/edit/',
+      getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
     } as any,
   )
 const AuthorizedNavigationAdminAdminPeopleStudentsStudentIdGroupsIndexRoute =
   AuthorizedNavigationAdminAdminPeopleStudentsStudentIdGroupsIndexRouteImport.update(
     {
-      id: '/admin/people/students/$studentId/groups/',
-      path: '/admin/people/students/$studentId/groups/',
-      getParentRoute: () => AuthorizedNavigationAdminRoute,
+      id: '/people/students/$studentId/groups/',
+      path: '/people/students/$studentId/groups/',
+      getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
     } as any,
   )
 const AuthorizedNavigationAdminAdminPeopleStudentsStudentIdStreakIndexRoute =
   AuthorizedNavigationAdminAdminPeopleStudentsStudentIdStreakIndexRouteImport.update(
     {
-      id: '/admin/people/students/$studentId/streak/',
-      path: '/admin/people/students/$studentId/streak/',
-      getParentRoute: () => AuthorizedNavigationAdminRoute,
+      id: '/people/students/$studentId/streak/',
+      path: '/people/students/$studentId/streak/',
+      getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
     } as any,
   )
 const AuthorizedNavigationAdminAdminPeopleTeachersUserIdAccessIndexRoute =
   AuthorizedNavigationAdminAdminPeopleTeachersUserIdAccessIndexRouteImport.update(
     {
-      id: '/admin/people/teachers/$userId/access/',
-      path: '/admin/people/teachers/$userId/access/',
-      getParentRoute: () => AuthorizedNavigationAdminRoute,
+      id: '/people/teachers/$userId/access/',
+      path: '/people/teachers/$userId/access/',
+      getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
     } as any,
   )
 const AuthorizedNavigationAdminAdminPeopleTeachersUserIdDeleteIndexRoute =
   AuthorizedNavigationAdminAdminPeopleTeachersUserIdDeleteIndexRouteImport.update(
     {
-      id: '/admin/people/teachers/$userId/delete/',
-      path: '/admin/people/teachers/$userId/delete/',
-      getParentRoute: () => AuthorizedNavigationAdminRoute,
+      id: '/people/teachers/$userId/delete/',
+      path: '/people/teachers/$userId/delete/',
+      getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
     } as any,
   )
 const AuthorizedNavigationAdminAdminPeopleTeachersUserIdRenameIndexRoute =
   AuthorizedNavigationAdminAdminPeopleTeachersUserIdRenameIndexRouteImport.update(
     {
-      id: '/admin/people/teachers/$userId/rename/',
-      path: '/admin/people/teachers/$userId/rename/',
-      getParentRoute: () => AuthorizedNavigationAdminRoute,
+      id: '/people/teachers/$userId/rename/',
+      path: '/people/teachers/$userId/rename/',
+      getParentRoute: () => AuthorizedNavigationAdminAdminRouteRoute,
     } as any,
   )
 
@@ -472,6 +479,7 @@ export interface FileRoutesByFullPath {
   '/register': typeof AuthRegisterRouteRouteWithChildren
   '/login/': typeof AuthLoginIndexRoute
   '/register/': typeof AuthRegisterIndexRoute
+  '/admin': typeof AuthorizedNavigationAdminAdminRouteRouteWithChildren
   '/group/$groupId': typeof AuthorizedTeacherGroupGroupIdRoute
   '/settings/': typeof AuthorizedNavigationSettingsIndexRoute
   '/student/$studentId/': typeof AuthorizedStudentStudentIdIndexRoute
@@ -595,6 +603,7 @@ export interface FileRoutesById {
   '/_authorized/_navigation/_teacher': typeof AuthorizedNavigationTeacherRouteWithChildren
   '/_auth/login/': typeof AuthLoginIndexRoute
   '/_auth/register/': typeof AuthRegisterIndexRoute
+  '/_authorized/_navigation/_admin/admin': typeof AuthorizedNavigationAdminAdminRouteRouteWithChildren
   '/_authorized/_teacher/group/$groupId': typeof AuthorizedTeacherGroupGroupIdRoute
   '/_authorized/_navigation/_student/': typeof AuthorizedNavigationStudentIndexRoute
   '/_authorized/_navigation/settings/': typeof AuthorizedNavigationSettingsIndexRoute
@@ -657,6 +666,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/login/'
     | '/register/'
+    | '/admin'
     | '/group/$groupId'
     | '/settings/'
     | '/student/$studentId/'
@@ -779,6 +789,7 @@ export interface FileRouteTypes {
     | '/_authorized/_navigation/_teacher'
     | '/_auth/login/'
     | '/_auth/register/'
+    | '/_authorized/_navigation/_admin/admin'
     | '/_authorized/_teacher/group/$groupId'
     | '/_authorized/_navigation/_student/'
     | '/_authorized/_navigation/settings/'
@@ -912,6 +923,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthorizedNavigationTeacherRouteImport
       parentRoute: typeof AuthorizedNavigationRoute
     }
+    '/_authorized/_navigation/_admin/admin': {
+      id: '/_authorized/_navigation/_admin/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthorizedNavigationAdminAdminRouteRouteImport
+      parentRoute: typeof AuthorizedNavigationAdminRoute
+    }
     '/_authorized/_navigation/_student/': {
       id: '/_authorized/_navigation/_student/'
       path: '/'
@@ -942,17 +960,17 @@ declare module '@tanstack/react-router' {
     }
     '/_authorized/_navigation/_admin/admin/': {
       id: '/_authorized/_navigation/_admin/admin/'
-      path: '/admin'
+      path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/catalog': {
       id: '/_authorized/_navigation/_admin/admin/catalog'
-      path: '/admin/catalog'
+      path: '/catalog'
       fullPath: '/admin/catalog'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminCatalogRouteRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_student/history/': {
       id: '/_authorized/_navigation/_student/history/'
@@ -991,31 +1009,31 @@ declare module '@tanstack/react-router' {
     }
     '/_authorized/_navigation/_admin/admin/courses/': {
       id: '/_authorized/_navigation/_admin/admin/courses/'
-      path: '/admin/courses'
+      path: '/courses'
       fullPath: '/admin/courses/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminCoursesIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/groups/': {
       id: '/_authorized/_navigation/_admin/admin/groups/'
-      path: '/admin/groups'
+      path: '/groups'
       fullPath: '/admin/groups/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminGroupsIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/operations/': {
       id: '/_authorized/_navigation/_admin/admin/operations/'
-      path: '/admin/operations'
+      path: '/operations'
       fullPath: '/admin/operations/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminOperationsIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/people/': {
       id: '/_authorized/_navigation/_admin/admin/people/'
-      path: '/admin/people'
+      path: '/people'
       fullPath: '/admin/people/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminPeopleIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_teacher/student/$studentId/edit/': {
       id: '/_authorized/_teacher/student/$studentId/edit/'
@@ -1040,73 +1058,73 @@ declare module '@tanstack/react-router' {
     }
     '/_authorized/_navigation/_admin/admin/courses/$courseId/': {
       id: '/_authorized/_navigation/_admin/admin/courses/$courseId/'
-      path: '/admin/courses/$courseId'
+      path: '/courses/$courseId'
       fullPath: '/admin/courses/$courseId/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminCoursesCourseIdIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/courses/categories/': {
       id: '/_authorized/_navigation/_admin/admin/courses/categories/'
-      path: '/admin/courses/categories'
+      path: '/courses/categories'
       fullPath: '/admin/courses/categories/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminCoursesCategoriesIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/courses/create/': {
       id: '/_authorized/_navigation/_admin/admin/courses/create/'
-      path: '/admin/courses/create'
+      path: '/courses/create'
       fullPath: '/admin/courses/create/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminCoursesCreateIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/groups/$groupId/': {
       id: '/_authorized/_navigation/_admin/admin/groups/$groupId/'
-      path: '/admin/groups/$groupId'
+      path: '/groups/$groupId'
       fullPath: '/admin/groups/$groupId/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminGroupsGroupIdIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/groups/create/': {
       id: '/_authorized/_navigation/_admin/admin/groups/create/'
-      path: '/admin/groups/create'
+      path: '/groups/create'
       fullPath: '/admin/groups/create/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminGroupsCreateIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/groups/teachers/': {
       id: '/_authorized/_navigation/_admin/admin/groups/teachers/'
-      path: '/admin/groups/teachers'
+      path: '/groups/teachers'
       fullPath: '/admin/groups/teachers/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminGroupsTeachersIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/operations/practice/': {
       id: '/_authorized/_navigation/_admin/admin/operations/practice/'
-      path: '/admin/operations/practice'
+      path: '/operations/practice'
       fullPath: '/admin/operations/practice/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminOperationsPracticeIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/operations/settings/': {
       id: '/_authorized/_navigation/_admin/admin/operations/settings/'
-      path: '/admin/operations/settings'
+      path: '/operations/settings'
       fullPath: '/admin/operations/settings/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminOperationsSettingsIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/people/students/': {
       id: '/_authorized/_navigation/_admin/admin/people/students/'
-      path: '/admin/people/students'
+      path: '/people/students'
       fullPath: '/admin/people/students/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminPeopleStudentsIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/people/teachers/': {
       id: '/_authorized/_navigation/_admin/admin/people/teachers/'
-      path: '/admin/people/teachers'
+      path: '/people/teachers'
       fullPath: '/admin/people/teachers/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminPeopleTeachersIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/catalog/$rewardId/edit/': {
       id: '/_authorized/_navigation/_admin/admin/catalog/$rewardId/edit/'
@@ -1117,94 +1135,94 @@ declare module '@tanstack/react-router' {
     }
     '/_authorized/_navigation/_admin/admin/courses/$courseId/category/': {
       id: '/_authorized/_navigation/_admin/admin/courses/$courseId/category/'
-      path: '/admin/courses/$courseId/category'
+      path: '/courses/$courseId/category'
       fullPath: '/admin/courses/$courseId/category/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminCoursesCourseIdCategoryIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/courses/$courseId/delete/': {
       id: '/_authorized/_navigation/_admin/admin/courses/$courseId/delete/'
-      path: '/admin/courses/$courseId/delete'
+      path: '/courses/$courseId/delete'
       fullPath: '/admin/courses/$courseId/delete/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminCoursesCourseIdDeleteIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/courses/$courseId/rename/': {
       id: '/_authorized/_navigation/_admin/admin/courses/$courseId/rename/'
-      path: '/admin/courses/$courseId/rename'
+      path: '/courses/$courseId/rename'
       fullPath: '/admin/courses/$courseId/rename/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminCoursesCourseIdRenameIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/courses/categories/create/': {
       id: '/_authorized/_navigation/_admin/admin/courses/categories/create/'
-      path: '/admin/courses/categories/create'
+      path: '/courses/categories/create'
       fullPath: '/admin/courses/categories/create/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminCoursesCategoriesCreateIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/groups/$groupId/course/': {
       id: '/_authorized/_navigation/_admin/admin/groups/$groupId/course/'
-      path: '/admin/groups/$groupId/course'
+      path: '/groups/$groupId/course'
       fullPath: '/admin/groups/$groupId/course/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminGroupsGroupIdCourseIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/groups/$groupId/delete/': {
       id: '/_authorized/_navigation/_admin/admin/groups/$groupId/delete/'
-      path: '/admin/groups/$groupId/delete'
+      path: '/groups/$groupId/delete'
       fullPath: '/admin/groups/$groupId/delete/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminGroupsGroupIdDeleteIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/groups/$groupId/rename/': {
       id: '/_authorized/_navigation/_admin/admin/groups/$groupId/rename/'
-      path: '/admin/groups/$groupId/rename'
+      path: '/groups/$groupId/rename'
       fullPath: '/admin/groups/$groupId/rename/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminGroupsGroupIdRenameIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/groups/$groupId/students/': {
       id: '/_authorized/_navigation/_admin/admin/groups/$groupId/students/'
-      path: '/admin/groups/$groupId/students'
+      path: '/groups/$groupId/students'
       fullPath: '/admin/groups/$groupId/students/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminGroupsGroupIdStudentsIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/groups/$groupId/teachers/': {
       id: '/_authorized/_navigation/_admin/admin/groups/$groupId/teachers/'
-      path: '/admin/groups/$groupId/teachers'
+      path: '/groups/$groupId/teachers'
       fullPath: '/admin/groups/$groupId/teachers/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminGroupsGroupIdTeachersIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/people/students/$studentId/': {
       id: '/_authorized/_navigation/_admin/admin/people/students/$studentId/'
-      path: '/admin/people/students/$studentId'
+      path: '/people/students/$studentId'
       fullPath: '/admin/people/students/$studentId/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminPeopleStudentsStudentIdIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/people/students/register/': {
       id: '/_authorized/_navigation/_admin/admin/people/students/register/'
-      path: '/admin/people/students/register'
+      path: '/people/students/register'
       fullPath: '/admin/people/students/register/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminPeopleStudentsRegisterIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/people/teachers/$userId/': {
       id: '/_authorized/_navigation/_admin/admin/people/teachers/$userId/'
-      path: '/admin/people/teachers/$userId'
+      path: '/people/teachers/$userId'
       fullPath: '/admin/people/teachers/$userId/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminPeopleTeachersUserIdIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/people/teachers/register/': {
       id: '/_authorized/_navigation/_admin/admin/people/teachers/register/'
-      path: '/admin/people/teachers/register'
+      path: '/people/teachers/register'
       fullPath: '/admin/people/teachers/register/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminPeopleTeachersRegisterIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_teacher/group/$groupId_/student/$studentId/history/': {
       id: '/_authorized/_teacher/group/$groupId_/student/$studentId/history/'
@@ -1215,80 +1233,80 @@ declare module '@tanstack/react-router' {
     }
     '/_authorized/_navigation/_admin/admin/courses/categories/$category/delete/': {
       id: '/_authorized/_navigation/_admin/admin/courses/categories/$category/delete/'
-      path: '/admin/courses/categories/$category/delete'
+      path: '/courses/categories/$category/delete'
       fullPath: '/admin/courses/categories/$category/delete/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminCoursesCategoriesCategoryDeleteIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/courses/categories/$category/rename/': {
       id: '/_authorized/_navigation/_admin/admin/courses/categories/$category/rename/'
-      path: '/admin/courses/categories/$category/rename'
+      path: '/courses/categories/$category/rename'
       fullPath: '/admin/courses/categories/$category/rename/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminCoursesCategoriesCategoryRenameIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/people/students/$studentId/access/': {
       id: '/_authorized/_navigation/_admin/admin/people/students/$studentId/access/'
-      path: '/admin/people/students/$studentId/access'
+      path: '/people/students/$studentId/access'
       fullPath: '/admin/people/students/$studentId/access/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminPeopleStudentsStudentIdAccessIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/people/students/$studentId/balance/': {
       id: '/_authorized/_navigation/_admin/admin/people/students/$studentId/balance/'
-      path: '/admin/people/students/$studentId/balance'
+      path: '/people/students/$studentId/balance'
       fullPath: '/admin/people/students/$studentId/balance/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminPeopleStudentsStudentIdBalanceIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/people/students/$studentId/delete/': {
       id: '/_authorized/_navigation/_admin/admin/people/students/$studentId/delete/'
-      path: '/admin/people/students/$studentId/delete'
+      path: '/people/students/$studentId/delete'
       fullPath: '/admin/people/students/$studentId/delete/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminPeopleStudentsStudentIdDeleteIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/people/students/$studentId/edit/': {
       id: '/_authorized/_navigation/_admin/admin/people/students/$studentId/edit/'
-      path: '/admin/people/students/$studentId/edit'
+      path: '/people/students/$studentId/edit'
       fullPath: '/admin/people/students/$studentId/edit/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminPeopleStudentsStudentIdEditIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/people/students/$studentId/groups/': {
       id: '/_authorized/_navigation/_admin/admin/people/students/$studentId/groups/'
-      path: '/admin/people/students/$studentId/groups'
+      path: '/people/students/$studentId/groups'
       fullPath: '/admin/people/students/$studentId/groups/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminPeopleStudentsStudentIdGroupsIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/people/students/$studentId/streak/': {
       id: '/_authorized/_navigation/_admin/admin/people/students/$studentId/streak/'
-      path: '/admin/people/students/$studentId/streak'
+      path: '/people/students/$studentId/streak'
       fullPath: '/admin/people/students/$studentId/streak/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminPeopleStudentsStudentIdStreakIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/people/teachers/$userId/access/': {
       id: '/_authorized/_navigation/_admin/admin/people/teachers/$userId/access/'
-      path: '/admin/people/teachers/$userId/access'
+      path: '/people/teachers/$userId/access'
       fullPath: '/admin/people/teachers/$userId/access/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminPeopleTeachersUserIdAccessIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/people/teachers/$userId/delete/': {
       id: '/_authorized/_navigation/_admin/admin/people/teachers/$userId/delete/'
-      path: '/admin/people/teachers/$userId/delete'
+      path: '/people/teachers/$userId/delete'
       fullPath: '/admin/people/teachers/$userId/delete/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminPeopleTeachersUserIdDeleteIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
     '/_authorized/_navigation/_admin/admin/people/teachers/$userId/rename/': {
       id: '/_authorized/_navigation/_admin/admin/people/teachers/$userId/rename/'
-      path: '/admin/people/teachers/$userId/rename'
+      path: '/people/teachers/$userId/rename'
       fullPath: '/admin/people/teachers/$userId/rename/'
       preLoaderRoute: typeof AuthorizedNavigationAdminAdminPeopleTeachersUserIdRenameIndexRouteImport
-      parentRoute: typeof AuthorizedNavigationAdminRoute
+      parentRoute: typeof AuthorizedNavigationAdminAdminRouteRoute
     }
   }
 }
@@ -1340,7 +1358,7 @@ const AuthorizedNavigationAdminAdminCatalogRouteRouteWithChildren =
     AuthorizedNavigationAdminAdminCatalogRouteRouteChildren,
   )
 
-interface AuthorizedNavigationAdminRouteChildren {
+interface AuthorizedNavigationAdminAdminRouteRouteChildren {
   AuthorizedNavigationAdminAdminCatalogRouteRoute: typeof AuthorizedNavigationAdminAdminCatalogRouteRouteWithChildren
   AuthorizedNavigationAdminAdminIndexRoute: typeof AuthorizedNavigationAdminAdminIndexRoute
   AuthorizedNavigationAdminAdminCoursesIndexRoute: typeof AuthorizedNavigationAdminAdminCoursesIndexRoute
@@ -1383,7 +1401,7 @@ interface AuthorizedNavigationAdminRouteChildren {
   AuthorizedNavigationAdminAdminPeopleTeachersUserIdRenameIndexRoute: typeof AuthorizedNavigationAdminAdminPeopleTeachersUserIdRenameIndexRoute
 }
 
-const AuthorizedNavigationAdminRouteChildren: AuthorizedNavigationAdminRouteChildren =
+const AuthorizedNavigationAdminAdminRouteRouteChildren: AuthorizedNavigationAdminAdminRouteRouteChildren =
   {
     AuthorizedNavigationAdminAdminCatalogRouteRoute:
       AuthorizedNavigationAdminAdminCatalogRouteRouteWithChildren,
@@ -1465,6 +1483,21 @@ const AuthorizedNavigationAdminRouteChildren: AuthorizedNavigationAdminRouteChil
       AuthorizedNavigationAdminAdminPeopleTeachersUserIdDeleteIndexRoute,
     AuthorizedNavigationAdminAdminPeopleTeachersUserIdRenameIndexRoute:
       AuthorizedNavigationAdminAdminPeopleTeachersUserIdRenameIndexRoute,
+  }
+
+const AuthorizedNavigationAdminAdminRouteRouteWithChildren =
+  AuthorizedNavigationAdminAdminRouteRoute._addFileChildren(
+    AuthorizedNavigationAdminAdminRouteRouteChildren,
+  )
+
+interface AuthorizedNavigationAdminRouteChildren {
+  AuthorizedNavigationAdminAdminRouteRoute: typeof AuthorizedNavigationAdminAdminRouteRouteWithChildren
+}
+
+const AuthorizedNavigationAdminRouteChildren: AuthorizedNavigationAdminRouteChildren =
+  {
+    AuthorizedNavigationAdminAdminRouteRoute:
+      AuthorizedNavigationAdminAdminRouteRouteWithChildren,
   }
 
 const AuthorizedNavigationAdminRouteWithChildren =

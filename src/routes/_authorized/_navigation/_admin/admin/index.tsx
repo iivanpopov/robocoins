@@ -1,9 +1,15 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import { courseCategory } from '#/api/types'
-import { Button, InputGroup, InputGroupAddon, InputGroupInput, Loader } from '#/components/ui'
+import {
+  Button,
+  IconButton,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  Loader,
+} from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 
 import { AdminGroupRow, AdminSelect } from './-components'
@@ -64,55 +70,56 @@ function AdminGroupsPage() {
         </div>
       </header>
 
-      <Link to="/admin/courses" className={styles['courses-link']}>
-        <span
-          aria-hidden="true"
-          className={cn('i-ph:books-duotone', styles['courses-link-icon'])}
-        />
-        <span>{t('admin.courses.link')}</span>
-        <span
-          aria-hidden="true"
-          className={cn('i-ph:caret-right-bold', styles['courses-link-caret'])}
-        />
-      </Link>
-
       <div className={styles.controls}>
-        <InputGroup>
-          <InputGroupAddon aria-hidden="true">
-            <span className="i-ph:magnifying-glass" />
-          </InputGroupAddon>
-          <InputGroupInput
-            type="search"
-            value={state.query}
-            onChange={(event) => functions.handleQueryChange(event.target.value)}
-            placeholder={t('admin.groups.search.placeholder')}
-            aria-label={t('admin.groups.search.label')}
-            autoComplete="off"
-          />
-        </InputGroup>
-        <div className={styles.filters}>
-          <AdminSelect
-            value={state.courseFilter}
-            onValueChange={functions.handleCourseFilterChange}
-            items={courseItems}
-            placeholder={t('admin.groups.filters.course-all')}
-            ariaLabel={t('admin.groups.filters.course')}
-          />
-          <AdminSelect
-            value={state.categoryFilter}
-            onValueChange={functions.handleCategoryFilterChange}
-            items={categoryItems}
-            placeholder={t('admin.groups.filters.category-all')}
-            ariaLabel={t('admin.groups.filters.category')}
-          />
-          <AdminSelect
-            value={state.teacherFilter}
-            onValueChange={functions.handleTeacherFilterChange}
-            items={teacherItems}
-            placeholder={t('admin.groups.filters.teacher-all')}
-            ariaLabel={t('admin.groups.filters.teacher')}
-          />
+        <div className={styles['search-row']}>
+          <InputGroup>
+            <InputGroupAddon aria-hidden="true">
+              <span className="i-ph:magnifying-glass" />
+            </InputGroupAddon>
+            <InputGroupInput
+              type="search"
+              value={state.query}
+              onChange={(event) => functions.handleQueryChange(event.target.value)}
+              placeholder={t('admin.groups.search.placeholder')}
+              aria-label={t('admin.groups.search.label')}
+              autoComplete="off"
+            />
+          </InputGroup>
+          <IconButton
+            aria-label={t('admin.groups.filters.toggle')}
+            title={t('admin.groups.filters.toggle')}
+            aria-expanded={state.isFiltersOpen}
+            aria-pressed={state.isFiltersOpen}
+            onClick={functions.handleFiltersToggle}
+          >
+            <span aria-hidden="true" className="i-ph:funnel-duotone" />
+          </IconButton>
         </div>
+        {state.isFiltersOpen && (
+          <div className={styles.filters}>
+            <AdminSelect
+              value={state.courseFilter}
+              onValueChange={functions.handleCourseFilterChange}
+              items={courseItems}
+              placeholder={t('admin.groups.filters.course-all')}
+              ariaLabel={t('admin.groups.filters.course')}
+            />
+            <AdminSelect
+              value={state.categoryFilter}
+              onValueChange={functions.handleCategoryFilterChange}
+              items={categoryItems}
+              placeholder={t('admin.groups.filters.category-all')}
+              ariaLabel={t('admin.groups.filters.category')}
+            />
+            <AdminSelect
+              value={state.teacherFilter}
+              onValueChange={functions.handleTeacherFilterChange}
+              items={teacherItems}
+              placeholder={t('admin.groups.filters.teacher-all')}
+              ariaLabel={t('admin.groups.filters.teacher')}
+            />
+          </div>
+        )}
         <div className={styles.summary}>
           <span>{t('admin.groups.found', { count: state.foundCount })}</span>
           {state.hasFilters && (

@@ -1,22 +1,3 @@
-.note {
-  display: flex;
-  gap: var(--spacing-sm);
-  align-items: flex-start;
-  padding: var(--spacing-md);
-  font-size: 0.8125rem;
-  font-weight: 450;
-  line-height: 1.45;
-  color: var(--muted-foreground);
-  background: var(--surface);
-  border-radius: var(--rounded-md);
-}
-
-.note > [aria-hidden='true'] {
-  flex-shrink: 0;
-  font-size: 1.125rem;
-  color: var(--muted-foreground);
-}
-
 .summary {
   display: flex;
   flex-wrap: wrap;

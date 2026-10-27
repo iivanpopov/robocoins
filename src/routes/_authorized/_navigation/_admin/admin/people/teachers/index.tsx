@@ -22,7 +22,7 @@ function TeachersPage() {
   return (
     <section className={styles.page}>
       <header className={styles.header}>
-        <div className={styles['header-actions']}>
+        <div className={styles.heading}>
           <IconButton
             nativeButton={false}
             render={<Link to="/admin/people" />}
@@ -31,14 +31,16 @@ function TeachersPage() {
           >
             <span aria-hidden="true" className="i-ph:arrow-left" />
           </IconButton>
+          <div className={styles['header-text']}>
+            <h1 className={styles.title}>{t('admin.teachers.title')}</h1>
+            <p className={styles.description}>{t('admin.teachers.description')}</p>
+          </div>
+        </div>
+        <div className={styles['header-actions']}>
           <Button type="button" onClick={functions.handleRegister}>
             <span aria-hidden="true" className="i-ph:plus-bold" />
             {t('admin.teachers.register')}
           </Button>
-        </div>
-        <div className={styles['header-text']}>
-          <h1 className={styles.title}>{t('admin.teachers.title')}</h1>
-          <p className={styles.description}>{t('admin.teachers.description')}</p>
         </div>
       </header>
 

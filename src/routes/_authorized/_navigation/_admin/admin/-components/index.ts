@@ -1,4 +1,5 @@
 export * from './admin-group-row'
+export * from './admin-learning-nav'
 export * from './admin-select'
 export * from './api-error-notice'
 export * from './membership-result-panel'

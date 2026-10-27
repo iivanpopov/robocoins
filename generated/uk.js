@@ -410,6 +410,13 @@ export default {
       "Навчання"
     ]
   },
+  "navbar.operations": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Операції"
+    ]
+  },
   "navbar.people": {
     "type": "message",
     "declarations": [],
@@ -541,6 +548,13 @@ export default {
     "declarations": [],
     "pattern": [
       "Усі викладачі"
+    ]
+  },
+  "admin.groups.filters.toggle": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Фільтри"
     ]
   },
   "admin.groups.filters.clear": {

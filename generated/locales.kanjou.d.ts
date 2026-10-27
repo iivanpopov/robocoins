@@ -41,6 +41,7 @@ declare module '@kanjou/react' {
       'navbar.shop': {}
       'navbar.groups': {}
       'navbar.learning': {}
+      'navbar.operations': {}
       'navbar.people': {}
       'navbar.catalog': {}
       'admin.groups.title': {}
@@ -60,6 +61,7 @@ declare module '@kanjou/react' {
       'admin.groups.filters.category-all': {}
       'admin.groups.filters.teacher': {}
       'admin.groups.filters.teacher-all': {}
+      'admin.groups.filters.toggle': {}
       'admin.groups.filters.clear': {}
       'admin.groups.found': { count: { __fn: 'number' } }
       'admin.groups.empty-filtered': {}

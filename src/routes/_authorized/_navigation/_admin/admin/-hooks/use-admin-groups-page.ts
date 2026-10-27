@@ -22,6 +22,7 @@ export function useAdminGroupsPage() {
   const [courseFilter, setCourseFilter] = useState(GROUP_FILTER_ALL)
   const [categoryFilter, setCategoryFilter] = useState<string>(GROUP_FILTER_ALL)
   const [teacherFilter, setTeacherFilter] = useState(GROUP_FILTER_ALL)
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false)
 
   const coursesQuery = useGetCoursesCourseGet()
   const usersQuery = useGetUsersUsersGet()
@@ -48,13 +49,16 @@ export function useAdminGroupsPage() {
     setTeacherFilter(value)
   }
 
+  function handleFiltersToggle() {
+    setIsFiltersOpen((value) => !value)
+  }
+
   function handleClearFilters() {
     setQuery('')
     setCourseFilter(GROUP_FILTER_ALL)
     setCategoryFilter(GROUP_FILTER_ALL)
     setTeacherFilter(GROUP_FILTER_ALL)
   }
-
   function handleRetry() {
     if (coursesQuery.isError && !coursesQuery.isFetching) void coursesQuery.refetch()
     if (usersQuery.isError && !usersQuery.isFetching) void usersQuery.refetch()
@@ -163,6 +167,7 @@ export function useAdminGroupsPage() {
       courseFilter,
       categoryFilter,
       teacherFilter,
+      isFiltersOpen,
       groups,
       courses: coursesQuery.data ?? [],
       teacherOptions,
@@ -183,6 +188,7 @@ export function useAdminGroupsPage() {
       handleCourseFilterChange,
       handleCategoryFilterChange,
       handleTeacherFilterChange,
+      handleFiltersToggle,
       handleClearFilters,
       handleRetry,
     },

@@ -17,10 +17,15 @@ interface NavigationItem {
 
 const NAVIGATION_ITEMS = {
   admin: [
+    { to: '/settings', icon: 'i-ph:gear-bold', label: 'navbar.settings' },
+    {
+      to: '/admin/operations',
+      icon: 'i-ph:arrows-left-right-bold',
+      label: 'navbar.operations',
+    },
     { to: '/admin', icon: 'i-ph:graduation-cap-bold', label: 'navbar.learning' },
     { to: '/admin/people', icon: 'i-ph:users-three-bold', label: 'navbar.people' },
     { to: '/admin/catalog', icon: 'i-ph:storefront-bold', label: 'navbar.catalog' },
-    { to: '/settings', icon: 'i-ph:gear-bold', label: 'navbar.settings' },
   ],
   teacher: [
     { to: '/settings', icon: 'i-ph:gear', label: 'navbar.settings' },
