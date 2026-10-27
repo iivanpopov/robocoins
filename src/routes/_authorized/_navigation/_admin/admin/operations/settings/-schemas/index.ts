@@ -1,5 +1,6 @@
 import * as v from 'valibot'
 
+import { isValidTariffValue } from '../-utils'
 import {
   AMOUNT_INPUT_MAX_LENGTH,
   EXPLANATION_MAX_LENGTH,
@@ -8,7 +9,6 @@ import {
 } from '../../-constants'
 
 const AmountPattern = /^\d+([.,]\d{1,2})?$/
-const TariffPattern = /^\d+([.,]\d{1,2})?$/
 
 export const CorrectionStateSchema = v.object({
   studentId: v.pipe(v.string(), v.regex(/^\d+$/)),
@@ -34,7 +34,7 @@ export const TariffStateSchema = v.object({
       v.string(),
       v.trim(),
       v.maxLength(TARIFF_INPUT_MAX_LENGTH),
-      v.check((value) => !value || TariffPattern.test(value)),
+      v.check((value) => isValidTariffValue(value)),
     ),
   ),
 })

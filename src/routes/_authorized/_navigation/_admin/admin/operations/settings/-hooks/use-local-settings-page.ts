@@ -1,3 +1,4 @@
+import { useTranslate } from '@kanjou/react'
 import { useForm, useSelector } from '@tanstack/react-form'
 import type { SyntheticEvent } from 'react'
 import { useState } from 'react'
@@ -8,6 +9,7 @@ import { UKRAINIAN_LOCALE } from '#/routes/-constants'
 import { getApiErrorKind } from '#/routes/_authorized/_navigation/_admin/admin/-utils'
 
 import { CorrectionStateSchema, TariffStateSchema } from '../-schemas'
+import { getInvalidTariffReasonKeys } from '../-utils'
 import type { LocalCorrectionDraft, LocalTariffDraft } from '../../-types'
 
 interface CorrectionValues {
@@ -23,6 +25,8 @@ interface TariffValues {
 export function useLocalSettingsPage() {
   const [correctionDraft, setCorrectionDraft] = useState<LocalCorrectionDraft | null>(null)
   const [tariffDraft, setTariffDraft] = useState<LocalTariffDraft | null>(null)
+
+  const t = useTranslate()
 
   const studentsQuery = useGetAllStudentsStudentGet()
   const reasonsQuery = useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet()
@@ -61,6 +65,7 @@ export function useLocalSettingsPage() {
     },
     onSubmit: ({ value }) => {
       const reasonCount = Object.values(value.tariffs).filter((tariff) => !!tariff).length
+      if (!reasonCount) return
       setTariffDraft({ reasonCount })
     },
   })
@@ -80,6 +85,7 @@ export function useLocalSettingsPage() {
 
   function handleTariffSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
+    if (!configuredTariffCount) return
     void tariffForm.handleSubmit()
   }
 
@@ -105,21 +111,28 @@ export function useLocalSettingsPage() {
   const students = (studentsQuery.data ?? []).toSorted((first, second) =>
     first.name.localeCompare(second.name, UKRAINIAN_LOCALE),
   )
+  const studentItems = students.map((student) => ({
+    value: String(student.id),
+    label: `${student.name} · ${t('admin.balance.coins', { count: student.balance })}`,
+  }))
   const selectedStudent =
     students.find((student) => String(student.id) === correctionValues.studentId) ?? null
   const reasons = reasonsQuery.data?.reasons ?? []
   const configuredTariffCount = Object.values(tariffValues).filter((tariff) => !!tariff).length
+  const invalidTariffReasonKeys = getInvalidTariffReasonKeys(tariffValues)
   const studentsErrorKind = studentsQuery.error ? getApiErrorKind(studentsQuery.error) : null
   const reasonsErrorKind = reasonsQuery.error ? getApiErrorKind(reasonsQuery.error) : null
 
   return {
     state: {
       students,
+      studentItems,
       selectedStudent,
       correctionDraft,
       tariffDraft,
       reasons,
       configuredTariffCount,
+      invalidTariffReasonKeys,
       studentsIsPending: studentsQuery.isPending,
       studentsIsError: studentsQuery.isError,
       studentsErrorKind,

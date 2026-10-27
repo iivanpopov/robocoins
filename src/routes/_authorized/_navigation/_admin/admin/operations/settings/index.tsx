@@ -42,11 +42,6 @@ function LocalSettingsPage() {
 
   const t = useTranslate()
 
-  const studentItems = state.students.map((student) => ({
-    value: String(student.id),
-    label: `${student.name} · ${t('admin.balance.coins', { count: student.balance })}`,
-  }))
-
   return (
     <section className={styles.page}>
       <header className={styles.header}>
@@ -100,7 +95,7 @@ function LocalSettingsPage() {
                     id="operations-correction-student"
                     value={field.state.value}
                     onValueChange={field.handleChange}
-                    items={studentItems}
+                    items={state.studentItems}
                     placeholder={t('admin.operations.settings.correction.student-placeholder')}
                     ariaLabel={t('admin.operations.settings.correction.student')}
                     disabled={!state.students.length}
@@ -242,34 +237,48 @@ function LocalSettingsPage() {
                 <features.tariffForm.Field name="tariffs">
                   {(field) => (
                     <div className={styles.reasons}>
-                      {state.reasons.map((reason) => (
-                        <div key={reason.reason} className={styles.reason}>
-                          <div className={styles['reason-copy']}>
-                            <span className={styles['reason-name']}>
-                              {t.unsafe(`reason.${reason.reason}`)}
-                            </span>
-                            <span className={styles['reason-type']}>
-                              {t.unsafe(`admin.operations.direction.${reason.type}`)}
-                            </span>
+                      {state.reasons.map((reason) => {
+                        const isInvalidTariff = state.invalidTariffReasonKeys.includes(
+                          reason.reason,
+                        )
+
+                        return (
+                          <div key={reason.reason} className={styles.reason}>
+                            <div className={styles['reason-copy']}>
+                              <span className={styles['reason-name']}>
+                                {t.unsafe(`reason.${reason.reason}`)}
+                              </span>
+                              <span className={styles['reason-type']}>
+                                {t.unsafe(`admin.operations.direction.${reason.type}`)}
+                              </span>
+                            </div>
+                            <div className={styles['reason-field']}>
+                              <Input
+                                value={field.state.value[reason.reason] ?? ''}
+                                inputMode="decimal"
+                                maxLength={TARIFF_INPUT_MAX_LENGTH}
+                                placeholder={t('admin.operations.settings.tariffs.placeholder')}
+                                aria-label={t('admin.operations.settings.tariffs.input-label', {
+                                  reason: t.unsafe(`reason.${reason.reason}`),
+                                })}
+                                aria-invalid={isInvalidTariff}
+                                onChange={(event) =>
+                                  field.handleChange({
+                                    ...field.state.value,
+                                    [reason.reason]: event.target.value,
+                                  })
+                                }
+                                onBlur={field.handleBlur}
+                              />
+                              {isInvalidTariff && (
+                                <p className={styles.validation}>
+                                  {t('admin.operations.settings.tariffs.validation')}
+                                </p>
+                              )}
+                            </div>
                           </div>
-                          <Input
-                            value={field.state.value[reason.reason] ?? ''}
-                            inputMode="decimal"
-                            maxLength={TARIFF_INPUT_MAX_LENGTH}
-                            placeholder={t('admin.operations.settings.tariffs.placeholder')}
-                            aria-label={t('admin.operations.settings.tariffs.input-label', {
-                              reason: t.unsafe(`reason.${reason.reason}`),
-                            })}
-                            onChange={(event) =>
-                              field.handleChange({
-                                ...field.state.value,
-                                [reason.reason]: event.target.value,
-                              })
-                            }
-                            onBlur={field.handleBlur}
-                          />
-                        </div>
-                      ))}
+                        )
+                      })}
                     </div>
                   )}
                 </features.tariffForm.Field>
@@ -283,7 +292,9 @@ function LocalSettingsPage() {
                 )}
 
                 <div className={styles.actions}>
-                  <Button type="submit">{t('admin.operations.settings.tariffs.submit')}</Button>
+                  <Button type="submit" disabled={!state.configuredTariffCount}>
+                    {t('admin.operations.settings.tariffs.submit')}
+                  </Button>
                   <Button type="button" variant="ghost" onClick={functions.handleTariffReset}>
                     {t('admin.operations.settings.reset')}
                   </Button>

@@ -41,7 +41,6 @@ export default {
   'navbar.learning': 'Навчання',
   'navbar.people': 'Люди',
   'navbar.catalog': 'Каталог',
-  'navbar.operations': 'Операції',
   'admin.groups.title': 'Навчання',
   'admin.groups.description': 'Усі групи школи, курси та викладачі.',
   'admin.groups.empty': 'Груп поки немає.',
@@ -623,6 +622,8 @@ export default {
   'admin.operations.settings.tariffs.empty': 'Сервер не повернув причин.',
   'admin.operations.settings.tariffs.placeholder': 'Тариф',
   'admin.operations.settings.tariffs.input-label': 'Тариф для причини {$reason}',
+  'admin.operations.settings.tariffs.validation':
+    'Вкажіть число з точністю до сотих або залиште поле порожнім.',
   'admin.operations.settings.tariffs.configured': 'Заповнено тарифів: {$count :number}',
   'admin.operations.settings.tariffs.submit': 'Зберегти чернетку',
   'admin.operations.settings.tariffs.note':
@@ -1077,6 +1078,7 @@ export default {
   'shop.view.list': 'Список',
   'settings.password': 'Пароль',
   'settings.section.account': 'Обліковий запис',
+  'settings.section.admin': 'Адміністрування',
   'settings.account.name': 'Ім’я',
   'settings.account.role': 'Роль',
   'role.student': 'Учень',

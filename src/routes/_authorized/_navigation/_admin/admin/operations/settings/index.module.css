@@ -137,8 +137,15 @@
   color: var(--muted-foreground);
 }
 
-.reason > input {
+.reason-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
   width: 7rem;
+}
+
+.reason-field > input {
+  width: 100%;
 }
 
 .draft {

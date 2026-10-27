@@ -424,13 +424,6 @@ export default {
       "Каталог"
     ]
   },
-  "navbar.operations": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Операції"
-    ]
-  },
   "admin.groups.title": {
     "type": "message",
     "declarations": [],
@@ -5225,6 +5218,13 @@ export default {
       }
     ]
   },
+  "admin.operations.settings.tariffs.validation": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вкажіть число з точністю до сотих або залиште поле порожнім."
+    ]
+  },
   "admin.operations.settings.tariffs.configured": {
     "type": "message",
     "declarations": [],
@@ -8513,6 +8513,13 @@ export default {
     "declarations": [],
     "pattern": [
       "Обліковий запис"
+    ]
+  },
+  "settings.section.admin": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Адміністрування"
     ]
   },
   "settings.account.name": {

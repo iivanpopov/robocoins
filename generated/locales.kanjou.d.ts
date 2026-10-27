@@ -43,7 +43,6 @@ declare module '@kanjou/react' {
       'navbar.learning': {}
       'navbar.people': {}
       'navbar.catalog': {}
-      'navbar.operations': {}
       'admin.groups.title': {}
       'admin.groups.description': {}
       'admin.groups.empty': {}
@@ -550,6 +549,7 @@ declare module '@kanjou/react' {
       'admin.operations.settings.tariffs.input-label': {
         reason: DefaultMessageValue
       }
+      'admin.operations.settings.tariffs.validation': {}
       'admin.operations.settings.tariffs.configured': {
         count: { __fn: 'number' }
       }
@@ -955,6 +955,7 @@ declare module '@kanjou/react' {
       'shop.view.list': {}
       'settings.password': {}
       'settings.section.account': {}
+      'settings.section.admin': {}
       'settings.account.name': {}
       'settings.account.role': {}
       'role.student': {}
