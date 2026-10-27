@@ -21,12 +21,12 @@ import {
   IconButton,
   Loader,
 } from '#/components/ui'
+import { getStudentTransactionsQueryOptions } from '#/routes/_authorized/_navigation/_admin/admin/-utils'
 
 import { ApiErrorNotice } from '../../-components'
 import { CancelTransactionDialog, TransactionRow } from './-components'
 import { BalanceMutationKind, BalanceDirection } from './-constants'
 import { useStudentBalancePage } from './-hooks'
-import { getStudentTransactionsQueryOptions } from './-utils'
 
 import styles from './index.module.css'
 

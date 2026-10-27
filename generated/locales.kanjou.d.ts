@@ -402,6 +402,151 @@ declare module '@kanjou/react' {
       'admin.streak.error.forbidden': {}
       'admin.streak.error.not-found': {}
       'admin.streak.error.validation': {}
+      'admin.api-error.session': {}
+      'admin.api-error.forbidden': {}
+      'admin.api-error.login': {}
+      'admin.operations.title': {}
+      'admin.operations.description': {}
+      'admin.operations.back': {}
+      'admin.operations.links.label': {}
+      'admin.operations.links.practice': {}
+      'admin.operations.links.practice-description': {}
+      'admin.operations.links.settings': {}
+      'admin.operations.links.settings-description': {}
+      'admin.operations.bulk.title': {}
+      'admin.operations.bulk.description': {}
+      'admin.operations.bulk.submit': {}
+      'admin.operations.students.error': {}
+      'admin.operations.students.empty': {}
+      'admin.operations.students.empty-filtered': {}
+      'admin.operations.students.search-placeholder': {}
+      'admin.operations.students.search-label': {}
+      'admin.operations.students.found': { count: { __fn: 'number' } }
+      'admin.operations.students.selected': { count: { __fn: 'number' } }
+      'admin.operations.students.select-found': {}
+      'admin.operations.students.clear': {}
+      'admin.operations.student-fallback': { id: { __fn: 'number' } }
+      'admin.operations.reasons.error': {}
+      'admin.operations.direction.label': {}
+      'admin.operations.direction.reward': {}
+      'admin.operations.direction.punish': {}
+      'admin.operations.result.title': {}
+      'admin.operations.result.description': {}
+      'admin.operations.result.success': {}
+      'admin.operations.result.failure': {}
+      'admin.operations.result.unknown': {}
+      'admin.operations.result.pending': {}
+      'admin.operations.result.processing': {}
+      'admin.operations.result.new-balance': { count: { __fn: 'number' } }
+      'admin.operations.result.open-history': {}
+      'admin.operations.result.retryable': {}
+      'admin.operations.result.unknown-description': {}
+      'admin.operations.result.checking': {}
+      'admin.operations.result.check-again': {}
+      'admin.operations.result.history-checked': {}
+      'admin.operations.result.success-count': { count: { __fn: 'number' } }
+      'admin.operations.result.failure-count': { count: { __fn: 'number' } }
+      'admin.operations.result.unknown-count': { count: { __fn: 'number' } }
+      'admin.operations.result.running': { pending: { __fn: 'number' } }
+      'admin.operations.result.unknown-blocked': {}
+      'admin.operations.result.unknown-note': {}
+      'admin.operations.result.refresh-error': {}
+      'admin.operations.result.retry': { count: { __fn: 'number' } }
+      'admin.operations.result.no-retry': {}
+      'admin.operations.result.error': {}
+      'admin.operations.result.error.session': {}
+      'admin.operations.result.error.forbidden': {}
+      'admin.operations.result.error.not-found': {}
+      'admin.operations.result.error.conflict': {}
+      'admin.operations.result.error.validation': {}
+      'admin.operations.confirm.title': {}
+      'admin.operations.confirm.description': {
+        count: { __fn: 'number' }
+        reasons: { __fn: 'string' }
+      }
+      'admin.operations.confirm.retry-description': {
+        count: { __fn: 'number' }
+      }
+      'admin.operations.confirm.action': {}
+      'admin.operations.confirm.retry-action': {}
+      'admin.operations.practice.back': {}
+      'admin.operations.practice.title': {}
+      'admin.operations.practice.description': {}
+      'admin.operations.practice.select-title': {}
+      'admin.operations.practice.select-description': {}
+      'admin.operations.practice.course-all': {}
+      'admin.operations.practice.course-filter': {}
+      'admin.operations.practice.search-placeholder': {}
+      'admin.operations.practice.search-label': {}
+      'admin.operations.practice.courses-error': {}
+      'admin.operations.practice.groups-error': {}
+      'admin.operations.practice.groups-empty': {}
+      'admin.operations.practice.go-to-groups': {}
+      'admin.operations.practice.groups-empty-filtered': {}
+      'admin.operations.practice.group-missing': {}
+      'admin.operations.practice.clear-selection': {}
+      'admin.operations.practice.group-error': {}
+      'admin.operations.practice.submit': {}
+      'admin.operations.practice.note': {}
+      'admin.operations.practice.error': {}
+      'admin.operations.practice.unknown-description': {}
+      'admin.operations.practice.unknown-verify-error': {}
+      'admin.operations.practice.confirm.title': {}
+      'admin.operations.practice.confirm.description': {
+        group: { __fn: 'string' }
+        count: { __fn: 'number' }
+      }
+      'admin.operations.practice.confirm.action': {}
+      'admin.operations.practice.result.title': {}
+      'admin.operations.practice.result.affected': { count: { __fn: 'number' } }
+      'admin.operations.practice.result.returned': { count: { __fn: 'number' } }
+      'admin.operations.practice.result.partial': {
+        affected: { __fn: 'number' }
+        total: { __fn: 'number' }
+      }
+      'admin.operations.practice.result.empty': {}
+      'admin.operations.practice.result.new': {}
+      'admin.operations.settings.back': {}
+      'admin.operations.settings.title': {}
+      'admin.operations.settings.description': {}
+      'admin.operations.settings.reset': {}
+      'admin.operations.settings.correction.title': {}
+      'admin.operations.settings.correction.description': {}
+      'admin.operations.settings.correction.empty': {}
+      'admin.operations.settings.correction.student': {}
+      'admin.operations.settings.correction.student-placeholder': {}
+      'admin.operations.settings.correction.student-error': {}
+      'admin.operations.settings.correction.current-balance': {
+        count: { __fn: 'number' }
+      }
+      'admin.operations.settings.correction.amount': {}
+      'admin.operations.settings.correction.amount-placeholder': {}
+      'admin.operations.settings.correction.amount-error': {}
+      'admin.operations.settings.correction.explanation': {}
+      'admin.operations.settings.correction.explanation-placeholder': {}
+      'admin.operations.settings.correction.explanation-hint': {
+        count: { __fn: 'number' }
+      }
+      'admin.operations.settings.correction.explanation-error': {}
+      'admin.operations.settings.correction.submit': {}
+      'admin.operations.settings.correction.result.title': {}
+      'admin.operations.settings.correction.result.description': {}
+      'admin.operations.settings.tariffs.title': {}
+      'admin.operations.settings.tariffs.description': {}
+      'admin.operations.settings.tariffs.empty': {}
+      'admin.operations.settings.tariffs.placeholder': {}
+      'admin.operations.settings.tariffs.input-label': {
+        reason: DefaultMessageValue
+      }
+      'admin.operations.settings.tariffs.configured': {
+        count: { __fn: 'number' }
+      }
+      'admin.operations.settings.tariffs.submit': {}
+      'admin.operations.settings.tariffs.note': {}
+      'admin.operations.settings.tariffs.result.title': {}
+      'admin.operations.settings.tariffs.result.description': {
+        count: { __fn: 'number' }
+      }
       'students.register.title': {}
       'students.register.description': {}
       'students.register.name.label': {}

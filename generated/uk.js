@@ -3633,6 +3633,1457 @@ export default {
       "Перевірте кількість днів."
     ]
   },
+  "admin.api-error.session": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сесія завершилася. Увійдіть знову."
+    ]
+  },
+  "admin.api-error.forbidden": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Недостатньо прав для цієї дії."
+    ]
+  },
+  "admin.api-error.login": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До входу"
+    ]
+  },
+  "admin.operations.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Операції з балансом"
+    ]
+  },
+  "admin.operations.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Масові нарахування та списання для вибраних учнів."
+    ]
+  },
+  "admin.operations.back": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До груп"
+    ]
+  },
+  "admin.operations.links.label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Інші операції"
+    ]
+  },
+  "admin.operations.links.practice": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Практика групи"
+    ]
+  },
+  "admin.operations.links.practice-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нарахування за практику всій групі."
+    ]
+  },
+  "admin.operations.links.settings": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальні інструменти"
+    ]
+  },
+  "admin.operations.links.settings-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Довільна сума, причини та тарифи без зміни сервера."
+    ]
+  },
+  "admin.operations.bulk.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Масові операції"
+    ]
+  },
+  "admin.operations.bulk.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть учнів і причини. Кожен учень обробляється окремою операцією; спільної транзакції немає."
+    ]
+  },
+  "admin.operations.bulk.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Застосувати до вибраних"
+    ]
+  },
+  "admin.operations.students.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити учнів."
+    ]
+  },
+  "admin.operations.students.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Учнів поки немає."
+    ]
+  },
+  "admin.operations.students.empty-filtered": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "За таким запитом учнів не знайдено."
+    ]
+  },
+  "admin.operations.students.search-placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Пошук учня за іменем"
+    ]
+  },
+  "admin.operations.students.search-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Пошук учнів"
+    ]
+  },
+  "admin.operations.students.found": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Знайдено: ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      }
+    ]
+  },
+  "admin.operations.students.selected": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вибрано: ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      }
+    ]
+  },
+  "admin.operations.students.select-found": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вибрати знайдених"
+    ]
+  },
+  "admin.operations.students.clear": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Очистити вибір"
+    ]
+  },
+  "admin.operations.student-fallback": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Учень #",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "id"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      }
+    ]
+  },
+  "admin.operations.reasons.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити причини."
+    ]
+  },
+  "admin.operations.direction.label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Напрямок операції"
+    ]
+  },
+  "admin.operations.direction.reward": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нарахування"
+    ]
+  },
+  "admin.operations.direction.punish": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Списання"
+    ]
+  },
+  "admin.operations.result.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Результати"
+    ]
+  },
+  "admin.operations.result.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Кожен рядок показує результат окремої операції."
+    ]
+  },
+  "admin.operations.result.success": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Успішно"
+    ]
+  },
+  "admin.operations.result.failure": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Відмова"
+    ]
+  },
+  "admin.operations.result.unknown": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Невідомо"
+    ]
+  },
+  "admin.operations.result.pending": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Обробка"
+    ]
+  },
+  "admin.operations.result.processing": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Виконується…"
+    ]
+  },
+  "admin.operations.result.new-balance": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Баланс: ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      }
+    ]
+  },
+  "admin.operations.result.open-history": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Відкрити історію"
+    ]
+  },
+  "admin.operations.result.retryable": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Можна повторити"
+    ]
+  },
+  "admin.operations.result.unknown-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Результат невідомий. Перевірте історію учня, не повторюйте операцію навмання."
+    ]
+  },
+  "admin.operations.result.checking": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевіряємо історію…"
+    ]
+  },
+  "admin.operations.result.check-again": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевірити ще раз"
+    ]
+  },
+  "admin.operations.result.history-checked": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Історію перевірено. Повтор автоматично не виконується."
+    ]
+  },
+  "admin.operations.result.success-count": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Успішно: ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      }
+    ]
+  },
+  "admin.operations.result.failure-count": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Відмови: ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      }
+    ]
+  },
+  "admin.operations.result.unknown-count": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Невідомо: ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      }
+    ]
+  },
+  "admin.operations.result.running": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "У черзі ще ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "pending"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      },
+      " операцій."
+    ]
+  },
+  "admin.operations.result.unknown-blocked": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Спочатку перевірте історію учнів із невідомим результатом. Нові операції заблоковані, доки перевірка не завершиться."
+    ]
+  },
+  "admin.operations.result.unknown-note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Невідомий результат не повторюється автоматично. Перевірте історію в профілі учня."
+    ]
+  },
+  "admin.operations.result.refresh-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Операцію підтверджено, але не вдалося оновити баланс, історію та групи. Оновіть дані."
+    ]
+  },
+  "admin.operations.result.retry": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Повторити невдалі (",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      },
+      ")"
+    ]
+  },
+  "admin.operations.result.no-retry": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Повтор недоступний для цих помилок. Перевірте права доступу або дані учня."
+    ]
+  },
+  "admin.operations.result.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося застосувати операцію."
+    ]
+  },
+  "admin.operations.result.error.session": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сесія завершилася. Увійдіть знову."
+    ]
+  },
+  "admin.operations.result.error.forbidden": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Недостатньо прав для операції."
+    ]
+  },
+  "admin.operations.result.error.not-found": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Учня не знайдено."
+    ]
+  },
+  "admin.operations.result.error.conflict": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Стан учня змінився. Оновіть дані."
+    ]
+  },
+  "admin.operations.result.error.validation": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер відхилив причини або дані операції."
+    ]
+  },
+  "admin.operations.confirm.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердити масову операцію?"
+    ]
+  },
+  "admin.operations.confirm.description": {
+    "type": "select",
+    "declarations": [
+      {
+        "type": "input",
+        "name": "count",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "count"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "number"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "name": "reasons",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "reasons"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "string"
+          }
+        }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "count"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          "Буде застосовано до ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " учня. Причини: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "reasons"
+            }
+          },
+          ". Кожен учень обробляється окремо."
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          "Буде застосовано до ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " учнів. Причини: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "reasons"
+            }
+          },
+          ". Кожен учень обробляється окремо."
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          "Буде застосовано до ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " учнів. Причини: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "reasons"
+            }
+          },
+          ". Кожен учень обробляється окремо."
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          "Буде застосовано до ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " учня. Причини: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "reasons"
+            }
+          },
+          ". Кожен учень обробляється окремо."
+        ]
+      }
+    ]
+  },
+  "admin.operations.confirm.retry-description": {
+    "type": "select",
+    "declarations": [
+      {
+        "type": "input",
+        "name": "count",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "count"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "number"
+          }
+        }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "count"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          "Повторити операцію для ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " учня? Повторюються лише однозначні відмови."
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          "Повторити операції для ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " учнів? Повторюються лише однозначні відмови."
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          "Повторити операції для ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " учнів? Повторюються лише однозначні відмови."
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          "Повторити операцію для ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " учня? Повторюються лише однозначні відмови."
+        ]
+      }
+    ]
+  },
+  "admin.operations.confirm.action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Застосувати"
+    ]
+  },
+  "admin.operations.confirm.retry-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Повторити"
+    ]
+  },
+  "admin.operations.practice.back": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До операцій"
+    ]
+  },
+  "admin.operations.practice.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Практика групи"
+    ]
+  },
+  "admin.operations.practice.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нарахування за практику всій групі через серверну операцію. Не пов’язане з розкладом або відвідуваністю."
+    ]
+  },
+  "admin.operations.practice.select-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть групу"
+    ]
+  },
+  "admin.operations.practice.select-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Пошук за назвою групи або курсом."
+    ]
+  },
+  "admin.operations.practice.course-all": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Усі курси"
+    ]
+  },
+  "admin.operations.practice.course-filter": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Фільтр за курсом"
+    ]
+  },
+  "admin.operations.practice.search-placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назва групи або курсу"
+    ]
+  },
+  "admin.operations.practice.search-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Пошук груп"
+    ]
+  },
+  "admin.operations.practice.courses-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити курси."
+    ]
+  },
+  "admin.operations.practice.groups-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити групи."
+    ]
+  },
+  "admin.operations.practice.groups-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Груп поки немає."
+    ]
+  },
+  "admin.operations.practice.go-to-groups": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До груп"
+    ]
+  },
+  "admin.operations.practice.groups-empty-filtered": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "За такими умовами груп не знайдено."
+    ]
+  },
+  "admin.operations.practice.group-missing": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Групу з посилання не знайдено. Оберіть іншу групу."
+    ]
+  },
+  "admin.operations.practice.clear-selection": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Скинути вибір"
+    ]
+  },
+  "admin.operations.practice.group-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити склад групи."
+    ]
+  },
+  "admin.operations.practice.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нарахувати за практику"
+    ]
+  },
+  "admin.operations.practice.note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер нарахує робокоїни кожному учню групи. Операція не пов’язана з розкладом або відвідуваністю."
+    ]
+  },
+  "admin.operations.practice.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося нарахувати практику."
+    ]
+  },
+  "admin.operations.practice.unknown-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зв’язок урвався до підтвердження. Перевірте історію учнів групи, не повторюйте нарахування навмання."
+    ]
+  },
+  "admin.operations.practice.unknown-verify-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося перевірити історію учнів групи. Спробуйте ще раз."
+    ]
+  },
+  "admin.operations.practice.confirm.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нарахувати практику групі?"
+    ]
+  },
+  "admin.operations.practice.confirm.description": {
+    "type": "select",
+    "declarations": [
+      {
+        "type": "input",
+        "name": "group",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "group"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "string"
+          }
+        }
+      },
+      {
+        "type": "input",
+        "name": "count",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "count"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "number"
+          }
+        }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "count"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          "Групі ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "group"
+            }
+          },
+          " буде нараховано практику для ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " учня."
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          "Групі ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "group"
+            }
+          },
+          " буде нараховано практику для ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " учнів."
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          "Групі ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "group"
+            }
+          },
+          " буде нараховано практику для ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " учнів."
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          "Групі ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "group"
+            }
+          },
+          " буде нараховано практику для ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " учня."
+        ]
+      }
+    ]
+  },
+  "admin.operations.practice.confirm.action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нарахувати"
+    ]
+  },
+  "admin.operations.practice.result.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Практику нараховано"
+    ]
+  },
+  "admin.operations.practice.result.affected": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нараховано учням: ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      }
+    ]
+  },
+  "admin.operations.practice.result.returned": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "У відповіді сервера ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      },
+      " результатів."
+    ]
+  },
+  "admin.operations.practice.result.partial": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нараховано ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "affected"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      },
+      " з ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "total"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      },
+      " учнів групи."
+    ]
+  },
+  "admin.operations.practice.result.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер не повернув результатів для жодного учня."
+    ]
+  },
+  "admin.operations.practice.result.new": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нове нарахування"
+    ]
+  },
+  "admin.operations.settings.back": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До операцій"
+    ]
+  },
+  "admin.operations.settings.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальні налаштування балансу"
+    ]
+  },
+  "admin.operations.settings.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Форми перевіряють дані локально й не змінюють баланс або серверні налаштування."
+    ]
+  },
+  "admin.operations.settings.reset": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Очистити"
+    ]
+  },
+  "admin.operations.settings.correction.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Довільна сума"
+    ]
+  },
+  "admin.operations.settings.correction.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Повна форма довільної суми з поясненням. Сервер не підтримує таку операцію, тому результат залишається чернеткою й не змінює баланс."
+    ]
+  },
+  "admin.operations.settings.correction.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Немає учнів для чернетки."
+    ]
+  },
+  "admin.operations.settings.correction.student": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Учень"
+    ]
+  },
+  "admin.operations.settings.correction.student-placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть учня"
+    ]
+  },
+  "admin.operations.settings.correction.student-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть учня."
+    ]
+  },
+  "admin.operations.settings.correction.current-balance": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Поточний баланс: ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      }
+    ]
+  },
+  "admin.operations.settings.correction.amount": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сума"
+    ]
+  },
+  "admin.operations.settings.correction.amount-placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Наприклад, 25"
+    ]
+  },
+  "admin.operations.settings.correction.amount-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вкажіть додатну суму з точністю до сотих."
+    ]
+  },
+  "admin.operations.settings.correction.explanation": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Пояснення"
+    ]
+  },
+  "admin.operations.settings.correction.explanation-placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Для чого потрібна ця сума"
+    ]
+  },
+  "admin.operations.settings.correction.explanation-hint": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      },
+      " символів."
+    ]
+  },
+  "admin.operations.settings.correction.explanation-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Додайте пояснення від 3 до 500 символів."
+    ]
+  },
+  "admin.operations.settings.correction.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевірити чернетку"
+    ]
+  },
+  "admin.operations.settings.correction.result.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Чернетку перевірено"
+    ]
+  },
+  "admin.operations.settings.correction.result.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Баланс не змінено. Сервер не має операції довільної суми, тому ці дані не збережено."
+    ]
+  },
+  "admin.operations.settings.tariffs.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Причини та тарифи"
+    ]
+  },
+  "admin.operations.settings.tariffs.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Причини читаються із сервера. Тарифи можна заповнити лише як локальну чернетку: серверні тарифи не змінюються."
+    ]
+  },
+  "admin.operations.settings.tariffs.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер не повернув причин."
+    ]
+  },
+  "admin.operations.settings.tariffs.placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Тариф"
+    ]
+  },
+  "admin.operations.settings.tariffs.input-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Тариф для причини ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "reason"
+        }
+      }
+    ]
+  },
+  "admin.operations.settings.tariffs.configured": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Заповнено тарифів: ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      }
+    ]
+  },
+  "admin.operations.settings.tariffs.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зберегти чернетку"
+    ]
+  },
+  "admin.operations.settings.tariffs.note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Реальні масові операції використовують лише причини із сервера. Локальні тарифи не впливають на сервер і не підміняють причини."
+    ]
+  },
+  "admin.operations.settings.tariffs.result.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Чернетку тарифів збережено локально"
+    ]
+  },
+  "admin.operations.settings.tariffs.result.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Заповнено ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      },
+      " тарифів. Серверні тарифи не змінено."
+    ]
+  },
   "students.register.title": {
     "type": "message",
     "declarations": [],

@@ -15,14 +15,14 @@ import { useGetStudentRewardProgressStudentStudentIdRewardProgressGet } from '#/
 import type { BalanceChangeReasonsKey, BalanceTransactionResponse } from '#/api/types'
 import { toast } from '#/components/ui'
 import { compareTransactionsByNewest } from '#/routes/-utils'
-
-import { BalanceDirection, BalanceMutationKind } from '../-constants'
 import {
   getStudentTransactionsQueryOptions,
   invalidateStudentBalanceCaches,
   isUnknownResultError,
   runWithTimeout,
-} from '../-utils'
+} from '#/routes/_authorized/_navigation/_admin/admin/-utils'
+
+import { BalanceDirection, BalanceMutationKind } from '../-constants'
 import { getApiErrorKind } from '../../../-utils'
 
 export function useStudentBalancePage(studentId: number) {

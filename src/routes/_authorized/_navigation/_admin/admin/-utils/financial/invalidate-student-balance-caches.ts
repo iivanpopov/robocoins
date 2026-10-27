@@ -14,40 +14,52 @@ interface InvalidateStudentBalanceCachesOptions {
   cancelRefetch?: boolean
 }
 
-export function invalidateStudentBalanceCaches(
+export function invalidateStudentsBalanceCaches(
   queryClient: QueryClient,
-  studentId: number,
+  studentIds: number[],
   options: InvalidateStudentBalanceCachesOptions = {},
 ) {
-  const path = { student_id: studentId }
   const invalidateOptions = {
     throwOnError: options.throwOnError ?? false,
     cancelRefetch: options.cancelRefetch ?? false,
   }
+  const uniqueStudentIds = Array.from(new Set(studentIds))
 
   return Promise.all([
-    queryClient.invalidateQueries(
-      { queryKey: getStudentBalanceByIdStudentStudentIdBalanceGetQueryKey({ path }) },
-      invalidateOptions,
-    ),
-    queryClient.invalidateQueries(
-      { queryKey: getStudentRewardProgressStudentStudentIdRewardProgressGetQueryKey({ path }) },
-      invalidateOptions,
-    ),
-    queryClient.invalidateQueries(
-      {
-        queryKey: getBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetQueryKey({ path }),
-      },
-      invalidateOptions,
-    ),
-    queryClient.invalidateQueries(
-      { queryKey: getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryKey({ path }) },
-      invalidateOptions,
-    ),
-    queryClient.invalidateQueries(
-      { queryKey: getStudentByIdStudentStudentIdGetQueryKey({ path }) },
-      invalidateOptions,
-    ),
+    ...uniqueStudentIds.flatMap((studentId) => {
+      const path = { student_id: studentId }
+
+      return [
+        queryClient.invalidateQueries(
+          { queryKey: getStudentBalanceByIdStudentStudentIdBalanceGetQueryKey({ path }) },
+          invalidateOptions,
+        ),
+        queryClient.invalidateQueries(
+          {
+            queryKey: getStudentRewardProgressStudentStudentIdRewardProgressGetQueryKey({ path }),
+          },
+          invalidateOptions,
+        ),
+        queryClient.invalidateQueries(
+          {
+            queryKey: getBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetQueryKey({
+              path,
+            }),
+          },
+          invalidateOptions,
+        ),
+        queryClient.invalidateQueries(
+          {
+            queryKey: getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryKey({ path }),
+          },
+          invalidateOptions,
+        ),
+        queryClient.invalidateQueries(
+          { queryKey: getStudentByIdStudentStudentIdGetQueryKey({ path }) },
+          invalidateOptions,
+        ),
+      ]
+    }),
     queryClient.invalidateQueries(
       { queryKey: getAllStudentsStudentGetQueryKey() },
       invalidateOptions,
@@ -74,4 +86,12 @@ export function invalidateStudentBalanceCaches(
       invalidateOptions,
     ),
   ])
+}
+
+export function invalidateStudentBalanceCaches(
+  queryClient: QueryClient,
+  studentId: number,
+  options: InvalidateStudentBalanceCachesOptions = {},
+) {
+  return invalidateStudentsBalanceCaches(queryClient, [studentId], options)
 }

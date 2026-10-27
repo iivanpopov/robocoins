@@ -456,6 +456,170 @@ export default {
   'admin.streak.error.forbidden': 'Недостатньо прав для керування стриком.',
   'admin.streak.error.not-found': 'Учня або стрик не знайдено.',
   'admin.streak.error.validation': 'Перевірте кількість днів.',
+  'admin.api-error.session': 'Сесія завершилася. Увійдіть знову.',
+  'admin.api-error.forbidden': 'Недостатньо прав для цієї дії.',
+  'admin.api-error.login': 'До входу',
+  'admin.operations.title': 'Операції з балансом',
+  'admin.operations.description': 'Масові нарахування та списання для вибраних учнів.',
+  'admin.operations.back': 'До груп',
+  'admin.operations.links.label': 'Інші операції',
+  'admin.operations.links.practice': 'Практика групи',
+  'admin.operations.links.practice-description': 'Нарахування за практику всій групі.',
+  'admin.operations.links.settings': 'Локальні інструменти',
+  'admin.operations.links.settings-description':
+    'Довільна сума, причини та тарифи без зміни сервера.',
+  'admin.operations.bulk.title': 'Масові операції',
+  'admin.operations.bulk.description':
+    'Оберіть учнів і причини. Кожен учень обробляється окремою операцією; спільної транзакції немає.',
+  'admin.operations.bulk.submit': 'Застосувати до вибраних',
+  'admin.operations.students.error': 'Не вдалося завантажити учнів.',
+  'admin.operations.students.empty': 'Учнів поки немає.',
+  'admin.operations.students.empty-filtered': 'За таким запитом учнів не знайдено.',
+  'admin.operations.students.search-placeholder': 'Пошук учня за іменем',
+  'admin.operations.students.search-label': 'Пошук учнів',
+  'admin.operations.students.found': 'Знайдено: {$count :number}',
+  'admin.operations.students.selected': 'Вибрано: {$count :number}',
+  'admin.operations.students.select-found': 'Вибрати знайдених',
+  'admin.operations.students.clear': 'Очистити вибір',
+  'admin.operations.student-fallback': 'Учень #{$id :number}',
+  'admin.operations.reasons.error': 'Не вдалося завантажити причини.',
+  'admin.operations.direction.label': 'Напрямок операції',
+  'admin.operations.direction.reward': 'Нарахування',
+  'admin.operations.direction.punish': 'Списання',
+  'admin.operations.result.title': 'Результати',
+  'admin.operations.result.description': 'Кожен рядок показує результат окремої операції.',
+  'admin.operations.result.success': 'Успішно',
+  'admin.operations.result.failure': 'Відмова',
+  'admin.operations.result.unknown': 'Невідомо',
+  'admin.operations.result.pending': 'Обробка',
+  'admin.operations.result.processing': 'Виконується…',
+  'admin.operations.result.new-balance': 'Баланс: {$count :number}',
+  'admin.operations.result.open-history': 'Відкрити історію',
+  'admin.operations.result.retryable': 'Можна повторити',
+  'admin.operations.result.unknown-description':
+    'Результат невідомий. Перевірте історію учня, не повторюйте операцію навмання.',
+  'admin.operations.result.checking': 'Перевіряємо історію…',
+  'admin.operations.result.check-again': 'Перевірити ще раз',
+  'admin.operations.result.history-checked':
+    'Історію перевірено. Повтор автоматично не виконується.',
+  'admin.operations.result.success-count': 'Успішно: {$count :number}',
+  'admin.operations.result.failure-count': 'Відмови: {$count :number}',
+  'admin.operations.result.unknown-count': 'Невідомо: {$count :number}',
+  'admin.operations.result.running': 'У черзі ще {$pending :number} операцій.',
+  'admin.operations.result.unknown-blocked':
+    'Спочатку перевірте історію учнів із невідомим результатом. Нові операції заблоковані, доки перевірка не завершиться.',
+  'admin.operations.result.unknown-note':
+    'Невідомий результат не повторюється автоматично. Перевірте історію в профілі учня.',
+  'admin.operations.result.refresh-error':
+    'Операцію підтверджено, але не вдалося оновити баланс, історію та групи. Оновіть дані.',
+  'admin.operations.result.retry': 'Повторити невдалі ({$count :number})',
+  'admin.operations.result.no-retry':
+    'Повтор недоступний для цих помилок. Перевірте права доступу або дані учня.',
+  'admin.operations.result.error': 'Не вдалося застосувати операцію.',
+  'admin.operations.result.error.session': 'Сесія завершилася. Увійдіть знову.',
+  'admin.operations.result.error.forbidden': 'Недостатньо прав для операції.',
+  'admin.operations.result.error.not-found': 'Учня не знайдено.',
+  'admin.operations.result.error.conflict': 'Стан учня змінився. Оновіть дані.',
+  'admin.operations.result.error.validation': 'Сервер відхилив причини або дані операції.',
+  'admin.operations.confirm.title': 'Підтвердити масову операцію?',
+  'admin.operations.confirm.description': `
+    .input {$count :number}
+    .input {$reasons :string}
+    .match $count
+    one {{Буде застосовано до {$count} учня. Причини: {$reasons}. Кожен учень обробляється окремо.}}
+    few {{Буде застосовано до {$count} учнів. Причини: {$reasons}. Кожен учень обробляється окремо.}}
+    many {{Буде застосовано до {$count} учнів. Причини: {$reasons}. Кожен учень обробляється окремо.}}
+    * {{Буде застосовано до {$count} учня. Причини: {$reasons}. Кожен учень обробляється окремо.}}`,
+  'admin.operations.confirm.retry-description': `
+    .input {$count :number}
+    .match $count
+    one {{Повторити операцію для {$count} учня? Повторюються лише однозначні відмови.}}
+    few {{Повторити операції для {$count} учнів? Повторюються лише однозначні відмови.}}
+    many {{Повторити операції для {$count} учнів? Повторюються лише однозначні відмови.}}
+    * {{Повторити операцію для {$count} учня? Повторюються лише однозначні відмови.}}`,
+  'admin.operations.confirm.action': 'Застосувати',
+  'admin.operations.confirm.retry-action': 'Повторити',
+  'admin.operations.practice.back': 'До операцій',
+  'admin.operations.practice.title': 'Практика групи',
+  'admin.operations.practice.description':
+    'Нарахування за практику всій групі через серверну операцію. Не пов’язане з розкладом або відвідуваністю.',
+  'admin.operations.practice.select-title': 'Оберіть групу',
+  'admin.operations.practice.select-description': 'Пошук за назвою групи або курсом.',
+  'admin.operations.practice.course-all': 'Усі курси',
+  'admin.operations.practice.course-filter': 'Фільтр за курсом',
+  'admin.operations.practice.search-placeholder': 'Назва групи або курсу',
+  'admin.operations.practice.search-label': 'Пошук груп',
+  'admin.operations.practice.courses-error': 'Не вдалося завантажити курси.',
+  'admin.operations.practice.groups-error': 'Не вдалося завантажити групи.',
+  'admin.operations.practice.groups-empty': 'Груп поки немає.',
+  'admin.operations.practice.go-to-groups': 'До груп',
+  'admin.operations.practice.groups-empty-filtered': 'За такими умовами груп не знайдено.',
+  'admin.operations.practice.group-missing': 'Групу з посилання не знайдено. Оберіть іншу групу.',
+  'admin.operations.practice.clear-selection': 'Скинути вибір',
+  'admin.operations.practice.group-error': 'Не вдалося завантажити склад групи.',
+  'admin.operations.practice.submit': 'Нарахувати за практику',
+  'admin.operations.practice.note':
+    'Сервер нарахує робокоїни кожному учню групи. Операція не пов’язана з розкладом або відвідуваністю.',
+  'admin.operations.practice.error': 'Не вдалося нарахувати практику.',
+  'admin.operations.practice.unknown-description':
+    'Зв’язок урвався до підтвердження. Перевірте історію учнів групи, не повторюйте нарахування навмання.',
+  'admin.operations.practice.unknown-verify-error':
+    'Не вдалося перевірити історію учнів групи. Спробуйте ще раз.',
+  'admin.operations.practice.confirm.title': 'Нарахувати практику групі?',
+  'admin.operations.practice.confirm.description': `
+    .input {$group :string}
+    .input {$count :number}
+    .match $count
+    one {{Групі {$group} буде нараховано практику для {$count} учня.}}
+    few {{Групі {$group} буде нараховано практику для {$count} учнів.}}
+    many {{Групі {$group} буде нараховано практику для {$count} учнів.}}
+    * {{Групі {$group} буде нараховано практику для {$count} учня.}}`,
+  'admin.operations.practice.confirm.action': 'Нарахувати',
+  'admin.operations.practice.result.title': 'Практику нараховано',
+  'admin.operations.practice.result.affected': 'Нараховано учням: {$count :number}',
+  'admin.operations.practice.result.returned': 'У відповіді сервера {$count :number} результатів.',
+  'admin.operations.practice.result.partial':
+    'Нараховано {$affected :number} з {$total :number} учнів групи.',
+  'admin.operations.practice.result.empty': 'Сервер не повернув результатів для жодного учня.',
+  'admin.operations.practice.result.new': 'Нове нарахування',
+  'admin.operations.settings.back': 'До операцій',
+  'admin.operations.settings.title': 'Локальні налаштування балансу',
+  'admin.operations.settings.description':
+    'Форми перевіряють дані локально й не змінюють баланс або серверні налаштування.',
+  'admin.operations.settings.reset': 'Очистити',
+  'admin.operations.settings.correction.title': 'Довільна сума',
+  'admin.operations.settings.correction.description':
+    'Повна форма довільної суми з поясненням. Сервер не підтримує таку операцію, тому результат залишається чернеткою й не змінює баланс.',
+  'admin.operations.settings.correction.empty': 'Немає учнів для чернетки.',
+  'admin.operations.settings.correction.student': 'Учень',
+  'admin.operations.settings.correction.student-placeholder': 'Оберіть учня',
+  'admin.operations.settings.correction.student-error': 'Оберіть учня.',
+  'admin.operations.settings.correction.current-balance': 'Поточний баланс: {$count :number}',
+  'admin.operations.settings.correction.amount': 'Сума',
+  'admin.operations.settings.correction.amount-placeholder': 'Наприклад, 25',
+  'admin.operations.settings.correction.amount-error': 'Вкажіть додатну суму з точністю до сотих.',
+  'admin.operations.settings.correction.explanation': 'Пояснення',
+  'admin.operations.settings.correction.explanation-placeholder': 'Для чого потрібна ця сума',
+  'admin.operations.settings.correction.explanation-hint': 'До {$count :number} символів.',
+  'admin.operations.settings.correction.explanation-error':
+    'Додайте пояснення від 3 до 500 символів.',
+  'admin.operations.settings.correction.submit': 'Перевірити чернетку',
+  'admin.operations.settings.correction.result.title': 'Чернетку перевірено',
+  'admin.operations.settings.correction.result.description':
+    'Баланс не змінено. Сервер не має операції довільної суми, тому ці дані не збережено.',
+  'admin.operations.settings.tariffs.title': 'Причини та тарифи',
+  'admin.operations.settings.tariffs.description':
+    'Причини читаються із сервера. Тарифи можна заповнити лише як локальну чернетку: серверні тарифи не змінюються.',
+  'admin.operations.settings.tariffs.empty': 'Сервер не повернув причин.',
+  'admin.operations.settings.tariffs.placeholder': 'Тариф',
+  'admin.operations.settings.tariffs.input-label': 'Тариф для причини {$reason}',
+  'admin.operations.settings.tariffs.configured': 'Заповнено тарифів: {$count :number}',
+  'admin.operations.settings.tariffs.submit': 'Зберегти чернетку',
+  'admin.operations.settings.tariffs.note':
+    'Реальні масові операції використовують лише причини із сервера. Локальні тарифи не впливають на сервер і не підміняють причини.',
+  'admin.operations.settings.tariffs.result.title': 'Чернетку тарифів збережено локально',
+  'admin.operations.settings.tariffs.result.description':
+    'Заповнено {$count :number} тарифів. Серверні тарифи не змінено.',
   'students.register.title': 'Новий учень',
   'students.register.description': 'Додайте ім’я, аватар і хоча б одну групу.',
   'students.register.name.label': 'Ім’я',
