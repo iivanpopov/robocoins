@@ -1206,6 +1206,110 @@ declare module '@kanjou/react' {
       'student.edit.groups.partial-retry': {}
       'student.edit.groups.success': {}
       'student.edit.groups.membership-changed': {}
+      'admin.membership.group-option': {
+        course: DefaultMessageValue
+        group: DefaultMessageValue
+      }
+      'admin.membership.status.addition': {}
+      'admin.membership.status.removal': {}
+      'admin.membership.status.not-required': {}
+      'admin.membership.addition.pending': {}
+      'admin.membership.addition.added': {}
+      'admin.membership.addition.skipped': {}
+      'admin.membership.addition.failed': {}
+      'admin.membership.removal.pending': {}
+      'admin.membership.removal.waiting': {}
+      'admin.membership.removal.removed': {}
+      'admin.membership.removal.failed': {}
+      'admin.membership.result.add.title': {}
+      'admin.membership.result.add.description': { target: DefaultMessageValue }
+      'admin.membership.result.transfer.title': {}
+      'admin.membership.result.transfer.description': {
+        target: DefaultMessageValue
+        source: DefaultMessageValue
+      }
+      'admin.membership.result.remove.title': {}
+      'admin.membership.result.remove.description': {
+        source: DefaultMessageValue
+      }
+      'admin.membership.result.partial': {}
+      'admin.membership.result.failure': {}
+      'admin.membership.result.session': {}
+      'admin.membership.result.forbidden': {}
+      'admin.membership.result.retry': {}
+      'admin.membership.result.reset': {}
+      'admin.groups.membership.title': {}
+      'admin.groups.membership.description': { group: DefaultMessageValue }
+      'admin.groups.membership.description-empty': {}
+      'admin.groups.membership.available': {}
+      'admin.groups.membership.add.title': {}
+      'admin.groups.membership.add.description': {}
+      'admin.groups.membership.add.search-label': {}
+      'admin.groups.membership.add.search-placeholder': {}
+      'admin.groups.membership.add.empty': {}
+      'admin.groups.membership.add.empty-filtered': {}
+      'admin.groups.membership.add.list-unavailable': {}
+      'admin.groups.membership.add.submit': { count: { __fn: 'number' } }
+      'admin.groups.membership.students.title': {}
+      'admin.groups.membership.students.description': {}
+      'admin.groups.membership.remove.submit': { count: { __fn: 'number' } }
+      'admin.groups.membership.remove.dialog-title': {}
+      'admin.groups.membership.remove.dialog-description': {
+        group: DefaultMessageValue
+      }
+      'admin.groups.membership.remove.dialog-action': {}
+      'admin.groups.membership.transfer.title': {}
+      'admin.groups.membership.transfer.description': {}
+      'admin.groups.membership.transfer.target-label': {}
+      'admin.groups.membership.transfer.placeholder': {}
+      'admin.groups.membership.transfer.groups-error': {}
+      'admin.groups.membership.transfer.targets-empty': {}
+      'admin.groups.membership.transfer.submit': { count: { __fn: 'number' } }
+      'admin.groups.membership.transfer.dialog-title': {}
+      'admin.groups.membership.transfer.dialog-description': {
+        target: DefaultMessageValue
+        source: DefaultMessageValue
+      }
+      'admin.groups.membership.transfer.dialog-note': {}
+      'admin.groups.membership.transfer.dialog-action': {}
+      'admin.students.groups.title': {}
+      'admin.students.groups.description': { name: DefaultMessageValue }
+      'admin.students.groups.description-empty': {}
+      'admin.students.groups.error': {}
+      'admin.students.groups.add.title': {}
+      'admin.students.groups.add.description': {}
+      'admin.students.groups.add.target-label': {}
+      'admin.students.groups.add.placeholder': {}
+      'admin.students.groups.add.submit': {}
+      'admin.students.groups.add.empty': {}
+      'admin.students.groups.transfer.title': {}
+      'admin.students.groups.transfer.description': {}
+      'admin.students.groups.transfer.source-label': {}
+      'admin.students.groups.transfer.target-label': {}
+      'admin.students.groups.transfer.placeholder': {}
+      'admin.students.groups.transfer.submit': {}
+      'admin.students.groups.transfer.source-empty': {}
+      'admin.students.groups.transfer.target-empty': {}
+      'admin.students.groups.transfer.dialog-title': {}
+      'admin.students.groups.transfer.dialog-description': {
+        student: DefaultMessageValue
+        target: DefaultMessageValue
+        source: DefaultMessageValue
+      }
+      'admin.students.groups.transfer.dialog-note': {}
+      'admin.students.groups.transfer.dialog-action': {}
+      'admin.students.groups.memberships.title': {}
+      'admin.students.groups.memberships.description': {}
+      'admin.students.groups.memberships.remove': {}
+      'admin.students.groups.memberships.remove-label': {
+        group: DefaultMessageValue
+      }
+      'admin.students.groups.remove.dialog-title': {}
+      'admin.students.groups.remove.dialog-description': {
+        student: DefaultMessageValue
+        group: DefaultMessageValue
+      }
+      'admin.students.groups.remove.dialog-action': {}
     }
   }
 }

@@ -10808,5 +10808,748 @@ export default {
     "pattern": [
       "Склад груп змінився. Оберіть групу ще раз."
     ]
+  },
+  "admin.membership.group-option": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "course"
+        }
+      },
+      " · ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "group"
+        }
+      }
+    ]
+  },
+  "admin.membership.status.addition": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Додавання"
+    ]
+  },
+  "admin.membership.status.removal": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалення з групи"
+    ]
+  },
+  "admin.membership.status.not-required": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "не потрібно"
+    ]
+  },
+  "admin.membership.addition.pending": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "додаємо…"
+    ]
+  },
+  "admin.membership.addition.added": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "додано"
+    ]
+  },
+  "admin.membership.addition.skipped": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "уже в групі"
+    ]
+  },
+  "admin.membership.addition.failed": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "не додано"
+    ]
+  },
+  "admin.membership.removal.pending": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "прибираємо…"
+    ]
+  },
+  "admin.membership.removal.waiting": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "чекає на додавання"
+    ]
+  },
+  "admin.membership.removal.removed": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "прибрано"
+    ]
+  },
+  "admin.membership.removal.failed": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "не прибрано"
+    ]
+  },
+  "admin.membership.result.add.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Результат додавання"
+    ]
+  },
+  "admin.membership.result.add.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Учнів оброблено окремо для групи «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "target"
+        }
+      },
+      "»."
+    ]
+  },
+  "admin.membership.result.transfer.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Результат переведення"
+    ]
+  },
+  "admin.membership.result.transfer.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Спочатку підтверджували додавання до «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "target"
+        }
+      },
+      "», потім прибирали з «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "source"
+        }
+      },
+      "»."
+    ]
+  },
+  "admin.membership.result.remove.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Результат відрахування"
+    ]
+  },
+  "admin.membership.result.remove.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Учнів прибрано з групи «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "source"
+        }
+      },
+      "». Акаунти не видалено."
+    ]
+  },
+  "admin.membership.result.partial": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Деяких учнів додано, але не прибрано з початкової групи. Вони залишилися в обох групах."
+    ]
+  },
+  "admin.membership.result.failure": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Частину операцій не завершено. Повторіть лише етапи з помилкою."
+    ]
+  },
+  "admin.membership.result.session": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сесія завершилася під час операції. Увійдіть знову, щоб повторити."
+    ]
+  },
+  "admin.membership.result.forbidden": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер відхилив частину операцій через недостатньо прав."
+    ]
+  },
+  "admin.membership.result.retry": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Повторити невдалі"
+    ]
+  },
+  "admin.membership.result.reset": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нова дія"
+    ]
+  },
+  "admin.groups.membership.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Склад групи"
+    ]
+  },
+  "admin.groups.membership.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Склад групи «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "group"
+        }
+      },
+      "»."
+    ]
+  },
+  "admin.groups.membership.description-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Додавання, відрахування та переведення учнів."
+    ]
+  },
+  "admin.groups.membership.available": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Доступні для додавання"
+    ]
+  },
+  "admin.groups.membership.add.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Додати учнів"
+    ]
+  },
+  "admin.groups.membership.add.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Учні можуть бути в кількох групах. Тут лише ті, хто ще не в цій групі."
+    ]
+  },
+  "admin.groups.membership.add.search-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Пошук учнів для додавання"
+    ]
+  },
+  "admin.groups.membership.add.search-placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ім’я учня"
+    ]
+  },
+  "admin.groups.membership.add.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Усі доступні учні вже в цій групі."
+    ]
+  },
+  "admin.groups.membership.add.empty-filtered": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "За таким ім’ям учнів не знайдено."
+    ]
+  },
+  "admin.groups.membership.add.list-unavailable": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер не повернув список учнів групи. Додавання вимкнено, щоб не створити повторне членство."
+    ]
+  },
+  "admin.groups.membership.add.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Додати вибраних (",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      },
+      ")"
+    ]
+  },
+  "admin.groups.membership.students.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Поточний склад"
+    ]
+  },
+  "admin.groups.membership.students.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Позначте учнів, щоб прибрати їх із групи або перевести до іншої."
+    ]
+  },
+  "admin.groups.membership.remove.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Прибрати з групи (",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      },
+      ")"
+    ]
+  },
+  "admin.groups.membership.remove.dialog-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Прибрати учнів із групи?"
+    ]
+  },
+  "admin.groups.membership.remove.dialog-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вибрані учні перестануть бути в групі «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "group"
+        }
+      },
+      "». Акаунти учнів не видаляються."
+    ]
+  },
+  "admin.groups.membership.remove.dialog-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Прибрати з групи"
+    ]
+  },
+  "admin.groups.membership.transfer.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевести до іншої групи"
+    ]
+  },
+  "admin.groups.membership.transfer.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Спочатку додаємо до цільової групи. Лише після підтвердженого додавання прибираємо з поточної."
+    ]
+  },
+  "admin.groups.membership.transfer.target-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Цільова група"
+    ]
+  },
+  "admin.groups.membership.transfer.placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть групу"
+    ]
+  },
+  "admin.groups.membership.transfer.groups-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити список груп."
+    ]
+  },
+  "admin.groups.membership.transfer.targets-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Немає інших груп для переведення."
+    ]
+  },
+  "admin.groups.membership.transfer.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевести вибраних (",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      },
+      ")"
+    ]
+  },
+  "admin.groups.membership.transfer.dialog-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевести учнів?"
+    ]
+  },
+  "admin.groups.membership.transfer.dialog-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вибрані учні будуть додані до «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "target"
+        }
+      },
+      "». Після підтвердження вони перестануть бути в групі «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "source"
+        }
+      },
+      "»."
+    ]
+  },
+  "admin.groups.membership.transfer.dialog-note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Операції виконуються окремо для кожного учня. Якщо додавання не підтверджено, з поточної групи нікого не прибираємо."
+    ]
+  },
+  "admin.groups.membership.transfer.dialog-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевести"
+    ]
+  },
+  "admin.students.groups.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Групи учня"
+    ]
+  },
+  "admin.students.groups.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Членство ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "name"
+        }
+      },
+      " у групах школи."
+    ]
+  },
+  "admin.students.groups.description-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Додавання, переведення та відрахування з груп."
+    ]
+  },
+  "admin.students.groups.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити групи учня."
+    ]
+  },
+  "admin.students.groups.add.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Додати до групи"
+    ]
+  },
+  "admin.students.groups.add.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Це додаткове членство: учень залишиться в поточних групах."
+    ]
+  },
+  "admin.students.groups.add.target-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Група"
+    ]
+  },
+  "admin.students.groups.add.placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть групу"
+    ]
+  },
+  "admin.students.groups.add.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Додати до групи"
+    ]
+  },
+  "admin.students.groups.add.empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Немає груп, до яких можна додати учня."
+    ]
+  },
+  "admin.students.groups.transfer.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевести з групи"
+    ]
+  },
+  "admin.students.groups.transfer.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Спочатку додаємо до нової групи. Лише після підтвердження прибираємо з поточної."
+    ]
+  },
+  "admin.students.groups.transfer.source-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Поточна група"
+    ]
+  },
+  "admin.students.groups.transfer.target-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нова група"
+    ]
+  },
+  "admin.students.groups.transfer.placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть групу"
+    ]
+  },
+  "admin.students.groups.transfer.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевести"
+    ]
+  },
+  "admin.students.groups.transfer.source-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Учень поки не входить до жодної групи."
+    ]
+  },
+  "admin.students.groups.transfer.target-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Немає інших груп для переведення."
+    ]
+  },
+  "admin.students.groups.transfer.dialog-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевести учня?"
+    ]
+  },
+  "admin.students.groups.transfer.dialog-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Учня ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "student"
+        }
+      },
+      " буде додано до «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "target"
+        }
+      },
+      "», а потім прибрано з «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "source"
+        }
+      },
+      "»."
+    ]
+  },
+  "admin.students.groups.transfer.dialog-note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Якщо додавання не підтверджено, учень залишиться в поточній групі."
+    ]
+  },
+  "admin.students.groups.transfer.dialog-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевести"
+    ]
+  },
+  "admin.students.groups.memberships.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Поточні групи"
+    ]
+  },
+  "admin.students.groups.memberships.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Кожен запис — окреме членство. Відрахування не видаляє акаунт учня."
+    ]
+  },
+  "admin.students.groups.memberships.remove": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Прибрати"
+    ]
+  },
+  "admin.students.groups.memberships.remove-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Прибрати з групи «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "group"
+        }
+      },
+      "»"
+    ]
+  },
+  "admin.students.groups.remove.dialog-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Прибрати з групи?"
+    ]
+  },
+  "admin.students.groups.remove.dialog-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "student"
+        }
+      },
+      " перестане бути в групі «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "group"
+        }
+      },
+      "». Акаунт учня не видаляється."
+    ]
+  },
+  "admin.students.groups.remove.dialog-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Прибрати з групи"
+    ]
   }
 }
