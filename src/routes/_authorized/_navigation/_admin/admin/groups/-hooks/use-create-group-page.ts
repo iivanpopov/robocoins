@@ -10,6 +10,7 @@ import type { GroupResponse } from '#/api/types'
 import { CreateGroupStateSchema } from '../-schemas'
 import type { GroupErrorKey } from '../-types'
 import { getGroupErrorKey, invalidateGroupCaches } from '../-utils'
+import type { AdminSelectOption } from '../../-components'
 
 export function useCreateGroupPage() {
   const queryClient = useQueryClient()
@@ -64,6 +65,10 @@ export function useCreateGroupPage() {
   }
 
   const courses = coursesQuery.data ?? []
+  const courseItems: AdminSelectOption[] = courses.map((course) => ({
+    value: String(course.id),
+    label: course.name,
+  }))
   const createdCourse = courses.find((course) => course.id === createdGroup?.course_id) ?? null
 
   let coursesErrorKey: GroupErrorKey | null = null
@@ -85,6 +90,7 @@ export function useCreateGroupPage() {
       createdGroup,
       createdCourse,
       courses,
+      courseItems,
       hasCourses: !!courses.length,
       coursesErrorKey,
       errorKey,

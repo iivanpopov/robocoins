@@ -435,7 +435,7 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Групи школи."
+      "Усі групи школи, курси та викладачі."
     ]
   },
   "admin.groups.empty": {
@@ -450,6 +450,1013 @@ export default {
     "declarations": [],
     "pattern": [
       "Не вдалося завантажити групи."
+    ]
+  },
+  "admin.groups.error.unauthorized": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сесія завершилася. Увійдіть знову, щоб продовжити."
+    ]
+  },
+  "admin.groups.error.forbidden": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Недостатньо прав для перегляду груп."
+    ]
+  },
+  "admin.groups.error.login": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Увійти"
+    ]
+  },
+  "admin.groups.create": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Створити групу"
+    ]
+  },
+  "admin.groups.create-first": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Створити першу групу"
+    ]
+  },
+  "admin.groups.search.label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Пошук груп"
+    ]
+  },
+  "admin.groups.search.placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назва групи, курсу або викладача"
+    ]
+  },
+  "admin.groups.filters.course": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Фільтр за курсом"
+    ]
+  },
+  "admin.groups.filters.course-all": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Усі курси"
+    ]
+  },
+  "admin.groups.filters.category": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Фільтр за напрямком"
+    ]
+  },
+  "admin.groups.filters.category-all": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Усі напрямки"
+    ]
+  },
+  "admin.groups.filters.teacher": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Фільтр за викладачем"
+    ]
+  },
+  "admin.groups.filters.teacher-all": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Усі викладачі"
+    ]
+  },
+  "admin.groups.filters.clear": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Скинути фільтри"
+    ]
+  },
+  "admin.groups.found": {
+    "type": "select",
+    "declarations": [
+      {
+        "type": "input",
+        "name": "count",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "count"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "number"
+          }
+        }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "count"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          "Знайдено ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " групу"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          "Знайдено ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " групи"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          "Знайдено ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " груп"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          "Знайдено ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " групи"
+        ]
+      }
+    ]
+  },
+  "admin.groups.empty-filtered": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "За такими умовами груп не знайдено."
+    ]
+  },
+  "admin.groups.no-teacher": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Без викладача"
+    ]
+  },
+  "admin.groups.teacher-unknown": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладач #",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "id"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      }
+    ]
+  },
+  "admin.groups.open": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Відкрити групу ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "name"
+        }
+      }
+    ]
+  },
+  "admin.groups.back": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До груп"
+    ]
+  },
+  "admin.groups.back-to-group": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "До групи"
+    ]
+  },
+  "admin.groups.teachers-count": {
+    "type": "select",
+    "declarations": [
+      {
+        "type": "input",
+        "name": "count",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "count"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "number"
+          }
+        }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "count"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " викладач"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " викладачі"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " викладачів"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " викладача"
+        ]
+      }
+    ]
+  },
+  "admin.groups.not-found.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Групу не знайдено"
+    ]
+  },
+  "admin.groups.not-found.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Можливо, групу видалено або адресу змінено."
+    ]
+  },
+  "admin.groups.detail.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Група"
+    ]
+  },
+  "admin.groups.detail.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "course"
+        }
+      },
+      " · ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "category"
+        }
+      }
+    ]
+  },
+  "admin.groups.detail.description-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Група школи."
+    ]
+  },
+  "admin.groups.detail.course-fallback": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курс #",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "id"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      }
+    ]
+  },
+  "admin.groups.detail.course": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курс"
+    ]
+  },
+  "admin.groups.detail.category": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Напрямок"
+    ]
+  },
+  "admin.groups.detail.category-unknown": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вказано"
+    ]
+  },
+  "admin.groups.detail.students-count": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Учні"
+    ]
+  },
+  "admin.groups.detail.teachers-count": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладачі"
+    ]
+  },
+  "admin.groups.detail.teachers": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладачі групи"
+    ]
+  },
+  "admin.groups.detail.teachers-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Викладачів не призначено."
+    ]
+  },
+  "admin.groups.detail.teachers-note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Призначення та зміна викладачів з’являться в наступних оновленнях."
+    ]
+  },
+  "admin.groups.detail.students": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Учні групи"
+    ]
+  },
+  "admin.groups.detail.students-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "У групі ще немає учнів."
+    ]
+  },
+  "admin.groups.detail.students-unavailable": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер повідомляє про учнів, але список імен недоступний."
+    ]
+  },
+  "admin.groups.detail.students-note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Додавання, переведення та відрахування учнів з’являться в наступних оновленнях."
+    ]
+  },
+  "admin.groups.detail.manage": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Керування групою"
+    ]
+  },
+  "admin.groups.detail.local-note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ці дії не мають серверних операцій. Форми перевірять дані та покажуть локальний результат без збереження."
+    ]
+  },
+  "admin.groups.detail.rename": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перейменувати групу"
+    ]
+  },
+  "admin.groups.detail.rename-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Змінити назву групи."
+    ]
+  },
+  "admin.groups.detail.change-course": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Змінити курс"
+    ]
+  },
+  "admin.groups.detail.change-course-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перенести групу в інший курс."
+    ]
+  },
+  "admin.groups.detail.delete": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалити групу"
+    ]
+  },
+  "admin.groups.detail.delete-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Прибрати групу зі списку разом із складом."
+    ]
+  },
+  "admin.groups.detail.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити групу."
+    ]
+  },
+  "admin.groups.create.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нова група"
+    ]
+  },
+  "admin.groups.create.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вкажіть назву та оберіть існуючий курс."
+    ]
+  },
+  "admin.groups.create.name-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назва групи"
+    ]
+  },
+  "admin.groups.create.name-placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Наприклад, Python, субота, 12:00"
+    ]
+  },
+  "admin.groups.create.name-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Введіть назву групи до 200 символів."
+    ]
+  },
+  "admin.groups.create.course-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курс"
+    ]
+  },
+  "admin.groups.create.course-placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть курс"
+    ]
+  },
+  "admin.groups.create.course-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть курс зі списку."
+    ]
+  },
+  "admin.groups.create.teacher-note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Групу можна створити без викладача. Якщо сервер вимагає викладача, він поверне помилку, і ми її покажемо."
+    ]
+  },
+  "admin.groups.create.courses-empty-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Немає курсів для групи"
+    ]
+  },
+  "admin.groups.create.courses-empty-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Спочатку створіть курс, а потім додайте до нього групу."
+    ]
+  },
+  "admin.groups.create.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Створити групу"
+    ]
+  },
+  "admin.groups.create.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося створити групу. Спробуйте ще раз."
+    ]
+  },
+  "admin.groups.create.error.validation": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сервер відхилив дані групи. Перевірте назву, курс і вимоги сервера."
+    ]
+  },
+  "admin.groups.create.success-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Групу створено"
+    ]
+  },
+  "admin.groups.create.success-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Група «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "group"
+        }
+      },
+      "» додана до курсу «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "course"
+        }
+      },
+      "»."
+    ]
+  },
+  "admin.groups.create.open": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Відкрити групу"
+    ]
+  },
+  "admin.groups.create.another": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Створити ще"
+    ]
+  },
+  "admin.groups.rename.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перейменування групи"
+    ]
+  },
+  "admin.groups.rename.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нова назва для групи «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "group"
+        }
+      },
+      "»."
+    ]
+  },
+  "admin.groups.rename.description-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нова назва для вибраної групи."
+    ]
+  },
+  "admin.groups.rename.note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Серверна операція перейменування недоступна. Форма покаже локальний результат без зміни групи."
+    ]
+  },
+  "admin.groups.rename.same": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Введіть нову назву, відмінну від поточної."
+    ]
+  },
+  "admin.groups.rename.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перейменувати"
+    ]
+  },
+  "admin.groups.rename.result-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальний результат"
+    ]
+  },
+  "admin.groups.rename.result-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назву не збережено на сервері. Група залишиться з попередньою назвою."
+    ]
+  },
+  "admin.groups.rename.current": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Поточна назва"
+    ]
+  },
+  "admin.groups.rename.proposed": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Запропонована назва"
+    ]
+  },
+  "admin.groups.change-course.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зміна курсу"
+    ]
+  },
+  "admin.groups.change-course.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Новий курс для групи «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "group"
+        }
+      },
+      "»."
+    ]
+  },
+  "admin.groups.change-course.description-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Новий курс для вибраної групи."
+    ]
+  },
+  "admin.groups.change-course.note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Серверна операція зміни курсу недоступна. Форма покаже локальний результат без зміни групи."
+    ]
+  },
+  "admin.groups.change-course.same": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оберіть інший курс, щоб продовжити."
+    ]
+  },
+  "admin.groups.change-course.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Змінити курс"
+    ]
+  },
+  "admin.groups.change-course.courses-empty-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Немає доступних курсів"
+    ]
+  },
+  "admin.groups.change-course.courses-empty-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Створіть курс, щоб перенести до нього групу."
+    ]
+  },
+  "admin.groups.change-course.result-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальний результат"
+    ]
+  },
+  "admin.groups.change-course.result-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Курс не змінено на сервері. Група залишиться в попередньому курсі."
+    ]
+  },
+  "admin.groups.change-course.current": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Поточний курс"
+    ]
+  },
+  "admin.groups.change-course.proposed": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Запропонований курс"
+    ]
+  },
+  "admin.groups.delete.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалення групи"
+    ]
+  },
+  "admin.groups.delete.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалення групи «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "group"
+        }
+      },
+      "»."
+    ]
+  },
+  "admin.groups.delete.description-empty": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалення вибраної групи."
+    ]
+  },
+  "admin.groups.delete.note": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Серверна операція видалення недоступна. Форма перевірить підтвердження та покаже, що групу не видалено."
+    ]
+  },
+  "admin.groups.delete.warning": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Групу не буде видалено, бо сервер не має такої операції. Список груп залишиться без змін."
+    ]
+  },
+  "admin.groups.delete.confirm-label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Введіть назву групи для підтвердження"
+    ]
+  },
+  "admin.groups.delete.confirm-placeholder": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назва групи"
+    ]
+  },
+  "admin.groups.delete.confirm-error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Назва не збігається з назвою групи."
+    ]
+  },
+  "admin.groups.delete.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Видалити групу"
+    ]
+  },
+  "admin.groups.delete.dialog-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердити видалення?"
+    ]
+  },
+  "admin.groups.delete.dialog-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердьте намір видалити групу «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "group"
+        }
+      },
+      "». Оскільки сервер не має видалення, група залишиться на сервері."
+    ]
+  },
+  "admin.groups.delete.dialog-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Підтвердити"
+    ]
+  },
+  "admin.groups.delete.result-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Локальний результат"
+    ]
+  },
+  "admin.groups.delete.result-description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Групу не видалено. Серверна операція недоступна, тому список груп не змінився."
+    ]
+  },
+  "admin.groups.delete.result-group": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Група"
     ]
   },
   "admin.people.title": {

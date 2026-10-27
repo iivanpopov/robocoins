@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 import { ChangeGroupCourseStateSchema } from '../-schemas'
 import type { GroupErrorKey } from '../-types'
 import { getGroupErrorKey, getGroupErrorStatus } from '../-utils'
+import type { AdminSelectOption } from '../../-components'
 import { useGroupWithCourse } from './use-group-with-course'
 
 export function useGroupCoursePage() {
@@ -67,15 +68,25 @@ export function useGroupCoursePage() {
 
   const selectedCourse =
     groupData.coursesQuery.data?.find((course) => String(course.id) === selectedCourseId) ?? null
+  const courses = groupData.coursesQuery.data ?? []
+  const courseItems: AdminSelectOption[] = courses.map((course) => ({
+    value: String(course.id),
+    label: course.name,
+  }))
+
+  let selectedCourseFallbackId: number | null = null
+  if (selectedCourseId) selectedCourseFallbackId = Number(selectedCourseId)
 
   return {
     state: {
       groupId,
       group: groupData.group,
       course: groupData.course,
-      courses: groupData.coursesQuery.data ?? [],
+      courses,
+      courseItems,
       selectedCourseId,
       selectedCourse,
+      selectedCourseFallbackId,
       isUnchanged,
       errorKey,
       isNotFound,

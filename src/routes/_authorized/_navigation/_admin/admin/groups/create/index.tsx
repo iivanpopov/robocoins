@@ -23,11 +23,6 @@ function CreateGroupPage() {
 
   const t = useTranslate()
 
-  const courseItems = state.courses.map((course) => ({
-    value: String(course.id),
-    label: course.name,
-  }))
-
   return (
     <GroupPageLayout
       title={t('admin.groups.create.title')}
@@ -158,7 +153,7 @@ function CreateGroupPage() {
                     name={field.name}
                     value={field.state.value}
                     onValueChange={(value) => field.handleChange(value)}
-                    items={courseItems}
+                    items={state.courseItems}
                     placeholder={t('admin.groups.create.course-placeholder')}
                     ariaLabel={t('admin.groups.create.course-label')}
                     disabled={state.isSubmitting}

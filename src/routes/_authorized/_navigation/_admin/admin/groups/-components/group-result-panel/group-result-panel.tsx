@@ -5,7 +5,7 @@ import styles from './group-result-panel.module.css'
 
 export interface GroupResultPanelDetail {
   label: string
-  value: string
+  value: ReactNode
 }
 
 export interface GroupResultPanelProps {

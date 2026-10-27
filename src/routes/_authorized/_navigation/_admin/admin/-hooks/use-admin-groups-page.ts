@@ -173,7 +173,9 @@ export function useAdminGroupsPage() {
       isPending: isCoursesPending || isUsersPending || isGroupsPending,
       isError: isCoursesError || isUsersError || isGroupsError,
       isFetching:
-        coursesQuery.isFetching || usersQuery.isFetching || groupsQueries.some((q) => q.isFetching),
+        coursesQuery.isFetching ||
+        usersQuery.isFetching ||
+        groupsQueries.some((groupsQuery) => groupsQuery.isFetching),
     },
     queries: { courses: coursesQuery, users: usersQuery, groups: groupsQueries },
     functions: {

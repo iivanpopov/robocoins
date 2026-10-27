@@ -43,16 +43,6 @@ function GroupCoursePage() {
 
   const t = useTranslate()
 
-  let currentCourseName = ''
-  if (state.course) currentCourseName = state.course.name
-  if (!state.course && state.group) {
-    currentCourseName = t('admin.groups.detail.course-fallback', { id: state.group.course_id })
-  }
-  const courseItems = state.courses.map((course) => ({
-    value: String(course.id),
-    label: course.name,
-  }))
-
   return (
     <GroupPageLayout
       title={t('admin.groups.change-course.title')}
@@ -131,7 +121,7 @@ function GroupCoursePage() {
                   name={field.name}
                   value={field.state.value}
                   onValueChange={(value) => field.handleChange(value)}
-                  items={courseItems}
+                  items={state.courseItems}
                   placeholder={t('admin.groups.create.course-placeholder')}
                   ariaLabel={t('admin.groups.create.course-label')}
                 />
@@ -155,15 +145,27 @@ function GroupCoursePage() {
           details={[
             {
               label: t('admin.groups.change-course.current'),
-              value: currentCourseName,
+              value: (
+                <>
+                  {state.course && state.course.name}
+                  {!state.course &&
+                    state.group &&
+                    t('admin.groups.detail.course-fallback', { id: state.group.course_id })}
+                </>
+              ),
             },
             {
               label: t('admin.groups.change-course.proposed'),
-              value:
-                state.selectedCourse?.name ??
-                t('admin.groups.detail.course-fallback', {
-                  id: Number(state.selectedCourseId),
-                }),
+              value: (
+                <>
+                  {state.selectedCourse && state.selectedCourse.name}
+                  {!state.selectedCourse &&
+                    !!state.selectedCourseFallbackId &&
+                    t('admin.groups.detail.course-fallback', {
+                      id: state.selectedCourseFallbackId,
+                    })}
+                </>
+              ),
             },
           ]}
         >
