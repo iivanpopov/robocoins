@@ -14,12 +14,12 @@ import { getRequestErrorStatus } from '../-utils'
 
 export function useTeacherRegistrationPage() {
   const navigate = useNavigate()
-  const queryClient = useQueryClient()
-
-  const t = useTranslate()
 
   const [isCopied, setIsCopied] = useState(false)
   const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const t = useTranslate()
+  const queryClient = useQueryClient()
 
   const registerMutation = useRegisterTeacherTeacherRegisterPost({
     mutation: {

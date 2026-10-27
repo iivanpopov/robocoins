@@ -51,16 +51,6 @@
   transform: scale(0.99);
 }
 
-.disabled {
-  cursor: default;
-  opacity: 0.7;
-}
-
-.disabled:active {
-  background: var(--surface);
-  transform: none;
-}
-
 .icon {
   display: flex;
   flex-shrink: 0;
@@ -102,14 +92,4 @@
   flex-shrink: 0;
   font-size: 1rem;
   color: var(--muted-foreground);
-}
-
-.badge {
-  flex-shrink: 0;
-  padding: var(--spacing-xs) var(--spacing-sm);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--muted-foreground);
-  background: var(--background);
-  border-radius: var(--rounded-full);
 }

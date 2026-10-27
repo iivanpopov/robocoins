@@ -31,7 +31,7 @@ function PeoplePage() {
           <span aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.arrow)} />
         </Link>
 
-        <article className={cn(styles.card, styles.disabled)} aria-disabled="true">
+        <Link to="/admin/people/teachers" className={styles.card}>
           <div className={styles.icon}>
             <span aria-hidden="true" className="i-ph:chalkboard-teacher-duotone" />
           </div>
@@ -39,8 +39,8 @@ function PeoplePage() {
             <h2 className={styles['card-title']}>{t('admin.people.teachers.title')}</h2>
             <p className={styles['card-description']}>{t('admin.people.teachers.description')}</p>
           </div>
-          <span className={styles.badge}>{t('admin.people.soon')}</span>
-        </article>
+          <span aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.arrow)} />
+        </Link>
       </div>
     </section>
   )

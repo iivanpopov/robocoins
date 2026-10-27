@@ -52,7 +52,6 @@ declare module '@kanjou/react' {
       'admin.people.students.description': {}
       'admin.people.teachers.title': {}
       'admin.people.teachers.description': {}
-      'admin.people.soon': {}
       'students.title': {}
       'students.description': {}
       'students.register.action': {}

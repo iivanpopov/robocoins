@@ -484,14 +484,7 @@ export default {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Розділ з’явиться в наступному оновленні."
-    ]
-  },
-  "admin.people.soon": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Скоро"
+      "Список, профіль і реєстрація викладачів."
     ]
   },
   "students.title": {
