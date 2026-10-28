@@ -12,13 +12,13 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
+import { PageLayout } from '#/routes/-components/page-layout'
+import { UserAvatar } from '#/routes/-components/user-avatar'
 import { AVATARS } from '#/routes/-constants'
 import { getAvatarUrl } from '#/routes/-utils'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import { StudentRequestError } from '../-components'
 import { parseStudentIdParams } from '../-utils'
-import { StudentAvatar } from '../../-components'
 import { useStudentEditPage } from './-hooks'
 
 import styles from './index.module.css'
@@ -45,8 +45,8 @@ function StudentEditPage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root bottomSpace>
-      <AdminPageLayout.Header>
+    <PageLayout.Root bottomSpace>
+      <PageLayout.Header>
         <IconButton
           nativeButton={false}
           render={
@@ -56,13 +56,11 @@ function StudentEditPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('students.edit.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description>
-            {t('students.edit.description')}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('students.edit.title')}</PageLayout.Title>
+          <PageLayout.Description>{t('students.edit.description')}</PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.isPending && <Loader grow />}
       {!state.isPending && state.isError && !state.student && (
         <StudentRequestError
@@ -77,7 +75,7 @@ function StudentEditPage() {
         <>
           <article className={styles.card}>
             <div className={styles.identity}>
-              <StudentAvatar
+              <UserAvatar
                 name={state.student.name}
                 avatar={state.student.avatar}
                 size="lg"
@@ -202,6 +200,6 @@ function StudentEditPage() {
           </section>
         </>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

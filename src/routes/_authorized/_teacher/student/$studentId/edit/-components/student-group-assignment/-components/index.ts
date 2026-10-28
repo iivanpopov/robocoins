@@ -1,1 +1,1 @@
-export { GroupSelect } from './group-select'
+export { GroupPicker } from './group-picker'

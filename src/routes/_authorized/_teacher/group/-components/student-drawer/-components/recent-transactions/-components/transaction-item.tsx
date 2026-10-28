@@ -3,6 +3,7 @@ import { cn } from 'cn'
 import { AnimationEvent, useRef } from 'react'
 
 import { BalanceTransactionResponse } from '#/api/types'
+import { formatSignedAmount } from '#/routes/-utils'
 
 import { useTransactionSwipe, isTransactionCancellable } from '../-hooks'
 
@@ -97,9 +98,8 @@ export function TransactionItem(props: TransactionItemProps) {
             !isPlus && styles['amount-minus'],
           )}
         >
-          {isPlus && '+'}
-          {!isPlus && '−'}
-          {props.transaction.amount}
+          {isPlus && formatSignedAmount(props.transaction.amount)}
+          {!isPlus && formatSignedAmount(-props.transaction.amount)}
         </span>
         <div className={styles.details}>
           <span className={styles.reason}>
@@ -119,7 +119,7 @@ export function TransactionItem(props: TransactionItemProps) {
           <span
             aria-hidden="true"
             title={t('award.cancel.locked')}
-            className={cn('i-ph:lock-bold', styles['lock-indicator'])}
+            className={cn('i-ph:lock', styles['lock-indicator'])}
           />
         )}
       </button>

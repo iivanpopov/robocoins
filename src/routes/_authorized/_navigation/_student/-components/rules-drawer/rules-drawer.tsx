@@ -19,8 +19,8 @@ import { InlineError } from '#/routes/-components'
 import styles from './rules-drawer.module.css'
 
 const RULE_SECTIONS = [
-  { type: 'reward', title: 'profile.rules.reward', icon: 'i-ph:star-bold' },
-  { type: 'punish', title: 'profile.rules.punish', icon: 'i-ph:gavel-bold' },
+  { type: 'reward', title: 'profile.rules.reward', icon: 'i-ph:star' },
+  { type: 'punish', title: 'profile.rules.punish', icon: 'i-ph:gavel' },
 ] as const
 
 interface RulesDrawerProps {
@@ -46,7 +46,7 @@ export function RulesDrawer(props: RulesDrawerProps) {
     <Drawer open={open} onOpenChange={handleOpenChange} showSwipeHandle>
       <DrawerTrigger render={<Button className={props.className} variant="link" />}>
         {t('profile.rules')}
-        <span aria-hidden="true" className="i-ph:caret-right-bold" />
+        <span aria-hidden="true" className="i-ph:caret-right" />
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className={styles.header}>

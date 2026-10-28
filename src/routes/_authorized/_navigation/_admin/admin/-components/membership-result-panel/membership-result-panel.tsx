@@ -88,7 +88,7 @@ export function MembershipResultPanel({
   return (
     <section className={styles.panel} aria-live="polite">
       <header className={styles.header}>
-        <span aria-hidden="true" className={cn(styles.icon, 'i-ph:list-checks-duotone')} />
+        <span aria-hidden="true" className={cn(styles.icon, 'i-ph:list-checks')} />
         <div className={styles.heading}>
           <h2 className={styles.title}>{title}</h2>
           <p className={styles.description}>{description}</p>

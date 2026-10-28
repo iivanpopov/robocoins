@@ -1,11 +1,8 @@
 import { useTranslate } from '@kanjou/react'
 import { Link } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import type { CourseResponse } from '#/api/types'
-import { CategoryIcon } from '#/routes/-components'
-
-import styles from './course-row.module.css'
+import { LearningCard } from '#/routes/-components'
 
 export interface CourseRowProps {
   course: CourseResponse
@@ -19,26 +16,23 @@ export function CourseRow({ course, className }: CourseRowProps) {
   const groupNames = (course.groups ?? []).map((group) => group.name).join(', ')
 
   return (
-    <Link
-      to="/admin/courses/$courseId"
-      params={{ courseId: course.id }}
-      className={cn(styles.row, className)}
-      data-category={course.category}
-    >
-      <div className={styles.icon}>
-        <CategoryIcon category={course.category} />
-      </div>
-      <div className={styles.details}>
-        <h2 className={styles.name}>{course.name}</h2>
-        <span className={styles.category}>
-          {t('course.category', { category: course.category })}
-        </span>
-        {!!groupNames && <span className={styles.groups}>{groupNames}</span>}
-      </div>
-      <div className={styles.meta}>
-        <span className={styles.count}>{t('groups.count', { count: groupsCount })}</span>
-        <span aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.caret)} />
-      </div>
-    </Link>
+    <LearningCard.Root className={className}>
+      <LearningCard.Row
+        render={<Link to="/admin/courses/$courseId" params={{ courseId: course.id }} />}
+      >
+        <LearningCard.Icon category={course.category} />
+        <LearningCard.Content>
+          <LearningCard.Title>{course.name}</LearningCard.Title>
+          <LearningCard.Description>
+            {t('course.category', { category: course.category })}
+          </LearningCard.Description>
+          {!!groupNames && <LearningCard.Description>{groupNames}</LearningCard.Description>}
+        </LearningCard.Content>
+        <LearningCard.Meta>
+          <span>{t('groups.count', { count: groupsCount })}</span>
+          <LearningCard.Indicator kind="navigate" />
+        </LearningCard.Meta>
+      </LearningCard.Row>
+    </LearningCard.Root>
   )
 }

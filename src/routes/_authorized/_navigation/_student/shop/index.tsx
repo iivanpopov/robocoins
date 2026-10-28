@@ -64,7 +64,7 @@ function ShopPage() {
         )}
         <div className={styles.balance} aria-label={t('shop.balance', { count: state.balance })}>
           <span>{t('coins.amount', { count: state.balance })}</span>
-          <span className="i-ph:coins-bold" aria-hidden="true" />
+          <span className="i-ph:coins" aria-hidden="true" />
         </div>
       </header>
       <StarBackground backgroundRef={refs.background} />
@@ -98,10 +98,10 @@ function ShopPage() {
           >
             <span className={styles['star-visual']} aria-hidden="true">
               {star.reward.type === 'privilege' && (
-                <span className={cn('i-ph:star-four-fill', styles['star-point'])} />
+                <span className={cn('i-ph:star-four', styles['star-point'])} />
               )}
               {star.reward.type === 'reward' && (
-                <span className={cn('i-ph:cube-duotone', styles['star-point'])} />
+                <span className={cn('i-ph:cube', styles['star-point'])} />
               )}
               <RewardSymbol reward={star.reward} className={styles['star-symbol']} />
             </span>
@@ -109,7 +109,7 @@ function ShopPage() {
               <span className={styles['star-name']}>{star.reward.name}</span>
               <span className={styles['star-price']}>
                 {t('coins.amount', { count: star.reward.price })}
-                <span className="i-ph:coins-bold" />
+                <span className="i-ph:coins" />
               </span>
             </span>
           </button>
@@ -139,7 +139,7 @@ function ShopPage() {
                     </span>
                     <span className={styles['card-price']}>
                       {t('coins.amount', { count: reward.price })}
-                      <span className="i-ph:coins-bold" aria-hidden="true" />
+                      <span className="i-ph:coins" aria-hidden="true" />
                     </span>
                   </span>
                 </button>
@@ -162,7 +162,7 @@ function ShopPage() {
               onClick={functions.handleCloseReward}
               ref={refs.rewardBack}
             >
-              <span className="i-ph:caret-left-bold" aria-hidden="true" />
+              <span className="i-ph:caret-left" aria-hidden="true" />
               {t('shop.reward.back')}
             </button>
           </div>
@@ -173,8 +173,8 @@ function ShopPage() {
                 <span className={styles['reward-type']}>
                   <span
                     className={cn(
-                      state.selectedReward.type === 'reward' && 'i-ph:cube-duotone',
-                      state.selectedReward.type === 'privilege' && 'i-ph:star-four-fill',
+                      state.selectedReward.type === 'reward' && 'i-ph:cube',
+                      state.selectedReward.type === 'privilege' && 'i-ph:star-four',
                     )}
                     aria-hidden="true"
                   />
@@ -196,7 +196,7 @@ function ShopPage() {
           <div className={styles['detail-footer']}>
             <div className={styles.price}>
               {t('coins.amount', { count: state.selectedReward.price })}
-              <span className="i-ph:coins-bold" aria-hidden="true" />
+              <span className="i-ph:coins" aria-hidden="true" />
             </div>
             <button className={styles.buy} disabled={!state.canClaimReward}>
               {state.canClaimReward && t('shop.reward.claim')}

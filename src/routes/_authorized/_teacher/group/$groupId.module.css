@@ -1,56 +1,9 @@
 .page {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-  width: 100%;
   min-height: 100dvh;
-  padding: var(--spacing-md) var(--spacing-md) 4rem;
-  margin: 0 auto;
-}
-
-.header {
-  display: flex;
-  column-gap: var(--spacing-sm);
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
 }
 
 .loader {
   align-items: center;
-}
-
-.header-info {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  text-align: right;
-}
-
-.title {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 1.125rem;
-  font-weight: 800;
-  color: var(--foreground);
-  text-align: right;
-  white-space: nowrap;
-}
-
-.schedule {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--muted-foreground);
-  text-align: right;
-  white-space: nowrap;
-}
-
-.back-btn {
-  flex-shrink: 0;
 }
 
 .student-list {
@@ -58,70 +11,6 @@
   flex-direction: column;
   gap: var(--spacing-xs);
   width: 100%;
-}
-
-.student-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem var(--spacing-md);
-  cursor: pointer;
-  background: var(--surface);
-  border: none;
-  border-radius: var(--rounded-lg);
-  transition:
-    transform 0.15s ease,
-    background-color 0.15s ease;
-}
-
-.student-card:active {
-  background: var(--taupe-100);
-  transform: scale(0.99);
-}
-
-.card-left {
-  display: flex;
-  gap: var(--spacing-sm);
-  align-items: center;
-  min-width: 0;
-}
-
-.student-name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--foreground);
-  white-space: nowrap;
-}
-
-.card-right {
-  display: flex;
-  flex-shrink: 0;
-  gap: var(--spacing-xs);
-  align-items: center;
-}
-
-.balance-badge {
-  display: flex;
-  gap: 0.25rem;
-  align-items: center;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--foreground);
-  background: var(--taupe-100);
-  border-radius: var(--rounded-sm);
-}
-
-.coin-icon {
-  font-size: 1rem;
-  color: var(--brand);
-}
-
-.caret-icon {
-  font-size: 1rem;
-  color: var(--muted-foreground);
 }
 
 .empty {

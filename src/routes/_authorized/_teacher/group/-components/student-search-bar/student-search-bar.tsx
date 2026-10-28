@@ -85,7 +85,7 @@ export function StudentSearchBar({
                 onClick={() => onSortChange(order)}
               >
                 <span>{t(`sort.${order}`)}</span>
-                {isActive && <span className={cn('i-ph:check-bold', styles['check-icon'])} />}
+                {isActive && <span className={cn('i-ph:check', styles['check-icon'])} />}
               </PopoverClose>
             )
           })}

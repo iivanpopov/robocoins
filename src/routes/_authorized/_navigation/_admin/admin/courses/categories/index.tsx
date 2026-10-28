@@ -3,8 +3,8 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { Loader } from '#/components/ui'
 // import { Button } from '#/components/ui'
-import { CategoryIcon } from '#/routes/-components'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { LearningCard } from '#/routes/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { CourseRequestError } from '../-components'
 import { useCourseCategoriesPage } from '../-hooks'
@@ -22,20 +22,20 @@ function CourseCategoriesPage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('categories.title')}</AdminPageLayout.Title>
-        </AdminPageLayout.Heading>
+    <PageLayout.Root>
+      <PageLayout.Header>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('categories.title')}</PageLayout.Title>
+        </PageLayout.Heading>
         {/* No API integration: category creation only updates local state.
-      <AdminPageLayout.Actions>
+      <PageLayout.Actions>
         <Button nativeButton={false} render={<Link to="/admin/courses/categories/create" />}>
-          <span aria-hidden="true" className="i-ph:plus-bold" />
+          <span aria-hidden="true" className="i-ph:plus" />
           {t('admin.learning.create')}
         </Button>
-      </AdminPageLayout.Actions>
+      </PageLayout.Actions>
       */}
-      </AdminPageLayout.Header>
+      </PageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.errorKey && (
         <CourseRequestError
@@ -49,22 +49,16 @@ function CourseCategoriesPage() {
         <>
           <div className={styles.categories}>
             {state.summaries.map((summary) => (
-              <details
-                key={summary.category}
-                className={styles.category}
-                data-category={summary.category}
-              >
-                <summary className={styles['category-summary']}>
-                  <span className={styles.icon}>
-                    <CategoryIcon category={summary.category} />
-                  </span>
-                  <span className={styles.copy}>
-                    <span className={styles.name}>
+              <LearningCard.Root key={summary.category} render={<details />}>
+                <LearningCard.Row render={<summary />}>
+                  <LearningCard.Icon category={summary.category} />
+                  <LearningCard.Content>
+                    <LearningCard.Title>
                       {t('course.category', { category: summary.category })}
-                    </span>
-                  </span>
-                  <span aria-hidden="true" className={styles.caret} />
-                </summary>
+                    </LearningCard.Title>
+                  </LearningCard.Content>
+                  <LearningCard.Indicator kind="expand" />
+                </LearningCard.Row>
                 <div className={styles.body}>
                   {/* No API integration: category renaming only updates local state.
                   <div className={styles['category-actions']}>
@@ -76,7 +70,7 @@ function CourseCategoriesPage() {
                         category: t('course.category', { category: summary.category }),
                       })}
                     >
-                      <span aria-hidden="true" className="i-ph:pencil-simple-duotone" />
+                      <span aria-hidden="true" className="i-ph:pencil-simple" />
                       {t('action.rename')}
                     </Link>
                   </div>
@@ -88,13 +82,21 @@ function CourseCategoriesPage() {
                     <ul className={styles.courses}>
                       {summary.courses.map((course) => (
                         <li key={course.id} className={styles.course}>
-                          <Link
-                            to="/admin/courses/$courseId"
-                            params={{ courseId: course.id }}
-                            className={styles['course-link']}
-                          >
-                            <span className={styles['course-name']}>{course.name}</span>
-                          </Link>
+                          <LearningCard.Root>
+                            <LearningCard.Row
+                              render={
+                                <Link
+                                  to="/admin/courses/$courseId"
+                                  params={{ courseId: course.id }}
+                                />
+                              }
+                            >
+                              <LearningCard.Content>
+                                <LearningCard.Title>{course.name}</LearningCard.Title>
+                              </LearningCard.Content>
+                              <LearningCard.Indicator kind="navigate" />
+                            </LearningCard.Row>
+                          </LearningCard.Root>
                           {/* No API integration: course category changes only update local state.
                           <Link
                             to="/admin/courses/$courseId/category"
@@ -105,7 +107,7 @@ function CourseCategoriesPage() {
                               course: course.name,
                             })}
                           >
-                            <span aria-hidden="true" className="i-ph:arrows-left-right-bold" />
+                            <span aria-hidden="true" className="i-ph:arrows-left-right" />
                           </Link>
                           */}
                         </li>
@@ -113,11 +115,11 @@ function CourseCategoriesPage() {
                     </ul>
                   )}
                 </div>
-              </details>
+              </LearningCard.Root>
             ))}
           </div>
         </>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

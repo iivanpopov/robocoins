@@ -31,8 +31,8 @@ export function GroupResultPanel({
         aria-hidden="true"
         className={cn(
           styles.icon,
-          tone === 'success' && 'i-ph:check-circle-duotone',
-          tone === 'local' && 'i-ph:info-duotone',
+          tone === 'success' && 'i-ph:check-circle',
+          tone === 'local' && 'i-ph:info',
         )}
       />
       <h2 className={styles.title}>{title}</h2>

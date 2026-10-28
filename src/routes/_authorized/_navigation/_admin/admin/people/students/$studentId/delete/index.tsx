@@ -18,11 +18,11 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
+import { UserAvatar } from '#/routes/-components/user-avatar'
 
 import { StudentRequestError, StudentResultPanel } from '../-components'
 import { parseStudentIdParams } from '../-utils'
-import { StudentAvatar } from '../../-components'
 import { useStudentDeletePage } from './-hooks'
 
 import styles from './index.module.css'
@@ -49,8 +49,8 @@ function StudentDeletePage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root bottomSpace>
-      <AdminPageLayout.Header>
+    <PageLayout.Root bottomSpace>
+      <PageLayout.Header>
         <IconButton
           nativeButton={false}
           render={
@@ -60,14 +60,14 @@ function StudentDeletePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('students.delete.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('students.delete.title')}</PageLayout.Title>
+          <PageLayout.Description>
             {!state.student && t('students.delete.description-empty')}
             {!!state.student && t('students.delete.description', { name: state.student.name })}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.isPending && <Loader grow />}
       {!state.isPending && state.isError && !state.student && (
         <StudentRequestError
@@ -82,11 +82,11 @@ function StudentDeletePage() {
         <>
           <article className={styles.note}>
             <span aria-hidden="true" className={styles['note-icon']}>
-              <span className="i-ph:warning-circle-duotone" />
+              <span className="i-ph:warning-circle" />
             </span>
             <div className={styles['note-copy']}>
               <div className={styles.identity}>
-                <StudentAvatar
+                <UserAvatar
                   name={state.student.name}
                   avatar={state.student.avatar}
                   size="lg"
@@ -188,6 +188,6 @@ function StudentDeletePage() {
           </AlertDialogContent>
         </AlertDialog>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

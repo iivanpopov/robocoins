@@ -3,7 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { IconButton, Loader } from '#/components/ui'
 // import { Link } from '@tanstack/react-router'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { TeacherGroupRow, TeacherRequestError, TeacherUnavailable } from '../-components'
 import { useTeacherProfilePage } from '../-hooks'
@@ -25,8 +25,8 @@ function TeacherProfilePage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root bottomSpace>
-      <AdminPageLayout.Header>
+    <PageLayout.Root bottomSpace>
+      <PageLayout.Header>
         <IconButton
           onClick={functions.handleBack}
           title={t('admin.teachers.profile.back')}
@@ -34,13 +34,11 @@ function TeacherProfilePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{state.name ?? t('role.teacher')}</AdminPageLayout.Title>
-          {state.profile && (
-            <AdminPageLayout.Description>{t('role.teacher')}</AdminPageLayout.Description>
-          )}
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+        <PageLayout.Heading>
+          <PageLayout.Title>{state.name ?? t('role.teacher')}</PageLayout.Title>
+          {state.profile && <PageLayout.Description>{t('role.teacher')}</PageLayout.Description>}
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.isPending && <Loader grow />}
       {!state.isPending && state.isError && !state.notFound && (
         <TeacherRequestError
@@ -82,7 +80,7 @@ function TeacherProfilePage() {
                 className={styles.action}
               >
                 <span aria-hidden="true" className={styles['action-icon']}>
-                  <span className="i-ph:pencil-simple-duotone" />
+                  <span className="i-ph:pencil-simple" />
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>
@@ -92,7 +90,7 @@ function TeacherProfilePage() {
                     {t('admin.teachers.profile.rename-description')}
                   </span>
                 </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
               <Link
                 to="/admin/people/teachers/$userId/access"
@@ -100,7 +98,7 @@ function TeacherProfilePage() {
                 className={styles.action}
               >
                 <span aria-hidden="true" className={styles['action-icon']}>
-                  <span className="i-ph:lock-key-duotone" />
+                  <span className="i-ph:lock-key" />
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>
@@ -110,7 +108,7 @@ function TeacherProfilePage() {
                     {t('admin.teachers.profile.access-description')}
                   </span>
                 </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
               <Link
                 to="/admin/people/teachers/$userId/delete"
@@ -119,7 +117,7 @@ function TeacherProfilePage() {
                 data-tone="error"
               >
                 <span aria-hidden="true" className={styles['action-icon']}>
-                  <span className="i-ph:trash-duotone" />
+                  <span className="i-ph:trash" />
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>
@@ -129,13 +127,13 @@ function TeacherProfilePage() {
                     {t('admin.teachers.profile.delete-description')}
                   </span>
                 </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
             </div>
           </section>
           */}
         </>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

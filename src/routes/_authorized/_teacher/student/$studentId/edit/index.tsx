@@ -1,5 +1,6 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, notFound } from '@tanstack/react-router'
+import { cn } from 'cn'
 import * as v from 'valibot'
 
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
@@ -23,9 +24,13 @@ import {
   FieldLabel,
   IconButton,
   Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
   Loader,
 } from '#/components/ui'
-import { InlineError } from '#/routes/-components'
+import { InlineError, PageLayout } from '#/routes/-components'
 import type { Avatar as AvatarName } from '#/routes/-constants'
 import { getAvatarUrl, getInitial } from '#/routes/-utils'
 
@@ -96,31 +101,29 @@ function StudentEditPage() {
   const t = useTranslate()
 
   return (
-    <section className={styles.page}>
-      <header className={styles.header}>
-        <IconButton
-          className={styles['back-button']}
-          onClick={functions.handleBack}
-          title={t('history.back')}
-        >
+    <PageLayout.Root spacing="compact" bottomSpace className={styles.page}>
+      <PageLayout.Header align="end" centered>
+        <IconButton onClick={functions.handleBack} title={t('history.back')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
         {!queries.student.isPending && !queries.student.isError && (
-          <div className={styles['header-identity']}>
-            <span className={styles['header-name']}>{state.name}</span>
-            <Avatar>
-              <AvatarImage
-                src={getAvatarUrl(state.avatar as AvatarName)}
-                alt=""
-                aria-hidden="true"
-              />
-              <AvatarFallback role="img" aria-label={state.name}>
-                {getInitial(state.name)}
-              </AvatarFallback>
-            </Avatar>
-          </div>
+          <PageLayout.Heading>
+            <div className={styles['header-identity']}>
+              <span className={styles['header-name']}>{state.name}</span>
+              <Avatar>
+                <AvatarImage
+                  src={getAvatarUrl(state.avatar as AvatarName)}
+                  alt=""
+                  aria-hidden="true"
+                />
+                <AvatarFallback role="img" aria-label={state.name}>
+                  {getInitial(state.name)}
+                </AvatarFallback>
+              </Avatar>
+            </div>
+          </PageLayout.Heading>
         )}
-      </header>
+      </PageLayout.Header>
       {queries.student.isPending && <Loader grow className={styles.loader} />}
       {queries.student.isError && (
         <InlineError onRetry={functions.handleRetryStudent} isRetrying={queries.student.isFetching}>
@@ -151,7 +154,7 @@ function StudentEditPage() {
                 >
                   {mutations.nickname.isPending && <Loader />}
                   {!mutations.nickname.isPending && (
-                    <span aria-hidden="true" className="i-ph:check-bold" />
+                    <span aria-hidden="true" className="i-ph:check" />
                   )}
                 </IconButton>
               </div>
@@ -160,18 +163,55 @@ function StudentEditPage() {
               )}
             </Field>
             <Field>
-              <FieldLabel>{t('settings.password')}</FieldLabel>
-              <Button
-                variant="ghost"
-                onClick={functions.handleOpenPasswordDialog}
-                disabled={mutations.passwordRegeneration.isPending}
-              >
-                {mutations.passwordRegeneration.isPending && <Loader />}
-                {!mutations.passwordRegeneration.isPending && (
-                  <span aria-hidden="true" className="i-ph:arrows-clockwise-bold" />
-                )}
-                {t('student.password.regenerate')}
-              </Button>
+              <FieldLabel htmlFor="student-edit-password">{t('settings.password')}</FieldLabel>
+              <div className={styles['password-row']}>
+                <InputGroup>
+                  <InputGroupInput
+                    id="student-edit-password"
+                    type={state.passwordInputType}
+                    value={state.password}
+                    readOnly
+                    autoComplete="new-password"
+                  />
+                  <InputGroupAddon align="inline-end">
+                    <InputGroupButton
+                      onClick={functions.handleTogglePassword}
+                      disabled={queries.credentials.isPending || queries.credentials.isError}
+                      aria-label={
+                        (state.isPasswordVisible && t('field.password.hide')) ||
+                        t('field.password.show')
+                      }
+                      aria-pressed={state.isPasswordVisible}
+                    >
+                      {queries.credentials.isPending && <Loader />}
+                      {!queries.credentials.isPending && (
+                        <span
+                          aria-hidden="true"
+                          className={cn(
+                            state.isPasswordVisible && 'i-ph:eye-slash',
+                            !state.isPasswordVisible && 'i-ph:eye',
+                          )}
+                        />
+                      )}
+                    </InputGroupButton>
+                  </InputGroupAddon>
+                </InputGroup>
+                <IconButton
+                  className={styles['password-regenerate']}
+                  onClick={functions.handleOpenPasswordDialog}
+                  disabled={mutations.passwordRegeneration.isPending}
+                  aria-label={t('student.password.regenerate')}
+                  title={t('student.password.regenerate')}
+                >
+                  {mutations.passwordRegeneration.isPending && <Loader />}
+                  {!mutations.passwordRegeneration.isPending && (
+                    <span aria-hidden="true" className="i-ph:arrows-clockwise" />
+                  )}
+                </IconButton>
+              </div>
+              {queries.credentials.isError && (
+                <InlineError>{t('student.password.unavailable')}</InlineError>
+              )}
               {mutations.passwordRegeneration.isError && (
                 <InlineError
                   onRetry={functions.handleRetryPasswordRegeneration}
@@ -239,12 +279,11 @@ function StudentEditPage() {
               studentName={state.name}
               studentAvatar={state.avatar}
               groupIds={state.groupIds}
-              fromGroupId={state.fromGroupId}
               onSuccess={functions.handleAssignmentSuccess}
             />
           </section>
         </>
       )}
-    </section>
+    </PageLayout.Root>
   )
 }

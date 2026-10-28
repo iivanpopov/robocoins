@@ -10,7 +10,7 @@ import {
   IconButton,
   Loader,
 } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { GroupEmptyState, GroupForm, GroupRequestError, GroupResultPanel } from '../../-components'
 import { useGroupCoursePage } from '../../-hooks'
@@ -39,8 +39,8 @@ function GroupCoursePage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header align="end">
+    <PageLayout.Root>
+      <PageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/groups/$groupId" params={{ groupId: state.groupId }} />}
@@ -48,15 +48,15 @@ function GroupCoursePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.groups.change-course.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.groups.change-course.title')}</PageLayout.Title>
+          <PageLayout.Description>
             {!state.group && t('admin.groups.change-course.description-empty')}
             {state.group &&
               t('admin.groups.change-course.description', { group: state.group.name })}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.errorKey && (
         <GroupRequestError
@@ -67,7 +67,7 @@ function GroupCoursePage() {
       )}
       {state.isNotFound && (
         <GroupEmptyState
-          icon="i-ph:users-three-duotone"
+          icon="i-ph:users-three"
           title={t('admin.groups.not-found.title')}
           description={t('admin.groups.not-found.description')}
         >
@@ -79,7 +79,7 @@ function GroupCoursePage() {
 
       {state.group && !state.errorKey && !state.courses.length && (
         <GroupEmptyState
-          icon="i-ph:books-duotone"
+          icon="i-ph:books"
           title={t('admin.groups.change-course.courses-empty-title')}
           description={t('admin.groups.change-course.courses-empty-description')}
         >
@@ -164,6 +164,6 @@ function GroupCoursePage() {
           </Button>
         </GroupResultPanel>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

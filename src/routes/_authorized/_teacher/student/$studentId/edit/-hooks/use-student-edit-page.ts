@@ -213,6 +213,7 @@ export function useStudentEditPage() {
   const avatar = AVATARS.find((candidate) => candidate === profile?.avatar) ?? AVATARS[0]
   const nickname = nicknameDraft ?? profile?.name ?? ''
   const password = credentialsQuery.data?.access_code ?? ''
+  const passwordInputType = isPasswordVisible ? 'text' : 'password'
 
   return {
     state: {
@@ -229,6 +230,7 @@ export function useStudentEditPage() {
       isPasswordDialogOpen,
       isPasswordVisible,
       password,
+      passwordInputType,
     },
     queries: { student: studentQuery, credentials: credentialsQuery },
     mutations: {

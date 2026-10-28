@@ -3,7 +3,8 @@ import { cn } from 'cn'
 import { type ReactNode } from 'react'
 
 import { Button, Loader } from '#/components/ui'
-import { InlineError } from '#/routes/-components'
+import { InlineError, PageLayout } from '#/routes/-components'
+import { formatSignedAmount } from '#/routes/-utils'
 
 import { useRewardHistory } from './-hooks'
 
@@ -20,12 +21,16 @@ export function RewardHistory(props: RewardHistoryProps) {
   const t = useTranslate()
 
   return (
-    <section className={styles.page} aria-label={t('history.title')}>
-      <header className={styles.header}>
+    <PageLayout.Root aria-label={t('history.title')}>
+      <PageLayout.Header align="end" centered>
         {props.backLink}
-        <h1>{t('history.title')}</h1>
-      </header>
-      {props.studentName && <p className={styles.name}>{props.studentName}</p>}
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('history.title')}</PageLayout.Title>
+          {props.studentName && (
+            <PageLayout.Description>{props.studentName}</PageLayout.Description>
+          )}
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {queries.history.isPending && (
         <div role="status" aria-label={t('history.loading')}>
           <Loader />
@@ -52,10 +57,8 @@ export function RewardHistory(props: RewardHistoryProps) {
                 !!transaction.cancelled_at && styles.cancelled,
               )}
             >
-              {transaction.operation === 'deposit' &&
-                t('profile.history.amount', { count: transaction.amount })}
-              {transaction.operation !== 'deposit' &&
-                t('profile.history.amount', { count: -transaction.amount })}
+              {transaction.operation === 'deposit' && formatSignedAmount(transaction.amount)}
+              {transaction.operation !== 'deposit' && formatSignedAmount(-transaction.amount)}
             </strong>
             <ul className={styles.reasons}>
               {(transaction.reason ?? []).map((reason, i) => (
@@ -89,6 +92,6 @@ export function RewardHistory(props: RewardHistoryProps) {
           {t('history.end')}
         </p>
       )}
-    </section>
+    </PageLayout.Root>
   )
 }

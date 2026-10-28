@@ -2,7 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link, useParams } from '@tanstack/react-router'
 
 import { Button, Field, FieldError, FieldLabel, IconButton, Input } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { CourseForm, ResultPanel } from '../../../-components'
 import { useCategoryRenamePage } from '../../../-hooks'
@@ -33,8 +33,8 @@ function CategoryRenamePage() {
   const categoryLabel = t('course.category', { category: state.category })
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header align="end">
+    <PageLayout.Root>
+      <PageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/courses/categories" />}
@@ -42,15 +42,13 @@ function CategoryRenamePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>
-            {t('admin.courses.categories.rename.title')}
-          </AdminPageLayout.Title>
-          <AdminPageLayout.Description>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.courses.categories.rename.title')}</PageLayout.Title>
+          <PageLayout.Description>
             {t('admin.courses.categories.rename.description', { category: categoryLabel })}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {!state.renamedName && (
         <CourseForm onSubmit={functions.handleSubmit} submitLabel={t('action.rename')}>
           <features.form.Field name="name">
@@ -101,6 +99,6 @@ function CategoryRenamePage() {
           </div>
         </ResultPanel>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

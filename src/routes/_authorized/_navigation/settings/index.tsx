@@ -23,7 +23,7 @@ import {
   InputGroupInput,
   Loader,
 } from '#/components/ui'
-import { InlineError } from '#/routes/-components'
+import { InlineError, PageLayout } from '#/routes/-components'
 
 import { useSettingsPage } from './-hooks'
 
@@ -40,8 +40,12 @@ function SettingsPage() {
   const t = useTranslate()
 
   return (
-    <section className={styles.page}>
-      <h1 className={styles.title}>{t('navbar.settings')}</h1>
+    <PageLayout.Root className={styles.page}>
+      <PageLayout.Header>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('navbar.settings')}</PageLayout.Title>
+        </PageLayout.Heading>
+      </PageLayout.Header>
 
       {state.isStudent && (
         <section className={styles.section}>
@@ -68,8 +72,8 @@ function SettingsPage() {
                   <span
                     aria-hidden="true"
                     className={cn(
-                      state.isPasswordVisible && 'i-ph:eye-slash-bold',
-                      !state.isPasswordVisible && 'i-ph:eye-bold',
+                      state.isPasswordVisible && 'i-ph:eye-slash',
+                      !state.isPasswordVisible && 'i-ph:eye',
                     )}
                   />
                 </InputGroupButton>
@@ -98,7 +102,9 @@ function SettingsPage() {
             onCheckedChange={functions.handleAnimationsChange}
             aria-describedby="settings-animations-description"
           />
-          <FieldLabel htmlFor="settings-animations">{t('settings.animations.disable')}</FieldLabel>
+          <FieldLabel htmlFor="settings-animations" className={styles['checkbox-label']}>
+            {t('settings.animations.disable')}
+          </FieldLabel>
         </Field>
         {state.isSystemReducedMotion && (
           <FieldDescription id="settings-animations-description">
@@ -117,7 +123,7 @@ function SettingsPage() {
             render={<Button variant="contain" className={styles.logout} />}
             disabled={mutations.logout.isPending}
           >
-            <span aria-hidden="true" className="i-ph:sign-out-bold" />
+            <span aria-hidden="true" className="i-ph:sign-out" />
             {t('settings.logout')}
           </AlertDialogTrigger>
           <AlertDialogContent size="sm">
@@ -145,6 +151,6 @@ function SettingsPage() {
           </AlertDialogContent>
         </AlertDialog>
       </section>
-    </section>
+    </PageLayout.Root>
   )
 }

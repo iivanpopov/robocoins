@@ -11,7 +11,7 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { GroupEmptyState, GroupForm, GroupRequestError, GroupResultPanel } from '../../-components'
 import { useGroupRenamePage } from '../../-hooks'
@@ -39,8 +39,8 @@ function GroupRenamePage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header align="end">
+    <PageLayout.Root>
+      <PageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/groups/$groupId" params={{ groupId: state.groupId }} />}
@@ -48,14 +48,14 @@ function GroupRenamePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.groups.rename.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.groups.rename.title')}</PageLayout.Title>
+          <PageLayout.Description>
             {!state.group && t('admin.groups.rename.description-empty')}
             {state.group && t('admin.groups.rename.description', { group: state.group.name })}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.errorKey && (
         <GroupRequestError
@@ -66,7 +66,7 @@ function GroupRenamePage() {
       )}
       {state.isNotFound && (
         <GroupEmptyState
-          icon="i-ph:users-three-duotone"
+          icon="i-ph:users-three"
           title={t('admin.groups.not-found.title')}
           description={t('admin.groups.not-found.description')}
         >
@@ -136,6 +136,6 @@ function GroupRenamePage() {
           </Button>
         </GroupResultPanel>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

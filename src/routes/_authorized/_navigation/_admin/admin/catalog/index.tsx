@@ -11,7 +11,7 @@ import {
   Loader,
 } from '#/components/ui'
 import { InlineError, ThemedChip } from '#/routes/-components'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { RewardRow } from './-components'
 import { ALL_FILTER, REWARD_FILTER_CATEGORY_OPTIONS, REWARD_TYPE_OPTIONS } from './-constants'
@@ -30,18 +30,18 @@ function CatalogPage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root className={styles.page}>
-      <AdminPageLayout.Header centered>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.catalog.title')}</AdminPageLayout.Title>
-        </AdminPageLayout.Heading>
-        <AdminPageLayout.Actions>
+    <PageLayout.Root className={styles.page}>
+      <PageLayout.Header centered>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.catalog.title')}</PageLayout.Title>
+        </PageLayout.Heading>
+        <PageLayout.Actions>
           <Button nativeButton={false} render={<Link to="/admin/catalog/create" />}>
-            <span className="i-ph:plus-bold" aria-hidden="true" />
+            <span className="i-ph:plus" aria-hidden="true" />
             {t('admin.catalog.add')}
           </Button>
-        </AdminPageLayout.Actions>
-      </AdminPageLayout.Header>
+        </PageLayout.Actions>
+      </PageLayout.Header>
 
       <div className={styles.filters}>
         <InputGroup>
@@ -126,7 +126,7 @@ function CatalogPage() {
 
       {!state.isPending && !state.isError && !state.rewards.length && (
         <div className={styles.empty}>
-          <span className="i-ph:storefront-duotone" aria-hidden="true" />
+          <span className="i-ph:storefront" aria-hidden="true" />
           {!state.hasFilters && <p>{t('admin.catalog.empty')}</p>}
           {state.hasFilters && <p>{t('admin.catalog.empty.filtered')}</p>}
           {state.hasFilters && (
@@ -150,6 +150,6 @@ function CatalogPage() {
           ))}
         </ul>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

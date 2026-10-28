@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router'
 
 import type { TeacherRegistrationResponse } from '#/api/types'
 import { Button, IconButton } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import styles from './teacher-registration-result.module.css'
 
@@ -26,8 +26,8 @@ export function TeacherRegistrationResult({
   if (isCopied) copyLabel = t('access.code.copied')
 
   return (
-    <AdminPageLayout.Root bottomSpace className={styles.page}>
-      <AdminPageLayout.Header align="end">
+    <PageLayout.Root bottomSpace className={styles.page}>
+      <PageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/people/teachers" />}
@@ -35,13 +35,11 @@ export function TeacherRegistrationResult({
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.teachers.result.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description className={styles.name}>
-            {result.name}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.teachers.result.title')}</PageLayout.Title>
+          <PageLayout.Description className={styles.name}>{result.name}</PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
 
       <div className={styles.credentials}>
         <span className={styles.label}>{t('access.code.label')}</span>
@@ -54,8 +52,8 @@ export function TeacherRegistrationResult({
             aria-label={copyLabel}
             title={copyLabel}
           >
-            {isCopied && <span aria-hidden="true" className="i-ph:check-bold" />}
-            {!isCopied && <span aria-hidden="true" className="i-ph:copy-bold" />}
+            {isCopied && <span aria-hidden="true" className="i-ph:check" />}
+            {!isCopied && <span aria-hidden="true" className="i-ph:copy" />}
           </IconButton>
         </div>
         <span className={styles.status} role="status" aria-live="polite">
@@ -76,6 +74,6 @@ export function TeacherRegistrationResult({
           {t('admin.teachers.result.another')}
         </Button>
       </div>
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

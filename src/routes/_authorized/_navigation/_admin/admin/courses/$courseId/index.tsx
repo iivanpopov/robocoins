@@ -2,7 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { Button, IconButton, Loader } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { CourseEmptyState, CourseGroupRow, CourseRequestError } from '../-components'
 import { useCourseDetailsPage } from '../-hooks'
@@ -22,8 +22,8 @@ function CourseDetailsPage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header align="end">
+    <PageLayout.Root>
+      <PageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/courses" />}
@@ -31,18 +31,18 @@ function CourseDetailsPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>
+        <PageLayout.Heading>
+          <PageLayout.Title>
             {!state.course && t('courses.label')}
             {state.course && state.course.name}
-          </AdminPageLayout.Title>
+          </PageLayout.Title>
           {state.course && (
-            <AdminPageLayout.Description>
+            <PageLayout.Description>
               {t('course.category', { category: state.course.category })}
-            </AdminPageLayout.Description>
+            </PageLayout.Description>
           )}
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.isCoursesPending && <Loader grow />}
       {state.isCoursesError && state.coursesErrorKey && (
         <CourseRequestError
@@ -53,7 +53,7 @@ function CourseDetailsPage() {
       )}
       {state.isNotFound && (
         <CourseEmptyState
-          icon="i-ph:books-duotone"
+          icon="i-ph:books"
           title={t('admin.courses.not-found.title')}
           description={t('admin.courses.not-found.description')}
         >
@@ -97,7 +97,7 @@ function CourseDetailsPage() {
                 className={styles.action}
               >
                 <span aria-hidden="true" className={styles['action-icon']} data-icon="rename">
-                  <span className="i-ph:pencil-simple-duotone" />
+                  <span className="i-ph:pencil-simple" />
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>{t('admin.courses.detail.rename')}</span>
@@ -105,7 +105,7 @@ function CourseDetailsPage() {
                     {t('admin.courses.detail.rename-description')}
                   </span>
                 </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
               <Link
                 to="/admin/courses/$courseId/category"
@@ -113,7 +113,7 @@ function CourseDetailsPage() {
                 className={styles.action}
               >
                 <span aria-hidden="true" className={styles['action-icon']} data-icon="category">
-                  <span className="i-ph:shapes-duotone" />
+                  <span className="i-ph:shapes" />
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>
@@ -123,7 +123,7 @@ function CourseDetailsPage() {
                     {t('admin.courses.detail.change-category-description')}
                   </span>
                 </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
               <Link
                 to="/admin/courses/$courseId/delete"
@@ -132,7 +132,7 @@ function CourseDetailsPage() {
                 data-tone="error"
               >
                 <span aria-hidden="true" className={styles['action-icon']} data-icon="delete">
-                  <span className="i-ph:trash-duotone" />
+                  <span className="i-ph:trash" />
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>{t('admin.courses.delete.action')}</span>
@@ -140,13 +140,13 @@ function CourseDetailsPage() {
                     {t('admin.courses.detail.delete-description')}
                   </span>
                 </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
             </div>
           </section>
           */}
         </>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

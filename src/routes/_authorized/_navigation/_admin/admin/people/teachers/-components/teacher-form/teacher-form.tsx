@@ -30,7 +30,7 @@ export function TeacherForm({
     <form className={cn(styles.form, className)} onSubmit={onSubmit} noValidate>
       {note && (
         <p className={styles.note}>
-          <span aria-hidden="true" className="i-ph:info-duotone" />
+          <span aria-hidden="true" className="i-ph:info" />
           <span>{note}</span>
         </p>
       )}

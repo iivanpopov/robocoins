@@ -2,7 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { IconButton, Loader } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import {
   GroupEmptyState,
@@ -29,8 +29,8 @@ function GroupDetailsPage() {
   const groupName = state.group?.name ?? t('groups.label')
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header align="end">
+    <PageLayout.Root>
+      <PageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin" />}
@@ -38,17 +38,17 @@ function GroupDetailsPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{groupName}</AdminPageLayout.Title>
-          <AdminPageLayout.Description>
+        <PageLayout.Heading>
+          <PageLayout.Title>{groupName}</PageLayout.Title>
+          <PageLayout.Description>
             {state.course && state.course.name}
             {!state.course &&
               state.group &&
               t('admin.groups.detail.course-fallback', { id: state.group.course_id })}
             {!state.group && t('admin.groups.detail.description-empty')}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.errorKey && (
         <GroupRequestError
@@ -59,7 +59,7 @@ function GroupDetailsPage() {
       )}
       {state.isNotFound && (
         <GroupEmptyState
-          icon="i-ph:users-three-duotone"
+          icon="i-ph:users-three"
           title={t('admin.groups.not-found.title')}
           description={t('admin.groups.not-found.description')}
         >
@@ -80,7 +80,7 @@ function GroupDetailsPage() {
                 className={styles['manage-link']}
               >
                 <span>{t('admin.groups.teachers.entry')}</span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
             </div>
             {!state.teachers.length && (
@@ -108,7 +108,7 @@ function GroupDetailsPage() {
                 className={styles['manage-link']}
               >
                 <span>{t('admin.groups.detail.students-manage')}</span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
             </div>
             {!state.students.length && !state.studentsCount && (
@@ -135,7 +135,7 @@ function GroupDetailsPage() {
                 className={styles.action}
               >
                 <span aria-hidden="true" className={styles['action-icon']} data-icon="practice">
-                  <span className="i-ph:check-circle-duotone" />
+                  <span className="i-ph:check-circle" />
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>{t('group.practice.title')}</span>
@@ -143,7 +143,7 @@ function GroupDetailsPage() {
                     {t('admin.groups.detail.practice-description')}
                   </span>
                 </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
               {/* No API integration: rename, course change, and deletion only update local state.
               <Link
@@ -152,7 +152,7 @@ function GroupDetailsPage() {
                 className={styles.action}
               >
                 <span aria-hidden="true" className={styles['action-icon']} data-icon="rename">
-                  <span className="i-ph:pencil-simple-duotone" />
+                  <span className="i-ph:pencil-simple" />
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>{t('admin.groups.detail.rename')}</span>
@@ -160,7 +160,7 @@ function GroupDetailsPage() {
                     {t('admin.groups.detail.rename-description')}
                   </span>
                 </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
               <Link
                 to="/admin/groups/$groupId/course"
@@ -168,7 +168,7 @@ function GroupDetailsPage() {
                 className={styles.action}
               >
                 <span aria-hidden="true" className={styles['action-icon']} data-icon="course">
-                  <span className="i-ph:books-duotone" />
+                  <span className="i-ph:books" />
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>
@@ -178,7 +178,7 @@ function GroupDetailsPage() {
                     {t('admin.groups.detail.change-course-description')}
                   </span>
                 </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
               <Link
                 to="/admin/groups/$groupId/delete"
@@ -187,7 +187,7 @@ function GroupDetailsPage() {
                 data-tone="error"
               >
                 <span aria-hidden="true" className={styles['action-icon']} data-icon="delete">
-                  <span className="i-ph:trash-duotone" />
+                  <span className="i-ph:trash" />
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>{t('admin.groups.delete.action')}</span>
@@ -195,13 +195,13 @@ function GroupDetailsPage() {
                     {t('admin.groups.detail.delete-description')}
                   </span>
                 </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
               */}
             </div>
           </section>
         </>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

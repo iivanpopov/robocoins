@@ -3,6 +3,7 @@ import { Link } from '@tanstack/react-router'
 import { cn } from 'cn'
 
 import { Button, Loader } from '#/components/ui'
+import { formatSignedAmount } from '#/routes/-utils'
 
 import type { StudentOperationResult } from '../../-types'
 
@@ -56,9 +57,7 @@ export function StudentOperationResultRow({
             </span>
           )}
           {result.transactionAmount !== null && (
-            <span className={styles.amount}>
-              {t('profile.history.amount', { count: result.transactionAmount })}
-            </span>
+            <span className={styles.amount}>{formatSignedAmount(result.transactionAmount)}</span>
           )}
           <Link
             to="/admin/people/students/$studentId/balance"

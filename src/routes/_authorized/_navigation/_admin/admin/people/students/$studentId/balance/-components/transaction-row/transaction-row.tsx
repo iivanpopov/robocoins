@@ -3,6 +3,7 @@ import { cn } from 'cn'
 
 import type { BalanceTransactionResponse } from '#/api/types'
 import { Button } from '#/components/ui'
+import { formatSignedAmount } from '#/routes/-utils'
 
 import styles from './transaction-row.module.css'
 
@@ -25,8 +26,8 @@ export function TransactionRow(props: TransactionRowProps) {
         <span
           className={cn(styles.amount, isDeposit && styles.deposit, !isDeposit && styles.deduct)}
         >
-          {isDeposit && t('profile.history.amount', { count: props.transaction.amount })}
-          {!isDeposit && t('profile.history.amount', { count: -props.transaction.amount })}
+          {isDeposit && formatSignedAmount(props.transaction.amount)}
+          {!isDeposit && formatSignedAmount(-props.transaction.amount)}
         </span>
         <time dateTime={props.transaction.created_at} className={styles.date}>
           {t('history.date', { date: new Date(props.transaction.created_at) })}

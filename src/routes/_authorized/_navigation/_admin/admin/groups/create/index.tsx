@@ -2,7 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { Button, Field, FieldError, FieldLabel, IconButton, Input, Loader } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import {
   GroupEmptyState,
@@ -25,8 +25,8 @@ function CreateGroupPage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header align="end">
+    <PageLayout.Root>
+      <PageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin" />}
@@ -34,10 +34,10 @@ function CreateGroupPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.groups.create.title')}</AdminPageLayout.Title>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.groups.create.title')}</PageLayout.Title>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.createdGroup && (
         <GroupResultPanel
           tone="success"
@@ -95,7 +95,7 @@ function CreateGroupPage() {
         !state.isCoursesError &&
         !state.hasCourses && (
           <GroupEmptyState
-            icon="i-ph:books-duotone"
+            icon="i-ph:books"
             title={t('admin.groups.create.courses-empty-title')}
             description={t('admin.groups.create.courses-empty-description')}
           >
@@ -176,6 +176,6 @@ function CreateGroupPage() {
             {state.errorKey && <GroupRequestError messageKey={state.errorKey} />}
           </GroupForm>
         )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

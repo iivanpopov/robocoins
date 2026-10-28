@@ -4,7 +4,7 @@ import { cn } from 'cn'
 
 import { Button, IconButton, Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { RewardCategoryName, RewardFields } from '../-components'
 // import { RewardImagePicker } from '../-components'
@@ -24,10 +24,10 @@ function CreateRewardPage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root bottomSpace className={styles.page}>
+    <PageLayout.Root bottomSpace className={styles.page}>
       {!state.createdReward && (
         <>
-          <AdminPageLayout.Header align="end">
+          <PageLayout.Header align="end">
             <IconButton
               nativeButton={false}
               render={<Link to="/admin/catalog" />}
@@ -35,10 +35,10 @@ function CreateRewardPage() {
             >
               <span aria-hidden="true" className="i-ph:arrow-left" />
             </IconButton>
-            <AdminPageLayout.Heading>
-              <AdminPageLayout.Title>{t('admin.catalog.create.title')}</AdminPageLayout.Title>
-            </AdminPageLayout.Heading>
-          </AdminPageLayout.Header>
+            <PageLayout.Heading>
+              <PageLayout.Title>{t('admin.catalog.create.title')}</PageLayout.Title>
+            </PageLayout.Heading>
+          </PageLayout.Header>
 
           <form className={styles.form} noValidate onSubmit={functions.handleSubmit}>
             <RewardFields
@@ -70,16 +70,13 @@ function CreateRewardPage() {
 
       {state.createdReward && (
         <section className={styles.success} role="status">
-          <span
-            className={cn('i-ph:check-circle-duotone', styles['success-icon'])}
-            aria-hidden="true"
-          />
-          <AdminPageLayout.Heading>
-            <AdminPageLayout.Title>{t('admin.catalog.create.success.title')}</AdminPageLayout.Title>
-            <AdminPageLayout.Description>
+          <span className={cn('i-ph:check-circle', styles['success-icon'])} aria-hidden="true" />
+          <PageLayout.Heading>
+            <PageLayout.Title>{t('admin.catalog.create.success.title')}</PageLayout.Title>
+            <PageLayout.Description>
               {t('admin.catalog.create.success.description')}
-            </AdminPageLayout.Description>
-          </AdminPageLayout.Heading>
+            </PageLayout.Description>
+          </PageLayout.Heading>
 
           <dl className={styles.summary}>
             <div className={styles['summary-row']}>
@@ -90,7 +87,7 @@ function CreateRewardPage() {
               <dt>{t('admin.catalog.form.price')}</dt>
               <dd>
                 {t('coins.amount', { count: state.createdReward.price })}
-                <span className="i-ph:coins-bold" aria-hidden="true" />
+                <span className="i-ph:coins" aria-hidden="true" />
               </dd>
             </div>
             <div className={styles['summary-row']}>
@@ -119,7 +116,7 @@ function CreateRewardPage() {
                     />
                   )}
                   {features.imagePicker.state.isPreviewBroken && (
-                    <span className="i-ph:image-broken-duotone" aria-hidden="true" />
+                    <span className="i-ph:image-broken" aria-hidden="true" />
                   )}
                 </div>
                 <p className={styles['preview-description']}>
@@ -160,6 +157,6 @@ function CreateRewardPage() {
           </div>
         </section>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

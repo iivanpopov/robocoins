@@ -1,26 +1,13 @@
 .page {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xl);
   min-height: 100dvh;
-  padding: var(--spacing-md) var(--spacing-md) 4rem;
-}
-
-.header {
-  display: flex;
-  gap: var(--spacing-sm);
-  align-items: center;
-  justify-content: space-between;
-}
-
-.back-button {
-  flex-shrink: 0;
 }
 
 .header-identity {
   display: flex;
   gap: var(--spacing-sm);
   align-items: center;
+  justify-content: flex-end;
+  width: 100%;
   min-width: 0;
 }
 
@@ -48,17 +35,20 @@
   color: var(--foreground);
 }
 
-.nickname-row {
+.nickname-row,
+.password-row {
   display: flex;
   gap: var(--spacing-sm);
   align-items: center;
 }
 
-.nickname-row > :first-child {
+.nickname-row > :first-child,
+.password-row > :first-child {
   flex: 1;
 }
 
-.nickname-save {
+.nickname-save,
+.password-regenerate {
   flex-shrink: 0;
 }
 

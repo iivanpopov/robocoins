@@ -2,7 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { Button, InputGroup, InputGroupAddon, InputGroupInput, Loader } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { CourseCategoryChips, CourseEmptyState, CourseRequestError, CourseRow } from './-components'
 import { useCoursesPage } from './-hooks'
@@ -20,18 +20,18 @@ function CoursesPage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('courses.title')}</AdminPageLayout.Title>
-        </AdminPageLayout.Heading>
-        <AdminPageLayout.Actions>
+    <PageLayout.Root>
+      <PageLayout.Header>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('courses.title')}</PageLayout.Title>
+        </PageLayout.Heading>
+        <PageLayout.Actions>
           <Button nativeButton={false} render={<Link to="/admin/courses/create" />}>
-            <span aria-hidden="true" className="i-ph:plus-bold" />
+            <span aria-hidden="true" className="i-ph:plus" />
             {t('admin.learning.create')}
           </Button>
-        </AdminPageLayout.Actions>
-      </AdminPageLayout.Header>
+        </PageLayout.Actions>
+      </PageLayout.Header>
       <div className={styles.controls}>
         <InputGroup>
           <InputGroupAddon aria-hidden="true">
@@ -65,7 +65,7 @@ function CoursesPage() {
       )}
       {!state.isPending && !state.isError && !state.totalCount && (
         <CourseEmptyState
-          icon="i-ph:books-duotone"
+          icon="i-ph:books"
           title={t('admin.courses.list.empty-all')}
           description={t('admin.courses.list.empty-all-description')}
         >
@@ -88,6 +88,6 @@ function CoursesPage() {
           ))}
         </div>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

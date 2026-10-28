@@ -2,6 +2,7 @@ import { useTranslate } from '@kanjou/react'
 
 import type { GroupPracticeAwardResponse } from '#/api/types'
 import { Button, Loader } from '#/components/ui'
+import { formatSignedAmount } from '#/routes/-utils'
 
 import styles from './practice-result.module.css'
 
@@ -37,7 +38,7 @@ export function PracticeResult({
     <div className={styles.result}>
       <header className={styles.header}>
         <span aria-hidden="true" className={styles.icon}>
-          <span className="i-ph:check-circle-duotone" />
+          <span className="i-ph:check-circle" />
         </span>
         <div className={styles.heading}>
           <h2 className={styles.title}>{t('admin.operations.practice.result.title')}</h2>
@@ -75,9 +76,7 @@ export function PracticeResult({
                   t('admin.operations.student-fallback', { id: student.student_id })}
               </span>
               <span className={styles.amount}>
-                {t('profile.history.amount', {
-                  count: getSignedAmount(student.transaction),
-                })}
+                {formatSignedAmount(getSignedAmount(student.transaction))}
               </span>
               <span className={styles.balance}>
                 {t('admin.operations.result.new-balance', { count: student.balance })}

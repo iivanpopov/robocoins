@@ -3,7 +3,7 @@ import { createFileRoute, Link, useParams, useSearch } from '@tanstack/react-rou
 import * as v from 'valibot'
 
 import { Button, Field, FieldDescription, FieldLabel, IconButton, Loader } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import {
   CourseCategoryChips,
@@ -73,19 +73,19 @@ function CourseCategoryPage() {
   }
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header align="end">
+    <PageLayout.Root>
+      <PageLayout.Header align="end">
         {backButton}
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.courses.category.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.courses.category.title')}</PageLayout.Title>
+          <PageLayout.Description>
             <>
               {!state.course && t('admin.courses.category.description-empty')}
               {state.course && <>{state.course.name}</>}
             </>
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.errorKey && (
         <CourseRequestError
@@ -96,7 +96,7 @@ function CourseCategoryPage() {
       )}
       {state.isNotFound && (
         <CourseEmptyState
-          icon="i-ph:books-duotone"
+          icon="i-ph:books"
           title={t('admin.courses.not-found.title')}
           description={t('admin.courses.not-found.description')}
         >
@@ -170,6 +170,6 @@ function CourseCategoryPage() {
           </div>
         </ResultPanel>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

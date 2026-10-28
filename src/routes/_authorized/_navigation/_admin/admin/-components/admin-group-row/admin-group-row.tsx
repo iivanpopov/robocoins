@@ -1,11 +1,8 @@
 import { useTranslate } from '@kanjou/react'
 import { Link } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import type { CourseCategoryKey } from '#/api/types'
-import { CategoryIcon } from '#/routes/-components'
-
-import styles from './admin-group-row.module.css'
+import { LearningCard } from '#/routes/-components'
 
 export interface AdminGroupRowTeacher {
   userId: number
@@ -36,28 +33,30 @@ export function AdminGroupRow({ group, className }: AdminGroupRowProps) {
   const teacherLabel = teacherNames.join(', ')
 
   return (
-    <Link
-      to="/admin/groups/$groupId"
-      params={{ groupId: group.id }}
-      className={cn(styles.row, className)}
-      data-category={group.category}
-      aria-label={t('admin.groups.open', { name: group.name })}
-    >
-      <div className={styles.icon}>
-        <CategoryIcon category={group.category} />
-      </div>
-      <div className={styles.details}>
-        <h2 className={styles.name}>{group.name}</h2>
-        <span className={styles.course}>{group.courseName}</span>
-        {!!teacherLabel && <span className={styles.teachers}>{teacherLabel}</span>}
-        {!teacherLabel && <span className={styles.teachers}>{t('admin.groups.no-teacher')}</span>}
-      </div>
-      <div className={styles.meta}>
-        <span className={styles.count}>
-          {t('group.students-count', { count: group.studentsCount })}
-        </span>
-        <span aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.caret)} />
-      </div>
-    </Link>
+    <LearningCard.Root className={className}>
+      <LearningCard.Row
+        render={
+          <Link
+            to="/admin/groups/$groupId"
+            params={{ groupId: group.id }}
+            aria-label={t('admin.groups.open', { name: group.name })}
+          />
+        }
+      >
+        <LearningCard.Icon category={group.category} />
+        <LearningCard.Content>
+          <LearningCard.Title>{group.name}</LearningCard.Title>
+          <LearningCard.Description>{group.courseName}</LearningCard.Description>
+          <LearningCard.Description>
+            {!!teacherLabel && teacherLabel}
+            {!teacherLabel && t('admin.groups.no-teacher')}
+          </LearningCard.Description>
+        </LearningCard.Content>
+        <LearningCard.Meta>
+          <span>{t('group.students-count', { count: group.studentsCount })}</span>
+          <LearningCard.Indicator kind="navigate" />
+        </LearningCard.Meta>
+      </LearningCard.Row>
+    </LearningCard.Root>
   )
 }

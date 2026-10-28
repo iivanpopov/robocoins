@@ -21,7 +21,7 @@ import {
   IconButton,
   Loader,
 } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 import { getStudentTransactionsQueryOptions } from '#/routes/_authorized/_navigation/_admin/admin/-utils'
 
 import { ApiErrorNotice } from '../../-components'
@@ -95,25 +95,25 @@ function StudentBalanceContent(props: StudentBalanceContentProps) {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header centered>
+    <PageLayout.Root>
+      <PageLayout.Header centered>
         <IconButton onClick={functions.handleBack} title={t('admin.balance.back')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading className={styles.heading}>
-          <AdminPageLayout.Title>{t('admin.balance.title')}</AdminPageLayout.Title>
+        <PageLayout.Heading className={styles.heading}>
+          <PageLayout.Title>{t('admin.balance.title')}</PageLayout.Title>
           {!!state.studentName && (
-            <AdminPageLayout.Description className={styles.student}>
+            <PageLayout.Description className={styles.student}>
               {state.studentName}
-            </AdminPageLayout.Description>
+            </PageLayout.Description>
           )}
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+        </PageLayout.Heading>
+      </PageLayout.Header>
 
       {!!state.unknownResult && (
         <section className={styles.unknown} role="alert">
           <span aria-hidden="true" className={styles['unknown-icon']}>
-            <span className="i-ph:warning-circle-duotone" />
+            <span className="i-ph:warning-circle" />
           </span>
           <div className={styles['unknown-details']}>
             <h2 className={styles['unknown-title']}>{t('admin.balance.unknown.title')}</h2>
@@ -450,6 +450,6 @@ function StudentBalanceContent(props: StudentBalanceContentProps) {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

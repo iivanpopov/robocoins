@@ -17,7 +17,7 @@ import {
   InputGroupInput,
   Loader,
 } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { AdminSelect, ApiErrorNotice } from '../../-components'
 import { GROUP_FILTER_ALL } from '../../-constants'
@@ -52,8 +52,8 @@ function PracticeContent() {
   ]
 
   return (
-    <AdminPageLayout.Root className={styles.page}>
-      <AdminPageLayout.Header centered>
+    <PageLayout.Root className={styles.page}>
+      <PageLayout.Header centered>
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/operations" />}
@@ -61,13 +61,13 @@ function PracticeContent() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading className={styles.heading}>
-          <AdminPageLayout.Title>{t('group.practice.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description>
+        <PageLayout.Heading className={styles.heading}>
+          <PageLayout.Title>{t('group.practice.title')}</PageLayout.Title>
+          <PageLayout.Description>
             {t('admin.operations.practice.description')}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
 
       <article className={styles.card}>
         <header className={styles['card-header']}>
@@ -128,7 +128,7 @@ function PracticeContent() {
               <>
                 {!state.totalGroupCount && (
                   <div className={styles.empty}>
-                    <span aria-hidden="true" className="i-ph:users-three-duotone" />
+                    <span aria-hidden="true" className="i-ph:users-three" />
                     <p>{t('groups.empty')}</p>
                     <Button nativeButton={false} render={<Link to="/admin" />}>
                       {t('navigation.groups')}
@@ -213,7 +213,7 @@ function PracticeContent() {
         {state.unknownResult && (
           <section className={styles.unknown} role="alert">
             <span aria-hidden="true" className={styles['unknown-icon']}>
-              <span className="i-ph:warning-circle-duotone" />
+              <span className="i-ph:warning-circle" />
             </span>
             <div className={styles['unknown-details']}>
               <h2 className={styles['unknown-title']}>{t('admin.balance.unknown.title')}</h2>
@@ -289,6 +289,6 @@ function PracticeContent() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

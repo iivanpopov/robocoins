@@ -27,7 +27,7 @@ export function GoalCard(props: GoalCardProps) {
           <p className={styles.remaining}>{t('profile.goal.shop')}</p>
           <Button className={styles.action} size="md" onClick={props.onOpenShop}>
             {t('profile.goal.choose')}
-            <span aria-hidden="true" className="i-ph:arrow-right-bold" />
+            <span aria-hidden="true" className="i-ph:arrow-right" />
           </Button>
         </div>
       </article>
@@ -45,7 +45,7 @@ export function GoalCard(props: GoalCardProps) {
           <strong>
             {t('profile.goal.progress', { saved: props.balance, price: props.goal.price })}
           </strong>
-          <span aria-hidden="true" className={cn('i-ph:coin-fill', styles.coin)} />
+          <span aria-hidden="true" className={cn('i-ph:coin', styles.coin)} />
         </p>
         <div
           className={styles.track}
@@ -66,13 +66,13 @@ export function GoalCard(props: GoalCardProps) {
         {!props.isCompleted && (
           <Button className={styles.change} size="md" variant="ghost" onClick={props.onOpenShop}>
             {t('profile.goal.change')}
-            <span aria-hidden="true" className="i-ph:caret-right-bold" />
+            <span aria-hidden="true" className="i-ph:caret-right" />
           </Button>
         )}
         {props.isCompleted && (
           <Button className={styles.action} size="md" onClick={props.onOpenShop}>
             {t('profile.goal.claim')}
-            <span aria-hidden="true" className="i-ph:gift-fill" />
+            <span aria-hidden="true" className="i-ph:gift" />
           </Button>
         )}
       </div>

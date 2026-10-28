@@ -1,19 +1,38 @@
 .layout {
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.toolbar {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hint {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.loader {
+  justify-content: center;
+}
+
+.empty {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.memberships {
+  display: flex;
+  flex-direction: column;
   gap: var(--spacing-md);
+  margin-top: var(--spacing-xs);
 }
 
-.actions {
-  display: grid;
-  gap: var(--spacing-md);
-}
-
-.submit {
-  width: 100%;
-}
-
-.kick {
+.remove {
   color: var(--error-foreground);
   background: var(--error);
 
@@ -22,33 +41,19 @@
   }
 }
 
+.remove-row {
+  color: var(--error);
+}
+
+.note {
+  font-size: 0.8125rem;
+  color: var(--foreground);
+}
+
 .confirm-identity {
   display: flex;
   gap: var(--spacing-sm);
   align-items: center;
   font-weight: 600;
-  color: var(--foreground);
-}
-
-.outcome {
-  color: var(--foreground);
-}
-
-.remove-checkbox {
-  color: var(--foreground);
-  border-color: var(--foreground);
-}
-
-.remove-checkbox[data-checked],
-.remove-checkbox[data-indeterminate] {
-  color: var(--foreground);
-  border-color: var(--foreground);
-}
-
-.remove-checkbox:focus-visible {
-  outline-color: var(--foreground);
-}
-
-.remove-label {
   color: var(--foreground);
 }

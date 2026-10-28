@@ -1,11 +1,10 @@
 import { useTranslate } from '@kanjou/react'
 
 import { Drawer, DrawerContent, HeroButton, Loader, Typography } from '#/components/ui'
-import { CategoryIcon } from '#/routes/-components'
+import { LearningCard } from '#/routes/-components'
 import { parseGroupSchedule } from '#/routes/-utils'
 import { AuthLayout } from '#/routes/_auth/-components'
 
-import { CategoryChoice, CategoryChoiceTile } from '../../category-choice'
 import { RegisterBackCaption } from '../../register-back-caption'
 import { StepGroup } from '../step-group'
 import { useStepCourse } from './-hooks'
@@ -41,27 +40,28 @@ export function StepCourse() {
             <Typography variant="caption">{t('step.selection.empty')}</Typography>
           )}
           {state.courses.map((course) => (
-            <CategoryChoice
-              key={course.id}
-              category={course.category}
-              className={styles.course}
-              aria-pressed={state.selectedCourseId === course.id}
-              onClick={() => functions.handleSelectCourse(course.id)}
-            >
-              <CategoryChoiceTile>
-                <CategoryIcon category={course.category} />
-              </CategoryChoiceTile>
-              <div>
-                <Typography variant="subtitle">{course.name}</Typography>
-                {state.selectedCourseId === course.id && state.selectedGroup && (
-                  <Typography variant="caption">
-                    {schedule.weekday && t(`weekday.${schedule.weekday}`)}
-                    <br />
-                    {schedule.time}
-                  </Typography>
-                )}
-              </div>
-            </CategoryChoice>
+            <LearningCard.Root key={course.id} size="lg" selection="check">
+              <LearningCard.Row
+                render={
+                  <button
+                    type="button"
+                    aria-pressed={state.selectedCourseId === course.id}
+                    onClick={() => functions.handleSelectCourse(course.id)}
+                  />
+                }
+              >
+                <LearningCard.Icon category={course.category} />
+                <LearningCard.Content>
+                  <LearningCard.Title>{course.name}</LearningCard.Title>
+                  {state.selectedCourseId === course.id && state.selectedGroup && (
+                    <LearningCard.Description>
+                      {schedule.weekday && t(`weekday.${schedule.weekday}`)} {schedule.time}
+                    </LearningCard.Description>
+                  )}
+                </LearningCard.Content>
+                <LearningCard.Indicator kind="select" />
+              </LearningCard.Row>
+            </LearningCard.Root>
           ))}
         </div>
 

@@ -15,24 +15,24 @@ interface NavigationItem {
 
 const NAVIGATION_ITEMS = {
   admin: [
-    { to: '/settings', icon: 'i-ph:gear-bold', label: 'navbar.settings' },
-    { to: '/admin', icon: 'i-ph:graduation-cap-bold', label: 'navbar.learning' },
+    { to: '/settings', icon: 'i-ph:gear', label: 'navbar.settings' },
+    { to: '/admin', icon: 'i-ph:graduation-cap', label: 'navbar.learning' },
     {
       to: '/admin/people',
       path: '/admin/people/students',
-      icon: 'i-ph:users-three-bold',
+      icon: 'i-ph:users-three',
       label: 'people.title',
     },
-    { to: '/admin/catalog', icon: 'i-ph:storefront-bold', label: 'navbar.catalog' },
+    { to: '/admin/catalog', icon: 'i-ph:storefront', label: 'navbar.catalog' },
   ],
   teacher: [
     { to: '/settings', icon: 'i-ph:gear', label: 'navbar.settings' },
     { to: '/group', icon: 'i-ph:users-three', label: 'groups.title' },
   ],
   student: [
-    { to: '/settings', icon: 'i-ph:gear-bold', label: 'navbar.settings' },
-    { to: '/', icon: 'i-ph:house-bold', label: 'navbar.home' },
-    { to: '/shop', icon: 'i-ph:planet-bold', label: 'navbar.shop' },
+    { to: '/settings', icon: 'i-ph:gear', label: 'navbar.settings' },
+    { to: '/', icon: 'i-ph:house', label: 'navbar.home' },
+    { to: '/shop', icon: 'i-ph:planet', label: 'navbar.shop' },
   ],
 } as const satisfies Record<UserRoleKey, readonly NavigationItem[]>
 

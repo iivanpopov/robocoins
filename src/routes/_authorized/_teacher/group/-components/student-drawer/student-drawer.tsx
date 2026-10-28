@@ -68,7 +68,7 @@ export function StudentDrawer(props: StudentDrawerProps) {
                       <span aria-hidden="true">{props.student.balance}</span>
                       <span
                         aria-hidden="true"
-                        className={cn('i-ph:coin-bold', styles['balance-icon'])}
+                        className={cn('i-ph:coin', styles['balance-icon'])}
                       />
                     </span>
                   </span>
@@ -80,10 +80,7 @@ export function StudentDrawer(props: StudentDrawerProps) {
                   aria-label={t('student.profile.edit')}
                   title={t('student.profile.edit')}
                 >
-                  <span
-                    aria-hidden="true"
-                    className={cn('i-ph:caret-right', styles['profile-arrow'])}
-                  />
+                  <span aria-hidden="true" className={cn('i-ph:wrench', styles['profile-arrow'])} />
                 </button>
               </DrawerTitle>
             </DrawerHeader>

@@ -17,7 +17,7 @@ import {
 */
 import { IconButton, Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { RewardCategoryName } from '../-components'
 // import { RewardActionNotice } from '../-components'
@@ -50,8 +50,8 @@ function RewardDetailContent() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root bottomSpace className={styles.page}>
-      <AdminPageLayout.Header align="end">
+    <PageLayout.Root bottomSpace className={styles.page}>
+      <PageLayout.Header align="end">
         <IconButton
           onClick={functions.handleBack}
           title={t('navigation.catalog')}
@@ -59,10 +59,10 @@ function RewardDetailContent() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title className={styles.title}>
+        <PageLayout.Heading>
+          <PageLayout.Title className={styles.title}>
             {state.reward?.name ?? t('admin.catalog.details.title')}
-          </AdminPageLayout.Title>
+          </PageLayout.Title>
           {!!state.reward && (
             <p className={styles.meta}>
               <span>{t(`admin.catalog.type.${state.reward.type}`)},</span>
@@ -72,11 +72,11 @@ function RewardDetailContent() {
           {!!state.reward && (
             <p className={styles.price}>
               {t('coins.amount', { count: state.reward.price })}
-              <span className="i-ph:coins-bold" aria-hidden="true" />
+              <span className="i-ph:coins" aria-hidden="true" />
             </p>
           )}
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+        </PageLayout.Heading>
+      </PageLayout.Header>
 
       {state.isPending && <Loader grow />}
 
@@ -101,20 +101,20 @@ function RewardDetailContent() {
             <div className={styles.actions}>
               <button type="button" className={styles.action} onClick={functions.handleEdit}>
                 <span aria-hidden="true" className={styles['action-icon']}>
-                  <span className="i-ph:pencil-simple-duotone" />
+                  <span className="i-ph:pencil-simple" />
                 </span>
                 <span className={styles['action-title']}>{t('admin.catalog.details.edit')}</span>
-                <span aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.caret)} />
+                <span aria-hidden="true" className={cn('i-ph:caret-right', styles.caret)} />
               </button>
               <button type="button" className={styles.action} onClick={functions.handleOpenHide}>
                 <span aria-hidden="true" className={styles['action-icon']}>
-                  <span className="i-ph:eye-slash-duotone" />
+                  <span className="i-ph:eye-slash" />
                 </span>
                 <span className={styles['action-title']}>{t('admin.catalog.details.hide')}</span>
               </button>
               <button type="button" className={styles.action} onClick={functions.handleOpenShow}>
                 <span aria-hidden="true" className={styles['action-icon']}>
-                  <span className="i-ph:eye-duotone" />
+                  <span className="i-ph:eye" />
                 </span>
                 <span className={styles['action-title']}>{t('admin.catalog.details.show')}</span>
               </button>
@@ -125,7 +125,7 @@ function RewardDetailContent() {
                 onClick={functions.handleOpenDelete}
               >
                 <span aria-hidden="true" className={styles['action-icon']}>
-                  <span className="i-ph:trash-duotone" />
+                  <span className="i-ph:trash" />
                 </span>
                 <span className={styles['action-title']}>{t('admin.catalog.details.delete')}</span>
               </button>
@@ -215,6 +215,6 @@ function RewardDetailContent() {
         </AlertDialogContent>
       </AlertDialog>
       */}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

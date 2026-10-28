@@ -3,12 +3,12 @@ import { cn } from 'cn'
 import type { CourseCategoryKey } from '#/api/types'
 
 const CATEGORY_ICON: Record<CourseCategoryKey, string> = {
-  'game dev': 'i-ph:game-controller-duotone',
+  'game dev': 'i-ph:game-controller',
   embedded: 'i-ph:cpu',
-  'no category': 'i-ph:shapes-duotone',
-  primary: 'i-ph:rocket-launch-duotone',
-  python: 'i-ph:file-py-duotone',
-  web: 'i-ph:globe-duotone',
+  'no category': 'i-ph:shapes',
+  primary: 'i-ph:rocket-launch',
+  python: 'i-ph:file-py',
+  web: 'i-ph:globe',
 }
 
 export interface CategoryIconProps {
@@ -17,5 +17,5 @@ export interface CategoryIconProps {
 }
 
 export function CategoryIcon({ category, className }: CategoryIconProps) {
-  return <div className={cn(CATEGORY_ICON[category], className)} />
+  return <span className={cn(CATEGORY_ICON[category], className)} />
 }

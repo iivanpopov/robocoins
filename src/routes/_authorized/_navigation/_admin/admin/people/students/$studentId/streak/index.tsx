@@ -23,7 +23,7 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { ApiErrorNotice } from '../../-components'
 import { useStudentStreakPage } from './-hooks'
@@ -73,8 +73,8 @@ function StudentStreakPage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root className={styles.page}>
-      <AdminPageLayout.Header>
+    <PageLayout.Root className={styles.page}>
+      <PageLayout.Header>
         <IconButton
           nativeButton={false}
           render={
@@ -84,13 +84,13 @@ function StudentStreakPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.streak.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description className={styles.description}>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.streak.title')}</PageLayout.Title>
+          <PageLayout.Description className={styles.description}>
             {t('admin.streak.description')}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
 
       {state.isPending && <Loader grow />}
 
@@ -110,10 +110,7 @@ function StudentStreakPage() {
             <div className={styles.metrics}>
               <div className={styles.metric}>
                 <span className={styles['metric-heading']}>
-                  <span
-                    aria-hidden="true"
-                    className={cn('i-ph:fire-duotone', styles['metric-icon'])}
-                  />
+                  <span aria-hidden="true" className={cn('i-ph:fire', styles['metric-icon'])} />
                   <span className={styles['metric-label']}>{t('admin.streak.current.title')}</span>
                 </span>
                 <span className={styles['metric-value']}>
@@ -131,10 +128,7 @@ function StudentStreakPage() {
 
               <div className={styles.metric}>
                 <span className={styles['metric-heading']}>
-                  <span
-                    aria-hidden="true"
-                    className={cn('i-ph:trophy-duotone', styles['metric-icon'])}
-                  />
+                  <span aria-hidden="true" className={cn('i-ph:trophy', styles['metric-icon'])} />
                   <span className={styles['metric-label']}>{t('admin.streak.longest.title')}</span>
                 </span>
                 <span className={styles['metric-value']}>
@@ -184,9 +178,7 @@ function StudentStreakPage() {
                 aria-busy={mutations.start.isPending}
               >
                 {mutations.start.isPending && <Loader />}
-                {!mutations.start.isPending && (
-                  <span aria-hidden="true" className="i-ph:play-duotone" />
-                )}
+                {!mutations.start.isPending && <span aria-hidden="true" className="i-ph:play" />}
                 {t('admin.streak.actions.start')}
               </Button>
 
@@ -198,9 +190,7 @@ function StudentStreakPage() {
                 aria-busy={mutations.end.isPending}
               >
                 {mutations.end.isPending && <Loader />}
-                {!mutations.end.isPending && (
-                  <span aria-hidden="true" className="i-ph:stop-duotone" />
-                )}
+                {!mutations.end.isPending && <span aria-hidden="true" className="i-ph:stop" />}
                 {t('admin.streak.actions.end')}
               </button>
             </div>
@@ -298,6 +288,6 @@ function StudentStreakPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

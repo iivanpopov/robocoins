@@ -3,7 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Button, Field, FieldError, FieldLabel, IconButton, Input, Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { TeacherRegistrationResult } from '../-components'
 import { useTeacherRegistrationPage } from '../-hooks'
@@ -34,8 +34,8 @@ function TeacherRegistrationPage() {
   }
 
   return (
-    <AdminPageLayout.Root bottomSpace className={styles.page}>
-      <AdminPageLayout.Header align="end" className={styles.header}>
+    <PageLayout.Root bottomSpace className={styles.page}>
+      <PageLayout.Header align="end" className={styles.header}>
         <IconButton
           onClick={functions.handleBack}
           title={t('admin.teachers.profile.back')}
@@ -44,10 +44,10 @@ function TeacherRegistrationPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.teachers.register.title')}</AdminPageLayout.Title>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.teachers.register.title')}</PageLayout.Title>
+        </PageLayout.Heading>
+      </PageLayout.Header>
 
       <form className={styles.form} onSubmit={functions.handleSubmit}>
         <features.form.Field name="name">
@@ -91,6 +91,6 @@ function TeacherRegistrationPage() {
           {t('action.register')}
         </Button>
       </form>
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

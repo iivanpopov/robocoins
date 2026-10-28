@@ -9,22 +9,19 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
   Avatar,
   AvatarFallback,
   AvatarImage,
   Button,
-  Checkbox,
-  Field,
-  FieldDescription,
-  FieldLabel,
   Loader,
 } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 import type { Avatar as AvatarName } from '#/routes/-constants'
 import { getAvatarUrl, getInitial } from '#/routes/-utils'
+import type { GroupCardData } from '#/routes/_authorized/-components/group-card'
+import { GroupCard } from '#/routes/_authorized/-components/group-card'
 
-import { GroupSelect } from './-components'
+import { GroupPicker } from './-components'
 import { useStudentGroupAssignment } from './-hooks'
 
 import styles from './student-group-assignment.module.css'
@@ -34,8 +31,66 @@ export interface StudentGroupAssignmentProps {
   studentName: string
   studentAvatar: AvatarName
   groupIds: number[]
-  fromGroupId: number | null
   onSuccess: () => void
+}
+
+interface DialogStudentProps {
+  name: string
+  avatar: AvatarName
+}
+
+function DialogStudent(props: DialogStudentProps) {
+  return (
+    <div className={styles['confirm-identity']}>
+      <Avatar size="sm">
+        <AvatarImage src={getAvatarUrl(props.avatar)} alt="" aria-hidden="true" />
+        <AvatarFallback role="img" aria-label={props.name}>
+          {getInitial(props.name)}
+        </AvatarFallback>
+      </Avatar>
+      <span>{props.name}</span>
+    </div>
+  )
+}
+
+interface MembershipRowProps {
+  group: GroupCardData
+  disabled: boolean
+  onTransfer: (groupId: number) => void
+  onRemove: (groupId: number) => void
+}
+
+function MembershipRow(props: MembershipRowProps) {
+  const t = useTranslate()
+
+  return (
+    <GroupCard
+      group={props.group}
+      actions={
+        <>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => props.onTransfer(props.group.id)}
+            disabled={props.disabled}
+          >
+            <span aria-hidden="true" className="i-ph:arrows-left-right" />
+            {t('student.edit.groups.transfer-action')}
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className={styles['remove-row']}
+            onClick={() => props.onRemove(props.group.id)}
+            disabled={props.disabled}
+          >
+            <span aria-hidden="true" className="i-ph:sign-out" />
+            {t('student.edit.groups.remove-action')}
+          </Button>
+        </>
+      }
+    />
+  )
 }
 
 export function StudentGroupAssignment(props: StudentGroupAssignmentProps) {
@@ -43,212 +98,200 @@ export function StudentGroupAssignment(props: StudentGroupAssignmentProps) {
 
   const t = useTranslate()
 
+  const isBusy = assignment.state.isOperating
+  const canAdd = !!assignment.state.targetGroups.length && !isBusy
+
   return (
     <div className={styles.layout}>
-      <GroupSelect
-        label={t('student.edit.groups.source-label')}
-        groups={assignment.state.sourceGroups}
-        value={assignment.state.sourceId}
-        placeholder={t('student.edit.groups.placeholder')}
-        emptyLabel={t('student.edit.groups.source-empty')}
-        isPending={assignment.state.isOptionsPending}
-        isError={assignment.state.isOptionsError}
-        isRetrying={assignment.state.isOptionsRetrying}
-        disabled={assignment.state.isOperating}
-        isNotice={assignment.state.isSourceNotice}
-        notice={t('student.edit.groups.membership-changed')}
-        onRetry={assignment.functions.handleRetryOptions}
-        onSelect={assignment.functions.handleSourceSelect}
-      />
-      <GroupSelect
-        label={t('student.edit.groups.target-label')}
+      <div className={styles.toolbar}>
+        <span className={styles.hint}>
+          {t('groups.count', { count: assignment.state.memberships.length })}
+        </span>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={assignment.functions.handleOpenAdd}
+          disabled={!canAdd}
+        >
+          <span aria-hidden="true" className="i-ph:plus" />
+          {t('student.edit.groups.add-action')}
+        </Button>
+      </div>
+
+      {assignment.state.isOptionsPending && <Loader className={styles.loader} />}
+      {assignment.state.isOptionsError && (
+        <InlineError
+          onRetry={assignment.functions.handleRetryOptions}
+          isRetrying={assignment.state.isOptionsRetrying}
+        >
+          {t('group.error')}
+        </InlineError>
+      )}
+      {!assignment.state.isOptionsPending &&
+        !assignment.state.isOptionsError &&
+        !assignment.state.memberships.length && (
+          <p className={styles.empty}>{t('student.edit.groups.source-empty')}</p>
+        )}
+      {!assignment.state.isOptionsPending &&
+        !assignment.state.isOptionsError &&
+        !!assignment.state.memberships.length && (
+          <div className={styles.memberships}>
+            {assignment.state.memberships.map((group) => (
+              <MembershipRow
+                key={group.id}
+                group={group}
+                disabled={isBusy}
+                onTransfer={assignment.functions.handleOpenTransfer}
+                onRemove={assignment.functions.handleOpenRemove}
+              />
+            ))}
+          </div>
+        )}
+
+      <GroupPicker
+        open={assignment.state.isAddOpen}
+        title={t('student.edit.groups.add-picker-title')}
         groups={assignment.state.targetGroups}
-        value={assignment.state.targetId}
-        placeholder={t('student.edit.groups.placeholder')}
         emptyLabel={t('student.edit.groups.target-empty')}
         isPending={assignment.state.isOptionsPending}
         isError={assignment.state.isOptionsError}
         isRetrying={assignment.state.isOptionsRetrying}
-        disabled={assignment.state.isOperating}
-        isNotice={assignment.state.isTargetNotice}
-        notice={t('student.edit.groups.membership-changed')}
+        onOpenChange={assignment.functions.handleAddOpenChange}
         onRetry={assignment.functions.handleRetryOptions}
-        onSelect={assignment.functions.handleTargetSelect}
+        onSelect={assignment.functions.handleAddTargetSelect}
       />
-      <Field orientation="horizontal">
-        <Checkbox
-          id="student-assignment-remove-previous"
-          size="lg"
-          className={styles['remove-checkbox']}
-          checked={assignment.state.removePrevious}
-          disabled={assignment.state.isOperating || !assignment.state.canRemovePrevious}
-          onCheckedChange={assignment.functions.handleRemovePreviousChange}
-          aria-describedby="student-assignment-remove-previous-description"
-        />
-        <FieldLabel className={styles['remove-label']} htmlFor="student-assignment-remove-previous">
-          {t('student.edit.groups.remove.label')}
-        </FieldLabel>
-      </Field>
-      {assignment.state.removePrevious && assignment.state.sourceName && (
-        <FieldDescription id="student-assignment-remove-previous-description">
-          {t('student.edit.groups.remove.description', {
-            group: assignment.state.sourceName,
-          })}
-        </FieldDescription>
-      )}
-      {!assignment.state.removePrevious && assignment.state.sourceName && (
-        <FieldDescription id="student-assignment-remove-previous-description">
-          {t('student.edit.groups.confirm.keep-source', {
-            group: assignment.state.sourceName,
-          })}
-        </FieldDescription>
-      )}
-      <div className={styles.actions}>
-        <AlertDialog
-          open={assignment.state.isConfirmOpen}
-          onOpenChange={assignment.functions.handleConfirmOpenChange}
-        >
-          {assignment.state.isTransfer && (
-            <AlertDialogTrigger
-              render={<Button variant="contain" className={styles.submit} />}
-              disabled={assignment.state.isOperating || !assignment.state.canSubmit}
-            >
-              <span aria-hidden="true" className="i-ph:arrows-left-right-bold" />
-              {t('student.edit.groups.transfer-action')}
-            </AlertDialogTrigger>
+      <GroupPicker
+        open={assignment.state.isTransferOpen}
+        title={t('student.edit.groups.transfer-picker-title')}
+        groups={assignment.state.targetGroups}
+        emptyLabel={t('student.edit.groups.target-empty')}
+        isPending={assignment.state.isOptionsPending}
+        isError={assignment.state.isOptionsError}
+        isRetrying={assignment.state.isOptionsRetrying}
+        onOpenChange={assignment.functions.handleTransferOpenChange}
+        onRetry={assignment.functions.handleRetryOptions}
+        onSelect={assignment.functions.handleTransferTargetSelect}
+      />
+
+      <AlertDialog
+        open={assignment.state.isAddConfirmOpen}
+        onOpenChange={assignment.functions.handleAddConfirmOpenChange}
+      >
+        <AlertDialogContent size="sm">
+          <AlertDialogHeader>
+            <DialogStudent name={props.studentName} avatar={props.studentAvatar} />
+            <AlertDialogTitle>{t('student.edit.groups.add-confirm-title')}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {!!assignment.state.addTargetName &&
+                t('student.edit.groups.confirm.add-description', {
+                  student: props.studentName,
+                  group: assignment.state.addTargetName,
+                })}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          {assignment.state.addFailure?.kind === 'error' && (
+            <InlineError onRetry={assignment.functions.handleRetry}>
+              {t('student.edit.groups.error')}
+            </InlineError>
           )}
-          {!assignment.state.isTransfer && (
-            <AlertDialogTrigger
-              render={<Button variant="contain" className={styles.submit} />}
-              disabled={assignment.state.isOperating || !assignment.state.canSubmit}
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isBusy}>{t('action.cancel')}</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={assignment.functions.handleAddConfirm}
+              disabled={isBusy}
+              aria-busy={isBusy}
             >
-              <span aria-hidden="true" className="i-ph:plus-bold" />
+              {isBusy && <Loader />}
               {t('student.edit.groups.add-action')}
-            </AlertDialogTrigger>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog
+        open={assignment.state.isTransferConfirmOpen}
+        onOpenChange={assignment.functions.handleTransferConfirmOpenChange}
+      >
+        <AlertDialogContent size="sm">
+          <AlertDialogHeader>
+            <DialogStudent name={props.studentName} avatar={props.studentAvatar} />
+            <AlertDialogTitle>{t('student.edit.groups.transfer-confirm-title')}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {!!assignment.state.transferSourceName &&
+                !!assignment.state.transferTargetName &&
+                t('student.edit.groups.confirm.transfer-description', {
+                  student: props.studentName,
+                  source: assignment.state.transferSourceName,
+                  target: assignment.state.transferTargetName,
+                })}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          {!!assignment.state.transferSourceName && (
+            <p className={styles.note}>
+              {t('student.edit.groups.remove.description', {
+                group: assignment.state.transferSourceName,
+              })}
+            </p>
           )}
-          <AlertDialogContent size="sm">
-            <AlertDialogHeader>
-              <div className={styles['confirm-identity']}>
-                <Avatar size="sm">
-                  <AvatarImage src={getAvatarUrl(props.studentAvatar)} alt="" aria-hidden="true" />
-                  <AvatarFallback role="img" aria-label={props.studentName}>
-                    {getInitial(props.studentName)}
-                  </AvatarFallback>
-                </Avatar>
-                <span>{props.studentName}</span>
-              </div>
-              <AlertDialogTitle>{t('student.edit.groups.confirm.title')}</AlertDialogTitle>
-              <AlertDialogDescription>
-                {assignment.state.isTransfer &&
-                  assignment.state.targetName &&
-                  assignment.state.sourceName &&
-                  t('student.edit.groups.confirm.transfer-description', {
-                    student: props.studentName,
-                    source: assignment.state.sourceName,
-                    target: assignment.state.targetName,
-                  })}
-                {!assignment.state.isTransfer &&
-                  assignment.state.targetName &&
-                  t('student.edit.groups.confirm.add-description', {
-                    student: props.studentName,
-                    group: assignment.state.targetName,
-                  })}
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            {assignment.state.isTransfer && assignment.state.sourceName && (
-              <FieldDescription className={styles.outcome}>
-                {assignment.state.removePrevious &&
-                  t('student.edit.groups.confirm.remove-source', {
-                    group: assignment.state.sourceName,
-                  })}
-                {!assignment.state.removePrevious &&
-                  t('student.edit.groups.confirm.keep-source', {
-                    group: assignment.state.sourceName,
-                  })}
-              </FieldDescription>
-            )}
-            {assignment.state.outcome === 'error' && (
-              <InlineError onRetry={assignment.functions.handleConfirm}>
-                {t('student.edit.groups.error')}
-              </InlineError>
-            )}
-            {assignment.state.outcome === 'partial' && (
-              <InlineError onRetry={assignment.functions.handleRetryRemoval}>
-                {t('student.edit.groups.partial-error')}
-              </InlineError>
-            )}
-            <AlertDialogFooter>
-              <AlertDialogCancel disabled={assignment.state.isOperating}>
-                {t('action.cancel')}
-              </AlertDialogCancel>
-              <AlertDialogAction
-                onClick={assignment.functions.handleConfirm}
-                disabled={assignment.state.isOperating || !assignment.state.canSubmit}
-                aria-busy={assignment.state.isOperating}
-              >
-                {assignment.state.isOperating && <Loader />}
-                {t('action.confirm')}
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-        <AlertDialog
-          open={assignment.state.isKickConfirmOpen}
-          onOpenChange={assignment.functions.handleKickOpenChange}
-        >
-          <AlertDialogTrigger
-            render={<Button variant="contain" className={styles.kick} />}
-            disabled={
-              assignment.state.isOperating ||
-              assignment.state.sourceId === null ||
-              assignment.state.isKickOperating
-            }
-          >
-            <span aria-hidden="true" className="i-ph:sign-out-bold" />
-            {t('student.edit.groups.kick-action')}
-          </AlertDialogTrigger>
-          <AlertDialogContent size="sm">
-            <AlertDialogHeader>
-              <div className={styles['confirm-identity']}>
-                <Avatar size="sm">
-                  <AvatarImage src={getAvatarUrl(props.studentAvatar)} alt="" aria-hidden="true" />
-                  <AvatarFallback role="img" aria-label={props.studentName}>
-                    {getInitial(props.studentName)}
-                  </AvatarFallback>
-                </Avatar>
-                <span>{props.studentName}</span>
-              </div>
-              <AlertDialogTitle>{t('student.edit.groups.kick.confirm.title')}</AlertDialogTitle>
-              <AlertDialogDescription>
-                {assignment.state.sourceId !== null &&
-                  t('student.edit.groups.kick.confirm.description', {
-                    student: props.studentName,
-                    group: assignment.state.sourceName ?? '',
-                  })}
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            {assignment.state.isKickError && (
-              <InlineError onRetry={assignment.functions.handleKick}>
-                {t('student.edit.groups.error')}
-              </InlineError>
-            )}
-            <AlertDialogFooter>
-              <AlertDialogCancel disabled={assignment.state.isKickOperating}>
-                {t('action.cancel')}
-              </AlertDialogCancel>
-              <AlertDialogAction
-                className={styles.kick}
-                onClick={assignment.functions.handleKick}
-                disabled={assignment.state.isOperating || assignment.state.sourceId === null}
-                aria-busy={assignment.state.isKickOperating}
-              >
-                {assignment.state.isKickOperating && <Loader />}
-                {t('student.edit.groups.kick.confirm.action')}
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      </div>
+          {assignment.state.transferFailure?.kind === 'partial' && (
+            <InlineError onRetry={assignment.functions.handleRetry}>
+              {t('student.edit.groups.partial-error')}
+            </InlineError>
+          )}
+          {assignment.state.transferFailure?.kind === 'error' && (
+            <InlineError onRetry={assignment.functions.handleRetry}>
+              {t('student.edit.groups.error')}
+            </InlineError>
+          )}
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isBusy}>{t('action.cancel')}</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={assignment.functions.handleTransferConfirm}
+              disabled={isBusy}
+              aria-busy={isBusy}
+            >
+              {isBusy && <Loader />}
+              {t('student.edit.groups.transfer-action')}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog
+        open={assignment.state.isRemoveConfirmOpen}
+        onOpenChange={assignment.functions.handleRemoveConfirmOpenChange}
+      >
+        <AlertDialogContent size="sm">
+          <AlertDialogHeader>
+            <DialogStudent name={props.studentName} avatar={props.studentAvatar} />
+            <AlertDialogTitle>{t('student.edit.groups.remove-confirm-title')}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {!!assignment.state.removeSourceName &&
+                t('student.edit.groups.remove-confirm-description', {
+                  student: props.studentName,
+                  group: assignment.state.removeSourceName,
+                })}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          {assignment.state.removeFailure?.kind === 'error' && (
+            <InlineError onRetry={assignment.functions.handleRetry}>
+              {t('student.edit.groups.error')}
+            </InlineError>
+          )}
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isBusy}>{t('action.cancel')}</AlertDialogCancel>
+            <AlertDialogAction
+              className={styles.remove}
+              onClick={assignment.functions.handleRemoveConfirm}
+              disabled={isBusy}
+              aria-busy={isBusy}
+            >
+              {isBusy && <Loader />}
+              {t('student.edit.groups.remove-confirm-action')}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

@@ -35,7 +35,7 @@ export function LeaderboardRow({ entry, isCurrent }: LeaderboardRowProps) {
         aria-label={t('leaderboard.points.label', { count: entry.balance })}
       >
         {t('coins.amount', { count: entry.balance })}
-        <span aria-hidden="true" className="i-ph:coins-bold" />
+        <span aria-hidden="true" className="i-ph:coins" />
       </strong>
     </div>
   )

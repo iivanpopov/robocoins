@@ -118,7 +118,6 @@ declare module '@kanjou/react' {
       'not-found.title': {}
       'people.title': {}
       'profile.groups.empty': {}
-      'profile.history.amount': { count: { __fn: 'number' } }
       'profile.history.empty': {}
       'profile.open': {}
       'profile.open-label': { name: DefaultMessageValue }
@@ -307,39 +306,33 @@ declare module '@kanjou/react' {
       'student.edit.avatar.change': {}
       'student.edit.avatar.error': {}
       'student.edit.groups.add-action': {}
+      'student.edit.groups.add-confirm-title': {}
+      'student.edit.groups.add-picker-title': {}
       'student.edit.groups.confirm.add-description': {
         student: DefaultMessageValue
         group: DefaultMessageValue
       }
-      'student.edit.groups.confirm.keep-source': { group: DefaultMessageValue }
-      'student.edit.groups.confirm.remove-source': {
-        group: DefaultMessageValue
-      }
-      'student.edit.groups.confirm.title': {}
       'student.edit.groups.confirm.transfer-description': {
         student: DefaultMessageValue
         source: DefaultMessageValue
         target: DefaultMessageValue
       }
       'student.edit.groups.error': {}
-      'student.edit.groups.kick-action': {}
-      'student.edit.groups.kick.confirm.action': {}
-      'student.edit.groups.kick.confirm.description': {
+      'student.edit.groups.partial-error': {}
+      'student.edit.groups.remove-action': {}
+      'student.edit.groups.remove-confirm-action': {}
+      'student.edit.groups.remove-confirm-description': {
         student: DefaultMessageValue
         group: DefaultMessageValue
       }
-      'student.edit.groups.kick.confirm.title': {}
-      'student.edit.groups.membership-changed': {}
-      'student.edit.groups.partial-error': {}
-      'student.edit.groups.placeholder': {}
+      'student.edit.groups.remove-confirm-title': {}
       'student.edit.groups.remove.description': { group: DefaultMessageValue }
-      'student.edit.groups.remove.label': {}
       'student.edit.groups.source-empty': {}
-      'student.edit.groups.source-label': {}
       'student.edit.groups.success': {}
       'student.edit.groups.target-empty': {}
-      'student.edit.groups.target-label': {}
       'student.edit.groups.transfer-action': {}
+      'student.edit.groups.transfer-confirm-title': {}
+      'student.edit.groups.transfer-picker-title': {}
       'student.edit.nickname.error': {}
       'student.empty': {}
       'student.group-empty': {}
@@ -350,6 +343,7 @@ declare module '@kanjou/react' {
       }
       'student.password.regenerate.confirm.title': {}
       'student.password.regenerate.error': {}
+      'student.password.unavailable': {}
       'admin.groups.back-to-group': {}
       'admin.groups.change-course.action': {}
       'admin.groups.change-course.courses-empty-description': {}

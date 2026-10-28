@@ -104,69 +104,6 @@
   gap: var(--spacing-xs);
 }
 
-.membership {
-  display: flex;
-  gap: var(--spacing-md);
-  align-items: center;
-  padding: var(--spacing-sm) var(--spacing-md);
-  background: var(--surface);
-  border-radius: var(--rounded-md);
-}
-
-.membership-icon {
-  display: flex;
-  flex: 0 0 auto;
-  align-items: center;
-  justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  font-size: 1.375rem;
-  color: var(--taupe-700);
-  background: var(--taupe-100);
-  border-radius: var(--rounded-sm);
-}
-
-.membership[data-category='web'] .membership-icon {
-  color: var(--category-web);
-  background: color-mix(in srgb, var(--category-web) 12%, transparent);
-}
-
-.membership[data-category='game dev'] .membership-icon {
-  color: var(--category-game-dev);
-  background: color-mix(in srgb, var(--category-game-dev) 12%, transparent);
-}
-
-.membership[data-category='embedded'] .membership-icon {
-  color: var(--category-embedded);
-  background: color-mix(in srgb, var(--category-embedded) 12%, transparent);
-}
-
-.membership-details {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 0.125rem;
-  min-width: 0;
-}
-
-.membership-course {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 0.9375rem;
-  font-weight: 700;
-  color: var(--foreground);
-  white-space: nowrap;
-}
-
-.membership-group {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 0.8125rem;
-  font-weight: 450;
-  color: var(--muted-foreground);
-  white-space: nowrap;
-}
-
 .empty {
   padding: var(--spacing-lg);
   font-size: 0.875rem;

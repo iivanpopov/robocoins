@@ -11,7 +11,7 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import {
   TeacherForm,
@@ -46,8 +46,8 @@ function TeacherRenamePage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root bottomSpace>
-      <AdminPageLayout.Header>
+    <PageLayout.Root bottomSpace>
+      <PageLayout.Header>
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/people/teachers/$userId" params={{ userId: state.teacherId }} />}
@@ -55,14 +55,14 @@ function TeacherRenamePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.teachers.rename.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.teachers.rename.title')}</PageLayout.Title>
+          <PageLayout.Description>
             {!state.isAvailable && t('admin.teachers.rename.description-empty')}
             {state.isAvailable && t('admin.teachers.rename.description', { name: state.name })}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.isPending && <Loader grow />}
       {!state.isPending && state.isError && !state.notFound && (
         <TeacherRequestError
@@ -146,6 +146,6 @@ function TeacherRenamePage() {
           </div>
         </TeacherResultPanel>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

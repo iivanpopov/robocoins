@@ -3,7 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Button, Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { TeacherRow, TeacherSearch } from './-components'
 import { useTeachersPage } from './-hooks'
@@ -21,18 +21,18 @@ function TeachersPage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header className={styles.header}>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('teachers.title')}</AdminPageLayout.Title>
-        </AdminPageLayout.Heading>
-        <AdminPageLayout.Actions>
+    <PageLayout.Root>
+      <PageLayout.Header className={styles.header}>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('teachers.title')}</PageLayout.Title>
+        </PageLayout.Heading>
+        <PageLayout.Actions>
           <Button type="button" onClick={functions.handleRegister}>
-            <span aria-hidden="true" className="i-ph:plus-bold" />
+            <span aria-hidden="true" className="i-ph:plus" />
             {t('action.register')}
           </Button>
-        </AdminPageLayout.Actions>
-      </AdminPageLayout.Header>
+        </PageLayout.Actions>
+      </PageLayout.Header>
 
       <TeacherSearch
         searchQuery={state.searchQuery}
@@ -49,7 +49,7 @@ function TeachersPage() {
       )}
       {state.isReady && !state.teachers.length && (
         <div className={styles.empty}>
-          <span aria-hidden="true" className="i-ph:users-three-duotone" />
+          <span aria-hidden="true" className="i-ph:users-three" />
           <p>
             {state.hasSearch && t('admin.teachers.search.empty')}
             {!state.hasSearch && t('teachers.empty')}
@@ -63,6 +63,6 @@ function TeachersPage() {
           ))}
         </div>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

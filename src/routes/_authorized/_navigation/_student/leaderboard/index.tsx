@@ -2,8 +2,8 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { cn } from 'cn'
 
-import { IconButton, Loader, Typography } from '#/components/ui'
-import { InlineError } from '#/routes/-components'
+import { IconButton, Loader } from '#/components/ui'
+import { InlineError, PageLayout } from '#/routes/-components'
 
 import { LeaderboardRow, OwnPlace, Podium } from '../-components/leaderboard'
 import { useLeaderboardPage } from './-hooks'
@@ -21,14 +21,16 @@ function LeaderboardPage() {
   const entries = state.entries.filter((entry) => entry.rank > 3)
 
   return (
-    <main className={styles.page}>
-      <header className={styles.header}>
+    <PageLayout.Root render={<main />} className={styles.page}>
+      <PageLayout.Header align="end" centered>
         <IconButton nativeButton={false} render={<Link to="/" />} title={t('navigation.home')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <Typography variant="subtitle">{t('leaderboard.title')}</Typography>
-      </header>
-      <p className={styles.description}>{t('leaderboard.description')}</p>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('leaderboard.title')}</PageLayout.Title>
+          <PageLayout.Description>{t('leaderboard.description')}</PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {queries.rank.isPending && (
         <Loader grow role="status" aria-label={t('leaderboard.loading')} />
       )}
@@ -79,6 +81,6 @@ function LeaderboardPage() {
       {queries.leaderboard.isFetchingNextPage && (
         <Loader grow role="status" aria-label={t('leaderboard.loading')} />
       )}
-    </main>
+    </PageLayout.Root>
   )
 }

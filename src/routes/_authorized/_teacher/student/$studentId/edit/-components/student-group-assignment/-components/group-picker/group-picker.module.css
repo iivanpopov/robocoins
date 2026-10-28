@@ -1,0 +1,27 @@
+.sheet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  min-height: 0;
+}
+
+.sheet-title {
+  text-align: left;
+}
+
+.loader {
+  justify-content: center;
+}
+
+.empty {
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  max-height: 55dvh;
+  overflow-y: auto;
+}

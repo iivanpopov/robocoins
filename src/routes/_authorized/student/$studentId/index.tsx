@@ -16,6 +16,7 @@ import {
   Typography,
 } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 import { getAvatarUrl, getInitial } from '#/routes/-utils'
 import { GroupCard } from '#/routes/_authorized/-components/group-card'
 
@@ -79,22 +80,24 @@ function StudentProfilePage() {
   const t = useTranslate()
 
   return (
-    <section className={styles.page}>
-      <header className={styles.header}>
-        <IconButton
-          className={styles['back-button']}
-          onClick={functions.handleBack}
-          title={t('history.back')}
-        >
+    <PageLayout.Root bottomSpace>
+      <PageLayout.Header centered>
+        <IconButton onClick={functions.handleBack} title={t('history.back')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
         {state.isTeacher && (
-          <Button variant="ghost" onClick={functions.handleEdit} className={styles['edit-button']}>
-            <span aria-hidden="true" className="i-ph:pencil-simple-bold" />
-            {t('student.profile.edit')}
-          </Button>
+          <PageLayout.Actions>
+            <Button
+              variant="ghost"
+              onClick={functions.handleEdit}
+              className={styles['edit-button']}
+            >
+              <span aria-hidden="true" className="i-ph:pencil-simple" />
+              {t('student.profile.edit')}
+            </Button>
+          </PageLayout.Actions>
         )}
-      </header>
+      </PageLayout.Header>
       {queries.student.isPending && <Loader grow className={styles.loader} />}
       {queries.student.isError && (
         <InlineError onRetry={functions.handleRetry} isRetrying={queries.student.isFetching}>
@@ -121,7 +124,7 @@ function StudentProfilePage() {
                 <span aria-hidden="true">
                   {t('coins.amount', { count: state.profile.balance })}
                 </span>
-                <span aria-hidden="true" className={cn('i-ph:coins-bold', styles['coin-icon'])} />
+                <span aria-hidden="true" className={cn('i-ph:coins', styles['coin-icon'])} />
               </div>
             </div>
           </article>
@@ -153,6 +156,6 @@ function StudentProfilePage() {
           )}
         </>
       )}
-    </section>
+    </PageLayout.Root>
   )
 }

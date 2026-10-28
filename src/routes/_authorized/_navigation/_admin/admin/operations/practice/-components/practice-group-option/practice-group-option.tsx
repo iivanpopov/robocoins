@@ -1,7 +1,6 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
-import styles from './practice-group-option.module.css'
+import { LearningCard } from '#/routes/-components'
 
 export interface PracticeGroupOptionData {
   id: number
@@ -26,24 +25,26 @@ export function PracticeGroupOption({
   const t = useTranslate()
 
   return (
-    <button
-      type="button"
-      className={cn(styles.option, selected && styles.selected)}
-      aria-pressed={selected}
-      disabled={disabled}
-      onClick={() => onSelect(group.id)}
-    >
-      <span className={styles.copy}>
-        <span className={styles.course}>{group.courseName}</span>
-        <span className={styles.name}>{group.name}</span>
-        <span className={styles.count}>
-          {t('group.students-count', { count: group.studentsCount })}
-        </span>
-      </span>
-      <span
-        aria-hidden="true"
-        className={cn('i-ph:check-circle-bold', styles.check, !selected && styles['check-hidden'])}
-      />
-    </button>
+    <LearningCard.Root>
+      <LearningCard.Row
+        render={
+          <button
+            type="button"
+            aria-pressed={selected}
+            disabled={disabled}
+            onClick={() => onSelect(group.id)}
+          />
+        }
+      >
+        <LearningCard.Content>
+          <LearningCard.Title>{group.courseName}</LearningCard.Title>
+          <LearningCard.Description>{group.name}</LearningCard.Description>
+        </LearningCard.Content>
+        <LearningCard.Meta>
+          <span>{t('group.students-count', { count: group.studentsCount })}</span>
+          <LearningCard.Indicator kind="select" />
+        </LearningCard.Meta>
+      </LearningCard.Row>
+    </LearningCard.Root>
   )
 }

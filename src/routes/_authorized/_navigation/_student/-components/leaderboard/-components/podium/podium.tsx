@@ -38,7 +38,7 @@ export function Podium(props: PodiumProps) {
               <PodiumAvatar entry={entry} className={styles.avatar} />
             </Link>
             {entry.rank === 1 && (
-              <span aria-hidden="true" className={cn('i-ph:crown-fill', styles.crown)} />
+              <span aria-hidden="true" className={cn('i-ph:crown', styles.crown)} />
             )}
           </span>
           <span className={styles.meta}>

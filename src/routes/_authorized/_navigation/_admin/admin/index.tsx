@@ -11,7 +11,7 @@ import {
   Loader,
 } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { AdminGroupRow, AdminSelect } from './-components'
 import { GROUP_FILTER_ALL } from './-constants'
@@ -49,18 +49,18 @@ function AdminGroupsPage() {
   ]
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('groups.title')}</AdminPageLayout.Title>
-        </AdminPageLayout.Heading>
-        <AdminPageLayout.Actions>
+    <PageLayout.Root>
+      <PageLayout.Header>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('groups.title')}</PageLayout.Title>
+        </PageLayout.Heading>
+        <PageLayout.Actions>
           <Button nativeButton={false} render={<Link to="/admin/groups/create" />}>
-            <span aria-hidden="true" className="i-ph:plus-bold" />
+            <span aria-hidden="true" className="i-ph:plus" />
             {t('admin.learning.create')}
           </Button>
-        </AdminPageLayout.Actions>
-      </AdminPageLayout.Header>
+        </PageLayout.Actions>
+      </PageLayout.Header>
 
       <div className={styles.controls}>
         <div className={styles['search-row']}>
@@ -84,7 +84,7 @@ function AdminGroupsPage() {
             aria-pressed={state.isFiltersOpen}
             onClick={functions.handleFiltersToggle}
           >
-            <span aria-hidden="true" className="i-ph:funnel-duotone" />
+            <span aria-hidden="true" className="i-ph:funnel" />
           </IconButton>
         </div>
         {state.isFiltersOpen && (
@@ -142,7 +142,7 @@ function AdminGroupsPage() {
       )}
       {!state.isPending && !state.isError && !state.totalCount && (
         <div className={styles.empty}>
-          <span aria-hidden="true" className="i-ph:users-three-duotone" />
+          <span aria-hidden="true" className="i-ph:users-three" />
           <p>{t('groups.empty')}</p>
           <Button nativeButton={false} render={<Link to="/admin/groups/create" />}>
             {t('admin.groups.create-first')}
@@ -165,6 +165,6 @@ function AdminGroupsPage() {
           ))}
         </div>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

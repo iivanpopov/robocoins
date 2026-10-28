@@ -37,7 +37,7 @@ export function RewardImagePicker({ picker, disabled = false }: RewardImagePicke
           disabled={disabled}
           onClick={() => picker.functions.handleModeChange('link')}
         >
-          <span className="i-ph:link-bold" aria-hidden="true" />
+          <span className="i-ph:link" aria-hidden="true" />
           {t('admin.catalog.image.mode.link')}
         </button>
         <button
@@ -48,7 +48,7 @@ export function RewardImagePicker({ picker, disabled = false }: RewardImagePicke
           disabled={disabled}
           onClick={handleFileModeClick}
         >
-          <span className="i-ph:upload-simple-bold" aria-hidden="true" />
+          <span className="i-ph:upload-simple" aria-hidden="true" />
           {t('admin.catalog.image.mode.file')}
         </button>
       </div>
@@ -114,7 +114,7 @@ export function RewardImagePicker({ picker, disabled = false }: RewardImagePicke
               />
             )}
             {picker.state.isPreviewBroken && (
-              <span className="i-ph:image-broken-duotone" aria-hidden="true" />
+              <span className="i-ph:image-broken" aria-hidden="true" />
             )}
           </div>
           <div className={styles['preview-details']}>

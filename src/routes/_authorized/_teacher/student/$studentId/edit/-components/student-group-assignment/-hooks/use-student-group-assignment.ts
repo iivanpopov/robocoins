@@ -20,31 +20,44 @@ import type { GroupCardData } from '#/routes/_authorized/-components/group-card'
 
 import type { StudentGroupAssignmentProps } from '../student-group-assignment'
 
-interface AssignmentSnapshot {
+interface AddAction {
+  kind: 'add'
   targetId: number
-  sourceId: number | null
-  removePrevious: boolean
-  knownGroupIds: number[]
 }
 
-type AssignmentOutcome = 'error' | 'partial' | null
+interface TransferAction {
+  kind: 'transfer'
+  sourceId: number
+  targetId: number
+}
+
+interface RemoveAction {
+  kind: 'remove'
+  sourceId: number
+}
+
+type GroupAction = AddAction | TransferAction | RemoveAction
+
+interface GroupFailure {
+  kind: 'error' | 'partial'
+  action: GroupAction
+}
 
 export function useStudentGroupAssignment(props: StudentGroupAssignmentProps) {
-  const [selectedSourceId, setSelectedSourceId] = useState<number | null>(() => {
-    if (props.fromGroupId !== null && props.groupIds.includes(props.fromGroupId)) {
-      return props.fromGroupId
-    }
-    return null
-  })
-  const [selectedTargetId, setSelectedTargetId] = useState<number | null>(null)
-  const [removePrevious, setRemovePrevious] = useState(false)
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false)
-  const [isKickConfirmOpen, setIsKickConfirmOpen] = useState(false)
-  const [isKickError, setIsKickError] = useState(false)
-  const [outcome, setOutcome] = useState<AssignmentOutcome>(null)
+  const [isAddOpen, setIsAddOpen] = useState(false)
+  const [addTargetId, setAddTargetId] = useState<number | null>(null)
+  const [isAddConfirmOpen, setIsAddConfirmOpen] = useState(false)
+  const [transferSourceId, setTransferSourceId] = useState<number | null>(null)
+  const [isTransferOpen, setIsTransferOpen] = useState(false)
+  const [transferTargetId, setTransferTargetId] = useState<number | null>(null)
+  const [isTransferConfirmOpen, setIsTransferConfirmOpen] = useState(false)
+  const [removeSourceId, setRemoveSourceId] = useState<number | null>(null)
+  const [isRemoveConfirmOpen, setIsRemoveConfirmOpen] = useState(false)
+  const [failure, setFailure] = useState<GroupFailure | null>(null)
   const [isOperating, setIsOperating] = useState(false)
 
-  const snapshotReference = useRef<AssignmentSnapshot | null>(null)
+  const lastAction = useRef<GroupAction | null>(null)
+  const assignedIds = useRef(new Set<number>())
 
   const queryClient = useQueryClient()
   const t = useTranslate()
@@ -80,151 +93,184 @@ export function useStudentGroupAssignment(props: StudentGroupAssignmentProps) {
     ])
   }
 
-  async function attemptRemoval(snapshot: AssignmentSnapshot) {
-    if (snapshot.sourceId === null) return true
+  async function assignStudent(targetId: number) {
+    if (props.groupIds.includes(targetId) || assignedIds.current.has(targetId)) return true
+    try {
+      await assignGroupMutation.mutateAsync({
+        path: { group_id: targetId },
+        body: { student_id: props.studentId },
+      })
+      assignedIds.current.add(targetId)
+      return true
+    } catch {
+      const student = await refetchStudent()
+      const isAssigned = !!student?.group_ids.includes(targetId)
+      if (isAssigned) assignedIds.current.add(targetId)
+      return isAssigned
+    }
+  }
+
+  async function unassignStudent(sourceId: number) {
     try {
       await removeStudentMutation.mutateAsync({
-        path: { group_id: snapshot.sourceId, student_id: props.studentId },
+        path: { group_id: sourceId, student_id: props.studentId },
       })
       return true
     } catch {
       const student = await refetchStudent()
-      if (student && !student.group_ids.includes(snapshot.sourceId)) return true
-      setOutcome('partial')
-      return false
+      return !!student && !student.group_ids.includes(sourceId)
     }
   }
 
-  async function runAssignment(snapshot: AssignmentSnapshot) {
+  function resetDialogs() {
+    setIsAddOpen(false)
+    setAddTargetId(null)
+    setIsAddConfirmOpen(false)
+    setIsTransferOpen(false)
+    setTransferSourceId(null)
+    setTransferTargetId(null)
+    setIsTransferConfirmOpen(false)
+    setRemoveSourceId(null)
+    setIsRemoveConfirmOpen(false)
+    setFailure(null)
+    lastAction.current = null
+    assignedIds.current.clear()
+  }
+
+  async function execute(action: GroupAction) {
     setIsOperating(true)
-    snapshotReference.current = snapshot
+    lastAction.current = action
     try {
-      if (!snapshot.knownGroupIds.includes(snapshot.targetId)) {
-        try {
-          await assignGroupMutation.mutateAsync({
-            path: { group_id: snapshot.targetId },
-            body: { student_id: props.studentId },
-          })
-        } catch {
-          const student = await refetchStudent()
-          if (!student?.group_ids.includes(snapshot.targetId)) throw new Error('assignment failed')
+      if (action.kind === 'add' && !(await assignStudent(action.targetId))) {
+        setFailure({ kind: 'error', action })
+        return
+      }
+      if (action.kind === 'transfer') {
+        if (!(await assignStudent(action.targetId))) {
+          setFailure({ kind: 'error', action })
+          return
+        }
+        if (!(await unassignStudent(action.sourceId))) {
+          setFailure({ kind: 'partial', action })
+          return
         }
       }
-    } catch {
-      await refetchStudent()
-      setOutcome('error')
+      if (action.kind === 'remove' && !(await unassignStudent(action.sourceId))) {
+        setFailure({ kind: 'error', action })
+        return
+      }
+      await invalidateAfterAssignment()
+      resetDialogs()
+      props.onSuccess()
+      toast.add({ title: t('student.edit.groups.success'), type: 'success' })
+    } finally {
       setIsOperating(false)
-      return
     }
-    const isRemoved = snapshot.removePrevious ? await attemptRemoval(snapshot) : true
-    if (!isRemoved) {
-      setIsOperating(false)
-      return
+  }
+
+  function handleOpenAdd() {
+    if (isOperating) return
+    setFailure(null)
+    setAddTargetId(null)
+    setIsAddOpen(true)
+  }
+
+  function handleAddOpenChange(isOpen: boolean) {
+    if (isOperating) return
+    setIsAddOpen(isOpen)
+  }
+
+  function handleAddTargetSelect(groupId: number) {
+    if (isOperating) return
+    setIsAddOpen(false)
+    setAddTargetId(groupId)
+    setIsAddConfirmOpen(true)
+  }
+
+  function handleAddConfirmOpenChange(isOpen: boolean) {
+    if (isOperating) return
+    if (!isOpen) {
+      setFailure(null)
+      setAddTargetId(null)
     }
-    await invalidateAfterAssignment()
-    setSelectedTargetId(null)
-    if (snapshot.removePrevious) {
-      setSelectedSourceId(null)
-      setRemovePrevious(false)
+    setIsAddConfirmOpen(isOpen)
+  }
+
+  function handleAddConfirm() {
+    if (isOperating || addTargetId === null) return
+    void execute({ kind: 'add', targetId: addTargetId })
+  }
+
+  function handleOpenTransfer(sourceId: number) {
+    if (isOperating) return
+    setFailure(null)
+    setTransferSourceId(sourceId)
+    setTransferTargetId(null)
+    setIsTransferOpen(true)
+  }
+
+  function handleTransferOpenChange(isOpen: boolean) {
+    if (isOperating) return
+    setIsTransferOpen(isOpen)
+  }
+
+  function handleTransferTargetSelect(groupId: number) {
+    if (isOperating) return
+    setIsTransferOpen(false)
+    setTransferTargetId(groupId)
+    setIsTransferConfirmOpen(true)
+  }
+
+  function handleTransferConfirmOpenChange(isOpen: boolean) {
+    if (isOperating) return
+    if (!isOpen) {
+      setFailure(null)
+      setTransferSourceId(null)
+      setTransferTargetId(null)
     }
-    setOutcome(null)
-    setIsConfirmOpen(false)
-    setIsOperating(false)
-    props.onSuccess()
-    toast.add({ title: t('student.edit.groups.success'), type: 'success' })
+    setIsTransferConfirmOpen(isOpen)
   }
 
-  function handleSourceSelect(groupId: number) {
-    if (isOperating) return
-    if (sourceId === null) setRemovePrevious(false)
-    setOutcome(null)
-    setSelectedSourceId(groupId)
-  }
-
-  function handleTargetSelect(groupId: number) {
-    if (isOperating) return
-    setOutcome(null)
-    setSelectedTargetId(groupId === targetId ? null : groupId)
-  }
-
-  function handleRemovePreviousChange(checked: boolean | 'indeterminate') {
-    if (isOperating) return
-    setRemovePrevious(checked === true)
-  }
-
-  function handleConfirmOpenChange(isOpen: boolean) {
-    if (isOperating) return
-    if (isOpen) {
-      setOutcome(null)
-      snapshotReference.current = null
-    }
-    setIsConfirmOpen(isOpen)
-  }
-
-  function handleConfirm() {
-    if (isOperating || targetId === null) return
-    void runAssignment({
-      targetId,
-      sourceId,
-      removePrevious: shouldRemovePrevious,
-      knownGroupIds: props.groupIds,
+  function handleTransferConfirm() {
+    if (isOperating || transferSourceId === null || transferTargetId === null) return
+    void execute({
+      kind: 'transfer',
+      sourceId: transferSourceId,
+      targetId: transferTargetId,
     })
   }
 
-  function handleRetryRemoval() {
-    const stored = snapshotReference.current
-    if (!stored || isOperating || stored.sourceId === null) return
-    void runAssignment({
-      targetId: stored.targetId,
-      sourceId: stored.sourceId,
-      removePrevious: true,
-      knownGroupIds: [stored.targetId, ...stored.knownGroupIds],
-    })
+  function handleOpenRemove(sourceId: number) {
+    if (isOperating) return
+    setFailure(null)
+    setRemoveSourceId(sourceId)
+    setIsRemoveConfirmOpen(true)
+  }
+
+  function handleRemoveConfirmOpenChange(isOpen: boolean) {
+    if (isOperating) return
+    if (!isOpen) {
+      setFailure(null)
+      setRemoveSourceId(null)
+    }
+    setIsRemoveConfirmOpen(isOpen)
+  }
+
+  function handleRemoveConfirm() {
+    if (isOperating || removeSourceId === null) return
+    void execute({ kind: 'remove', sourceId: removeSourceId })
+  }
+
+  function handleRetry() {
+    const action = lastAction.current
+    if (!action || isOperating) return
+    void execute(action)
   }
 
   function handleRetryOptions() {
     if (isOptionsRetrying) return
     if (coursesQuery.isError) void coursesQuery.refetch()
     if (teacherGroupsQuery.isError) void teacherGroupsQuery.refetch()
-  }
-
-  function handleKickOpenChange(isOpen: boolean) {
-    if (isOperating) return
-    if (isOpen) {
-      setIsKickError(false)
-      removeStudentMutation.reset()
-    }
-    setIsKickConfirmOpen(isOpen)
-  }
-
-  async function runKick() {
-    if (sourceId === null) return
-    setIsOperating(true)
-    try {
-      await removeStudentMutation.mutateAsync({
-        path: { group_id: sourceId, student_id: props.studentId },
-      })
-    } catch {
-      const student = await refetchStudent()
-      if (student && student.group_ids.includes(sourceId)) {
-        setIsOperating(false)
-        setIsKickError(true)
-        return
-      }
-    }
-    await invalidateAfterAssignment()
-    setSelectedSourceId(null)
-    setRemovePrevious(false)
-    setIsKickConfirmOpen(false)
-    setIsKickError(false)
-    setIsOperating(false)
-    props.onSuccess()
-    toast.add({ title: t('student.edit.groups.success'), type: 'success' })
-  }
-
-  function handleKick() {
-    if (isOperating || sourceId === null || removeStudentMutation.isPending) return
-    void runKick()
   }
 
   const isOptionsPending = coursesQuery.isPending || teacherGroupsQuery.isPending
@@ -244,45 +290,48 @@ export function useStudentGroupAssignment(props: StudentGroupAssignmentProps) {
       } satisfies GroupCardData,
     ]
   })
-  const sourceGroups = groups.filter((group) => props.groupIds.includes(group.id))
+  const memberships = groups.filter((group) => props.groupIds.includes(group.id))
   const targetGroups = groups.filter((group) => !props.groupIds.includes(group.id))
-  const isSourceNotice = selectedSourceId !== null && !props.groupIds.includes(selectedSourceId)
-  const isTargetNotice = selectedTargetId !== null && props.groupIds.includes(selectedTargetId)
-  const sourceId = sourceGroups.find((group) => group.id === selectedSourceId)?.id ?? null
-  const targetId = targetGroups.find((group) => group.id === selectedTargetId)?.id ?? null
-  const shouldRemovePrevious = removePrevious && sourceId !== null
-  const visibleOutcome = isTargetNotice && outcome === 'error' ? null : outcome
-  const sourceName =
-    sourceId !== null ? (sourceGroups.find((group) => group.id === sourceId)?.name ?? null) : null
-  const targetName =
-    targetId !== null ? (targetGroups.find((group) => group.id === targetId)?.name ?? null) : null
-  const isTransfer = sourceId !== null
-  const canRemovePrevious = sourceId !== null
-  const canSubmit = targetId !== null
+  const addTargetName =
+    addTargetId !== null
+      ? (targetGroups.find((group) => group.id === addTargetId)?.name ?? null)
+      : null
+  const transferSourceName =
+    transferSourceId !== null
+      ? (memberships.find((group) => group.id === transferSourceId)?.name ?? null)
+      : null
+  const transferTargetName =
+    transferTargetId !== null
+      ? (targetGroups.find((group) => group.id === transferTargetId)?.name ?? null)
+      : null
+  const removeSourceName =
+    removeSourceId !== null
+      ? (memberships.find((group) => group.id === removeSourceId)?.name ?? null)
+      : null
+  const addFailure = failure?.action.kind === 'add' ? failure : null
+  const transferFailure = failure?.action.kind === 'transfer' ? failure : null
+  const removeFailure = failure?.action.kind === 'remove' ? failure : null
 
   return {
     state: {
-      sourceGroups,
+      memberships,
       targetGroups,
-      sourceId,
-      targetId,
-      sourceName,
-      targetName,
-      removePrevious: shouldRemovePrevious,
-      isConfirmOpen,
-      outcome: visibleOutcome,
-      isOperating,
       isOptionsPending,
       isOptionsError,
       isOptionsRetrying,
-      isSourceNotice,
-      isTargetNotice,
-      isTransfer,
-      isKickConfirmOpen,
-      isKickError,
-      isKickOperating: removeStudentMutation.isPending,
-      canRemovePrevious,
-      canSubmit,
+      isOperating,
+      isAddOpen,
+      isAddConfirmOpen,
+      addTargetName,
+      isTransferOpen,
+      isTransferConfirmOpen,
+      transferSourceName,
+      transferTargetName,
+      isRemoveConfirmOpen,
+      removeSourceName,
+      addFailure,
+      transferFailure,
+      removeFailure,
     },
     queries: {
       courses: coursesQuery,
@@ -290,15 +339,21 @@ export function useStudentGroupAssignment(props: StudentGroupAssignmentProps) {
     },
     mutations: { assignGroup: assignGroupMutation, removeStudent: removeStudentMutation },
     functions: {
-      handleSourceSelect,
-      handleTargetSelect,
-      handleRemovePreviousChange,
-      handleConfirmOpenChange,
-      handleConfirm,
-      handleRetryRemoval,
+      handleOpenAdd,
+      handleAddOpenChange,
+      handleAddTargetSelect,
+      handleAddConfirmOpenChange,
+      handleAddConfirm,
+      handleOpenTransfer,
+      handleTransferOpenChange,
+      handleTransferTargetSelect,
+      handleTransferConfirmOpenChange,
+      handleTransferConfirm,
+      handleOpenRemove,
+      handleRemoveConfirmOpenChange,
+      handleRemoveConfirm,
+      handleRetry,
       handleRetryOptions,
-      handleKickOpenChange,
-      handleKick,
     },
   }
 }

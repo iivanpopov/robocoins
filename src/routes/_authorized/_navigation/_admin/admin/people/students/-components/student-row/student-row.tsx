@@ -1,10 +1,7 @@
 import { useTranslate } from '@kanjou/react'
 import { Link } from '@tanstack/react-router'
-import { cn } from 'cn'
 
-import { StudentAvatar } from '../student-avatar'
-
-import styles from './student-row.module.css'
+import { UserCard } from '#/routes/-components'
 
 export interface StudentRowData {
   id: number
@@ -21,24 +18,20 @@ export function StudentRow({ student }: StudentRowProps) {
   const t = useTranslate()
 
   return (
-    <Link
-      to="/admin/people/students/$studentId"
-      params={{ studentId: student.id }}
-      className={styles.row}
+    <UserCard.Root
+      render={<Link to="/admin/people/students/$studentId" params={{ studentId: student.id }} />}
     >
-      <StudentAvatar name={student.name} avatar={student.avatar} />
-      <div className={styles.details}>
-        <span className={styles.name}>{student.name}</span>
+      <UserCard.Avatar name={student.name} avatar={student.avatar} />
+      <UserCard.Content>
+        <UserCard.Name>{student.name}</UserCard.Name>
         {!!student.courseNames.length && (
-          <span className={styles.courses}>{student.courseNames.join(', ')}</span>
+          <UserCard.Description>{student.courseNames.join(', ')}</UserCard.Description>
         )}
         {!student.courseNames.length && (
-          <span className={styles.courses}>{t('students.no-groups')}</span>
+          <UserCard.Description>{t('students.no-groups')}</UserCard.Description>
         )}
-      </div>
-      <div className={styles.aside}>
-        <span aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.arrow)} />
-      </div>
-    </Link>
+      </UserCard.Content>
+      <UserCard.Indicator />
+    </UserCard.Root>
   )
 }

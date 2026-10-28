@@ -4,6 +4,7 @@ import { cn } from 'cn'
 import { Mascot } from '#/components/mascot'
 import { Button, Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
+import { formatSignedAmount } from '#/routes/-utils'
 
 import { ReasonIcon } from '../reason-icon'
 
@@ -54,7 +55,7 @@ export function HistoryPreview(props: HistoryPreviewProps) {
         {!!items.length && (
           <Button variant="link" className={styles.all} onClick={props.onViewAll}>
             {t('profile.history.all')}
-            <span aria-hidden="true" className="i-ph:caret-right-bold" />
+            <span aria-hidden="true" className="i-ph:caret-right" />
           </Button>
         )}
       </div>
@@ -110,8 +111,8 @@ export function HistoryPreview(props: HistoryPreviewProps) {
                   item.transaction.isDeposit && styles['amount-deposit'],
                 )}
               >
-                {t('profile.history.amount', { count: item.transaction.signedAmount })}
-                <span aria-hidden="true" className={cn('i-ph:coin-fill', styles['amount-coin'])} />
+                {formatSignedAmount(item.transaction.signedAmount)}
+                <span aria-hidden="true" className={cn('i-ph:coin', styles['amount-coin'])} />
               </span>
             </li>
           ))}

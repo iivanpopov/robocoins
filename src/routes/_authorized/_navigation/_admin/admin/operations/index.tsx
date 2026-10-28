@@ -20,7 +20,7 @@ import {
   InputGroupInput,
   Loader,
 } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { ApiErrorNotice } from '../-components'
 import {
@@ -68,8 +68,8 @@ function OperationsPage() {
     : ''
 
   return (
-    <AdminPageLayout.Root className={styles.page}>
-      <AdminPageLayout.Header align="end">
+    <PageLayout.Root className={styles.page}>
+      <PageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin" />}
@@ -77,10 +77,10 @@ function OperationsPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.operations.title')}</AdminPageLayout.Title>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.operations.title')}</PageLayout.Title>
+        </PageLayout.Heading>
+      </PageLayout.Header>
 
       <OperationsLinks />
 
@@ -326,6 +326,6 @@ function OperationsPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

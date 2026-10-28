@@ -15,12 +15,12 @@ import {
   IconButton,
   Loader,
 } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
+import { UserAvatar } from '#/routes/-components/user-avatar'
 
 import { StudentRequestError } from '../-components'
 // import { StudentResultPanel } from '../-components'
 import { parseStudentIdParams } from '../-utils'
-import { StudentAvatar } from '../../-components'
 import { useStudentAccessPage } from './-hooks'
 
 import styles from './index.module.css'
@@ -47,8 +47,8 @@ function StudentAccessPage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root bottomSpace>
-      <AdminPageLayout.Header>
+    <PageLayout.Root bottomSpace>
+      <PageLayout.Header>
         <IconButton
           nativeButton={false}
           render={
@@ -58,14 +58,14 @@ function StudentAccessPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('students.access.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('students.access.title')}</PageLayout.Title>
+          <PageLayout.Description>
             {!state.student && t('students.access.description-empty')}
             {!!state.student && t('students.access.description', { name: state.name })}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.isPending && <Loader grow />}
       {!state.isPending && state.isError && !state.student && (
         <StudentRequestError
@@ -79,7 +79,7 @@ function StudentAccessPage() {
       {!!state.student && (
         <>
           <article className={styles.identity}>
-            <StudentAvatar
+            <UserAvatar
               name={state.student.name}
               avatar={state.student.avatar}
               size="lg"
@@ -117,10 +117,10 @@ function StudentAccessPage() {
                     disabled={mutations.reset.isPending}
                   >
                     {features.clipboard.state.isCopied && (
-                      <span aria-hidden="true" className="i-ph:check-bold" />
+                      <span aria-hidden="true" className="i-ph:check" />
                     )}
                     {!features.clipboard.state.isCopied && (
-                      <span aria-hidden="true" className="i-ph:copy-bold" />
+                      <span aria-hidden="true" className="i-ph:copy" />
                     )}
                     {t('students.register.success.copy')}
                   </Button>
@@ -249,6 +249,6 @@ function StudentAccessPage() {
           */}
         </>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

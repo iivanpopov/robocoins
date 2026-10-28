@@ -23,7 +23,7 @@ export function CyberweenBanner() {
         <span className={styles.period}>{t('profile.cyberween.period')}</span>
       </span>
       <span aria-hidden="true" className={styles['open-icon']}>
-        <span className="i-ph:arrow-up-right-bold" />
+        <span className="i-ph:arrow-up-right" />
       </span>
     </a>
   )

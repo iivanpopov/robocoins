@@ -138,7 +138,6 @@ export default {
   'not-found.title': 'Такої сторінки немає',
   'people.title': 'Люди',
   'profile.groups.empty': 'Поки не складається в жодній групі.',
-  'profile.history.amount': '{$count :number signDisplay=always}',
   'profile.history.empty': 'Операцій поки немає',
   'profile.open': 'Відкрити профіль',
   'profile.open-label': 'Відкрити профіль {$name}',

@@ -52,7 +52,7 @@ export function StudentHero(props: StudentHeroProps) {
           <span className={styles['balance-value']}>
             {t('coins.amount', { count: props.balance })}
           </span>
-          <span aria-hidden="true" className={cn('i-ph:coin-fill', styles.coin)} />
+          <span aria-hidden="true" className={cn('i-ph:coin', styles.coin)} />
         </button>
       </div>
       <Mascot mood="happy" size={76} alt="" aria-hidden="true" className={styles.mascot} />

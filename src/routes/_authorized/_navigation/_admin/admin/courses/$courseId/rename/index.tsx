@@ -11,7 +11,7 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { CourseEmptyState, CourseForm, CourseRequestError, ResultPanel } from '../../-components'
 import { useCourseRenamePage } from '../../-hooks'
@@ -41,8 +41,8 @@ function CourseRenamePage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header align="end">
+    <PageLayout.Root>
+      <PageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/courses/$courseId" params={{ courseId: state.courseId }} />}
@@ -50,14 +50,14 @@ function CourseRenamePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.courses.rename.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.courses.rename.title')}</PageLayout.Title>
+          <PageLayout.Description>
             {!state.course && t('admin.courses.rename.description-empty')}
             {state.course && t('admin.courses.rename.description', { course: state.course.name })}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.errorKey && (
         <CourseRequestError
@@ -68,7 +68,7 @@ function CourseRenamePage() {
       )}
       {state.isNotFound && (
         <CourseEmptyState
-          icon="i-ph:books-duotone"
+          icon="i-ph:books"
           title={t('admin.courses.not-found.title')}
           description={t('admin.courses.not-found.description')}
         >
@@ -139,6 +139,6 @@ function CourseRenamePage() {
           </div>
         </ResultPanel>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

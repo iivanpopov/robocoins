@@ -11,7 +11,7 @@ import {
   IconButton,
   Loader,
 } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { TeacherRequestError, TeacherResultPanel, TeacherUnavailable } from '../../-components'
 import { TeacherAccessAction } from '../../-constants'
@@ -23,7 +23,7 @@ import styles from './index.module.css'
 const ACCESS_ACTIONS = [
   {
     value: TeacherAccessAction.Block,
-    icon: 'i-ph:lock-simple-duotone',
+    icon: 'i-ph:lock-simple',
     title: 'admin.teachers.access.block',
     description: 'admin.teachers.access.block-description',
     confirmTitle: 'admin.teachers.access.block-confirm-title',
@@ -35,7 +35,7 @@ const ACCESS_ACTIONS = [
   },
   {
     value: TeacherAccessAction.Unblock,
-    icon: 'i-ph:lock-simple-open-duotone',
+    icon: 'i-ph:lock-simple-open',
     title: 'admin.teachers.access.unblock',
     description: 'admin.teachers.access.unblock-description',
     confirmTitle: 'admin.teachers.access.unblock-confirm-title',
@@ -47,7 +47,7 @@ const ACCESS_ACTIONS = [
   },
   {
     value: TeacherAccessAction.ResetCode,
-    icon: 'i-ph:key-duotone',
+    icon: 'i-ph:key',
     title: 'admin.teachers.access.reset-code',
     description: 'admin.teachers.access.reset-code-description',
     confirmTitle: 'access.code.reset-confirm-title',
@@ -59,7 +59,7 @@ const ACCESS_ACTIONS = [
   },
   {
     value: TeacherAccessAction.RevokeSessions,
-    icon: 'i-ph:sign-out-duotone',
+    icon: 'i-ph:sign-out',
     title: 'access.sessions.end',
     description: 'admin.teachers.access.revoke-sessions-description',
     confirmTitle: 'access.sessions.confirm-title',
@@ -100,8 +100,8 @@ function TeacherAccessPage() {
   )
 
   return (
-    <AdminPageLayout.Root bottomSpace>
-      <AdminPageLayout.Header>
+    <PageLayout.Root bottomSpace>
+      <PageLayout.Header>
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/people/teachers/$userId" params={{ userId: state.teacherId }} />}
@@ -109,14 +109,14 @@ function TeacherAccessPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.teachers.access.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.teachers.access.title')}</PageLayout.Title>
+          <PageLayout.Description>
             {!state.isAvailable && t('admin.teachers.access.description-empty')}
             {state.isAvailable && t('admin.teachers.access.description', { name: state.name })}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.isPending && <Loader grow />}
       {!state.isPending && state.isError && !state.notFound && (
         <TeacherRequestError
@@ -151,7 +151,7 @@ function TeacherAccessPage() {
                   <span className={styles['action-title']}>{t(actionItem.title)}</span>
                   <span className={styles['action-description']}>{t(actionItem.description)}</span>
                 </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </button>
             ))}
           </div>
@@ -215,6 +215,6 @@ function TeacherAccessPage() {
           )}
         </DrawerContent>
       </Drawer>
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

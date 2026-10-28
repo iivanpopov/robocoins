@@ -14,10 +14,12 @@ import {
   IconButton,
   Loader,
 } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { LearningCard } from '#/routes/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
+import { UserAvatar } from '#/routes/-components/user-avatar'
 
 import { parseStudentIdParams } from '../-utils'
-import { ApiErrorNotice, StudentAvatar } from '../../-components'
+import { ApiErrorNotice } from '../../-components'
 import { AdminSelect, MembershipResultPanel } from '../../../../-components'
 import { useStudentGroupsPage } from './-hooks'
 
@@ -67,8 +69,8 @@ function StudentGroupsPage() {
   }))
 
   return (
-    <AdminPageLayout.Root bottomSpace>
-      <AdminPageLayout.Header>
+    <PageLayout.Root bottomSpace>
+      <PageLayout.Header>
         <IconButton
           nativeButton={false}
           render={
@@ -78,15 +80,15 @@ function StudentGroupsPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.students.groups.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.students.groups.title')}</PageLayout.Title>
+          <PageLayout.Description>
             {!state.student && t('admin.students.groups.description-empty')}
             {!!state.student &&
               t('admin.students.groups.description', { name: state.student.name })}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && (
         <ApiErrorNotice
@@ -101,7 +103,7 @@ function StudentGroupsPage() {
       {!!state.student && !state.isError && (
         <>
           <article className={styles.identity}>
-            <StudentAvatar
+            <UserAvatar
               name={state.student.name}
               avatar={state.student.avatar}
               size="lg"
@@ -224,23 +226,27 @@ function StudentGroupsPage() {
             {!!state.memberships.length && (
               <div className={styles.memberships}>
                 {state.memberships.map((group) => (
-                  <article key={group.id} className={styles.membership}>
-                    <div className={styles['membership-copy']}>
-                      <span className={styles['membership-course']}>{group.courseName}</span>
-                      <span className={styles['membership-group']}>{group.name}</span>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => functions.handleOpenRemoveDialog(group.id)}
-                      disabled={state.membership.isOperating}
-                      aria-label={t('admin.students.groups.memberships.remove-label', {
-                        group: group.name,
-                      })}
-                    >
-                      {t('admin.students.groups.memberships.remove')}
-                    </Button>
-                  </article>
+                  <LearningCard.Root key={group.id} render={<article />}>
+                    <LearningCard.Row>
+                      <LearningCard.Content>
+                        <LearningCard.Title>{group.courseName}</LearningCard.Title>
+                        <LearningCard.Description>{group.name}</LearningCard.Description>
+                      </LearningCard.Content>
+                    </LearningCard.Row>
+                    <LearningCard.Actions>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => functions.handleOpenRemoveDialog(group.id)}
+                        disabled={state.membership.isOperating}
+                        aria-label={t('admin.students.groups.memberships.remove-label', {
+                          group: group.name,
+                        })}
+                      >
+                        {t('admin.students.groups.memberships.remove')}
+                      </Button>
+                    </LearningCard.Actions>
+                  </LearningCard.Root>
                 ))}
               </div>
             )}
@@ -311,6 +317,6 @@ function StudentGroupsPage() {
           </AlertDialog>
         </>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

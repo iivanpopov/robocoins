@@ -46,8 +46,8 @@ export function StepSuccess() {
               aria-label={passwordLabel}
               onClick={() => toggleRevealed()}
             >
-              {isRevealed && <span className="i-ph:eye-slash-bold" />}
-              {!isRevealed && <span className="i-ph:eye-bold" />}
+              {isRevealed && <span className="i-ph:eye-slash" />}
+              {!isRevealed && <span className="i-ph:eye" />}
             </IconButton>
           </div>
         </div>

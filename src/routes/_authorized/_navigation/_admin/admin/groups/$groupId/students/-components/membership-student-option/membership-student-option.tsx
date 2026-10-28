@@ -1,12 +1,7 @@
-import { cn } from 'cn'
-
-import { Avatar, AvatarFallback, AvatarImage, Checkbox } from '#/components/ui'
-import { AVATARS } from '#/routes/-constants'
-import { getAvatarUrl, getInitial } from '#/routes/-utils'
+import { Checkbox } from '#/components/ui'
+import { UserCard } from '#/routes/-components'
 
 import type { MembershipStudentCandidate } from '../../../../../-types'
-
-import styles from './membership-student-option.module.css'
 
 export interface MembershipStudentOptionProps {
   id: string
@@ -25,14 +20,12 @@ export function MembershipStudentOption({
   meta,
   onCheckedChange,
 }: MembershipStudentOptionProps) {
-  const knownAvatar = AVATARS.find((avatar) => avatar === student.avatar)
-
   function handleCheckedChange(value: boolean | 'indeterminate') {
     onCheckedChange(student.id, value === true)
   }
 
   return (
-    <div className={cn(styles.row, checked && styles.selected)}>
+    <UserCard.Root selected={checked}>
       <Checkbox
         id={id}
         size="lg"
@@ -40,16 +33,11 @@ export function MembershipStudentOption({
         disabled={disabled}
         onCheckedChange={handleCheckedChange}
       />
-      <Avatar>
-        {knownAvatar && <AvatarImage src={getAvatarUrl(knownAvatar)} alt="" aria-hidden="true" />}
-        <AvatarFallback role="img" aria-label={student.name}>
-          {getInitial(student.name)}
-        </AvatarFallback>
-      </Avatar>
-      <label htmlFor={id} className={styles.copy}>
-        <span className={styles.name}>{student.name}</span>
-        {meta && <span className={styles.meta}>{meta}</span>}
-      </label>
-    </div>
+      <UserCard.Avatar name={student.name} avatar={student.avatar} />
+      <UserCard.Content render={<label htmlFor={id} />}>
+        <UserCard.Name>{student.name}</UserCard.Name>
+        {meta && <UserCard.Description>{meta}</UserCard.Description>}
+      </UserCard.Content>
+    </UserCard.Root>
   )
 }

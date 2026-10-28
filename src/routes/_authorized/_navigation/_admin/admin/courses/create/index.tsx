@@ -2,7 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { Button, Field, FieldError, FieldLabel, IconButton, Input } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { CourseCategoryChips, CourseForm, CourseRequestError, ResultPanel } from '../-components'
 import { CourseCategoryFilter } from '../-constants'
@@ -21,8 +21,8 @@ function CreateCoursePage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header align="end">
+    <PageLayout.Root>
+      <PageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/courses" />}
@@ -30,10 +30,10 @@ function CreateCoursePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.courses.create.title')}</AdminPageLayout.Title>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.courses.create.title')}</PageLayout.Title>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.createdCourse && (
         <ResultPanel
           tone="success"
@@ -110,6 +110,6 @@ function CreateCoursePage() {
           {state.errorKey && <CourseRequestError messageKey={state.errorKey} />}
         </CourseForm>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

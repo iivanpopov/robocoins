@@ -18,7 +18,7 @@ import {
   Loader,
 } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { GroupEmptyState, GroupRequestError } from '../../-components'
 import { parseGroupIdParams } from '../../-utils'
@@ -58,8 +58,8 @@ function GroupStudentsPage() {
   }))
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header align="end">
+    <PageLayout.Root>
+      <PageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/groups/$groupId" params={{ groupId: state.groupId }} />}
@@ -67,14 +67,14 @@ function GroupStudentsPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.groups.membership.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.groups.membership.title')}</PageLayout.Title>
+          <PageLayout.Description>
             {!state.group && t('admin.groups.membership.description-empty')}
             {!!state.group && t('admin.groups.membership.description', { group: state.group.name })}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.groupErrorKey && (
         <GroupRequestError
@@ -85,7 +85,7 @@ function GroupStudentsPage() {
       )}
       {state.isNotFound && (
         <GroupEmptyState
-          icon="i-ph:users-three-duotone"
+          icon="i-ph:users-three"
           title={t('admin.groups.not-found.title')}
           description={t('admin.groups.not-found.description')}
         >
@@ -371,6 +371,6 @@ function GroupStudentsPage() {
           </AlertDialog>
         </>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

@@ -1,0 +1,168 @@
+.root {
+  flex-shrink: 0;
+  width: 100%;
+  min-width: 0;
+  color: var(--foreground);
+  background: var(--surface);
+  border-radius: var(--rounded-md);
+}
+
+.row {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  list-style: none;
+  background: transparent;
+  border: none;
+  border-radius: inherit;
+  transition: background-color 0.15s ease;
+}
+
+.row::-webkit-details-marker {
+  display: none;
+}
+
+.row:is(a, button, summary) {
+  cursor: pointer;
+}
+
+.row:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.row:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.root[data-size='lg'] > .row {
+  gap: var(--spacing-lg);
+  min-height: 5rem;
+  padding: var(--spacing-lg);
+}
+
+.row:is(a, button, summary):active:not(:disabled) {
+  background: var(--muted);
+}
+
+.root[data-selection='highlight'] > .row[aria-pressed='true'] {
+  background: color-mix(in srgb, var(--brand) 8%, transparent);
+  box-shadow: inset 0 0 0 2px var(--brand);
+}
+
+.icon {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  color: var(--taupe-700);
+  background: var(--taupe-100);
+  border-radius: var(--rounded-sm);
+}
+
+.icon[data-category='web'] {
+  color: var(--category-web);
+  background: color-mix(in srgb, var(--category-web) 12%, transparent);
+}
+
+.icon[data-category='game dev'] {
+  color: var(--category-game-dev);
+  background: color-mix(in srgb, var(--category-game-dev) 12%, transparent);
+}
+
+.icon[data-category='embedded'] {
+  color: var(--category-embedded);
+  background: color-mix(in srgb, var(--category-embedded) 12%, transparent);
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.0625rem;
+  min-width: 0;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.description {
+  font-size: 0.8125rem;
+  font-weight: 450;
+  line-height: 1.3;
+  color: var(--muted-foreground);
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  display: flex;
+  flex: 0 0 auto;
+  gap: var(--spacing-sm);
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.indicator {
+  flex: 0 0 auto;
+  font-size: 1rem;
+}
+
+.expand {
+  transition: transform 0.15s ease;
+}
+
+.root[open] > .row .expand {
+  transform: rotate(180deg);
+}
+
+.select {
+  visibility: hidden;
+  color: var(--brand);
+}
+
+.row[aria-pressed='true'] .select {
+  visibility: visible;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs) var(--spacing-sm);
+  justify-content: flex-end;
+  padding: 0 var(--spacing-md) var(--spacing-sm);
+}
+
+.root[data-size='lg'] > .row .icon {
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.75rem;
+}
+
+.root[data-size='lg'] > .row .title {
+  font-size: 1.125rem;
+}
+
+.root[data-size='lg'] > .row .description {
+  font-size: 0.875rem;
+}
+
+.root[data-size='lg'] > .row .indicator {
+  font-size: 1.25rem;
+}

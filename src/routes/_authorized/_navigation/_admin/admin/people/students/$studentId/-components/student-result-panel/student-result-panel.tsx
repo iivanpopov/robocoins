@@ -26,7 +26,7 @@ export function StudentResultPanel({
   return (
     <section className={cn(styles.panel, className)}>
       <div role="status" className={styles.summary}>
-        <span aria-hidden="true" className={cn(styles.icon, 'i-ph:info-duotone')} />
+        <span aria-hidden="true" className={cn(styles.icon, 'i-ph:info')} />
         <h2 className={styles.title}>{title}</h2>
         <p className={styles.description}>{description}</p>
         {!!details?.length && (

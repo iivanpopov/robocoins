@@ -1,11 +1,9 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
+import type { ReactNode } from 'react'
 
 import type { CourseCategoryKey } from '#/api/types'
-import { CategoryIcon } from '#/routes/-components'
+import { LearningCard, type LearningCardRowProps } from '#/routes/-components'
 import type { Weekday } from '#/routes/-constants'
-
-import styles from './group-card.module.css'
 
 export interface GroupCardSchedule {
   weekday?: Weekday
@@ -24,31 +22,32 @@ export interface GroupCardData {
 export interface GroupCardProps {
   group: GroupCardData
   className?: string
+  actions?: ReactNode
+  render?: LearningCardRowProps['render']
 }
 
-export function GroupCard({ group, className }: GroupCardProps) {
+export function GroupCard({ group, className, actions, render }: GroupCardProps) {
   const t = useTranslate()
 
   return (
-    <div className={cn(styles.card, className)} data-category={group.category}>
-      <div className={styles['card-icon']}>
-        <CategoryIcon category={group.category} />
-      </div>
-      <div className={styles['card-details']}>
-        <h3 className={styles['card-title']}>{group.courseName}</h3>
-        <span className={styles.schedule}>
-          {group.schedule.weekday && <>{t.unsafe(`weekday.${group.schedule.weekday}`)}</>}
-          {group.schedule.weekday && group.schedule.time && ', '}
-          {group.schedule.time}
-        </span>
-      </div>
-      {group.studentsCount !== undefined && (
-        <div className={styles['card-meta']}>
-          <span className={styles['students-count']}>
+    <LearningCard.Root className={className}>
+      <LearningCard.Row render={render}>
+        <LearningCard.Icon category={group.category} />
+        <LearningCard.Content>
+          <LearningCard.Title>{group.courseName}</LearningCard.Title>
+          <LearningCard.Description>
+            {group.schedule.weekday && <>{t.unsafe(`weekday.${group.schedule.weekday}`)}</>}
+            {group.schedule.weekday && group.schedule.time && ', '}
+            {group.schedule.time}
+          </LearningCard.Description>
+        </LearningCard.Content>
+        {group.studentsCount !== undefined && (
+          <LearningCard.Meta>
             {t('group.students-count', { count: group.studentsCount })}
-          </span>
-        </div>
-      )}
-    </div>
+          </LearningCard.Meta>
+        )}
+      </LearningCard.Row>
+      {actions && <LearningCard.Actions>{actions}</LearningCard.Actions>}
+    </LearningCard.Root>
   )
 }

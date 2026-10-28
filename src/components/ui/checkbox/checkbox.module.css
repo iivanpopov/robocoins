@@ -1,17 +1,19 @@
 .checkbox {
+  --checkbox-indicator-size: 1.125rem;
+
   display: flex;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
   padding: 0;
-  color: var(--brand);
+  color: var(--brand-foreground);
   cursor: pointer;
-  background: transparent;
-  border: 2px solid var(--muted-foreground);
-  border-radius: var(--rounded-sm);
+  background: var(--surface);
+  border: none;
+  border-radius: var(--rounded-md);
   transition:
     background-color 0.15s ease,
-    border-color 0.15s ease;
+    color 0.15s ease;
 
   &:focus-visible {
     outline: 2px solid var(--brand);
@@ -20,20 +22,19 @@
 
   &[data-checked],
   &[data-indeterminate] {
-    color: var(--brand);
-    background: transparent;
-    border-color: var(--brand);
+    color: var(--brand-foreground);
+    background: var(--brand);
   }
 
   &[data-variant='error'] {
-    color: var(--error);
-    border-color: var(--error);
+    color: var(--error-foreground);
+    background: color-mix(in srgb, var(--error) 12%, var(--muted));
   }
 
   &[data-variant='error'][data-checked],
   &[data-variant='error'][data-indeterminate] {
-    color: var(--error);
-    background: transparent;
+    color: var(--error-foreground);
+    background: var(--error);
   }
 
   &[data-variant='error']:focus-visible {
@@ -52,6 +53,8 @@
 }
 
 .lg {
+  --checkbox-indicator-size: 1.25rem;
+
   width: 1.75rem;
   height: 1.75rem;
 }
@@ -59,6 +62,6 @@
 .indicator {
   display: grid;
   place-content: center;
-  font-size: 0.875rem;
+  font-size: var(--checkbox-indicator-size);
   line-height: 1;
 }

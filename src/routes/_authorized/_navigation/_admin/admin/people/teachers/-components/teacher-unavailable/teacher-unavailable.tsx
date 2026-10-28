@@ -19,7 +19,7 @@ export function TeacherUnavailable({ notFound, notTeacher, isMismatch }: Teacher
     <>
       {notFound && (
         <div className={styles.empty}>
-          <span aria-hidden="true" className="i-ph:user-minus-duotone" />
+          <span aria-hidden="true" className="i-ph:user-minus" />
           <h2 className={styles.title}>{t('admin.teachers.profile.not-found')}</h2>
           <Button nativeButton={false} render={<Link to="/admin/people/teachers" />}>
             {t('admin.teachers.profile.back')}

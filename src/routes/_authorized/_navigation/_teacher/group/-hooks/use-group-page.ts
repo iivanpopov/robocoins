@@ -1,4 +1,3 @@
-import { useNavigate } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 
 import { useGetCoursesCourseGet } from '#/api/hooks/useGetCoursesCourseGet'
@@ -8,8 +7,6 @@ import { isGroupScheduleActive, parseGroupSchedule } from '#/routes/-utils'
 import { GroupFilter } from '../-constants'
 
 export function useGroupPage() {
-  const navigate = useNavigate()
-
   const [selectedTheme, setSelectedTheme] = useState<GroupFilter>(GroupFilter.All)
   const [now, setNow] = useState<Date | null>(null)
 
@@ -40,10 +37,6 @@ export function useGroupPage() {
 
   function handleThemeSelect(theme: GroupFilter) {
     setSelectedTheme(theme)
-  }
-
-  function handleGroupClick(groupId: number) {
-    void navigate({ to: '/group/$groupId', params: { groupId: String(groupId) } })
   }
 
   function handleRetry() {
@@ -87,6 +80,6 @@ export function useGroupPage() {
       isRetrying: coursesQuery.isFetching || teacherGroupsQuery.isFetching,
     },
     queries: { courses: coursesQuery, teacherGroups: teacherGroupsQuery },
-    functions: { handleThemeSelect, handleGroupClick, handleRetry },
+    functions: { handleThemeSelect, handleRetry },
   }
 }

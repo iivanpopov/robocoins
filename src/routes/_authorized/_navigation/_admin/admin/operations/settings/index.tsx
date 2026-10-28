@@ -12,7 +12,7 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import {
   AMOUNT_INPUT_MAX_LENGTH,
@@ -44,8 +44,8 @@ function LocalSettingsPage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root className={styles.page}>
-      <AdminPageLayout.Header centered>
+    <PageLayout.Root className={styles.page}>
+      <PageLayout.Header centered>
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/operations" />}
@@ -53,13 +53,13 @@ function LocalSettingsPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading className={styles.heading}>
-          <AdminPageLayout.Title>{t('admin.operations.settings.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description>
+        <PageLayout.Heading className={styles.heading}>
+          <PageLayout.Title>{t('admin.operations.settings.title')}</PageLayout.Title>
+          <PageLayout.Description>
             {t('admin.operations.settings.description')}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
 
       <article className={styles.card}>
         <header className={styles['card-header']}>
@@ -317,6 +317,6 @@ function LocalSettingsPage() {
           />
         )}
       </article>
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

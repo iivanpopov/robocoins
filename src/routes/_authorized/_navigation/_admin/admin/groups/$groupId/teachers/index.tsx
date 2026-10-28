@@ -2,7 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link, useParams } from '@tanstack/react-router'
 
 import { Button, IconButton, Loader } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import {
   GroupEmptyState,
@@ -39,8 +39,8 @@ function GroupTeachersPage() {
   const savedTeacherIds = state.savedTeacherIds
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header align="end">
+    <PageLayout.Root>
+      <PageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/groups/$groupId" params={{ groupId: state.groupId }} />}
@@ -48,14 +48,14 @@ function GroupTeachersPage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.groups.teachers.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.groups.teachers.title')}</PageLayout.Title>
+          <PageLayout.Description>
             {!state.group && t('admin.groups.teachers.description-empty')}
             {state.group && t('admin.groups.teachers.description', { group: state.group.name })}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.errorKey && (
         <GroupRequestError
@@ -66,7 +66,7 @@ function GroupTeachersPage() {
       )}
       {state.isNotFound && (
         <GroupEmptyState
-          icon="i-ph:chalkboard-teacher-duotone"
+          icon="i-ph:chalkboard-teacher"
           title={t('admin.groups.not-found.title')}
           description={t('admin.groups.not-found.description')}
         >
@@ -136,6 +136,6 @@ function GroupTeachersPage() {
           </Button>
         </GroupResultPanel>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

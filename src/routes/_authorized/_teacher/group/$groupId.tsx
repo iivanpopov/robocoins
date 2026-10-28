@@ -1,6 +1,5 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import { getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions } from '#/api/hooks/useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet'
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
@@ -16,14 +15,10 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
   Button,
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
   IconButton,
   Loader,
 } from '#/components/ui'
-import { InlineError } from '#/routes/-components'
-import { getAvatarUrl, getInitial } from '#/routes/-utils'
+import { InlineError, PageLayout, UserCard } from '#/routes/-components'
 
 import { StudentDrawer, StudentSearchBar } from './-components'
 import { useGroupStudentsPage } from './-hooks'
@@ -50,27 +45,20 @@ function GroupStudentsPage() {
   const t = useTranslate()
 
   return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <IconButton
-          className={styles['back-btn']}
-          nativeButton={false}
-          render={<Link to="/group" />}
-          title={t('group.back')}
-        >
-          <span className="i-ph:arrow-left" />
+    <PageLayout.Root spacing="compact" bottomSpace className={styles.page}>
+      <PageLayout.Header align="end" centered size="compact">
+        <IconButton nativeButton={false} render={<Link to="/group" />} title={t('group.back')}>
+          <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <div className={styles['header-info']}>
-          <h1 className={styles.title} title={state.courseName}>
-            {state.courseName}
-          </h1>
-          <span className={styles.schedule}>
+        <PageLayout.Heading>
+          <PageLayout.Title title={state.courseName}>{state.courseName}</PageLayout.Title>
+          <PageLayout.Description>
             {state.schedule.weekday && t.unsafe(`weekday.${state.schedule.weekday}`)}
             {state.schedule.weekday && state.schedule.time && ', '}
             {state.schedule.time}
-          </span>
-        </div>
-      </header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
 
       <StudentSearchBar
         searchQuery={state.searchQuery}
@@ -96,29 +84,21 @@ function GroupStudentsPage() {
         <div className={styles['student-list']}>
           {state.students.map((student) => {
             return (
-              <article
+              <UserCard.Root
                 key={student.id}
-                className={styles['student-card']}
-                onClick={() => functions.handleSelectStudent(student)}
+                render={
+                  <button type="button" onClick={() => functions.handleSelectStudent(student)} />
+                }
               >
-                <div className={styles['card-left']}>
-                  <Avatar size="lg">
-                    <AvatarImage src={getAvatarUrl(student.avatar)} alt={student.name} />
-                    <AvatarFallback role="img" aria-label={student.name}>
-                      {getInitial(student.name)}
-                    </AvatarFallback>
-                  </Avatar>
-                  <span className={styles['student-name']}>{student.name}</span>
-                </div>
-
-                <div className={styles['card-right']}>
-                  <div className={styles['balance-badge']}>
-                    <span className={cn('i-ph:coins-bold', styles['coin-icon'])} />
-                    <span>{student.balance}</span>
-                  </div>
-                  <span className={cn('i-ph:caret-right-bold', styles['caret-icon'])} />
-                </div>
-              </article>
+                <UserCard.Avatar name={student.name} avatar={student.avatar} />
+                <UserCard.Content>
+                  <UserCard.Name>{student.name}</UserCard.Name>
+                </UserCard.Content>
+                <UserCard.Meta>
+                  <UserCard.Balance value={student.balance} />
+                  <UserCard.Indicator />
+                </UserCard.Meta>
+              </UserCard.Root>
             )
           })}
         </div>
@@ -133,7 +113,7 @@ function GroupStudentsPage() {
             render={<Button className={styles['practice-award-btn']} />}
             disabled={!state.canAwardPractice || mutations.awardPractice.isPending}
           >
-            <span aria-hidden="true" className="i-ph:coins-bold" />
+            <span aria-hidden="true" className="i-ph:coins" />
             {t('group.practice.award')}
           </AlertDialogTrigger>
           <AlertDialogContent>
@@ -170,6 +150,6 @@ function GroupStudentsPage() {
         onOpenChange={functions.handleDrawerOpenChange}
         onOpenChangeComplete={functions.handleDrawerOpenChangeComplete}
       />
-    </div>
+    </PageLayout.Root>
   )
 }

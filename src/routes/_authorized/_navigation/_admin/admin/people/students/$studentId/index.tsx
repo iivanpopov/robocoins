@@ -5,8 +5,8 @@ import * as v from 'valibot'
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
 import { getStudentByIdStudentStudentIdGetQueryOptions } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
 import { IconButton, Loader } from '#/components/ui'
-import { CategoryIcon } from '#/routes/-components'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { LearningCard } from '#/routes/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { ApiErrorNotice } from '../-components'
 import { useStudentProfilePage } from './-hooks'
@@ -51,20 +51,18 @@ function StudentProfilePage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header align="end">
+    <PageLayout.Root>
+      <PageLayout.Header align="end">
         <IconButton onClick={functions.handleBack} title={t('students.profile.back')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title className={styles.title}>
+        <PageLayout.Heading>
+          <PageLayout.Title className={styles.title}>
             {state.student?.name ?? t('students.profile.title')}
-          </AdminPageLayout.Title>
-          {!!state.student && (
-            <AdminPageLayout.Description>{t('role.student')}</AdminPageLayout.Description>
-          )}
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Title>
+          {!!state.student && <PageLayout.Description>{t('role.student')}</PageLayout.Description>}
+        </PageLayout.Heading>
+      </PageLayout.Header>
 
       {state.isPending && <Loader grow />}
       {state.isError && (
@@ -87,7 +85,7 @@ function StudentProfilePage() {
                 className={styles.action}
               >
                 <span aria-hidden="true" className={styles['action-icon']}>
-                  <span className="i-ph:pencil-simple-duotone" />
+                  <span className="i-ph:pencil-simple" />
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>{t('students.edit.title')}</span>
@@ -95,7 +93,7 @@ function StudentProfilePage() {
                     {t('students.edit.description')}
                   </span>
                 </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
 
               <Link
@@ -104,7 +102,7 @@ function StudentProfilePage() {
                 className={styles.action}
               >
                 <span aria-hidden="true" className={styles['action-icon']}>
-                  <span className="i-ph:key-duotone" />
+                  <span className="i-ph:key" />
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>{t('students.access.title')}</span>
@@ -112,7 +110,7 @@ function StudentProfilePage() {
                     {t('students.access.description-empty')}
                   </span>
                 </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
 
               <Link
@@ -121,7 +119,7 @@ function StudentProfilePage() {
                 className={styles.action}
               >
                 <span aria-hidden="true" className={styles['action-icon']}>
-                  <span className="i-ph:coins-duotone" />
+                  <span className="i-ph:coins" />
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>{t('admin.balance.profile.link')}</span>
@@ -129,7 +127,7 @@ function StudentProfilePage() {
                     {t('admin.balance.profile.description')}
                   </span>
                 </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
 
               <Link
@@ -138,7 +136,7 @@ function StudentProfilePage() {
                 className={styles.action}
               >
                 <span aria-hidden="true" className={styles['action-icon']}>
-                  <span className="i-ph:fire-duotone" />
+                  <span className="i-ph:fire" />
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>{t('admin.streak.title')}</span>
@@ -146,7 +144,7 @@ function StudentProfilePage() {
                     {t('admin.streak.description')}
                   </span>
                 </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
 
               {/* No API integration: student deletion only updates local state.
@@ -157,7 +155,7 @@ function StudentProfilePage() {
                 data-tone="error"
               >
                 <span aria-hidden="true" className={styles['action-icon']}>
-                  <span className="i-ph:user-minus-duotone" />
+                  <span className="i-ph:user-minus" />
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>{t('students.delete.title')}</span>
@@ -165,7 +163,7 @@ function StudentProfilePage() {
                     {t('students.profile.delete-description')}
                   </span>
                 </span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
               */}
             </div>
@@ -180,25 +178,21 @@ function StudentProfilePage() {
                 className={styles['manage-link']}
               >
                 <span>{t('students.profile.memberships.manage')}</span>
-                <span aria-hidden="true" className="i-ph:caret-right-bold" />
+                <span aria-hidden="true" className="i-ph:caret-right" />
               </Link>
             </div>
             {!!state.memberships.length && (
               <div className={styles.memberships}>
                 {state.memberships.map((group) => (
-                  <article
-                    key={group.id}
-                    className={styles.membership}
-                    data-category={group.category}
-                  >
-                    <div className={styles['membership-icon']}>
-                      <CategoryIcon category={group.category} />
-                    </div>
-                    <div className={styles['membership-details']}>
-                      <span className={styles['membership-course']}>{group.courseName}</span>
-                      <span className={styles['membership-group']}>{group.name}</span>
-                    </div>
-                  </article>
+                  <LearningCard.Root key={group.id} render={<article />}>
+                    <LearningCard.Row>
+                      <LearningCard.Icon category={group.category} />
+                      <LearningCard.Content>
+                        <LearningCard.Title>{group.courseName}</LearningCard.Title>
+                        <LearningCard.Description>{group.name}</LearningCard.Description>
+                      </LearningCard.Content>
+                    </LearningCard.Row>
+                  </LearningCard.Root>
                 ))}
               </div>
             )}
@@ -208,6 +202,6 @@ function StudentProfilePage() {
           </section>
         </>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

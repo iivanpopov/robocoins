@@ -18,7 +18,7 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import {
   TeacherForm,
@@ -54,8 +54,8 @@ function TeacherDeletePage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root bottomSpace>
-      <AdminPageLayout.Header>
+    <PageLayout.Root bottomSpace>
+      <PageLayout.Header>
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/people/teachers/$userId" params={{ userId: state.teacherId }} />}
@@ -63,14 +63,14 @@ function TeacherDeletePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.teachers.delete.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.teachers.delete.title')}</PageLayout.Title>
+          <PageLayout.Description>
             {!state.isAvailable && t('admin.teachers.delete.description-empty')}
             {state.isAvailable && t('admin.teachers.delete.description', { name: state.name })}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.isPending && <Loader grow />}
       {!state.isPending && state.isError && !state.notFound && (
         <TeacherRequestError
@@ -189,6 +189,6 @@ function TeacherDeletePage() {
           </div>
         </TeacherResultPanel>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

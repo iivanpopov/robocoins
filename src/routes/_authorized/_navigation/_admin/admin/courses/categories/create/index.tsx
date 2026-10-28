@@ -10,7 +10,7 @@ import {
   IconButton,
   Input,
 } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { CourseForm, ResultPanel } from '../../-components'
 import { useCategoryCreatePage } from '../../-hooks'
@@ -30,8 +30,8 @@ function CategoryCreatePage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header align="end">
+    <PageLayout.Root>
+      <PageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/courses/categories" />}
@@ -39,12 +39,10 @@ function CategoryCreatePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>
-            {t('admin.courses.categories.create.title')}
-          </AdminPageLayout.Title>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.courses.categories.create.title')}</PageLayout.Title>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.createdName && (
         <ResultPanel
           tone="local"
@@ -100,6 +98,6 @@ function CategoryCreatePage() {
           </features.form.Field>
         </CourseForm>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

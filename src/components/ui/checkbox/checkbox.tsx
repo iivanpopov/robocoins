@@ -17,7 +17,7 @@ export function Checkbox({ size = 'md', variant, className, ...props }: Checkbox
       className={cn(styles.checkbox, styles[size], className)}
     >
       <CheckboxPrimitive.Indicator data-slot="checkbox-indicator" className={styles.indicator}>
-        <span aria-hidden="true" className="i-ph:check-bold" />
+        <span aria-hidden="true" className="i-ph:check" />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   )

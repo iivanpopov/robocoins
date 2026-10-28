@@ -1,9 +1,7 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import { Checkbox } from '#/components/ui'
-
-import styles from './bulk-student-row.module.css'
+import { UserCard } from '#/routes/-components'
 
 export interface BulkStudentRowData {
   id: number
@@ -24,7 +22,7 @@ export function BulkStudentRow({ student, selected, disabled, onToggle }: BulkSt
   const checkboxId = `operations-student-${student.id}`
 
   return (
-    <div className={cn(styles.row, selected && styles.selected)}>
+    <UserCard.Root selected={selected}>
       <Checkbox
         id={checkboxId}
         size="lg"
@@ -32,10 +30,11 @@ export function BulkStudentRow({ student, selected, disabled, onToggle }: BulkSt
         disabled={disabled}
         onCheckedChange={(checked) => onToggle(student.id, checked)}
       />
-      <label className={styles.label} htmlFor={checkboxId}>
-        <span className={styles.name}>{student.name}</span>
-        <span className={styles.balance}>{t('coins.unit', { count: student.balance })}</span>
-      </label>
-    </div>
+      <UserCard.Avatar name={student.name} />
+      <UserCard.Content render={<label htmlFor={checkboxId} />}>
+        <UserCard.Name>{student.name}</UserCard.Name>
+        <UserCard.Description>{t('coins.unit', { count: student.balance })}</UserCard.Description>
+      </UserCard.Content>
+    </UserCard.Root>
   )
 }

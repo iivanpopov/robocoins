@@ -33,8 +33,8 @@ export function HeroPasswordInput({ className, ...props }: HeroPasswordInputProp
         aria-pressed={isRevealed}
         aria-label={label}
       >
-        <div className={cn('i-ph:eye-bold', isRevealed && 'hidden')} />
-        <div className={cn('i-ph:eye-slash-bold', !isRevealed && 'hidden')} />
+        <div className={cn('i-ph:eye', isRevealed && 'hidden')} />
+        <div className={cn('i-ph:eye-slash', !isRevealed && 'hidden')} />
       </HeroInputGroupButton>
     </HeroInputGroup>
   )

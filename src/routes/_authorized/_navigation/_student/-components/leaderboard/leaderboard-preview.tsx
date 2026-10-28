@@ -26,7 +26,7 @@ export function LeaderboardPreview() {
           render={<Link to="/leaderboard" />}
         >
           {t('leaderboard.all')}
-          <span aria-hidden="true" className="i-ph:caret-right-bold" />
+          <span aria-hidden="true" className="i-ph:caret-right" />
         </Button>
       </div>
       <p className={styles.description}>{t('leaderboard.description')}</p>

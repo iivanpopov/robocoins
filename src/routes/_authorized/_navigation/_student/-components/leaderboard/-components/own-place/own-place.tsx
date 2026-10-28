@@ -10,7 +10,7 @@ export interface OwnPlaceProps {
 }
 
 function CoinIcon() {
-  return <span aria-hidden="true" className={cn('i-ph:coin-fill', styles.coin)} />
+  return <span aria-hidden="true" className={cn('i-ph:coin', styles.coin)} />
 }
 
 export function OwnPlace(props: OwnPlaceProps) {

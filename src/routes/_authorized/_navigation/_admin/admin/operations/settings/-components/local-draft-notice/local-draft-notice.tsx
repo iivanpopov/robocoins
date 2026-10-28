@@ -12,7 +12,7 @@ export function LocalDraftNotice({ title, description, children }: LocalDraftNot
   return (
     <section className={styles.notice} role="status">
       <span aria-hidden="true" className={styles.icon}>
-        <span className="i-ph:info-duotone" />
+        <span className="i-ph:info" />
       </span>
       <div className={styles.copy}>
         <h3 className={styles.title}>{title}</h3>

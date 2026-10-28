@@ -18,7 +18,7 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { CourseEmptyState, CourseForm, CourseRequestError, ResultPanel } from '../../-components'
 import { useCourseDeletePage } from '../../-hooks'
@@ -48,8 +48,8 @@ function CourseDeletePage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header align="end">
+    <PageLayout.Root>
+      <PageLayout.Header align="end">
         <IconButton
           nativeButton={false}
           render={<Link to="/admin/courses/$courseId" params={{ courseId: state.courseId }} />}
@@ -57,14 +57,14 @@ function CourseDeletePage() {
         >
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('admin.courses.delete.title')}</AdminPageLayout.Title>
-          <AdminPageLayout.Description>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('admin.courses.delete.title')}</PageLayout.Title>
+          <PageLayout.Description>
             {!state.course && t('admin.courses.delete.description-empty')}
             {state.course && t('admin.courses.delete.description', { course: state.course.name })}
-          </AdminPageLayout.Description>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+          </PageLayout.Description>
+        </PageLayout.Heading>
+      </PageLayout.Header>
       {state.isPending && <Loader grow />}
       {state.isError && state.errorKey && (
         <CourseRequestError
@@ -75,7 +75,7 @@ function CourseDeletePage() {
       )}
       {state.isNotFound && (
         <CourseEmptyState
-          icon="i-ph:books-duotone"
+          icon="i-ph:books"
           title={t('admin.courses.not-found.title')}
           description={t('admin.courses.not-found.description')}
         >
@@ -160,6 +160,6 @@ function CourseDeletePage() {
           </div>
         </ResultPanel>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

@@ -21,8 +21,8 @@ export function RewardRow({ reward }: RewardRowProps) {
         <span
           className={cn(
             styles.symbol,
-            reward.type === 'reward' && 'i-ph:cube-duotone',
-            reward.type === 'privilege' && 'i-ph:star-four-fill',
+            reward.type === 'reward' && 'i-ph:cube',
+            reward.type === 'privilege' && 'i-ph:star-four',
           )}
         />
       </span>
@@ -35,9 +35,9 @@ export function RewardRow({ reward }: RewardRowProps) {
       </span>
       <span className={styles.price}>
         {t('coins.amount', { count: reward.price })}
-        <span className="i-ph:coins-bold" aria-hidden="true" />
+        <span className="i-ph:coins" aria-hidden="true" />
       </span>
-      <span className={cn('i-ph:caret-right-bold', styles.chevron)} aria-hidden="true" />
+      <span className={cn('i-ph:caret-right', styles.chevron)} aria-hidden="true" />
     </Link>
   )
 }

@@ -4,10 +4,10 @@ import { cn } from 'cn'
 
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
 import { Button, Field, FieldLabel, IconButton, Input, Loader } from '#/components/ui'
-import { CategoryIcon, ThemedChip } from '#/routes/-components'
+import { LearningCard, ThemedChip } from '#/routes/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 import { AVATARS } from '#/routes/-constants'
 import { getAvatarUrl } from '#/routes/-utils'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
 
 import { ApiErrorNotice } from '../-components'
 import { useRegisterStudentPage } from './-hooks'
@@ -30,22 +30,19 @@ function RegisterStudentPage() {
   const t = useTranslate()
 
   return (
-    <AdminPageLayout.Root className={styles.page}>
-      <AdminPageLayout.Header align="end" centered>
+    <PageLayout.Root className={styles.page}>
+      <PageLayout.Header align="end" centered>
         <IconButton onClick={functions.handleBack} title={t('students.profile.back')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />
         </IconButton>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('students.register.title')}</AdminPageLayout.Title>
-        </AdminPageLayout.Heading>
-      </AdminPageLayout.Header>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('students.register.title')}</PageLayout.Title>
+        </PageLayout.Heading>
+      </PageLayout.Header>
 
       {state.created && (
         <article className={styles.success}>
-          <span
-            aria-hidden="true"
-            className={cn('i-ph:check-circle-duotone', styles['success-icon'])}
-          />
+          <span aria-hidden="true" className={cn('i-ph:check-circle', styles['success-icon'])} />
           <h2 className={styles['success-title']}>{t('students.register.success.title')}</h2>
           <p className={styles['success-description']}>
             {t('students.register.success.description', { name: state.created.name })}
@@ -62,10 +59,10 @@ function RegisterStudentPage() {
             onClick={features.clipboard.functions.handleCopy}
           >
             {features.clipboard.state.isCopied && (
-              <span aria-hidden="true" className="i-ph:check-bold" />
+              <span aria-hidden="true" className="i-ph:check" />
             )}
             {!features.clipboard.state.isCopied && (
-              <span aria-hidden="true" className="i-ph:copy-bold" />
+              <span aria-hidden="true" className="i-ph:copy" />
             )}
             {t('students.register.success.copy')}
           </Button>
@@ -217,30 +214,24 @@ function RegisterStudentPage() {
                         const isSelected = field.state.value.includes(group.id)
 
                         return (
-                          <button
-                            key={group.id}
-                            type="button"
-                            className={styles['group-option']}
-                            data-category={group.category}
-                            aria-pressed={isSelected}
-                            onClick={() => functions.handleGroupToggle(group.id)}
-                          >
-                            <span className={styles['group-icon']}>
-                              <CategoryIcon category={group.category} />
-                            </span>
-                            <span className={styles['group-details']}>
-                              <span className={styles['group-course']}>{group.courseName}</span>
-                              <span className={styles['group-name']}>{group.name}</span>
-                            </span>
-                            <span
-                              aria-hidden="true"
-                              className={cn(
-                                'i-ph:check-bold',
-                                styles['group-check'],
-                                !isSelected && styles['group-check-hidden'],
-                              )}
-                            />
-                          </button>
+                          <LearningCard.Root key={group.id}>
+                            <LearningCard.Row
+                              render={
+                                <button
+                                  type="button"
+                                  aria-pressed={isSelected}
+                                  onClick={() => functions.handleGroupToggle(group.id)}
+                                />
+                              }
+                            >
+                              <LearningCard.Icon category={group.category} />
+                              <LearningCard.Content>
+                                <LearningCard.Title>{group.courseName}</LearningCard.Title>
+                                <LearningCard.Description>{group.name}</LearningCard.Description>
+                              </LearningCard.Content>
+                              <LearningCard.Indicator kind="select" />
+                            </LearningCard.Row>
+                          </LearningCard.Root>
                         )
                       })}
                     </div>
@@ -282,6 +273,6 @@ function RegisterStudentPage() {
           </Button>
         </form>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

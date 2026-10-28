@@ -1,15 +1,15 @@
-import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui'
+import { Avatar, AvatarFallback, AvatarImage, type AvatarProps } from '#/components/ui'
 import { AVATARS } from '#/routes/-constants'
 import { getAvatarUrl, getInitial } from '#/routes/-utils'
 
-export interface StudentAvatarProps {
+export interface UserAvatarProps {
   name: string
   avatar?: string | null
-  size?: 'md' | 'lg'
+  size?: AvatarProps['size']
   className?: string
 }
 
-export function StudentAvatar({ name, avatar, size = 'md', className }: StudentAvatarProps) {
+export function UserAvatar({ name, avatar, size = 'md', className }: UserAvatarProps) {
   const knownAvatar = AVATARS.find((candidate) => candidate === avatar)
 
   return (

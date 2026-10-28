@@ -11,7 +11,7 @@ import {
   InputGroupInput,
   Loader,
 } from '#/components/ui'
-import { AdminPageLayout } from '#/routes/_authorized/_navigation/_admin/admin/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 
 import { AdminSelect } from '../../-components'
 import { GROUP_FILTER_ALL } from '../../-constants'
@@ -47,18 +47,18 @@ function StudentsPage() {
   ]
 
   return (
-    <AdminPageLayout.Root>
-      <AdminPageLayout.Header className={styles.header}>
-        <AdminPageLayout.Heading>
-          <AdminPageLayout.Title>{t('students.title')}</AdminPageLayout.Title>
-        </AdminPageLayout.Heading>
-        <AdminPageLayout.Actions>
+    <PageLayout.Root>
+      <PageLayout.Header className={styles.header}>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('students.title')}</PageLayout.Title>
+        </PageLayout.Heading>
+        <PageLayout.Actions>
           <Button nativeButton={false} render={<Link to="/admin/people/students/register" />}>
-            <span aria-hidden="true" className="i-ph:plus-bold" />
+            <span aria-hidden="true" className="i-ph:plus" />
             {t('students.register.action')}
           </Button>
-        </AdminPageLayout.Actions>
-      </AdminPageLayout.Header>
+        </PageLayout.Actions>
+      </PageLayout.Header>
 
       <div className={styles.controls}>
         <div className={styles['search-row']}>
@@ -92,7 +92,7 @@ function StudentsPage() {
             aria-pressed={state.isFiltersOpen}
             onClick={functions.handleFiltersToggle}
           >
-            <span aria-hidden="true" className="i-ph:funnel-duotone" />
+            <span aria-hidden="true" className="i-ph:funnel" />
           </IconButton>
         </div>
 
@@ -139,10 +139,7 @@ function StudentsPage() {
       )}
       {!state.isPending && !state.isError && !state.allCount && (
         <div className={styles.empty}>
-          <span
-            aria-hidden="true"
-            className={cn('i-ph:users-three-duotone', styles['empty-icon'])}
-          />
+          <span aria-hidden="true" className={cn('i-ph:users-three', styles['empty-icon'])} />
           <p>{t('students.empty')}</p>
         </div>
       )}
@@ -159,6 +156,6 @@ function StudentsPage() {
           ))}
         </div>
       )}
-    </AdminPageLayout.Root>
+    </PageLayout.Root>
   )
 }

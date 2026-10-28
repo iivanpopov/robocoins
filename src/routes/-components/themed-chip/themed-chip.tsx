@@ -27,8 +27,8 @@ export function ThemedChip({
   return (
     <Chip {...props} type="button">
       {icon && !!resolvedCategory && <CategoryIcon category={resolvedCategory} />}
-      {icon && type === 'reward' && <span aria-hidden="true" className="i-ph:cube-duotone" />}
-      {icon && type === 'privilege' && <span aria-hidden="true" className="i-ph:star-four-fill" />}
+      {icon && type === 'reward' && <span aria-hidden="true" className="i-ph:cube" />}
+      {icon && type === 'privilege' && <span aria-hidden="true" className="i-ph:star-four" />}
       {children}
     </Chip>
   )

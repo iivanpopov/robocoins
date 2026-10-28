@@ -1,11 +1,10 @@
 import { useTranslate } from '@kanjou/react'
-import { createFileRoute } from '@tanstack/react-router'
-import { cn } from 'cn'
+import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
 import { getTeacherGroupsTeacherGroupsGetQueryOptions } from '#/api/hooks/useGetTeacherGroupsTeacherGroupsGet'
 import { Loader } from '#/components/ui'
-import { CategoryIcon, InlineError, ThemedChip } from '#/routes/-components'
+import { LearningCard, InlineError, PageLayout, ThemedChip } from '#/routes/-components'
 
 import { GroupFilter } from './-constants'
 import { useGroupPage } from './-hooks'
@@ -27,10 +26,12 @@ function GroupPage() {
   const t = useTranslate()
 
   return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>{t('group.select.title')}</h1>
-      </header>
+    <PageLayout.Root>
+      <PageLayout.Header>
+        <PageLayout.Heading>
+          <PageLayout.Title>{t('group.select.title')}</PageLayout.Title>
+        </PageLayout.Heading>
+      </PageLayout.Header>
 
       <div className={styles['themes-bar']}>
         <ThemedChip
@@ -63,38 +64,33 @@ function GroupPage() {
         <div className={styles.grid}>
           {state.groups.map((group) => {
             return (
-              <article
-                key={group.id}
-                className={styles.card}
-                data-category={group.category}
-                onClick={() => functions.handleGroupClick(group.id)}
-              >
-                <div className={styles['card-icon']}>
-                  <CategoryIcon category={group.category} />
-                </div>
-                <div className={styles['card-details']}>
-                  <div className={styles['card-heading']}>
-                    <h2 className={styles['card-title']}>{group.course_name}</h2>
-                    {group.isActive && (
-                      <span className={styles['current-badge']}>{t('group.current')}</span>
-                    )}
-                  </div>
-                  <span className={styles['schedule-block']}>
-                    {group.schedule.weekday && <>{t(`weekday.${group.schedule.weekday}`)}, </>}
-                    {group.schedule.time}
-                  </span>
-                </div>
-                <div className={styles['card-meta']}>
-                  <span className={styles['students-count']}>
-                    {t('group.students-count', { count: group.students_count })}
-                  </span>
-                  <span className={cn('i-ph:caret-right-bold', styles['arrow-icon'])} />
-                </div>
-              </article>
+              <LearningCard.Root key={group.id}>
+                <LearningCard.Row
+                  render={<Link to="/group/$groupId" params={{ groupId: String(group.id) }} />}
+                >
+                  <LearningCard.Icon category={group.category} />
+                  <LearningCard.Content>
+                    <LearningCard.Title>
+                      {group.course_name}
+                      {group.isActive && (
+                        <span className={styles['current-badge']}>{t('group.current')}</span>
+                      )}
+                    </LearningCard.Title>
+                    <LearningCard.Description>
+                      {group.schedule.weekday && <>{t(`weekday.${group.schedule.weekday}`)}, </>}
+                      {group.schedule.time}
+                    </LearningCard.Description>
+                  </LearningCard.Content>
+                  <LearningCard.Meta>
+                    <span>{t('group.students-count', { count: group.students_count })}</span>
+                    <LearningCard.Indicator kind="navigate" />
+                  </LearningCard.Meta>
+                </LearningCard.Row>
+              </LearningCard.Root>
             )
           })}
         </div>
       )}
-    </div>
+    </PageLayout.Root>
   )
 }
