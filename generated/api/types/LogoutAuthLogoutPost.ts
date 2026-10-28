@@ -8,17 +8,17 @@ import type { UserLogoutResponse } from './UserLogoutResponse'
 export type LogoutAuthLogoutPostStatus200 = UserLogoutResponse;
 
 export type LogoutAuthLogoutPostOptions = {
-    body?: never;
-    path?: never;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path?: never;
+  query?: never;
+  headers?: never;
 };
 
 export type LogoutAuthLogoutPostResponses = {
-    "200": LogoutAuthLogoutPostStatus200;
+  '200': LogoutAuthLogoutPostStatus200;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type LogoutAuthLogoutPostResponse = LogoutAuthLogoutPostStatus200;

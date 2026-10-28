@@ -8,17 +8,17 @@ import type { StudentCredentialsResponse } from './StudentCredentialsResponse'
 export type GetStudentCredentialsAuthMeCredentialsGetStatus200 = StudentCredentialsResponse;
 
 export type GetStudentCredentialsAuthMeCredentialsGetOptions = {
-    body?: never;
-    path?: never;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path?: never;
+  query?: never;
+  headers?: never;
 };
 
 export type GetStudentCredentialsAuthMeCredentialsGetResponses = {
-    "200": GetStudentCredentialsAuthMeCredentialsGetStatus200;
+  '200': GetStudentCredentialsAuthMeCredentialsGetStatus200;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetStudentCredentialsAuthMeCredentialsGetResponse = GetStudentCredentialsAuthMeCredentialsGetStatus200;

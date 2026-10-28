@@ -6,7 +6,8 @@
   flex-direction: column;
   gap: var(--spacing-xl);
   min-height: 100%;
-  padding: max(1.75rem, calc(env(safe-area-inset-top) + var(--spacing-lg))) var(--spacing-xl) 7rem;
+  padding: max(1.75rem, calc(env(safe-area-inset-top) + var(--spacing-lg))) var(--spacing-xl)
+    var(--spacing-xl);
   overflow-x: clip;
   color: var(--foreground);
   background-color: var(--background);

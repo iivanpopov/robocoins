@@ -2,11 +2,11 @@ export default {
   'admin.balance.back': 'Назад до профілю',
   'admin.balance.cancel.already': 'Транзакцію вже скасовано. Історію оновлено.',
   'admin.balance.cancel.confirm.description':
-    'Операцію на суму {$amount :number} буде скасовано, а баланс перераховано.',
+    'Операцію на суму {$amount :coins} буде скасовано, а баланс перераховано.',
   'admin.balance.cancel.confirm.title': 'Скасувати транзакцію?',
   'admin.balance.cancel.error': 'Не вдалося скасувати транзакцію.',
   'admin.balance.cancel.success': 'Транзакцію скасовано.',
-  'admin.balance.cancel.trigger': 'Скасувати транзакцію на суму {$amount :number}',
+  'admin.balance.cancel.trigger': 'Скасувати транзакцію на суму {$amount :coins}',
   'admin.balance.history.description': 'Останні нарахування та списання цього учня.',
   'admin.balance.history.empty': 'Транзакцій поки немає.',
   'admin.balance.history.end': 'Це вся історія.',
@@ -33,16 +33,22 @@ export default {
   'admin.balance.summary.rank-none': 'Ще немає місця',
   'admin.balance.summary.reward': 'Прогрес нагороди',
   'admin.balance.summary.reward-none': 'Нагороду не обрано',
-  'admin.balance.summary.reward-progress': '{$saved :number} з {$price :number} робокоїнів',
+  'admin.balance.summary.reward-progress': `
+    .input {$saved :coins}
+    .input {$price :coins}
+    .match $price
+    one {{{$saved} з {$price} робокоїна}}
+    few {{{$saved} з {$price} робокоїнів}}
+    many {{{$saved} з {$price} робокоїнів}}
+    * {{{$saved} з {$price} робокоїна}}`,
   'admin.balance.summary.reward-ready': 'Достатньо робокоїнів для нагороди',
   'admin.balance.summary.reward-remaining': `
-    .input {$count :number}
-    .local $countText = {$count :string}
+    .input {$count :coins}
     .match $count
-    one {{Залишився {$countText} робокоїн}}
-    few {{Залишилося {$countText} робокоїни}}
-    many {{Залишилося {$countText} робокоїнів}}
-    * {{Залишилося {$countText} робокоїна}}`,
+    one {{Залишився {$count} робокоїн}}
+    few {{Залишилося {$count} робокоїни}}
+    many {{Залишилося {$count} робокоїнів}}
+    * {{Залишилося {$count} робокоїна}}`,
   'admin.balance.summary.title': 'Стан учня',
   'admin.balance.title': 'Баланс і історія',
   'admin.balance.unknown.cancel':

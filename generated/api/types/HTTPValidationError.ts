@@ -6,5 +6,5 @@
 import type { ValidationError } from './ValidationError'
 
 export type HTTPValidationError = {
-    detail?: ValidationError[];
+  detail?: ValidationError[];
 };

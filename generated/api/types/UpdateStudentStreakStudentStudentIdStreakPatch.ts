@@ -8,7 +8,7 @@ import type { StreakDaysUpdate } from './StreakDaysUpdate'
 import type { StreakResponse } from './StreakResponse'
 
 export type UpdateStudentStreakStudentStudentIdStreakPatchPath = {
-    student_id: number;
+  student_id: number;
 };
 
 export type UpdateStudentStreakStudentStudentIdStreakPatchStatus200 = StreakResponse;
@@ -18,18 +18,18 @@ export type UpdateStudentStreakStudentStudentIdStreakPatchStatus422 = HTTPValida
 export type UpdateStudentStreakStudentStudentIdStreakPatchBody = StreakDaysUpdate;
 
 export type UpdateStudentStreakStudentStudentIdStreakPatchOptions = {
-    body: UpdateStudentStreakStudentStudentIdStreakPatchBody;
-    path: UpdateStudentStreakStudentStudentIdStreakPatchPath;
-    query?: never;
-    headers?: never;
+  body: UpdateStudentStreakStudentStudentIdStreakPatchBody;
+  path: UpdateStudentStreakStudentStudentIdStreakPatchPath;
+  query?: never;
+  headers?: never;
 };
 
 export type UpdateStudentStreakStudentStudentIdStreakPatchResponses = {
-    "200": UpdateStudentStreakStudentStudentIdStreakPatchStatus200;
-    "422": UpdateStudentStreakStudentStudentIdStreakPatchStatus422;
+  '200': UpdateStudentStreakStudentStudentIdStreakPatchStatus200;
+  '422': UpdateStudentStreakStudentStudentIdStreakPatchStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type UpdateStudentStreakStudentStudentIdStreakPatchResponse = UpdateStudentStreakStudentStudentIdStreakPatchStatus200;

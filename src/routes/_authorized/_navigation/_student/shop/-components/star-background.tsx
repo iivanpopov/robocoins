@@ -1,14 +1,10 @@
 import { memo, useId } from 'react'
 
+import { getBackgroundStars } from '../../-utils'
+
 import styles from '../index.module.css'
 
-const BACKGROUND_STARS = Array.from({ length: 150 }, (_, index) => ({
-  id: index,
-  x: (((index * 197.3 + Math.sin(index * 91.7) * 43) % 1000) + 1000) % 1000,
-  y: (((index * 283.9 + Math.cos(index * 41.3) * 31) % 2000) + 2000) % 2000,
-  radius: 2 + Number(index % 13 === 0) * 2,
-  opacity: 0.15 + ((index * 17) % 70) / 125,
-}))
+const BACKGROUND_STARS = getBackgroundStars()
 
 export const StarBackground = memo(function StarBackground(props: {
   backgroundRef: React.RefObject<SVGSVGElement | null>

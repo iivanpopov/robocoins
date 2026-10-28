@@ -35,9 +35,9 @@ export default {
   'balance.direction': 'Напрямок операції',
   'categories.label': 'Категорія',
   'categories.title': 'Категорії',
-  'coins.amount': '{$count :number}',
+  'coins.amount': '{$count :coins}',
   'coins.unit': `
-    .input {$count :number}
+    .input {$count :coins}
     .match $count
     one {{робокоїн}}
     few {{робокоїни}}

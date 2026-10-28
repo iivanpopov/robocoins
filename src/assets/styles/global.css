@@ -68,6 +68,7 @@
 }
 
 body {
+  overscroll-behavior-y: none;
   font-family: 'Rubik Variable', sans-serif;
   color: var(--foreground);
   background: var(--background);

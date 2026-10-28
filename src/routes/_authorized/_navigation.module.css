@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 100dvh;
+  overflow: hidden;
   background: var(--background);
 }
 
@@ -12,20 +13,15 @@
 .content {
   flex: 1;
   min-height: 0;
+  padding-bottom: calc(
+    64px + env(safe-area-inset-bottom, 0px) + var(--spacing-md) + var(--spacing-lg)
+  );
   overflow: auto;
+  overscroll-behavior-y: contain;
   view-transition-name: slide-content;
 }
 
-.content::after {
-  display: block;
-  height: calc(64px + env(safe-area-inset-bottom, 0px) + var(--spacing-md) + var(--spacing-lg));
-  content: '';
-}
-
 .content:has(> [data-galaxy]) {
+  padding-bottom: 0;
   overflow: hidden;
-
-  &::after {
-    display: none;
-  }
 }

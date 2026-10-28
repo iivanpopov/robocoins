@@ -8,7 +8,7 @@ import type { HTTPValidationError } from './HTTPValidationError'
 import type { TeacherAssignmentRequest } from './TeacherAssignmentRequest'
 
 export type AssignGroupTeachersGroupIdGroupIdTeachersPutPath = {
-    group_id: number;
+  group_id: number;
 };
 
 export type AssignGroupTeachersGroupIdGroupIdTeachersPutStatus200 = GroupResponse;
@@ -18,18 +18,18 @@ export type AssignGroupTeachersGroupIdGroupIdTeachersPutStatus422 = HTTPValidati
 export type AssignGroupTeachersGroupIdGroupIdTeachersPutBody = TeacherAssignmentRequest;
 
 export type AssignGroupTeachersGroupIdGroupIdTeachersPutOptions = {
-    body: AssignGroupTeachersGroupIdGroupIdTeachersPutBody;
-    path: AssignGroupTeachersGroupIdGroupIdTeachersPutPath;
-    query?: never;
-    headers?: never;
+  body: AssignGroupTeachersGroupIdGroupIdTeachersPutBody;
+  path: AssignGroupTeachersGroupIdGroupIdTeachersPutPath;
+  query?: never;
+  headers?: never;
 };
 
 export type AssignGroupTeachersGroupIdGroupIdTeachersPutResponses = {
-    "200": AssignGroupTeachersGroupIdGroupIdTeachersPutStatus200;
-    "422": AssignGroupTeachersGroupIdGroupIdTeachersPutStatus422;
+  '200': AssignGroupTeachersGroupIdGroupIdTeachersPutStatus200;
+  '422': AssignGroupTeachersGroupIdGroupIdTeachersPutStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type AssignGroupTeachersGroupIdGroupIdTeachersPutResponse = AssignGroupTeachersGroupIdGroupIdTeachersPutStatus200;

@@ -4,8 +4,8 @@ import { Link } from '@tanstack/react-router'
 import { Button, Loader, Typography } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 
-import { OwnPlace, Podium } from './-components'
-import { useWeeklyLeaderboard } from './-hooks'
+import { OwnPlace, Podium } from './components'
+import { useWeeklyLeaderboard } from './hooks'
 
 import styles from './leaderboard.module.css'
 

@@ -4,10 +4,10 @@
 */
 
 export type StudentAvatarEditRequest = {
-    /**
-     * @minLength 1
-     * @maxLength 16
-     * @type string
-    */
-    new_avatar: string;
+  /**
+   * @minLength 1
+   * @maxLength 16
+   * @type string
+   */
+  new_avatar: string;
 };

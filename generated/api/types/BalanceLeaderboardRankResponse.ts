@@ -4,7 +4,7 @@
 */
 
 export type BalanceLeaderboardRankResponse = {
-    student_id: number;
-    rank: number;
-    balance: number;
+  student_id: number;
+  rank: number;
+  balance: number;
 };

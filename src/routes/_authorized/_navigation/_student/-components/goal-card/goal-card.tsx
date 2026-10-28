@@ -39,7 +39,15 @@ export function GoalCard(props: GoalCardProps) {
   return (
     <article className={cn(styles.card, props.isCompleted && styles.completed)}>
       <div className={styles.content}>
-        <span className={styles.kicker}>{t('profile.goal.kicker')}</span>
+        <div className={styles.heading}>
+          <span className={styles.kicker}>{t('profile.goal.kicker')}</span>
+          {!props.isCompleted && (
+            <Button className={styles.change} size="md" variant="ghost" onClick={props.onOpenShop}>
+              {t('profile.goal.change')}
+              <span aria-hidden="true" className="i-ph:caret-right" />
+            </Button>
+          )}
+        </div>
         <h2 className={styles.title}>{props.goal.name}</h2>
         <p className={styles.saved}>
           <strong>
@@ -63,12 +71,6 @@ export function GoalCard(props: GoalCardProps) {
           </p>
         )}
         {props.isCompleted && <p className={styles.remaining}>{t('profile.goal.completed')}</p>}
-        {!props.isCompleted && (
-          <Button className={styles.change} size="md" variant="ghost" onClick={props.onOpenShop}>
-            {t('profile.goal.change')}
-            <span aria-hidden="true" className="i-ph:caret-right" />
-          </Button>
-        )}
         {props.isCompleted && (
           <Button className={styles.action} size="md" onClick={props.onOpenShop}>
             {t('profile.goal.claim')}

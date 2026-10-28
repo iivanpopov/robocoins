@@ -7,23 +7,23 @@ import type { BalanceHistoryResponse } from './BalanceHistoryResponse'
 import type { HTTPValidationError } from './HTTPValidationError'
 
 export type GetStudentTransactionHistoryStudentStudentIdTransactionsGetPath = {
-    student_id: number;
+  student_id: number;
 };
 
 export type GetStudentTransactionHistoryStudentStudentIdTransactionsGetQuery = {
-    /**
-     * @minLength 1
-     * @maxLength 100
-     * @default 50
-     * @type integer | undefined
-    */
-    limit?: number;
-    /**
-     * @minLength 0
-     * @default 0
-     * @type integer | undefined
-    */
-    offset?: number;
+  /**
+   * @minLength 1
+   * @maxLength 100
+   * @default 50
+   * @type integer | undefined
+   */
+  limit?: number;
+  /**
+   * @minLength 0
+   * @default 0
+   * @type integer | undefined
+   */
+  offset?: number;
 };
 
 export type GetStudentTransactionHistoryStudentStudentIdTransactionsGetStatus200 = BalanceHistoryResponse;
@@ -31,18 +31,18 @@ export type GetStudentTransactionHistoryStudentStudentIdTransactionsGetStatus200
 export type GetStudentTransactionHistoryStudentStudentIdTransactionsGetStatus422 = HTTPValidationError;
 
 export type GetStudentTransactionHistoryStudentStudentIdTransactionsGetOptions = {
-    body?: never;
-    path: GetStudentTransactionHistoryStudentStudentIdTransactionsGetPath;
-    query?: GetStudentTransactionHistoryStudentStudentIdTransactionsGetQuery;
-    headers?: never;
+  body?: never;
+  path: GetStudentTransactionHistoryStudentStudentIdTransactionsGetPath;
+  query?: GetStudentTransactionHistoryStudentStudentIdTransactionsGetQuery;
+  headers?: never;
 };
 
 export type GetStudentTransactionHistoryStudentStudentIdTransactionsGetResponses = {
-    "200": GetStudentTransactionHistoryStudentStudentIdTransactionsGetStatus200;
-    "422": GetStudentTransactionHistoryStudentStudentIdTransactionsGetStatus422;
+  '200': GetStudentTransactionHistoryStudentStudentIdTransactionsGetStatus200;
+  '422': GetStudentTransactionHistoryStudentStudentIdTransactionsGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetStudentTransactionHistoryStudentStudentIdTransactionsGetResponse = GetStudentTransactionHistoryStudentStudentIdTransactionsGetStatus200;

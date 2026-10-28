@@ -4,8 +4,8 @@
 */
 
 export const rewardType = {
-    privilege: "privilege",
-    reward: "reward"
+  privilege: 'privilege',
+  reward: 'reward',
 } as const;
 
 export type RewardTypeKey = (typeof rewardType)[keyof typeof rewardType];

@@ -4,24 +4,24 @@
 */
 
 export const balanceTransactionResponseOperationEnum = {
-    deposit: "deposit",
-    deduct: "deduct"
+  deposit: 'deposit',
+  deduct: 'deduct',
 } as const;
 
 export type BalanceTransactionResponseOperationEnumKey = (typeof balanceTransactionResponseOperationEnum)[keyof typeof balanceTransactionResponseOperationEnum];
 
 export type BalanceTransactionResponse = {
-    id: number;
-    student_id: number;
-    operation: BalanceTransactionResponseOperationEnumKey;
-    amount: number;
-    reason: (string[] | null);
-    cancelled_at?: (string | null);
-    cancelled_by_user_id?: (number | null);
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-    */
-    created_at: string;
+  id: number;
+  student_id: number;
+  operation: BalanceTransactionResponseOperationEnumKey;
+  amount: number;
+  reason: string[] | null;
+  cancelled_at?: string | null;
+  cancelled_by_user_id?: number | null;
+  /**
+   * @description
+   * Format: `date-time`
+   * @type string
+   */
+  created_at: string;
 };

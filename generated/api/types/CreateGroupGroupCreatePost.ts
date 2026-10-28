@@ -14,18 +14,18 @@ export type CreateGroupGroupCreatePostStatus422 = HTTPValidationError;
 export type CreateGroupGroupCreatePostBody = GroupCreateRequest;
 
 export type CreateGroupGroupCreatePostOptions = {
-    body: CreateGroupGroupCreatePostBody;
-    path?: never;
-    query?: never;
-    headers?: never;
+  body: CreateGroupGroupCreatePostBody;
+  path?: never;
+  query?: never;
+  headers?: never;
 };
 
 export type CreateGroupGroupCreatePostResponses = {
-    "200": CreateGroupGroupCreatePostStatus200;
-    "422": CreateGroupGroupCreatePostStatus422;
+  '200': CreateGroupGroupCreatePostStatus200;
+  '422': CreateGroupGroupCreatePostStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type CreateGroupGroupCreatePostResponse = CreateGroupGroupCreatePostStatus200;

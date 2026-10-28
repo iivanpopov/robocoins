@@ -12,7 +12,7 @@ import {
 import { LearningCard } from '#/routes/-components'
 import { parseGroupSchedule } from '#/routes/-utils'
 
-import { useStepGroup } from './-hooks'
+import { useStepGroup } from './hooks'
 
 import styles from './step-group.module.css'
 

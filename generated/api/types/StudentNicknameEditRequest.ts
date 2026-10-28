@@ -4,10 +4,10 @@
 */
 
 export type StudentNicknameEditRequest = {
-    /**
-     * @minLength 1
-     * @maxLength 200
-     * @type string
-    */
-    new_nickname: string;
+  /**
+   * @minLength 1
+   * @maxLength 200
+   * @type string
+   */
+  new_nickname: string;
 };

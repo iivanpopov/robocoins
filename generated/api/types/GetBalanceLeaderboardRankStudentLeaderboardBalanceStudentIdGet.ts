@@ -7,7 +7,7 @@ import type { BalanceLeaderboardRankResponse } from './BalanceLeaderboardRankRes
 import type { HTTPValidationError } from './HTTPValidationError'
 
 export type GetBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetPath = {
-    student_id: number;
+  student_id: number;
 };
 
 export type GetBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetStatus200 = BalanceLeaderboardRankResponse;
@@ -15,18 +15,18 @@ export type GetBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetStatus
 export type GetBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetStatus422 = HTTPValidationError;
 
 export type GetBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetOptions = {
-    body?: never;
-    path: GetBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: GetBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetPath;
+  query?: never;
+  headers?: never;
 };
 
 export type GetBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetResponses = {
-    "200": GetBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetStatus200;
-    "422": GetBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetStatus422;
+  '200': GetBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetStatus200;
+  '422': GetBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetResponse = GetBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetStatus200;

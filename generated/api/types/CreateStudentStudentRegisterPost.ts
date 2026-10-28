@@ -14,18 +14,18 @@ export type CreateStudentStudentRegisterPostStatus422 = HTTPValidationError;
 export type CreateStudentStudentRegisterPostBody = StudentCreateRequest;
 
 export type CreateStudentStudentRegisterPostOptions = {
-    body: CreateStudentStudentRegisterPostBody;
-    path?: never;
-    query?: never;
-    headers?: never;
+  body: CreateStudentStudentRegisterPostBody;
+  path?: never;
+  query?: never;
+  headers?: never;
 };
 
 export type CreateStudentStudentRegisterPostResponses = {
-    "200": CreateStudentStudentRegisterPostStatus200;
-    "422": CreateStudentStudentRegisterPostStatus422;
+  '200': CreateStudentStudentRegisterPostStatus200;
+  '422': CreateStudentStudentRegisterPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type CreateStudentStudentRegisterPostResponse = CreateStudentStudentRegisterPostStatus200;

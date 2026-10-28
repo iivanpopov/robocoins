@@ -7,7 +7,7 @@ import type { HTTPValidationError } from './HTTPValidationError'
 import type { LongestStreakResponse } from './LongestStreakResponse'
 
 export type GetStudentLongestStreakStudentStudentIdLongestStreakGetPath = {
-    student_id: number;
+  student_id: number;
 };
 
 export type GetStudentLongestStreakStudentStudentIdLongestStreakGetStatus200 = LongestStreakResponse;
@@ -15,18 +15,18 @@ export type GetStudentLongestStreakStudentStudentIdLongestStreakGetStatus200 = L
 export type GetStudentLongestStreakStudentStudentIdLongestStreakGetStatus422 = HTTPValidationError;
 
 export type GetStudentLongestStreakStudentStudentIdLongestStreakGetOptions = {
-    body?: never;
-    path: GetStudentLongestStreakStudentStudentIdLongestStreakGetPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: GetStudentLongestStreakStudentStudentIdLongestStreakGetPath;
+  query?: never;
+  headers?: never;
 };
 
 export type GetStudentLongestStreakStudentStudentIdLongestStreakGetResponses = {
-    "200": GetStudentLongestStreakStudentStudentIdLongestStreakGetStatus200;
-    "422": GetStudentLongestStreakStudentStudentIdLongestStreakGetStatus422;
+  '200': GetStudentLongestStreakStudentStudentIdLongestStreakGetStatus200;
+  '422': GetStudentLongestStreakStudentStudentIdLongestStreakGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetStudentLongestStreakStudentStudentIdLongestStreakGetResponse = GetStudentLongestStreakStudentStudentIdLongestStreakGetStatus200;

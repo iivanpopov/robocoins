@@ -14,6 +14,14 @@
   width: 100%;
 }
 
+.heading {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .kicker {
   font-size: 0.75rem;
   font-weight: 700;
@@ -86,8 +94,9 @@
 }
 
 .card .content .change {
-  min-height: 2.5rem;
-  margin-top: var(--spacing-xs);
+  min-height: 44px;
+  padding-inline: 0.25rem;
+  margin-block: -0.75rem;
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--muted-foreground);

@@ -7,7 +7,7 @@ import type { HTTPValidationError } from './HTTPValidationError'
 import type { StudentCredentialsResponse } from './StudentCredentialsResponse'
 
 export type RegenarateStudentAccessCodeStudentStudentIdAccessCodePatchPath = {
-    student_id: number;
+  student_id: number;
 };
 
 export type RegenarateStudentAccessCodeStudentStudentIdAccessCodePatchStatus200 = StudentCredentialsResponse;
@@ -15,18 +15,18 @@ export type RegenarateStudentAccessCodeStudentStudentIdAccessCodePatchStatus200 
 export type RegenarateStudentAccessCodeStudentStudentIdAccessCodePatchStatus422 = HTTPValidationError;
 
 export type RegenarateStudentAccessCodeStudentStudentIdAccessCodePatchOptions = {
-    body?: never;
-    path: RegenarateStudentAccessCodeStudentStudentIdAccessCodePatchPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: RegenarateStudentAccessCodeStudentStudentIdAccessCodePatchPath;
+  query?: never;
+  headers?: never;
 };
 
 export type RegenarateStudentAccessCodeStudentStudentIdAccessCodePatchResponses = {
-    "200": RegenarateStudentAccessCodeStudentStudentIdAccessCodePatchStatus200;
-    "422": RegenarateStudentAccessCodeStudentStudentIdAccessCodePatchStatus422;
+  '200': RegenarateStudentAccessCodeStudentStudentIdAccessCodePatchStatus200;
+  '422': RegenarateStudentAccessCodeStudentStudentIdAccessCodePatchStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type RegenarateStudentAccessCodeStudentStudentIdAccessCodePatchResponse = RegenarateStudentAccessCodeStudentStudentIdAccessCodePatchStatus200;

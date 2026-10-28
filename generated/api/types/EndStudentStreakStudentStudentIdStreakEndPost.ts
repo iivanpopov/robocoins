@@ -7,7 +7,7 @@ import type { HTTPValidationError } from './HTTPValidationError'
 import type { StreakResponse } from './StreakResponse'
 
 export type EndStudentStreakStudentStudentIdStreakEndPostPath = {
-    student_id: number;
+  student_id: number;
 };
 
 export type EndStudentStreakStudentStudentIdStreakEndPostStatus200 = StreakResponse;
@@ -15,18 +15,18 @@ export type EndStudentStreakStudentStudentIdStreakEndPostStatus200 = StreakRespo
 export type EndStudentStreakStudentStudentIdStreakEndPostStatus422 = HTTPValidationError;
 
 export type EndStudentStreakStudentStudentIdStreakEndPostOptions = {
-    body?: never;
-    path: EndStudentStreakStudentStudentIdStreakEndPostPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: EndStudentStreakStudentStudentIdStreakEndPostPath;
+  query?: never;
+  headers?: never;
 };
 
 export type EndStudentStreakStudentStudentIdStreakEndPostResponses = {
-    "200": EndStudentStreakStudentStudentIdStreakEndPostStatus200;
-    "422": EndStudentStreakStudentStudentIdStreakEndPostStatus422;
+  '200': EndStudentStreakStudentStudentIdStreakEndPostStatus200;
+  '422': EndStudentStreakStudentStudentIdStreakEndPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type EndStudentStreakStudentStudentIdStreakEndPostResponse = EndStudentStreakStudentStudentIdStreakEndPostStatus200;

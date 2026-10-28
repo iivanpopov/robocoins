@@ -6,8 +6,8 @@
 import type { BalanceLeaderboardEntry } from './BalanceLeaderboardEntry'
 
 export type BalanceLeaderboardResponse = {
-    entries: BalanceLeaderboardEntry[];
-    total: number;
-    limit: number;
-    offset: number;
+  entries: BalanceLeaderboardEntry[];
+  total: number;
+  limit: number;
+  offset: number;
 };

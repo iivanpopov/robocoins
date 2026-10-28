@@ -8,17 +8,17 @@ import type { StudentProfileResponse } from './StudentProfileResponse'
 export type GetAllStudentsStudentGetStatus200 = StudentProfileResponse[];
 
 export type GetAllStudentsStudentGetOptions = {
-    body?: never;
-    path?: never;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path?: never;
+  query?: never;
+  headers?: never;
 };
 
 export type GetAllStudentsStudentGetResponses = {
-    "200": GetAllStudentsStudentGetStatus200;
+  '200': GetAllStudentsStudentGetStatus200;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetAllStudentsStudentGetResponse = GetAllStudentsStudentGetStatus200;

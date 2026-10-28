@@ -6,15 +6,15 @@
 import type { RewardResponse } from './RewardResponse'
 
 export type RewardCreationResponse = {
-    /**
-     * @default 'success'
-     * @type string | undefined
-    */
-    status?: string;
-    /**
-     * @default 200
-     * @type integer | undefined
-    */
-    code?: number;
-    reward: RewardResponse;
+  /**
+   * @default 'success'
+   * @type string | undefined
+   */
+  status?: string;
+  /**
+   * @default 200
+   * @type integer | undefined
+   */
+  code?: number;
+  reward: RewardResponse;
 };

@@ -6,7 +6,7 @@
 import type { UserRoleKey } from './UserRole'
 
 export type UserResponse = {
-    id: number;
-    name: string;
-    role: UserRoleKey;
+  id: number;
+  name: string;
+  role: UserRoleKey;
 };

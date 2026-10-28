@@ -14,12 +14,14 @@ import { Route as AuthorizedRouteImport } from './../src/routes/_authorized'
 import { Route as AuthRegisterRouteRouteImport } from './../src/routes/_auth/register/route'
 import { Route as AuthorizedNavigationRouteImport } from './../src/routes/_authorized/_navigation'
 import { Route as AuthorizedTeacherRouteImport } from './../src/routes/_authorized/_teacher'
+import { Route as AuthorizedDailyMissionRouteRouteImport } from './../src/routes/_authorized/daily-mission/route'
 import { Route as AuthLoginIndexRouteImport } from './../src/routes/_auth/login/index'
 import { Route as AuthRegisterIndexRouteImport } from './../src/routes/_auth/register/index'
 import { Route as AuthorizedNavigationAdminRouteImport } from './../src/routes/_authorized/_navigation/_admin'
 import { Route as AuthorizedNavigationStudentRouteImport } from './../src/routes/_authorized/_navigation/_student'
 import { Route as AuthorizedNavigationTeacherRouteImport } from './../src/routes/_authorized/_navigation/_teacher'
 import { Route as AuthorizedNavigationSettingsRouteRouteImport } from './../src/routes/_authorized/_navigation/settings/route'
+import { Route as AuthorizedDailyMissionIndexRouteImport } from './../src/routes/_authorized/daily-mission/index'
 import { Route as AuthorizedNavigationAdminAdminRouteRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/route'
 import { Route as AuthorizedNavigationStudentIndexRouteImport } from './../src/routes/_authorized/_navigation/_student/index'
 import { Route as AuthorizedNavigationSettingsIndexRouteImport } from './../src/routes/_authorized/_navigation/settings/index'
@@ -95,6 +97,12 @@ const AuthorizedTeacherRoute = AuthorizedTeacherRouteImport.update({
   id: '/_teacher',
   getParentRoute: () => AuthorizedRoute,
 } as any)
+const AuthorizedDailyMissionRouteRoute =
+  AuthorizedDailyMissionRouteRouteImport.update({
+    id: '/daily-mission',
+    path: '/daily-mission',
+    getParentRoute: () => AuthorizedRoute,
+  } as any)
 const AuthLoginIndexRoute = AuthLoginIndexRouteImport.update({
   id: '/login/',
   path: '/login/',
@@ -125,6 +133,12 @@ const AuthorizedNavigationSettingsRouteRoute =
     id: '/settings',
     path: '/settings',
     getParentRoute: () => AuthorizedNavigationRoute,
+  } as any)
+const AuthorizedDailyMissionIndexRoute =
+  AuthorizedDailyMissionIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthorizedDailyMissionRouteRoute,
   } as any)
 const AuthorizedNavigationAdminAdminRouteRoute =
   AuthorizedNavigationAdminAdminRouteRouteImport.update({
@@ -468,9 +482,11 @@ const AuthorizedNavigationAdminAdminPeopleTeachersUserIdRenameIndexRoute =
 export interface FileRoutesByFullPath {
   '/': typeof AuthorizedNavigationStudentIndexRoute
   '/register': typeof AuthRegisterRouteRouteWithChildren
+  '/daily-mission': typeof AuthorizedDailyMissionRouteRouteWithChildren
   '/settings': typeof AuthorizedNavigationSettingsRouteRouteWithChildren
   '/login/': typeof AuthLoginIndexRoute
   '/register/': typeof AuthRegisterIndexRoute
+  '/daily-mission/': typeof AuthorizedDailyMissionIndexRoute
   '/admin': typeof AuthorizedNavigationAdminAdminRouteRouteWithChildren
   '/group/$groupId': typeof AuthorizedTeacherGroupGroupIdRoute
   '/settings/': typeof AuthorizedNavigationSettingsIndexRoute
@@ -528,6 +544,7 @@ export interface FileRoutesByTo {
   '/': typeof AuthorizedNavigationStudentIndexRoute
   '/login': typeof AuthLoginIndexRoute
   '/register': typeof AuthRegisterIndexRoute
+  '/daily-mission': typeof AuthorizedDailyMissionIndexRoute
   '/group/$groupId': typeof AuthorizedTeacherGroupGroupIdRoute
   '/settings': typeof AuthorizedNavigationSettingsIndexRoute
   '/student/$studentId': typeof AuthorizedStudentStudentIdIndexRoute
@@ -584,6 +601,7 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteWithChildren
   '/_authorized': typeof AuthorizedRouteWithChildren
   '/_auth/register': typeof AuthRegisterRouteRouteWithChildren
+  '/_authorized/daily-mission': typeof AuthorizedDailyMissionRouteRouteWithChildren
   '/_authorized/_navigation': typeof AuthorizedNavigationRouteWithChildren
   '/_authorized/_teacher': typeof AuthorizedTeacherRouteWithChildren
   '/_authorized/_navigation/settings': typeof AuthorizedNavigationSettingsRouteRouteWithChildren
@@ -592,6 +610,7 @@ export interface FileRoutesById {
   '/_authorized/_navigation/_teacher': typeof AuthorizedNavigationTeacherRouteWithChildren
   '/_auth/login/': typeof AuthLoginIndexRoute
   '/_auth/register/': typeof AuthRegisterIndexRoute
+  '/_authorized/daily-mission/': typeof AuthorizedDailyMissionIndexRoute
   '/_authorized/_navigation/_admin/admin': typeof AuthorizedNavigationAdminAdminRouteRouteWithChildren
   '/_authorized/_teacher/group/$groupId': typeof AuthorizedTeacherGroupGroupIdRoute
   '/_authorized/_navigation/_student/': typeof AuthorizedNavigationStudentIndexRoute
@@ -651,9 +670,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/register'
+    | '/daily-mission'
     | '/settings'
     | '/login/'
     | '/register/'
+    | '/daily-mission/'
     | '/admin'
     | '/group/$groupId'
     | '/settings/'
@@ -711,6 +732,7 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/register'
+    | '/daily-mission'
     | '/group/$groupId'
     | '/settings'
     | '/student/$studentId'
@@ -766,6 +788,7 @@ export interface FileRouteTypes {
     | '/_auth'
     | '/_authorized'
     | '/_auth/register'
+    | '/_authorized/daily-mission'
     | '/_authorized/_navigation'
     | '/_authorized/_teacher'
     | '/_authorized/_navigation/settings'
@@ -774,6 +797,7 @@ export interface FileRouteTypes {
     | '/_authorized/_navigation/_teacher'
     | '/_auth/login/'
     | '/_auth/register/'
+    | '/_authorized/daily-mission/'
     | '/_authorized/_navigation/_admin/admin'
     | '/_authorized/_teacher/group/$groupId'
     | '/_authorized/_navigation/_student/'
@@ -871,6 +895,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthorizedTeacherRouteImport
       parentRoute: typeof AuthorizedRoute
     }
+    '/_authorized/daily-mission': {
+      id: '/_authorized/daily-mission'
+      path: '/daily-mission'
+      fullPath: '/daily-mission'
+      preLoaderRoute: typeof AuthorizedDailyMissionRouteRouteImport
+      parentRoute: typeof AuthorizedRoute
+    }
     '/_auth/login/': {
       id: '/_auth/login/'
       path: '/login'
@@ -912,6 +943,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/settings'
       preLoaderRoute: typeof AuthorizedNavigationSettingsRouteRouteImport
       parentRoute: typeof AuthorizedNavigationRoute
+    }
+    '/_authorized/daily-mission/': {
+      id: '/_authorized/daily-mission/'
+      path: '/'
+      fullPath: '/daily-mission/'
+      preLoaderRoute: typeof AuthorizedDailyMissionIndexRouteImport
+      parentRoute: typeof AuthorizedDailyMissionRouteRoute
     }
     '/_authorized/_navigation/_admin/admin': {
       id: '/_authorized/_navigation/_admin/admin'
@@ -1310,6 +1348,20 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
+interface AuthorizedDailyMissionRouteRouteChildren {
+  AuthorizedDailyMissionIndexRoute: typeof AuthorizedDailyMissionIndexRoute
+}
+
+const AuthorizedDailyMissionRouteRouteChildren: AuthorizedDailyMissionRouteRouteChildren =
+  {
+    AuthorizedDailyMissionIndexRoute: AuthorizedDailyMissionIndexRoute,
+  }
+
+const AuthorizedDailyMissionRouteRouteWithChildren =
+  AuthorizedDailyMissionRouteRoute._addFileChildren(
+    AuthorizedDailyMissionRouteRouteChildren,
+  )
+
 interface AuthorizedNavigationSettingsRouteRouteChildren {
   AuthorizedNavigationSettingsIndexRoute: typeof AuthorizedNavigationSettingsIndexRoute
 }
@@ -1567,12 +1619,15 @@ const AuthorizedTeacherRouteWithChildren =
   AuthorizedTeacherRoute._addFileChildren(AuthorizedTeacherRouteChildren)
 
 interface AuthorizedRouteChildren {
+  AuthorizedDailyMissionRouteRoute: typeof AuthorizedDailyMissionRouteRouteWithChildren
   AuthorizedNavigationRoute: typeof AuthorizedNavigationRouteWithChildren
   AuthorizedTeacherRoute: typeof AuthorizedTeacherRouteWithChildren
   AuthorizedStudentStudentIdIndexRoute: typeof AuthorizedStudentStudentIdIndexRoute
 }
 
 const AuthorizedRouteChildren: AuthorizedRouteChildren = {
+  AuthorizedDailyMissionRouteRoute:
+    AuthorizedDailyMissionRouteRouteWithChildren,
   AuthorizedNavigationRoute: AuthorizedNavigationRouteWithChildren,
   AuthorizedTeacherRoute: AuthorizedTeacherRouteWithChildren,
   AuthorizedStudentStudentIdIndexRoute: AuthorizedStudentStudentIdIndexRoute,

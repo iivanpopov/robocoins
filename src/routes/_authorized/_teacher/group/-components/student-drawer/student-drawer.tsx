@@ -14,8 +14,8 @@ import {
 import { Avatar as AvatarName } from '#/routes/-constants'
 import { getAvatarUrl, getInitial } from '#/routes/-utils'
 
-import { BalanceChange, RecentTransactions } from './-components'
-import { useStudentDrawer } from './-hooks'
+import { BalanceChange, RecentTransactions } from './components'
+import { useStudentDrawer } from './hooks'
 
 import styles from './student-drawer.module.css'
 
@@ -65,7 +65,9 @@ export function StudentDrawer(props: StudentDrawerProps) {
                       className={styles['student-balance']}
                       aria-label={`${t('coins.amount', { count: props.student.balance })} ${t('coins.unit', { count: props.student.balance })}`}
                     >
-                      <span aria-hidden="true">{props.student.balance}</span>
+                      <span aria-hidden="true">
+                        {t('coins.amount', { count: props.student.balance })}
+                      </span>
                       <span
                         aria-hidden="true"
                         className={cn('i-ph:coin', styles['balance-icon'])}

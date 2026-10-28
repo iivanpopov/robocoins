@@ -7,7 +7,7 @@ import type { BalanceChangeResponse } from './BalanceChangeResponse'
 import type { HTTPValidationError } from './HTTPValidationError'
 
 export type CancelStudentTransactionStudentTransactionsTransactionIdCancelPostPath = {
-    transaction_id: number;
+  transaction_id: number;
 };
 
 export type CancelStudentTransactionStudentTransactionsTransactionIdCancelPostStatus200 = BalanceChangeResponse;
@@ -15,18 +15,18 @@ export type CancelStudentTransactionStudentTransactionsTransactionIdCancelPostSt
 export type CancelStudentTransactionStudentTransactionsTransactionIdCancelPostStatus422 = HTTPValidationError;
 
 export type CancelStudentTransactionStudentTransactionsTransactionIdCancelPostOptions = {
-    body?: never;
-    path: CancelStudentTransactionStudentTransactionsTransactionIdCancelPostPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: CancelStudentTransactionStudentTransactionsTransactionIdCancelPostPath;
+  query?: never;
+  headers?: never;
 };
 
 export type CancelStudentTransactionStudentTransactionsTransactionIdCancelPostResponses = {
-    "200": CancelStudentTransactionStudentTransactionsTransactionIdCancelPostStatus200;
-    "422": CancelStudentTransactionStudentTransactionsTransactionIdCancelPostStatus422;
+  '200': CancelStudentTransactionStudentTransactionsTransactionIdCancelPostStatus200;
+  '422': CancelStudentTransactionStudentTransactionsTransactionIdCancelPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type CancelStudentTransactionStudentTransactionsTransactionIdCancelPostResponse = CancelStudentTransactionStudentTransactionsTransactionIdCancelPostStatus200;

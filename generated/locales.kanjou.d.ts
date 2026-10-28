@@ -42,8 +42,8 @@ declare module '@kanjou/react' {
       'balance.direction': {}
       'categories.label': {}
       'categories.title': {}
-      'coins.amount': { count: { __fn: 'number' } }
-      'coins.unit': { count: { __fn: 'number' } }
+      'coins.amount': { count: { __fn: 'coins' } }
+      'coins.unit': { count: { __fn: 'coins' } }
       'course.category': { category: { __fn: 'string' } }
       'courses.error.load': {}
       'courses.label': {}
@@ -193,21 +193,54 @@ declare module '@kanjou/react' {
       'settings.logout.error': {}
       'settings.section.appearance': {}
       'settings.section.session': {}
+      'daily-mission.title': {}
+      'daily-mission.completed': {}
+      'daily-mission.tomorrow': {}
+      'daily-mission.loading': {}
+      'daily-mission.error': {}
+      'daily-mission.week.stars': { completed: DefaultMessageValue }
+      'daily-mission.week.loading': {}
+      'daily-mission.week.error': {}
+      'daily-mission.task.error': {}
+      'daily-mission.completed.mascot': {}
+      'daily-mission.task.image-alt': {}
+      'daily-mission.task.unsupported': {}
+      'daily-mission.answer.label': {}
+      'daily-mission.answer.incorrect': {}
+      'daily-mission.answer.error': {}
+      'daily-mission.answer.retry': {}
+      'daily-mission.answer.submit': {}
+      'daily-mission.answer.submitting': {}
+      'daily-mission.reward.amount': { count: { __fn: 'coins' } }
+      'daily-mission.streak': { count: { __fn: 'number' } }
+      'daily-mission.today': {}
+      'daily-mission.start': {}
+      'daily-mission.start.label': {}
+      'daily-mission.constellation.label': { name: DefaultMessageValue }
+      'daily-mission.constellation.robot': {}
+      'daily-mission.constellation.gamepad': {}
+      'daily-mission.constellation.rocket': {}
+      'daily-mission.constellation.code': {}
+      'daily-mission.constellation.circuit': {}
+      'daily-mission.constellation.idea': {}
+      'daily-mission.constellation.orbit': {}
+      'daily-mission.constellation.plane': {}
+      'daily-mission.day.completed': {}
+      'daily-mission.day.pending': {}
+      'daily-mission.day.unlit': {}
+      'daily-mission.day.today': {}
       'leaderboard.all': {}
       'leaderboard.description': {}
       'leaderboard.empty': {}
       'leaderboard.error': {}
-      'leaderboard.gap': { count: { __fn: 'number' } }
+      'leaderboard.gap': { count: { __fn: 'coins' } }
       'leaderboard.loading': {}
       'leaderboard.own.near': {}
       'leaderboard.own.place': {}
-      'leaderboard.own.points': {
-        count: { __fn: 'number' }
-        countText: DefaultMessageValue
-      }
+      'leaderboard.own.points': { count: { __fn: 'coins' } }
       'leaderboard.place': {}
       'leaderboard.podium': {}
-      'leaderboard.points.label': { count: { __fn: 'number' } }
+      'leaderboard.points.label': { count: { __fn: 'coins' } }
       'leaderboard.rank.error': {}
       'leaderboard.title': {}
       'leaderboard.unranked': {}
@@ -233,10 +266,10 @@ declare module '@kanjou/react' {
       'profile.goal.loading': {}
       'profile.goal.none': {}
       'profile.goal.progress': {
-        saved: { __fn: 'number' }
-        price: { __fn: 'number' }
+        saved: { __fn: 'coins' }
+        price: { __fn: 'coins' }
       }
-      'profile.goal.remaining': { count: { __fn: 'number' } }
+      'profile.goal.remaining': { count: { __fn: 'coins' } }
       'profile.goal.shop': {}
       'profile.greeting.pair.1.caption': {}
       'profile.greeting.pair.1.greeting': {}
@@ -262,7 +295,7 @@ declare module '@kanjou/react' {
       'profile.rules.punish': {}
       'profile.rules.reward': {}
       'profile.rules.title': {}
-      'shop.balance': { count: { __fn: 'number' } }
+      'shop.balance': { count: { __fn: 'coins' } }
       'shop.reward.back': {}
       'shop.reward.claim': {}
       'shop.reward.cost': {}
@@ -273,7 +306,7 @@ declare module '@kanjou/react' {
       'shop.view.label': {}
       'shop.view.list': {}
       'student.profile.title': {}
-      'award.cancel.confirm.trigger': { amount: { __fn: 'number' } }
+      'award.cancel.confirm.trigger': { amount: { __fn: 'coins' } }
       'award.cancel.error': {}
       'award.cancel.locked': {}
       'award.deduct.confirm.action': {}
@@ -773,7 +806,7 @@ declare module '@kanjou/react' {
       'admin.operations.result.failure-count': { count: { __fn: 'number' } }
       'admin.operations.result.history-acknowledged': {}
       'admin.operations.result.history-checked': {}
-      'admin.operations.result.new-balance': { count: { __fn: 'number' } }
+      'admin.operations.result.new-balance': { count: { __fn: 'coins' } }
       'admin.operations.result.no-retry': {}
       'admin.operations.result.open-history': {}
       'admin.operations.result.pending': {}
@@ -794,7 +827,7 @@ declare module '@kanjou/react' {
       'admin.operations.settings.correction.amount-error': {}
       'admin.operations.settings.correction.amount-placeholder': {}
       'admin.operations.settings.correction.current-balance': {
-        count: { __fn: 'number' }
+        count: { __fn: 'coins' }
       }
       'admin.operations.settings.correction.description': {}
       'admin.operations.settings.correction.empty': {}
@@ -917,11 +950,11 @@ declare module '@kanjou/react' {
       'admin.catalog.validation.type': {}
       'admin.balance.back': {}
       'admin.balance.cancel.already': {}
-      'admin.balance.cancel.confirm.description': { amount: { __fn: 'number' } }
+      'admin.balance.cancel.confirm.description': { amount: { __fn: 'coins' } }
       'admin.balance.cancel.confirm.title': {}
       'admin.balance.cancel.error': {}
       'admin.balance.cancel.success': {}
-      'admin.balance.cancel.trigger': { amount: { __fn: 'number' } }
+      'admin.balance.cancel.trigger': { amount: { __fn: 'coins' } }
       'admin.balance.history.description': {}
       'admin.balance.history.empty': {}
       'admin.balance.history.end': {}
@@ -949,14 +982,11 @@ declare module '@kanjou/react' {
       'admin.balance.summary.reward': {}
       'admin.balance.summary.reward-none': {}
       'admin.balance.summary.reward-progress': {
-        saved: { __fn: 'number' }
-        price: { __fn: 'number' }
+        saved: { __fn: 'coins' }
+        price: { __fn: 'coins' }
       }
       'admin.balance.summary.reward-ready': {}
-      'admin.balance.summary.reward-remaining': {
-        count: { __fn: 'number' }
-        countText: DefaultMessageValue
-      }
+      'admin.balance.summary.reward-remaining': { count: { __fn: 'coins' } }
       'admin.balance.summary.title': {}
       'admin.balance.title': {}
       'admin.balance.unknown.cancel': {}

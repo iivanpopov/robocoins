@@ -4,9 +4,9 @@
 */
 
 export type TeacherGroupProfile = {
-    id: number;
-    name: string;
-    course_id: number;
-    course_name: string;
-    students_count: number;
+  id: number;
+  name: string;
+  course_id: number;
+  course_name: string;
+  students_count: number;
 };

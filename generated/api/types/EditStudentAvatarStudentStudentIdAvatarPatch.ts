@@ -8,7 +8,7 @@ import type { StudentAvatarEditRequest } from './StudentAvatarEditRequest'
 import type { StudentProfileResponse } from './StudentProfileResponse'
 
 export type EditStudentAvatarStudentStudentIdAvatarPatchPath = {
-    student_id: number;
+  student_id: number;
 };
 
 export type EditStudentAvatarStudentStudentIdAvatarPatchStatus200 = StudentProfileResponse;
@@ -18,18 +18,18 @@ export type EditStudentAvatarStudentStudentIdAvatarPatchStatus422 = HTTPValidati
 export type EditStudentAvatarStudentStudentIdAvatarPatchBody = StudentAvatarEditRequest;
 
 export type EditStudentAvatarStudentStudentIdAvatarPatchOptions = {
-    body: EditStudentAvatarStudentStudentIdAvatarPatchBody;
-    path: EditStudentAvatarStudentStudentIdAvatarPatchPath;
-    query?: never;
-    headers?: never;
+  body: EditStudentAvatarStudentStudentIdAvatarPatchBody;
+  path: EditStudentAvatarStudentStudentIdAvatarPatchPath;
+  query?: never;
+  headers?: never;
 };
 
 export type EditStudentAvatarStudentStudentIdAvatarPatchResponses = {
-    "200": EditStudentAvatarStudentStudentIdAvatarPatchStatus200;
-    "422": EditStudentAvatarStudentStudentIdAvatarPatchStatus422;
+  '200': EditStudentAvatarStudentStudentIdAvatarPatchStatus200;
+  '422': EditStudentAvatarStudentStudentIdAvatarPatchStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type EditStudentAvatarStudentStudentIdAvatarPatchResponse = EditStudentAvatarStudentStudentIdAvatarPatchStatus200;

@@ -7,7 +7,7 @@ import type { GroupResponse } from './GroupResponse'
 import type { HTTPValidationError } from './HTTPValidationError'
 
 export type GetGroupByIdGroupIdGroupIdGetPath = {
-    group_id: number;
+  group_id: number;
 };
 
 export type GetGroupByIdGroupIdGroupIdGetStatus200 = GroupResponse;
@@ -15,18 +15,18 @@ export type GetGroupByIdGroupIdGroupIdGetStatus200 = GroupResponse;
 export type GetGroupByIdGroupIdGroupIdGetStatus422 = HTTPValidationError;
 
 export type GetGroupByIdGroupIdGroupIdGetOptions = {
-    body?: never;
-    path: GetGroupByIdGroupIdGroupIdGetPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: GetGroupByIdGroupIdGroupIdGetPath;
+  query?: never;
+  headers?: never;
 };
 
 export type GetGroupByIdGroupIdGroupIdGetResponses = {
-    "200": GetGroupByIdGroupIdGroupIdGetStatus200;
-    "422": GetGroupByIdGroupIdGroupIdGetStatus422;
+  '200': GetGroupByIdGroupIdGroupIdGetStatus200;
+  '422': GetGroupByIdGroupIdGroupIdGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetGroupByIdGroupIdGroupIdGetResponse = GetGroupByIdGroupIdGroupIdGetStatus200;

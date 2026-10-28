@@ -6,17 +6,17 @@
 import type { GroupPracticeAwardStudent } from './GroupPracticeAwardStudent'
 
 export type GroupPracticeAwardResponse = {
-    /**
-     * @default 'success'
-     * @type string | undefined
-    */
-    status?: string;
-    /**
-     * @default 200
-     * @type integer | undefined
-    */
-    code?: number;
-    group_id: number;
-    affected_students: number;
-    students: GroupPracticeAwardStudent[];
+  /**
+   * @default 'success'
+   * @type string | undefined
+   */
+  status?: string;
+  /**
+   * @default 200
+   * @type integer | undefined
+   */
+  code?: number;
+  group_id: number;
+  affected_students: number;
+  students: GroupPracticeAwardStudent[];
 };

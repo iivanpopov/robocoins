@@ -5,7 +5,7 @@ import { HeroInput } from '#/components/ui/hero-input'
 import { Typography } from '#/components/ui/typography'
 import { AuthLayout } from '#/routes/_auth/-components'
 
-import { useStepName } from './-hooks'
+import { useStepName } from './hooks'
 
 export function StepName() {
   const { functions, features } = useStepName()

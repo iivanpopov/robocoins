@@ -2,7 +2,9 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute } from '@tanstack/react-router'
 
 import { getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions } from '#/api/hooks/useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet'
+import { getDailyTaskDailyStudentIdDailyTaskGetQueryOptions } from '#/api/hooks/useGetDailyTaskDailyStudentIdDailyTaskGet'
 import { getStudentRewardProgressStudentStudentIdRewardProgressGetQueryOptions } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
+import { getStudentStreakStudentStudentIdStreakGetQueryOptions } from '#/api/hooks/useGetStudentStreakStudentStudentIdStreakGet'
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryOptions } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { StudentProfileResponse } from '#/api/types'
 import { Loader } from '#/components/ui'
@@ -18,6 +20,7 @@ import {
   LeaderboardPreview,
   StudentHero,
 } from './-components'
+import { DailyMission } from './-components/daily-mission'
 import {
   getWeeklyLeaderboardQueryOptions,
   getWeeklyLeaderboardRankQueryOptions,
@@ -41,6 +44,24 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/')({
   loader: async ({ context }) => {
     const profile = context.user as StudentProfileResponse
     return Promise.all([
+      context.queryClient
+        .query({
+          ...getDailyTaskDailyStudentIdDailyTaskGetQueryOptions({
+            path: { student_id: profile.id },
+          }),
+          retry: false,
+          staleTime: 0,
+        })
+        .catch(() => undefined),
+      context.queryClient
+        .query({
+          ...getStudentStreakStudentStudentIdStreakGetQueryOptions({
+            path: { student_id: profile.id },
+          }),
+          retry: false,
+          staleTime: 0,
+        })
+        .catch(() => undefined),
       context.queryClient.query(
         getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryOptions({
           path: { student_id: profile.id },
@@ -109,6 +130,7 @@ function StudentPage() {
           onOpenShop={functions.handleNavigateToShop}
         />
       )}
+      <DailyMission studentId={state.profile.id} />
       <EarnWays />
       <CyberweenBanner />
       <LeaderboardPreview />

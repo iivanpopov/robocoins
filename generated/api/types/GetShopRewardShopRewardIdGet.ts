@@ -7,7 +7,7 @@ import type { HTTPValidationError } from './HTTPValidationError'
 import type { RewardResponse } from './RewardResponse'
 
 export type GetShopRewardShopRewardIdGetPath = {
-    reward_id: number;
+  reward_id: number;
 };
 
 export type GetShopRewardShopRewardIdGetStatus200 = RewardResponse;
@@ -15,18 +15,18 @@ export type GetShopRewardShopRewardIdGetStatus200 = RewardResponse;
 export type GetShopRewardShopRewardIdGetStatus422 = HTTPValidationError;
 
 export type GetShopRewardShopRewardIdGetOptions = {
-    body?: never;
-    path: GetShopRewardShopRewardIdGetPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: GetShopRewardShopRewardIdGetPath;
+  query?: never;
+  headers?: never;
 };
 
 export type GetShopRewardShopRewardIdGetResponses = {
-    "200": GetShopRewardShopRewardIdGetStatus200;
-    "422": GetShopRewardShopRewardIdGetStatus422;
+  '200': GetShopRewardShopRewardIdGetStatus200;
+  '422': GetShopRewardShopRewardIdGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetShopRewardShopRewardIdGetResponse = GetShopRewardShopRewardIdGetStatus200;

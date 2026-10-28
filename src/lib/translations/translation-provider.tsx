@@ -5,6 +5,7 @@ import { createContext, use, useMemo, type ReactNode } from 'react'
 
 import { AppLink } from '#/routes/-components/app-link'
 
+import { coinNumber } from './coin-number'
 import { mergeMessages } from './merge-messages'
 
 interface TranslationMessages {
@@ -20,7 +21,7 @@ export interface TranslationProviderProps {
 
 const TranslationMessagesContext = createContext<TranslationMessages | null>(null)
 const components = { br: () => <br />, a: AppLink }
-const functions = { ...DefaultFunctions, ...DraftFunctions }
+const functions = { ...DefaultFunctions, ...DraftFunctions, coins: coinNumber }
 
 export function TranslationProvider({ locale, messages, children }: TranslationProviderProps) {
   const parent = use(TranslationMessagesContext)

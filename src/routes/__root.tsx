@@ -8,6 +8,7 @@ import {
   createRootRouteWithContext,
   useLocation,
 } from '@tanstack/react-router'
+import { cn } from 'cn'
 import type { ReactNode } from 'react'
 import messages from 'virtual:messages/uk/common'
 import '@fontsource-variable/rubik'
@@ -80,7 +81,11 @@ function RootDocument({ children }: { children: ReactNode }) {
   if (pathname.replace(/\/+$/, '') === '/shop') iconHref = '/icon-galaxy.svg'
 
   return (
-    <html lang={locale} data-reduced-motion={motionPreference.disabled}>
+    <html
+      lang={locale}
+      className={cn(context?.user?.role === 'student' && 'student')}
+      data-reduced-motion={motionPreference.disabled}
+    >
       <head>
         <HeadContent />
         <link rel="icon" href={iconHref} type="image/svg+xml" />

@@ -1,23 +1,31 @@
-export default {
+import { mergeMessages } from '../../../lib/translations/merge-messages'
+import mission from './student/mission'
+
+const student = {
   'leaderboard.all': 'Увесь рейтинг',
   'leaderboard.description': 'Найбільше зароблених робокоїнів',
   'leaderboard.empty': 'Цього тижня рейтинг ще порожній. Попереду нові досягнення!',
   'leaderboard.error': 'Не вдалося завантажити рейтинг.',
-  'leaderboard.gap': 'Ще {$count :number} до наступної позиції',
+  'leaderboard.gap': 'Ще {$count :coins} до наступної позиції',
   'leaderboard.loading': 'Завантажуємо рейтинг',
   'leaderboard.own.near': 'Однаковий результат із наступним місцем',
   'leaderboard.own.place': 'у рейтингу',
   'leaderboard.own.points': `
-    .input {$count :number}
-    .local $countText = {$count :string}
+    .input {$count :coins}
     .match $count
-    one {{У тебе {$countText} {#coin/} робокоїн}}
-    few {{У тебе {$countText} {#coin/} робокоїни}}
-    many {{У тебе {$countText} {#coin/} робокоїнів}}
-    * {{У тебе {$countText} {#coin/} робокоїна}}`,
+    one {{У тебе {$count} {#coin/} робокоїн}}
+    few {{У тебе {$count} {#coin/} робокоїни}}
+    many {{У тебе {$count} {#coin/} робокоїнів}}
+    * {{У тебе {$count} {#coin/} робокоїна}}`,
   'leaderboard.place': 'Твоє місце',
   'leaderboard.podium': 'Трійка лідерів',
-  'leaderboard.points.label': 'Зароблено за тиждень: {$count :number} робокоїнів',
+  'leaderboard.points.label': `
+    .input {$count :coins}
+    .match $count
+    one {{Зароблено за тиждень: {$count} робокоїн}}
+    few {{Зароблено за тиждень: {$count} робокоїни}}
+    many {{Зароблено за тиждень: {$count} робокоїнів}}
+    * {{Зароблено за тиждень: {$count} робокоїна}}`,
   'leaderboard.rank.error': 'Не вдалося завантажити твоє місце.',
   'leaderboard.title': 'Рейтинг тижня',
   'leaderboard.unranked': 'Отримай перші робокоїни цього тижня, щоб з’явитися в рейтингу.',
@@ -42,9 +50,9 @@ export default {
   'profile.goal.kicker': 'Моя ціль',
   'profile.goal.loading': 'Завантажуємо ціль',
   'profile.goal.none': 'Ціль не обрана',
-  'profile.goal.progress': '{$saved :number} / {$price :number}',
+  'profile.goal.progress': '{$saved :coins} / {$price :coins}',
   'profile.goal.remaining': `
-    .input {$count :number}
+    .input {$count :coins}
     .match $count
     one {{Залишився {$count} робокоїн!}}
     few {{Залишилося {$count} робокоїни!}}
@@ -75,7 +83,13 @@ export default {
   'profile.rules.punish': 'За що списують',
   'profile.rules.reward': 'За що нараховують',
   'profile.rules.title': 'Як працюють робокоїни',
-  'shop.balance': 'Баланс: {$count :number} робокоїнів',
+  'shop.balance': `
+    .input {$count :coins}
+    .match $count
+    one {{Баланс: {$count} робокоїн}}
+    few {{Баланс: {$count} робокоїни}}
+    many {{Баланс: {$count} робокоїнів}}
+    * {{Баланс: {$count} робокоїна}}`,
   'shop.reward.back': 'Назад до галактики',
   'shop.reward.claim': 'Отримати',
   'shop.reward.cost': 'Вартість',
@@ -87,3 +101,5 @@ export default {
   'shop.view.list': 'Список',
   'student.profile.title': 'Профіль',
 }
+
+export default mergeMessages([mission, student])

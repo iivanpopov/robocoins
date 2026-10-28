@@ -7,6 +7,6 @@ import type { BalanceChangeReasonsKey } from './BalanceChangeReasons'
 import type { BalanceChangeTypeKey } from './BalanceChangeType'
 
 export type BalanceChangeReasonItem = {
-    reason: BalanceChangeReasonsKey;
-    type: BalanceChangeTypeKey;
+  reason: BalanceChangeReasonsKey;
+  type: BalanceChangeTypeKey;
 };

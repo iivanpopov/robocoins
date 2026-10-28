@@ -14,18 +14,18 @@ export type RegisterTeacherTeacherRegisterPostStatus422 = HTTPValidationError;
 export type RegisterTeacherTeacherRegisterPostBody = TeacherRegistrationRequest;
 
 export type RegisterTeacherTeacherRegisterPostOptions = {
-    body: RegisterTeacherTeacherRegisterPostBody;
-    path?: never;
-    query?: never;
-    headers?: never;
+  body: RegisterTeacherTeacherRegisterPostBody;
+  path?: never;
+  query?: never;
+  headers?: never;
 };
 
 export type RegisterTeacherTeacherRegisterPostResponses = {
-    "200": RegisterTeacherTeacherRegisterPostStatus200;
-    "422": RegisterTeacherTeacherRegisterPostStatus422;
+  '200': RegisterTeacherTeacherRegisterPostStatus200;
+  '422': RegisterTeacherTeacherRegisterPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type RegisterTeacherTeacherRegisterPostResponse = RegisterTeacherTeacherRegisterPostStatus200;

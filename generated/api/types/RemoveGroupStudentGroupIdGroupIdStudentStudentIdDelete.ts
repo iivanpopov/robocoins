@@ -7,8 +7,8 @@ import type { GroupResponse } from './GroupResponse'
 import type { HTTPValidationError } from './HTTPValidationError'
 
 export type RemoveGroupStudentGroupIdGroupIdStudentStudentIdDeletePath = {
-    group_id: number;
-    student_id: number;
+  group_id: number;
+  student_id: number;
 };
 
 export type RemoveGroupStudentGroupIdGroupIdStudentStudentIdDeleteStatus200 = GroupResponse;
@@ -16,18 +16,18 @@ export type RemoveGroupStudentGroupIdGroupIdStudentStudentIdDeleteStatus200 = Gr
 export type RemoveGroupStudentGroupIdGroupIdStudentStudentIdDeleteStatus422 = HTTPValidationError;
 
 export type RemoveGroupStudentGroupIdGroupIdStudentStudentIdDeleteOptions = {
-    body?: never;
-    path: RemoveGroupStudentGroupIdGroupIdStudentStudentIdDeletePath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: RemoveGroupStudentGroupIdGroupIdStudentStudentIdDeletePath;
+  query?: never;
+  headers?: never;
 };
 
 export type RemoveGroupStudentGroupIdGroupIdStudentStudentIdDeleteResponses = {
-    "200": RemoveGroupStudentGroupIdGroupIdStudentStudentIdDeleteStatus200;
-    "422": RemoveGroupStudentGroupIdGroupIdStudentStudentIdDeleteStatus422;
+  '200': RemoveGroupStudentGroupIdGroupIdStudentStudentIdDeleteStatus200;
+  '422': RemoveGroupStudentGroupIdGroupIdStudentStudentIdDeleteStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type RemoveGroupStudentGroupIdGroupIdStudentStudentIdDeleteResponse = RemoveGroupStudentGroupIdGroupIdStudentStudentIdDeleteStatus200;

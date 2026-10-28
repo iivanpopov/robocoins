@@ -21,8 +21,8 @@ import { getAvatarUrl, getInitial } from '#/routes/-utils'
 import type { GroupCardData } from '#/routes/_authorized/-components/group-card'
 import { GroupCard } from '#/routes/_authorized/-components/group-card'
 
-import { GroupPicker } from './-components'
-import { useStudentGroupAssignment } from './-hooks'
+import { GroupPicker } from './components'
+import { useStudentGroupAssignment } from './hooks'
 
 import styles from './student-group-assignment.module.css'
 

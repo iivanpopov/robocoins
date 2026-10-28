@@ -4,10 +4,10 @@
 */
 
 export type BalanceLeaderboardEntry = {
-    rank: number;
-    student_id: number;
-    name: string;
-    avatar?: (string | null);
-    balance: number;
-    course_names: string[];
+  rank: number;
+  student_id: number;
+  name: string;
+  avatar?: string | null;
+  balance: number;
+  course_names: string[];
 };

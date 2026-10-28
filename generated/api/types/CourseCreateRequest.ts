@@ -6,14 +6,14 @@
 import type { CourseCategoryKey } from './CourseCategory'
 
 export type CourseCreateRequest = {
-    /**
-     * @description Name of the course
-     * @type string
-    */
-    name: string;
-    /**
-     * @default 'embedded'
-     * @type string | undefined
-    */
-    category?: CourseCategoryKey;
+  /**
+   * @description Name of the course
+   * @type string
+   */
+  name: string;
+  /**
+   * @default 'embedded'
+   * @type string | undefined
+   */
+  category?: CourseCategoryKey;
 };

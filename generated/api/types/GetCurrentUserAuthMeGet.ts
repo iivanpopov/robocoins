@@ -7,20 +7,20 @@ import type { AdminProfileResponse } from './AdminProfileResponse'
 import type { StudentProfileResponse } from './StudentProfileResponse'
 import type { TeacherProfileResponse } from './TeacherProfileResponse'
 
-export type GetCurrentUserAuthMeGetStatus200 = (StudentProfileResponse | TeacherProfileResponse | AdminProfileResponse);
+export type GetCurrentUserAuthMeGetStatus200 = StudentProfileResponse | TeacherProfileResponse | AdminProfileResponse;
 
 export type GetCurrentUserAuthMeGetOptions = {
-    body?: never;
-    path?: never;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path?: never;
+  query?: never;
+  headers?: never;
 };
 
 export type GetCurrentUserAuthMeGetResponses = {
-    "200": GetCurrentUserAuthMeGetStatus200;
+  '200': GetCurrentUserAuthMeGetStatus200;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetCurrentUserAuthMeGetResponse = GetCurrentUserAuthMeGetStatus200;

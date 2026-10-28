@@ -14,18 +14,18 @@ export type CreateCourseCoursePostStatus422 = HTTPValidationError;
 export type CreateCourseCoursePostBody = CourseCreateRequest;
 
 export type CreateCourseCoursePostOptions = {
-    body: CreateCourseCoursePostBody;
-    path?: never;
-    query?: never;
-    headers?: never;
+  body: CreateCourseCoursePostBody;
+  path?: never;
+  query?: never;
+  headers?: never;
 };
 
 export type CreateCourseCoursePostResponses = {
-    "201": CreateCourseCoursePostStatus201;
-    "422": CreateCourseCoursePostStatus422;
+  '201': CreateCourseCoursePostStatus201;
+  '422': CreateCourseCoursePostStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type CreateCourseCoursePostResponse = CreateCourseCoursePostStatus201;

@@ -1,5 +1,11 @@
 export default {
-  'award.cancel.confirm.trigger': 'Скасувати транзакцію на {$amount :number} робокоїнів',
+  'award.cancel.confirm.trigger': `
+    .input {$amount :coins}
+    .match $amount
+    one {{Скасувати транзакцію на {$amount} робокоїн}}
+    few {{Скасувати транзакцію на {$amount} робокоїни}}
+    many {{Скасувати транзакцію на {$amount} робокоїнів}}
+    * {{Скасувати транзакцію на {$amount} робокоїна}}`,
   'award.cancel.error': 'Не вдалося скасувати транзакцію. Спробуйте ще раз.',
   'award.cancel.locked': 'Транзакцію більше не можна скасувати',
   'award.deduct.confirm.action': 'Списати робокоїни',

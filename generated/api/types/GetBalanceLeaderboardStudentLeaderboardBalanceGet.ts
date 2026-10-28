@@ -7,19 +7,19 @@ import type { BalanceLeaderboardResponse } from './BalanceLeaderboardResponse'
 import type { HTTPValidationError } from './HTTPValidationError'
 
 export type GetBalanceLeaderboardStudentLeaderboardBalanceGetQuery = {
-    /**
-     * @minLength 1
-     * @maxLength 100
-     * @default 20
-     * @type integer | undefined
-    */
-    limit?: number;
-    /**
-     * @minLength 0
-     * @default 0
-     * @type integer | undefined
-    */
-    offset?: number;
+  /**
+   * @minLength 1
+   * @maxLength 100
+   * @default 20
+   * @type integer | undefined
+   */
+  limit?: number;
+  /**
+   * @minLength 0
+   * @default 0
+   * @type integer | undefined
+   */
+  offset?: number;
 };
 
 export type GetBalanceLeaderboardStudentLeaderboardBalanceGetStatus200 = BalanceLeaderboardResponse;
@@ -27,18 +27,18 @@ export type GetBalanceLeaderboardStudentLeaderboardBalanceGetStatus200 = Balance
 export type GetBalanceLeaderboardStudentLeaderboardBalanceGetStatus422 = HTTPValidationError;
 
 export type GetBalanceLeaderboardStudentLeaderboardBalanceGetOptions = {
-    body?: never;
-    path?: never;
-    query?: GetBalanceLeaderboardStudentLeaderboardBalanceGetQuery;
-    headers?: never;
+  body?: never;
+  path?: never;
+  query?: GetBalanceLeaderboardStudentLeaderboardBalanceGetQuery;
+  headers?: never;
 };
 
 export type GetBalanceLeaderboardStudentLeaderboardBalanceGetResponses = {
-    "200": GetBalanceLeaderboardStudentLeaderboardBalanceGetStatus200;
-    "422": GetBalanceLeaderboardStudentLeaderboardBalanceGetStatus422;
+  '200': GetBalanceLeaderboardStudentLeaderboardBalanceGetStatus200;
+  '422': GetBalanceLeaderboardStudentLeaderboardBalanceGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetBalanceLeaderboardStudentLeaderboardBalanceGetResponse = GetBalanceLeaderboardStudentLeaderboardBalanceGetStatus200;

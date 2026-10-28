@@ -6,12 +6,12 @@
 import type { UserRoleKey } from './UserRole'
 
 export type AdminProfileResponse = {
-    id: number;
-    user_id: number;
-    name: string;
-    /**
-     * @default 'admin'
-     * @type string | undefined
-    */
-    role?: UserRoleKey;
+  id: number;
+  user_id: number;
+  name: string;
+  /**
+   * @default 'admin'
+   * @type string | undefined
+   */
+  role?: UserRoleKey;
 };

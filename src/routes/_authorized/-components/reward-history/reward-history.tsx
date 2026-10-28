@@ -6,7 +6,7 @@ import { Button, Loader } from '#/components/ui'
 import { InlineError, PageLayout } from '#/routes/-components'
 import { formatSignedAmount } from '#/routes/-utils'
 
-import { useRewardHistory } from './-hooks'
+import { useRewardHistory } from './hooks'
 
 import styles from './reward-history.module.css'
 

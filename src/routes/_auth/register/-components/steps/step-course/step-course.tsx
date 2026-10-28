@@ -7,7 +7,7 @@ import { AuthLayout } from '#/routes/_auth/-components'
 
 import { RegisterBackCaption } from '../../register-back-caption'
 import { StepGroup } from '../step-group'
-import { useStepCourse } from './-hooks'
+import { useStepCourse } from './hooks'
 
 import styles from './step-course.module.css'
 

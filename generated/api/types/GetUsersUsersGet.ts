@@ -8,17 +8,17 @@ import type { UserResponse } from './UserResponse'
 export type GetUsersUsersGetStatus200 = UserResponse[];
 
 export type GetUsersUsersGetOptions = {
-    body?: never;
-    path?: never;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path?: never;
+  query?: never;
+  headers?: never;
 };
 
 export type GetUsersUsersGetResponses = {
-    "200": GetUsersUsersGetStatus200;
+  '200': GetUsersUsersGetStatus200;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetUsersUsersGetResponse = GetUsersUsersGetStatus200;

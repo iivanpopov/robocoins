@@ -8,17 +8,17 @@ import type { BalanceChangeReasonsResponse } from './BalanceChangeReasonsRespons
 export type GetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetStatus200 = BalanceChangeReasonsResponse;
 
 export type GetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetOptions = {
-    body?: never;
-    path?: never;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path?: never;
+  query?: never;
+  headers?: never;
 };
 
 export type GetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetResponses = {
-    "200": GetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetStatus200;
+  '200': GetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetStatus200;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetResponse = GetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetStatus200;

@@ -4,7 +4,7 @@
 */
 
 export type StudentCreateRequest = {
-    name: string;
-    avatar: string;
-    group_ids: number[];
+  name: string;
+  avatar: string;
+  group_ids: number[];
 };

@@ -4,10 +4,10 @@
 */
 
 export type UserLoginRequest = {
-    /**
-     * @minLength 1
-     * @maxLength 128
-     * @type string
-    */
-    code: string;
+  /**
+   * @minLength 1
+   * @maxLength 128
+   * @type string
+   */
+  code: string;
 };

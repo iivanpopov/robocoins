@@ -5,7 +5,7 @@ import { HeroButton, IconButton, Typography } from '#/components/ui'
 import { useBoolean } from '#/hooks'
 
 import { RegisterStep } from '../../../-constants'
-import { useStepSuccess } from './-hooks'
+import { useStepSuccess } from './hooks'
 
 import styles from './step-success.module.css'
 

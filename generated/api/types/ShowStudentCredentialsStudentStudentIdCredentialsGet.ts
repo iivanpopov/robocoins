@@ -7,7 +7,7 @@ import type { HTTPValidationError } from './HTTPValidationError'
 import type { StudentCredentialsResponse } from './StudentCredentialsResponse'
 
 export type ShowStudentCredentialsStudentStudentIdCredentialsGetPath = {
-    student_id: number;
+  student_id: number;
 };
 
 export type ShowStudentCredentialsStudentStudentIdCredentialsGetStatus200 = StudentCredentialsResponse;
@@ -15,18 +15,18 @@ export type ShowStudentCredentialsStudentStudentIdCredentialsGetStatus200 = Stud
 export type ShowStudentCredentialsStudentStudentIdCredentialsGetStatus422 = HTTPValidationError;
 
 export type ShowStudentCredentialsStudentStudentIdCredentialsGetOptions = {
-    body?: never;
-    path: ShowStudentCredentialsStudentStudentIdCredentialsGetPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: ShowStudentCredentialsStudentStudentIdCredentialsGetPath;
+  query?: never;
+  headers?: never;
 };
 
 export type ShowStudentCredentialsStudentStudentIdCredentialsGetResponses = {
-    "200": ShowStudentCredentialsStudentStudentIdCredentialsGetStatus200;
-    "422": ShowStudentCredentialsStudentStudentIdCredentialsGetStatus422;
+  '200': ShowStudentCredentialsStudentStudentIdCredentialsGetStatus200;
+  '422': ShowStudentCredentialsStudentStudentIdCredentialsGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type ShowStudentCredentialsStudentStudentIdCredentialsGetResponse = ShowStudentCredentialsStudentStudentIdCredentialsGetStatus200;

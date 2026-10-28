@@ -6,17 +6,17 @@
 export type RootGetStatus200 = unknown;
 
 export type RootGetOptions = {
-    body?: never;
-    path?: never;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path?: never;
+  query?: never;
+  headers?: never;
 };
 
 export type RootGetResponses = {
-    "200": RootGetStatus200;
+  '200': RootGetStatus200;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type RootGetResponse = RootGetStatus200;

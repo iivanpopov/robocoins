@@ -6,7 +6,7 @@ import { AuthLayout } from '#/routes/_auth/-components'
 
 import { RegisterStep } from '../../../-constants'
 import { RegisterBackCaption } from '../../register-back-caption'
-import { useStepCategory } from './-hooks'
+import { useStepCategory } from './hooks'
 
 import styles from './step-category.module.css'
 

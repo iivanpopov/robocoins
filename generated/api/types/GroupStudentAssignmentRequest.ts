@@ -4,5 +4,5 @@
 */
 
 export type GroupStudentAssignmentRequest = {
-    student_id: number;
+  student_id: number;
 };

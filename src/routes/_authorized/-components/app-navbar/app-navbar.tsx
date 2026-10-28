@@ -4,7 +4,7 @@ import { cn } from 'cn'
 
 import { Navbar, NavbarItem } from '#/components/ui'
 
-import { useAppNavbar } from './-hooks'
+import { useAppNavbar } from './hooks'
 
 import styles from './app-navbar.module.css'
 

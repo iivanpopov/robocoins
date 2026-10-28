@@ -8,7 +8,7 @@ import type { GroupStudentAssignmentRequest } from './GroupStudentAssignmentRequ
 import type { HTTPValidationError } from './HTTPValidationError'
 
 export type AssignGroupStudentGroupIdGroupIdStudentPutPath = {
-    group_id: number;
+  group_id: number;
 };
 
 export type AssignGroupStudentGroupIdGroupIdStudentPutStatus200 = GroupResponse;
@@ -18,18 +18,18 @@ export type AssignGroupStudentGroupIdGroupIdStudentPutStatus422 = HTTPValidation
 export type AssignGroupStudentGroupIdGroupIdStudentPutBody = GroupStudentAssignmentRequest;
 
 export type AssignGroupStudentGroupIdGroupIdStudentPutOptions = {
-    body: AssignGroupStudentGroupIdGroupIdStudentPutBody;
-    path: AssignGroupStudentGroupIdGroupIdStudentPutPath;
-    query?: never;
-    headers?: never;
+  body: AssignGroupStudentGroupIdGroupIdStudentPutBody;
+  path: AssignGroupStudentGroupIdGroupIdStudentPutPath;
+  query?: never;
+  headers?: never;
 };
 
 export type AssignGroupStudentGroupIdGroupIdStudentPutResponses = {
-    "200": AssignGroupStudentGroupIdGroupIdStudentPutStatus200;
-    "422": AssignGroupStudentGroupIdGroupIdStudentPutStatus422;
+  '200': AssignGroupStudentGroupIdGroupIdStudentPutStatus200;
+  '422': AssignGroupStudentGroupIdGroupIdStudentPutStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type AssignGroupStudentGroupIdGroupIdStudentPutResponse = AssignGroupStudentGroupIdGroupIdStudentPutStatus200;

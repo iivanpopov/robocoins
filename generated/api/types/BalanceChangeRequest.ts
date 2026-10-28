@@ -6,5 +6,5 @@
 import type { BalanceChangeReasonsKey } from './BalanceChangeReasons'
 
 export type BalanceChangeRequest = {
-    reason: BalanceChangeReasonsKey[];
+  reason: BalanceChangeReasonsKey[];
 };

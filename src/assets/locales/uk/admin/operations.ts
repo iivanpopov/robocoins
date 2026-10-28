@@ -72,7 +72,7 @@ export default {
     'Перевірку підтверджено. Повтор автоматично не виконується.',
   'admin.operations.result.history-checked':
     'Історію перевірено. Підтвердьте перевірку, щоб розблокувати нові операції.',
-  'admin.operations.result.new-balance': 'Баланс: {$count :number}',
+  'admin.operations.result.new-balance': 'Баланс: {$count :coins}',
   'admin.operations.result.no-retry':
     'Повтор недоступний для цих помилок. Перевірте права доступу або дані учня.',
   'admin.operations.result.open-history': 'Відкрити історію',
@@ -97,7 +97,7 @@ export default {
   'admin.operations.settings.correction.amount': 'Сума',
   'admin.operations.settings.correction.amount-error': 'Вкажіть додатну суму з точністю до сотих.',
   'admin.operations.settings.correction.amount-placeholder': 'Наприклад, 25',
-  'admin.operations.settings.correction.current-balance': 'Поточний баланс: {$count :number}',
+  'admin.operations.settings.correction.current-balance': 'Поточний баланс: {$count :coins}',
   'admin.operations.settings.correction.description':
     'Повна форма довільної суми з поясненням. Сервер не підтримує таку операцію, тому результат залишається чернеткою й не змінює баланс.',
   'admin.operations.settings.correction.empty': 'Немає учнів для чернетки.',

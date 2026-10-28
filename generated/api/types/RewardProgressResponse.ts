@@ -6,18 +6,18 @@
 import type { RewardResponse } from './RewardResponse'
 
 export type RewardProgressResponse = {
-    /**
-     * @default 'success'
-     * @type string | undefined
-    */
-    status?: string;
-    /**
-     * @default 200
-     * @type integer | undefined
-    */
-    code?: number;
-    balance: number;
-    reward: (RewardResponse | null);
-    coins_remaining: (number | null);
-    progress_percent: (number | null);
+  /**
+   * @default 'success'
+   * @type string | undefined
+   */
+  status?: string;
+  /**
+   * @default 200
+   * @type integer | undefined
+   */
+  code?: number;
+  balance: number;
+  reward: RewardResponse | null;
+  coins_remaining: number | null;
+  progress_percent: number | null;
 };

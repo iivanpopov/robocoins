@@ -7,7 +7,7 @@ import type { HTTPValidationError } from './HTTPValidationError'
 import type { StudentProfileResponse } from './StudentProfileResponse'
 
 export type GetStudentByIdStudentStudentIdGetPath = {
-    student_id: number;
+  student_id: number;
 };
 
 export type GetStudentByIdStudentStudentIdGetStatus200 = StudentProfileResponse;
@@ -15,18 +15,18 @@ export type GetStudentByIdStudentStudentIdGetStatus200 = StudentProfileResponse;
 export type GetStudentByIdStudentStudentIdGetStatus422 = HTTPValidationError;
 
 export type GetStudentByIdStudentStudentIdGetOptions = {
-    body?: never;
-    path: GetStudentByIdStudentStudentIdGetPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: GetStudentByIdStudentStudentIdGetPath;
+  query?: never;
+  headers?: never;
 };
 
 export type GetStudentByIdStudentStudentIdGetResponses = {
-    "200": GetStudentByIdStudentStudentIdGetStatus200;
-    "422": GetStudentByIdStudentStudentIdGetStatus422;
+  '200': GetStudentByIdStudentStudentIdGetStatus200;
+  '422': GetStudentByIdStudentStudentIdGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetStudentByIdStudentStudentIdGetResponse = GetStudentByIdStudentStudentIdGetStatus200;

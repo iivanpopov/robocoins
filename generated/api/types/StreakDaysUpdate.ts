@@ -4,9 +4,9 @@
 */
 
 export type StreakDaysUpdate = {
-    /**
-     * @minLength 0
-     * @type integer
-    */
-    days: number;
+  /**
+   * @minLength 0
+   * @type integer
+   */
+  days: number;
 };

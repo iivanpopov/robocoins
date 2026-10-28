@@ -14,18 +14,18 @@ export type CreateRewardRewardsPostStatus422 = HTTPValidationError;
 export type CreateRewardRewardsPostBody = CreateRewardRequest;
 
 export type CreateRewardRewardsPostOptions = {
-    body: CreateRewardRewardsPostBody;
-    path?: never;
-    query?: never;
-    headers?: never;
+  body: CreateRewardRewardsPostBody;
+  path?: never;
+  query?: never;
+  headers?: never;
 };
 
 export type CreateRewardRewardsPostResponses = {
-    "200": CreateRewardRewardsPostStatus200;
-    "422": CreateRewardRewardsPostStatus422;
+  '200': CreateRewardRewardsPostStatus200;
+  '422': CreateRewardRewardsPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type CreateRewardRewardsPostResponse = CreateRewardRewardsPostStatus200;
