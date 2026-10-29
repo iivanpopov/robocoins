@@ -41,11 +41,41 @@ const HOME_EDGES = [
   [42, 459],
 ]
 
-const HOME_STRIPS = STRIPS.map((strip, i) => ({
-  ...strip,
-  top: (HOME_EDGES[i][0] / 480) * 1000,
-  bottom: (HOME_EDGES[i][1] / 480) * 1000,
-}))
+const HOME_TOP_EDGES = [
+  { x: 0, top: 86 },
+  { x: 18, top: 49 },
+  { x: 36, top: 36 },
+  { x: 50, top: 36 },
+  { x: 68, top: 64 },
+  { x: 82, top: 64 },
+  { x: 90, top: 36 },
+  { x: 128, top: 28 },
+  { x: 145, top: 28 },
+  { x: 174, top: 28 },
+  { x: 229, top: 28 },
+  { x: 231, top: 42 },
+  { x: 272, top: 14 },
+  { x: 310, top: 52 },
+  { x: 370, top: 82 },
+  { x: 414, top: 48 },
+  { x: 474, top: 104 },
+  { x: 501, top: 65 },
+  { x: 550, top: 88 },
+  { x: 568, top: 42 },
+]
+
+const HOME_STRIPS = HOME_TOP_EDGES.map((edge, i) => {
+  const originalIndex = STRIPS.findIndex(
+    (strip) => edge.x >= strip.x && edge.x < strip.x + strip.width,
+  )
+
+  return {
+    x: edge.x,
+    width: (HOME_TOP_EDGES[i + 1]?.x ?? 600) - edge.x,
+    top: (edge.top / 480) * 1000,
+    bottom: (HOME_EDGES[originalIndex][1] / 480) * 1000,
+  }
+})
 
 const NEBULAE = {
   mission: [
@@ -89,12 +119,6 @@ export const SpaceBackground = memo(function SpaceBackground({
     >
       <defs>
         <clipPath id={id}>
-          {variant === 'home' && (
-            <path
-              d="M18 49h18V36h92v-8h103v14h43v11h60v86h-24v35H18Z"
-              transform="scale(1 2.083333)"
-            />
-          )}
           {strips.map((strip) => (
             <rect
               key={strip.x}
@@ -130,6 +154,38 @@ export const SpaceBackground = memo(function SpaceBackground({
           ))}
         </pattern>
       </defs>
+      {!seamless &&
+        strips.map((strip, i) => (
+          <g key={strip.x}>
+            {strip.top !== strips[i - 1]?.top && (
+              <rect
+                x={strip.x}
+                y={strip.top - 36}
+                width="1.6"
+                height="36"
+                fill={`url(#${id}-trail)`}
+              />
+            )}
+            {strip.top !== strips[i + 1]?.top && (
+              <rect
+                x={strip.x + strip.width - 1}
+                y={strip.top - 18}
+                width="1"
+                height="18"
+                fill={`url(#${id}-trail)`}
+              />
+            )}
+            {strip.bottom !== strips[i + 1]?.bottom && (
+              <rect
+                x={strip.x + strip.width - 1.6}
+                y={strip.bottom}
+                width="1.6"
+                height="36"
+                fill={`url(#${id}-lower-trail)`}
+              />
+            )}
+          </g>
+        ))}
       <g clipPath={clipPath}>
         <path fill="#050608" d="M-600-1000h1800v3000H-600z" />
         {NEBULAE[variant].map((nebula, i) => (
@@ -145,32 +201,6 @@ export const SpaceBackground = memo(function SpaceBackground({
         ))}
         <path fill={`url(#${id}-stars)`} d="M-600-1000h1800v3000H-600z" />
       </g>
-      {!seamless &&
-        strips.map((strip) => (
-          <g key={strip.x}>
-            <rect
-              x={strip.x + 0.5}
-              y={strip.top - 36}
-              width="1.6"
-              height="38"
-              fill={`url(#${id}-trail)`}
-            />
-            <rect
-              x={strip.x + strip.width - 2}
-              y={strip.top - 18}
-              width="1"
-              height="20"
-              fill={`url(#${id}-trail)`}
-            />
-            <rect
-              x={strip.x + strip.width - 1.5}
-              y={strip.bottom - 1}
-              width="1.6"
-              height="36"
-              fill={`url(#${id}-lower-trail)`}
-            />
-          </g>
-        ))}
     </svg>
   )
 })
