@@ -11,13 +11,9 @@ import {
 import { getStudentBalanceByIdStudentStudentIdBalanceGetQueryKey } from '#/api/hooks/useGetStudentBalanceByIdStudentStudentIdBalanceGet'
 import { getStudentByIdStudentStudentIdGetQueryKey } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
 import { getStudentRewardProgressStudentStudentIdRewardProgressGetQueryKey } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
-import {
-  getStudentStreakStudentStudentIdStreakGetQueryKey,
-  useGetStudentStreakStudentStudentIdStreakGet,
-} from '#/api/hooks/useGetStudentStreakStudentStudentIdStreakGet'
+import { getStudentStreakStudentStudentIdStreakGetQueryKey } from '#/api/hooks/useGetStudentStreakStudentStudentIdStreakGet'
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryKey } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import type { DailyTaskAnswer, DailyTaskResponse, StudentProfileResponse } from '#/api/types'
-import { getMissionWeek } from '#/routes/_authorized/-utils'
 
 export function useDailyMissionPage() {
   const context = useRouteContext({ from: '/_authorized/daily-mission/' })
@@ -35,10 +31,6 @@ export function useDailyMissionPage() {
   const profile = context.user as StudentProfileResponse
   const path = { student_id: profile.id }
   const taskQuery = useGetDailyTaskDailyStudentIdDailyTaskGet(
-    { path },
-    { query: { retry: false, staleTime: 0, refetchOnMount: false } },
-  )
-  const streakQuery = useGetStudentStreakStudentStudentIdStreakGet(
     { path },
     { query: { retry: false, staleTime: 0, refetchOnMount: false } },
   )
@@ -104,10 +96,6 @@ export function useDailyMissionPage() {
     if (result.isSuccess) answerMutation.reset()
   }
 
-  function handleRetryStreak() {
-    void streakQuery.refetch()
-  }
-
   const task = taskQuery.data
   const answer =
     selection?.taskId === task?.id && selection?.date === task?.date ? (selection?.value ?? '') : ''
@@ -128,11 +116,10 @@ export function useDailyMissionPage() {
     answer.trim().length <= 200,
   )
   const reward = answerMutation.data?.correct ? answerMutation.data.reward : task?.reward
-  const week = getMissionWeek(task, !streakQuery.isError ? streakQuery.data : undefined)
 
   return {
-    state: { task, answer, options, isCompleted, isSupported, canSubmit, reward, week },
-    queries: { task: taskQuery, streak: streakQuery },
+    state: { task, answer, options, isCompleted, isSupported, canSubmit, reward },
+    queries: { task: taskQuery },
     mutations: { answer: answerMutation },
     functions: {
       handleSelectAnswer,
@@ -140,7 +127,6 @@ export function useDailyMissionPage() {
       handleSubmit,
       handleHome,
       handleRetry,
-      handleRetryStreak,
     },
   }
 }

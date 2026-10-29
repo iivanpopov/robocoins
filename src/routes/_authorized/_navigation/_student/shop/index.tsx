@@ -4,9 +4,10 @@ import { cn } from 'cn'
 
 import { getShopRewardsShopGetQueryOptions } from '#/api/hooks/useGetShopRewardsShopGet'
 import type { StudentProfileResponse } from '#/api/types'
+import { SpaceBackground } from '#/routes/_authorized/-components/space-background'
 
 import { getStudentRewardCategoriesQueryOptions, isRewardEligible } from '../-utils'
-import { RewardArtwork, RewardSymbol, ShopErrorComponent, StarBackground } from './-components'
+import { RewardArtwork, RewardSymbol, ShopErrorComponent } from './-components'
 import { useShopPage } from './-hooks'
 
 import styles from './index.module.css'
@@ -67,7 +68,7 @@ function ShopPage() {
           <span className="i-ph:coins" aria-hidden="true" />
         </div>
       </header>
-      <StarBackground backgroundRef={refs.background} />
+      <SpaceBackground className={styles['star-background']} ref={refs.background} variant="shop" />
       <div
         className={cn(
           styles['star-field'],
