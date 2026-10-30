@@ -7,7 +7,7 @@ import type { GroupPracticeAwardResponse } from './GroupPracticeAwardResponse'
 import type { HTTPValidationError } from './HTTPValidationError'
 
 export type AwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPostPath = {
-    group_id: number;
+  group_id: number;
 };
 
 export type AwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPostStatus200 = GroupPracticeAwardResponse;
@@ -15,18 +15,18 @@ export type AwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPostStatus
 export type AwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPostStatus422 = HTTPValidationError;
 
 export type AwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPostOptions = {
-    body?: never;
-    path: AwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPostPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: AwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPostPath;
+  query?: never;
+  headers?: never;
 };
 
 export type AwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPostResponses = {
-    "200": AwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPostStatus200;
-    "422": AwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPostStatus422;
+  '200': AwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPostStatus200;
+  '422': AwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type AwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPostResponse = AwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPostStatus200;

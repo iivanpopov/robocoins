@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ComponentType, lazy, Suspense } from 'react'
 
-import { PendingComponent } from '#/routes/-components/pending'
+import { PendingComponent } from '#/routes/-components/pending-component'
 
 import { StepName } from './-components/steps/step-name'
 import { RegisterStep } from './-constants'

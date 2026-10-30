@@ -6,28 +6,28 @@
 import type { UserRoleKey } from './UserRole'
 
 export type StudentResponse = {
-    /**
-     * @default 'success'
-     * @type string | undefined
-    */
-    status?: string;
-    /**
-     * @default 200
-     * @type integer | undefined
-    */
-    code?: number;
-    id: number;
-    user_id: number;
-    /**
-     * @default 'student'
-     * @type string | undefined
-    */
-    role?: UserRoleKey;
-    name: string;
-    course_names: string[];
-    group_ids: number[];
-    avatar?: (string | null);
-    balance: number;
-    hash_access_key: string;
-    access_code: string;
+  /**
+   * @default 'success'
+   * @type string | undefined
+   */
+  status?: string;
+  /**
+   * @default 200
+   * @type integer | undefined
+   */
+  code?: number;
+  id: number;
+  user_id: number;
+  /**
+   * @default 'student'
+   * @type string | undefined
+   */
+  role?: UserRoleKey;
+  name: string;
+  course_names: string[];
+  group_ids: number[];
+  avatar?: string | null;
+  balance: number;
+  hash_access_key: string;
+  access_code: string;
 };

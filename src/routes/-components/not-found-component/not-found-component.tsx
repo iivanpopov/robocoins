@@ -20,7 +20,7 @@ export function NotFoundComponent() {
           {t('not-found.description')}
         </Typography>
         <Button size="lg" className={styles.home} nativeButton={false} render={<Link to="/" />}>
-          {t('not-found.home')}
+          {t('navigation.home')}
         </Button>
       </div>
     </main>

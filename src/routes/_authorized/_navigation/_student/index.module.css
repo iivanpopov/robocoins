@@ -1,211 +1,35 @@
 .page {
+  --page-gradient-start: rgb(52 120 255 / 14%);
+  --page-gradient-end: rgb(128 101 233 / 6%);
+
   display: flex;
   flex-direction: column;
-  width: min(100%, 430px);
+  gap: var(--spacing-xl);
   min-height: 100%;
-  padding: var(--spacing-lg) var(--spacing-xl);
-  margin: 0 auto;
-  background: var(--background);
-}
-
-.header {
-  display: flex;
-  gap: var(--spacing-md);
-  align-items: center;
-}
-
-.name {
-  font-size: 1.25rem;
-}
-
-.balance {
-  display: flex;
-  gap: var(--spacing-sm);
-  align-items: center;
-  margin-left: auto;
-  font-size: 1.5rem;
-  font-weight: 600;
+  padding: max(1.75rem, calc(env(safe-area-inset-top) + var(--spacing-lg))) var(--spacing-xl)
+    var(--spacing-xl);
+  overflow-x: clip;
   color: var(--foreground);
-  view-transition-name: student-balance;
+  background-color: var(--background);
+  background-image: radial-gradient(
+    ellipse 105% 280px at 50% 0%,
+    var(--page-gradient-start) 0%,
+    var(--page-gradient-end) 55%,
+    transparent 100%
+  );
 }
 
-.coin-icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  vertical-align: -0.08em;
-  color: var(--blue-500);
-  background-color: var(--blue-500);
+.page[data-gradient='2'] {
+  --page-gradient-start: rgb(128 101 233 / 14%);
+  --page-gradient-end: rgb(52 120 255 / 6%);
 }
 
-.goal {
-  padding: var(--spacing-xl);
-  margin-top: var(--spacing-xl);
-  background: var(--surface);
-  border-radius: var(--rounded-xl);
+.page[data-gradient='3'] {
+  --page-gradient-start: rgb(74 168 255 / 13%);
+  --page-gradient-end: rgb(52 120 255 / 6%);
 }
 
-.goal-empty {
-  padding: 0;
-  background: none;
-}
-
-.goal-shop {
-  justify-content: flex-start;
-  font-weight: 500;
-  color: var(--brand);
-}
-
-.goal-completed-label {
-  font-size: 1.125rem;
-  font-weight: 500;
-  color: var(--foreground);
-}
-
-.product-name {
-  flex: 1;
-  min-width: 0;
-  font-size: 1.375rem;
-}
-
-.product-heading {
-  display: flex;
-  gap: var(--spacing-sm);
-  align-items: center;
-}
-
-.chevron {
-  flex: 0 0 24px;
-  width: 24px;
-  font-size: 1.25rem;
-}
-
-.label {
-  font-size: 0.9375rem;
-}
-
-.history-title {
-  font-size: 1.25rem;
-}
-
-.goal-heading,
-.section-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.product {
-  display: block;
-  width: 100%;
-  height: 136px;
-  margin: var(--spacing-md) 0;
-  object-fit: contain;
-}
-
-.amount {
-  margin-top: var(--spacing-md);
-  color: var(--muted-foreground);
-}
-
-.amount strong {
-  font-size: 1.375rem;
-  color: var(--foreground);
-}
-
-.progress {
-  height: 11px;
-  margin: var(--spacing-md) 0;
-  overflow: hidden;
-  background: var(--muted);
-  border-radius: var(--rounded-full);
-}
-
-.progress span {
-  display: block;
-  height: 100%;
-  background: var(--brand);
-  border-radius: inherit;
-}
-
-.progress span[data-active='true'] {
-  min-width: 16px;
-}
-
-.progress span[data-completed='true'] {
-  background: var(--green-500);
-}
-
-.history {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-  margin-top: 2rem;
-}
-
-.history-loading {
-  display: flex;
-  justify-content: center;
-}
-
-.section-heading {
-  justify-content: space-between;
-  margin-bottom: var(--spacing-sm);
-}
-
-.all-button {
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--muted-foreground);
-  text-decoration: none;
-}
-
-.day-heading {
-  display: flex;
-  justify-content: space-between;
-  margin: var(--spacing-sm) 0;
-  font-size: 0.875rem;
-  color: var(--muted-foreground);
-}
-
-.operation {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--spacing-md);
-  align-items: start;
-  margin: var(--spacing-md) 0 var(--spacing-lg);
-  line-height: 1.5;
-}
-
-.rules-button {
-  align-self: flex-start;
-  margin-top: var(--spacing-sm);
-  font-weight: 500;
-  text-align: left;
-  text-decoration: none;
-}
-
-.operation-reasons {
-  display: grid;
-  gap: var(--spacing-xs);
-  min-width: 0;
-  padding: 0 0 0 var(--spacing-md);
-  margin: 0;
-  font-weight: 400;
-  overflow-wrap: anywhere;
-  list-style: none;
-  border-left: 2px solid var(--muted);
-}
-
-.operation-today .operation-reasons {
-  border-left-color: var(--brand);
-}
-
-.operation strong {
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.new-amount {
-  color: var(--brand);
+.page[data-gradient='4'] {
+  --page-gradient-start: rgb(107 124 255 / 13%);
+  --page-gradient-end: rgb(180 140 255 / 6%);
 }

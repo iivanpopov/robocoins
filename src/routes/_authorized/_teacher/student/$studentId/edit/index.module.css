@@ -1,0 +1,59 @@
+.page {
+  min-height: 100dvh;
+}
+
+.header-identity {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  min-width: 0;
+}
+
+.header-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  color: var(--foreground);
+  white-space: nowrap;
+}
+
+.loader {
+  align-items: center;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--foreground);
+}
+
+.nickname-row,
+.password-row {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.nickname-row > :first-child,
+.password-row > :first-child {
+  flex: 1;
+}
+
+.nickname-save,
+.password-regenerate {
+  flex-shrink: 0;
+}
+
+.avatar-field {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}

@@ -1,0 +1,41 @@
+.sentinel {
+  height: 1px;
+}
+
+.page {
+  padding-bottom: 7rem;
+}
+
+.description {
+  max-width: 60ch;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding-block: var(--spacing-sm);
+  background: var(--background);
+  border-bottom: 1px solid var(--divider);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.list li + li {
+  border-top: 1px solid var(--divider);
+}
+
+.list li.current,
+.list li.current + li {
+  border-top-color: transparent;
+}

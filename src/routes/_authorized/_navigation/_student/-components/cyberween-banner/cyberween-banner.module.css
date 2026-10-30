@@ -1,0 +1,155 @@
+.banner {
+  position: relative;
+  display: flex;
+  min-height: 190px;
+  margin-top: var(--spacing-sm);
+  overflow: hidden;
+  color: #fff;
+  text-decoration: none;
+  background-color: #061034;
+  background-image:
+    linear-gradient(90deg, rgb(4 10 38 / 82%) 0%, rgb(4 10 38 / 38%) 30%, rgb(4 10 38 / 0%) 52%),
+    url('/images/cyberween/gameverse-hero.webp');
+  background-repeat: no-repeat;
+  background-position:
+    0 0,
+    center 5%;
+  background-size:
+    100% 100%,
+    cover;
+  border: 1px solid rgb(72 104 255 / 60%);
+  border-radius: var(--rounded-xl);
+  box-shadow: 0 6px 16px rgb(22 70 255 / 18%);
+}
+
+.banner:focus-visible {
+  outline: 3px solid #4dffa8;
+  outline-offset: 3px;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 62%;
+  padding: var(--spacing-lg) var(--spacing-xl);
+}
+
+.title {
+  position: relative;
+  display: inline-block;
+  font-size: clamp(1.5rem, 7vw, 2rem);
+  font-style: italic;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #fff;
+  letter-spacing: 0.015em;
+  text-shadow: 0 0 18px rgb(70 130 255 / 65%);
+}
+
+.title::before,
+.title::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: attr(data-text);
+}
+
+.title::before {
+  color: #4dffa8;
+  text-shadow: none;
+  animation: glitch-green 3.4s steps(2, end) infinite;
+}
+
+.title::after {
+  color: #3d6bff;
+  text-shadow: none;
+  animation: glitch-blue 2.9s steps(2, end) infinite;
+}
+
+.tagline {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: rgb(255 255 255 / 92%);
+}
+
+.period {
+  padding: 0.1875rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  background: #1646ff;
+  border-radius: var(--rounded-sm);
+}
+
+.open-icon {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  display: grid;
+  place-content: center;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.125rem;
+  color: #fff;
+  background: rgb(4 10 38 / 45%);
+  border: 1px solid rgb(255 255 255 / 35%);
+  border-radius: var(--rounded-full);
+}
+
+@keyframes glitch-green {
+  0%,
+  70%,
+  100% {
+    clip-path: inset(0 0 100% 0);
+    transform: translate(0, 0);
+  }
+
+  72% {
+    clip-path: inset(10% 0 62% 0);
+    transform: translate(-3px, -1px);
+  }
+
+  76% {
+    clip-path: inset(46% 0 34% 0);
+    transform: translate(3px, 1px);
+  }
+
+  81% {
+    clip-path: inset(64% 0 12% 0);
+    transform: translate(-2px, 2px);
+  }
+
+  85% {
+    clip-path: inset(0 0 100% 0);
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes glitch-blue {
+  0%,
+  64%,
+  100% {
+    clip-path: inset(0 0 100% 0);
+    transform: translate(0, 0);
+  }
+
+  66% {
+    clip-path: inset(28% 0 46% 0);
+    transform: translate(4px, 1px);
+  }
+
+  72% {
+    clip-path: inset(70% 0 8% 0);
+    transform: translate(-4px, -2px);
+  }
+
+  77% {
+    clip-path: inset(0 0 100% 0);
+    transform: translate(0, 0);
+  }
+}

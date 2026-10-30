@@ -1,6 +1,5 @@
 import rubikCyrillic from '@fontsource-variable/rubik/files/rubik-cyrillic-wght-normal.woff2?url'
 import rubikLatin from '@fontsource-variable/rubik/files/rubik-latin-wght-normal.woff2?url'
-import { TranslateProvider } from '@kanjou/react'
 import type { QueryClient } from '@tanstack/react-query'
 import {
   HeadContent,
@@ -9,20 +8,20 @@ import {
   createRootRouteWithContext,
   useLocation,
 } from '@tanstack/react-router'
-import { DefaultFunctions, DraftFunctions } from 'messageformat/functions'
+import { cn } from 'cn'
 import type { ReactNode } from 'react'
-import messages from 'virtual:kanjou/uk'
+import messages from 'virtual:messages/uk/common'
 import '@fontsource-variable/rubik'
 
 import '#/assets/styles/global.css'
 import 'virtual:uno.css'
 
 import { Toaster } from '#/components/ui/toast'
+import { useMotionPreference } from '#/hooks/use-motion-preference'
 import { getSession } from '#/lib/session'
-import { AppLink } from '#/routes/-components/app-link'
-
-const components = { br: () => <br />, a: AppLink }
-const functions = { ...DefaultFunctions, ...DraftFunctions }
+import { TranslationProvider } from '#/lib/translations'
+import { readCookie } from '#/utils/cookies'
+import { MOTION_PREFERENCE_COOKIE } from '#/utils/motion'
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   beforeLoad: async ({ context }) => {
@@ -32,7 +31,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       queryFn: () => getSession(),
       retry: false,
     })
-    return { locale, user }
+    const animationsDisabled = (await readCookie(MOTION_PREFERENCE_COOKIE)) === 'true'
+
+    return { locale, user, animationsDisabled }
   },
   headers: () => ({ 'Cache-Control': 'private, no-store' }),
   head: () => ({
@@ -72,6 +73,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootDocument({ children }: { children: ReactNode }) {
   const pathname = useLocation({ select: (location) => location.pathname })
   const context = Route.useRouteContext()
+  const motionPreference = useMotionPreference(context?.animationsDisabled)
 
   const locale = context?.locale ?? 'uk'
 
@@ -79,20 +81,19 @@ function RootDocument({ children }: { children: ReactNode }) {
   if (pathname.replace(/\/+$/, '') === '/shop') iconHref = '/icon-galaxy.svg'
 
   return (
-    <html lang={locale}>
+    <html
+      lang={locale}
+      className={cn(context?.user?.role === 'student' && 'student')}
+      data-reduced-motion={motionPreference.disabled}
+    >
       <head>
         <HeadContent />
         <link rel="icon" href={iconHref} type="image/svg+xml" />
       </head>
       <body>
-        <TranslateProvider
-          locale={locale}
-          messages={messages}
-          components={components}
-          functions={functions}
-        >
+        <TranslationProvider locale={locale} messages={messages}>
           <Toaster>{children}</Toaster>
-        </TranslateProvider>
+        </TranslationProvider>
         <Scripts />
       </body>
     </html>

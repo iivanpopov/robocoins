@@ -4,17 +4,18 @@ import { useState } from 'react'
 
 import { useGetStudentCredentialsAuthMeCredentialsGet } from '#/api/hooks/useGetStudentCredentialsAuthMeCredentialsGet'
 import { useLogoutAuthLogoutPost } from '#/api/hooks/useLogoutAuthLogoutPost'
+import { useMotionPreference } from '#/hooks/use-motion-preference'
+import { setAnimationsDisabled } from '#/utils/motion'
 
 export function useSettingsPage() {
   const context = useRouteContext({ from: '/_authorized' })
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false)
+  const motionPreference = useMotionPreference(context.animationsDisabled)
   const queryClient = useQueryClient()
+  const isStudent = context.user?.role === 'student'
   const credentialsQuery = useGetStudentCredentialsAuthMeCredentialsGet({
-    query: {
-      enabled: context.user?.role === 'student' && isPasswordVisible,
-      gcTime: 0,
-    },
+    query: { enabled: isStudent },
   })
   const logoutMutation = useLogoutAuthLogoutPost({
     mutation: {
@@ -46,8 +47,23 @@ export function useSettingsPage() {
     void credentialsQuery.refetch()
   }
 
+  function handleAnimationsChange(checked: boolean) {
+    if (motionPreference.systemReducedMotion) return
+    if (checked === motionPreference.disabled) return
+    setAnimationsDisabled(checked)
+  }
+
   return {
-    state: { user: context.user, isPasswordVisible, isLogoutDialogOpen },
+    state: {
+      user: context.user,
+      isStudent,
+      isPasswordVisible,
+      isLogoutDialogOpen,
+      animationsReduced: motionPreference.reducedMotion,
+      isSystemReducedMotion: motionPreference.systemReducedMotion,
+      password: credentialsQuery.data?.access_code ?? '',
+      isPasswordLoading: credentialsQuery.isPending,
+    },
     queries: { credentials: credentialsQuery },
     mutations: { logout: logoutMutation },
     functions: {
@@ -55,6 +71,7 @@ export function useSettingsPage() {
       handleTogglePassword,
       handleRetryCredentials,
       handleLogoutDialogOpenChange,
+      handleAnimationsChange,
     },
   }
 }

@@ -73,14 +73,15 @@
 }
 
 .group:has(input[aria-invalid='true']) {
+  color: var(--error-foreground);
   background: var(--error);
 
   input::placeholder {
-    color: var(--error-hover);
+    color: color-mix(in srgb, var(--error-foreground) 75%, transparent);
   }
 
   .button {
-    color: var(--error-hover);
+    color: var(--error-foreground);
   }
 }
 

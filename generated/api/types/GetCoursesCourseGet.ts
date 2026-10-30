@@ -8,17 +8,17 @@ import type { CourseResponse } from './CourseResponse'
 export type GetCoursesCourseGetStatus200 = CourseResponse[];
 
 export type GetCoursesCourseGetOptions = {
-    body?: never;
-    path?: never;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path?: never;
+  query?: never;
+  headers?: never;
 };
 
 export type GetCoursesCourseGetResponses = {
-    "200": GetCoursesCourseGetStatus200;
+  '200': GetCoursesCourseGetStatus200;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetCoursesCourseGetResponse = GetCoursesCourseGetStatus200;

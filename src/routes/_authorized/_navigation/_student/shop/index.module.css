@@ -3,7 +3,7 @@
   width: 100%;
   height: 100%;
   min-height: 280px;
-  overflow: hidden;
+  overflow: clip;
   color: var(--foreground);
   touch-action: pan-y;
   -webkit-tap-highlight-color: transparent;
@@ -25,10 +25,9 @@
   display: flex;
   gap: var(--spacing-md);
   align-items: center;
-  width: min(100%, 430px);
+  width: 100%;
   min-height: 44px;
   padding: 0 var(--spacing-xl);
-  margin: 0 auto;
   color: var(--foreground);
   pointer-events: none;
 }
@@ -53,24 +52,110 @@
   color: var(--foreground);
 }
 
-.legend {
+.list-view,
+.list-view:active {
+  cursor: default;
+  user-select: text;
+}
+
+.view-switch {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px 14px;
+  gap: var(--spacing-md);
+  pointer-events: auto;
+}
+
+.view-switch button {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  min-height: 40px;
+  padding: 6px 10px;
+  font-size: 1rem;
+  font-weight: 650;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-radius: var(--rounded-lg);
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.view-switch button > [aria-hidden='true'] {
+  font-size: 1.125rem;
+}
+
+.view-switch button[aria-pressed='true'] {
+  color: var(--background);
+  background: var(--foreground);
+}
+
+.catalog {
+  position: absolute;
+  inset: 0;
+  padding: 84px 24px calc(96px + env(safe-area-inset-bottom));
+  overflow: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  background: var(--background);
+}
+
+.reward-list {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+  list-style: none;
+}
+
+.reward-card {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px;
+  color: var(--foreground);
+  text-align: left;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-radius: var(--rounded-lg);
+}
+
+.card-artwork {
+  flex-shrink: 0;
+  width: 100px;
+}
+
+.view-switch button:focus-visible,
+.reward-card:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+}
+
+.card-content {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 8px;
+}
+
+.card-name {
+  font-size: 18px;
+  font-weight: 550;
+  overflow-wrap: anywhere;
+}
+
+.card-type {
   font-size: 14px;
   color: var(--muted-foreground);
 }
 
-.legend > span {
+.card-price {
   display: flex;
   gap: 6px;
   align-items: center;
-}
-
-.legend [aria-hidden='true'] {
-  width: 14px;
-  height: 14px;
-  color: var(--foreground);
 }
 
 .star-background,
@@ -228,7 +313,7 @@
   cursor: default;
   user-select: text;
   scrollbar-width: none;
-  background: linear-gradient(180deg, rgb(8 8 8 / 65%), rgb(8 8 8 / 30%) 25%, rgb(8 8 8 / 92%) 65%);
+  background: linear-gradient(180deg, rgb(8 8 8) 0%, rgb(8 8 8 / 80%) 40%, rgb(8 8 8 / 92%) 55%);
   animation: reward-screen-in 220ms ease-out both;
 }
 
@@ -236,7 +321,6 @@
 .detail-scroll,
 .detail-footer {
   width: 100%;
-  max-width: 430px;
   margin: 0 auto;
 }
 
@@ -262,7 +346,6 @@
   justify-content: space-between;
   padding: 18px 24px max(20px, env(safe-area-inset-bottom));
   background: rgb(8 8 8 / 96%);
-  border-top: 1px solid rgb(255 255 255 / 12%);
 }
 
 @keyframes reward-screen-in {
@@ -336,8 +419,7 @@
   gap: 6px;
   align-items: center;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.02em;
 }
 
 .reward-category {

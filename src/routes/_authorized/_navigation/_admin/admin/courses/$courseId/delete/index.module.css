@@ -1,0 +1,13 @@
+.danger {
+  background: var(--error);
+}
+
+.danger:hover {
+  background: var(--error-hover);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}

@@ -4,8 +4,8 @@
 */
 
 export const balanceChangeType = {
-    punish: "punish",
-    reward: "reward"
+  punish: 'punish',
+  reward: 'reward',
 } as const;
 
 export type BalanceChangeTypeKey = (typeof balanceChangeType)[keyof typeof balanceChangeType];

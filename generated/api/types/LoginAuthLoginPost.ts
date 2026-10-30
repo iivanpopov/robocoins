@@ -14,18 +14,18 @@ export type LoginAuthLoginPostStatus422 = HTTPValidationError;
 export type LoginAuthLoginPostBody = UserLoginRequest;
 
 export type LoginAuthLoginPostOptions = {
-    body: LoginAuthLoginPostBody;
-    path?: never;
-    query?: never;
-    headers?: never;
+  body: LoginAuthLoginPostBody;
+  path?: never;
+  query?: never;
+  headers?: never;
 };
 
 export type LoginAuthLoginPostResponses = {
-    "200": LoginAuthLoginPostStatus200;
-    "422": LoginAuthLoginPostStatus422;
+  '200': LoginAuthLoginPostStatus200;
+  '422': LoginAuthLoginPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type LoginAuthLoginPostResponse = LoginAuthLoginPostStatus200;

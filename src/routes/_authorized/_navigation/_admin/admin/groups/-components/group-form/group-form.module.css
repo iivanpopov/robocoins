@@ -1,0 +1,33 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.note {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: flex-start;
+  font-size: 0.8125rem;
+  font-weight: 450;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+.note > [aria-hidden='true'] {
+  flex-shrink: 0;
+  margin-top: 0.0625rem;
+  font-size: 1rem;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}

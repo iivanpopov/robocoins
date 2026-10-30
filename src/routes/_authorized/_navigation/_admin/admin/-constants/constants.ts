@@ -1,0 +1,1 @@
+export const TEACHER_ASSIGNMENT_MAX = 2

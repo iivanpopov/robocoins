@@ -1,13 +1,12 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import { HeroButton, Loader, Typography } from '#/components/ui'
-import { CategoryIcon } from '#/routes/-components'
+import { LearningCard } from '#/routes/-components'
 import { AuthLayout } from '#/routes/_auth/-components'
 
 import { RegisterStep } from '../../../-constants'
 import { RegisterBackCaption } from '../../register-back-caption'
-import { useStepCategory } from './-hooks'
+import { useStepCategory } from './hooks'
 
 import styles from './step-category.module.css'
 
@@ -31,24 +30,26 @@ export function StepCategory() {
               <Typography variant="caption">{t('step.selection.empty')}</Typography>
             )}
             {state.categories.map((item) => (
-              <button
-                type="button"
-                key={item.category}
-                data-category={item.category}
-                className={cn('category-theme', 'category-choice', styles.category)}
-                aria-pressed={state.selectedCategories.includes(item.category)}
-                onClick={() => functions.handleToggleCategory(item.category)}
-              >
-                <div className="category-tile">
-                  <CategoryIcon category={item.category} />
-                </div>
-                <div className={styles.details}>
-                  <Typography variant="subtitle">
-                    {t('course.category', { category: item.category })}
-                  </Typography>
-                  <Typography variant="caption">{item.courses}</Typography>
-                </div>
-              </button>
+              <LearningCard.Root key={item.category} size="lg" selection="check">
+                <LearningCard.Row
+                  render={
+                    <button
+                      type="button"
+                      aria-pressed={state.selectedCategories.includes(item.category)}
+                      onClick={() => functions.handleToggleCategory(item.category)}
+                    />
+                  }
+                >
+                  <LearningCard.Icon category={item.category} />
+                  <LearningCard.Content>
+                    <LearningCard.Title>
+                      {t('course.category', { category: item.category })}
+                    </LearningCard.Title>
+                    <LearningCard.Description>{item.courses}</LearningCard.Description>
+                  </LearningCard.Content>
+                  <LearningCard.Indicator kind="select" />
+                </LearningCard.Row>
+              </LearningCard.Root>
             ))}
           </div>
 

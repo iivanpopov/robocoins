@@ -7,7 +7,7 @@ import type { HTTPValidationError } from './HTTPValidationError'
 import type { UserResponse } from './UserResponse'
 
 export type GetUserByIdUsersUserIdGetPath = {
-    user_id: number;
+  user_id: number;
 };
 
 export type GetUserByIdUsersUserIdGetStatus200 = UserResponse;
@@ -15,18 +15,18 @@ export type GetUserByIdUsersUserIdGetStatus200 = UserResponse;
 export type GetUserByIdUsersUserIdGetStatus422 = HTTPValidationError;
 
 export type GetUserByIdUsersUserIdGetOptions = {
-    body?: never;
-    path: GetUserByIdUsersUserIdGetPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: GetUserByIdUsersUserIdGetPath;
+  query?: never;
+  headers?: never;
 };
 
 export type GetUserByIdUsersUserIdGetResponses = {
-    "200": GetUserByIdUsersUserIdGetStatus200;
-    "422": GetUserByIdUsersUserIdGetStatus422;
+  '200': GetUserByIdUsersUserIdGetStatus200;
+  '422': GetUserByIdUsersUserIdGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetUserByIdUsersUserIdGetResponse = GetUserByIdUsersUserIdGetStatus200;

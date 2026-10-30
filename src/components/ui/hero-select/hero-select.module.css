@@ -61,10 +61,11 @@
   }
 
   &[aria-invalid='true'] {
+    color: var(--error-foreground);
     background: var(--error);
 
     &[data-placeholder] {
-      color: var(--error-hover);
+      color: color-mix(in srgb, var(--error-foreground) 75%, transparent);
     }
   }
 

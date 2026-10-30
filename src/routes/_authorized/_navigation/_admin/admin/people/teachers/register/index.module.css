@@ -1,0 +1,17 @@
+.page {
+  max-width: 36rem;
+}
+
+.header {
+  gap: var(--spacing-xl);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.form > button {
+  flex-shrink: 0;
+}

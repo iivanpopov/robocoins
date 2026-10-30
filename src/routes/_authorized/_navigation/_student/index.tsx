@@ -1,36 +1,71 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import { getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions } from '#/api/hooks/useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet'
+import { getDailyTaskDailyStudentIdDailyTaskGetQueryOptions } from '#/api/hooks/useGetDailyTaskDailyStudentIdDailyTaskGet'
 import { getStudentRewardProgressStudentStudentIdRewardProgressGetQueryOptions } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
+import { getStudentStreakStudentStudentIdStreakGetQueryOptions } from '#/api/hooks/useGetStudentStreakStudentStudentIdStreakGet'
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryOptions } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { StudentProfileResponse } from '#/api/types'
-import { Avatar, AvatarFallback, AvatarImage, Button, Loader, Typography } from '#/components/ui'
+import { Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
-import { COOKIE_MAX_AGE, LAST_LOG_ON_COOKIE, type Avatar as AvatarName } from '#/routes/-constants'
-import { getAvatarUrl, getInitial } from '#/routes/-utils'
+import { COOKIE_MAX_AGE, LAST_LOG_ON_COOKIE } from '#/routes/-constants'
 import { readCookie } from '#/utils/cookies'
 
-import { RulesDrawer } from './-components'
+import {
+  CyberweenBanner,
+  EarnWays,
+  GoalCard,
+  HistoryPreview,
+  LeaderboardPreview,
+  StudentHero,
+} from './-components'
+import { DailyMission } from './-components/daily-mission'
+import {
+  getWeeklyLeaderboardQueryOptions,
+  getWeeklyLeaderboardRankQueryOptions,
+} from './-components/leaderboard'
+import { HISTORY_TRANSACTION_FETCH_LIMIT } from './-constants'
 import { useStudentPage } from './-hooks'
+import { getGoalProgressCookieName, getStudentRewardCategoriesQueryOptions } from './-utils'
 
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_student/')({
   head: () => ({ meta: [{ title: 'Головна | Robocoins' }] }),
-  beforeLoad: async () => {
+  beforeLoad: async ({ context }) => {
     const renderedAt = Date.now()
     const lastLogOn = Number(await readCookie(LAST_LOG_ON_COOKIE)) || Date.now()
-    return { lastLogOn, renderedAt }
+    const goalProgressSnapshot = await readCookie(
+      getGoalProgressCookieName((context.user as StudentProfileResponse).id),
+    )
+    return { lastLogOn, renderedAt, goalProgressSnapshot }
   },
   loader: async ({ context }) => {
     const profile = context.user as StudentProfileResponse
     return Promise.all([
+      context.queryClient
+        .query({
+          ...getDailyTaskDailyStudentIdDailyTaskGetQueryOptions({
+            path: { student_id: profile.id },
+          }),
+          retry: false,
+          staleTime: 0,
+        })
+        .catch(() => undefined),
+      context.queryClient
+        .query({
+          ...getStudentStreakStudentStudentIdStreakGetQueryOptions({
+            path: { student_id: profile.id },
+          }),
+          retry: false,
+          staleTime: 0,
+        })
+        .catch(() => undefined),
       context.queryClient.query(
         getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryOptions({
           path: { student_id: profile.id },
-          query: { limit: 3 },
+          query: { limit: HISTORY_TRANSACTION_FETCH_LIMIT },
         }),
       ),
       context.queryClient.query(
@@ -41,6 +76,13 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/')({
           path: { student_id: profile.id },
         }),
       ),
+      context.queryClient
+        .query(getStudentRewardCategoriesQueryOptions(context.queryClient, profile))
+        .catch(() => undefined),
+      context.queryClient.infiniteQuery(getWeeklyLeaderboardQueryOptions(3)).catch(() => undefined),
+      context.queryClient
+        .query(getWeeklyLeaderboardRankQueryOptions(profile.id))
+        .catch(() => undefined),
     ])
   },
   onEnter: () => {
@@ -61,119 +103,45 @@ function StudentPage() {
   const t = useTranslate()
 
   return (
-    <main className={styles.page}>
-      <header className={styles.header}>
-        <Avatar>
-          <AvatarImage
-            src={getAvatarUrl(state.profile.avatar as AvatarName)}
-            alt={state.profile.name}
-          />
-          <AvatarFallback role="img" aria-label={state.profile.name}>
-            {getInitial(state.profile.name)}
-          </AvatarFallback>
-        </Avatar>
-        <Typography className={styles.name} variant="subtitle">
-          {state.profile.name}
-        </Typography>
-        <div className={styles.balance}>
-          <span>{t('profile.balance.amount', { count: state.profile.balance })}</span>
-          <div aria-hidden="true" className={cn('i-ph:coins-bold', styles['coin-icon'])} />
-        </div>
-      </header>
-      {!state.goal && (
-        <article className={cn(styles.goal, styles['goal-empty'])}>
-          <Typography className={styles['product-name']} variant="subtitle">
-            {t('profile.goal.none')}
-          </Typography>
-          <Button
-            className={styles['goal-shop']}
-            variant="ghost"
-            onClick={functions.handleNavigateToShop}
-          >
-            {t('profile.goal.shop')}
-          </Button>
-        </article>
+    <main className={styles.page} data-gradient={state.gradientVariant}>
+      <StudentHero
+        name={state.profile.name}
+        avatar={state.avatar}
+        balance={state.profile.balance}
+        hasNewReward={state.hasNewReward}
+        greetingVariant={state.greetingVariant}
+        captionVariant={state.captionVariant}
+        onOpenProfile={functions.handleOpenProfile}
+        onOpenShop={functions.handleNavigateToShop}
+      />
+      {state.isGoalPending && <Loader grow role="status" aria-label={t('profile.goal.loading')} />}
+      {state.isGoalError && (
+        <InlineError onRetry={functions.handleRetryGoal} isRetrying={state.isGoalFetching}>
+          {t('group.error')}
+        </InlineError>
       )}
-      {state.goal && (
-        <article className={styles.goal}>
-          <div className={styles['product-heading']}>
-            <Typography className={styles['product-name']} variant="subtitle">
-              {state.goal.name}
-            </Typography>
-            {/* <div aria-hidden="true" className={cn('i-ph:caret-right-bold', styles.chevron)} /> */}
-          </div>
-          <p className={styles.amount}>
-            <strong>{t('profile.balance.amount', { count: state.profile.balance })}</strong>{' '}
-            {t('profile.goal.target', { count: state.goal.price })}{' '}
-            <span aria-hidden="true" className="i-ph:coins-bold" />
-          </p>
-          <div className={styles.progress}>
-            <span
-              data-active={state.profile.balance > 0}
-              data-completed={state.goalCompleted}
-              style={{ width: state.goalProgress }}
-            />
-          </div>
-          <Typography className={styles.label} variant="caption">
-            {state.goalCompleted && (
-              <span className={styles['goal-completed-label']}>{t('profile.goal.completed')}</span>
-            )}
-            {!state.goalCompleted && t('profile.goal.remaining', { count: state.remainingBalance })}
-          </Typography>
-        </article>
+      {!state.isGoalPending && !state.isGoalError && (
+        <GoalCard
+          goal={state.goal}
+          balance={state.profile.balance}
+          remainingBalance={state.remainingBalance}
+          progressPercent={state.goalProgressDisplay}
+          isCompleted={state.goalCompleted}
+          onOpenShop={functions.handleNavigateToShop}
+        />
       )}
-      <section className={styles.history}>
-        <div className={styles['section-heading']}>
-          <Typography className={styles['history-title']} variant="subtitle">
-            {t('profile.history.title')}
-          </Typography>
-          <Button className={styles['all-button']} variant="link">
-            {t('profile.history.all')}
-          </Button>
-        </div>
-        {queries.history.isPending && (
-          <div
-            className={styles['history-loading']}
-            role="status"
-            aria-label={t('profile.history.loading')}
-          >
-            <Loader />
-          </div>
-        )}
-        {queries.history.isError && (
-          <InlineError
-            onRetry={functions.handleRetryHistory}
-            isRetrying={queries.history.isFetching}
-          >
-            {t('group.error')}
-          </InlineError>
-        )}
-        {queries.history.isSuccess && !state.groups.length && <p>{t('profile.history.empty')}</p>}
-        {state.groups.map((group) => (
-          <div key={group.date}>
-            <div className={styles['day-heading']}>
-              <span>{group.date}</span>
-              <span>{group.total}</span>
-            </div>
-            {group.transactions.map((transaction) => (
-              <div
-                className={cn(styles.operation, transaction.isNew && styles['operation-today'])}
-                key={transaction.id}
-              >
-                <ul className={styles['operation-reasons']}>
-                  {(transaction.reason ?? []).map((reason, i) => (
-                    <li key={`${reason}-${i}`}>{t.unsafe(`reason.${reason}`)}</li>
-                  ))}
-                </ul>
-                <strong className={cn(transaction.isDeposit && styles['new-amount'])}>
-                  {t('profile.history.amount', { count: transaction.signedAmount })}
-                </strong>
-              </div>
-            ))}
-          </div>
-        ))}
-        <RulesDrawer className={styles['rules-button']} />
-      </section>
+      <DailyMission studentId={state.profile.id} />
+      <EarnWays />
+      <CyberweenBanner />
+      <LeaderboardPreview />
+      <HistoryPreview
+        groups={state.groups}
+        isPending={queries.history.isPending}
+        isError={queries.history.isError}
+        isFetching={queries.history.isFetching}
+        onRetry={functions.handleRetryHistory}
+        onViewAll={functions.handleViewHistory}
+      />
     </main>
   )
 }

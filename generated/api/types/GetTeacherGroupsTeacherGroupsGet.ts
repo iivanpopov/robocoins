@@ -8,17 +8,17 @@ import type { CourseGroupResponse } from './CourseGroupResponse'
 export type GetTeacherGroupsTeacherGroupsGetStatus200 = CourseGroupResponse[];
 
 export type GetTeacherGroupsTeacherGroupsGetOptions = {
-    body?: never;
-    path?: never;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path?: never;
+  query?: never;
+  headers?: never;
 };
 
 export type GetTeacherGroupsTeacherGroupsGetResponses = {
-    "200": GetTeacherGroupsTeacherGroupsGetStatus200;
+  '200': GetTeacherGroupsTeacherGroupsGetStatus200;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetTeacherGroupsTeacherGroupsGetResponse = GetTeacherGroupsTeacherGroupsGetStatus200;

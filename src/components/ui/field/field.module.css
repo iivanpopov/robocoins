@@ -1,0 +1,70 @@
+.field {
+  display: flex;
+  gap: var(--spacing-sm);
+  width: 100%;
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.horizontal {
+  flex-direction: row;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  width: 100%;
+}
+
+.set {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: 0;
+  border: none;
+}
+
+.legend {
+  margin-bottom: var(--spacing-xs);
+  font-weight: 600;
+}
+
+.legend.legend {
+  font-size: 1rem;
+}
+
+.label.label {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.title {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.description {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+.error {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--error);
+}
+
+.error-list {
+  padding-left: var(--spacing-lg);
+  list-style: disc;
+}

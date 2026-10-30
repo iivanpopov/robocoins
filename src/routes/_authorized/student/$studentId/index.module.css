@@ -1,0 +1,81 @@
+.loader {
+  align-items: center;
+}
+
+.identity {
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: center;
+  text-align: left;
+}
+
+.identity-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 0;
+}
+
+.avatar {
+  --avatar-size: 8rem;
+
+  flex-shrink: 0;
+}
+
+.name {
+  font-size: 1.375rem;
+  overflow-wrap: anywhere;
+}
+
+.balance {
+  display: flex;
+  gap: 0.35rem;
+  align-items: baseline;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.coin-icon {
+  font-size: 1.1rem;
+  color: var(--blue-500);
+  background-color: var(--blue-500);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--foreground);
+}
+
+.group-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.empty {
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+
+.course-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.course-chip {
+  padding: 0.65rem 1.25rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--foreground);
+  background: var(--surface);
+  border-radius: var(--rounded-full);
+}

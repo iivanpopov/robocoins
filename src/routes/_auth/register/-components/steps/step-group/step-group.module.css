@@ -24,44 +24,13 @@
 .groups {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xl);
+  gap: var(--spacing-sm);
   min-width: 0;
   min-height: 0;
   padding: var(--spacing-sm);
   overflow: hidden auto;
 }
 
-.group {
-  --choice-background: var(--surface);
-
-  display: flex;
-  flex-shrink: 0;
-  gap: var(--spacing-lg);
-  align-items: center;
-  padding: var(--spacing-lg);
-  color: var(--foreground);
-  text-align: left;
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  border-radius: var(--rounded-md);
-}
-
 .footer {
   padding-bottom: env(safe-area-inset-bottom, 0);
-}
-
-.schedule {
-  display: flex;
-  flex-direction: column;
-  font-size: 1.125rem;
-  line-height: 1.4;
-}
-
-.weekday {
-  font-weight: 600;
-}
-
-.time {
-  font-weight: 450;
 }

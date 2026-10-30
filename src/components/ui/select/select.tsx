@@ -23,10 +23,7 @@ export function SelectTrigger({ className, children, ...props }: SelectTriggerPr
   return (
     <SelectPrimitive.Trigger {...props} className={cn(styles.trigger, className)}>
       {children}
-      <SelectPrimitive.Icon
-        className={styles.icon}
-        render={<span className="i-ph:caret-down-bold" />}
-      />
+      <SelectPrimitive.Icon className={styles.icon} render={<span className="i-ph:caret-down" />} />
     </SelectPrimitive.Trigger>
   )
 }
@@ -77,7 +74,7 @@ export function SelectItem({ className, children, ...props }: SelectItemProps) {
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator
         className={styles.indicator}
-        render={<span className="i-ph:check-bold" />}
+        render={<span className="i-ph:check" />}
       />
     </SelectPrimitive.Item>
   )

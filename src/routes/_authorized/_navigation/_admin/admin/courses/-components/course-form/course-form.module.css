@@ -1,0 +1,18 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  padding-top: var(--spacing-xs);
+}

@@ -10,9 +10,10 @@
   align-items: center;
   justify-content: center;
   width: calc(100% - 40px);
-  max-width: 390px;
   height: 64px;
   padding: var(--spacing-sm);
+  touch-action: none;
+  user-select: none;
   background: var(--surface);
   border-radius: var(--rounded-full);
   transform: translateX(-50%);

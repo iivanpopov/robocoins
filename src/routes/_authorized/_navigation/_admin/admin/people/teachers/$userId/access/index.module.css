@@ -1,0 +1,96 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.section-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.note {
+  font-size: 0.8125rem;
+  font-weight: 450;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.action {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  text-align: left;
+  cursor: pointer;
+  background: var(--surface);
+  border: none;
+  border-radius: var(--rounded-md);
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.action:active {
+  background: var(--muted);
+  transform: scale(0.995);
+}
+
+.action-icon {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 1.25rem;
+  color: var(--muted-foreground);
+  background: var(--taupe-100);
+  border-radius: var(--rounded-sm);
+}
+
+.action-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.0625rem;
+  min-width: 0;
+}
+
+.action-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.action-description {
+  font-size: 0.75rem;
+  font-weight: 450;
+  color: var(--muted-foreground);
+}
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.sheet-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}

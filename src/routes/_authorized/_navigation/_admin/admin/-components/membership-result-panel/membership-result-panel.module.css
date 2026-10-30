@@ -1,0 +1,153 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: var(--surface);
+  border-radius: var(--rounded-lg);
+}
+
+.header {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: flex-start;
+}
+
+.icon {
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+  font-size: 1.5rem;
+  color: var(--brand);
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 0;
+}
+
+.title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.description {
+  font-size: 0.8125rem;
+  font-weight: 450;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--background);
+  border-radius: var(--rounded-md);
+}
+
+.name {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.stages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.stage {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: baseline;
+  padding: 0.125rem var(--spacing-sm);
+  font-size: 0.75rem;
+  border-radius: var(--rounded-full);
+}
+
+.stage-label {
+  font-weight: 450;
+  color: var(--muted-foreground);
+}
+
+.stage-value {
+  font-weight: 700;
+  color: var(--muted-foreground);
+}
+
+.stage[data-status='added'],
+.stage[data-status='removed'] {
+  background: var(--green-50);
+}
+
+.stage[data-status='added'] .stage-value,
+.stage[data-status='removed'] .stage-value {
+  color: var(--green-700);
+}
+
+.stage[data-status='failed'] {
+  background: color-mix(in srgb, var(--error) 10%, transparent);
+}
+
+.stage[data-status='failed'] .stage-value {
+  color: var(--error);
+}
+
+.stage[data-status='pending'],
+.stage[data-status='waiting'] {
+  background: var(--amber-50);
+}
+
+.stage[data-status='pending'] .stage-value,
+.stage[data-status='waiting'] .stage-value {
+  color: var(--amber-700);
+}
+
+.stage[data-status='unknown'] {
+  background: var(--amber-50);
+}
+
+.stage[data-status='unknown'] .stage-value {
+  color: var(--amber-700);
+}
+
+.partial {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--amber-700);
+}
+
+.unknown {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--amber-700);
+}
+
+.failure {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--error);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}

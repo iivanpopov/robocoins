@@ -1,0 +1,51 @@
+.preview {
+  margin-top: var(--spacing-xs);
+}
+
+.title {
+  font-size: 1.25rem;
+}
+
+.heading .title {
+  font-weight: 600;
+}
+
+.all-button {
+  gap: 0.125rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  text-decoration: none;
+}
+
+.heading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.description {
+  margin: 0 0 var(--spacing-md);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}
+
+.list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.own {
+  padding-top: 0;
+  margin-top: var(--spacing-lg);
+}
+
+.label {
+  margin: 0 0 var(--spacing-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+}

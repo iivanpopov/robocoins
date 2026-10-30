@@ -18,7 +18,7 @@ export interface RegisterProviderProps {
 }
 
 export function RegisterProvider({ initialState, children }: RegisterProviderProps) {
-  const [state, setState] = useState(initialState)
+  const [state, setState] = useState<RegisterDraft>(initialState ?? {})
   const [accessCode, setAccessCode] = useState<string>()
 
   const _setState = async (newState: Partial<RegisterDraft>) => {

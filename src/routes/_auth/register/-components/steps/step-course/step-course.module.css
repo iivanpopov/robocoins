@@ -5,19 +5,6 @@
 .courses {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xl);
+  gap: var(--spacing-sm);
   margin-top: var(--spacing-md);
-}
-
-.course {
-  display: flex;
-  gap: var(--spacing-lg);
-  align-items: center;
-  padding: var(--spacing-lg);
-  color: var(--foreground);
-  text-align: left;
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  border-radius: var(--rounded-md);
 }

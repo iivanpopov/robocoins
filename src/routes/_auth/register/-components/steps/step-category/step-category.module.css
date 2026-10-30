@@ -1,28 +1,8 @@
 .categories {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xl);
+  gap: var(--spacing-sm);
   align-items: center;
   width: 100%;
   margin-top: var(--spacing-md);
-}
-
-.category {
-  display: flex;
-  gap: var(--spacing-lg);
-  align-items: center;
-  width: 100%;
-  padding: var(--spacing-lg);
-  color: var(--foreground);
-  text-align: left;
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  border-radius: var(--rounded-md);
-}
-
-.details {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
 }

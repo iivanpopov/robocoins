@@ -1,0 +1,73 @@
+.note {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: flex-start;
+  padding: var(--spacing-lg);
+  background: var(--orange-50);
+  border: 1px solid var(--orange-200);
+  border-radius: var(--rounded-lg);
+}
+
+.note-icon {
+  flex-shrink: 0;
+  font-size: 1.75rem;
+  color: var(--orange-700);
+}
+
+.note-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  min-width: 0;
+}
+
+.identity {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  min-width: 0;
+}
+
+.avatar {
+  --avatar-size: 2.75rem;
+  --avatar-fallback-font-size: 1rem;
+}
+
+.name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--foreground);
+  white-space: nowrap;
+}
+
+.note-text {
+  font-size: 0.8125rem;
+  font-weight: 450;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: var(--surface);
+  border-radius: var(--rounded-lg);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}

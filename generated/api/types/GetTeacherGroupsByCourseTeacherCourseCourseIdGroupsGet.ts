@@ -7,7 +7,7 @@ import type { CourseGroupResponse } from './CourseGroupResponse'
 import type { HTTPValidationError } from './HTTPValidationError'
 
 export type GetTeacherGroupsByCourseTeacherCourseCourseIdGroupsGetPath = {
-    course_id: number;
+  course_id: number;
 };
 
 export type GetTeacherGroupsByCourseTeacherCourseCourseIdGroupsGetStatus200 = CourseGroupResponse[];
@@ -15,18 +15,18 @@ export type GetTeacherGroupsByCourseTeacherCourseCourseIdGroupsGetStatus200 = Co
 export type GetTeacherGroupsByCourseTeacherCourseCourseIdGroupsGetStatus422 = HTTPValidationError;
 
 export type GetTeacherGroupsByCourseTeacherCourseCourseIdGroupsGetOptions = {
-    body?: never;
-    path: GetTeacherGroupsByCourseTeacherCourseCourseIdGroupsGetPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: GetTeacherGroupsByCourseTeacherCourseCourseIdGroupsGetPath;
+  query?: never;
+  headers?: never;
 };
 
 export type GetTeacherGroupsByCourseTeacherCourseCourseIdGroupsGetResponses = {
-    "200": GetTeacherGroupsByCourseTeacherCourseCourseIdGroupsGetStatus200;
-    "422": GetTeacherGroupsByCourseTeacherCourseCourseIdGroupsGetStatus422;
+  '200': GetTeacherGroupsByCourseTeacherCourseCourseIdGroupsGetStatus200;
+  '422': GetTeacherGroupsByCourseTeacherCourseCourseIdGroupsGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetTeacherGroupsByCourseTeacherCourseCourseIdGroupsGetResponse = GetTeacherGroupsByCourseTeacherCourseCourseIdGroupsGetStatus200;

@@ -4,5 +4,5 @@
 */
 
 export type TeacherAssignmentRequest = {
-    teacher_ids?: number[];
+  teacher_ids?: number[];
 };

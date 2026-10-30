@@ -1,0 +1,59 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.toolbar {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hint {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.loader {
+  justify-content: center;
+}
+
+.empty {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.memberships {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xs);
+}
+
+.remove {
+  color: var(--error-foreground);
+  background: var(--error);
+
+  &:hover:not(:disabled) {
+    background: var(--error-hover);
+  }
+}
+
+.remove-row {
+  color: var(--error);
+}
+
+.note {
+  font-size: 0.8125rem;
+  color: var(--foreground);
+}
+
+.confirm-identity {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  font-weight: 600;
+  color: var(--foreground);
+}

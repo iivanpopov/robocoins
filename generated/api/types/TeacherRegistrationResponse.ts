@@ -6,23 +6,23 @@
 import type { UserRoleKey } from './UserRole'
 
 export type TeacherRegistrationResponse = {
-    /**
-     * @default 'success'
-     * @type string | undefined
-    */
-    status?: string;
-    /**
-     * @default 200
-     * @type integer | undefined
-    */
-    code?: number;
-    id: number;
-    user_id: number;
-    name: string;
-    /**
-     * @default 'teacher'
-     * @type string | undefined
-    */
-    role?: UserRoleKey;
-    access_code: string;
+  /**
+   * @default 'success'
+   * @type string | undefined
+   */
+  status?: string;
+  /**
+   * @default 200
+   * @type integer | undefined
+   */
+  code?: number;
+  id: number;
+  user_id: number;
+  name: string;
+  /**
+   * @default 'teacher'
+   * @type string | undefined
+   */
+  role?: UserRoleKey;
+  access_code: string;
 };

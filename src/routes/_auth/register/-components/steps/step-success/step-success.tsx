@@ -5,7 +5,7 @@ import { HeroButton, IconButton, Typography } from '#/components/ui'
 import { useBoolean } from '#/hooks'
 
 import { RegisterStep } from '../../../-constants'
-import { useStepSuccess } from './-hooks'
+import { useStepSuccess } from './hooks'
 
 import styles from './step-success.module.css'
 
@@ -30,7 +30,7 @@ export function StepSuccess() {
         </div>
         <div className={styles.credentials}>
           <div>
-            <Typography variant="subtitle">{t('step.success.password')}</Typography>
+            <Typography variant="subtitle">{t('field.password.caption')}</Typography>
             <Typography variant="caption">{t('step.success.description')}</Typography>
           </div>
           <div className={styles.password}>
@@ -46,8 +46,8 @@ export function StepSuccess() {
               aria-label={passwordLabel}
               onClick={() => toggleRevealed()}
             >
-              {isRevealed && <span className="i-ph:eye-slash-bold" />}
-              {!isRevealed && <span className="i-ph:eye-bold" />}
+              {isRevealed && <span className="i-ph:eye-slash" />}
+              {!isRevealed && <span className="i-ph:eye" />}
             </IconButton>
           </div>
         </div>

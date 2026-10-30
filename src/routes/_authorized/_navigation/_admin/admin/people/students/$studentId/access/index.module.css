@@ -1,0 +1,93 @@
+.identity {
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: center;
+  min-width: 0;
+  padding: var(--spacing-lg);
+  background: var(--surface);
+  border-radius: var(--rounded-lg);
+}
+
+.avatar {
+  --avatar-size: 3.5rem;
+  --avatar-fallback-font-size: 1.125rem;
+}
+
+.identity-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 0;
+}
+
+.name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--foreground);
+  white-space: nowrap;
+}
+
+.hint {
+  font-size: 0.8125rem;
+  font-weight: 450;
+  line-height: 1.4;
+  color: var(--muted-foreground);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: var(--surface);
+  border-radius: var(--rounded-lg);
+}
+
+.section-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.note {
+  font-size: 0.8125rem;
+  font-weight: 450;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+.code {
+  padding: var(--spacing-md);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--foreground);
+  text-align: center;
+  letter-spacing: 0.06em;
+  overflow-wrap: anywhere;
+  user-select: all;
+  background: var(--background);
+  border-radius: var(--rounded-md);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.copy-status {
+  min-height: 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--green-700);
+}
+
+.copy-status-error {
+  color: var(--error);
+}

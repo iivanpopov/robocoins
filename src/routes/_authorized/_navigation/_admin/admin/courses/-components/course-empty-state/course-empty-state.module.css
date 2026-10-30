@@ -1,0 +1,36 @@
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  text-align: center;
+}
+
+.icon {
+  font-size: 2.5rem;
+  color: var(--muted-foreground);
+}
+
+.title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.description {
+  max-width: 20rem;
+  font-size: 0.875rem;
+  font-weight: 450;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  margin-top: var(--spacing-xs);
+}

@@ -1,0 +1,36 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  width: 100%;
+  padding: 0 var(--spacing-md);
+  background: var(--background);
+}
+
+.tab {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  outline: none;
+  box-shadow: inset 0 -2px 0 transparent;
+  transition:
+    color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.tab:focus-visible {
+  outline: none;
+  background: var(--muted);
+  border-radius: var(--rounded-sm);
+}
+
+.tab[data-active='true'] {
+  color: var(--brand);
+  box-shadow: inset 0 -2px 0 var(--brand);
+}

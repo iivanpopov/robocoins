@@ -7,7 +7,7 @@ import type { GroupResponse } from './GroupResponse'
 import type { HTTPValidationError } from './HTTPValidationError'
 
 export type GetGroupByNameGroupNameNameGetPath = {
-    name: string;
+  name: string;
 };
 
 export type GetGroupByNameGroupNameNameGetStatus200 = GroupResponse;
@@ -15,18 +15,18 @@ export type GetGroupByNameGroupNameNameGetStatus200 = GroupResponse;
 export type GetGroupByNameGroupNameNameGetStatus422 = HTTPValidationError;
 
 export type GetGroupByNameGroupNameNameGetOptions = {
-    body?: never;
-    path: GetGroupByNameGroupNameNameGetPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: GetGroupByNameGroupNameNameGetPath;
+  query?: never;
+  headers?: never;
 };
 
 export type GetGroupByNameGroupNameNameGetResponses = {
-    "200": GetGroupByNameGroupNameNameGetStatus200;
-    "422": GetGroupByNameGroupNameNameGetStatus422;
+  '200': GetGroupByNameGroupNameNameGetStatus200;
+  '422': GetGroupByNameGroupNameNameGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetGroupByNameGroupNameNameGetResponse = GetGroupByNameGroupNameNameGetStatus200;

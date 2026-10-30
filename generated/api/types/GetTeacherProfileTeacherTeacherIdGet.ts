@@ -7,7 +7,7 @@ import type { HTTPValidationError } from './HTTPValidationError'
 import type { TeacherProfileResponse } from './TeacherProfileResponse'
 
 export type GetTeacherProfileTeacherTeacherIdGetPath = {
-    teacher_id: number;
+  teacher_id: number;
 };
 
 export type GetTeacherProfileTeacherTeacherIdGetStatus200 = TeacherProfileResponse;
@@ -15,18 +15,18 @@ export type GetTeacherProfileTeacherTeacherIdGetStatus200 = TeacherProfileRespon
 export type GetTeacherProfileTeacherTeacherIdGetStatus422 = HTTPValidationError;
 
 export type GetTeacherProfileTeacherTeacherIdGetOptions = {
-    body?: never;
-    path: GetTeacherProfileTeacherTeacherIdGetPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: GetTeacherProfileTeacherTeacherIdGetPath;
+  query?: never;
+  headers?: never;
 };
 
 export type GetTeacherProfileTeacherTeacherIdGetResponses = {
-    "200": GetTeacherProfileTeacherTeacherIdGetStatus200;
-    "422": GetTeacherProfileTeacherTeacherIdGetStatus422;
+  '200': GetTeacherProfileTeacherTeacherIdGetStatus200;
+  '422': GetTeacherProfileTeacherTeacherIdGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetTeacherProfileTeacherTeacherIdGetResponse = GetTeacherProfileTeacherTeacherIdGetStatus200;

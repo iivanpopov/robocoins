@@ -4,19 +4,19 @@
 */
 
 export type GroupCreateRequest = {
-    /**
-     * @description Name of the group
-     * @type string
-    */
-    name: string;
-    /**
-     * @description ID of the associated course
-     * @type integer
-    */
-    course_id: number;
-    /**
-     * @description One or two teacher user IDs
-     * @type array | undefined
-    */
-    teacher_ids?: number[];
+  /**
+   * @description Name of the group
+   * @type string
+   */
+  name: string;
+  /**
+   * @description ID of the associated course
+   * @type integer
+   */
+  course_id: number;
+  /**
+   * @description One or two teacher user IDs
+   * @type array | undefined
+   */
+  teacher_ids?: number[];
 };

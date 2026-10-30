@@ -4,12 +4,12 @@
 */
 
 export const balanceChangeReasons = {
-    theory: "theory",
-    practice_completed: "practice_completed",
-    additional_task_completed: "additional_task_completed",
-    discipline_breakdown: "discipline_breakdown",
-    middle_level_violation: "middle_level_violation",
-    serious_violation: "serious_violation"
+  theory: 'theory',
+  practice_completed: 'practice_completed',
+  additional_task_completed: 'additional_task_completed',
+  discipline_breakdown: 'discipline_breakdown',
+  middle_level_violation: 'middle_level_violation',
+  serious_violation: 'serious_violation',
 } as const;
 
 export type BalanceChangeReasonsKey = (typeof balanceChangeReasons)[keyof typeof balanceChangeReasons];

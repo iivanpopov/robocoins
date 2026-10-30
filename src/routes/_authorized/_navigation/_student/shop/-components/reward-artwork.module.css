@@ -16,19 +16,22 @@
   isolation: isolate;
 }
 
-.halo {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(ellipse, rgb(255 255 255 / 9%), transparent 65%);
-}
-
 .core {
   display: grid;
   place-items: center;
   width: 142px;
   height: 142px;
   font-size: 96px;
+}
+
+.compact {
+  height: 100px;
+}
+
+.compact .core {
+  width: 72px;
+  height: 72px;
+  font-size: 56px;
 }
 
 .spark {
@@ -49,20 +52,4 @@
   background: var(--foreground);
   border-radius: 50%;
   box-shadow: 0 0 14px rgb(255 255 255 / 40%);
-}
-
-.privilege .halo {
-  animation: energy-pulse 4s ease-in-out infinite alternate;
-}
-
-@keyframes energy-pulse {
-  from {
-    opacity: 0.4;
-    transform: scale(0.85);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1.1);
-  }
 }

@@ -8,7 +8,7 @@ import type { BalanceChangeResponse } from './BalanceChangeResponse'
 import type { HTTPValidationError } from './HTTPValidationError'
 
 export type ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostPath = {
-    student_id: number;
+  student_id: number;
 };
 
 export type ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostStatus200 = BalanceChangeResponse;
@@ -18,18 +18,18 @@ export type ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostStatus422
 export type ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostBody = BalanceChangeRequest;
 
 export type ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostOptions = {
-    body: ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostBody;
-    path: ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostPath;
-    query?: never;
-    headers?: never;
+  body: ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostBody;
+  path: ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostPath;
+  query?: never;
+  headers?: never;
 };
 
 export type ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostResponses = {
-    "200": ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostStatus200;
-    "422": ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostStatus422;
+  '200': ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostStatus200;
+  '422': ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostResponse = ChangeStudentBalanceStudentStudentIdBalanceTransactionsPostStatus200;

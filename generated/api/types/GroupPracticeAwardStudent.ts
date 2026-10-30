@@ -6,7 +6,7 @@
 import type { BalanceTransactionResponse } from './BalanceTransactionResponse'
 
 export type GroupPracticeAwardStudent = {
-    student_id: number;
-    balance: number;
-    transaction: BalanceTransactionResponse;
+  student_id: number;
+  balance: number;
+  transaction: BalanceTransactionResponse;
 };

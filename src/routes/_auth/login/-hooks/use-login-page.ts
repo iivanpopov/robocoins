@@ -3,13 +3,9 @@ import { useHydrated } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
 
 import { useLoginAuthLoginPost } from '#/api/hooks/useLoginAuthLoginPost'
+import { getHomePath } from '#/routes/-utils'
 
 import { LoginStateSchema } from '../-schemas'
-
-const HOME_PATH_BY_ROLE = {
-  student: '/',
-  teacher: '/group',
-} as const
 
 export function useLoginPage() {
   const isHydrated = useHydrated()
@@ -25,7 +21,7 @@ export function useLoginPage() {
     onSubmit: async ({ value }) => {
       try {
         const response = await loginMutation.mutateAsync({ body: { code: value.password } })
-        window.location.assign(HOME_PATH_BY_ROLE[response.user.role])
+        window.location.assign(getHomePath(response.user.role))
       } catch {
         return
       }

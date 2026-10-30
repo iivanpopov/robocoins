@@ -1,5 +1,4 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import {
   Button,
@@ -10,9 +9,10 @@ import {
   Loader,
   Typography,
 } from '#/components/ui'
+import { LearningCard } from '#/routes/-components'
 import { parseGroupSchedule } from '#/routes/-utils'
 
-import { useStepGroup } from './-hooks'
+import { useStepGroup } from './hooks'
 
 import styles from './step-group.module.css'
 
@@ -22,11 +22,7 @@ export function StepGroup() {
   const t = useTranslate()
 
   return (
-    <form
-      className={cn('category-theme', styles.form)}
-      data-category={state.course?.category}
-      onSubmit={functions.handleSubmit}
-    >
+    <form className={styles.form} onSubmit={functions.handleSubmit}>
       <DrawerHeader className={styles.header}>
         <DrawerTitle className={styles.title}>{t('step.group.title')}</DrawerTitle>
         <DrawerDescription className={styles.description}>{state.course?.name}</DrawerDescription>
@@ -40,20 +36,25 @@ export function StepGroup() {
         {state.course?.groups?.map((group) => {
           const schedule = parseGroupSchedule(group.name)
           return (
-            <button
-              key={group.id}
-              type="button"
-              className={cn('category-choice', styles.group)}
-              aria-pressed={state.selectedGroupId === group.id}
-              onClick={() => functions.handleSelectGroup(group.id)}
-            >
-              <span className={styles.schedule}>
-                {schedule.weekday && (
-                  <span className={styles.weekday}>{t(`weekday.${schedule.weekday}`)}</span>
-                )}
-                <span className={styles.time}>{schedule.time}</span>
-              </span>
-            </button>
+            <LearningCard.Root key={group.id} size="lg" selection="check">
+              <LearningCard.Row
+                render={
+                  <button
+                    type="button"
+                    aria-pressed={state.selectedGroupId === group.id}
+                    onClick={() => functions.handleSelectGroup(group.id)}
+                  />
+                }
+              >
+                <LearningCard.Content>
+                  {schedule.weekday && (
+                    <LearningCard.Title>{t(`weekday.${schedule.weekday}`)}</LearningCard.Title>
+                  )}
+                  <LearningCard.Description>{schedule.time}</LearningCard.Description>
+                </LearningCard.Content>
+                <LearningCard.Indicator kind="select" />
+              </LearningCard.Row>
+            </LearningCard.Root>
           )
         })}
       </div>

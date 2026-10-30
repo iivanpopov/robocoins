@@ -1,0 +1,6 @@
+export { useTeacherAccessPage } from './use-teacher-access-page'
+export { useTeacherDeletePage } from './use-teacher-delete-page'
+export { useTeacherProfilePage } from './use-teacher-profile-page'
+export { useTeacherRegistrationPage } from './use-teacher-registration-page'
+export { useTeacherRenamePage } from './use-teacher-rename-page'
+export { useTeachersPage } from './use-teachers-page'

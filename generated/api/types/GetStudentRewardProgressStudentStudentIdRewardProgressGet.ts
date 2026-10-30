@@ -7,7 +7,7 @@ import type { HTTPValidationError } from './HTTPValidationError'
 import type { RewardProgressResponse } from './RewardProgressResponse'
 
 export type GetStudentRewardProgressStudentStudentIdRewardProgressGetPath = {
-    student_id: number;
+  student_id: number;
 };
 
 export type GetStudentRewardProgressStudentStudentIdRewardProgressGetStatus200 = RewardProgressResponse;
@@ -15,18 +15,18 @@ export type GetStudentRewardProgressStudentStudentIdRewardProgressGetStatus200 =
 export type GetStudentRewardProgressStudentStudentIdRewardProgressGetStatus422 = HTTPValidationError;
 
 export type GetStudentRewardProgressStudentStudentIdRewardProgressGetOptions = {
-    body?: never;
-    path: GetStudentRewardProgressStudentStudentIdRewardProgressGetPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: GetStudentRewardProgressStudentStudentIdRewardProgressGetPath;
+  query?: never;
+  headers?: never;
 };
 
 export type GetStudentRewardProgressStudentStudentIdRewardProgressGetResponses = {
-    "200": GetStudentRewardProgressStudentStudentIdRewardProgressGetStatus200;
-    "422": GetStudentRewardProgressStudentStudentIdRewardProgressGetStatus422;
+  '200': GetStudentRewardProgressStudentStudentIdRewardProgressGetStatus200;
+  '422': GetStudentRewardProgressStudentStudentIdRewardProgressGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetStudentRewardProgressStudentStudentIdRewardProgressGetResponse = GetStudentRewardProgressStudentStudentIdRewardProgressGetStatus200;

@@ -39,7 +39,7 @@
   }
 
   &[aria-invalid] {
-    color: var(--foreground);
+    color: var(--error-foreground);
     background: var(--error);
   }
 

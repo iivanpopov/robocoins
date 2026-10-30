@@ -32,6 +32,7 @@ Single-context layout: root `GLOSSARY.md` plus `docs/adr/`. See `docs/agents/dom
    7. Derived values.
    8. Return statement.
 10. **Page component hook order**: Call and destructure the page model hook first, then Kanjou hooks such as `useTranslate()`. Skip unused groups. This page-specific order takes precedence over rule 9. Keep handlers and non-rendering logic in the page model hook.
+11. Do not create .test files inside the repository.
 
 ## Structure
 
@@ -67,3 +68,8 @@ Component-local hooks may deliberately return a bare object of their state and h
 After each change run `bun check`.
 
 To fix CSS warnings try `bun lint:css --fix`
+
+## Design
+
+1. UPPERCASE text is forbidden in UI.
+2. Max. 1-3 cards per page.

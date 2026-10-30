@@ -1,0 +1,10 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  align-items: flex-start;
+}
+
+.login {
+  align-self: flex-start;
+}

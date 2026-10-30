@@ -7,27 +7,27 @@ import type { CourseCategoryKey } from './CourseCategory'
 import type { CourseGroupResponse } from './CourseGroupResponse'
 
 export type CourseResponse = {
-    /**
-     * @default 'success'
-     * @type string | undefined
-    */
-    status?: string;
-    /**
-     * @default 200
-     * @type integer | undefined
-    */
-    code?: number;
-    id: number;
-    name: string;
-    category: CourseCategoryKey;
-    /**
-     * @description Groups associated with the course
-     * @type array | undefined
-    */
-    groups?: CourseGroupResponse[];
-    /**
-     * @default 0
-     * @type integer | undefined
-    */
-    groups_count?: number;
+  /**
+   * @default 'success'
+   * @type string | undefined
+   */
+  status?: string;
+  /**
+   * @default 200
+   * @type integer | undefined
+   */
+  code?: number;
+  id: number;
+  name: string;
+  category: CourseCategoryKey;
+  /**
+   * @description Groups associated with the course
+   * @type array | undefined
+   */
+  groups?: CourseGroupResponse[];
+  /**
+   * @default 0
+   * @type integer | undefined
+   */
+  groups_count?: number;
 };

@@ -1,0 +1,45 @@
+.picker {
+  gap: var(--spacing-sm);
+}
+
+.header {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.count {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.search-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  max-height: 19rem;
+  overflow-y: auto;
+}
+
+.empty {
+  padding: var(--spacing-md);
+  font-size: 0.8125rem;
+  font-weight: 450;
+  color: var(--muted-foreground);
+  text-align: center;
+}

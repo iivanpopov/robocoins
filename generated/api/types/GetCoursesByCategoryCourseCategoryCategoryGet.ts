@@ -8,7 +8,7 @@ import type { CourseResponse } from './CourseResponse'
 import type { HTTPValidationError } from './HTTPValidationError'
 
 export type GetCoursesByCategoryCourseCategoryCategoryGetPath = {
-    category: CourseCategoryKey;
+  category: CourseCategoryKey;
 };
 
 export type GetCoursesByCategoryCourseCategoryCategoryGetStatus200 = CourseResponse[];
@@ -16,18 +16,18 @@ export type GetCoursesByCategoryCourseCategoryCategoryGetStatus200 = CourseRespo
 export type GetCoursesByCategoryCourseCategoryCategoryGetStatus422 = HTTPValidationError;
 
 export type GetCoursesByCategoryCourseCategoryCategoryGetOptions = {
-    body?: never;
-    path: GetCoursesByCategoryCourseCategoryCategoryGetPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: GetCoursesByCategoryCourseCategoryCategoryGetPath;
+  query?: never;
+  headers?: never;
 };
 
 export type GetCoursesByCategoryCourseCategoryCategoryGetResponses = {
-    "200": GetCoursesByCategoryCourseCategoryCategoryGetStatus200;
-    "422": GetCoursesByCategoryCourseCategoryCategoryGetStatus422;
+  '200': GetCoursesByCategoryCourseCategoryCategoryGetStatus200;
+  '422': GetCoursesByCategoryCourseCategoryCategoryGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetCoursesByCategoryCourseCategoryCategoryGetResponse = GetCoursesByCategoryCourseCategoryCategoryGetStatus200;

@@ -1,2 +1,8 @@
 export { getStarPositions } from './star-positions'
-export { advanceMapInertia, getCameraProgress, getMapPosition } from './map-motion'
+export {
+  advanceMapInertia,
+  clampMapOffset,
+  getCameraProgress,
+  getMapBounds,
+  getMapPosition,
+} from './map-motion'

@@ -1,0 +1,53 @@
+import { cn } from 'cn'
+import type { ReactNode } from 'react'
+
+import styles from './group-result-panel.module.css'
+
+export interface GroupResultPanelDetail {
+  label: string
+  value: ReactNode
+}
+
+export interface GroupResultPanelProps {
+  tone: 'success' | 'local'
+  title: string
+  description: string
+  details?: GroupResultPanelDetail[]
+  children?: ReactNode
+  className?: string
+}
+
+export function GroupResultPanel({
+  tone,
+  title,
+  description,
+  details,
+  children,
+  className,
+}: GroupResultPanelProps) {
+  return (
+    <section className={cn(styles.panel, className)} data-tone={tone}>
+      <span
+        aria-hidden="true"
+        className={cn(
+          styles.icon,
+          tone === 'success' && 'i-ph:check-circle',
+          tone === 'local' && 'i-ph:info',
+        )}
+      />
+      <h2 className={styles.title}>{title}</h2>
+      <p className={styles.description}>{description}</p>
+      {!!details?.length && (
+        <dl className={styles.details}>
+          {details.map((detail) => (
+            <div key={detail.label} className={styles.detail}>
+              <dt className={styles.label}>{detail.label}</dt>
+              <dd className={styles.value}>{detail.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+      {children && <div className={styles.actions}>{children}</div>}
+    </section>
+  )
+}

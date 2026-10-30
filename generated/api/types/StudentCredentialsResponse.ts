@@ -4,17 +4,17 @@
 */
 
 export type StudentCredentialsResponse = {
-    user_id: number;
-    name: string;
-    access_code: string;
-    /**
-     * @default 'success'
-     * @type string | undefined
-    */
-    status?: string;
-    /**
-     * @default 200
-     * @type integer | undefined
-    */
-    code?: number;
+  /**
+   * @default 'success'
+   * @type string | undefined
+   */
+  status?: string;
+  /**
+   * @default 200
+   * @type integer | undefined
+   */
+  code?: number;
+  user_id: number;
+  name: string;
+  access_code: string;
 };

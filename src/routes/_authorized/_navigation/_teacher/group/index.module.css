@@ -1,26 +1,3 @@
-.page {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-  width: 100%;
-  min-height: 100%;
-  padding: var(--spacing-lg) var(--spacing-md);
-  margin: 0 auto;
-}
-
-.header {
-  display: flex;
-  flex-direction: column;
-}
-
-.title {
-  font-size: 1.5rem;
-  font-weight: 800;
-  line-height: 1.2;
-  color: var(--foreground);
-  text-align: left;
-}
-
 .themes-bar {
   --chip-color: var(--muted-foreground);
 
@@ -42,75 +19,14 @@
   width: 100%;
 }
 
-.card {
-  display: flex;
-  gap: var(--spacing-md);
-  align-items: center;
-  padding: var(--spacing-md);
-  cursor: pointer;
-  background: var(--surface);
-  border: none;
-  border-radius: var(--rounded-lg);
-  transition:
-    transform 0.15s ease,
-    background-color 0.15s ease;
-}
-
-.card:active {
-  background: var(--taupe-100);
-  transform: scale(0.99);
-}
-
-.card-details {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-  min-width: 0;
-}
-
-.card-icon {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  font-size: 1.75rem;
-  color: var(--category-color);
-  background: var(--category-background);
-  border-radius: var(--rounded-md);
-}
-
-.card-title {
-  font-size: 1.0625rem;
-  font-weight: 700;
-  color: var(--foreground);
-}
-
-.schedule-block {
-  font-size: 0.875rem;
-  font-weight: 450;
-  color: var(--muted-foreground);
-}
-
-.card-meta {
-  display: flex;
-  flex-shrink: 0;
-  gap: var(--spacing-sm);
-  align-items: center;
-}
-
-.students-count {
-  padding: 0.1875rem 0.5rem;
+.current-badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  margin-left: var(--spacing-xs);
   font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--muted-foreground);
-  background: var(--taupe-100);
+  font-weight: 700;
+  color: var(--green-900);
+  letter-spacing: 0.03em;
+  background: var(--green-200);
   border-radius: var(--rounded-full);
-}
-
-.arrow-icon {
-  font-size: 1.125rem;
-  color: var(--muted-foreground);
 }

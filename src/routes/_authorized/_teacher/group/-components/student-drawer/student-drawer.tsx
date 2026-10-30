@@ -14,8 +14,8 @@ import {
 import { Avatar as AvatarName } from '#/routes/-constants'
 import { getAvatarUrl, getInitial } from '#/routes/-utils'
 
-import { BalanceChange, RecentTransactions, StudentDetails } from './-components'
-import { useStudentDrawer } from './-hooks'
+import { BalanceChange, RecentTransactions } from './components'
+import { useStudentDrawer } from './hooks'
 
 import styles from './student-drawer.module.css'
 
@@ -43,7 +43,7 @@ export function StudentDrawer(props: StudentDrawerProps) {
         {props.student && (
           <div className={styles.layout}>
             <DrawerHeader>
-              <DrawerTitle>
+              <DrawerTitle className={styles['title-row']}>
                 <button
                   type="button"
                   className={styles['student-wrap']}
@@ -61,21 +61,35 @@ export function StudentDrawer(props: StudentDrawerProps) {
                   </Avatar>
                   <span className={styles['student-details']}>
                     <span className={styles['student-name']}>{props.student.name}</span>
-                    <span className={styles['student-balance']}>
-                      {t('profile.balance.amount', { count: props.student.balance })}{' '}
-                      {t('profile.balance.caption', { count: props.student.balance })}
+                    <span
+                      className={styles['student-balance']}
+                      aria-label={`${t('coins.amount', { count: props.student.balance })} ${t('coins.unit', { count: props.student.balance })}`}
+                    >
+                      <span aria-hidden="true">
+                        {t('coins.amount', { count: props.student.balance })}
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className={cn('i-ph:coin', styles['balance-icon'])}
+                      />
                     </span>
                   </span>
-                  <span
-                    aria-hidden="true"
-                    className={cn('i-ph:caret-right', styles['profile-arrow'])}
-                  />
+                </button>
+                <button
+                  type="button"
+                  className={styles['student-edit']}
+                  onClick={studentDrawer.handleEditStudent}
+                  aria-label={t('student.profile.edit')}
+                  title={t('student.profile.edit')}
+                >
+                  <span aria-hidden="true" className={cn('i-ph:wrench', styles['profile-arrow'])} />
                 </button>
               </DrawerTitle>
             </DrawerHeader>
-            <StudentDetails />
             <BalanceChange
+              key={`${studentDrawer.groupId}:${props.student.id}:${props.open}`}
               studentId={props.student.id}
+              studentName={props.student.name}
               groupId={studentDrawer.groupId}
               enabled={props.open}
               onSuccess={studentDrawer.handleClose}
@@ -83,6 +97,7 @@ export function StudentDrawer(props: StudentDrawerProps) {
               <RecentTransactions
                 key={props.student.id}
                 studentId={props.student.id}
+                studentName={props.student.name}
                 groupId={studentDrawer.groupId}
                 enabled={props.open}
                 onViewAll={studentDrawer.handleViewHistory}

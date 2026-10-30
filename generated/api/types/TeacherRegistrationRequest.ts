@@ -4,10 +4,10 @@
 */
 
 export type TeacherRegistrationRequest = {
-    /**
-     * @minLength 1
-     * @maxLength 200
-     * @type string
-    */
-    name: string;
+  /**
+   * @minLength 1
+   * @maxLength 200
+   * @type string
+   */
+  name: string;
 };

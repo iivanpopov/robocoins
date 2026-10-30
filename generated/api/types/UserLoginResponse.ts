@@ -6,17 +6,17 @@
 import type { LoginUser } from './LoginUser'
 
 export type UserLoginResponse = {
-    message: string;
-    session_token: string;
-    user: LoginUser;
-    /**
-     * @default 'success'
-     * @type string | undefined
-    */
-    status?: string;
-    /**
-     * @default 200
-     * @type integer | undefined
-    */
-    code?: number;
+  /**
+   * @default 'success'
+   * @type string | undefined
+   */
+  status?: string;
+  /**
+   * @default 200
+   * @type integer | undefined
+   */
+  code?: number;
+  message: string;
+  session_token: string;
+  user: LoginUser;
 };

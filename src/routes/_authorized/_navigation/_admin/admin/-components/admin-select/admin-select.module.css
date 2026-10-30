@@ -1,0 +1,31 @@
+.trigger {
+  min-width: 0;
+  font-size: 0.8125rem;
+}
+
+.trigger-icon {
+  display: flex;
+  flex-shrink: 0;
+  font-size: 1.125rem;
+  color: var(--muted-foreground);
+}
+
+.item-content {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  min-width: 0;
+}
+
+.item-icon {
+  display: flex;
+  flex-shrink: 0;
+  font-size: 1.125rem;
+  color: var(--muted-foreground);
+}
+
+.item-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

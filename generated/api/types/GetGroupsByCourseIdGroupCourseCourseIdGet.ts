@@ -7,7 +7,7 @@ import type { GroupResponse } from './GroupResponse'
 import type { HTTPValidationError } from './HTTPValidationError'
 
 export type GetGroupsByCourseIdGroupCourseCourseIdGetPath = {
-    course_id: number;
+  course_id: number;
 };
 
 export type GetGroupsByCourseIdGroupCourseCourseIdGetStatus200 = GroupResponse[];
@@ -15,18 +15,18 @@ export type GetGroupsByCourseIdGroupCourseCourseIdGetStatus200 = GroupResponse[]
 export type GetGroupsByCourseIdGroupCourseCourseIdGetStatus422 = HTTPValidationError;
 
 export type GetGroupsByCourseIdGroupCourseCourseIdGetOptions = {
-    body?: never;
-    path: GetGroupsByCourseIdGroupCourseCourseIdGetPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: GetGroupsByCourseIdGroupCourseCourseIdGetPath;
+  query?: never;
+  headers?: never;
 };
 
 export type GetGroupsByCourseIdGroupCourseCourseIdGetResponses = {
-    "200": GetGroupsByCourseIdGroupCourseCourseIdGetStatus200;
-    "422": GetGroupsByCourseIdGroupCourseCourseIdGetStatus422;
+  '200': GetGroupsByCourseIdGroupCourseCourseIdGetStatus200;
+  '422': GetGroupsByCourseIdGroupCourseCourseIdGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetGroupsByCourseIdGroupCourseCourseIdGetResponse = GetGroupsByCourseIdGroupCourseCourseIdGetStatus200;

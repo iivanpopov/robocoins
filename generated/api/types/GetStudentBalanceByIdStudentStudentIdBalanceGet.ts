@@ -7,7 +7,7 @@ import type { BalanceResponse } from './BalanceResponse'
 import type { HTTPValidationError } from './HTTPValidationError'
 
 export type GetStudentBalanceByIdStudentStudentIdBalanceGetPath = {
-    student_id: number;
+  student_id: number;
 };
 
 export type GetStudentBalanceByIdStudentStudentIdBalanceGetStatus200 = BalanceResponse;
@@ -15,18 +15,18 @@ export type GetStudentBalanceByIdStudentStudentIdBalanceGetStatus200 = BalanceRe
 export type GetStudentBalanceByIdStudentStudentIdBalanceGetStatus422 = HTTPValidationError;
 
 export type GetStudentBalanceByIdStudentStudentIdBalanceGetOptions = {
-    body?: never;
-    path: GetStudentBalanceByIdStudentStudentIdBalanceGetPath;
-    query?: never;
-    headers?: never;
+  body?: never;
+  path: GetStudentBalanceByIdStudentStudentIdBalanceGetPath;
+  query?: never;
+  headers?: never;
 };
 
 export type GetStudentBalanceByIdStudentStudentIdBalanceGetResponses = {
-    "200": GetStudentBalanceByIdStudentStudentIdBalanceGetStatus200;
-    "422": GetStudentBalanceByIdStudentStudentIdBalanceGetStatus422;
+  '200': GetStudentBalanceByIdStudentStudentIdBalanceGetStatus200;
+  '422': GetStudentBalanceByIdStudentStudentIdBalanceGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
-*/
+ */
 export type GetStudentBalanceByIdStudentStudentIdBalanceGetResponse = GetStudentBalanceByIdStudentStudentIdBalanceGetStatus200;

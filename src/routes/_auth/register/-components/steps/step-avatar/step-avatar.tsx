@@ -13,7 +13,7 @@ import { getAvatarUrl } from '#/routes/-utils'
 import { AuthLayout } from '#/routes/_auth/-components'
 
 import { RegisterBackCaption } from '../../register-back-caption'
-import { useStepAvatar } from './-hooks'
+import { useStepAvatar } from './hooks'
 
 import styles from './step-avatar.module.css'
 

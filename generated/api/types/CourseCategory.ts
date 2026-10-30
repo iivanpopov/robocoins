@@ -4,12 +4,12 @@
 */
 
 export const courseCategory = {
-    embedded: "embedded",
-    "game dev": "game dev",
-    web: "web",
-    primary: "primary",
-    python: "python",
-    "no category": "no category"
+  embedded: 'embedded',
+  'game dev': 'game dev',
+  web: 'web',
+  primary: 'primary',
+  python: 'python',
+  'no category': 'no category',
 } as const;
 
 export type CourseCategoryKey = (typeof courseCategory)[keyof typeof courseCategory];

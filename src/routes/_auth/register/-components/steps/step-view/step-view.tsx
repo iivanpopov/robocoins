@@ -1,5 +1,4 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import {
   Avatar,
@@ -9,19 +8,18 @@ import {
   Loader,
   Typography,
 } from '#/components/ui'
-import { CategoryIcon } from '#/routes/-components'
+import { LearningCard } from '#/routes/-components'
 import { getAvatarUrl, getInitial, parseGroupSchedule } from '#/routes/-utils'
 import { AuthLayout } from '#/routes/_auth/-components'
 
 import { RegisterStep } from '../../../-constants'
 import { RegisterBackCaption } from '../../register-back-caption'
-import { useCourseCardSizes, useStepView } from './-hooks'
+import { useStepView } from './hooks'
 
 import styles from './step-view.module.css'
 
 export function StepView() {
   const { state, queries, mutations, functions } = useStepView()
-  const groupsReference = useCourseCardSizes(state.groups)
 
   const t = useTranslate()
 
@@ -40,29 +38,23 @@ export function StepView() {
           <Typography variant="accent">{state.name}</Typography>
         </div>
 
-        <div ref={groupsReference} className={styles.groups}>
+        <div className={styles.groups}>
           {queries.courses.isPending && <Loader />}
           {state.groups.map((group) => {
             const schedule = parseGroupSchedule(group.name)
             return (
-              <div
-                key={group.id}
-                className={cn('category-theme', styles.card)}
-                data-category={group.category}
-              >
-                <div className={styles['category-icon']}>
-                  <CategoryIcon category={group.category} />
-                </div>
-                <div className={styles.details} data-course-details>
-                  <Typography variant="subtitle">{group.courseName}</Typography>
-                  <div className={styles.schedule}>
-                    {schedule.weekday && (
-                      <span className={styles.weekday}>{t(`weekday.${schedule.weekday}`)}</span>
-                    )}
-                    <span className={styles.time}>{schedule.time}</span>
-                  </div>
-                </div>
-              </div>
+              <LearningCard.Root key={group.id}>
+                <LearningCard.Row>
+                  <LearningCard.Icon category={group.category} />
+                  <LearningCard.Content>
+                    <LearningCard.Title>{group.courseName}</LearningCard.Title>
+                    <LearningCard.Description>
+                      {schedule.weekday && <>{t(`weekday.${schedule.weekday}`)}, </>}
+                      {schedule.time}
+                    </LearningCard.Description>
+                  </LearningCard.Content>
+                </LearningCard.Row>
+              </LearningCard.Root>
             )
           })}
         </div>

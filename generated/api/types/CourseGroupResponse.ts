@@ -4,27 +4,27 @@
 */
 
 export type CourseGroupResponse = {
-    /**
-     * @default 'success'
-     * @type string | undefined
-    */
-    status?: string;
-    /**
-     * @default 200
-     * @type integer | undefined
-    */
-    code?: number;
-    id: number;
-    name: string;
-    course_id: number;
-    /**
-     * @default 0
-     * @type integer | undefined
-    */
-    students_count?: number;
-    /**
-     * @description User IDs of the group\'s teachers
-     * @type array | undefined
-    */
-    teacher_ids?: number[];
+  /**
+   * @default 'success'
+   * @type string | undefined
+   */
+  status?: string;
+  /**
+   * @default 200
+   * @type integer | undefined
+   */
+  code?: number;
+  id: number;
+  name: string;
+  course_id: number;
+  /**
+   * @default 0
+   * @type integer | undefined
+   */
+  students_count?: number;
+  /**
+   * @description User IDs of the group's teachers
+   * @type array | undefined
+   */
+  teacher_ids?: number[];
 };

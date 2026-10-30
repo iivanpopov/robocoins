@@ -1,0 +1,31 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100%;
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  text-align: center;
+}
+
+.page > [aria-hidden='true'] {
+  font-size: 3rem;
+  color: var(--muted-foreground);
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--foreground);
+}
+
+.description {
+  max-width: 22rem;
+  font-size: 0.9375rem;
+  font-weight: 450;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}

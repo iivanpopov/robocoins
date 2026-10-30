@@ -1,0 +1,4 @@
+export const EXPLANATION_MAX_LENGTH = 500
+export const EXPLANATION_MIN_LENGTH = 3
+export const AMOUNT_INPUT_MAX_LENGTH = 12
+export const TARIFF_INPUT_MAX_LENGTH = 10
