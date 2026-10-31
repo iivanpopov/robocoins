@@ -89,7 +89,6 @@ export function StudentDrawer(props: StudentDrawerProps) {
             <BalanceChange
               key={`${studentDrawer.groupId}:${props.student.id}:${props.open}`}
               studentId={props.student.id}
-              studentName={props.student.name}
               groupId={studentDrawer.groupId}
               enabled={props.open}
               onSuccess={studentDrawer.handleClose}
