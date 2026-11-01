@@ -57,7 +57,9 @@ export function StudentOperationResultRow({
             </span>
           )}
           {result.transactionAmount !== null && (
-            <span className={styles.amount}>{formatSignedAmount(result.transactionAmount)}</span>
+            <span className={styles.amount}>
+              {formatSignedAmount(result.transactionAmount, true)}
+            </span>
           )}
           <Link
             to="/admin/people/students/$studentId/balance"

@@ -4,6 +4,10 @@ const coinFormatter = new Intl.NumberFormat('en-US', {
   signDisplay: 'negative',
 })
 
-export function formatCoinAmount(amount: number) {
-  return coinFormatter.format(amount)
+export function formatCoinAmount(amount: number, omitLeadingZero = false) {
+  const formatted = coinFormatter.format(amount)
+
+  if (omitLeadingZero) return formatted.replace(/^(-?)0\./, '$1.')
+
+  return formatted
 }

@@ -74,6 +74,12 @@ body {
   background: var(--background);
 }
 
+html:has([data-navigation-scroll]),
+html:has([data-navigation-scroll]) body {
+  height: 100%;
+  overflow: clip;
+}
+
 a {
   color: inherit;
   text-decoration: none;

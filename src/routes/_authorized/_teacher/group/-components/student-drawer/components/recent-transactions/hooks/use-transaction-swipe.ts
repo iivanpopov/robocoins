@@ -1,6 +1,5 @@
 import { RefObject, useEffect, useRef, useState } from 'react'
 
-import { BalanceTransactionResponse } from '#/api/types'
 import { SwipeEvent, UseSwipeValue, useSwipe } from '#/hooks'
 
 import {
@@ -10,24 +9,13 @@ import {
   SWIPE_AXIS_DOMINANCE_RATIO,
 } from '../../../utils'
 
-const FULL_SWIPE_WIDTH_RATIO = 0.75
-const CONFIRM_DELAY_IN_MS = 1500
-const CANCEL_WINDOW_IN_MS = 24 * 60 * 60 * 1000
+const FULL_SWIPE_WIDTH_RATIO = 0.4
+const CONFIRM_DELAY_IN_MS = 400
+const CONFIRM_WINDOW_IN_MS = 1500
 
 interface UseTransactionSwipeProps {
   enabled: boolean
   onCancel: () => void
-}
-
-export function isTransactionCancellable(
-  transaction: BalanceTransactionResponse,
-  enabled: boolean,
-) {
-  return (
-    enabled &&
-    !transaction.cancelled_at &&
-    Date.now() - new Date(transaction.created_at).getTime() <= CANCEL_WINDOW_IN_MS
-  )
 }
 
 export function useTransactionSwipe(
@@ -118,7 +106,7 @@ export function useTransactionSwipe(
         resetTimeoutReference.current = null
         setIsConfirming(false)
         setIsArmed(false)
-      }, CONFIRM_DELAY_IN_MS)
+      }, CONFIRM_WINDOW_IN_MS)
     }, CONFIRM_DELAY_IN_MS)
   }
 

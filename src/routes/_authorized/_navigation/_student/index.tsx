@@ -108,6 +108,8 @@ function StudentPage() {
         name={state.profile.name}
         avatar={state.avatar}
         balance={state.profile.balance}
+        streakDays={state.streakDays}
+        hasStreak={state.hasStreak}
         hasNewReward={state.hasNewReward}
         greetingVariant={state.greetingVariant}
         captionVariant={state.captionVariant}

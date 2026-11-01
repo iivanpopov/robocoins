@@ -107,7 +107,8 @@ export default {
   'admin.streak.current.none': 'Немає активного стрику',
   'admin.streak.current.none-value': 'Немає',
   'admin.streak.current.title': 'Поточний стрик',
-  'admin.streak.date': '{$date :datetime day=numeric month=long year=numeric}',
+  'admin.streak.date':
+    '{$date :datetime day=numeric month=long year=numeric timeZone=|Europe/Kyiv|}',
   'admin.streak.days': `
     .input {$count :number}
     .match $count

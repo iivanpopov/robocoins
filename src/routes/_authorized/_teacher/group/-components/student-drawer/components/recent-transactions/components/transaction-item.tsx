@@ -4,8 +4,9 @@ import { AnimationEvent, useRef } from 'react'
 
 import { BalanceTransactionResponse } from '#/api/types'
 import { formatSignedAmount } from '#/routes/-utils'
+import { isTransactionCancellable } from '#/routes/_authorized/-utils'
 
-import { useTransactionSwipe, isTransactionCancellable } from '../hooks'
+import { useTransactionSwipe, useTransactionTime } from '../hooks'
 
 import styles from './transaction-item.module.css'
 
@@ -21,6 +22,7 @@ export function TransactionItem(props: TransactionItemProps) {
   const t = useTranslate()
 
   const elementReference = useRef<HTMLDivElement>(null)
+  const transactionTime = useTransactionTime(props.transaction.created_at)
 
   const isCancellable = isTransactionCancellable(
     props.transaction,
@@ -88,7 +90,6 @@ export function TransactionItem(props: TransactionItemProps) {
         type="button"
         disabled={!props.enabled || !!props.transaction.cancelled_at}
         className={cn(styles.item, swipe.isDragging && styles.dragging)}
-        style={{ transform: `translateX(${-swipe.offset}px)` }}
         inert={swipe.isDragging || swipe.isConfirming || props.isExiting}
       >
         <span
@@ -98,8 +99,8 @@ export function TransactionItem(props: TransactionItemProps) {
             !isPlus && styles['amount-minus'],
           )}
         >
-          {isPlus && formatSignedAmount(props.transaction.amount)}
-          {!isPlus && formatSignedAmount(-props.transaction.amount)}
+          {isPlus && formatSignedAmount(props.transaction.amount, true)}
+          {!isPlus && formatSignedAmount(-props.transaction.amount, true)}
         </span>
         <div className={styles.details}>
           <span className={styles.reason}>
@@ -107,13 +108,13 @@ export function TransactionItem(props: TransactionItemProps) {
               .map((reason) => t.unsafe(`reason.${reason}`))
               .join(', ')}
           </span>
-          <span className={styles.time}>
-            {t.date(new Date(props.transaction.created_at), {
-              dateStyle: 'short',
-              timeStyle: 'short',
-              timeZone: 'UTC',
-            })}
-          </span>
+          <time
+            dateTime={props.transaction.created_at}
+            title={t('history.date', { date: new Date(props.transaction.created_at) })}
+            className={styles.time}
+          >
+            {transactionTime.label}
+          </time>
         </div>
         {isLocked && (
           <span

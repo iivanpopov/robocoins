@@ -16,7 +16,7 @@ export const Route = createFileRoute('/_authorized/_navigation/_admin')({
 
 function AdminTranslationLayout() {
   return (
-    <TranslationProvider messages={messages}>
+    <TranslationProvider messages={messages} omitLeadingCoinZero>
       <Outlet />
     </TranslationProvider>
   )

@@ -82,7 +82,10 @@ export function StudentDrawer(props: StudentDrawerProps) {
                   aria-label={t('student.profile.edit')}
                   title={t('student.profile.edit')}
                 >
-                  <span aria-hidden="true" className={cn('i-ph:wrench', styles['profile-arrow'])} />
+                  <span
+                    aria-hidden="true"
+                    className={cn('i-ph:pencil-simple', styles['profile-arrow'])}
+                  />
                 </button>
               </DrawerTitle>
             </DrawerHeader>

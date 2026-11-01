@@ -214,6 +214,7 @@ declare module '@kanjou/react' {
       'daily-mission.reward.amount': { count: { __fn: 'coins' } }
       'daily-mission.streak': { count: { __fn: 'number' } }
       'daily-mission.today': {}
+      'daily-mission.stars.hint': {}
       'daily-mission.start': {}
       'daily-mission.start.label': {}
       'daily-mission.constellation.label': { name: DefaultMessageValue }
@@ -317,12 +318,17 @@ declare module '@kanjou/react' {
       'award.error': {}
       'award.history.all': {}
       'award.history.empty': {}
+      'award.history.time.hour-minutes': { minutes: { __fn: 'number' } }
+      'award.history.time.now': {}
+      'award.history.time.today': {}
+      'award.history.time.yesterday': {}
       'award.history.title': {}
       'award.punish': {}
       'award.reason.label': {}
       'award.reward': {}
       'group.back': {}
       'group.current': {}
+      'group.current.multiple': {}
       'group.filter.all': { count: { __fn: 'number' } }
       'group.practice.award': {}
       'group.practice.confirm.description': { count: { __fn: 'number' } }

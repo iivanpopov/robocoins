@@ -76,7 +76,7 @@ export function PracticeResult({
                   t('admin.operations.student-fallback', { id: student.student_id })}
               </span>
               <span className={styles.amount}>
-                {formatSignedAmount(getSignedAmount(student.transaction))}
+                {formatSignedAmount(getSignedAmount(student.transaction), true)}
               </span>
               <span className={styles.balance}>
                 {t('admin.operations.result.new-balance', { count: student.balance })}

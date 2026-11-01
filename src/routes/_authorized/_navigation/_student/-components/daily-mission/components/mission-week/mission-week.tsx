@@ -1,12 +1,14 @@
 import { useTranslate } from '@kanjou/react'
 import { Link } from '@tanstack/react-router'
 import { cn } from 'cn'
+import { useId } from 'react'
 
 import type { DailyTaskResponse, StreakResponse } from '#/api/types'
 import { SpaceBackground } from '#/routes/_authorized/-components/space-background'
 import { getMissionWeek } from '#/routes/_authorized/-utils'
 
 import { getWeeklyConstellation } from '../../lib'
+import { PortalDepth } from './portal-depth'
 
 import styles from '../../daily-mission.module.css'
 
@@ -27,6 +29,7 @@ export function MissionWeek({
   task?: DailyTaskResponse
   streak?: StreakResponse
 }) {
+  const id = useId()
   const t = useTranslate()
 
   const week = getMissionWeek(task, streak)
@@ -38,7 +41,7 @@ export function MissionWeek({
 
   return (
     <div className={styles.week}>
-      <div className={styles.portal}>
+      <div className={styles.portal} style={{ clipPath: `url(#${id}-opening)` }}>
         <SpaceBackground className={styles.space} variant="home" />
         {todayStar && (
           <span
@@ -50,18 +53,6 @@ export function MissionWeek({
           >
             {t('daily-mission.today')}
           </span>
-        )}
-        {!isCompleted && (
-          <div className={styles['action-shell']}>
-            <Link
-              to="/daily-mission"
-              className={styles.action}
-              aria-label={t('daily-mission.start.label')}
-            >
-              {t('daily-mission.start')}
-              <span className="i-ph:arrow-right-bold" aria-hidden="true" />
-            </Link>
-          </div>
         )}
         <ol
           className={styles.stars}
@@ -126,14 +117,14 @@ export function MissionWeek({
             </li>
           ))}
         </ol>
-        {isCompleted && (
-          <Link
-            to="/daily-mission"
-            className={styles['portal-link']}
-            aria-label={t('daily-mission.start.label')}
-          />
-        )}
+        <PortalDepth id={id} />
+        <Link
+          to="/daily-mission"
+          className={styles['portal-link']}
+          aria-label={t('daily-mission.start.label')}
+        />
       </div>
+      {!isCompleted && <p className={styles.hint}>{t('daily-mission.stars.hint')}</p>}
     </div>
   )
 }

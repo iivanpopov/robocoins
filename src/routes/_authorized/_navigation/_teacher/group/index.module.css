@@ -19,14 +19,18 @@
   width: 100%;
 }
 
-.current-badge {
-  display: inline-block;
-  padding: 0.125rem 0.5rem;
-  margin-left: var(--spacing-xs);
+.group-entry {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.current-caption {
+  margin: 0;
   font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--green-900);
-  letter-spacing: 0.03em;
-  background: var(--green-200);
-  border-radius: var(--rounded-full);
+  color: var(--muted-foreground);
+}
+
+.group-entry[data-current] + .group-entry:not([data-current]) {
+  margin-top: var(--spacing-md);
 }

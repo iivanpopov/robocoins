@@ -114,8 +114,7 @@ export default {
   'groups.transfer.empty': 'Немає інших груп для переведення.',
   'history.back': 'Назад',
   'history.cancelled': 'Скасовано',
-  'history.date':
-    '{$date :datetime year=numeric month=|2-digit| day=|2-digit| hour=|2-digit| minute=|2-digit|}',
+  'history.date': '{$date :datetime timePrecision=second timeZone=|Europe/Kyiv|}',
   'history.end': 'Це вся історія нагород',
   'history.error': 'Не вдалося завантажити історію нагород',
   'history.load-more': 'Завантажити ще',

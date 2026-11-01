@@ -1,2 +1,3 @@
 export { useRecentTransactions } from './use-recent-transactions'
-export { useTransactionSwipe, isTransactionCancellable } from './use-transaction-swipe'
+export { useTransactionSwipe } from './use-transaction-swipe'
+export { useTransactionTime } from './use-transaction-time'

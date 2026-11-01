@@ -1,39 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useLoaderData } from '@tanstack/react-router'
+import { useState } from 'react'
 
 import { useGetCoursesCourseGet } from '#/api/hooks/useGetCoursesCourseGet'
 import { useGetTeacherGroupsTeacherGroupsGet } from '#/api/hooks/useGetTeacherGroupsTeacherGroupsGet'
+import { useCurrentTime } from '#/hooks'
 import { isGroupScheduleActive, parseGroupSchedule } from '#/routes/-utils'
 
 import { GroupFilter } from '../-constants'
 
 export function useGroupPage() {
+  const loaderData = useLoaderData({ from: '/_authorized/_navigation/_teacher/group/' })
+
   const [selectedTheme, setSelectedTheme] = useState<GroupFilter>(GroupFilter.All)
-  const [now, setNow] = useState<Date | null>(null)
+  const now = useCurrentTime(loaderData.now)
 
   const coursesQuery = useGetCoursesCourseGet()
   const teacherGroupsQuery = useGetTeacherGroupsTeacherGroupsGet()
-
-  useEffect(() => {
-    const minuteInMilliseconds = 60_000
-    let timeout: ReturnType<typeof setTimeout>
-
-    function handleClockUpdate() {
-      clearTimeout(timeout)
-      setNow(new Date())
-      timeout = setTimeout(
-        handleClockUpdate,
-        minuteInMilliseconds - (Date.now() % minuteInMilliseconds),
-      )
-    }
-
-    handleClockUpdate()
-    window.addEventListener('focus', handleClockUpdate)
-
-    return () => {
-      clearTimeout(timeout)
-      window.removeEventListener('focus', handleClockUpdate)
-    }
-  }, [])
 
   function handleThemeSelect(theme: GroupFilter) {
     setSelectedTheme(theme)
@@ -54,7 +36,7 @@ export function useGroupPage() {
       {
         ...group,
         schedule,
-        isActive: isGroupScheduleActive(schedule, now),
+        isActive: isGroupScheduleActive(schedule, new Date(now)),
         course_name: course.name,
         category: course.category,
         students_count: group.students_count ?? 0,
@@ -72,6 +54,7 @@ export function useGroupPage() {
   return {
     state: {
       groups: filteredGroups,
+      hasMultipleActiveGroups: filteredGroups.filter((group) => group.isActive).length > 1,
       categories,
       selectedTheme,
       allGroupsCount: groups.length,

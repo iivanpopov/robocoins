@@ -9,6 +9,7 @@ import { useGetStudentTransactionHistoryStudentStudentIdTransactionsGet } from '
 import { BalanceHistoryResponse, GroupResponse } from '#/api/types'
 import { toast } from '#/components/ui'
 import { compareTransactionsByNewest } from '#/routes/-utils'
+import { isTransactionCancellable } from '#/routes/_authorized/-utils'
 
 interface UseRecentTransactionsProps {
   studentId: number
@@ -153,7 +154,12 @@ export function useRecentTransactions(props: UseRecentTransactionsProps) {
     const transaction = transactionsQuery.data?.transactions.find(
       (transaction) => transaction.id === transactionId && !transaction.cancelled_at,
     )
-    if (!transaction || transaction.student_id !== props.studentId) return
+    if (
+      !transaction ||
+      transaction.student_id !== props.studentId ||
+      !isTransactionCancellable(transaction, props.enabled)
+    )
+      return
 
     cancellingReference.current = true
     cancelTransactionMutation.mutate({ path: { transaction_id: transactionId } })
