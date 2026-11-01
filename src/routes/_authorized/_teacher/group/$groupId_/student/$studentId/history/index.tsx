@@ -4,7 +4,18 @@ import * as v from 'valibot'
 
 import { getGroupByIdGroupIdGroupIdGetQueryOptions } from '#/api/hooks/useGetGroupByIdGroupIdGroupIdGet'
 import { getTeacherGroupsTeacherGroupsGetQueryOptions } from '#/api/hooks/useGetTeacherGroupsTeacherGroupsGet'
-import { IconButton } from '#/components/ui'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  IconButton,
+  Loader,
+} from '#/components/ui'
 import {
   getRewardHistoryQueryOptions,
   RewardHistory,
@@ -58,22 +69,52 @@ export const Route = createFileRoute(
 })
 
 function StudentHistoryPage() {
-  const { state } = useStudentHistoryPage()
+  const { state, mutations, functions } = useStudentHistoryPage()
   const t = useTranslate()
 
   return (
-    <RewardHistory
-      studentId={state.studentId}
-      studentName={state.studentName}
-      backLink={
-        <IconButton
-          nativeButton={false}
-          render={<Link to="/group/$groupId" params={{ groupId: String(state.groupId) }} />}
-          title={t('history.back')}
-        >
-          <span aria-hidden="true" className="i-ph:arrow-left" />
-        </IconButton>
-      }
-    />
+    <>
+      <RewardHistory
+        studentId={state.studentId}
+        studentName={state.studentName}
+        omitLeadingCoinZero
+        isCancelling={mutations.cancelTransactionMutation.isPending}
+        onCancel={functions.handleCancel}
+        backLink={
+          <IconButton
+            nativeButton={false}
+            render={<Link to="/group/$groupId" params={{ groupId: String(state.groupId) }} />}
+            title={t('history.back')}
+          >
+            <span aria-hidden="true" className="i-ph:arrow-left" />
+          </IconButton>
+        }
+      />
+      <AlertDialog open={!!state.transaction} onOpenChange={functions.handleCancelOpenChange}>
+        <AlertDialogContent size="sm">
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t('balance.cancel.action')}</AlertDialogTitle>
+            {state.transaction && (
+              <AlertDialogDescription>
+                {t('award.cancel.confirm.trigger', { amount: state.transaction.amount })}
+              </AlertDialogDescription>
+            )}
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={mutations.cancelTransactionMutation.isPending}>
+              {t('action.cancel')}
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={functions.handleConfirmCancel}
+              disabled={mutations.cancelTransactionMutation.isPending}
+              aria-busy={mutations.cancelTransactionMutation.isPending}
+            >
+              {mutations.cancelTransactionMutation.isPending && <Loader />}
+              {t('action.confirm')}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   )
 }

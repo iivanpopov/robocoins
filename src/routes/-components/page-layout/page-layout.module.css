@@ -32,6 +32,10 @@
   align-items: center;
 }
 
+.header > :first-child:not(.heading) {
+  align-self: flex-start;
+}
+
 .heading {
   display: flex;
   flex: 1;

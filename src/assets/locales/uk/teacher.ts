@@ -13,12 +13,22 @@ export default {
   'award.error': 'Не вдалося підтвердити зміну балансу. Перевірте баланс перед наступною дією.',
   'award.history.all': 'Уся',
   'award.history.empty': 'Історія нагород порожня',
+  'award.history.time.hour-minutes': `
+    .input {$minutes :number}
+    .match $minutes
+    one {{Годину {$minutes} хвилину тому}}
+    few {{Годину {$minutes} хвилини тому}}
+    * {{Годину {$minutes} хвилин тому}}`,
+  'award.history.time.now': 'Щойно',
+  'award.history.time.today': 'Сьогодні',
+  'award.history.time.yesterday': 'Вчора',
   'award.history.title': 'Історія нагород',
   'award.punish': 'Покарати',
   'award.reason.label': 'Оберіть причину',
   'award.reward': 'Нагородити',
   'group.back': 'Назад до вибору груп',
   'group.current': 'Поточна',
+  'group.current.multiple': 'Зараз',
   'group.filter.all': 'Всі ({$count :number})',
   'group.practice.award': 'Нарахувати всім за практику',
   'group.practice.confirm.description':

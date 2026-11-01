@@ -12,11 +12,13 @@ import { useGroupPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_teacher/group/')({
-  loader: async ({ context }) =>
-    Promise.all([
+  loader: async ({ context }) => {
+    await Promise.all([
       context.queryClient.query(getCoursesCourseGetQueryOptions()),
       context.queryClient.query(getTeacherGroupsTeacherGroupsGetQueryOptions()),
-    ]),
+    ])
+    return { now: Date.now() }
+  },
   component: GroupPage,
 })
 
@@ -62,31 +64,38 @@ function GroupPage() {
       )}
       {!state.isPending && !state.isError && (
         <div className={styles.grid}>
-          {state.groups.map((group) => {
+          {state.groups.map((group, i) => {
             return (
-              <LearningCard.Root key={group.id}>
-                <LearningCard.Row
-                  render={<Link to="/group/$groupId" params={{ groupId: String(group.id) }} />}
-                >
-                  <LearningCard.Icon category={group.category} />
-                  <LearningCard.Content>
-                    <LearningCard.Title>
-                      {group.course_name}
-                      {group.isActive && (
-                        <span className={styles['current-badge']}>{t('group.current')}</span>
-                      )}
-                    </LearningCard.Title>
-                    <LearningCard.Description>
-                      {group.schedule.weekday && <>{t(`weekday.${group.schedule.weekday}`)}, </>}
-                      {group.schedule.time}
-                    </LearningCard.Description>
-                  </LearningCard.Content>
-                  <LearningCard.Meta>
-                    <span>{t('group.students-count', { count: group.students_count })}</span>
-                    <LearningCard.Indicator kind="navigate" />
-                  </LearningCard.Meta>
-                </LearningCard.Row>
-              </LearningCard.Root>
+              <div
+                key={group.id}
+                className={styles['group-entry']}
+                data-current={group.isActive || undefined}
+              >
+                {group.isActive && i === 0 && (
+                  <p className={styles['current-caption']}>
+                    {!state.hasMultipleActiveGroups && t('group.current')}
+                    {state.hasMultipleActiveGroups && t('group.current.multiple')}
+                  </p>
+                )}
+                <LearningCard.Root>
+                  <LearningCard.Row
+                    render={<Link to="/group/$groupId" params={{ groupId: String(group.id) }} />}
+                  >
+                    <LearningCard.Icon category={group.category} />
+                    <LearningCard.Content>
+                      <LearningCard.Title>{group.course_name}</LearningCard.Title>
+                      <LearningCard.Description>
+                        {group.schedule.weekday && <>{t(`weekday.${group.schedule.weekday}`)}, </>}
+                        {group.schedule.time}
+                      </LearningCard.Description>
+                    </LearningCard.Content>
+                    <LearningCard.Meta>
+                      <span>{t('group.students-count', { count: group.students_count })}</span>
+                      <LearningCard.Indicator kind="navigate" />
+                    </LearningCard.Meta>
+                  </LearningCard.Row>
+                </LearningCard.Root>
+              </div>
             )
           })}
         </div>

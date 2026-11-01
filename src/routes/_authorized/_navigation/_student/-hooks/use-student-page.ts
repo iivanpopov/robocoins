@@ -1,12 +1,17 @@
+import { Temporal } from '@js-temporal/polyfill'
 import { useTranslate } from '@kanjou/react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate, useRouteContext } from '@tanstack/react-router'
 
+import { useGetDailyTaskDailyStudentIdDailyTaskGet } from '#/api/hooks/useGetDailyTaskDailyStudentIdDailyTaskGet'
 import { useGetStudentRewardProgressStudentStudentIdRewardProgressGet } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
+import { useGetStudentStreakStudentStudentIdStreakGet } from '#/api/hooks/useGetStudentStreakStudentStudentIdStreakGet'
 import { useGetStudentTransactionHistoryStudentStudentIdTransactionsGet } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import type { StudentProfileResponse } from '#/api/types'
+import { useCurrentTime } from '#/hooks'
 import type { Avatar as AvatarName } from '#/routes/-constants'
-import { compareTransactionsByNewest } from '#/routes/-utils'
+import { compareTransactionsByNewest, getKyivDate } from '#/routes/-utils'
+import { getStreakDays } from '#/routes/_authorized/-utils'
 
 import {
   GREETING_PAIRS,
@@ -24,9 +29,18 @@ export function useStudentPage() {
   const navigate = useNavigate()
   const context = useRouteContext({ from: '/_authorized/_navigation/_student/' })
   const t = useTranslate()
+  const now = useCurrentTime(context.renderedAt)
 
   const queryClient = useQueryClient()
   const profile = context.user as StudentProfileResponse
+  const taskQuery = useGetDailyTaskDailyStudentIdDailyTaskGet(
+    { path: { student_id: profile.id } },
+    { query: { retry: false, staleTime: 0, refetchOnMount: false } },
+  )
+  const streakQuery = useGetStudentStreakStudentStudentIdStreakGet(
+    { path: { student_id: profile.id } },
+    { query: { retry: false, staleTime: 0, refetchOnMount: false } },
+  )
   const historyQuery = useGetStudentTransactionHistoryStudentStudentIdTransactionsGet({
     path: { student_id: profile.id },
     query: { limit: HISTORY_TRANSACTION_FETCH_LIMIT },
@@ -51,9 +65,7 @@ export function useStudentPage() {
   )
 
   function formatHistoryDate(value: string) {
-    const date = new Date(value)
-
-    const dateKey = date.toISOString().slice(0, 10)
+    const dateKey = getKyivDate(value).toString()
 
     if (dateKey === dateToday) return t('profile.history.today')
     if (dateKey === dateYesterday) return t('profile.history.yesterday')
@@ -83,10 +95,9 @@ export function useStudentPage() {
     })
   }
 
-  const dateToday = new Date(context.renderedAt).toISOString().slice(0, 10)
-  const dateYesterday = new Date(context.renderedAt - 24 * 60 * 60 * 1000)
-    .toISOString()
-    .slice(0, 10)
+  const currentDate = getKyivDate(now)
+  const dateToday = currentDate.toString()
+  const dateYesterday = currentDate.subtract({ days: 1 }).toString()
   const allTransactions = (historyQuery.data?.transactions ?? [])
     .toSorted(compareTransactionsByNewest)
     .map((transaction) => ({
@@ -98,7 +109,7 @@ export function useStudentPage() {
       reason: transaction.reason,
     }))
   const recentTransactions = allTransactions.filter((transaction) => {
-    const dateKey = new Date(transaction.createdAt).toISOString().slice(0, 10)
+    const dateKey = getKyivDate(transaction.createdAt).toString()
     return dateKey === dateToday || dateKey === dateYesterday
   })
   const hasFullRecentWindow = recentTransactions.length >= HISTORY_MINIMUM_TRANSACTIONS
@@ -124,13 +135,15 @@ export function useStudentPage() {
     (transaction) => transaction.isNew && transaction.isDeposit,
   )
   const avatar = (profile.avatar as AvatarName | null) ?? null
-  const renderedAt = new Date(context.renderedAt)
-  const localDayIndex = Math.floor(
-    Date.UTC(renderedAt.getFullYear(), renderedAt.getMonth(), renderedAt.getDate()) /
-      (24 * 60 * 60 * 1000),
-  )
+  const localDayIndex = currentDate.since(Temporal.PlainDate.from('1970-01-01'), {
+    largestUnit: 'days',
+  }).days
   const greetingPair = GREETING_PAIRS[localDayIndex % GREETING_PAIRS.length] ?? GREETING_PAIRS[0]
   const gradientVariant = (localDayIndex % 4) + 1
+  const task = !taskQuery.isError ? taskQuery.data : undefined
+  const streak = !streakQuery.isError ? streakQuery.data : undefined
+  const streakDays = Math.max(getStreakDays(streak), task?.completed_at ? 1 : 0)
+  const hasStreak = Boolean(streak || task?.completed_at)
 
   return {
     state: {
@@ -148,6 +161,8 @@ export function useStudentPage() {
       greetingVariant: greetingPair.greeting,
       captionVariant: greetingPair.caption,
       gradientVariant,
+      streakDays,
+      hasStreak,
     },
     queries: { history: historyQuery },
     functions: {

@@ -24,59 +24,6 @@ const STARS = Array.from({ length: 150 }, (_, i) => ({
   opacity: 0.2 + (i % 6) * 0.12,
 }))
 
-const HOME_EDGES = [
-  [86, 424],
-  [58, 446],
-  [73, 408],
-  [31, 432],
-  [66, 456],
-  [100, 430],
-  [14, 467],
-  [52, 441],
-  [82, 412],
-  [48, 438],
-  [104, 414],
-  [65, 449],
-  [88, 426],
-  [42, 459],
-]
-
-const HOME_TOP_EDGES = [
-  { x: 0, top: 86 },
-  { x: 18, top: 49 },
-  { x: 36, top: 36 },
-  { x: 50, top: 36 },
-  { x: 68, top: 64 },
-  { x: 82, top: 64 },
-  { x: 90, top: 36 },
-  { x: 128, top: 28 },
-  { x: 145, top: 28 },
-  { x: 174, top: 28 },
-  { x: 229, top: 28 },
-  { x: 231, top: 42 },
-  { x: 272, top: 14 },
-  { x: 310, top: 52 },
-  { x: 370, top: 82 },
-  { x: 414, top: 48 },
-  { x: 474, top: 104 },
-  { x: 501, top: 65 },
-  { x: 550, top: 88 },
-  { x: 568, top: 42 },
-]
-
-const HOME_STRIPS = HOME_TOP_EDGES.map((edge, i) => {
-  const originalIndex = STRIPS.findIndex(
-    (strip) => edge.x >= strip.x && edge.x < strip.x + strip.width,
-  )
-
-  return {
-    x: edge.x,
-    width: (HOME_TOP_EDGES[i + 1]?.x ?? 600) - edge.x,
-    top: (edge.top / 480) * 1000,
-    bottom: (HOME_EDGES[originalIndex][1] / 480) * 1000,
-  }
-})
-
 const NEBULAE = {
   mission: [
     { x: 530, y: 280, radiusX: 460, radiusY: 400, rotation: 0 },
@@ -104,9 +51,9 @@ export const SpaceBackground = memo(function SpaceBackground({
 }) {
   const id = useId()
 
-  const seamless = variant === 'shop'
-  const strips = variant === 'home' ? HOME_STRIPS : STRIPS
-  const viewBox = seamless ? '-600 -1000 1800 3000' : '0 0 600 1000'
+  const seamless = variant !== 'mission'
+  const strips = STRIPS
+  const viewBox = variant === 'shop' ? '-600 -1000 1800 3000' : '0 0 600 1000'
   const clipPath = seamless ? undefined : `url(#${id})`
 
   return (

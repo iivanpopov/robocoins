@@ -1,3 +1,5 @@
+import { Temporal } from '@js-temporal/polyfill'
+
 import { Weekday } from '../-constants'
 import type { parseGroupSchedule } from './parse-group-schedule'
 
@@ -10,8 +12,6 @@ const WEEKDAYS = [
   Weekday.Friday,
   Weekday.Saturday,
 ]
-const MINUTES_PER_DAY = 24 * 60
-const MINUTES_PER_WEEK = 7 * MINUTES_PER_DAY
 
 export function isGroupScheduleActive(
   schedule: ReturnType<typeof parseGroupSchedule>,
@@ -19,15 +19,23 @@ export function isGroupScheduleActive(
 ) {
   if (
     !now ||
+    !Number.isFinite(now.getTime()) ||
     !schedule.weekday ||
     schedule.startMinutes === undefined ||
     schedule.durationMinutes === undefined
   )
     return false
 
-  const startMinutes = WEEKDAYS.indexOf(schedule.weekday) * MINUTES_PER_DAY + schedule.startMinutes
-  const currentMinutes = now.getDay() * MINUTES_PER_DAY + now.getHours() * 60 + now.getMinutes()
-  const elapsedMinutes = (currentMinutes - startMinutes + MINUTES_PER_WEEK) % MINUTES_PER_WEEK
+  const current = Temporal.Instant.fromEpochMilliseconds(now.getTime()).toZonedDateTimeISO(
+    'Europe/Kyiv',
+  )
+  const daysSinceStart = ((current.dayOfWeek % 7) - WEEKDAYS.indexOf(schedule.weekday) + 7) % 7
+  const startDate = current.toPlainDate().subtract({ days: daysSinceStart })
+  const start = startDate.toZonedDateTime({
+    timeZone: 'Europe/Kyiv',
+    plainTime: { hour: Math.floor(schedule.startMinutes / 60), minute: schedule.startMinutes % 60 },
+  })
+  const elapsedMinutes = (now.getTime() - start.epochMilliseconds) / 60_000
 
-  return elapsedMinutes < schedule.durationMinutes
+  return elapsedMinutes >= 0 && elapsedMinutes < schedule.durationMinutes
 }

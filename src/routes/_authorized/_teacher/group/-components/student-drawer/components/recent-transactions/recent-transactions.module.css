@@ -36,7 +36,7 @@
   font-family: inherit;
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--brand);
+  color: var(--muted-foreground);
   cursor: pointer;
   background: none;
   border: none;

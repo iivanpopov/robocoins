@@ -28,6 +28,7 @@ export default {
     many {{{$count} днів поспіль}}
     * {{{$count} дня поспіль}}`,
   'daily-mission.today': 'Сьогодні',
+  'daily-mission.stars.hint': 'Натисни на зірки, щоб відкрити місію дня',
   'daily-mission.start': 'Вирушити',
   'daily-mission.start.label': 'Вирушити до місії дня',
   'daily-mission.constellation.label': 'Сузір’я «{$name}»: місії цього тижня',

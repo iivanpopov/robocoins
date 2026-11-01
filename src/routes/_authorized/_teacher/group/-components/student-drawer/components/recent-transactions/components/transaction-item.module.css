@@ -81,12 +81,10 @@
   background: var(--taupe-100);
   border: 1.5px solid transparent;
   border-radius: var(--rounded-md);
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .dragging.item {
   cursor: grabbing;
-  transition: none;
 }
 
 .exiting {

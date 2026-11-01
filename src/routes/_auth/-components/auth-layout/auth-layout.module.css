@@ -12,12 +12,6 @@
 .spacer {
   flex-grow: 1;
   flex-shrink: 0;
-  transition: flex-grow 200ms ease-out 75ms;
-}
-
-.root:has(.top :is(input, textarea):focus) > .spacer {
-  flex-grow: 0;
-  transition-delay: 0ms;
 }
 
 .bottom {

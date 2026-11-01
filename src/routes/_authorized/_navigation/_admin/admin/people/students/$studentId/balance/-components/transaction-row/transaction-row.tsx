@@ -26,8 +26,8 @@ export function TransactionRow(props: TransactionRowProps) {
         <span
           className={cn(styles.amount, isDeposit && styles.deposit, !isDeposit && styles.deduct)}
         >
-          {isDeposit && formatSignedAmount(props.transaction.amount)}
-          {!isDeposit && formatSignedAmount(-props.transaction.amount)}
+          {isDeposit && formatSignedAmount(props.transaction.amount, true)}
+          {!isDeposit && formatSignedAmount(-props.transaction.amount, true)}
         </span>
         <time dateTime={props.transaction.created_at} className={styles.date}>
           {t('history.date', { date: new Date(props.transaction.created_at) })}

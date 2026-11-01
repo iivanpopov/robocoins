@@ -1,6 +1,6 @@
 .list {
   display: grid;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-2xl);
   padding: 0;
   margin: 0;
   list-style: none;
@@ -9,9 +9,7 @@
 .transaction {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--spacing-sm) var(--spacing-md);
-  padding-bottom: var(--spacing-lg);
-  border-bottom: 1px solid var(--muted);
+  gap: var(--spacing-xs) var(--spacing-md);
 }
 
 .date,
@@ -40,4 +38,10 @@
   font-weight: 500;
   overflow-wrap: anywhere;
   list-style: none;
+}
+
+.cancel {
+  grid-column: 1 / -1;
+  justify-self: end;
+  color: var(--muted-foreground);
 }

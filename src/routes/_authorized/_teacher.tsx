@@ -16,7 +16,7 @@ export const Route = createFileRoute('/_authorized/_teacher')({
 
 function TeacherTranslationLayout() {
   return (
-    <TranslationProvider messages={messages}>
+    <TranslationProvider messages={messages} omitLeadingCoinZero>
       <Outlet />
     </TranslationProvider>
   )

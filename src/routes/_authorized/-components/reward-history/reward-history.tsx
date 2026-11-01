@@ -5,6 +5,7 @@ import { type ReactNode } from 'react'
 import { Button, Loader } from '#/components/ui'
 import { InlineError, PageLayout } from '#/routes/-components'
 import { formatSignedAmount } from '#/routes/-utils'
+import { isTransactionCancellable } from '#/routes/_authorized/-utils'
 
 import { useRewardHistory } from './hooks'
 
@@ -14,6 +15,9 @@ interface RewardHistoryProps {
   studentId: number
   studentName?: string
   backLink: ReactNode
+  isCancelling?: boolean
+  omitLeadingCoinZero?: boolean
+  onCancel?: (transactionId: number) => void
 }
 
 export function RewardHistory(props: RewardHistoryProps) {
@@ -21,7 +25,7 @@ export function RewardHistory(props: RewardHistoryProps) {
   const t = useTranslate()
 
   return (
-    <PageLayout.Root aria-label={t('history.title')}>
+    <PageLayout.Root spacing="compact" aria-label={t('history.title')}>
       <PageLayout.Header align="end" centered>
         {props.backLink}
         <PageLayout.Heading>
@@ -57,8 +61,10 @@ export function RewardHistory(props: RewardHistoryProps) {
                 !!transaction.cancelled_at && styles.cancelled,
               )}
             >
-              {transaction.operation === 'deposit' && formatSignedAmount(transaction.amount)}
-              {transaction.operation !== 'deposit' && formatSignedAmount(-transaction.amount)}
+              {transaction.operation === 'deposit' &&
+                formatSignedAmount(transaction.amount, props.omitLeadingCoinZero)}
+              {transaction.operation !== 'deposit' &&
+                formatSignedAmount(-transaction.amount, props.omitLeadingCoinZero)}
             </strong>
             <ul className={styles.reasons}>
               {(transaction.reason ?? []).map((reason, i) => (
@@ -68,6 +74,19 @@ export function RewardHistory(props: RewardHistoryProps) {
             </ul>
             {transaction.cancelled_at && (
               <span className={styles.status}>{t('history.cancelled')}</span>
+            )}
+            {props.onCancel && isTransactionCancellable(transaction, true) && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className={styles.cancel}
+                disabled={props.isCancelling}
+                aria-label={t('award.cancel.confirm.trigger', { amount: transaction.amount })}
+                onClick={() => props.onCancel?.(transaction.id)}
+              >
+                <span aria-hidden="true" className="i-ph:arrow-counter-clockwise" />
+                {t('action.cancel')}
+              </Button>
             )}
           </li>
         ))}

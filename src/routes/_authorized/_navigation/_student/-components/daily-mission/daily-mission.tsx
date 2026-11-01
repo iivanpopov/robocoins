@@ -24,7 +24,7 @@ export function DailyMission({ studentId }: { studentId: number }) {
   const reward = taskQuery.data?.reward
   const streak = !streakQuery.isError ? streakQuery.data : undefined
   const task = !taskQuery.isError ? taskQuery.data : undefined
-  const streakDays = Math.max(getStreakDays(streak, task?.date), isCompleted ? 1 : 0)
+  const streakDays = Math.max(getStreakDays(streak), isCompleted ? 1 : 0)
 
   return (
     <section className={styles.mission} aria-labelledby="daily-mission-title">
