@@ -18,7 +18,9 @@ export interface UseFeedbackOptions {
   source: FeedbackSource
 }
 
-export function useFeedback({ source }: UseFeedbackOptions) {
+export function useFeedback(options: UseFeedbackOptions) {
+  const source = options.source
+
   const [isOpen, setIsOpen] = useState(false)
   const attempt = useRef<{ id: string; signature: string } | null>(null)
 
@@ -54,7 +56,6 @@ export function useFeedback({ source }: UseFeedbackOptions) {
           return
         }
         attempt.current = null
-        form.reset()
       } catch {
         return
       }
@@ -64,7 +65,7 @@ export function useFeedback({ source }: UseFeedbackOptions) {
   const isFormSubmitting = useSelector(form.store, (state) => state.isSubmitting)
 
   function handleOpenChange(open: boolean) {
-    if (submitMutation.isPending) return
+    if (isFormSubmitting || submitMutation.isPending) return
 
     if (open && submitMutation.data?.ok) {
       submitMutation.reset()
@@ -78,11 +79,12 @@ export function useFeedback({ source }: UseFeedbackOptions) {
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
     event.stopPropagation()
-    if (submitMutation.isPending || submitMutation.data?.ok) return
+    if (isFormSubmitting || submitMutation.isPending || submitMutation.data?.ok) return
     void form.handleSubmit()
   }
 
   function handleResetSubmission() {
+    if (isFormSubmitting || submitMutation.isPending) return
     if (!submitMutation.data && !submitMutation.isError) return
     submitMutation.reset()
   }

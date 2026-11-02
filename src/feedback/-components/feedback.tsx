@@ -119,6 +119,7 @@ function FeedbackContent(props: FeedbackProps) {
                             key={kind}
                             type="button"
                             selected={field.state.value === kind}
+                            disabled={feedback.state.isSubmitting}
                             onClick={() => {
                               feedback.functions.handleResetSubmission()
                               field.handleChange(kind)
@@ -148,6 +149,7 @@ function FeedbackContent(props: FeedbackProps) {
                       value={field.state.value}
                       placeholder={t('feedback.field.message.placeholder')}
                       aria-invalid={!!field.state.meta.errors.length}
+                      disabled={feedback.state.isSubmitting}
                       onBlur={field.handleBlur}
                       onChange={(event) => {
                         feedback.functions.handleResetSubmission()
