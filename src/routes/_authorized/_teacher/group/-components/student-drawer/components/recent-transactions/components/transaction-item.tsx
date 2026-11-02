@@ -24,23 +24,20 @@ export function TransactionItem(props: TransactionItemProps) {
   const elementReference = useRef<HTMLDivElement>(null)
   const transactionTime = useTransactionTime(props.transaction.created_at)
 
-  const isCancellable = isTransactionCancellable(
-    props.transaction,
-    props.enabled && !props.transaction.cancelled_at,
-  )
+  const isCancellable = isTransactionCancellable(props.transaction, true)
 
   const swipe = useTransactionSwipe(
     {
-      enabled: isCancellable,
+      enabled: props.enabled && isCancellable,
       onCancel: handleConfirmCancel,
     },
     elementReference,
   )
 
-  const isLocked = props.enabled && !props.transaction.cancelled_at && !isCancellable
+  const isLocked = !props.transaction.cancelled_at && !isCancellable
 
   function handleConfirmCancel() {
-    if (!swipe.isArmed) return
+    if (!props.enabled || !isCancellable || !swipe.isArmed) return
 
     props.onCancel(props.transaction.id)
   }
@@ -77,7 +74,7 @@ export function TransactionItem(props: TransactionItemProps) {
         </span>
         <button
           type="button"
-          disabled={!swipe.isArmed}
+          disabled={!props.enabled || !isCancellable || !swipe.isArmed}
           onClick={handleConfirmCancel}
           aria-label={t('award.cancel.confirm.trigger', { amount: props.transaction.amount })}
           className={styles['confirm-action']}

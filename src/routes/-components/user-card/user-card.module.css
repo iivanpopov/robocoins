@@ -82,8 +82,6 @@
   font-size: 0.875rem;
   font-weight: 700;
   white-space: nowrap;
-  background: var(--taupe-100);
-  border-radius: var(--rounded-sm);
 }
 
 .balance-icon {

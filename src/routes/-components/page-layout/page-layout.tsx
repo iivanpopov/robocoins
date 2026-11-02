@@ -6,7 +6,6 @@ import styles from './page-layout.module.css'
 
 export interface PageLayoutRootProps extends useRender.ComponentProps<'section'> {
   bottomSpace?: boolean
-  spacing?: 'default' | 'compact'
 }
 
 export interface PageLayoutHeaderProps extends ComponentProps<'header'> {
@@ -15,19 +14,12 @@ export interface PageLayoutHeaderProps extends ComponentProps<'header'> {
   size?: 'default' | 'compact'
 }
 
-function Root({
-  bottomSpace,
-  spacing = 'default',
-  className,
-  render,
-  ...props
-}: PageLayoutRootProps) {
+function Root({ bottomSpace, className, render, ...props }: PageLayoutRootProps) {
   return useRender({
     defaultTagName: 'section',
     render,
     props: {
       ...props,
-      'data-spacing': spacing,
       className: cn(styles.page, bottomSpace && styles['bottom-space'], className),
     },
   })

@@ -8,11 +8,6 @@
   margin: 0 auto;
 }
 
-.page[data-spacing='compact'] {
-  gap: var(--spacing-md);
-  padding: var(--spacing-md);
-}
-
 .page.bottom-space {
   padding-bottom: 4rem;
 }

@@ -101,7 +101,7 @@ function StudentEditPage() {
   const t = useTranslate()
 
   return (
-    <PageLayout.Root spacing="compact" bottomSpace className={styles.page}>
+    <PageLayout.Root bottomSpace className={styles.page}>
       <PageLayout.Header align="end" centered>
         <IconButton onClick={functions.handleBack} title={t('history.back')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />

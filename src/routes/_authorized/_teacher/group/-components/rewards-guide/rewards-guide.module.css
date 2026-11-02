@@ -1,0 +1,116 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--foreground);
+}
+
+.body p {
+  margin: 0;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.heading {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.term {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  font-weight: 600;
+}
+
+.entry dd {
+  margin: 0.25rem 0 0 2.75rem;
+}
+
+.example {
+  background: var(--background);
+}
+
+.strip {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.125rem;
+  font-size: 0.75rem;
+}
+
+.mark {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 0.25rem;
+  align-items: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.term > .mark {
+  min-width: 2rem;
+}
+
+.mark > span {
+  font-size: 1rem;
+}
+
+.note {
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+
+.recent {
+  color: var(--red-600);
+}
+
+.earlier {
+  color: var(--green-600);
+}
+
+.warm {
+  color: var(--orange-600);
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin: 0;
+}
+
+.timeline > div {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.timeline dt {
+  font-weight: 600;
+}
+
+.timeline dd {
+  margin: 0;
+  text-align: right;
+}
+
+.older {
+  color: var(--brand);
+}

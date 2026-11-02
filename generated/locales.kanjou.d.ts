@@ -336,6 +336,31 @@ declare module '@kanjou/react' {
       'group.practice.error': {}
       'group.practice.success': { count: { __fn: 'number' } }
       'group.select.title': {}
+      'group.rewards.detail': {
+        reason: DefaultMessageValue
+        count: { __fn: 'number' }
+        date: { __fn: 'datetime' }
+      }
+      'group.rewards.error': {}
+      'group.rewards.guide.title': {}
+      'group.rewards.guide.description': {}
+      'group.rewards.guide.example': {}
+      'group.rewards.guide.student': {}
+      'group.rewards.guide.breakdown': {}
+      'group.rewards.guide.theory-example': {}
+      'group.rewards.guide.practice-example': {}
+      'group.rewards.guide.task-example': {}
+      'group.rewards.guide.colors': {}
+      'group.rewards.guide.red': {}
+      'group.rewards.guide.red-time': {}
+      'group.rewards.guide.orange': {}
+      'group.rewards.guide.orange-time': {}
+      'group.rewards.guide.green': {}
+      'group.rewards.guide.green-time': {}
+      'group.rewards.guide.brand': {}
+      'group.rewards.guide.brand-time': {}
+      'group.rewards.guide.counts': {}
+      'group.rewards.guide.close': {}
       'sort.balance-asc': {}
       'sort.balance-desc': {}
       'sort.name-asc': {}

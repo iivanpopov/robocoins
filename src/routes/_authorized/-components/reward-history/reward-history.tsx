@@ -25,7 +25,7 @@ export function RewardHistory(props: RewardHistoryProps) {
   const t = useTranslate()
 
   return (
-    <PageLayout.Root spacing="compact" aria-label={t('history.title')}>
+    <PageLayout.Root aria-label={t('history.title')}>
       <PageLayout.Header align="end" centered>
         {props.backLink}
         <PageLayout.Heading>
