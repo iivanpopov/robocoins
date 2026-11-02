@@ -22,7 +22,7 @@ import {
   Loader,
 } from '#/components/ui'
 import { PageLayout } from '#/routes/-components/page-layout'
-import { getStudentTransactionsQueryOptions } from '#/routes/_authorized/_navigation/_admin/admin/-utils'
+import { getStudentTransactionsQueryOptions } from '#/routes/_authorized/_navigation/_admin/admin/-hooks'
 
 import { ApiErrorNotice } from '../../-components'
 import { CancelTransactionDialog, TransactionRow } from './-components'
@@ -56,19 +56,21 @@ export const Route = createFileRoute(
     const path = { student_id: params.studentId }
 
     await Promise.all([
-      context.queryClient.prefetchQuery(getStudentByIdStudentStudentIdGetQueryOptions({ path })),
-      context.queryClient.prefetchQuery(
-        getStudentBalanceByIdStudentStudentIdBalanceGetQueryOptions({ path }),
-      ),
-      context.queryClient.prefetchQuery(
-        getStudentRewardProgressStudentStudentIdRewardProgressGetQueryOptions({ path }),
-      ),
-      context.queryClient.prefetchQuery(
-        getBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetQueryOptions({ path }),
-      ),
-      context.queryClient.prefetchQuery(
-        getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions(),
-      ),
+      context.queryClient
+        .query(getStudentByIdStudentStudentIdGetQueryOptions({ path }))
+        .catch(() => undefined),
+      context.queryClient
+        .query(getStudentBalanceByIdStudentStudentIdBalanceGetQueryOptions({ path }))
+        .catch(() => undefined),
+      context.queryClient
+        .query(getStudentRewardProgressStudentStudentIdRewardProgressGetQueryOptions({ path }))
+        .catch(() => undefined),
+      context.queryClient
+        .query(getBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetQueryOptions({ path }))
+        .catch(() => undefined),
+      context.queryClient
+        .query(getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions())
+        .catch(() => undefined),
       context.queryClient
         .infiniteQuery(getStudentTransactionsQueryOptions(params.studentId))
         .catch(() => undefined),

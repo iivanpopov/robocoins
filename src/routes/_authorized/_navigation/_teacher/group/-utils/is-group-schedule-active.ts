@@ -1,5 +1,6 @@
+import type { parseGroupSchedule } from '#/routes/-utils'
+
 import { getGroupLessonWindow } from './get-group-lesson-window'
-import type { parseGroupSchedule } from './parse-group-schedule'
 
 export function isGroupScheduleActive(
   schedule: ReturnType<typeof parseGroupSchedule>,

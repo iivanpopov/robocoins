@@ -19,7 +19,7 @@ export const Route = createFileRoute(
 )({
   head: () => ({ meta: [{ title: 'Новий учень | Robocoins' }] }),
   loader: async ({ context }) => {
-    await context.queryClient.prefetchQuery(getCoursesCourseGetQueryOptions())
+    await context.queryClient.query(getCoursesCourseGetQueryOptions()).catch(() => undefined)
   },
   component: RegisterStudentPage,
 })

@@ -6,7 +6,7 @@ import { sql } from 'drizzle-orm'
 
 import { db } from '#/db'
 import { feedback, feedbackRateLimit } from '#/db/schema'
-import { getSession } from '#/lib/session'
+import { getSession } from '#/routes/-actions/get-session'
 
 import { FEEDBACK_RATE_LIMIT_MAX, FEEDBACK_RATE_LIMIT_WINDOW_MS } from '../constants'
 import { FeedbackSubmissionSchema } from '../schemas'

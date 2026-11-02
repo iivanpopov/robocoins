@@ -5,7 +5,7 @@ import { TranslationProvider } from '#/lib/translations'
 import { getHomePath } from '#/routes/-utils'
 import { AuthWatermark } from '#/routes/_auth/-components'
 
-import styles from './_auth.module.css'
+import styles from './route.module.css'
 
 export const Route = createFileRoute('/_auth')({
   beforeLoad: ({ context }) => {

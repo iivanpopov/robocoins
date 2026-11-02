@@ -74,7 +74,7 @@ export function useStudentGroupAssignment(props: StudentGroupAssignmentProps) {
 
   function refetchStudent() {
     return queryClient
-      .fetchQuery(
+      .query(
         getStudentByIdStudentStudentIdGetQueryOptions({ path: { student_id: props.studentId } }),
       )
       .catch(() => undefined)

@@ -1,7 +1,7 @@
 import { Temporal } from '@js-temporal/polyfill'
 
-import { Weekday } from '../-constants'
-import type { parseGroupSchedule } from './parse-group-schedule'
+import { Weekday } from '#/routes/-constants'
+import type { parseGroupSchedule } from '#/routes/-utils'
 
 const WEEKDAYS = [
   Weekday.Sunday,

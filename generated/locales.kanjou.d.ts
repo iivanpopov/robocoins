@@ -193,43 +193,43 @@ declare module '@kanjou/react' {
       'settings.logout.error': {}
       'settings.section.appearance': {}
       'settings.section.session': {}
-      'daily-mission.title': {}
-      'daily-mission.completed': {}
-      'daily-mission.tomorrow': {}
-      'daily-mission.loading': {}
-      'daily-mission.error': {}
-      'daily-mission.week.stars': { completed: DefaultMessageValue }
-      'daily-mission.week.loading': {}
-      'daily-mission.week.error': {}
-      'daily-mission.task.error': {}
-      'daily-mission.completed.mascot': {}
-      'daily-mission.task.image-alt': {}
-      'daily-mission.task.unsupported': {}
-      'daily-mission.answer.label': {}
-      'daily-mission.answer.incorrect': {}
       'daily-mission.answer.error': {}
+      'daily-mission.answer.incorrect': {}
+      'daily-mission.answer.label': {}
       'daily-mission.answer.retry': {}
       'daily-mission.answer.submit': {}
       'daily-mission.answer.submitting': {}
+      'daily-mission.completed': {}
+      'daily-mission.completed.mascot': {}
+      'daily-mission.constellation.circuit': {}
+      'daily-mission.constellation.code': {}
+      'daily-mission.constellation.gamepad': {}
+      'daily-mission.constellation.idea': {}
+      'daily-mission.constellation.label': { name: DefaultMessageValue }
+      'daily-mission.constellation.orbit': {}
+      'daily-mission.constellation.plane': {}
+      'daily-mission.constellation.robot': {}
+      'daily-mission.constellation.rocket': {}
+      'daily-mission.day.completed': {}
+      'daily-mission.day.pending': {}
+      'daily-mission.day.today': {}
+      'daily-mission.day.unlit': {}
+      'daily-mission.error': {}
+      'daily-mission.loading': {}
       'daily-mission.reward.amount': { count: { __fn: 'coins' } }
-      'daily-mission.streak': { count: { __fn: 'number' } }
-      'daily-mission.today': {}
       'daily-mission.stars.hint': {}
       'daily-mission.start': {}
       'daily-mission.start.label': {}
-      'daily-mission.constellation.label': { name: DefaultMessageValue }
-      'daily-mission.constellation.robot': {}
-      'daily-mission.constellation.gamepad': {}
-      'daily-mission.constellation.rocket': {}
-      'daily-mission.constellation.code': {}
-      'daily-mission.constellation.circuit': {}
-      'daily-mission.constellation.idea': {}
-      'daily-mission.constellation.orbit': {}
-      'daily-mission.constellation.plane': {}
-      'daily-mission.day.completed': {}
-      'daily-mission.day.pending': {}
-      'daily-mission.day.unlit': {}
-      'daily-mission.day.today': {}
+      'daily-mission.streak': { count: { __fn: 'number' } }
+      'daily-mission.task.error': {}
+      'daily-mission.task.image-alt': {}
+      'daily-mission.task.unsupported': {}
+      'daily-mission.today': {}
+      'daily-mission.tomorrow': {}
+      'daily-mission.title': {}
+      'daily-mission.week.error': {}
+      'daily-mission.week.loading': {}
+      'daily-mission.week.stars': { completed: DefaultMessageValue }
       'leaderboard.all': {}
       'leaderboard.description': {}
       'leaderboard.empty': {}

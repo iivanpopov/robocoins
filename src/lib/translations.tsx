@@ -1,12 +1,24 @@
 import { createTranslate, createTranslateCache } from '@kanjou/core'
 import { enrich, TranslateContext, type Locale, type Message } from '@kanjou/react'
-import { DefaultFunctions, DraftFunctions } from 'messageformat/functions'
+import { DefaultFunctions, DraftFunctions, type MessageFunction } from 'messageformat/functions'
 import { createContext, use, useMemo, type ReactNode } from 'react'
 
 import { AppLink } from '#/routes/-components/app-link'
+import { formatCoinAmount } from '#/utils/coins'
 
-import { coinNumber, compactCoinNumber } from './coin-number'
-import { mergeMessages } from './merge-messages'
+function createCoinNumber(omitLeadingZero: boolean): MessageFunction<'coins', 'string'> {
+  return (context, options, operand) => {
+    const input = DefaultFunctions.number(context, options, operand)
+    const formatted = formatCoinAmount(Number(input.valueOf()), omitLeadingZero)
+    const number = DefaultFunctions.number(context, { maximumFractionDigits: 2 }, Number(formatted))
+    const text = DefaultFunctions.string(context, {}, formatted)
+
+    return { ...number, type: 'coins', toString: text.toString, toParts: text.toParts }
+  }
+}
+
+const coinNumber = createCoinNumber(false)
+const compactCoinNumber = createCoinNumber(true)
 
 interface TranslationMessages {
   locale: Locale
@@ -38,7 +50,7 @@ export function TranslationProvider({
   const catalog = useMemo(
     () => ({
       locale: resolvedLocale,
-      messages: mergeMessages([parent?.messages ?? {}, messages]),
+      messages: { ...parent?.messages, ...messages },
       omitLeadingCoinZero: omitLeadingCoinZero ?? parent?.omitLeadingCoinZero ?? false,
     }),
     [resolvedLocale, parent, messages, omitLeadingCoinZero],

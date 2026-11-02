@@ -38,10 +38,10 @@ export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/oper
   head: () => ({ meta: [{ title: 'Операції з балансом | Robocoins' }] }),
   loader: async ({ context }) => {
     await Promise.all([
-      context.queryClient.prefetchQuery(getAllStudentsStudentGetQueryOptions()),
-      context.queryClient.prefetchQuery(
-        getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions(),
-      ),
+      context.queryClient.query(getAllStudentsStudentGetQueryOptions()).catch(() => undefined),
+      context.queryClient
+        .query(getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions())
+        .catch(() => undefined),
     ])
   },
   component: OperationsPage,

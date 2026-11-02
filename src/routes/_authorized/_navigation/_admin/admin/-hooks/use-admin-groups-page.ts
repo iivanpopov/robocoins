@@ -1,7 +1,6 @@
 import { useQueries } from '@tanstack/react-query'
 import { useState } from 'react'
 
-import { ResponseError } from '#/api/.kubb/client'
 import { useGetCoursesCourseGet } from '#/api/hooks/useGetCoursesCourseGet'
 import { getGroupsByCourseIdGroupCourseCourseIdGetQueryOptions } from '#/api/hooks/useGetGroupsByCourseIdGroupCourseCourseIdGet'
 import { useGetUsersUsersGet } from '#/api/hooks/useGetUsersUsersGet'
@@ -11,6 +10,7 @@ import { UKRAINIAN_LOCALE } from '#/routes/-constants'
 import type { AdminGroupRowData } from '../-components'
 import { GROUP_FILTER_ALL } from '../-constants'
 import type { AdminGroupsErrorKey } from '../-types'
+import { getAdminGroupsErrorKey } from '../-utils'
 
 export interface AdminGroupTeacherOption {
   userId: number
@@ -193,14 +193,4 @@ export function useAdminGroupsPage() {
       handleRetry,
     },
   }
-}
-
-function getAdminGroupsErrorKey(
-  error: unknown,
-  fallback: AdminGroupsErrorKey,
-): AdminGroupsErrorKey {
-  if (!ResponseError.is(error)) return fallback
-  if (error.status === 401) return 'error.session'
-  if (error.status === 403) return 'admin.groups.error.forbidden'
-  return fallback
 }

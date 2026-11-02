@@ -2,7 +2,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router'
 
 import { readCookie } from '#/utils/cookies'
 
-import { DID_REGISTER_COOKIE } from './-constants'
+import { DID_REGISTER_COOKIE } from '../-constants'
 
 export const Route = createFileRoute('/_authorized')({
   beforeLoad: async ({ context }) => {

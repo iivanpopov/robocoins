@@ -44,18 +44,22 @@ export const Route = createFileRoute(
   },
   loader: async ({ context, params }) => {
     await Promise.all([
-      context.queryClient.prefetchQuery({
-        ...getStudentStreakStudentStudentIdStreakGetQueryOptions({
-          path: { student_id: params.studentId },
-        }),
-        retry: false,
-      }),
-      context.queryClient.prefetchQuery({
-        ...getStudentLongestStreakStudentStudentIdLongestStreakGetQueryOptions({
-          path: { student_id: params.studentId },
-        }),
-        retry: false,
-      }),
+      context.queryClient
+        .query({
+          ...getStudentStreakStudentStudentIdStreakGetQueryOptions({
+            path: { student_id: params.studentId },
+          }),
+          retry: false,
+        })
+        .catch(() => undefined),
+      context.queryClient
+        .query({
+          ...getStudentLongestStreakStudentStudentIdLongestStreakGetQueryOptions({
+            path: { student_id: params.studentId },
+          }),
+          retry: false,
+        })
+        .catch(() => undefined),
     ])
   },
   component: StudentStreakRoute,

@@ -9,10 +9,10 @@ import { useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet } from '#/a
 import { getStudentBalanceByIdStudentStudentIdBalanceGetQueryOptions } from '#/api/hooks/useGetStudentBalanceByIdStudentStudentIdBalanceGet'
 import type { BalanceChangeReasonsKey } from '#/api/types'
 import { UKRAINIAN_LOCALE } from '#/routes/-constants'
+import { invalidateStudentsBalanceCaches } from '#/routes/_authorized/_navigation/_admin/admin/-actions'
+import { getStudentTransactionsQueryOptions } from '#/routes/_authorized/_navigation/_admin/admin/-hooks'
 import {
   getApiErrorKind,
-  getStudentTransactionsQueryOptions,
-  invalidateStudentsBalanceCaches,
   runWithTimeout,
 } from '#/routes/_authorized/_navigation/_admin/admin/-utils'
 
@@ -173,13 +173,13 @@ export function useOperationsPage() {
 
     try {
       const [balance] = await Promise.all([
-        queryClient.fetchQuery({
+        queryClient.query({
           ...getStudentBalanceByIdStudentStudentIdBalanceGetQueryOptions({
             path: { student_id: studentId },
           }),
           staleTime: 0,
         }),
-        queryClient.fetchInfiniteQuery({
+        queryClient.infiniteQuery({
           ...getStudentTransactionsQueryOptions(studentId),
           staleTime: 0,
         }),

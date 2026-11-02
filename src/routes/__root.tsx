@@ -18,8 +18,8 @@ import 'virtual:uno.css'
 
 import { Toaster } from '#/components/ui/toast'
 import { useMotionPreference } from '#/hooks/use-motion-preference'
-import { getSession } from '#/lib/session'
 import { TranslationProvider } from '#/lib/translations'
+import { getSession } from '#/routes/-actions/get-session'
 import { readCookie } from '#/utils/cookies'
 import { MOTION_PREFERENCE_COOKIE } from '#/utils/motion'
 

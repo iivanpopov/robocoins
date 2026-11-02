@@ -85,7 +85,7 @@ export const Route = createFileRoute('/_authorized/_teacher/student/$studentId/e
     if (!isStudentAccessible) throw notFound()
 
     await context.queryClient
-      .prefetchQuery(
+      .query(
         showStudentCredentialsStudentStudentIdCredentialsGetQueryOptions({
           path: { student_id: params.studentId },
         }),
