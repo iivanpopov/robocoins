@@ -15,7 +15,7 @@ import {
   Loader,
   Typography,
 } from '#/components/ui'
-import { Feedback } from '#/feedback'
+import { Feedback } from '#/routes/-components'
 import { InlineError } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
 import { getAvatarUrl, getInitial } from '#/routes/-utils'

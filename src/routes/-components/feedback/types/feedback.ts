@@ -1,4 +1,4 @@
-import type { FeedbackErrorCode, FeedbackKind, FeedbackSource } from '../-constants'
+import type { FeedbackErrorCode, FeedbackKind, FeedbackSource } from '../constants'
 
 export type { FeedbackErrorCode }
 

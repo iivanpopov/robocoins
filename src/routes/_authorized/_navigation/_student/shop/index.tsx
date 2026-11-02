@@ -4,7 +4,7 @@ import { cn } from 'cn'
 
 import { getShopRewardsShopGetQueryOptions } from '#/api/hooks/useGetShopRewardsShopGet'
 import type { StudentProfileResponse } from '#/api/types'
-import { Feedback } from '#/feedback'
+import { Feedback } from '#/routes/-components'
 import { SpaceBackground } from '#/routes/_authorized/-components/space-background'
 
 import { getStudentRewardCategoriesQueryOptions, isRewardEligible } from '../-utils'

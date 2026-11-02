@@ -63,9 +63,11 @@
   pointer-events: none;
 }
 
-.suggestion-trigger {
+.suggestion .suggestion-trigger {
   max-width: 100%;
+  color: var(--foreground);
   text-align: right;
+  text-decoration: none;
   pointer-events: auto;
 }
 

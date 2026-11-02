@@ -6,6 +6,10 @@
   "scripts": {
     "gen:api": "kubb generate",
     "gen:api:dev": "bun --env-file=.env.development kubb generate",
+    "db:generate": "bun --env-file=.env.development drizzle-kit generate",
+    "db:migrate": "bun --env-file=.env.development drizzle-kit migrate",
+    "db:migrate:ci": "drizzle-kit migrate",
+    "db:check": "bun --env-file=.env.development drizzle-kit check",
     "dev": "bun --bun --env-file=.env.development vite dev",
     "build": "vite build",
     "analyze": "vite build --mode analyze",

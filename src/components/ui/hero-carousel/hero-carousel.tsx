@@ -32,17 +32,17 @@ export function HeroCarouselContent({ className, children, ...props }: HeroCarou
 export interface HeroCarouselItemProps extends ComponentProps<'div'> {}
 
 export function HeroCarouselItem({ className, children, ...props }: HeroCarouselItemProps) {
-  const { selectedIndex, scrollTo } = useCarousel()
+  const carousel = useCarousel()
   const index = use(HeroCarouselItemIndexContext)
 
-  const isActive = index === selectedIndex
+  const isActive = index === carousel.selectedIndex
 
   return (
     <CarouselItem {...props} className={cn(styles.item, className)}>
       <div
         className={styles.card}
         data-active={isActive || undefined}
-        onClick={() => scrollTo(index)}
+        onClick={() => carousel.scrollTo(index)}
       >
         {children}
       </div>

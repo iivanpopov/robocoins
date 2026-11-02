@@ -7,7 +7,7 @@ import {
   HeroCarouselItem,
   Typography,
 } from '#/components/ui'
-import { Feedback } from '#/feedback'
+import { Feedback } from '#/routes/-components'
 import { AVATARS } from '#/routes/-constants'
 import { getAvatarUrl } from '#/routes/-utils'
 import { AuthLayout } from '#/routes/_auth/-components'

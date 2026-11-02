@@ -20,7 +20,7 @@ import {
   Loader,
 } from '#/components/ui'
 import { TranslationProvider } from '#/lib/translations'
-import { InlineError } from '#/routes/-components'
+import { InlineError } from '#/routes/-components/inline-error'
 
 import {
   FEEDBACK_DESCRIPTION_KEYS,
@@ -30,8 +30,8 @@ import {
   FEEDBACK_TITLE_KEYS,
   FEEDBACK_TRIGGER_KEYS,
   type FeedbackSource,
-} from '../-constants'
-import { useFeedback } from '../-hooks'
+} from './constants'
+import { useFeedback } from './hooks'
 
 import styles from './feedback.module.css'
 
@@ -179,13 +179,6 @@ function FeedbackContent(props: FeedbackProps) {
                 {feedback.state.isSubmitting && <Loader />}
                 {!feedback.state.isSubmitting && t('feedback.submit')}
               </Button>
-              <DrawerClose
-                render={
-                  <Button type="button" variant="ghost" disabled={feedback.state.isSubmitting} />
-                }
-              >
-                {t('action.cancel')}
-              </DrawerClose>
             </DrawerFooter>
           </form>
         )}

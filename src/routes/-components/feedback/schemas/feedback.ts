@@ -5,7 +5,7 @@ import {
   FEEDBACK_MESSAGE_MAX_LENGTH,
   FEEDBACK_MESSAGE_MIN_LENGTH,
   FEEDBACK_SOURCES,
-} from '../-constants'
+} from '../constants'
 
 export const FeedbackMessageSchema = v.pipe(
   v.string(),

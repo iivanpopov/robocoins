@@ -1,7 +1,7 @@
 import { useTranslate } from '@kanjou/react'
 import { cn } from 'cn'
 
-import { useLessonRewards } from './-hooks'
+import { useLessonRewards } from './hooks'
 
 import styles from './lesson-rewards.module.css'
 

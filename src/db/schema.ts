@@ -1,7 +1,7 @@
 import { sql } from 'drizzle-orm'
 import { check, index, integer, pgEnum, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
 
-import { FEEDBACK_KINDS, FEEDBACK_SOURCES } from '../feedback/-constants'
+import { FEEDBACK_KINDS, FEEDBACK_SOURCES } from '#/routes/-components/feedback/constants'
 
 export const feedbackKind = pgEnum('feedback_kind', FEEDBACK_KINDS)
 export const feedbackSource = pgEnum('feedback_source', FEEDBACK_SOURCES)

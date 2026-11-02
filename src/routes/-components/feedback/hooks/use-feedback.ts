@@ -3,16 +3,16 @@ import { useMutation } from '@tanstack/react-query'
 import { useRef, useState } from 'react'
 import type { SyntheticEvent } from 'react'
 
+import { submitFeedback } from '../actions'
 import {
   FEEDBACK_DEFAULT_KIND,
   FEEDBACK_ERROR_KEYS,
   FEEDBACK_SOURCE_KINDS,
   type FeedbackErrorLocaleKey,
   type FeedbackSource,
-} from '../-constants'
-import { FeedbackFormSchema } from '../-schemas'
-import { submitFeedback } from '../-server'
-import type { FeedbackSubmissionInput, FeedbackSubmissionResult } from '../-types'
+} from '../constants'
+import { FeedbackFormSchema } from '../schemas'
+import type { FeedbackSubmissionInput, FeedbackSubmissionResult } from '../types'
 
 export interface UseFeedbackOptions {
   source: FeedbackSource
@@ -34,7 +34,7 @@ export function useFeedback(options: UseFeedbackOptions) {
       kind: FEEDBACK_DEFAULT_KIND[source],
       message: '',
     },
-    validators: { onChange: FeedbackFormSchema },
+    validators: { onSubmit: FeedbackFormSchema },
     onSubmit: async ({ value }) => {
       if (submitMutation.isPending) return
 

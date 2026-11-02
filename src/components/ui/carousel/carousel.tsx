@@ -124,10 +124,10 @@ export function Carousel({ opts, plugins, setApi, className, children, ...props 
 export interface CarouselContentProps extends ComponentProps<'div'> {}
 
 export function CarouselContent({ className, ...props }: CarouselContentProps) {
-  const { carouselRef } = useCarousel()
+  const carousel = useCarousel()
 
   return (
-    <div ref={carouselRef} className={styles.viewport}>
+    <div ref={carousel.carouselRef} className={styles.viewport}>
       <div {...props} className={cn(styles.container, className)} />
     </div>
   )
