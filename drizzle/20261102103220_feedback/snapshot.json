@@ -1,0 +1,303 @@
+{
+  "type": "base",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "5f170541-6f3a-4871-98b3-4315720e9873",
+  "prevIds": ["00000000-0000-0000-0000-000000000000"],
+  "footprints": [
+    {
+      "statementType": "create_enum",
+      "statementTarget": ["enum", "public", "feedback_kind"],
+      "writes": [
+        "s|enum|public.feedback_kind",
+        "n|enum|public.feedback_kind",
+        "e|enum|public.feedback_kind",
+        "n|type|public.feedback_kind"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": ["enum", "public", "feedback_source"],
+      "writes": [
+        "s|enum|public.feedback_source",
+        "n|enum|public.feedback_source",
+        "e|enum|public.feedback_source",
+        "n|type|public.feedback_source"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "feedback"],
+      "writes": [
+        "s|tbl|public.feedback",
+        "n|tbl|public.feedback",
+        "e|tbl|public.feedback",
+        "n|rel|public.feedback",
+        "n|type|public.feedback",
+        "n|rel|public.feedback_pkey"
+      ],
+      "reads": ["n|sch|public", "n|enum|public.feedback_kind", "n|enum|public.feedback_source"]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": ["table", "public", "feedback_rate_limit"],
+      "writes": [
+        "s|tbl|public.feedback_rate_limit",
+        "n|tbl|public.feedback_rate_limit",
+        "e|tbl|public.feedback_rate_limit",
+        "n|rel|public.feedback_rate_limit",
+        "n|type|public.feedback_rate_limit",
+        "n|rel|public.feedback_rate_limit_pkey"
+      ],
+      "reads": ["n|sch|public"]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": ["index", "public", "feedback", "feedback_created_at_idx"],
+      "writes": [
+        "s|idx|public.feedback_created_at_idx",
+        "n|idx|public.feedback_created_at_idx",
+        "e|idx|public.feedback_created_at_idx",
+        "n|rel|public.feedback_created_at_idx"
+      ],
+      "reads": ["n|tbl|public.feedback", "n|sch|public", "n|col|public.feedback.created_at"]
+    }
+  ],
+  "ddl": [
+    {
+      "schema": "public",
+      "name": "feedback",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "feedback_rate_limit",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "feedback_kind",
+      "values": ["idea", "problem", "other", "avatar_suggestion", "reward_suggestion"],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "feedback_source",
+      "values": ["student_home", "registration_avatar", "profile_avatar", "shop"],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "table": "feedback",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "feedback",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "feedback",
+      "name": "kind",
+      "type": "feedback_kind",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "feedback",
+      "name": "source",
+      "type": "feedback_source",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "feedback",
+      "name": "message",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "feedback",
+      "name": "student_id",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "feedback",
+      "name": "student_name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "feedback_rate_limit",
+      "name": "bucket",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "feedback_rate_limit",
+      "name": "window_started_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "feedback_rate_limit",
+      "name": "count",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "feedback",
+      "name": "feedback_created_at_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "created_at",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "feedback",
+      "name": "feedback_pkey",
+      "columns": ["id"],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "feedback_rate_limit",
+      "name": "feedback_rate_limit_pkey",
+      "columns": ["bucket"],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "feedback",
+      "name": "feedback_message_length_check",
+      "value": "char_length(\"message\") between 3 and 2000",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "feedback",
+      "name": "feedback_message_trimmed_check",
+      "value": "\"message\" = btrim(\"message\")",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "feedback",
+      "name": "feedback_author_check",
+      "value": "(\"student_id\" is null and \"student_name\" is null) or (\"student_id\" is not null and \"student_name\" is not null)",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "feedback",
+      "name": "feedback_source_author_check",
+      "value": "\"source\" = 'registration_avatar' or \"student_id\" is not null",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "feedback",
+      "name": "feedback_source_kind_check",
+      "value": "(\"source\" = 'student_home' and \"kind\" in ('idea', 'problem', 'other')) or (\"source\" in ('registration_avatar', 'profile_avatar') and \"kind\" = 'avatar_suggestion') or (\"source\" = 'shop' and \"kind\" = 'reward_suggestion')",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "feedback_rate_limit",
+      "name": "feedback_rate_limit_count_check",
+      "value": "\"count\" > 0",
+      "entityType": "checks"
+    }
+  ]
+}

@@ -33,3 +33,7 @@
   --page-gradient-start: rgb(107 124 255 / 13%);
   --page-gradient-end: rgb(180 140 255 / 6%);
 }
+
+.feedback {
+  align-self: center;
+}

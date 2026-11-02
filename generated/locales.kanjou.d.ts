@@ -1099,6 +1099,43 @@ declare module '@kanjou/react' {
       'error.forbidden': {}
       'error.session': {}
       'group.practice.title': {}
+      'feedback.counter': {
+        count: { __fn: 'number' }
+        limit: { __fn: 'number' }
+      }
+      'feedback.description.home': {}
+      'feedback.description.profile-avatar': {}
+      'feedback.description.registration-avatar': {}
+      'feedback.description.shop': {}
+      'feedback.error.author': {}
+      'feedback.error.conflict': {}
+      'feedback.error.generic': {}
+      'feedback.error.rate-limit': {}
+      'feedback.error.session': {}
+      'feedback.error.unavailable': {}
+      'feedback.error.validation': {}
+      'feedback.field.kind': {}
+      'feedback.field.message': {}
+      'feedback.field.message.placeholder': {}
+      'feedback.kind.avatar-suggestion': {}
+      'feedback.kind.idea': {}
+      'feedback.kind.other': {}
+      'feedback.kind.problem': {}
+      'feedback.kind.reward-suggestion': {}
+      'feedback.submit': {}
+      'feedback.success.avatar': {}
+      'feedback.success.close': {}
+      'feedback.success.home': {}
+      'feedback.success.reward': {}
+      'feedback.title.avatar': {}
+      'feedback.title.home': {}
+      'feedback.title.reward': {}
+      'feedback.trigger.home': {}
+      'feedback.trigger.profile-avatar': {}
+      'feedback.trigger.registration-avatar': {}
+      'feedback.trigger.shop': {}
+      'feedback.validation.kind': {}
+      'feedback.validation.message': {}
     }
   }
 }

@@ -1,0 +1,41 @@
+export default {
+  'feedback.counter': '{$count :number} / {$limit :number}',
+  'feedback.description.home': 'Поділись ідеєю, розкажи про проблему або напиши інше.',
+  'feedback.description.profile-avatar':
+    'Опиши, який аватар хотів би бачити. Поточний аватар не зміниться.',
+  'feedback.description.registration-avatar':
+    'Опиши, який аватар хотів би бачити. Реєстрація продовжиться з того самого кроку.',
+  'feedback.description.shop': 'Опиши нагороду, яку хотів би бачити в магазині.',
+  'feedback.error.author': 'Надсилати звернення може лише учень.',
+  'feedback.error.conflict':
+    'Це звернення вже збережено з іншими даними. Закрий форму й почни нове.',
+  'feedback.error.generic': 'Не вдалося надіслати. Текст збережено — спробуй ще раз.',
+  'feedback.error.rate-limit':
+    'Забагато спроб. Зачекай кілька хвилин і спробуй ще раз. Текст збережено.',
+  'feedback.error.session':
+    'Сесія завершилася. Увійди знову, щоб надіслати звернення. Текст збережено.',
+  'feedback.error.unavailable': 'Не вдалося надіслати. Текст збережено — спробуй ще раз.',
+  'feedback.error.validation': 'Перевір тип і текст повідомлення.',
+  'feedback.field.kind': 'Тип звернення',
+  'feedback.field.message': 'Повідомлення',
+  'feedback.field.message.placeholder': 'Напиши від 3 до 2000 символів',
+  'feedback.kind.avatar-suggestion': 'Пропозиція аватара',
+  'feedback.kind.idea': 'Ідея',
+  'feedback.kind.other': 'Інше',
+  'feedback.kind.problem': 'Проблема',
+  'feedback.kind.reward-suggestion': 'Пропозиція нагороди',
+  'feedback.submit': 'Надіслати',
+  'feedback.success.avatar': 'Пропозицію аватара збережено. Дякуємо!',
+  'feedback.success.close': 'Готово',
+  'feedback.success.home': 'Звернення збережено. Дякуємо, що допомагаєш нам ставати кращими.',
+  'feedback.success.reward': 'Пропозицію нагороди збережено. Дякуємо!',
+  'feedback.title.avatar': 'Пропозиція аватара',
+  'feedback.title.home': 'Зворотний зв’язок',
+  'feedback.title.reward': 'Пропозиція нагороди',
+  'feedback.trigger.home': 'Залишити відгук',
+  'feedback.trigger.profile-avatar': 'Запропонувати аватар',
+  'feedback.trigger.registration-avatar': 'Запропонувати аватар',
+  'feedback.trigger.shop': 'Запропонувати нагороду',
+  'feedback.validation.kind': 'Обери тип звернення.',
+  'feedback.validation.message': 'Текст має містити від 3 до 2000 символів.',
+}

@@ -8,6 +8,7 @@ import { getStudentStreakStudentStudentIdStreakGetQueryOptions } from '#/api/hoo
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryOptions } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { StudentProfileResponse } from '#/api/types'
 import { Loader } from '#/components/ui'
+import { Feedback } from '#/feedback'
 import { InlineError } from '#/routes/-components'
 import { COOKIE_MAX_AGE, LAST_LOG_ON_COOKIE } from '#/routes/-constants'
 import { readCookie } from '#/utils/cookies'
@@ -144,6 +145,7 @@ function StudentPage() {
         onRetry={functions.handleRetryHistory}
         onViewAll={functions.handleViewHistory}
       />
+      <Feedback source="student_home" className={styles.feedback} />
     </main>
   )
 }
