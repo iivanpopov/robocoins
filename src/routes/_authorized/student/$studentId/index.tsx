@@ -15,6 +15,7 @@ import {
   Loader,
   Typography,
 } from '#/components/ui'
+import { Feedback } from '#/feedback'
 import { InlineError } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
 import { getAvatarUrl, getInitial } from '#/routes/-utils'
@@ -128,6 +129,7 @@ function StudentProfilePage() {
               </div>
             </div>
           </article>
+          {state.isOwnProfile && <Feedback source="profile_avatar" className={styles.feedback} />}
           {state.isTeacher && (
             <section className={styles.section}>
               <h2 className={styles['section-title']}>{t('groups.title')}</h2>

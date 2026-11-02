@@ -13,7 +13,8 @@ export function useStudentProfilePage() {
   const search = useSearch({ from: '/_authorized/student/$studentId/' })
   const context = useRouteContext({ from: '/_authorized' })
 
-  const isTeacher = context.user?.role !== 'student'
+  const user = context.user
+  const isTeacher = user?.role !== 'student'
   const studentId = params.studentId
   const fromGroupId = search.fromGroupId ?? null
 
@@ -56,6 +57,7 @@ export function useStudentProfilePage() {
 
   const profile = studentQuery.data ?? null
   const avatar = AVATARS.find((candidate) => candidate === profile?.avatar) ?? AVATARS[0]
+  const isOwnProfile = user?.role === 'student' && studentId === user.id && profile?.id === user.id
   const groupCards = isTeacher
     ? (profile?.group_ids ?? []).flatMap((groupId) => {
         const group = teacherGroupsQuery.data?.find((candidate) => candidate.id === groupId)
@@ -77,6 +79,7 @@ export function useStudentProfilePage() {
   return {
     state: {
       isTeacher,
+      isOwnProfile,
       studentId,
       fromGroupId,
       profile,

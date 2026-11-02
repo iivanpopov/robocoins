@@ -16,6 +16,10 @@
   min-width: 0;
 }
 
+.feedback {
+  align-self: flex-start;
+}
+
 .avatar {
   --avatar-size: 8rem;
 
