@@ -4,6 +4,7 @@ import { cn } from 'cn'
 
 import { getShopRewardsShopGetQueryOptions } from '#/api/hooks/useGetShopRewardsShopGet'
 import type { StudentProfileResponse } from '#/api/types'
+import { Feedback } from '#/feedback'
 import { SpaceBackground } from '#/routes/_authorized/-components/space-background'
 
 import { getStudentRewardCategoriesQueryOptions, isRewardEligible } from '../-utils'
@@ -68,6 +69,15 @@ function ShopPage() {
           <span className="i-ph:coins" aria-hidden="true" />
         </div>
       </header>
+      {!state.isRewardActive && (
+        <div className={styles.suggestion}>
+          <Feedback
+            source="shop"
+            contentClassName="galaxy"
+            className={styles['suggestion-trigger']}
+          />
+        </div>
+      )}
       <SpaceBackground className={styles['star-background']} ref={refs.background} variant="shop" />
       <div
         className={cn(

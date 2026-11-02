@@ -52,6 +52,23 @@
   color: var(--foreground);
 }
 
+.suggestion {
+  position: absolute;
+  right: var(--spacing-xl);
+  bottom: calc(64px + env(safe-area-inset-bottom, 0px) + var(--spacing-xl));
+  left: var(--spacing-xl);
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.suggestion-trigger {
+  max-width: 100%;
+  text-align: right;
+  pointer-events: auto;
+}
+
 .list-view,
 .list-view:active {
   cursor: default;
@@ -94,7 +111,7 @@
 .catalog {
   position: absolute;
   inset: 0;
-  padding: 84px 24px calc(96px + env(safe-area-inset-bottom));
+  padding: 84px 24px calc(160px + env(safe-area-inset-bottom));
   overflow: auto;
   overscroll-behavior: contain;
   touch-action: pan-y;
