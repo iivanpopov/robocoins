@@ -1,4 +1,5 @@
 import kanjou from '@kanjou/plugin/vite'
+import { translationNamespaces } from '@repo/kanjou-translations'
 import { sentryTanstackStart } from '@sentry/tanstackstart-react/vite'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import { redact } from '@tanstack/redact/vite'
@@ -7,8 +8,6 @@ import { nitro } from 'nitro/vite'
 import { visualizer } from 'rollup-plugin-visualizer'
 import unocss from 'unocss/vite'
 import { defineConfig, loadEnv } from 'vite'
-
-import { translationNamespaces } from './plugins/translation-namespaces'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')

@@ -1,8 +1,8 @@
-import { useForm } from '@tanstack/react-form'
 import { useHydrated } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
 
 import { useLoginAuthLoginPost } from '#/api/hooks/useLoginAuthLoginPost'
+import { useField } from '#/hooks/use-field'
 import { getHomePath } from '#/routes/-utils'
 
 import { LoginStateSchema } from '../-schemas'
@@ -12,15 +12,12 @@ export function useLoginPage() {
 
   const loginMutation = useLoginAuthLoginPost()
 
-  const form = useForm({
-    defaultValues: { password: '' },
-    validators: { onChange: LoginStateSchema },
-    listeners: {
-      onChange: () => loginMutation.reset(),
-    },
-    onSubmit: async ({ value }) => {
+  const passwordField = useField('', {
+    schema: LoginStateSchema.entries.password,
+    onChange: () => loginMutation.reset(),
+    onSubmit: async (value) => {
       try {
-        const response = await loginMutation.mutateAsync({ body: { code: value.password } })
+        const response = await loginMutation.mutateAsync({ body: { code: value } })
         window.location.assign(getHomePath(response.user.role))
       } catch {
         return
@@ -30,7 +27,7 @@ export function useLoginPage() {
 
   const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault()
-    void form.handleSubmit()
+    void passwordField.handleSubmit()
   }
 
   return {
@@ -42,7 +39,7 @@ export function useLoginPage() {
       handleSubmit,
     },
     features: {
-      form,
+      passwordField,
     },
   }
 }

@@ -1,7 +1,8 @@
-import { useForm, useSelector } from '@tanstack/react-form'
 import { useMutation } from '@tanstack/react-query'
 import { useRef, useState } from 'react'
 import type { SyntheticEvent } from 'react'
+
+import { useForm } from '#/hooks/use-form'
 
 import { submitFeedback } from '../actions'
 import {
@@ -30,12 +31,13 @@ export function useFeedback(options: UseFeedbackOptions) {
   })
 
   const form = useForm({
-    defaultValues: {
+    initialValues: {
       kind: FEEDBACK_DEFAULT_KIND[source],
       message: '',
     },
-    validators: { onSubmit: FeedbackFormSchema },
-    onSubmit: async ({ value }) => {
+    schema: FeedbackFormSchema,
+    validateOn: 'submit',
+    onSubmit: async (value) => {
       if (submitMutation.isPending) return
 
       const message = value.message.trim()
@@ -62,7 +64,7 @@ export function useFeedback(options: UseFeedbackOptions) {
     },
   })
 
-  const isFormSubmitting = useSelector(form.store, (state) => state.isSubmitting)
+  const isFormSubmitting = form.state.isSubmitting
 
   function handleOpenChange(open: boolean) {
     if (isFormSubmitting || submitMutation.isPending) return

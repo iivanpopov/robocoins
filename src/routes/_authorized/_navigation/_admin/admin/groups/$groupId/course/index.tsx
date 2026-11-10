@@ -96,28 +96,24 @@ function GroupCoursePage() {
           submitDisabled={state.isUnchanged}
           note={t('admin.groups.change-course.note')}
         >
-          <features.form.Field name="courseId">
-            {(field) => (
-              <Field>
-                <FieldLabel htmlFor="group-change-course">{t('courses.label')}</FieldLabel>
-                <AdminSelect
-                  id="group-change-course"
-                  name={field.name}
-                  value={field.state.value}
-                  onValueChange={(value) => field.handleChange(value)}
-                  items={state.courseItems}
-                  placeholder={t('admin.groups.create.course-placeholder')}
-                  ariaLabel={t('courses.label')}
-                />
-                {!!field.state.meta.errors.length && (
-                  <FieldError>{t('admin.groups.create.course-error')}</FieldError>
-                )}
-                {state.isUnchanged && (
-                  <FieldDescription>{t('admin.groups.change-course.same')}</FieldDescription>
-                )}
-              </Field>
+          <Field>
+            <FieldLabel htmlFor="group-change-course">{t('courses.label')}</FieldLabel>
+            <AdminSelect
+              id="group-change-course"
+              name="courseId"
+              value={features.courseField.value}
+              onValueChange={features.courseField.handleChange}
+              items={state.courseItems}
+              placeholder={t('admin.groups.create.course-placeholder')}
+              ariaLabel={t('courses.label')}
+            />
+            {!!features.courseField.error && (
+              <FieldError>{t('admin.groups.create.course-error')}</FieldError>
             )}
-          </features.form.Field>
+            {state.isUnchanged && (
+              <FieldDescription>{t('admin.groups.change-course.same')}</FieldDescription>
+            )}
+          </Field>
         </GroupForm>
       )}
 

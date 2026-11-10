@@ -1,7 +1,8 @@
-import { useForm, useSelector } from '@tanstack/react-form'
 import { useParams } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
 import { useEffect, useRef, useState } from 'react'
+
+import { useField } from '#/hooks/use-field'
 
 import { RenameGroupStateSchema } from '../-schemas'
 import type { GroupErrorKey } from '../-types'
@@ -20,29 +21,26 @@ export function useGroupRenamePage() {
 
   const groupData = useGroupRecord(groupId)
 
-  const form = useForm({
-    defaultValues: { name: groupData.group?.name ?? '' },
-    validators: { onChange: RenameGroupStateSchema },
-    onSubmit: ({ value }) => {
+  const nameField = useField(groupData.group?.name ?? '', {
+    schema: RenameGroupStateSchema.entries.name,
+    onSubmit: (value) => {
       if (!groupData.group || renamedName) return
-      setRenamedName(value.name.trim())
+      setRenamedName(value.trim())
     },
   })
-
-  const name = useSelector(form.store, (state) => state.values.name)
 
   useEffect(() => {
     const group = groupData.group
     if (!group) return
     if (syncedGroupIdReference.current === group.id) return
     syncedGroupIdReference.current = group.id
-    form.setFieldValue('name', group.name)
-  }, [groupData.group, form])
+    nameField.setValue(group.name)
+  }, [groupData.group, nameField])
 
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
     if (!groupData.group || renamedName) return
-    void form.handleSubmit()
+    void nameField.handleSubmit()
   }
 
   function handleRetry() {
@@ -50,6 +48,7 @@ export function useGroupRenamePage() {
     void groupData.groupQuery.refetch()
   }
 
+  const name = nameField.value
   const isUnchanged = !!groupData.group && name.trim() === groupData.group.name
   const isNotFound = getGroupErrorStatus(groupData.groupQuery.error) === 404
 
@@ -72,6 +71,6 @@ export function useGroupRenamePage() {
     },
     queries: { group: groupData.groupQuery },
     functions: { handleSubmit, handleRetry },
-    features: { form },
+    features: { nameField },
   }
 }

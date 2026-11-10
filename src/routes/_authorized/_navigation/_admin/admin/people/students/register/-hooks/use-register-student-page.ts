@@ -1,4 +1,3 @@
-import { useForm } from '@tanstack/react-form'
 import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { useState, type SyntheticEvent } from 'react'
@@ -8,6 +7,7 @@ import { getAllStudentsStudentGetQueryKey } from '#/api/hooks/useGetAllStudentsS
 import { useGetCoursesCourseGet } from '#/api/hooks/useGetCoursesCourseGet'
 import type { StudentProfileResponse } from '#/api/types'
 import type { CourseCategoryKey } from '#/api/types'
+import { useForm } from '#/hooks/use-form'
 import { AVATARS, UKRAINIAN_LOCALE } from '#/routes/-constants'
 
 import { RegisterStudentFormSchema, type RegisterStudentFormValues } from '../-schemas'
@@ -59,18 +59,16 @@ export function useRegisterStudentPage() {
   })
 
   const form = useForm({
-    defaultValues: {
+    initialValues: {
       name: '',
       avatar: AVATARS[0],
       groupIds: [],
     } as RegisterStudentFormValues,
-    validators: { onChange: RegisterStudentFormSchema },
-    listeners: {
-      onChange: () => {
-        if (!createMutation.isPending) createMutation.reset()
-      },
+    schema: RegisterStudentFormSchema,
+    onChange: () => {
+      if (!createMutation.isPending) createMutation.reset()
     },
-    onSubmit: async ({ value }) => {
+    onSubmit: async (value) => {
       if (createMutation.isPending || created) return
 
       try {

@@ -1,10 +1,10 @@
-import { useForm, useSelector } from '@tanstack/react-form'
 import { useQueryClient } from '@tanstack/react-query'
 import { useParams } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
 import { useEffect, useRef, useState } from 'react'
 
 import { useAssignGroupTeachersGroupIdGroupIdTeachersPut } from '#/api/hooks/useAssignGroupTeachersGroupIdGroupIdTeachersPut'
+import { useField } from '#/hooks/use-field'
 
 import { useGroupRecord, useTeacherOptions } from '../../../-hooks'
 import { GroupTeacherAssignmentStateSchema } from '../../../-schemas'
@@ -34,22 +34,17 @@ export function useGroupTeachersPage() {
     mutation: { retry: false },
   })
 
-  const form = useForm({
-    defaultValues: {
-      teacherIds: [] as number[],
-    },
-    validators: { onChange: GroupTeacherAssignmentStateSchema },
-    listeners: {
-      onChange: () => assignTeachersMutation.reset(),
-    },
-    onSubmit: async ({ value }) => {
+  const teachersField = useField<number[]>([], {
+    schema: GroupTeacherAssignmentStateSchema.entries.teacherIds,
+    onChange: () => assignTeachersMutation.reset(),
+    onSubmit: async (teacherIds) => {
       if (assignTeachersMutation.isPending || savedTeacherIds) return
       try {
         await assignTeachersMutation.mutateAsync({
           path: { group_id: groupId },
-          body: { teacher_ids: value.teacherIds },
+          body: { teacher_ids: teacherIds },
         })
-        setSavedTeacherIds(value.teacherIds)
+        setSavedTeacherIds(teacherIds)
         await invalidateGroupCaches(queryClient).catch(() => undefined)
       } catch {
         return
@@ -57,20 +52,18 @@ export function useGroupTeachersPage() {
     },
   })
 
-  const isFormSubmitting = useSelector(form.store, (state) => state.isSubmitting)
-
   useEffect(() => {
     const group = groupData.group
     if (!group) return
     if (syncedGroupIdReference.current === group.id) return
     syncedGroupIdReference.current = group.id
-    form.setFieldValue('teacherIds', group.teacher_ids ?? [])
-  }, [groupData.group, form])
+    teachersField.setValue(group.teacher_ids ?? [])
+  }, [groupData.group, teachersField])
 
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
     if (assignTeachersMutation.isPending || savedTeacherIds) return
-    void form.handleSubmit()
+    void teachersField.handleSubmit()
   }
 
   function handleRetry() {
@@ -130,7 +123,7 @@ export function useGroupTeachersPage() {
       isError: hasReadError,
       isFetching: groupData.groupQuery.isFetching || teacherOptions.isFetching,
       isTeachersFetching: teacherOptions.isFetching,
-      isSubmitting: assignTeachersMutation.isPending || isFormSubmitting,
+      isSubmitting: assignTeachersMutation.isPending || teachersField.isSubmitting,
       isReady: !!groupData.group && !hasReadError && !teacherOptions.isError,
     },
     queries: {
@@ -139,6 +132,6 @@ export function useGroupTeachersPage() {
     },
     mutations: { assignTeachers: assignTeachersMutation },
     functions: { handleSubmit, handleRetry, handleRetryTeachers },
-    features: { form },
+    features: { teachersField },
   }
 }

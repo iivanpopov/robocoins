@@ -71,31 +71,25 @@ function CategoryCreatePage() {
           onSubmit={functions.handleSubmit}
           submitLabel={t('admin.courses.categories.create.submit')}
         >
-          <features.form.Field name="name">
-            {(field) => (
-              <Field>
-                <FieldLabel htmlFor="category-create-name">
-                  {t('admin.courses.categories.name-label')}
-                </FieldLabel>
-                <Input
-                  id="category-create-name"
-                  name={field.name}
-                  value={field.state.value}
-                  placeholder={t('admin.courses.categories.name-placeholder')}
-                  autoComplete="off"
-                  aria-invalid={!!field.state.meta.errors.length}
-                  onChange={(event) => field.handleChange(event.target.value)}
-                  onBlur={field.handleBlur}
-                />
-                <FieldDescription>
-                  {t('admin.courses.categories.create.description')}
-                </FieldDescription>
-                {!!field.state.meta.errors.length && (
-                  <FieldError>{t('admin.courses.categories.name-error')}</FieldError>
-                )}
-              </Field>
+          <Field>
+            <FieldLabel htmlFor="category-create-name">
+              {t('admin.courses.categories.name-label')}
+            </FieldLabel>
+            <Input
+              id="category-create-name"
+              name="name"
+              value={features.nameField.value}
+              placeholder={t('admin.courses.categories.name-placeholder')}
+              autoComplete="off"
+              aria-invalid={!!features.nameField.error}
+              onChange={(event) => features.nameField.handleChange(event.target.value)}
+              onBlur={features.nameField.handleBlur}
+            />
+            <FieldDescription>{t('admin.courses.categories.create.description')}</FieldDescription>
+            {features.nameField.error && (
+              <FieldError>{t('admin.courses.categories.name-error')}</FieldError>
             )}
-          </features.form.Field>
+          </Field>
         </CourseForm>
       )}
     </PageLayout.Root>

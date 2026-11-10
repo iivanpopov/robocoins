@@ -1,4 +1,3 @@
-import { useForm, useSelector } from '@tanstack/react-form'
 import { useQueryClient } from '@tanstack/react-query'
 import type { SyntheticEvent } from 'react'
 import { useState } from 'react'
@@ -6,6 +5,7 @@ import { useState } from 'react'
 import { useCreateCourseCoursePost } from '#/api/hooks/useCreateCourseCoursePost'
 import { getCoursesCourseGetQueryKey } from '#/api/hooks/useGetCoursesCourseGet'
 import type { CourseCategoryKey, CourseResponse } from '#/api/types'
+import { useForm } from '#/hooks/use-form'
 
 import { CreateCourseStateSchema } from '../-schemas'
 import type { CourseErrorKey } from '../-types'
@@ -19,15 +19,13 @@ export function useCreateCoursePage() {
   const createCourseMutation = useCreateCourseCoursePost()
 
   const form = useForm({
-    defaultValues: {
+    initialValues: {
       name: '',
       category: 'embedded' as CourseCategoryKey,
     },
-    validators: { onChange: CreateCourseStateSchema },
-    listeners: {
-      onChange: () => createCourseMutation.reset(),
-    },
-    onSubmit: async ({ value }) => {
+    schema: CreateCourseStateSchema,
+    onChange: () => createCourseMutation.reset(),
+    onSubmit: async (value) => {
       if (createCourseMutation.isPending || createdCourse) return
 
       try {
@@ -44,7 +42,7 @@ export function useCreateCoursePage() {
     },
   })
 
-  const isFormSubmitting = useSelector(form.store, (state) => state.isSubmitting)
+  const isFormSubmitting = form.state.isSubmitting
 
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()

@@ -233,34 +233,30 @@ function StudentStreakPage() {
             )}
 
             <form className={styles.form} noValidate onSubmit={functions.handleUpdateSubmit}>
-              <features.form.Field name="days">
-                {(field) => (
-                  <Field>
-                    <FieldLabel htmlFor="streak-days">{t('admin.streak.update.label')}</FieldLabel>
-                    <Input
-                      id="streak-days"
-                      name={field.name}
-                      inputMode="numeric"
-                      autoComplete="off"
-                      value={field.state.value}
-                      disabled={!state.isActive || state.isBusy}
-                      aria-invalid={!!field.state.meta.errors.length}
-                      aria-describedby="streak-days-description streak-days-error"
-                      onChange={(event) => field.handleChange(event.target.value)}
-                      onBlur={field.handleBlur}
-                    />
-                    <FieldDescription id="streak-days-description">
-                      {state.isActive && t('admin.streak.validation.days')}
-                      {!state.isActive && t('admin.streak.update.unavailable')}
-                    </FieldDescription>
-                    {!!field.state.meta.errors.length && (
-                      <FieldError id="streak-days-error">
-                        {t('admin.streak.validation.days')}
-                      </FieldError>
-                    )}
-                  </Field>
+              <Field>
+                <FieldLabel htmlFor="streak-days">{t('admin.streak.update.label')}</FieldLabel>
+                <Input
+                  id="streak-days"
+                  name="days"
+                  inputMode="numeric"
+                  autoComplete="off"
+                  value={features.daysField.value}
+                  disabled={!state.isActive || state.isBusy}
+                  aria-invalid={!!features.daysField.error}
+                  aria-describedby="streak-days-description streak-days-error"
+                  onChange={(event) => features.daysField.handleChange(event.target.value)}
+                  onBlur={features.daysField.handleBlur}
+                />
+                <FieldDescription id="streak-days-description">
+                  {state.isActive && t('admin.streak.validation.days')}
+                  {!state.isActive && t('admin.streak.update.unavailable')}
+                </FieldDescription>
+                {!!features.daysField.error && (
+                  <FieldError id="streak-days-error">
+                    {t('admin.streak.validation.days')}
+                  </FieldError>
                 )}
-              </features.form.Field>
+              </Field>
 
               <Button
                 type="submit"

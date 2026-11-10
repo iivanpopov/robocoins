@@ -90,32 +90,28 @@ function StudentEditPage() {
           <section className={styles.card}>
             <h2 className={styles['section-title']}>{t('field.nickname.label')}</h2>
             <form className={styles.form} onSubmit={functions.handleSubmitNickname} noValidate>
-              <features.nicknameForm.Field name="nickname">
-                {(field) => (
-                  <Field>
-                    <FieldLabel htmlFor="student-edit-nickname">
-                      {t('field.student-nickname.placeholder')}
-                    </FieldLabel>
-                    <Input
-                      id="student-edit-nickname"
-                      name={field.name}
-                      value={field.state.value}
-                      maxLength={200}
-                      autoComplete="off"
-                      placeholder={t('field.student-nickname.placeholder')}
-                      aria-invalid={!!field.state.meta.errors.length}
-                      onChange={(event) => field.handleChange(event.target.value)}
-                      onBlur={field.handleBlur}
-                    />
-                    {!!field.state.meta.errors.length && (
-                      <FieldError>{t('students.edit.nickname.error')}</FieldError>
-                    )}
-                    {state.isNicknameUnchanged && (
-                      <FieldDescription>{t('students.edit.nickname.same')}</FieldDescription>
-                    )}
-                  </Field>
+              <Field>
+                <FieldLabel htmlFor="student-edit-nickname">
+                  {t('field.student-nickname.placeholder')}
+                </FieldLabel>
+                <Input
+                  id="student-edit-nickname"
+                  name="nickname"
+                  value={features.nicknameField.value}
+                  maxLength={200}
+                  autoComplete="off"
+                  placeholder={t('field.student-nickname.placeholder')}
+                  aria-invalid={!!features.nicknameField.error}
+                  onChange={(event) => features.nicknameField.handleChange(event.target.value)}
+                  onBlur={features.nicknameField.handleBlur}
+                />
+                {!!features.nicknameField.error && (
+                  <FieldError>{t('students.edit.nickname.error')}</FieldError>
                 )}
-              </features.nicknameForm.Field>
+                {state.isNicknameUnchanged && (
+                  <FieldDescription>{t('students.edit.nickname.same')}</FieldDescription>
+                )}
+              </Field>
 
               {mutations.nickname.isError && (
                 <StudentRequestError
@@ -148,16 +144,12 @@ function StudentEditPage() {
             <h2 className={styles['section-title']}>{t('field.avatar.label')}</h2>
             <p className={styles.note}>{t('students.edit.avatar.description')}</p>
             <form className={styles.form} onSubmit={functions.handleSubmitAvatar} noValidate>
-              <features.avatarForm.Field name="avatar">
-                {(field) => (
-                  <AvatarPicker
-                    value={field.state.value}
-                    onChange={field.handleChange}
-                    name={state.student?.name ?? ''}
-                    disabled={mutations.avatar.isPending}
-                  />
-                )}
-              </features.avatarForm.Field>
+              <AvatarPicker
+                value={features.avatarField.value}
+                onChange={features.avatarField.handleChange}
+                name={state.student?.name ?? ''}
+                disabled={mutations.avatar.isPending}
+              />
 
               {mutations.avatar.isError && (
                 <StudentRequestError

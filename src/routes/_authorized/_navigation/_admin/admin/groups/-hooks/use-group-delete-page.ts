@@ -1,8 +1,9 @@
-import { useForm } from '@tanstack/react-form'
 import { useParams } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
 import { useState } from 'react'
 import * as v from 'valibot'
+
+import { useField } from '#/hooks/use-field'
 
 import { DeleteGroupStateSchema } from '../-schemas'
 import type { GroupErrorKey } from '../-types'
@@ -21,20 +22,17 @@ export function useGroupDeletePage() {
 
   const groupData = useGroupRecord(groupId)
 
-  const form = useForm({
-    defaultValues: { confirmation: '' },
-    validators: {
-      onChange: ({ value }) => {
-        const result = v.safeParse(DeleteGroupStateSchema, value)
-        if (!result.success) return 'invalid'
-        if (!groupData.group) return 'unavailable'
-        if (result.output.confirmation !== groupData.group.name) return 'mismatch'
-        return undefined
-      },
+  const confirmationField = useField('', {
+    customValidate: (value) => {
+      const result = v.safeParse(DeleteGroupStateSchema.entries.confirmation, value)
+      if (!result.success) return 'invalid'
+      if (!groupData.group) return 'unavailable'
+      if (result.output !== groupData.group.name) return 'mismatch'
+      return undefined
     },
-    onSubmit: ({ value }) => {
+    onSubmit: (value) => {
       if (!groupData.group || isDeletedLocally) return
-      if (value.confirmation.trim() !== groupData.group.name) return
+      if (value.trim() !== groupData.group.name) return
       setIsDialogOpen(true)
     },
   })
@@ -42,7 +40,7 @@ export function useGroupDeletePage() {
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
     if (!groupData.group || isDeletedLocally) return
-    void form.handleSubmit()
+    void confirmationField.handleSubmit()
   }
 
   function handleDialogOpenChange(isOpen: boolean) {
@@ -86,6 +84,6 @@ export function useGroupDeletePage() {
       handleConfirmDelete,
       handleRetry,
     },
-    features: { form },
+    features: { confirmationField },
   }
 }

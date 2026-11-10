@@ -1,8 +1,9 @@
-import { useForm, useSelector } from '@tanstack/react-form'
 import { useParams } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
 import { useState } from 'react'
 import * as v from 'valibot'
+
+import { useField } from '#/hooks/use-field'
 
 import { DeleteTeacherStateSchema } from '../-schemas'
 import { useTeacherRecord } from './use-teacher-record'
@@ -19,30 +20,25 @@ export function useTeacherDeletePage() {
 
   const teacherData = useTeacherRecord(teacherId)
 
-  const form = useForm({
-    defaultValues: { confirmation: '' },
-    validators: {
-      onChange: ({ value }) => {
-        const result = v.safeParse(DeleteTeacherStateSchema, value)
-        if (!result.success) return 'invalid'
-        if (!teacherData.state.isAvailable) return 'unavailable'
-        if (result.output.confirmation !== teacherData.state.name) return 'mismatch'
-        return undefined
-      },
+  const confirmationField = useField('', {
+    customValidate: (value) => {
+      const result = v.safeParse(DeleteTeacherStateSchema.entries.confirmation, value)
+      if (!result.success) return 'invalid'
+      if (!teacherData.state.isAvailable) return 'unavailable'
+      if (result.output !== teacherData.state.name) return 'mismatch'
+      return undefined
     },
-    onSubmit: ({ value }) => {
+    onSubmit: (value) => {
       if (!teacherData.state.isAvailable || isDeletedLocally) return
-      if (value.confirmation.trim() !== teacherData.state.name) return
+      if (value.trim() !== teacherData.state.name) return
       setIsDialogOpen(true)
     },
   })
 
-  const confirmation = useSelector(form.store, (state) => state.values.confirmation)
-
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
     if (!teacherData.state.isAvailable || isDeletedLocally) return
-    void form.handleSubmit()
+    void confirmationField.handleSubmit()
   }
 
   function handleDialogOpenChange(isOpen: boolean) {
@@ -54,6 +50,8 @@ export function useTeacherDeletePage() {
     setIsDialogOpen(false)
     setIsDeletedLocally(true)
   }
+
+  const confirmation = confirmationField.value
 
   return {
     state: {
@@ -69,6 +67,6 @@ export function useTeacherDeletePage() {
       handleConfirmDelete,
       handleRetry: teacherData.functions.handleRetry,
     },
-    features: { form },
+    features: { confirmationField },
   }
 }

@@ -85,30 +85,26 @@ function TeacherRenamePage() {
           submitDisabled={state.isUnchanged}
           note={t('admin.teachers.rename.note')}
         >
-          <features.form.Field name="name">
-            {(field) => (
-              <Field>
-                <FieldLabel htmlFor="teacher-rename-name">{t('teachers.name')}</FieldLabel>
-                <Input
-                  id="teacher-rename-name"
-                  name={field.name}
-                  value={state.proposedName}
-                  maxLength={200}
-                  autoComplete="off"
-                  placeholder={t('field.full-name.placeholder')}
-                  aria-invalid={!!field.state.meta.errors.length}
-                  onChange={(event) => field.handleChange(event.target.value)}
-                  onBlur={field.handleBlur}
-                />
-                {!!field.state.meta.errors.length && (
-                  <FieldError>{t('admin.teachers.rename.name-error')}</FieldError>
-                )}
-                {state.isUnchanged && (
-                  <FieldDescription>{t('admin.teachers.rename.same')}</FieldDescription>
-                )}
-              </Field>
+          <Field>
+            <FieldLabel htmlFor="teacher-rename-name">{t('teachers.name')}</FieldLabel>
+            <Input
+              id="teacher-rename-name"
+              name="name"
+              value={features.nameField.value}
+              maxLength={200}
+              autoComplete="off"
+              placeholder={t('field.full-name.placeholder')}
+              aria-invalid={!!features.nameField.error}
+              onChange={(event) => features.nameField.handleChange(event.target.value)}
+              onBlur={features.nameField.handleBlur}
+            />
+            {!!features.nameField.error && (
+              <FieldError>{t('admin.teachers.rename.name-error')}</FieldError>
             )}
-          </features.form.Field>
+            {state.isUnchanged && (
+              <FieldDescription>{t('admin.teachers.rename.same')}</FieldDescription>
+            )}
+          </Field>
         </TeacherForm>
       )}
 

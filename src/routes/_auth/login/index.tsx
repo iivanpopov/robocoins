@@ -23,20 +23,16 @@ function RouteComponent() {
         <AuthLayout.Top>
           <Typography variant="title">{t('action.login.title')}</Typography>
           <Typography variant="caption">{t('action.login.description')}</Typography>
-          <features.form.Field name="password">
-            {(field) => (
-              <HeroPasswordInput
-                id="password"
-                name={field.name}
-                disabled={!state.isHydrated}
-                value={field.state.value}
-                onChange={(event) => field.handleChange(event.target.value)}
-                onBlur={field.handleBlur}
-                aria-invalid={!!field.state.meta.errors.length || mutations.login.isError}
-                className="mt-4"
-              />
-            )}
-          </features.form.Field>
+          <HeroPasswordInput
+            id="password"
+            name="password"
+            disabled={!state.isHydrated}
+            value={features.passwordField.value}
+            onChange={(event) => features.passwordField.handleChange(event.target.value)}
+            onBlur={features.passwordField.handleBlur}
+            aria-invalid={!!features.passwordField.error || mutations.login.isError}
+            className="mt-4"
+          />
           {mutations.login.isError && (
             <InlineError id="password-error" className="mt-4">
               {t('error.incorrect-password')}
@@ -50,8 +46,8 @@ function RouteComponent() {
             className="w-full"
             disabled={!state.isHydrated || mutations.login.isPending}
           >
-            {features.form.state.isSubmitting && <Loader />}
-            {!features.form.state.isSubmitting && t('action.enter.title')}
+            {features.passwordField.isSubmitting && <Loader />}
+            {!features.passwordField.isSubmitting && t('action.enter.title')}
           </HeroButton>
           <Typography variant="caption" className="text-center mt-6">
             {t.rich('caption.has-no-account', { to: '/register' })}

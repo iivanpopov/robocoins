@@ -1,7 +1,8 @@
-import { useForm, useSelector } from '@tanstack/react-form'
 import { useParams } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
 import { useEffect, useRef, useState } from 'react'
+
+import { useField } from '#/hooks/use-field'
 
 import { RenameTeacherStateSchema } from '../-schemas'
 import { useTeacherRecord } from './use-teacher-record'
@@ -18,30 +19,28 @@ export function useTeacherRenamePage() {
 
   const teacherData = useTeacherRecord(teacherId)
 
-  const form = useForm({
-    defaultValues: { name: '' },
-    validators: { onChange: RenameTeacherStateSchema },
-    onSubmit: ({ value }) => {
+  const nameField = useField('', {
+    schema: RenameTeacherStateSchema.entries.name,
+    onSubmit: (value) => {
       if (!teacherData.state.isAvailable || renamedName) return
-      setRenamedName(value.name.trim())
+      setRenamedName(value.trim())
     },
   })
-
-  const proposedName = useSelector(form.store, (state) => state.values.name)
 
   useEffect(() => {
     if (!teacherData.state.isAvailable) return
     if (syncedTeacherIdReference.current === teacherId) return
     syncedTeacherIdReference.current = teacherId
-    form.setFieldValue('name', teacherData.state.name)
-  }, [form, teacherData.state.isAvailable, teacherData.state.name, teacherId])
+    nameField.setValue(teacherData.state.name)
+  }, [nameField, teacherData.state.isAvailable, teacherData.state.name, teacherId])
 
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
     if (!teacherData.state.isAvailable || renamedName) return
-    void form.handleSubmit()
+    void nameField.handleSubmit()
   }
 
+  const proposedName = nameField.value
   const isUnchanged =
     teacherData.state.isAvailable && proposedName.trim() === teacherData.state.name
 
@@ -57,6 +56,6 @@ export function useTeacherRenamePage() {
       handleSubmit,
       handleRetry: teacherData.functions.handleRetry,
     },
-    features: { form },
+    features: { nameField },
   }
 }

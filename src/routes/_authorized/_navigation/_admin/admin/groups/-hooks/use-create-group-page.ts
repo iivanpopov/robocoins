@@ -1,4 +1,3 @@
-import { useForm, useSelector } from '@tanstack/react-form'
 import { useQueryClient } from '@tanstack/react-query'
 import type { SyntheticEvent } from 'react'
 import { useState } from 'react'
@@ -6,6 +5,7 @@ import { useState } from 'react'
 import { useCreateGroupGroupCreatePost } from '#/api/hooks/useCreateGroupGroupCreatePost'
 import { useGetCoursesCourseGet } from '#/api/hooks/useGetCoursesCourseGet'
 import type { GroupCreateRequest, GroupResponse } from '#/api/types'
+import { useForm } from '#/hooks/use-form'
 
 import { CreateGroupStateSchema } from '../-schemas'
 import type { GroupErrorKey } from '../-types'
@@ -23,16 +23,14 @@ export function useCreateGroupPage() {
   const createGroupMutation = useCreateGroupGroupCreatePost()
 
   const form = useForm({
-    defaultValues: {
+    initialValues: {
       name: '',
       courseId: '',
       teacherIds: [] as number[],
     },
-    validators: { onChange: CreateGroupStateSchema },
-    listeners: {
-      onChange: () => createGroupMutation.reset(),
-    },
-    onSubmit: async ({ value }) => {
+    schema: CreateGroupStateSchema,
+    onChange: () => createGroupMutation.reset(),
+    onSubmit: async (value) => {
       if (createGroupMutation.isPending || createdGroup) return
 
       try {
@@ -50,7 +48,7 @@ export function useCreateGroupPage() {
     },
   })
 
-  const isFormSubmitting = useSelector(form.store, (state) => state.isSubmitting)
+  const isFormSubmitting = form.state.isSubmitting
 
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()

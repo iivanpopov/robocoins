@@ -51,28 +51,24 @@ function CategoryRenamePage() {
       </PageLayout.Header>
       {!state.renamedName && (
         <CourseForm onSubmit={functions.handleSubmit} submitLabel={t('action.rename')}>
-          <features.form.Field name="name">
-            {(field) => (
-              <Field>
-                <FieldLabel htmlFor="category-rename-name">
-                  {t('admin.courses.categories.name-label')}
-                </FieldLabel>
-                <Input
-                  id="category-rename-name"
-                  name={field.name}
-                  value={field.state.value}
-                  placeholder={categoryLabel}
-                  autoComplete="off"
-                  aria-invalid={!!field.state.meta.errors.length}
-                  onChange={(event) => field.handleChange(event.target.value)}
-                  onBlur={field.handleBlur}
-                />
-                {!!field.state.meta.errors.length && (
-                  <FieldError>{t('admin.courses.categories.name-error')}</FieldError>
-                )}
-              </Field>
+          <Field>
+            <FieldLabel htmlFor="category-rename-name">
+              {t('admin.courses.categories.name-label')}
+            </FieldLabel>
+            <Input
+              id="category-rename-name"
+              name="name"
+              value={features.nameField.value}
+              placeholder={categoryLabel}
+              autoComplete="off"
+              aria-invalid={!!features.nameField.error}
+              onChange={(event) => features.nameField.handleChange(event.target.value)}
+              onBlur={features.nameField.handleBlur}
+            />
+            {features.nameField.error && (
+              <FieldError>{t('admin.courses.categories.name-error')}</FieldError>
             )}
-          </features.form.Field>
+          </Field>
         </CourseForm>
       )}
 

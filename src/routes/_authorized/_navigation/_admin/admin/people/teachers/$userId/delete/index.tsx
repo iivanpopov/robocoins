@@ -109,29 +109,25 @@ function TeacherDeletePage() {
             submitClassName={styles.danger}
             note={t('admin.teachers.delete.note')}
           >
-            <features.form.Field name="confirmation">
-              {(field) => (
-                <Field>
-                  <FieldLabel htmlFor="teacher-delete-confirmation">
-                    {t('admin.teachers.delete.confirm-label')}
-                  </FieldLabel>
-                  <Input
-                    id="teacher-delete-confirmation"
-                    name={field.name}
-                    value={state.confirmation}
-                    maxLength={200}
-                    autoComplete="off"
-                    placeholder={t('teachers.name')}
-                    aria-invalid={!!field.state.meta.errors.length}
-                    onChange={(event) => field.handleChange(event.target.value)}
-                    onBlur={field.handleBlur}
-                  />
-                  {!!field.state.meta.errors.length && (
-                    <FieldError>{t('admin.teachers.delete.confirm-error')}</FieldError>
-                  )}
-                </Field>
+            <Field>
+              <FieldLabel htmlFor="teacher-delete-confirmation">
+                {t('admin.teachers.delete.confirm-label')}
+              </FieldLabel>
+              <Input
+                id="teacher-delete-confirmation"
+                name="confirmation"
+                value={features.confirmationField.value}
+                maxLength={200}
+                autoComplete="off"
+                placeholder={t('teachers.name')}
+                aria-invalid={!!features.confirmationField.error}
+                onChange={(event) => features.confirmationField.handleChange(event.target.value)}
+                onBlur={features.confirmationField.handleBlur}
+              />
+              {!!features.confirmationField.error && (
+                <FieldError>{t('admin.teachers.delete.confirm-error')}</FieldError>
               )}
-            </features.form.Field>
+            </Field>
           </TeacherForm>
         </>
       )}

@@ -1,8 +1,9 @@
-import { useForm } from '@tanstack/react-form'
 import { useParams } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
 import { useState } from 'react'
 import * as v from 'valibot'
+
+import { useField } from '#/hooks/use-field'
 
 import { DeleteCourseStateSchema } from '../-schemas'
 import type { CourseErrorKey } from '../-types'
@@ -21,20 +22,17 @@ export function useCourseDeletePage() {
 
   const courseData = useCourseRecord(courseId)
 
-  const form = useForm({
-    defaultValues: { confirmation: '' },
-    validators: {
-      onChange: ({ value }) => {
-        const result = v.safeParse(DeleteCourseStateSchema, value)
-        if (!result.success) return 'invalid'
-        if (!courseData.course) return 'unavailable'
-        if (result.output.confirmation !== courseData.course.name) return 'mismatch'
-        return undefined
-      },
+  const confirmationField = useField('', {
+    customValidate: (value) => {
+      const result = v.safeParse(DeleteCourseStateSchema.entries.confirmation, value)
+      if (!result.success) return 'invalid'
+      if (!courseData.course) return 'unavailable'
+      if (result.output !== courseData.course.name) return 'mismatch'
+      return undefined
     },
-    onSubmit: ({ value }) => {
+    onSubmit: (value) => {
       if (!courseData.course || isDeletedLocally) return
-      if (value.confirmation.trim() !== courseData.course.name) return
+      if (value.trim() !== courseData.course.name) return
       setIsDialogOpen(true)
     },
   })
@@ -42,7 +40,7 @@ export function useCourseDeletePage() {
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
     if (!courseData.course || isDeletedLocally) return
-    void form.handleSubmit()
+    void confirmationField.handleSubmit()
   }
 
   function handleDialogOpenChange(isOpen: boolean) {
@@ -89,6 +87,6 @@ export function useCourseDeletePage() {
       handleConfirmDelete,
       handleRetry,
     },
-    features: { form },
+    features: { confirmationField },
   }
 }

@@ -50,27 +50,23 @@ function TeacherRegistrationPage() {
       </PageLayout.Header>
 
       <form className={styles.form} onSubmit={functions.handleSubmit}>
-        <features.form.Field name="name">
-          {(field) => (
-            <Field>
-              <FieldLabel htmlFor="teacher-registration-name">{t('teachers.name')}</FieldLabel>
-              <Input
-                id="teacher-registration-name"
-                name={field.name}
-                value={field.state.value}
-                maxLength={200}
-                autoComplete="off"
-                placeholder={t('field.full-name.placeholder')}
-                aria-invalid={!!field.state.meta.errors.length}
-                onBlur={field.handleBlur}
-                onChange={(event) => field.handleChange(event.target.value)}
-              />
-              {!!field.state.meta.errors.length && (
-                <FieldError>{t('admin.teachers.register.name.error')}</FieldError>
-              )}
-            </Field>
+        <Field>
+          <FieldLabel htmlFor="teacher-registration-name">{t('teachers.name')}</FieldLabel>
+          <Input
+            id="teacher-registration-name"
+            name="name"
+            value={features.nameField.value}
+            maxLength={200}
+            autoComplete="off"
+            placeholder={t('field.full-name.placeholder')}
+            aria-invalid={!!features.nameField.error}
+            onBlur={features.nameField.handleBlur}
+            onChange={(event) => features.nameField.handleChange(event.target.value)}
+          />
+          {!!features.nameField.error && (
+            <FieldError>{t('admin.teachers.register.name.error')}</FieldError>
           )}
-        </features.form.Field>
+        </Field>
 
         {mutations.register.isError && (
           <InlineError>
