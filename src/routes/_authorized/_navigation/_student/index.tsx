@@ -8,18 +8,11 @@ import { getStudentStreakStudentStudentIdStreakGetQueryOptions } from '#/api/hoo
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryOptions } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { StudentProfileResponse } from '#/api/types'
 import { Loader } from '#/components/ui'
-import { InlineError } from '#/routes/-components'
+import { Feedback, InlineError } from '#/routes/-components'
 import { COOKIE_MAX_AGE, LAST_LOG_ON_COOKIE } from '#/routes/-constants'
 import { readCookie } from '#/utils/cookies'
 
-import {
-  CyberweenBanner,
-  EarnWays,
-  GoalCard,
-  HistoryPreview,
-  LeaderboardPreview,
-  StudentHero,
-} from './-components'
+import { EarnWays, GoalCard, HistoryPreview, LeaderboardPreview, StudentHero } from './-components'
 import { DailyMission } from './-components/daily-mission'
 import {
   getWeeklyLeaderboardQueryOptions,
@@ -107,6 +100,7 @@ function StudentPage() {
       <StudentHero
         name={state.profile.name}
         avatar={state.avatar}
+        avatarRing={state.avatarRing}
         balance={state.profile.balance}
         streakDays={state.streakDays}
         hasStreak={state.hasStreak}
@@ -134,7 +128,6 @@ function StudentPage() {
       )}
       <DailyMission studentId={state.profile.id} />
       <EarnWays />
-      <CyberweenBanner />
       <LeaderboardPreview />
       <HistoryPreview
         groups={state.groups}
@@ -144,6 +137,7 @@ function StudentPage() {
         onRetry={functions.handleRetryHistory}
         onViewAll={functions.handleViewHistory}
       />
+      <Feedback source="student_home" className={styles.feedback} />
     </main>
   )
 }

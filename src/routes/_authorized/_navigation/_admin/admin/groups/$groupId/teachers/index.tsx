@@ -84,22 +84,18 @@ function GroupTeachersPage() {
           isSubmitting={state.isSubmitting}
           note={t('admin.groups.teachers.note')}
         >
-          <features.form.Field name="teacherIds">
-            {(field) => (
-              <TeacherPicker
-                label={t('teachers.title')}
-                options={state.pickerOptions}
-                selectedIds={field.state.value}
-                onChange={(teacherIds) => field.handleChange(teacherIds)}
-                disabled={state.isSubmitting}
-                isPending={state.isPending}
-                isError={state.isError}
-                isRetrying={state.isTeachersFetching}
-                onRetry={functions.handleRetryTeachers}
-                isInvalid={field.state.meta.errors.length > 0}
-              />
-            )}
-          </features.form.Field>
+          <TeacherPicker
+            label={t('teachers.title')}
+            options={state.pickerOptions}
+            selectedIds={features.teachersField.value}
+            onChange={features.teachersField.handleChange}
+            disabled={state.isSubmitting}
+            isPending={state.isPending}
+            isError={state.isError}
+            isRetrying={state.isTeachersFetching}
+            onRetry={functions.handleRetryTeachers}
+            isInvalid={!!features.teachersField.error}
+          />
 
           {state.mutationErrorKey && <GroupRequestError messageKey={state.mutationErrorKey} />}
         </GroupForm>

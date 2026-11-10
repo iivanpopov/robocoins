@@ -1,8 +1,8 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 import { ComponentProps } from 'react'
 
 import { Button } from '#/components/ui'
+import { cn } from '#/utils/cn'
 
 import styles from './inline-error.module.css'
 

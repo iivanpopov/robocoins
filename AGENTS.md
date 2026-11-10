@@ -12,64 +12,97 @@ Five canonical roles, recorded as the `Status:` line in issue files. See `docs/a
 
 Single-context layout: root `GLOSSARY.md` plus `docs/adr/`. See `docs/agents/domain.md`.
 
-## Style Guide
+## Code style
 
-1. Never use ternary operators in JSX, instead use `&&` twice. e.g. `isError && <>...</>`, `!isError && <>...</>`. The same applies to choosing a class or a handler: `cn('base', isActive && ACTIVE, !isActive && INACTIVE)`.
-2. Dont check for array `length` like `arr.length === 0`, do `!arr.length` or `arr.length`.
-3. Characters are free. Do not shortcut `event`, `value`, `number` and others. But `char`, `i`, `j` are allowed.
-4. Event handlers created in hooks are named `handleX`. Props are named `onX`.
-5. Never use comments.
-6. Keep object results from form, mutation, query, and similar hooks intact (e.g. `form`, `loginMutation`, `usersQuery`); access their properties through that object. Destructure tuple hooks such as `useState` and `useReducer` normally. `model` hooks may be destructured in this order: `refs`, `state`, `queries`, `mutations`, `functions`, `features`. The destructuring order is important. Destructure model hooks at one level only and access nested values through the object, e.g. `refs.swipe`; neither `refs: { swipe: swipeRef }` nor `const { swipe } = refs` is allowed. Don't destructure other values, e.g. `{ ... } = event`.
-7. Schemas are named in PascalCase with a `Schema` suffix, e.g. `RegisterStateSchema`, `StepNameSchema`.
-8. `cn()` only solution for merging classes, never use template literals for concatenating classNames.
-9. **Hook body order**: Arrange components and custom hooks in this order, skipping sections that are not needed. Separate each non-empty section from the next with a blank line:
-   1. TanStack Router hooks (`useParams`, `useSearch`, `useNavigate`, `useRouteContext`, etc.).
-   2. State hooks (`useState`, `useReducer`, `useRef`).
-   3. Queries and mutations.
-   4. Form hooks.
-   5. Effects (`useEffect` and related effect hooks), last among hook calls.
-   6. Functions (handlers and helpers).
-   7. Derived values.
-   8. Return statement.
-10. **Page component hook order**: Call and destructure the page model hook first, then Kanjou hooks such as `useTranslate()`. Skip unused groups. This page-specific order takes precedence over rule 9. Keep handlers and non-rendering logic in the page model hook.
-11. Do not create .test files inside the repository.
+### Conditions and classes
 
-## Structure
+- In JSX, use separate `condition && ...` and `!condition && ...` branches instead of ternary operators. This also applies to JSX prop expressions, including class and handler selection.
+- Merge classes only with `cn()`, for example `cn('base', isActive && ACTIVE, !isActive && INACTIVE)`. Do not concatenate class names with template literals.
+- For array emptiness checks, use `!items.length`; for non-emptiness checks, use `items.length`. Do not compare the length to zero.
 
-1. **Page**: Define page component inline in `index.tsx`. Consumes `model hook` and only renders JSX. Never extract the full page to `-components/`.
-2. **Slices**: `-constants`, `-utils`, `-types`, `-actions`, `-components`, `-hooks`, `-schemas`, `-lib` must be directories with `index.ts`.
-3. **Constants slice**: Split `-constants` into `constants.ts` (shared technical, non-render constants), `enum.ts` (enums, const objects, union types), and `index.ts` (barrel file). Local technical values (delays, debounce timeouts) belong in the component FILE or hook where used. Render-only constants belong in the component file where they are rendered. Extract render constants only if they are repeating.
-4. **Fractal**: `components` slice can nest however deep and contain other slices too.
-5. **Shared ownership**: When a utility, component, or constant is used by two sibling branches, move it to the appropriate slice at their nearest common parent or higher. Update all consumers to use that shared location.
+### Naming and comments
 
-## Page Model Hooks
+- Use full descriptive names such as `event`, `value`, and `number`. The abbreviations `char`, `i`, and `j` are allowed.
+- Name event handlers defined in hooks `handleX`; name callback props `onX`.
+- Name schemas in PascalCase with a `Schema` suffix, for example `RegisterStateSchema`.
+- Do not add code comments. The required UnoCSS directive below is an exception.
+- In non-`.tsx` files containing UnoCSS icons, put `// @unocss-include` at the top so UnoCSS scans the file.
 
-`use<Feature>Page` (e.g. `useUsersPage`) lives in `-hooks/use-<feature>-page.ts` and returns, in this order:
+### Object access and destructuring
 
-- `refs?`: DOM refs or ref-like values returned by other hooks.
-- `state?`: reactive state, computed values.
-- `queries?`: TanStack Query queries.
-- `mutations?`: TanStack Query mutations.
-- `functions?`: handlers (`handleX`) or helpers.
-- `features?`: result of other hooks, e.g. `form` or `clipboard` (useCopy).
+- Keep object-valued hook results intact: `form`, `loginMutation`, `usersQuery`, etc. Access properties through the result object, for example `form.handleSubmit`.
+- Use property access for other objects too, including props and events; do not destructure them.
+- Tuple hooks such as `useState` and `useReducer` may be destructured normally.
+- Model hooks are the only object-destructuring exception: destructure their top-level groups as specified under **Page model hooks**. Access nested values through their group, for example `refs.swipe`. Neither nested destructuring nor subsequent destructuring of a group is allowed.
+- A component-local hook returning a plain object of state and handlers is not a model hook. Keep that result intact too.
 
-The destructuring order is important: `refs` first, then `state`, `queries`, `mutations`, `functions`, `features`.
+### Component and hook body order
 
-Page components destructure the model hook's top-level groups in that order, for example `const { refs, state, functions } = useShopPage()`. Do not destructure nested group values.
+Arrange components and custom hooks in the following order. Omit unused sections and separate non-empty sections with a blank line:
 
-Component-local hooks may deliberately return a bare object of their state and handlers instead of this shape. A hook that does so is not a model hook, and its return value must not be destructured.
+1. TanStack Router hooks: `useParams`, `useSearch`, `useNavigate`, `useRouteContext`, etc.
+2. State hooks: `useState`, `useReducer`, `useRef`.
+3. Queries and mutations.
+4. Form hooks.
+5. Effects: `useEffect` and related effect hooks, after all other hook calls.
+6. Functions: handlers and helpers.
+7. Derived values.
+8. Return statement.
 
-## Need to know
+For page components, the page model hook must be called and destructured first, followed by Kanjou hooks such as `useTranslate()`. This page-specific rule takes precedence over the general order above.
 
-1. A non .tsx file that uses Unocss icons needs `// @unocss-include` at the top.
+## File structure and ownership
+
+### Slices and routing
+
+- Slice names are `constants`, `utils`, `types`, `actions`, `components`, `hooks`, `schemas`, and `lib`. Each slice must be a directory with an `index.ts` barrel file, not a standalone file such as `utils.ts`.
+- Use `lib/` for third-party library setup and integration: configuration, client or instance creation, adapters, and API wrappers. Place general-purpose helper functions that are independent of a library in `utils/`.
+- Use slice names without a leading `-` by default. The `-` prefix is a file-based routing exclusion marker, not part of the slice name.
+- Add `-` when a directory must be excluded from route discovery, for example `-components/` or `-hooks/` alongside route files. Outside route discovery, or inside an already excluded directory, use unprefixed names.
+- The paths below use unprefixed slice names; apply the routing exclusion rule where needed.
+- The structure is recursive: a `components` slice may contain nested components with their own slices, at any depth.
+- When two sibling branches use the same utility, component, or constant, place it in the appropriate slice at their nearest common parent or higher. Update every consumer to import from that shared location.
+
+### Pages
+
+- Define the page component directly in its route's `index.tsx`.
+- The page consumes its model hook and renders JSX. Keep handlers and non-rendering logic in the model hook.
+- Extract smaller components into the `components` slice as needed; do not move the entire page component there.
+
+### Constants
+
+Choose the location by scope and purpose:
+
+- Shared technical, non-render constants: `constants/constants.ts`.
+- Enums, const objects, and union types belonging to the constants slice: `constants/enum.ts`.
+- Constants slice exports: `constants/index.ts`.
+- Local technical values, such as delays and debounce timeouts: the component or hook file that uses them.
+- Render-only constants: the component file that renders them. Extract them only when reused, following the shared-ownership rule above.
+
+## Page model hooks
+
+Name the hook `use<Feature>Page`, for example `useUsersPage`, and place it in the page's `hooks/use-<feature>-page.ts` file. Use `-hooks/` when routing exclusion is required.
+
+Return and destructure the following top-level groups in this exact order, omitting unused groups:
+
+| Group       | Contents                                                         |
+| ----------- | ---------------------------------------------------------------- |
+| `refs`      | DOM refs and ref-like values returned by other hooks             |
+| `state`     | Reactive state and computed values                               |
+| `queries`   | TanStack Query result objects                                    |
+| `mutations` | Mutation result objects                                          |
+| `functions` | Handlers named `handleX` and helpers                             |
+| `features`  | Other hook results, such as `form` or `clipboard` from `useCopy` |
+
+Example: `const { refs, state, functions } = useShopPage()`. Read nested values as `refs.swipe`, `state.isOpen`, and `functions.handleClose`.
 
 ## Verification
 
-After each change run `bun check`.
+- After each change, run `bun check`.
+- If CSS warnings occur, try `bun lint:css --fix`, review its changes, and rerun `bun check`.
+- Do not create `.test` files inside the repository.
 
-To fix CSS warnings try `bun lint:css --fix`
+## UI design
 
-## Design
-
-1. UPPERCASE text is forbidden in UI.
-2. Max. 1-3 cards per page.
+- Do not display all-uppercase text in the UI.
+- Use at most three cards per page; when cards are needed, aim for one to three.

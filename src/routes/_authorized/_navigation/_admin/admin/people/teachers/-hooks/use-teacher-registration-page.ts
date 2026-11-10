@@ -1,5 +1,4 @@
 import { useTranslate } from '@kanjou/react'
-import { useForm } from '@tanstack/react-form'
 import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
@@ -8,6 +7,7 @@ import type { SyntheticEvent } from 'react'
 import { getUsersUsersGetQueryKey } from '#/api/hooks/useGetUsersUsersGet'
 import { useRegisterTeacherTeacherRegisterPost } from '#/api/hooks/useRegisterTeacherTeacherRegisterPost'
 import { toast } from '#/components/ui'
+import { useField } from '#/hooks/use-field'
 
 import { TeacherRegistrationSchema } from '../-schemas'
 import { getRequestErrorStatus } from '../-utils'
@@ -30,16 +30,13 @@ export function useTeacherRegistrationPage() {
     },
   })
 
-  const form = useForm({
-    defaultValues: { name: '' },
-    validators: { onChange: TeacherRegistrationSchema, onSubmit: TeacherRegistrationSchema },
-    listeners: {
-      onChange: () => registerMutation.reset(),
-    },
-    onSubmit: async ({ value }) => {
+  const nameField = useField('', {
+    schema: TeacherRegistrationSchema.entries.name,
+    onChange: () => registerMutation.reset(),
+    onSubmit: async (value) => {
       if (registerMutation.isPending) return
       try {
-        await registerMutation.mutateAsync({ body: { name: value.name.trim() } })
+        await registerMutation.mutateAsync({ body: { name: value.trim() } })
       } catch {
         return
       }
@@ -55,7 +52,7 @@ export function useTeacherRegistrationPage() {
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
     if (registerMutation.isPending) return
-    void form.handleSubmit()
+    void nameField.handleSubmit()
   }
 
   function handleBack() {
@@ -67,7 +64,7 @@ export function useTeacherRegistrationPage() {
     if (registerMutation.isPending) return
     registerMutation.reset()
     setIsCopied(false)
-    form.reset()
+    nameField.reset()
   }
 
   async function copyAccessCode(accessCode: string) {
@@ -99,6 +96,6 @@ export function useTeacherRegistrationPage() {
       handleRegisterAnother,
       handleCopyCode,
     },
-    features: { form },
+    features: { nameField },
   }
 }

@@ -4,9 +4,10 @@ import { useState } from 'react'
 import { useGetCoursesCourseGet } from '#/api/hooks/useGetCoursesCourseGet'
 import { useGetTeacherGroupsTeacherGroupsGet } from '#/api/hooks/useGetTeacherGroupsTeacherGroupsGet'
 import { useCurrentTime } from '#/hooks'
-import { isGroupScheduleActive, parseGroupSchedule } from '#/routes/-utils'
+import { parseGroupSchedule } from '#/routes/-utils'
 
 import { GroupFilter } from '../-constants'
+import { isGroupScheduleActive } from '../-utils'
 
 export function useGroupPage() {
   const loaderData = useLoaderData({ from: '/_authorized/_navigation/_teacher/group/' })

@@ -1,4 +1,3 @@
-import { useForm, useSelector } from '@tanstack/react-form'
 import { useQueryClient } from '@tanstack/react-query'
 import { useParams } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
@@ -16,6 +15,7 @@ import {
 import { useStartStudentStreakStudentStudentIdStreakStartPost } from '#/api/hooks/useStartStudentStreakStudentStudentIdStreakStartPost'
 import { useUpdateStudentStreakStudentStudentIdStreakPatch } from '#/api/hooks/useUpdateStudentStreakStudentStudentIdStreakPatch'
 import type { StreakResponse } from '#/api/types'
+import { useField } from '#/hooks/use-field'
 
 import { StreakDaysFormSchema } from '../-schemas'
 import type { StreakActionResult } from '../-types'
@@ -79,20 +79,15 @@ export function useStudentStreakPage() {
     },
   })
 
-  const form = useForm({
-    defaultValues: {
-      days: '',
+  const daysField = useField('', {
+    schema: StreakDaysFormSchema.entries.days,
+    onChange: () => {
+      if (updateMutation.isError) updateMutation.reset()
     },
-    validators: { onChange: StreakDaysFormSchema },
-    listeners: {
-      onChange: () => {
-        if (updateMutation.isError) updateMutation.reset()
-      },
-    },
-    onSubmit: async ({ value }) => {
+    onSubmit: async (value) => {
       if (updateMutation.isPending || !isActive) return
 
-      const days = parseStreakDays(value.days)
+      const days = parseStreakDays(value)
       if (days === null) return
 
       try {
@@ -106,19 +101,17 @@ export function useStudentStreakPage() {
     },
   })
 
-  const isFormSubmitting = useSelector(form.store, (state) => state.isSubmitting)
-
   useEffect(() => {
     const streak = currentQuery.data
     if (!streak || isMissingStreakResponse(currentQuery.error)) {
       syncedStreakIdReference.current = null
-      form.reset({ days: '' })
+      daysField.reset('')
       return
     }
     if (syncedStreakIdReference.current === streak.id) return
-    syncedStreakIdReference.current = streak.id
-    form.reset({ days: String(streak.days) })
-  }, [currentQuery.data, currentQuery.error, form])
+    syncedStreakIdReference.current = streak.id ?? null
+    daysField.reset(String(streak.days))
+  }, [currentQuery.data, currentQuery.error, daysField])
 
   function clearOtherActionErrors(action: 'start' | 'end' | 'update') {
     if (action !== 'start' && startMutation.isError) startMutation.reset()
@@ -162,7 +155,7 @@ export function useStudentStreakPage() {
     if (!isActive || updateMutation.isPending || isFormSubmitting) return
     clearOtherActionErrors('update')
     setResult(null)
-    void form.handleSubmit()
+    void daysField.handleSubmit()
   }
 
   function handleRetry() {
@@ -174,6 +167,7 @@ export function useStudentStreakPage() {
     window.location.assign('/login')
   }
 
+  const isFormSubmitting = daysField.isSubmitting
   const isCurrentMissing =
     isMissingStreakResponse(currentQuery.error) || (currentQuery.isSuccess && !currentQuery.data)
   const currentStreak = isCurrentMissing ? null : (currentQuery.data ?? null)
@@ -222,6 +216,6 @@ export function useStudentStreakPage() {
       handleRetry,
       handleLogin,
     },
-    features: { form },
+    features: { daysField },
   }
 }

@@ -1,10 +1,10 @@
 import { useTranslate } from '@kanjou/react'
-import { useForm, useSelector } from '@tanstack/react-form'
 import type { SyntheticEvent } from 'react'
 import { useState } from 'react'
 
 import { useGetAllStudentsStudentGet } from '#/api/hooks/useGetAllStudentsStudentGet'
 import { useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet } from '#/api/hooks/useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet'
+import { useForm } from '#/hooks/use-form'
 import { UKRAINIAN_LOCALE } from '#/routes/-constants'
 import { getApiErrorKind } from '#/routes/_authorized/_navigation/_admin/admin/-utils'
 
@@ -32,16 +32,14 @@ export function useLocalSettingsPage() {
   const reasonsQuery = useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet()
 
   const correctionForm = useForm({
-    defaultValues: {
+    initialValues: {
       studentId: '',
       amount: '',
       explanation: '',
     } as CorrectionValues,
-    validators: { onChange: CorrectionStateSchema },
-    listeners: {
-      onChange: () => setCorrectionDraft(null),
-    },
-    onSubmit: ({ value }) => {
+    schema: CorrectionStateSchema,
+    onChange: () => setCorrectionDraft(null),
+    onSubmit: (value) => {
       const student = (studentsQuery.data ?? []).find(
         (candidate) => String(candidate.id) === value.studentId,
       )
@@ -56,22 +54,20 @@ export function useLocalSettingsPage() {
   })
 
   const tariffForm = useForm({
-    defaultValues: {
+    initialValues: {
       tariffs: {},
     } as TariffValues,
-    validators: { onChange: TariffStateSchema },
-    listeners: {
-      onChange: () => setTariffDraft(null),
-    },
-    onSubmit: ({ value }) => {
+    schema: TariffStateSchema,
+    onChange: () => setTariffDraft(null),
+    onSubmit: (value) => {
       const reasonCount = Object.values(value.tariffs).filter((tariff) => !!tariff).length
       if (!reasonCount) return
       setTariffDraft({ reasonCount })
     },
   })
 
-  const correctionValues = useSelector(correctionForm.store, (state) => state.values)
-  const tariffValues = useSelector(tariffForm.store, (state) => state.values.tariffs)
+  const correctionValues = correctionForm.state.values
+  const tariffValues = tariffForm.state.values.tariffs
 
   function handleCorrectionSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()

@@ -36,10 +36,12 @@ export const Route = createFileRoute(
   },
   loader: async ({ context, params }) => {
     await Promise.all([
-      context.queryClient.prefetchQuery(getCoursesCourseGetQueryOptions()),
-      context.queryClient.prefetchQuery(
-        getStudentByIdStudentStudentIdGetQueryOptions({ path: { student_id: params.studentId } }),
-      ),
+      context.queryClient.query(getCoursesCourseGetQueryOptions()).catch(() => undefined),
+      context.queryClient
+        .query(
+          getStudentByIdStudentStudentIdGetQueryOptions({ path: { student_id: params.studentId } }),
+        )
+        .catch(() => undefined),
     ])
   },
   component: StudentProfilePage,

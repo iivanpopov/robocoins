@@ -1,5 +1,4 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 import { useState } from 'react'
 
 import { useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet } from '#/api/hooks/useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet'
@@ -15,6 +14,7 @@ import {
   Loader,
 } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
+import { cn } from '#/utils/cn'
 
 import styles from './rules-drawer.module.css'
 

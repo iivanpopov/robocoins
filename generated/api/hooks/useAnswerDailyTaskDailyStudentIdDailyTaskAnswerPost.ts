@@ -15,8 +15,8 @@ export function answerDailyTaskDailyStudentIdDailyTaskAnswerPostMutationOptions<
   const mutationKey = answerDailyTaskDailyStudentIdDailyTaskAnswerPostMutationKey()
   return mutationOptions<AnswerDailyTaskDailyStudentIdDailyTaskAnswerPostStatus200, ResponseErrorConfig<AnswerDailyTaskDailyStudentIdDailyTaskAnswerPostStatus422>, AnswerDailyTaskDailyStudentIdDailyTaskAnswerPostOptions, TContext>({
     mutationKey,
-    mutationFn: async({ path, body }) => {
-      return answerDailyTaskDailyStudentIdDailyTaskAnswerPost({ ...config, path, body, throwOnError: true }).unwrap()
+    mutationFn: async({ path, query, body }) => {
+      return answerDailyTaskDailyStudentIdDailyTaskAnswerPost({ ...config, path, query, body, throwOnError: true }).unwrap()
     },
   })
 }

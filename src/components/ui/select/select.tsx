@@ -1,5 +1,6 @@
 import { Select as SelectPrimitive } from '@base-ui/react/select'
-import { cn } from 'cn'
+
+import { cn } from '#/utils/cn'
 
 import styles from './select.module.css'
 

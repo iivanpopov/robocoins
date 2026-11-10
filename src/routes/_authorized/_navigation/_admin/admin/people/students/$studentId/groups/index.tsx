@@ -106,6 +106,7 @@ function StudentGroupsPage() {
             <UserAvatar
               name={state.student.name}
               avatar={state.student.avatar}
+              avatarRing={state.student.avatar_ring}
               size="lg"
               className={styles.avatar}
             />

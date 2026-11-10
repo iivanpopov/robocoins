@@ -94,28 +94,24 @@ function GroupDeletePage() {
           note={t('admin.groups.delete.note')}
         >
           <FieldDescription>{t('admin.groups.delete.warning')}</FieldDescription>
-          <features.form.Field name="confirmation">
-            {(field) => (
-              <Field>
-                <FieldLabel htmlFor="group-delete-confirmation">
-                  {t('admin.groups.delete.confirm-label')}
-                </FieldLabel>
-                <Input
-                  id="group-delete-confirmation"
-                  name={field.name}
-                  value={field.state.value}
-                  placeholder={t('groups.name')}
-                  autoComplete="off"
-                  aria-invalid={!!field.state.meta.errors.length}
-                  onChange={(event) => field.handleChange(event.target.value)}
-                  onBlur={field.handleBlur}
-                />
-                {!!field.state.meta.errors.length && (
-                  <FieldError>{t('admin.groups.delete.confirm-error')}</FieldError>
-                )}
-              </Field>
+          <Field>
+            <FieldLabel htmlFor="group-delete-confirmation">
+              {t('admin.groups.delete.confirm-label')}
+            </FieldLabel>
+            <Input
+              id="group-delete-confirmation"
+              name="confirmation"
+              value={features.confirmationField.value}
+              placeholder={t('groups.name')}
+              autoComplete="off"
+              aria-invalid={!!features.confirmationField.error}
+              onChange={(event) => features.confirmationField.handleChange(event.target.value)}
+              onBlur={features.confirmationField.handleBlur}
+            />
+            {!!features.confirmationField.error && (
+              <FieldError>{t('admin.groups.delete.confirm-error')}</FieldError>
             )}
-          </features.form.Field>
+          </Field>
         </GroupForm>
       )}
 

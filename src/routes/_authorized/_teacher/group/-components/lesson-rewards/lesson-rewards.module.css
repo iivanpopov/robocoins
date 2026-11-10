@@ -1,0 +1,43 @@
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  margin-top: 0.125rem;
+}
+
+.reward {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}
+
+.icon {
+  flex-shrink: 0;
+  font-size: 0.9375rem;
+  color: var(--muted-foreground);
+}
+
+.recent {
+  color: var(--red-600);
+}
+
+.earlier {
+  color: var(--green-600);
+}
+
+.warm {
+  color: var(--orange-600);
+}
+
+.older {
+  color: var(--brand);
+}
+
+.error {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}

@@ -89,6 +89,7 @@ function StudentDeletePage() {
                 <UserAvatar
                   name={state.student.name}
                   avatar={state.student.avatar}
+                  avatarRing={state.student.avatar_ring}
                   size="lg"
                   className={styles.avatar}
                 />
@@ -100,29 +101,25 @@ function StudentDeletePage() {
 
           <section className={styles.card}>
             <form className={styles.form} onSubmit={functions.handleSubmit} noValidate>
-              <features.form.Field name="confirmation">
-                {(field) => (
-                  <Field>
-                    <FieldLabel htmlFor="student-delete-confirmation">
-                      {t('students.delete.confirmation-label')}
-                    </FieldLabel>
-                    <Input
-                      id="student-delete-confirmation"
-                      name={field.name}
-                      value={field.state.value}
-                      maxLength={200}
-                      autoComplete="off"
-                      placeholder={t('field.student-nickname.placeholder')}
-                      aria-invalid={!!field.state.meta.errors.length}
-                      onChange={(event) => field.handleChange(event.target.value)}
-                      onBlur={field.handleBlur}
-                    />
-                    {!!field.state.meta.errors.length && (
-                      <FieldError>{t('students.delete.confirmation-error')}</FieldError>
-                    )}
-                  </Field>
+              <Field>
+                <FieldLabel htmlFor="student-delete-confirmation">
+                  {t('students.delete.confirmation-label')}
+                </FieldLabel>
+                <Input
+                  id="student-delete-confirmation"
+                  name="confirmation"
+                  value={features.confirmationField.value}
+                  maxLength={200}
+                  autoComplete="off"
+                  placeholder={t('field.student-nickname.placeholder')}
+                  aria-invalid={!!features.confirmationField.error}
+                  onChange={(event) => features.confirmationField.handleChange(event.target.value)}
+                  onBlur={features.confirmationField.handleBlur}
+                />
+                {!!features.confirmationField.error && (
+                  <FieldError>{t('students.delete.confirmation-error')}</FieldError>
                 )}
-              </features.form.Field>
+              </Field>
 
               <div className={styles.actions}>
                 <Button type="submit" disabled={!state.canConfirm}>

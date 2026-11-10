@@ -112,23 +112,19 @@ function CourseCategoryPage() {
           submitLabel={t('admin.courses.category.action')}
           submitDisabled={state.isUnchanged}
         >
-          <features.form.Field name="category">
-            {(field) => (
-              <Field>
-                <FieldLabel>{t('categories.label')}</FieldLabel>
-                <CourseCategoryChips
-                  value={field.state.value}
-                  onSelect={(category) => {
-                    if (category === CourseCategoryFilter.All) return
-                    field.handleChange(category)
-                  }}
-                />
-                {state.isUnchanged && (
-                  <FieldDescription>{t('admin.courses.category.same')}</FieldDescription>
-                )}
-              </Field>
+          <Field>
+            <FieldLabel>{t('categories.label')}</FieldLabel>
+            <CourseCategoryChips
+              value={features.categoryField.value}
+              onSelect={(category) => {
+                if (category === CourseCategoryFilter.All) return
+                features.categoryField.handleChange(category)
+              }}
+            />
+            {state.isUnchanged && (
+              <FieldDescription>{t('admin.courses.category.same')}</FieldDescription>
             )}
-          </features.form.Field>
+          </Field>
         </CourseForm>
       )}
 

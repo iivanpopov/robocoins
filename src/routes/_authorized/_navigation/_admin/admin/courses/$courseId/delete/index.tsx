@@ -91,28 +91,24 @@ function CourseDeletePage() {
           submitLabel={t('admin.courses.delete.action')}
           submitClassName={styles.danger}
         >
-          <features.form.Field name="confirmation">
-            {(field) => (
-              <Field>
-                <FieldLabel htmlFor="course-delete-confirmation">
-                  {t('admin.courses.delete.confirm-label')}
-                </FieldLabel>
-                <Input
-                  id="course-delete-confirmation"
-                  name={field.name}
-                  value={field.state.value}
-                  placeholder={t('courses.name')}
-                  autoComplete="off"
-                  aria-invalid={!!field.state.meta.errors.length}
-                  onChange={(event) => field.handleChange(event.target.value)}
-                  onBlur={field.handleBlur}
-                />
-                {!!field.state.meta.errors.length && (
-                  <FieldError>{t('admin.courses.delete.confirm-error')}</FieldError>
-                )}
-              </Field>
+          <Field>
+            <FieldLabel htmlFor="course-delete-confirmation">
+              {t('admin.courses.delete.confirm-label')}
+            </FieldLabel>
+            <Input
+              id="course-delete-confirmation"
+              name="confirmation"
+              value={features.confirmationField.value}
+              placeholder={t('courses.name')}
+              autoComplete="off"
+              aria-invalid={!!features.confirmationField.error}
+              onChange={(event) => features.confirmationField.handleChange(event.target.value)}
+              onBlur={features.confirmationField.handleBlur}
+            />
+            {features.confirmationField.error && (
+              <FieldError>{t('admin.courses.delete.confirm-error')}</FieldError>
             )}
-          </features.form.Field>
+          </Field>
         </CourseForm>
       )}
 

@@ -15,9 +15,9 @@ import { useGetStudentRewardProgressStudentStudentIdRewardProgressGet } from '#/
 import type { BalanceChangeReasonsKey, BalanceTransactionResponse } from '#/api/types'
 import { toast } from '#/components/ui'
 import { compareTransactionsByNewest } from '#/routes/-utils'
+import { invalidateStudentBalanceCaches } from '#/routes/_authorized/_navigation/_admin/admin/-actions'
+import { getStudentTransactionsQueryOptions } from '#/routes/_authorized/_navigation/_admin/admin/-hooks'
 import {
-  getStudentTransactionsQueryOptions,
-  invalidateStudentBalanceCaches,
   isUnknownResultError,
   runWithTimeout,
 } from '#/routes/_authorized/_navigation/_admin/admin/-utils'

@@ -1,6 +1,5 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, redirect } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import { getDailyTaskDailyStudentIdDailyTaskGetQueryOptions } from '#/api/hooks/useGetDailyTaskDailyStudentIdDailyTaskGet'
 import type { StudentProfileResponse } from '#/api/types'
@@ -10,6 +9,7 @@ import { InlineError } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
 import { getHomePath } from '#/routes/-utils'
 import { SpaceBackground } from '#/routes/_authorized/-components/space-background'
+import { cn } from '#/utils/cn'
 
 import { AnswerPortal } from './-components'
 import { useDailyMissionPage } from './-hooks'

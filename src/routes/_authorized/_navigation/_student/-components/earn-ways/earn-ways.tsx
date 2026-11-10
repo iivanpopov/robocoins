@@ -1,8 +1,8 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import { useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet } from '#/api/hooks/useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet'
 import { Mascot } from '#/components/mascot'
+import { cn } from '#/utils/cn'
 
 import { ReasonIcon } from '../reason-icon'
 import { RulesDrawer } from '../rules-drawer'

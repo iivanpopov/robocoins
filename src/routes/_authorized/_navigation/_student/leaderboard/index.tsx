@@ -1,9 +1,9 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import { IconButton, Loader } from '#/components/ui'
 import { InlineError, PageLayout } from '#/routes/-components'
+import { cn } from '#/utils/cn'
 
 import { LeaderboardRow, OwnPlace, Podium } from '../-components/leaderboard'
 import { useLeaderboardPage } from './-hooks'

@@ -1,4 +1,3 @@
-import { Temporal } from '@js-temporal/polyfill'
 import { useTranslate } from '@kanjou/react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate, useRouteContext } from '@tanstack/react-router'
@@ -10,8 +9,9 @@ import { useGetStudentTransactionHistoryStudentStudentIdTransactionsGet } from '
 import type { StudentProfileResponse } from '#/api/types'
 import { useCurrentTime } from '#/hooks'
 import type { Avatar as AvatarName } from '#/routes/-constants'
-import { compareTransactionsByNewest, getKyivDate } from '#/routes/-utils'
+import { compareTransactionsByNewest } from '#/routes/-utils'
 import { getStreakDays } from '#/routes/_authorized/-utils'
+import { getKyivDate } from '#/utils/date'
 
 import {
   GREETING_PAIRS,
@@ -65,7 +65,7 @@ export function useStudentPage() {
   )
 
   function formatHistoryDate(value: string) {
-    const dateKey = getKyivDate(value).toString()
+    const dateKey = getKyivDate(value)
 
     if (dateKey === dateToday) return t('profile.history.today')
     if (dateKey === dateYesterday) return t('profile.history.yesterday')
@@ -96,8 +96,8 @@ export function useStudentPage() {
   }
 
   const currentDate = getKyivDate(now)
-  const dateToday = currentDate.toString()
-  const dateYesterday = currentDate.subtract({ days: 1 }).toString()
+  const dateToday = currentDate
+  const dateYesterday = getKyivDate(Date.parse(currentDate) - 86_400_000)
   const allTransactions = (historyQuery.data?.transactions ?? [])
     .toSorted(compareTransactionsByNewest)
     .map((transaction) => ({
@@ -109,7 +109,7 @@ export function useStudentPage() {
       reason: transaction.reason,
     }))
   const recentTransactions = allTransactions.filter((transaction) => {
-    const dateKey = getKyivDate(transaction.createdAt).toString()
+    const dateKey = getKyivDate(transaction.createdAt)
     return dateKey === dateToday || dateKey === dateYesterday
   })
   const hasFullRecentWindow = recentTransactions.length >= HISTORY_MINIMUM_TRANSACTIONS
@@ -135,9 +135,8 @@ export function useStudentPage() {
     (transaction) => transaction.isNew && transaction.isDeposit,
   )
   const avatar = (profile.avatar as AvatarName | null) ?? null
-  const localDayIndex = currentDate.since(Temporal.PlainDate.from('1970-01-01'), {
-    largestUnit: 'days',
-  }).days
+  const avatarRing = profile.avatar_ring ?? null
+  const localDayIndex = Math.floor(Date.parse(currentDate) / 86_400_000)
   const greetingPair = GREETING_PAIRS[localDayIndex % GREETING_PAIRS.length] ?? GREETING_PAIRS[0]
   const gradientVariant = (localDayIndex % 4) + 1
   const task = !taskQuery.isError ? taskQuery.data : undefined
@@ -149,6 +148,7 @@ export function useStudentPage() {
     state: {
       profile,
       avatar,
+      avatarRing,
       groups,
       goal,
       goalCompleted,

@@ -1,5 +1,6 @@
 import { Input as InputPrimitive } from '@base-ui/react'
-import { cn } from 'cn'
+
+import { cn } from '#/utils/cn'
 
 import styles from './input.module.css'
 

@@ -39,6 +39,7 @@ declare module '@kanjou/react' {
       'balance.cancel.action': {}
       'balance.change': {}
       'balance.deduct.confirm-title': {}
+      'avatar-picker.option': { number: { __fn: 'number' } }
       'balance.direction': {}
       'categories.label': {}
       'categories.title': {}
@@ -193,43 +194,43 @@ declare module '@kanjou/react' {
       'settings.logout.error': {}
       'settings.section.appearance': {}
       'settings.section.session': {}
-      'daily-mission.title': {}
-      'daily-mission.completed': {}
-      'daily-mission.tomorrow': {}
-      'daily-mission.loading': {}
-      'daily-mission.error': {}
-      'daily-mission.week.stars': { completed: DefaultMessageValue }
-      'daily-mission.week.loading': {}
-      'daily-mission.week.error': {}
-      'daily-mission.task.error': {}
-      'daily-mission.completed.mascot': {}
-      'daily-mission.task.image-alt': {}
-      'daily-mission.task.unsupported': {}
-      'daily-mission.answer.label': {}
-      'daily-mission.answer.incorrect': {}
       'daily-mission.answer.error': {}
+      'daily-mission.answer.incorrect': {}
+      'daily-mission.answer.label': {}
       'daily-mission.answer.retry': {}
       'daily-mission.answer.submit': {}
       'daily-mission.answer.submitting': {}
+      'daily-mission.completed': {}
+      'daily-mission.completed.mascot': {}
+      'daily-mission.constellation.circuit': {}
+      'daily-mission.constellation.code': {}
+      'daily-mission.constellation.gamepad': {}
+      'daily-mission.constellation.idea': {}
+      'daily-mission.constellation.label': { name: DefaultMessageValue }
+      'daily-mission.constellation.orbit': {}
+      'daily-mission.constellation.plane': {}
+      'daily-mission.constellation.robot': {}
+      'daily-mission.constellation.rocket': {}
+      'daily-mission.day.completed': {}
+      'daily-mission.day.pending': {}
+      'daily-mission.day.today': {}
+      'daily-mission.day.unlit': {}
+      'daily-mission.error': {}
+      'daily-mission.loading': {}
       'daily-mission.reward.amount': { count: { __fn: 'coins' } }
-      'daily-mission.streak': { count: { __fn: 'number' } }
-      'daily-mission.today': {}
       'daily-mission.stars.hint': {}
       'daily-mission.start': {}
       'daily-mission.start.label': {}
-      'daily-mission.constellation.label': { name: DefaultMessageValue }
-      'daily-mission.constellation.robot': {}
-      'daily-mission.constellation.gamepad': {}
-      'daily-mission.constellation.rocket': {}
-      'daily-mission.constellation.code': {}
-      'daily-mission.constellation.circuit': {}
-      'daily-mission.constellation.idea': {}
-      'daily-mission.constellation.orbit': {}
-      'daily-mission.constellation.plane': {}
-      'daily-mission.day.completed': {}
-      'daily-mission.day.pending': {}
-      'daily-mission.day.unlit': {}
-      'daily-mission.day.today': {}
+      'daily-mission.streak': { count: { __fn: 'number' } }
+      'daily-mission.task.error': {}
+      'daily-mission.task.image-alt': {}
+      'daily-mission.task.unsupported': {}
+      'daily-mission.today': {}
+      'daily-mission.tomorrow': {}
+      'daily-mission.title': {}
+      'daily-mission.week.error': {}
+      'daily-mission.week.loading': {}
+      'daily-mission.week.stars': { completed: DefaultMessageValue }
       'leaderboard.all': {}
       'leaderboard.description': {}
       'leaderboard.empty': {}
@@ -247,9 +248,6 @@ declare module '@kanjou/react' {
       'leaderboard.unranked': {}
       'leaderboard.you': {}
       'profile.balance.open-shop': {}
-      'profile.cyberween.open': {}
-      'profile.cyberween.period': {}
-      'profile.cyberween.tagline': {}
       'profile.earn.activity': {}
       'profile.earn.additional': {}
       'profile.earn.answer': {}
@@ -259,6 +257,37 @@ declare module '@kanjou/react' {
       'profile.earn.teamwork': {}
       'profile.earn.theory': {}
       'profile.earn.title': {}
+      'profile.edit.action': {}
+      'profile.edit.avatar.error': {}
+      'profile.edit.error': {}
+      'profile.edit.failed': { failed: DefaultMessageValue }
+      'profile.edit.fields.avatar': {}
+      'profile.edit.fields.nickname': {}
+      'profile.edit.fields.ring': {}
+      'profile.edit.leave.confirm': {}
+      'profile.edit.leave.description': {}
+      'profile.edit.leave.stay': {}
+      'profile.edit.leave.title': {}
+      'profile.edit.nickname.error': {}
+      'profile.edit.nickname.label': {}
+      'profile.edit.nickname.placeholder': {}
+      'profile.edit.nickname.required': {}
+      'profile.edit.partial': {
+        saved: DefaultMessageValue
+        failed: DefaultMessageValue
+      }
+      'profile.edit.personalization': {}
+      'profile.edit.ring.current': {}
+      'profile.edit.ring.double': {}
+      'profile.edit.ring.error': {}
+      'profile.edit.ring.none': {}
+      'profile.edit.ring.orbital': {}
+      'profile.edit.ring.outline': {}
+      'profile.edit.ring.soon': {}
+      'profile.edit.ring.star': {}
+      'profile.edit.save': {}
+      'profile.edit.tab.avatar': {}
+      'profile.edit.tab.ring': {}
       'profile.goal.change': {}
       'profile.goal.choose': {}
       'profile.goal.claim': {}
@@ -300,7 +329,12 @@ declare module '@kanjou/react' {
       'shop.reward.back': {}
       'shop.reward.claim': {}
       'shop.reward.cost': {}
-      'shop.reward.insufficient': {}
+      'shop.reward.goal.current': {}
+      'shop.reward.goal.error': {}
+      'shop.reward.goal.loading': {}
+      'shop.reward.goal.saving': {}
+      'shop.reward.goal.select': {}
+      'shop.reward.goal.success': {}
       'shop.reward.type.privilege': {}
       'shop.reward.type.reward': {}
       'shop.view.galaxy': {}
@@ -336,6 +370,31 @@ declare module '@kanjou/react' {
       'group.practice.error': {}
       'group.practice.success': { count: { __fn: 'number' } }
       'group.select.title': {}
+      'group.rewards.detail': {
+        reason: DefaultMessageValue
+        count: { __fn: 'number' }
+        date: { __fn: 'datetime' }
+      }
+      'group.rewards.error': {}
+      'group.rewards.guide.title': {}
+      'group.rewards.guide.description': {}
+      'group.rewards.guide.example': {}
+      'group.rewards.guide.student': {}
+      'group.rewards.guide.breakdown': {}
+      'group.rewards.guide.theory-example': {}
+      'group.rewards.guide.practice-example': {}
+      'group.rewards.guide.task-example': {}
+      'group.rewards.guide.colors': {}
+      'group.rewards.guide.red': {}
+      'group.rewards.guide.red-time': {}
+      'group.rewards.guide.orange': {}
+      'group.rewards.guide.orange-time': {}
+      'group.rewards.guide.green': {}
+      'group.rewards.guide.green-time': {}
+      'group.rewards.guide.brand': {}
+      'group.rewards.guide.brand-time': {}
+      'group.rewards.guide.counts': {}
+      'group.rewards.guide.close': {}
       'sort.balance-asc': {}
       'sort.balance-desc': {}
       'sort.name-asc': {}
@@ -737,7 +796,6 @@ declare module '@kanjou/react' {
       'students.profile.memberships.manage': {}
       'students.profile.title': {}
       'students.register.action': {}
-      'students.register.avatar.option': { number: { __fn: 'number' } }
       'students.register.error': {}
       'students.register.groups.description': {}
       'students.register.groups.empty': {}
@@ -1074,6 +1132,43 @@ declare module '@kanjou/react' {
       'error.forbidden': {}
       'error.session': {}
       'group.practice.title': {}
+      'feedback.counter': {
+        count: { __fn: 'number' }
+        limit: { __fn: 'number' }
+      }
+      'feedback.description.home': {}
+      'feedback.description.profile-avatar': {}
+      'feedback.description.registration-avatar': {}
+      'feedback.description.shop': {}
+      'feedback.error.author': {}
+      'feedback.error.conflict': {}
+      'feedback.error.generic': {}
+      'feedback.error.rate-limit': {}
+      'feedback.error.session': {}
+      'feedback.error.unavailable': {}
+      'feedback.error.validation': {}
+      'feedback.field.kind': {}
+      'feedback.field.message': {}
+      'feedback.field.message.placeholder': {}
+      'feedback.kind.avatar-suggestion': {}
+      'feedback.kind.idea': {}
+      'feedback.kind.other': {}
+      'feedback.kind.problem': {}
+      'feedback.kind.reward-suggestion': {}
+      'feedback.submit': {}
+      'feedback.success.avatar': {}
+      'feedback.success.close': {}
+      'feedback.success.home': {}
+      'feedback.success.reward': {}
+      'feedback.title.avatar': {}
+      'feedback.title.home': {}
+      'feedback.title.reward': {}
+      'feedback.trigger.home': {}
+      'feedback.trigger.profile-avatar': {}
+      'feedback.trigger.registration-avatar': {}
+      'feedback.trigger.shop': {}
+      'feedback.validation.kind': {}
+      'feedback.validation.message': {}
     }
   }
 }

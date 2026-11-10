@@ -18,21 +18,17 @@ export function StepName() {
         <AuthLayout.Top>
           <Typography variant="title">{t('step.name.title')}</Typography>
           <Typography variant="caption">{t('step.name.description')}</Typography>
-          <features.form.Field name="name">
-            {(field) => (
-              <HeroInput
-                name={field.name}
-                aria-label={t('field.name.placeholder')}
-                autoComplete="name"
-                value={field.state.value}
-                onChange={(event) => field.handleChange(event.target.value)}
-                onBlur={field.handleBlur}
-                aria-invalid={!!field.state.meta.errors.length}
-                placeholder={t('field.name.placeholder')}
-                className="mt-4"
-              />
-            )}
-          </features.form.Field>
+          <HeroInput
+            name="name"
+            aria-label={t('field.name.placeholder')}
+            autoComplete="name"
+            value={features.nameField.value}
+            onChange={(event) => features.nameField.handleChange(event.target.value)}
+            onBlur={features.nameField.handleBlur}
+            aria-invalid={!!features.nameField.error}
+            placeholder={t('field.name.placeholder')}
+            className="mt-4"
+          />
         </AuthLayout.Top>
 
         <AuthLayout.Bottom>

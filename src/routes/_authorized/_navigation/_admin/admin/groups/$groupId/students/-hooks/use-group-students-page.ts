@@ -36,12 +36,14 @@ export function useGroupStudentsPage() {
     id: number
     name: string
     avatar?: string | null
+    avatar_ring?: string | null
     group_ids: number[]
   }): MembershipStudentCandidate {
     return {
       id: student.id,
       name: student.name,
       avatar: student.avatar,
+      avatarRing: student.avatar_ring,
       groupIds: student.group_ids,
     }
   }

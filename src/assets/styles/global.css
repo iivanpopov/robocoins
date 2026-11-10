@@ -2,6 +2,7 @@
 @import './colors.css';
 @import './transitions.css';
 @import './motion.css';
+@import './fonts.css';
 
 * {
   box-sizing: border-box;

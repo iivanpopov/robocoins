@@ -83,29 +83,25 @@ function GroupRenamePage() {
           submitDisabled={state.isUnchanged}
           note={t('admin.groups.rename.note')}
         >
-          <features.form.Field name="name">
-            {(field) => (
-              <Field>
-                <FieldLabel htmlFor="group-rename-name">{t('groups.name')}</FieldLabel>
-                <Input
-                  id="group-rename-name"
-                  name={field.name}
-                  value={field.state.value}
-                  placeholder={t('admin.groups.create.name-placeholder')}
-                  autoComplete="off"
-                  aria-invalid={!!field.state.meta.errors.length}
-                  onChange={(event) => field.handleChange(event.target.value)}
-                  onBlur={field.handleBlur}
-                />
-                {!!field.state.meta.errors.length && (
-                  <FieldError>{t('admin.groups.create.name-error')}</FieldError>
-                )}
-                {state.isUnchanged && (
-                  <FieldDescription>{t('validation.name-unchanged')}</FieldDescription>
-                )}
-              </Field>
+          <Field>
+            <FieldLabel htmlFor="group-rename-name">{t('groups.name')}</FieldLabel>
+            <Input
+              id="group-rename-name"
+              name="name"
+              value={features.nameField.value}
+              placeholder={t('admin.groups.create.name-placeholder')}
+              autoComplete="off"
+              aria-invalid={!!features.nameField.error}
+              onChange={(event) => features.nameField.handleChange(event.target.value)}
+              onBlur={features.nameField.handleBlur}
+            />
+            {!!features.nameField.error && (
+              <FieldError>{t('admin.groups.create.name-error')}</FieldError>
             )}
-          </features.form.Field>
+            {state.isUnchanged && (
+              <FieldDescription>{t('validation.name-unchanged')}</FieldDescription>
+            )}
+          </Field>
         </GroupForm>
       )}
 

@@ -1,5 +1,5 @@
 import type { DailyTaskResponse, StreakResponse } from '#/api/types'
-import { getKyivDate } from '#/routes/-utils'
+import { getKyivDate } from '#/utils/date'
 
 import { getStreakDays } from './get-streak-days'
 

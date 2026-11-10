@@ -1,0 +1,11 @@
+{
+  "name": "@repo/kubb-thin-client",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "peerDependencies": {
+    "@kubb/core": ">=5.0.0"
+  }
+}

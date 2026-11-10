@@ -4,13 +4,12 @@
 */
 
 export type StreakResponse = {
-  id: number;
+  id?: number | null;
+  start_date?: string | null;
+  end_date?: string | null;
   /**
-   * @description
-   * Format: `date-time`
-   * @type string
+   * @default 0
+   * @type integer | undefined
    */
-  start_date: string;
-  end_date: string | null;
-  days: number;
+  days?: number;
 };

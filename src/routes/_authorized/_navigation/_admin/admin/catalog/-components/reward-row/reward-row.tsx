@@ -1,8 +1,8 @@
 import { useTranslate } from '@kanjou/react'
 import { Link } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import type { RewardResponse } from '#/api/types'
+import { cn } from '#/utils/cn'
 
 import { RewardCategoryName } from '../reward-category-name'
 

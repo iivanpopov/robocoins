@@ -1,6 +1,5 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link, useParams } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import {
   Button,
@@ -12,10 +11,9 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
+import { AvatarPicker } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
 import { UserAvatar } from '#/routes/-components/user-avatar'
-import { AVATARS } from '#/routes/-constants'
-import { getAvatarUrl } from '#/routes/-utils'
 
 import { StudentRequestError } from '../-components'
 import { parseStudentIdParams } from '../-utils'
@@ -78,6 +76,7 @@ function StudentEditPage() {
               <UserAvatar
                 name={state.student.name}
                 avatar={state.student.avatar}
+                avatarRing={state.student.avatar_ring}
                 size="lg"
                 className={styles.avatar}
               />
@@ -91,32 +90,28 @@ function StudentEditPage() {
           <section className={styles.card}>
             <h2 className={styles['section-title']}>{t('field.nickname.label')}</h2>
             <form className={styles.form} onSubmit={functions.handleSubmitNickname} noValidate>
-              <features.nicknameForm.Field name="nickname">
-                {(field) => (
-                  <Field>
-                    <FieldLabel htmlFor="student-edit-nickname">
-                      {t('field.student-nickname.placeholder')}
-                    </FieldLabel>
-                    <Input
-                      id="student-edit-nickname"
-                      name={field.name}
-                      value={field.state.value}
-                      maxLength={200}
-                      autoComplete="off"
-                      placeholder={t('field.student-nickname.placeholder')}
-                      aria-invalid={!!field.state.meta.errors.length}
-                      onChange={(event) => field.handleChange(event.target.value)}
-                      onBlur={field.handleBlur}
-                    />
-                    {!!field.state.meta.errors.length && (
-                      <FieldError>{t('students.edit.nickname.error')}</FieldError>
-                    )}
-                    {state.isNicknameUnchanged && (
-                      <FieldDescription>{t('students.edit.nickname.same')}</FieldDescription>
-                    )}
-                  </Field>
+              <Field>
+                <FieldLabel htmlFor="student-edit-nickname">
+                  {t('field.student-nickname.placeholder')}
+                </FieldLabel>
+                <Input
+                  id="student-edit-nickname"
+                  name="nickname"
+                  value={features.nicknameField.value}
+                  maxLength={200}
+                  autoComplete="off"
+                  placeholder={t('field.student-nickname.placeholder')}
+                  aria-invalid={!!features.nicknameField.error}
+                  onChange={(event) => features.nicknameField.handleChange(event.target.value)}
+                  onBlur={features.nicknameField.handleBlur}
+                />
+                {!!features.nicknameField.error && (
+                  <FieldError>{t('students.edit.nickname.error')}</FieldError>
                 )}
-              </features.nicknameForm.Field>
+                {state.isNicknameUnchanged && (
+                  <FieldDescription>{t('students.edit.nickname.same')}</FieldDescription>
+                )}
+              </Field>
 
               {mutations.nickname.isError && (
                 <StudentRequestError
@@ -149,28 +144,12 @@ function StudentEditPage() {
             <h2 className={styles['section-title']}>{t('field.avatar.label')}</h2>
             <p className={styles.note}>{t('students.edit.avatar.description')}</p>
             <form className={styles.form} onSubmit={functions.handleSubmitAvatar} noValidate>
-              <features.avatarForm.Field name="avatar">
-                {(field) => (
-                  <div className={styles.avatars} role="group" aria-label={t('field.avatar.label')}>
-                    {AVATARS.map((avatar, index) => (
-                      <button
-                        key={avatar}
-                        type="button"
-                        className={cn(
-                          styles['avatar-option'],
-                          field.state.value === avatar && styles.selected,
-                        )}
-                        aria-pressed={field.state.value === avatar}
-                        aria-label={t('students.register.avatar.option', { number: index + 1 })}
-                        title={t('students.register.avatar.option', { number: index + 1 })}
-                        onClick={() => field.handleChange(avatar)}
-                      >
-                        <img src={getAvatarUrl(avatar)} alt="" aria-hidden="true" />
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </features.avatarForm.Field>
+              <AvatarPicker
+                value={features.avatarField.value}
+                onChange={features.avatarField.handleChange}
+                name={state.student?.name ?? ''}
+                disabled={mutations.avatar.isPending}
+              />
 
               {mutations.avatar.isError && (
                 <StudentRequestError

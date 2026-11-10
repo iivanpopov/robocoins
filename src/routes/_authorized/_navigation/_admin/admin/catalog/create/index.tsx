@@ -1,10 +1,10 @@
 import { useTranslate } from '@kanjou/react'
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import { Button, IconButton, Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
+import { cn } from '#/utils/cn'
 
 import { RewardCategoryName, RewardFields } from '../-components'
 // import { RewardImagePicker } from '../-components'

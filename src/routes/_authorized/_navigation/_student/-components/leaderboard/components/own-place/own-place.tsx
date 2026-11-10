@@ -1,5 +1,6 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
+
+import { cn } from '#/utils/cn'
 
 import styles from './own-place.module.css'
 

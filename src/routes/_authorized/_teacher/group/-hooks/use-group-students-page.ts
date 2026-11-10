@@ -1,6 +1,6 @@
 import { useTranslate } from '@kanjou/react'
 import { useQueryClient } from '@tanstack/react-query'
-import { useParams } from '@tanstack/react-router'
+import { useLoaderData, useParams } from '@tanstack/react-router'
 import { useState } from 'react'
 
 import { useAwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPost } from '#/api/hooks/useAwardGroupPracticeCompletedGroupIdGroupIdPracticeCompletedPost'
@@ -15,6 +15,7 @@ import { getStudentRewardProgressStudentStudentIdRewardProgressGetQueryKey } fro
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryKey } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { StudentProfileResponse } from '#/api/types'
 import { toast } from '#/components/ui'
+import { useCurrentTime } from '#/hooks'
 import { Avatar, AVATARS } from '#/routes/-constants'
 import { parseGroupSchedule } from '#/routes/-utils'
 
@@ -22,6 +23,7 @@ import { StudentSortOrder } from '../-constants'
 
 export function useGroupStudentsPage() {
   const params = useParams({ from: '/_authorized/_teacher/group/$groupId' })
+  const loaderData = useLoaderData({ from: '/_authorized/_teacher/group/$groupId' })
 
   const [searchQuery, setSearchQuery] = useState('')
   const [sortOrder, setSortOrder] = useState<StudentSortOrder>(StudentSortOrder.NameAsc)
@@ -30,6 +32,7 @@ export function useGroupStudentsPage() {
   const [selectedStudent, setSelectedStudent] = useState<
     (StudentProfileResponse & { avatar: Avatar }) | null
   >(null)
+  const now = useCurrentTime(loaderData.now)
 
   const t = useTranslate()
   const queryClient = useQueryClient()
@@ -143,6 +146,7 @@ export function useGroupStudentsPage() {
       courseName:
         coursesQuery.data?.find((course) => course.id === groupQuery.data?.course_id)?.name ?? '',
       schedule,
+      now,
       groupId: Number(params.groupId),
       students: sortedStudents,
       hasStudents: !!sortedStudents.length,

@@ -1,6 +1,6 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, notFound } from '@tanstack/react-router'
-// import { cn } from 'cn'
+// import { cn } from '#/utils/cn'
 import * as v from 'valibot'
 
 /*

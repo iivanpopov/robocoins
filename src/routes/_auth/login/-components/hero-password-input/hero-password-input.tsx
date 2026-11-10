@@ -1,5 +1,4 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import {
   HeroInput,
@@ -8,6 +7,7 @@ import {
   type HeroInputProps,
 } from '#/components/ui'
 import { useBoolean } from '#/hooks'
+import { cn } from '#/utils/cn'
 
 export interface HeroPasswordInputProps extends Omit<HeroInputProps, 'className'> {
   className?: string

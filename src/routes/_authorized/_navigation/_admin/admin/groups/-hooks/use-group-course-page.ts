@@ -1,7 +1,8 @@
-import { useForm, useSelector } from '@tanstack/react-form'
 import { useParams } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
 import { useEffect, useRef, useState } from 'react'
+
+import { useField } from '#/hooks/use-field'
 
 import { ChangeGroupCourseStateSchema } from '../-schemas'
 import type { GroupErrorKey } from '../-types'
@@ -21,31 +22,28 @@ export function useGroupCoursePage() {
 
   const groupData = useGroupWithCourse(groupId)
 
-  const form = useForm({
-    defaultValues: { courseId: '' },
-    validators: { onChange: ChangeGroupCourseStateSchema },
-    onSubmit: ({ value }) => {
+  const courseField = useField('', {
+    schema: ChangeGroupCourseStateSchema.entries.courseId,
+    onSubmit: (value) => {
       const group = groupData.group
       if (!group || selectedCourseId) return
-      if (value.courseId === String(group.course_id)) return
-      setSelectedCourseId(value.courseId)
+      if (value === String(group.course_id)) return
+      setSelectedCourseId(value)
     },
   })
-
-  const courseId = useSelector(form.store, (state) => state.values.courseId)
 
   useEffect(() => {
     const group = groupData.group
     if (!group) return
     if (syncedGroupIdReference.current === group.id) return
     syncedGroupIdReference.current = group.id
-    form.setFieldValue('courseId', String(group.course_id))
-  }, [groupData.group, form])
+    courseField.setValue(String(group.course_id))
+  }, [groupData.group, courseField])
 
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
     if (!groupData.group || selectedCourseId) return
-    void form.handleSubmit()
+    void courseField.handleSubmit()
   }
 
   function handleRetry() {
@@ -57,6 +55,7 @@ export function useGroupCoursePage() {
     }
   }
 
+  const courseId = courseField.value
   const isUnchanged = !!groupData.group && courseId === String(groupData.group.course_id)
   const isNotFound = getGroupErrorStatus(groupData.groupQuery.error) === 404
   const error = groupData.groupQuery.error ?? groupData.coursesQuery.error ?? null
@@ -97,6 +96,6 @@ export function useGroupCoursePage() {
     },
     queries: { group: groupData.groupQuery, courses: groupData.coursesQuery },
     functions: { handleSubmit, handleRetry },
-    features: { form },
+    features: { courseField },
   }
 }

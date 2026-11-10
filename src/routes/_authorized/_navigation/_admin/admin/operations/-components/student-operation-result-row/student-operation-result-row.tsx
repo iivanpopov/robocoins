@@ -1,9 +1,9 @@
 import { useTranslate } from '@kanjou/react'
 import { Link } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import { Button, Loader } from '#/components/ui'
 import { formatSignedAmount } from '#/routes/-utils'
+import { cn } from '#/utils/cn'
 
 import type { StudentOperationResult } from '../../-types'
 

@@ -1,5 +1,6 @@
-import { cn } from 'cn'
 import type { ReactNode } from 'react'
+
+import { cn } from '#/utils/cn'
 
 import styles from './group-result-panel.module.css'
 

@@ -19,8 +19,7 @@ import {
 } from '#/api/hooks/useShowStudentCredentialsStudentStudentIdCredentialsGet'
 import type { StudentNicknameEditRequest } from '#/api/types'
 import { AVATARS, type Avatar } from '#/routes/-constants'
-
-import { StudentNicknameSchema } from '../-schemas'
+import { StudentNicknameSchema } from '#/routes/-schemas'
 
 export function useStudentEditPage() {
   const navigate = useNavigate()
@@ -211,6 +210,7 @@ export function useStudentEditPage() {
 
   const profile = studentQuery.data
   const avatar = AVATARS.find((candidate) => candidate === profile?.avatar) ?? AVATARS[0]
+  const avatarRing = profile?.avatar_ring ?? null
   const nickname = nicknameDraft ?? profile?.name ?? ''
   const password = credentialsQuery.data?.access_code ?? ''
   const passwordInputType = isPasswordVisible ? 'text' : 'password'
@@ -222,6 +222,7 @@ export function useStudentEditPage() {
       isAvailable: !!profile,
       name: profile?.name ?? '',
       avatar,
+      avatarRing,
       pickerAvatar,
       groupIds: profile?.group_ids ?? [],
       nickname,

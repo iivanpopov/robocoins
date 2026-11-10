@@ -1,25 +1,33 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, notFound } from '@tanstack/react-router'
-import { cn } from 'cn'
+import type { CSSProperties } from 'react'
 import * as v from 'valibot'
 
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
 import { getStudentByIdStudentStudentIdGetQueryOptions } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
 import { getTeacherGroupsTeacherGroupsGetQueryOptions } from '#/api/hooks/useGetTeacherGroupsTeacherGroupsGet'
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
   Button,
   IconButton,
   Loader,
   Typography,
 } from '#/components/ui'
+import { Feedback } from '#/routes/-components'
 import { InlineError } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
-import { getAvatarUrl, getInitial } from '#/routes/-utils'
+import { UserAvatar } from '#/routes/-components/user-avatar'
 import { GroupCard } from '#/routes/_authorized/-components/group-card'
+import { cn } from '#/utils/cn'
 
+import { ProfileEditor } from './-components'
 import { useStudentProfilePage } from './-hooks'
 
 import styles from './index.module.css'
@@ -80,7 +88,11 @@ function StudentProfilePage() {
   const t = useTranslate()
 
   return (
-    <PageLayout.Root bottomSpace>
+    <PageLayout.Root
+      bottomSpace
+      className={cn(state.isEditing && styles['editing-page'])}
+      style={{ '--keyboard-inset': `${state.keyboardInset}px` } as CSSProperties}
+    >
       <PageLayout.Header centered>
         <IconButton onClick={functions.handleBack} title={t('history.back')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />
@@ -97,6 +109,18 @@ function StudentProfilePage() {
             </Button>
           </PageLayout.Actions>
         )}
+        {state.isOwnProfile && !state.isEditing && (
+          <PageLayout.Actions>
+            <IconButton
+              variant="ghost"
+              onClick={functions.handleStartEditing}
+              title={t('profile.edit.action')}
+              aria-label={t('profile.edit.action')}
+            >
+              <span aria-hidden="true" className="i-ph:pencil-simple" />
+            </IconButton>
+          </PageLayout.Actions>
+        )}
       </PageLayout.Header>
       {queries.student.isPending && <Loader grow className={styles.loader} />}
       {queries.student.isError && (
@@ -106,28 +130,54 @@ function StudentProfilePage() {
       )}
       {state.profile && (
         <>
-          <article className={styles.identity}>
-            <Avatar className={styles.avatar}>
-              <AvatarImage src={getAvatarUrl(state.avatar)} alt="" aria-hidden="true" />
-              <AvatarFallback role="img" aria-label={state.profile.name}>
-                {getInitial(state.profile.name)}
-              </AvatarFallback>
-            </Avatar>
-            <div className={styles['identity-info']}>
-              <Typography className={styles.name} variant="subtitle">
-                {state.profile.name}
-              </Typography>
-              <div
-                className={styles.balance}
-                aria-label={`${t('coins.amount', { count: state.profile.balance })} ${t('coins.unit', { count: state.profile.balance })}`}
-              >
-                <span aria-hidden="true">
-                  {t('coins.amount', { count: state.profile.balance })}
-                </span>
-                <span aria-hidden="true" className={cn('i-ph:coins', styles['coin-icon'])} />
+          {state.isEditing && (
+            <ProfileEditor
+              name={state.profile.name}
+              nicknameDraft={state.nicknameDraft}
+              avatarDraft={state.avatarDraft}
+              ringDraft={state.ringDraft}
+              persistedRing={state.persistedRing}
+              activeTab={state.activeTab}
+              fieldSaveStates={state.fieldSaveStates}
+              saveOutcome={state.saveOutcome}
+              isSaving={state.isSaving}
+              isNicknameEmpty={state.isNicknameEmpty}
+              hasUnsavedChanges={state.hasUnsavedChanges}
+              onNicknameChange={functions.handleNicknameChange}
+              onAvatarSelect={functions.handleAvatarSelect}
+              onRingSelect={functions.handleRingSelect}
+              onTabChange={functions.handleTabChange}
+              onSave={functions.handleSave}
+              onCancel={functions.handleCancelEditing}
+            />
+          )}
+          {!state.isEditing && (
+            <article className={styles.identity}>
+              <UserAvatar
+                name={state.profile.name}
+                avatar={state.avatar}
+                avatarRing={state.avatarRing}
+                className={styles.avatar}
+              />
+              <div className={styles['identity-info']}>
+                <Typography className={styles.name} variant="subtitle">
+                  {state.profile.name}
+                </Typography>
+                <div
+                  className={styles.balance}
+                  aria-label={`${t('coins.amount', { count: state.profile.balance })} ${t('coins.unit', { count: state.profile.balance })}`}
+                >
+                  <span aria-hidden="true">
+                    {t('coins.amount', { count: state.profile.balance })}
+                  </span>
+                  <span aria-hidden="true" className={cn('i-ph:coins', styles['coin-icon'])} />
+                </div>
               </div>
-            </div>
-          </article>
+            </article>
+          )}
+          {state.isOwnProfile && !state.isEditing && (
+            <Feedback source="profile_avatar" className={styles.feedback} />
+          )}
           {state.isTeacher && (
             <section className={styles.section}>
               <h2 className={styles['section-title']}>{t('groups.title')}</h2>
@@ -143,7 +193,7 @@ function StudentProfilePage() {
               )}
             </section>
           )}
-          {!state.isTeacher && !!state.profile.course_names.length && (
+          {!state.isTeacher && !state.isEditing && !!state.profile.course_names.length && (
             <section className={styles.section}>
               <div className={styles['course-list']}>
                 {state.profile.course_names.map((courseName) => (
@@ -156,6 +206,23 @@ function StudentProfilePage() {
           )}
         </>
       )}
+      <AlertDialog
+        open={state.isNavigationBlocked}
+        onOpenChange={functions.handleNavigationDialogOpenChange}
+      >
+        <AlertDialogContent size="sm">
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t('profile.edit.leave.title')}</AlertDialogTitle>
+            <AlertDialogDescription>{t('profile.edit.leave.description')}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{t('profile.edit.leave.stay')}</AlertDialogCancel>
+            <AlertDialogAction onClick={functions.handleConfirmNavigation}>
+              {t('profile.edit.leave.confirm')}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </PageLayout.Root>
   )
 }

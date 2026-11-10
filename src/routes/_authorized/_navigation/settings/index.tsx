@@ -1,6 +1,5 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import {
   AlertDialog,
@@ -24,6 +23,7 @@ import {
   Loader,
 } from '#/components/ui'
 import { InlineError, PageLayout } from '#/routes/-components'
+import { cn } from '#/utils/cn'
 
 import { useSettingsPage } from './-hooks'
 

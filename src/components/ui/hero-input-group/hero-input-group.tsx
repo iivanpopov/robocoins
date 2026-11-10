@@ -1,5 +1,6 @@
-import { cn } from 'cn'
 import type { ComponentProps, MouseEvent, ReactNode } from 'react'
+
+import { cn } from '#/utils/cn'
 
 import { focusInputGroup } from '../utils'
 

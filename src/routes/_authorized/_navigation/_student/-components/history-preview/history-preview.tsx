@@ -1,10 +1,10 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import { Mascot } from '#/components/mascot'
 import { Button, Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 import { formatSignedAmount } from '#/routes/-utils'
+import { cn } from '#/utils/cn'
 
 import { ReasonIcon } from '../reason-icon'
 

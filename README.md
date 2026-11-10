@@ -1,1 +1,1 @@
-origin https://github.com/VladRys/robocoins-dashboard
+idea author https://github.com/VladRys

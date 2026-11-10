@@ -1,0 +1,118 @@
+.grid {
+  display: grid;
+  gap: var(--spacing-sm);
+  align-items: stretch;
+  min-height: 0;
+  padding: var(--spacing-xs);
+  overflow: visible;
+}
+
+.grid[data-layout='avatar'] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  justify-content: flex-start;
+}
+
+.grid[data-layout='effect'] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (width >= 40rem) {
+  .grid[data-layout='effect'] {
+    grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+  }
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+  padding: var(--spacing-sm);
+  font: inherit;
+  color: var(--foreground);
+  text-align: center;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-radius: var(--rounded-lg);
+}
+
+.tile[data-layout='avatar'] {
+  flex: 0 0 3.75rem;
+  justify-content: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  padding: var(--spacing-xs);
+}
+
+.tile[data-layout='effect'] {
+  min-height: 7rem;
+}
+
+.tile[data-selected='true'] {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.tile:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+}
+
+.tile:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.tile[data-locked='true'] {
+  color: var(--muted-foreground);
+  cursor: default;
+  opacity: 1;
+}
+
+.media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.25rem;
+}
+
+.tile[data-layout='avatar'] .media {
+  width: 100%;
+  min-height: 0;
+}
+
+.media > [data-slot='avatar'] {
+  --avatar-size: 2.75rem;
+}
+
+.tile[data-layout='avatar'] .media > [data-slot='avatar'] {
+  --avatar-size: 2.5rem;
+}
+
+.label {
+  max-width: 100%;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+.status {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--muted-foreground);
+}
+
+.tile[data-selected='true'] .status {
+  color: var(--brand);
+}

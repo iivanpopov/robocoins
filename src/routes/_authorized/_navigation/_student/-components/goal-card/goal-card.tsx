@@ -1,8 +1,8 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import type { RewardResponse } from '#/api/types'
 import { Button } from '#/components/ui'
+import { cn } from '#/utils/cn'
 
 import styles from './goal-card.module.css'
 
@@ -41,12 +41,10 @@ export function GoalCard(props: GoalCardProps) {
       <div className={styles.content}>
         <div className={styles.heading}>
           <span className={styles.kicker}>{t('profile.goal.kicker')}</span>
-          {!props.isCompleted && (
-            <Button className={styles.change} size="md" variant="ghost" onClick={props.onOpenShop}>
-              {t('profile.goal.change')}
-              <span aria-hidden="true" className="i-ph:caret-right" />
-            </Button>
-          )}
+          <Button className={styles.change} size="md" variant="ghost" onClick={props.onOpenShop}>
+            {t('profile.goal.change')}
+            <span aria-hidden="true" className="i-ph:caret-right" />
+          </Button>
         </div>
         <h2 className={styles.title}>{props.goal.name}</h2>
         <p className={styles.saved}>

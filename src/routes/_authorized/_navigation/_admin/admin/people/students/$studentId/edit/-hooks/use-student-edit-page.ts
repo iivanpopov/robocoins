@@ -1,4 +1,3 @@
-import { useForm, useSelector } from '@tanstack/react-form'
 import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
@@ -10,6 +9,7 @@ import {
   getStudentByIdStudentStudentIdGetQueryKey,
   useGetStudentByIdStudentStudentIdGet,
 } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
+import { useField } from '#/hooks/use-field'
 import { AVATARS, type Avatar } from '#/routes/-constants'
 
 import { EditStudentAvatarStateSchema, EditStudentNicknameStateSchema } from '../../-schemas'
@@ -58,20 +58,17 @@ export function useStudentEditPage() {
     },
   })
 
-  const nicknameForm = useForm({
-    defaultValues: { nickname: '' },
-    validators: { onChange: EditStudentNicknameStateSchema },
-    listeners: {
-      onChange: () => {
-        if (!nicknameMutation.isPending) nicknameMutation.reset()
-      },
+  const nicknameField = useField('', {
+    schema: EditStudentNicknameStateSchema.entries.nickname,
+    onChange: () => {
+      if (!nicknameMutation.isPending) nicknameMutation.reset()
     },
-    onSubmit: async ({ value }) => {
+    onSubmit: async (value) => {
       if (nicknameMutation.isPending) return
       const student = studentQuery.data
       if (!student) return
 
-      const nickname = value.nickname.trim()
+      const nickname = value.trim()
       if (nickname === student.name) return
 
       try {
@@ -85,24 +82,21 @@ export function useStudentEditPage() {
     },
   })
 
-  const avatarForm = useForm({
-    defaultValues: { avatar: AVATARS[0] as Avatar },
-    validators: { onChange: EditStudentAvatarStateSchema },
-    listeners: {
-      onChange: () => {
-        if (!avatarMutation.isPending) avatarMutation.reset()
-      },
+  const avatarField = useField<Avatar>(AVATARS[0], {
+    schema: EditStudentAvatarStateSchema.entries.avatar,
+    onChange: () => {
+      if (!avatarMutation.isPending) avatarMutation.reset()
     },
-    onSubmit: async ({ value }) => {
+    onSubmit: async (value) => {
       if (avatarMutation.isPending) return
       const student = studentQuery.data
       if (!student) return
-      if (value.avatar === currentAvatar) return
+      if (value === currentAvatar) return
 
       try {
         await avatarMutation.mutateAsync({
           path: { student_id: studentId },
-          body: { new_avatar: value.avatar },
+          body: { new_avatar: value },
         })
       } catch {
         return
@@ -110,43 +104,37 @@ export function useStudentEditPage() {
     },
   })
 
-  const nickname = useSelector(nicknameForm.store, (state) => state.values.nickname)
-  const avatar = useSelector(avatarForm.store, (state) => state.values.avatar)
-
   useEffect(() => {
     const student = studentQuery.data
     if (!student) return
     if (syncedStudentIdReference.current === student.id) return
     syncedStudentIdReference.current = student.id
-    nicknameForm.setFieldValue('nickname', student.name)
-    avatarForm.setFieldValue(
-      'avatar',
-      AVATARS.find((candidate) => candidate === student.avatar) ?? AVATARS[0],
-    )
-  }, [studentQuery.data, nicknameForm, avatarForm])
+    nicknameField.setValue(student.name)
+    avatarField.setValue(AVATARS.find((candidate) => candidate === student.avatar) ?? AVATARS[0])
+  }, [studentQuery.data, nicknameField, avatarField])
 
   function handleSubmitNickname(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
     if (nicknameMutation.isPending) return
-    void nicknameForm.handleSubmit()
+    void nicknameField.handleSubmit()
   }
 
   function handleSubmitAvatar(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
     if (avatarMutation.isPending) return
-    void avatarForm.handleSubmit()
+    void avatarField.handleSubmit()
   }
 
   function handleRetryNickname() {
     if (nicknameMutation.isPending) return
     nicknameMutation.reset()
-    void nicknameForm.handleSubmit()
+    void nicknameField.handleSubmit()
   }
 
   function handleRetryAvatar() {
     if (avatarMutation.isPending) return
     avatarMutation.reset()
-    void avatarForm.handleSubmit()
+    void avatarField.handleSubmit()
   }
 
   function handleRetry() {
@@ -161,6 +149,8 @@ export function useStudentEditPage() {
     })
   }
 
+  const nickname = nicknameField.value
+  const avatar = avatarField.value
   const student = studentQuery.data ?? null
   const currentAvatar = student
     ? (AVATARS.find((candidate) => candidate === student.avatar) ?? AVATARS[0])
@@ -196,6 +186,6 @@ export function useStudentEditPage() {
       handleRetry,
       handleBack,
     },
-    features: { nicknameForm, avatarForm },
+    features: { nicknameField, avatarField },
   }
 }

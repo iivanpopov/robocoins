@@ -33,7 +33,11 @@ export function MembershipStudentOption({
         disabled={disabled}
         onCheckedChange={handleCheckedChange}
       />
-      <UserCard.Avatar name={student.name} avatar={student.avatar} />
+      <UserCard.Avatar
+        name={student.name}
+        avatar={student.avatar}
+        avatarRing={student.avatarRing}
+      />
       <UserCard.Content render={<label htmlFor={id} />}>
         <UserCard.Name>{student.name}</UserCard.Name>
         {meta && <UserCard.Description>{meta}</UserCard.Description>}

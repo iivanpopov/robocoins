@@ -1,5 +1,4 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 import { useId, useState } from 'react'
 
 import {
@@ -15,6 +14,7 @@ import {
 } from '#/components/ui'
 import { InlineError, UserCard } from '#/routes/-components'
 import { UKRAINIAN_LOCALE } from '#/routes/-constants'
+import { cn } from '#/utils/cn'
 
 import type { TeacherOption } from '../../-types'
 import { TEACHER_ASSIGNMENT_MAX } from '../../../-constants'

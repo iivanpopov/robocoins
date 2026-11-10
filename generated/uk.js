@@ -263,7 +263,7 @@ export default {
         },
         "functionRef": {
           "type": "function",
-          "name": "number"
+          "name": "coins"
         }
       }
     ]
@@ -282,7 +282,7 @@ export default {
           },
           "functionRef": {
             "type": "function",
-            "name": "number"
+            "name": "coins"
           }
         }
       }
@@ -980,25 +980,13 @@ export default {
           "type": "function",
           "name": "datetime",
           "options": {
-            "year": {
+            "timePrecision": {
               "type": "literal",
-              "value": "numeric"
+              "value": "second"
             },
-            "month": {
+            "timeZone": {
               "type": "literal",
-              "value": "2-digit"
-            },
-            "day": {
-              "type": "literal",
-              "value": "2-digit"
-            },
-            "hour": {
-              "type": "literal",
-              "value": "2-digit"
-            },
-            "minute": {
-              "type": "literal",
-              "value": "2-digit"
+              "value": "Europe/Kyiv"
             }
           }
         }
@@ -1157,29 +1145,6 @@ export default {
     "declarations": [],
     "pattern": [
       "Поки не складається в жодній групі."
-    ]
-  },
-  "profile.history.amount": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "count"
-        },
-        "functionRef": {
-          "type": "function",
-          "name": "number",
-          "options": {
-            "signDisplay": {
-              "type": "literal",
-              "value": "always"
-            }
-          }
-        }
-      }
     ]
   },
   "profile.history.empty": {
@@ -1797,6 +1762,384 @@ export default {
       "Сесія"
     ]
   },
+  "daily-mission.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Місія дня"
+    ]
+  },
+  "daily-mission.completed": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Місію виконано"
+    ]
+  },
+  "daily-mission.tomorrow": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нова місія завтра"
+    ]
+  },
+  "daily-mission.loading": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Завантажуємо місію…"
+    ]
+  },
+  "daily-mission.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити місію"
+    ]
+  },
+  "daily-mission.week.stars": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зірки тижня: ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "completed"
+        }
+      },
+      "/7"
+    ]
+  },
+  "daily-mission.week.loading": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Завантажуємо серію…"
+    ]
+  },
+  "daily-mission.week.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити серію"
+    ]
+  },
+  "daily-mission.task.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити місію. Спробуй ще раз."
+    ]
+  },
+  "daily-mission.completed.mascot": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Робот святкує твою перемогу"
+    ]
+  },
+  "daily-mission.task.image-alt": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зображення до завдання"
+    ]
+  },
+  "daily-mission.task.unsupported": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Це завдання поки недоступне: сервер не надав повний формат відповіді."
+    ]
+  },
+  "daily-mission.answer.label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Твоя відповідь"
+    ]
+  },
+  "daily-mission.answer.incorrect": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Поки не так. Спробуй іншу відповідь."
+    ]
+  },
+  "daily-mission.answer.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося перевірити відповідь. Онови місію перед наступною спробою."
+    ]
+  },
+  "daily-mission.answer.retry": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оновити місію"
+    ]
+  },
+  "daily-mission.answer.submit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевірити"
+    ]
+  },
+  "daily-mission.answer.submitting": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевіряємо…"
+    ]
+  },
+  "daily-mission.reward.amount": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "+",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "coins"
+        }
+      }
+    ]
+  },
+  "daily-mission.streak": {
+    "type": "select",
+    "declarations": [
+      {
+        "type": "input",
+        "name": "count",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "count"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "number"
+          }
+        }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "count"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " день поспіль"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " дні поспіль"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " днів поспіль"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " дня поспіль"
+        ]
+      }
+    ]
+  },
+  "daily-mission.today": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сьогодні"
+    ]
+  },
+  "daily-mission.stars.hint": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Натисни на зірки, щоб відкрити місію дня"
+    ]
+  },
+  "daily-mission.start": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вирушити"
+    ]
+  },
+  "daily-mission.start.label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вирушити до місії дня"
+    ]
+  },
+  "daily-mission.constellation.label": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сузір’я «",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "name"
+        }
+      },
+      "»: місії цього тижня"
+    ]
+  },
+  "daily-mission.constellation.robot": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Робот Робокоду"
+    ]
+  },
+  "daily-mission.constellation.gamepad": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Геймпад"
+    ]
+  },
+  "daily-mission.constellation.rocket": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Ракета відкриттів"
+    ]
+  },
+  "daily-mission.constellation.code": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Код майбутнього"
+    ]
+  },
+  "daily-mission.constellation.circuit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Мікросхема"
+    ]
+  },
+  "daily-mission.constellation.idea": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Іскра ідеї"
+    ]
+  },
+  "daily-mission.constellation.orbit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Орбіта знань"
+    ]
+  },
+  "daily-mission.constellation.plane": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Паперовий літак"
+    ]
+  },
+  "daily-mission.day.completed": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      ", місію виконано"
+    ]
+  },
+  "daily-mission.day.pending": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      ", місію ще не виконано"
+    ]
+  },
+  "daily-mission.day.unlit": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      ", зірку ще не запалено"
+    ]
+  },
+  "daily-mission.day.today": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      ", сьогодні"
+    ]
+  },
   "leaderboard.all": {
     "type": "message",
     "declarations": [],
@@ -1838,7 +2181,7 @@ export default {
         },
         "functionRef": {
           "type": "function",
-          "name": "number"
+          "name": "coins"
         }
       },
       " до наступної позиції"
@@ -1879,22 +2222,7 @@ export default {
           },
           "functionRef": {
             "type": "function",
-            "name": "number"
-          }
-        }
-      },
-      {
-        "type": "local",
-        "name": "countText",
-        "value": {
-          "type": "expression",
-          "arg": {
-            "type": "variable",
-            "name": "count"
-          },
-          "functionRef": {
-            "type": "function",
-            "name": "string"
+            "name": "coins"
           }
         }
       }
@@ -1919,7 +2247,7 @@ export default {
             "type": "expression",
             "arg": {
               "type": "variable",
-              "name": "countText"
+              "name": "count"
             }
           },
           " ",
@@ -1944,7 +2272,7 @@ export default {
             "type": "expression",
             "arg": {
               "type": "variable",
-              "name": "countText"
+              "name": "count"
             }
           },
           " ",
@@ -1969,7 +2297,7 @@ export default {
             "type": "expression",
             "arg": {
               "type": "variable",
-              "name": "countText"
+              "name": "count"
             }
           },
           " ",
@@ -1993,7 +2321,7 @@ export default {
             "type": "expression",
             "arg": {
               "type": "variable",
-              "name": "countText"
+              "name": "count"
             }
           },
           " ",
@@ -2022,22 +2350,106 @@ export default {
     ]
   },
   "leaderboard.points.label": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Зароблено за тиждень: ",
+    "type": "select",
+    "declarations": [
       {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "count"
-        },
-        "functionRef": {
-          "type": "function",
-          "name": "number"
+        "type": "input",
+        "name": "count",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "count"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "coins"
+          }
         }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "count"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          "Зароблено за тиждень: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " робокоїн"
+        ]
       },
-      " робокоїнів"
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          "Зароблено за тиждень: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " робокоїни"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          "Зароблено за тиждень: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " робокоїнів"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          "Зароблено за тиждень: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " робокоїна"
+        ]
+      }
     ]
   },
   "leaderboard.rank.error": {
@@ -2220,7 +2632,7 @@ export default {
         },
         "functionRef": {
           "type": "function",
-          "name": "number"
+          "name": "coins"
         }
       },
       " / ",
@@ -2232,7 +2644,7 @@ export default {
         },
         "functionRef": {
           "type": "function",
-          "name": "number"
+          "name": "coins"
         }
       }
     ]
@@ -2251,7 +2663,7 @@ export default {
           },
           "functionRef": {
             "type": "function",
-            "name": "number"
+            "name": "coins"
           }
         }
       }
@@ -2540,22 +2952,106 @@ export default {
     ]
   },
   "shop.balance": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Баланс: ",
+    "type": "select",
+    "declarations": [
       {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "count"
-        },
-        "functionRef": {
-          "type": "function",
-          "name": "number"
+        "type": "input",
+        "name": "count",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "count"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "coins"
+          }
         }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "count"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          "Баланс: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " робокоїн"
+        ]
       },
-      " робокоїнів"
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          "Баланс: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " робокоїни"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          "Баланс: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " робокоїнів"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          "Баланс: ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "count"
+            }
+          },
+          " робокоїна"
+        ]
+      }
     ]
   },
   "shop.reward.back": {
@@ -2629,22 +3125,106 @@ export default {
     ]
   },
   "award.cancel.confirm.trigger": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Скасувати транзакцію на ",
+    "type": "select",
+    "declarations": [
       {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "amount"
-        },
-        "functionRef": {
-          "type": "function",
-          "name": "number"
+        "type": "input",
+        "name": "amount",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "amount"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "coins"
+          }
         }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "amount"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          "Скасувати транзакцію на ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "amount"
+            }
+          },
+          " робокоїн"
+        ]
       },
-      " робокоїнів"
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          "Скасувати транзакцію на ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "amount"
+            }
+          },
+          " робокоїни"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          "Скасувати транзакцію на ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "amount"
+            }
+          },
+          " робокоїнів"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          "Скасувати транзакцію на ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "amount"
+            }
+          },
+          " робокоїна"
+        ]
+      }
     ]
   },
   "award.cancel.error": {
@@ -2712,6 +3292,111 @@ export default {
       "Історія нагород порожня"
     ]
   },
+  "award.history.time.hour-minutes": {
+    "type": "select",
+    "declarations": [
+      {
+        "type": "input",
+        "name": "minutes",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "minutes"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "number"
+          }
+        }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "minutes"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          "Годину ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "minutes"
+            }
+          },
+          " хвилину тому"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          "Годину ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "minutes"
+            }
+          },
+          " хвилини тому"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          "Годину ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "minutes"
+            }
+          },
+          " хвилин тому"
+        ]
+      }
+    ]
+  },
+  "award.history.time.now": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Щойно"
+    ]
+  },
+  "award.history.time.today": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Сьогодні"
+    ]
+  },
+  "award.history.time.yesterday": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Вчора"
+    ]
+  },
   "award.history.title": {
     "type": "message",
     "declarations": [],
@@ -2752,6 +3437,13 @@ export default {
     "declarations": [],
     "pattern": [
       "Поточна"
+    ]
+  },
+  "group.current.multiple": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зараз"
     ]
   },
   "group.filter.all": {
@@ -2839,6 +3531,190 @@ export default {
       "Обери групу"
     ]
   },
+  "group.rewards.detail": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "reason"
+        }
+      },
+      ". Нарахувань за останні 110 хвилин: ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "count"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "number"
+        }
+      },
+      ". Останнє о ",
+      {
+        "type": "expression",
+        "arg": {
+          "type": "variable",
+          "name": "date"
+        },
+        "functionRef": {
+          "type": "function",
+          "name": "datetime",
+          "options": {
+            "timeStyle": {
+              "type": "literal",
+              "value": "short"
+            }
+          }
+        }
+      },
+      "."
+    ]
+  },
+  "group.rewards.error": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Нагороди недоступні"
+    ]
+  },
+  "group.rewards.guide.title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Як читати нагороди"
+    ]
+  },
+  "group.rewards.guide.description": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Значок — за що нагородили. Число — скільки разів. Колір — як давно нагородили востаннє."
+    ]
+  },
+  "group.rewards.guide.example": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Приклад картки учня"
+    ]
+  },
+  "group.rewards.guide.student": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Марко"
+    ]
+  },
+  "group.rewards.guide.breakdown": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "У цьому прикладі"
+    ]
+  },
+  "group.rewards.guide.theory-example": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "За теорію нагородили 3 рази. Востаннє — щойно."
+    ]
+  },
+  "group.rewards.guide.practice-example": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "За практику нагородили 1 раз, щонайменше 5 хвилин тому."
+    ]
+  },
+  "group.rewards.guide.task-example": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "За додаткове завдання нагородили 1 раз, 3 хвилини тому."
+    ]
+  },
+  "group.rewards.guide.colors": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Коли нагородили востаннє"
+    ]
+  },
+  "group.rewards.guide.red": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Червоний"
+    ]
+  },
+  "group.rewards.guide.red-time": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Менше 1 хв тому"
+    ]
+  },
+  "group.rewards.guide.orange": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Оранжевий"
+    ]
+  },
+  "group.rewards.guide.orange-time": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Від 1 до 2 хв тому"
+    ]
+  },
+  "group.rewards.guide.green": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зелений"
+    ]
+  },
+  "group.rewards.guide.green-time": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Від 2 до 5 хв тому"
+    ]
+  },
+  "group.rewards.guide.brand": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Синій"
+    ]
+  },
+  "group.rewards.guide.brand-time": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "5 хв тому або раніше"
+    ]
+  },
+  "group.rewards.guide.counts": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Числа біля значків — кількість нагород, а не робокоїни. Скасовані нарахування та списання не враховуються."
+    ]
+  },
+  "group.rewards.guide.close": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Зрозуміло"
+    ]
+  },
   "sort.balance-asc": {
     "type": "message",
     "declarations": [],
@@ -2902,6 +3778,20 @@ export default {
       "Додати в групу"
     ]
   },
+  "student.edit.groups.add-confirm-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Додати учня в групу?"
+    ]
+  },
+  "student.edit.groups.add-picker-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Додати в групу"
+    ]
+  },
   "student.edit.groups.confirm.add-description": {
     "type": "message",
     "declarations": [],
@@ -2923,43 +3813,6 @@ export default {
         }
       },
       "»."
-    ]
-  },
-  "student.edit.groups.confirm.keep-source": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Учень залишиться в групі «",
-      {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "group"
-        }
-      },
-      "»."
-    ]
-  },
-  "student.edit.groups.confirm.remove-source": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Учень перестане складатися в групі «",
-      {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "group"
-        }
-      },
-      "»."
-    ]
-  },
-  "student.edit.groups.confirm.title": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Підтвердити зміну груп учня?"
     ]
   },
   "student.edit.groups.confirm.transfer-description": {
@@ -3000,21 +3853,28 @@ export default {
       "Не вдалося оновити групу учня. Спробуйте ще раз."
     ]
   },
-  "student.edit.groups.kick-action": {
+  "student.edit.groups.partial-error": {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Виключити з групи"
+      "Учня додано в нову групу, але він залишився в попередній."
     ]
   },
-  "student.edit.groups.kick.confirm.action": {
+  "student.edit.groups.remove-action": {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Виключити"
+      "Прибрати"
     ]
   },
-  "student.edit.groups.kick.confirm.description": {
+  "student.edit.groups.remove-confirm-action": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Прибрати"
+    ]
+  },
+  "student.edit.groups.remove-confirm-description": {
     "type": "message",
     "declarations": [],
     "pattern": [
@@ -3037,32 +3897,11 @@ export default {
       "»."
     ]
   },
-  "student.edit.groups.kick.confirm.title": {
+  "student.edit.groups.remove-confirm-title": {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "Виключити учня з групи?"
-    ]
-  },
-  "student.edit.groups.membership-changed": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Склад груп змінився. Оберіть групу ще раз."
-    ]
-  },
-  "student.edit.groups.partial-error": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Учня додано в нову групу, але він залишився в попередній."
-    ]
-  },
-  "student.edit.groups.placeholder": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Обрати групу"
+      "Прибрати учня з групи?"
     ]
   },
   "student.edit.groups.remove.description": {
@@ -3080,25 +3919,11 @@ export default {
       "»."
     ]
   },
-  "student.edit.groups.remove.label": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "Прибрати учня з попередньої групи"
-    ]
-  },
   "student.edit.groups.source-empty": {
     "type": "message",
     "declarations": [],
     "pattern": [
       "Учень поки не складається в групах."
-    ]
-  },
-  "student.edit.groups.source-label": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
-      "З групи"
     ]
   },
   "student.edit.groups.success": {
@@ -3115,14 +3940,21 @@ export default {
       "Немає доступних груп для додавання."
     ]
   },
-  "student.edit.groups.target-label": {
+  "student.edit.groups.transfer-action": {
     "type": "message",
     "declarations": [],
     "pattern": [
-      "У групу"
+      "Перевести"
     ]
   },
-  "student.edit.groups.transfer-action": {
+  "student.edit.groups.transfer-confirm-title": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Перевести учня в іншу групу?"
+    ]
+  },
+  "student.edit.groups.transfer-picker-title": {
     "type": "message",
     "declarations": [],
     "pattern": [
@@ -3191,6 +4023,13 @@ export default {
     "declarations": [],
     "pattern": [
       "Не вдалося згенерувати новий пароль. Спробуйте ще раз."
+    ]
+  },
+  "student.password.unavailable": {
+    "type": "message",
+    "declarations": [],
+    "pattern": [
+      "Не вдалося завантажити пароль."
     ]
   },
   "admin.groups.back-to-group": {
@@ -6861,7 +7700,7 @@ export default {
         },
         "functionRef": {
           "type": "function",
-          "name": "number"
+          "name": "coins"
         }
       }
     ]
@@ -7058,7 +7897,7 @@ export default {
         },
         "functionRef": {
           "type": "function",
-          "name": "number"
+          "name": "coins"
         }
       }
     ]
@@ -7924,7 +8763,7 @@ export default {
         },
         "functionRef": {
           "type": "function",
-          "name": "number"
+          "name": "coins"
         }
       },
       " буде скасовано, а баланс перераховано."
@@ -7964,7 +8803,7 @@ export default {
         },
         "functionRef": {
           "type": "function",
-          "name": "number"
+          "name": "coins"
         }
       }
     ]
@@ -8146,33 +8985,149 @@ export default {
     ]
   },
   "admin.balance.summary.reward-progress": {
-    "type": "message",
-    "declarations": [],
-    "pattern": [
+    "type": "select",
+    "declarations": [
       {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "saved"
-        },
-        "functionRef": {
-          "type": "function",
-          "name": "number"
+        "type": "input",
+        "name": "saved",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "saved"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "coins"
+          }
         }
       },
-      " з ",
       {
-        "type": "expression",
-        "arg": {
-          "type": "variable",
-          "name": "price"
-        },
-        "functionRef": {
-          "type": "function",
-          "name": "number"
+        "type": "input",
+        "name": "price",
+        "value": {
+          "type": "expression",
+          "arg": {
+            "type": "variable",
+            "name": "price"
+          },
+          "functionRef": {
+            "type": "function",
+            "name": "coins"
+          }
         }
+      }
+    ],
+    "selectors": [
+      {
+        "type": "variable",
+        "name": "price"
+      }
+    ],
+    "variants": [
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "one"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "saved"
+            }
+          },
+          " з ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "price"
+            }
+          },
+          " робокоїна"
+        ]
       },
-      " робокоїнів"
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "few"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "saved"
+            }
+          },
+          " з ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "price"
+            }
+          },
+          " робокоїнів"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "literal",
+            "value": "many"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "saved"
+            }
+          },
+          " з ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "price"
+            }
+          },
+          " робокоїнів"
+        ]
+      },
+      {
+        "keys": [
+          {
+            "type": "*"
+          }
+        ],
+        "value": [
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "saved"
+            }
+          },
+          " з ",
+          {
+            "type": "expression",
+            "arg": {
+              "type": "variable",
+              "name": "price"
+            }
+          },
+          " робокоїна"
+        ]
+      }
     ]
   },
   "admin.balance.summary.reward-ready": {
@@ -8196,22 +9151,7 @@ export default {
           },
           "functionRef": {
             "type": "function",
-            "name": "number"
-          }
-        }
-      },
-      {
-        "type": "local",
-        "name": "countText",
-        "value": {
-          "type": "expression",
-          "arg": {
-            "type": "variable",
-            "name": "count"
-          },
-          "functionRef": {
-            "type": "function",
-            "name": "string"
+            "name": "coins"
           }
         }
       }
@@ -8236,7 +9176,7 @@ export default {
             "type": "expression",
             "arg": {
               "type": "variable",
-              "name": "countText"
+              "name": "count"
             }
           },
           " робокоїн"
@@ -8255,7 +9195,7 @@ export default {
             "type": "expression",
             "arg": {
               "type": "variable",
-              "name": "countText"
+              "name": "count"
             }
           },
           " робокоїни"
@@ -8274,7 +9214,7 @@ export default {
             "type": "expression",
             "arg": {
               "type": "variable",
-              "name": "countText"
+              "name": "count"
             }
           },
           " робокоїнів"
@@ -8292,7 +9232,7 @@ export default {
             "type": "expression",
             "arg": {
               "type": "variable",
-              "name": "countText"
+              "name": "count"
             }
           },
           " робокоїна"
@@ -8707,6 +9647,10 @@ export default {
             "year": {
               "type": "literal",
               "value": "numeric"
+            },
+            "timeZone": {
+              "type": "literal",
+              "value": "Europe/Kyiv"
             }
           }
         }

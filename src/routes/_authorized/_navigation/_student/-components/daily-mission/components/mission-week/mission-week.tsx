@@ -1,11 +1,11 @@
 import { useTranslate } from '@kanjou/react'
 import { Link } from '@tanstack/react-router'
-import { cn } from 'cn'
 import { useId } from 'react'
 
 import type { DailyTaskResponse, StreakResponse } from '#/api/types'
 import { SpaceBackground } from '#/routes/_authorized/-components/space-background'
 import { getMissionWeek } from '#/routes/_authorized/-utils'
+import { cn } from '#/utils/cn'
 
 import { getWeeklyConstellation } from '../../lib'
 import { PortalDepth } from './portal-depth'
@@ -41,7 +41,13 @@ export function MissionWeek({
 
   return (
     <div className={styles.week}>
-      <div className={styles.portal} style={{ clipPath: `url(#${id}-opening)` }}>
+      <div
+        className={styles.portal}
+        style={{
+          clipPath:
+            'polygon(0% 7%, 7% 7%, 13% 2%, 74% 2%, 80% 7%, 100% 7%, 100% 93%, 93% 93%, 87% 98%, 29% 98%, 23% 93%, 0% 93%)',
+        }}
+      >
         <SpaceBackground className={styles.space} variant="home" />
         {todayStar && (
           <span

@@ -1,2 +1,2 @@
-export * from './get-api-error-key'
+export * from './get-reward-request-error-key'
 export * from './reward-draft'

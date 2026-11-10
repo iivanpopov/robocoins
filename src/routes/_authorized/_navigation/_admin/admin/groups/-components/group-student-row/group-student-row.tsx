@@ -13,7 +13,11 @@ export function GroupStudentRow({ student, className }: GroupStudentRowProps) {
 
   return (
     <UserCard.Root className={className} render={<article />}>
-      <UserCard.Avatar name={student.name} avatar={student.avatar} />
+      <UserCard.Avatar
+        name={student.name}
+        avatar={student.avatar}
+        avatarRing={student.avatar_ring}
+      />
       <UserCard.Content>
         <UserCard.Name>{student.name}</UserCard.Name>
         <UserCard.Description>

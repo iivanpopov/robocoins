@@ -9,15 +9,12 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
   Button,
   Loader,
 } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
+import { UserAvatar } from '#/routes/-components/user-avatar'
 import type { Avatar as AvatarName } from '#/routes/-constants'
-import { getAvatarUrl, getInitial } from '#/routes/-utils'
 import type { GroupCardData } from '#/routes/_authorized/-components/group-card'
 import { GroupCard } from '#/routes/_authorized/-components/group-card'
 
@@ -30,6 +27,7 @@ export interface StudentGroupAssignmentProps {
   studentId: number
   studentName: string
   studentAvatar: AvatarName
+  studentAvatarRing: string | null
   groupIds: number[]
   onSuccess: () => void
 }
@@ -37,17 +35,13 @@ export interface StudentGroupAssignmentProps {
 interface DialogStudentProps {
   name: string
   avatar: AvatarName
+  avatarRing: string | null
 }
 
 function DialogStudent(props: DialogStudentProps) {
   return (
     <div className={styles['confirm-identity']}>
-      <Avatar size="sm">
-        <AvatarImage src={getAvatarUrl(props.avatar)} alt="" aria-hidden="true" />
-        <AvatarFallback role="img" aria-label={props.name}>
-          {getInitial(props.name)}
-        </AvatarFallback>
-      </Avatar>
+      <UserAvatar name={props.name} avatar={props.avatar} avatarRing={props.avatarRing} size="sm" />
       <span>{props.name}</span>
     </div>
   )
@@ -179,7 +173,11 @@ export function StudentGroupAssignment(props: StudentGroupAssignmentProps) {
       >
         <AlertDialogContent size="sm">
           <AlertDialogHeader>
-            <DialogStudent name={props.studentName} avatar={props.studentAvatar} />
+            <DialogStudent
+              name={props.studentName}
+              avatar={props.studentAvatar}
+              avatarRing={props.studentAvatarRing}
+            />
             <AlertDialogTitle>{t('student.edit.groups.add-confirm-title')}</AlertDialogTitle>
             <AlertDialogDescription>
               {!!assignment.state.addTargetName &&
@@ -214,7 +212,11 @@ export function StudentGroupAssignment(props: StudentGroupAssignmentProps) {
       >
         <AlertDialogContent size="sm">
           <AlertDialogHeader>
-            <DialogStudent name={props.studentName} avatar={props.studentAvatar} />
+            <DialogStudent
+              name={props.studentName}
+              avatar={props.studentAvatar}
+              avatarRing={props.studentAvatarRing}
+            />
             <AlertDialogTitle>{t('student.edit.groups.transfer-confirm-title')}</AlertDialogTitle>
             <AlertDialogDescription>
               {!!assignment.state.transferSourceName &&
@@ -263,7 +265,11 @@ export function StudentGroupAssignment(props: StudentGroupAssignmentProps) {
       >
         <AlertDialogContent size="sm">
           <AlertDialogHeader>
-            <DialogStudent name={props.studentName} avatar={props.studentAvatar} />
+            <DialogStudent
+              name={props.studentName}
+              avatar={props.studentAvatar}
+              avatarRing={props.studentAvatarRing}
+            />
             <AlertDialogTitle>{t('student.edit.groups.remove-confirm-title')}</AlertDialogTitle>
             <AlertDialogDescription>
               {!!assignment.state.removeSourceName &&

@@ -1,5 +1,3 @@
-import rubikCyrillic from '@fontsource-variable/rubik/files/rubik-cyrillic-wght-normal.woff2?url'
-import rubikLatin from '@fontsource-variable/rubik/files/rubik-latin-wght-normal.woff2?url'
 import type { QueryClient } from '@tanstack/react-query'
 import {
   HeadContent,
@@ -8,18 +6,20 @@ import {
   createRootRouteWithContext,
   useLocation,
 } from '@tanstack/react-router'
-import { cn } from 'cn'
 import type { ReactNode } from 'react'
 import messages from 'virtual:messages/uk/common'
-import '@fontsource-variable/rubik'
+
+import rubikCyrillic from '#/assets/fonts/rubik-cyrillic-wght-normal.woff2?url'
+import rubikLatin from '#/assets/fonts/rubik-latin-wght-normal.woff2?url'
+import { Toaster } from '#/components/ui/toast'
 
 import '#/assets/styles/global.css'
 import 'virtual:uno.css'
 
-import { Toaster } from '#/components/ui/toast'
 import { useMotionPreference } from '#/hooks/use-motion-preference'
-import { getSession } from '#/lib/session'
 import { TranslationProvider } from '#/lib/translations'
+import { getSession } from '#/routes/-actions/get-session'
+import { cn } from '#/utils/cn'
 import { readCookie } from '#/utils/cookies'
 import { MOTION_PREFERENCE_COOKIE } from '#/utils/motion'
 

@@ -20,6 +20,7 @@ export interface MembershipStudentCandidate {
   id: number
   name: string
   avatar?: string | null
+  avatarRing?: string | null
   groupIds: number[]
 }
 

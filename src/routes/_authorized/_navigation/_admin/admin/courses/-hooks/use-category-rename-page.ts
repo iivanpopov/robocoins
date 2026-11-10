@@ -1,7 +1,8 @@
-import { useForm } from '@tanstack/react-form'
 import { useParams } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
 import { useState } from 'react'
+
+import { useField } from '#/hooks/use-field'
 
 import { RenameCategoryStateSchema } from '../-schemas'
 
@@ -14,19 +15,18 @@ export function useCategoryRenamePage() {
 
   const [renamedName, setRenamedName] = useState<string | null>(null)
 
-  const form = useForm({
-    defaultValues: { name: '' },
-    validators: { onChange: RenameCategoryStateSchema },
-    onSubmit: ({ value }) => {
+  const nameField = useField('', {
+    schema: RenameCategoryStateSchema.entries.name,
+    onSubmit: (value) => {
       if (renamedName) return
-      setRenamedName(value.name.trim())
+      setRenamedName(value.trim())
     },
   })
 
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
     if (renamedName) return
-    void form.handleSubmit()
+    void nameField.handleSubmit()
   }
 
   return {
@@ -35,6 +35,6 @@ export function useCategoryRenamePage() {
       renamedName,
     },
     functions: { handleSubmit },
-    features: { form },
+    features: { nameField },
   }
 }

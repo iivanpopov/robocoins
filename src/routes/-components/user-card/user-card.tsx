@@ -1,7 +1,8 @@
 import { useRender } from '@base-ui/react/use-render'
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 import type { ComponentProps } from 'react'
+
+import { cn } from '#/utils/cn'
 
 import { UserAvatar, type UserAvatarProps } from '../user-avatar'
 

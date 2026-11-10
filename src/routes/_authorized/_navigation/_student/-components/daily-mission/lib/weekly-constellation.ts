@@ -1,4 +1,4 @@
-import { Temporal } from '@js-temporal/polyfill'
+import { getISOWeek } from '#/utils/date'
 
 type Satellite = readonly [number, number]
 
@@ -585,6 +585,6 @@ const CONSTELLATIONS = [
 ] as const satisfies readonly Constellation[]
 
 export function getWeeklyConstellation(date?: string): Constellation {
-  const weekOfYear = date ? (Temporal.PlainDate.from(date).weekOfYear ?? 1) : 1
+  const weekOfYear = date ? getISOWeek(date) : 1
   return CONSTELLATIONS[(weekOfYear - 1) % CONSTELLATIONS.length]
 }

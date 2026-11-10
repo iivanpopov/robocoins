@@ -84,29 +84,25 @@ function CourseRenamePage() {
           submitLabel={t('action.rename')}
           submitDisabled={state.isUnchanged}
         >
-          <features.form.Field name="name">
-            {(field) => (
-              <Field>
-                <FieldLabel htmlFor="course-rename-name">{t('courses.name')}</FieldLabel>
-                <Input
-                  id="course-rename-name"
-                  name={field.name}
-                  value={field.state.value}
-                  placeholder={t('admin.courses.form.name-placeholder')}
-                  autoComplete="off"
-                  aria-invalid={!!field.state.meta.errors.length}
-                  onChange={(event) => field.handleChange(event.target.value)}
-                  onBlur={field.handleBlur}
-                />
-                {!!field.state.meta.errors.length && (
-                  <FieldError>{t('admin.courses.form.name-error')}</FieldError>
-                )}
-                {state.isUnchanged && (
-                  <FieldDescription>{t('validation.name-unchanged')}</FieldDescription>
-                )}
-              </Field>
+          <Field>
+            <FieldLabel htmlFor="course-rename-name">{t('courses.name')}</FieldLabel>
+            <Input
+              id="course-rename-name"
+              name="name"
+              value={features.nameField.value}
+              placeholder={t('admin.courses.form.name-placeholder')}
+              autoComplete="off"
+              aria-invalid={!!features.nameField.error}
+              onChange={(event) => features.nameField.handleChange(event.target.value)}
+              onBlur={features.nameField.handleBlur}
+            />
+            {features.nameField.error && (
+              <FieldError>{t('admin.courses.form.name-error')}</FieldError>
             )}
-          </features.form.Field>
+            {state.isUnchanged && (
+              <FieldDescription>{t('validation.name-unchanged')}</FieldDescription>
+            )}
+          </Field>
         </CourseForm>
       )}
 

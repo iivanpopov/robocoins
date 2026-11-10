@@ -1,6 +1,5 @@
 import { useTranslate } from '@kanjou/react'
 import { Link, createFileRoute, notFound } from '@tanstack/react-router'
-import { cn } from 'cn'
 import * as v from 'valibot'
 
 import { getStudentLongestStreakStudentStudentIdLongestStreakGetQueryOptions } from '#/api/hooks/useGetStudentLongestStreakStudentStudentIdLongestStreakGet'
@@ -24,6 +23,7 @@ import {
   Loader,
 } from '#/components/ui'
 import { PageLayout } from '#/routes/-components/page-layout'
+import { cn } from '#/utils/cn'
 
 import { ApiErrorNotice } from '../../-components'
 import { useStudentStreakPage } from './-hooks'
@@ -44,18 +44,22 @@ export const Route = createFileRoute(
   },
   loader: async ({ context, params }) => {
     await Promise.all([
-      context.queryClient.prefetchQuery({
-        ...getStudentStreakStudentStudentIdStreakGetQueryOptions({
-          path: { student_id: params.studentId },
-        }),
-        retry: false,
-      }),
-      context.queryClient.prefetchQuery({
-        ...getStudentLongestStreakStudentStudentIdLongestStreakGetQueryOptions({
-          path: { student_id: params.studentId },
-        }),
-        retry: false,
-      }),
+      context.queryClient
+        .query({
+          ...getStudentStreakStudentStudentIdStreakGetQueryOptions({
+            path: { student_id: params.studentId },
+          }),
+          retry: false,
+        })
+        .catch(() => undefined),
+      context.queryClient
+        .query({
+          ...getStudentLongestStreakStudentStudentIdLongestStreakGetQueryOptions({
+            path: { student_id: params.studentId },
+          }),
+          retry: false,
+        })
+        .catch(() => undefined),
     ])
   },
   component: StudentStreakRoute,
@@ -140,14 +144,16 @@ function StudentStreakPage() {
 
             {!!state.currentStreak && (
               <dl className={styles.dates}>
-                <div className={styles.date}>
-                  <dt>{t('admin.streak.started-label')}</dt>
-                  <dd>
-                    {t('admin.streak.date', {
-                      date: new Date(state.currentStreak.start_date),
-                    })}
-                  </dd>
-                </div>
+                {!!state.currentStreak.start_date && (
+                  <div className={styles.date}>
+                    <dt>{t('admin.streak.started-label')}</dt>
+                    <dd>
+                      {t('admin.streak.date', {
+                        date: new Date(state.currentStreak.start_date),
+                      })}
+                    </dd>
+                  </div>
+                )}
                 {!!state.currentStreak.end_date && (
                   <div className={styles.date}>
                     <dt>{t('admin.streak.finished-label')}</dt>
@@ -227,34 +233,30 @@ function StudentStreakPage() {
             )}
 
             <form className={styles.form} noValidate onSubmit={functions.handleUpdateSubmit}>
-              <features.form.Field name="days">
-                {(field) => (
-                  <Field>
-                    <FieldLabel htmlFor="streak-days">{t('admin.streak.update.label')}</FieldLabel>
-                    <Input
-                      id="streak-days"
-                      name={field.name}
-                      inputMode="numeric"
-                      autoComplete="off"
-                      value={field.state.value}
-                      disabled={!state.isActive || state.isBusy}
-                      aria-invalid={!!field.state.meta.errors.length}
-                      aria-describedby="streak-days-description streak-days-error"
-                      onChange={(event) => field.handleChange(event.target.value)}
-                      onBlur={field.handleBlur}
-                    />
-                    <FieldDescription id="streak-days-description">
-                      {state.isActive && t('admin.streak.validation.days')}
-                      {!state.isActive && t('admin.streak.update.unavailable')}
-                    </FieldDescription>
-                    {!!field.state.meta.errors.length && (
-                      <FieldError id="streak-days-error">
-                        {t('admin.streak.validation.days')}
-                      </FieldError>
-                    )}
-                  </Field>
+              <Field>
+                <FieldLabel htmlFor="streak-days">{t('admin.streak.update.label')}</FieldLabel>
+                <Input
+                  id="streak-days"
+                  name="days"
+                  inputMode="numeric"
+                  autoComplete="off"
+                  value={features.daysField.value}
+                  disabled={!state.isActive || state.isBusy}
+                  aria-invalid={!!features.daysField.error}
+                  aria-describedby="streak-days-description streak-days-error"
+                  onChange={(event) => features.daysField.handleChange(event.target.value)}
+                  onBlur={features.daysField.handleBlur}
+                />
+                <FieldDescription id="streak-days-description">
+                  {state.isActive && t('admin.streak.validation.days')}
+                  {!state.isActive && t('admin.streak.update.unavailable')}
+                </FieldDescription>
+                {!!features.daysField.error && (
+                  <FieldError id="streak-days-error">
+                    {t('admin.streak.validation.days')}
+                  </FieldError>
                 )}
-              </features.form.Field>
+              </Field>
 
               <Button
                 type="submit"

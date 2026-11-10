@@ -1,9 +1,9 @@
-import { useForm, useSelector } from '@tanstack/react-form'
 import { useParams } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
 import { useEffect, useRef, useState } from 'react'
 
 import type { CourseCategoryKey } from '#/api/types'
+import { useField } from '#/hooks/use-field'
 
 import { ChangeCourseCategoryStateSchema } from '../-schemas'
 import type { CourseErrorKey } from '../-types'
@@ -22,30 +22,27 @@ export function useCourseCategoryPage() {
 
   const courseData = useCourseRecord(courseId)
 
-  const form = useForm({
-    defaultValues: { category: courseData.course?.category ?? 'embedded' },
-    validators: { onChange: ChangeCourseCategoryStateSchema },
-    onSubmit: ({ value }) => {
+  const categoryField = useField<CourseCategoryKey>(courseData.course?.category ?? 'embedded', {
+    schema: ChangeCourseCategoryStateSchema.entries.category,
+    onSubmit: (value) => {
       if (!courseData.course || selectedCategory) return
-      if (value.category === courseData.course.category) return
-      setSelectedCategory(value.category)
+      if (value === courseData.course.category) return
+      setSelectedCategory(value)
     },
   })
-
-  const category = useSelector(form.store, (state) => state.values.category)
 
   useEffect(() => {
     const course = courseData.course
     if (!course) return
     if (syncedCategoryReference.current === course.category) return
     syncedCategoryReference.current = course.category
-    form.setFieldValue('category', course.category)
-  }, [courseData.course, form])
+    categoryField.setValue(course.category)
+  }, [courseData.course, categoryField])
 
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
     if (!courseData.course || selectedCategory) return
-    void form.handleSubmit()
+    void categoryField.handleSubmit()
   }
 
   function handleRetry() {
@@ -53,7 +50,7 @@ export function useCourseCategoryPage() {
     void courseData.coursesQuery.refetch()
   }
 
-  const isUnchanged = !!courseData.course && category === courseData.course.category
+  const isUnchanged = !!courseData.course && categoryField.value === courseData.course.category
 
   let errorKey: CourseErrorKey | null = null
   if (courseData.coursesQuery.isError) {
@@ -82,6 +79,6 @@ export function useCourseCategoryPage() {
       handleSubmit,
       handleRetry,
     },
-    features: { form },
+    features: { categoryField },
   }
 }

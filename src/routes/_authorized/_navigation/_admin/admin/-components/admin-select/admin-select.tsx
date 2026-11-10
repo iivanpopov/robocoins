@@ -1,8 +1,7 @@
-import { cn } from 'cn'
-
 import type { CourseCategoryKey } from '#/api/types'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '#/components/ui'
 import { CategoryIcon } from '#/routes/-components'
+import { cn } from '#/utils/cn'
 
 import styles from './admin-select.module.css'
 

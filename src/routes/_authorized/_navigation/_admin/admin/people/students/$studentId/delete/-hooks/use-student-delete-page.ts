@@ -1,10 +1,10 @@
-import { useForm, useSelector } from '@tanstack/react-form'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import type { SyntheticEvent } from 'react'
 import { useState } from 'react'
 import * as v from 'valibot'
 
 import { useGetStudentByIdStudentStudentIdGet } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
+import { useField } from '#/hooks/use-field'
 
 import { DeleteStudentStateSchema } from '../../-schemas'
 import { getRequestErrorStatus } from '../../-utils'
@@ -24,30 +24,25 @@ export function useStudentDeletePage() {
     path: { student_id: studentId },
   })
 
-  const form = useForm({
-    defaultValues: { confirmation: '' },
-    validators: {
-      onChange: ({ value }) => {
-        const result = v.safeParse(DeleteStudentStateSchema, value)
-        if (!result.success) return 'invalid'
-        if (!studentQuery.data) return 'unavailable'
-        if (result.output.confirmation !== studentQuery.data.name) return 'mismatch'
-        return undefined
-      },
+  const confirmationField = useField('', {
+    customValidate: (value) => {
+      const result = v.safeParse(DeleteStudentStateSchema.entries.confirmation, value)
+      if (!result.success) return 'invalid'
+      if (!studentQuery.data) return 'unavailable'
+      if (result.output !== studentQuery.data.name) return 'mismatch'
+      return undefined
     },
-    onSubmit: ({ value }) => {
+    onSubmit: (value) => {
       if (!studentQuery.data || isDeletedLocally) return
-      if (value.confirmation.trim() !== studentQuery.data.name) return
+      if (value.trim() !== studentQuery.data.name) return
       setIsDialogOpen(true)
     },
   })
 
-  const confirmation = useSelector(form.store, (state) => state.values.confirmation)
-
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
     if (!studentQuery.data || isDeletedLocally) return
-    void form.handleSubmit()
+    void confirmationField.handleSubmit()
   }
 
   function handleDialogOpenChange(isOpen: boolean) {
@@ -62,7 +57,7 @@ export function useStudentDeletePage() {
   }
 
   function handleResetResult() {
-    form.reset()
+    confirmationField.reset()
     setIsDeletedLocally(false)
   }
 
@@ -78,6 +73,7 @@ export function useStudentDeletePage() {
     })
   }
 
+  const confirmation = confirmationField.value
   const student = studentQuery.data ?? null
   const canConfirm = !!student && !!confirmation.trim() && confirmation.trim() === student.name
 
@@ -103,6 +99,6 @@ export function useStudentDeletePage() {
       handleRetry,
       handleBack,
     },
-    features: { form },
+    features: { confirmationField },
   }
 }

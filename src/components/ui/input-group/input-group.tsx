@@ -1,6 +1,7 @@
 import { Input as InputPrimitive } from '@base-ui/react'
-import { cn } from 'cn'
 import { ComponentProps, MouseEvent } from 'react'
+
+import { cn } from '#/utils/cn'
 
 import { focusInputGroup } from '../utils'
 

@@ -1,11 +1,11 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 import { type ReactNode } from 'react'
 
 import { Button, Loader } from '#/components/ui'
 import { InlineError, PageLayout } from '#/routes/-components'
 import { formatSignedAmount } from '#/routes/-utils'
 import { isTransactionCancellable } from '#/routes/_authorized/-utils'
+import { cn } from '#/utils/cn'
 
 import { useRewardHistory } from './hooks'
 
@@ -25,7 +25,7 @@ export function RewardHistory(props: RewardHistoryProps) {
   const t = useTranslate()
 
   return (
-    <PageLayout.Root spacing="compact" aria-label={t('history.title')}>
+    <PageLayout.Root aria-label={t('history.title')}>
       <PageLayout.Header align="end" centered>
         {props.backLink}
         <PageLayout.Heading>

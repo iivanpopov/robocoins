@@ -11,6 +11,10 @@ export type AnswerDailyTaskDailyStudentIdDailyTaskAnswerPostPath = {
   student_id: number;
 };
 
+export type AnswerDailyTaskDailyStudentIdDailyTaskAnswerPostQuery = {
+  course_id?: number | null;
+};
+
 export type AnswerDailyTaskDailyStudentIdDailyTaskAnswerPostStatus200 = DailyTaskAnswerResponse;
 
 export type AnswerDailyTaskDailyStudentIdDailyTaskAnswerPostStatus422 = HTTPValidationError;
@@ -20,7 +24,7 @@ export type AnswerDailyTaskDailyStudentIdDailyTaskAnswerPostBody = DailyTaskAnsw
 export type AnswerDailyTaskDailyStudentIdDailyTaskAnswerPostOptions = {
   body: AnswerDailyTaskDailyStudentIdDailyTaskAnswerPostBody;
   path: AnswerDailyTaskDailyStudentIdDailyTaskAnswerPostPath;
-  query?: never;
+  query?: AnswerDailyTaskDailyStudentIdDailyTaskAnswerPostQuery;
   headers?: never;
 };
 

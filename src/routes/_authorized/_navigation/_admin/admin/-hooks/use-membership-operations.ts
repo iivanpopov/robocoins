@@ -5,6 +5,7 @@ import { useAssignGroupStudentGroupIdGroupIdStudentPut } from '#/api/hooks/useAs
 import { getStudentByIdStudentStudentIdGetQueryOptions } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
 import { useRemoveGroupStudentGroupIdGroupIdStudentStudentIdDelete } from '#/api/hooks/useRemoveGroupStudentGroupIdGroupIdStudentStudentIdDelete'
 
+import { invalidateMembershipCaches } from '../-actions'
 import type {
   MembershipAdditionStatus,
   MembershipOperationInput,
@@ -13,7 +14,7 @@ import type {
   MembershipRemovalStatus,
   MembershipStudentCandidate,
 } from '../-types'
-import { getResponseErrorStatus, invalidateMembershipCaches } from '../-utils'
+import { getResponseErrorStatus } from '../-utils'
 
 type MembershipReadResult = 'member' | 'notMember' | 'unknown'
 
@@ -61,7 +62,7 @@ export function useMembershipOperations() {
 
   async function readMembership(studentId: number, groupId: number): Promise<MembershipReadResult> {
     try {
-      const student = await queryClient.fetchQuery({
+      const student = await queryClient.query({
         ...getStudentByIdStudentStudentIdGetQueryOptions({ path: { student_id: studentId } }),
         staleTime: 0,
         retry: false,

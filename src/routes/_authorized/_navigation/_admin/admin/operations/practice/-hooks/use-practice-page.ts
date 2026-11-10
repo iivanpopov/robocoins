@@ -10,10 +10,10 @@ import { getGroupsByCourseIdGroupCourseCourseIdGetQueryOptions } from '#/api/hoo
 import { getStudentBalanceByIdStudentStudentIdBalanceGetQueryOptions } from '#/api/hooks/useGetStudentBalanceByIdStudentStudentIdBalanceGet'
 import type { GroupPracticeAwardResponse } from '#/api/types'
 import { UKRAINIAN_LOCALE } from '#/routes/-constants'
+import { invalidateStudentsBalanceCaches } from '#/routes/_authorized/_navigation/_admin/admin/-actions'
+import { getStudentTransactionsQueryOptions } from '#/routes/_authorized/_navigation/_admin/admin/-hooks'
 import {
   getApiErrorKind,
-  getStudentTransactionsQueryOptions,
-  invalidateStudentsBalanceCaches,
   isUnknownResultError,
   runWithTimeout,
 } from '#/routes/_authorized/_navigation/_admin/admin/-utils'
@@ -196,11 +196,11 @@ export function usePracticePage() {
       await Promise.all(
         studentIds.map(async (studentId) => {
           await Promise.all([
-            queryClient.fetchInfiniteQuery({
+            queryClient.infiniteQuery({
               ...getStudentTransactionsQueryOptions(studentId),
               staleTime: 0,
             }),
-            queryClient.fetchQuery({
+            queryClient.query({
               ...getStudentBalanceByIdStudentStudentIdBalanceGetQueryOptions({
                 path: { student_id: studentId },
               }),

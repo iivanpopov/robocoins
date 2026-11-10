@@ -1,13 +1,11 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
 import { Button, Field, FieldLabel, IconButton, Input, Loader } from '#/components/ui'
-import { LearningCard, ThemedChip } from '#/routes/-components'
+import { AvatarPicker, LearningCard, ThemedChip } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
-import { AVATARS } from '#/routes/-constants'
-import { getAvatarUrl } from '#/routes/-utils'
+import { cn } from '#/utils/cn'
 
 import { ApiErrorNotice } from '../-components'
 import { useRegisterStudentPage } from './-hooks'
@@ -19,7 +17,7 @@ export const Route = createFileRoute(
 )({
   head: () => ({ meta: [{ title: 'Новий учень | Robocoins' }] }),
   loader: async ({ context }) => {
-    await context.queryClient.prefetchQuery(getCoursesCourseGetQueryOptions())
+    await context.queryClient.query(getCoursesCourseGetQueryOptions()).catch(() => undefined)
   },
   component: RegisterStudentPage,
 })
@@ -124,24 +122,12 @@ function RegisterStudentPage() {
             <h2 className={styles['section-title']}>{t('field.avatar.label')}</h2>
             <features.form.Field name="avatar">
               {(field) => (
-                <div className={styles.avatars} role="group" aria-label={t('field.avatar.label')}>
-                  {AVATARS.map((avatar, index) => (
-                    <button
-                      key={avatar}
-                      type="button"
-                      className={cn(
-                        styles['avatar-option'],
-                        field.state.value === avatar && styles.selected,
-                      )}
-                      aria-pressed={field.state.value === avatar}
-                      aria-label={t('students.register.avatar.option', { number: index + 1 })}
-                      title={t('students.register.avatar.option', { number: index + 1 })}
-                      onClick={() => field.handleChange(avatar)}
-                    >
-                      <img src={getAvatarUrl(avatar)} alt="" aria-hidden="true" />
-                    </button>
-                  ))}
-                </div>
+                <AvatarPicker
+                  value={field.state.value}
+                  onChange={field.handleChange}
+                  name={features.form.state.values.name}
+                  disabled={mutations.create.isPending}
+                />
               )}
             </features.form.Field>
           </section>

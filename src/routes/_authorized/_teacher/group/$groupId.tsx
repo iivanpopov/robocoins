@@ -20,14 +20,14 @@ import {
 } from '#/components/ui'
 import { InlineError, PageLayout, UserCard } from '#/routes/-components'
 
-import { StudentDrawer, StudentSearchBar } from './-components'
+import { LessonRewards, RewardsGuide, StudentDrawer, StudentSearchBar } from './-components'
 import { useGroupStudentsPage } from './-hooks'
 
 import styles from './$groupId.module.css'
 
 export const Route = createFileRoute('/_authorized/_teacher/group/$groupId')({
-  loader: async ({ context, params }) =>
-    Promise.all([
+  loader: async ({ context, params }) => {
+    await Promise.all([
       context.queryClient.query(
         getGroupByIdGroupIdGroupIdGetQueryOptions({ path: { group_id: Number(params.groupId) } }),
       ),
@@ -35,7 +35,9 @@ export const Route = createFileRoute('/_authorized/_teacher/group/$groupId')({
       context.queryClient.query(
         getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions(),
       ),
-    ]),
+    ])
+    return { now: Date.now() }
+  },
   component: GroupStudentsPage,
 })
 
@@ -45,11 +47,14 @@ function GroupStudentsPage() {
   const t = useTranslate()
 
   return (
-    <PageLayout.Root spacing="compact" bottomSpace className={styles.page}>
+    <PageLayout.Root bottomSpace className={styles.page}>
       <PageLayout.Header align="end" centered size="compact">
-        <IconButton nativeButton={false} render={<Link to="/group" />} title={t('group.back')}>
-          <span aria-hidden="true" className="i-ph:arrow-left" />
-        </IconButton>
+        <PageLayout.Actions>
+          <IconButton nativeButton={false} render={<Link to="/group" />} title={t('group.back')}>
+            <span aria-hidden="true" className="i-ph:arrow-left" />
+          </IconButton>
+          <RewardsGuide />
+        </PageLayout.Actions>
         <PageLayout.Heading>
           <PageLayout.Title title={state.courseName}>{state.courseName}</PageLayout.Title>
           <PageLayout.Description>
@@ -90,9 +95,14 @@ function GroupStudentsPage() {
                   <button type="button" onClick={() => functions.handleSelectStudent(student)} />
                 }
               >
-                <UserCard.Avatar name={student.name} avatar={student.avatar} />
+                <UserCard.Avatar
+                  name={student.name}
+                  avatar={student.avatar}
+                  avatarRing={student.avatar_ring}
+                />
                 <UserCard.Content>
                   <UserCard.Name>{student.name}</UserCard.Name>
+                  <LessonRewards studentId={student.id} now={state.now} />
                 </UserCard.Content>
                 <UserCard.Meta>
                   <UserCard.Balance value={student.balance} />

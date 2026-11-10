@@ -1,10 +1,10 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 import { ReactNode } from 'react'
 
 import { Chip, Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 import { AwardDirection } from '#/routes/_authorized/_teacher/group/-constants'
+import { cn } from '#/utils/cn'
 
 import { useBalanceChange } from './hooks'
 

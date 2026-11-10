@@ -7,6 +7,7 @@ export interface StudentRowData {
   id: number
   name: string
   avatar?: string | null
+  avatarRing?: string | null
   courseNames: string[]
 }
 
@@ -21,7 +22,11 @@ export function StudentRow({ student }: StudentRowProps) {
     <UserCard.Root
       render={<Link to="/admin/people/students/$studentId" params={{ studentId: student.id }} />}
     >
-      <UserCard.Avatar name={student.name} avatar={student.avatar} />
+      <UserCard.Avatar
+        name={student.name}
+        avatar={student.avatar}
+        avatarRing={student.avatarRing}
+      />
       <UserCard.Content>
         <UserCard.Name>{student.name}</UserCard.Name>
         {!!student.courseNames.length && (

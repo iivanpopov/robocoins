@@ -182,7 +182,6 @@ export default {
   'students.profile.memberships.manage': 'Керувати групами',
   'students.profile.title': 'Профіль учня',
   'students.register.action': 'Зареєструвати учня',
-  'students.register.avatar.option': 'Варіант аватара {$number :number}',
   'students.register.error': 'Не вдалося зареєструвати учня. Спробуйте ще раз.',
   'students.register.groups.description': 'Можна обрати одну або кілька груп.',
   'students.register.groups.empty': 'Немає доступних груп. Спочатку створіть групу.',

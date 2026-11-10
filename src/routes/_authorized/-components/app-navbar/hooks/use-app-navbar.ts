@@ -50,11 +50,11 @@ function getActivePath(items: readonly NavigationItem[], currentPath: string) {
 }
 
 export function useAppNavbar() {
-  const { user } = useRouteContext({ from: '/_authorized' })
-  const role = user?.role ?? 'student'
-
+  const routeContext = useRouteContext({ from: '/_authorized' })
   const navigate = useNavigate()
   const currentPath = useResolvedPathname()
+
+  const role = routeContext.user?.role ?? 'student'
 
   function handleNavigate(to: NonNullable<NavigateOptions['to']>) {
     const items = NAVIGATION_ITEMS[role]

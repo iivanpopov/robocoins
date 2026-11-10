@@ -1,5 +1,4 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 import { ChangeEvent } from 'react'
 
 import {
@@ -14,6 +13,7 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from '#/components/ui'
+import { cn } from '#/utils/cn'
 
 import { StudentSortOrder } from '../../-constants'
 

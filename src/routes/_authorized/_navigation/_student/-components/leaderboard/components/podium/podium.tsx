@@ -1,8 +1,8 @@
 import { useTranslate } from '@kanjou/react'
 import { Link } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import type { BalanceLeaderboardEntry } from '#/api/types'
+import { cn } from '#/utils/cn'
 
 import { PodiumAvatar, PodiumPoints } from './podium-parts'
 

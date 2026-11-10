@@ -1,6 +1,7 @@
 import { Button as ButtonPrimitive } from '@base-ui/react'
-import { cn } from 'cn'
 import { type ComponentProps } from 'react'
+
+import { cn } from '#/utils/cn'
 
 import styles from './navbar.module.css'
 

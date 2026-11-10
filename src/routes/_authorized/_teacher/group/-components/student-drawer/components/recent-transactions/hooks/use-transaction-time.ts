@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import { useCurrentTime } from '#/hooks'
 
-import { getTransactionTime } from '../-utils'
+import { getTransactionTime } from '../utils'
 
 export function useTransactionTime(createdAt: string) {
   const t = useTranslate()

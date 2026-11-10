@@ -1,7 +1,7 @@
-import { cn } from 'cn'
 import type { FormEvent, ReactNode } from 'react'
 
 import { Button, Loader } from '#/components/ui'
+import { cn } from '#/utils/cn'
 
 import styles from './course-form.module.css'
 

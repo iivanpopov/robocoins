@@ -1,6 +1,5 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link, useParams } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import {
   AlertDialog,
@@ -17,6 +16,7 @@ import {
 } from '#/components/ui'
 import { PageLayout } from '#/routes/-components/page-layout'
 import { UserAvatar } from '#/routes/-components/user-avatar'
+import { cn } from '#/utils/cn'
 
 import { StudentRequestError } from '../-components'
 // import { StudentResultPanel } from '../-components'
@@ -82,6 +82,7 @@ function StudentAccessPage() {
             <UserAvatar
               name={state.student.name}
               avatar={state.student.avatar}
+              avatarRing={state.student.avatar_ring}
               size="lg"
               className={styles.avatar}
             />

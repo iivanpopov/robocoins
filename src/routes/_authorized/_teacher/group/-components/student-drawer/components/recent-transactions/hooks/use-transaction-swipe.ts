@@ -10,7 +10,6 @@ import {
 } from '../../../utils'
 
 const FULL_SWIPE_WIDTH_RATIO = 0.4
-const CONFIRM_DELAY_IN_MS = 400
 const CONFIRM_WINDOW_IN_MS = 1500
 
 interface UseTransactionSwipeProps {
@@ -31,7 +30,6 @@ export function useTransactionSwipe(
     width: number
     axis: 'horizontal' | 'vertical' | null
   } | null>(null)
-  const armTimeoutReference = useRef<number | null>(null)
   const resetTimeoutReference = useRef<number | null>(null)
   useSwipe(elementReference, {
     onStart: handleSwipeStart,
@@ -42,10 +40,6 @@ export function useTransactionSwipe(
   useEffect(() => () => clearConfirmationTimeouts(), [])
 
   function clearConfirmationTimeouts() {
-    if (armTimeoutReference.current !== null) {
-      clearTimeout(armTimeoutReference.current)
-      armTimeoutReference.current = null
-    }
     if (resetTimeoutReference.current !== null) {
       clearTimeout(resetTimeoutReference.current)
       resetTimeoutReference.current = null
@@ -99,15 +93,12 @@ export function useTransactionSwipe(
     if (value.lengthX < gesture.width * FULL_SWIPE_WIDTH_RATIO) return
 
     setIsConfirming(true)
-    armTimeoutReference.current = window.setTimeout(() => {
-      armTimeoutReference.current = null
-      setIsArmed(true)
-      resetTimeoutReference.current = window.setTimeout(() => {
-        resetTimeoutReference.current = null
-        setIsConfirming(false)
-        setIsArmed(false)
-      }, CONFIRM_WINDOW_IN_MS)
-    }, CONFIRM_DELAY_IN_MS)
+    setIsArmed(true)
+    resetTimeoutReference.current = window.setTimeout(() => {
+      resetTimeoutReference.current = null
+      setIsConfirming(false)
+      setIsArmed(false)
+    }, CONFIRM_WINDOW_IN_MS)
   }
 
   return { offset, isDragging, isReady, isConfirming, isArmed }
