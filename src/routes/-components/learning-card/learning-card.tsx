@@ -1,8 +1,8 @@
 import { useRender } from '@base-ui/react/use-render'
-import { cn } from 'cn'
 import type { ComponentProps } from 'react'
 
 import type { CourseCategoryKey } from '#/api/types'
+import { cn } from '#/utils/cn'
 
 import { CategoryIcon } from '../category-icon'
 

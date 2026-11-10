@@ -1,10 +1,10 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import { StudentProfileResponse } from '#/api/types'
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from '#/components/ui'
 import { UserAvatar } from '#/routes/-components/user-avatar'
 import { Avatar as AvatarName } from '#/routes/-constants'
+import { cn } from '#/utils/cn'
 
 import { BalanceChange, RecentTransactions } from './components'
 import { useStudentDrawer } from './hooks'

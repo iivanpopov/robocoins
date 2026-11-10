@@ -1,6 +1,7 @@
 import { useTranslate } from '@kanjou/react'
 import { Link } from '@tanstack/react-router'
-import { cn } from 'cn'
+
+import { cn } from '#/utils/cn'
 
 import styles from './operations-links.module.css'
 

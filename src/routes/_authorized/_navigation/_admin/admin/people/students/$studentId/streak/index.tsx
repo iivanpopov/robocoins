@@ -1,6 +1,5 @@
 import { useTranslate } from '@kanjou/react'
 import { Link, createFileRoute, notFound } from '@tanstack/react-router'
-import { cn } from 'cn'
 import * as v from 'valibot'
 
 import { getStudentLongestStreakStudentStudentIdLongestStreakGetQueryOptions } from '#/api/hooks/useGetStudentLongestStreakStudentStudentIdLongestStreakGet'
@@ -24,6 +23,7 @@ import {
   Loader,
 } from '#/components/ui'
 import { PageLayout } from '#/routes/-components/page-layout'
+import { cn } from '#/utils/cn'
 
 import { ApiErrorNotice } from '../../-components'
 import { useStudentStreakPage } from './-hooks'

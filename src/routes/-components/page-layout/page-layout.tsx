@@ -1,6 +1,7 @@
 import { useRender } from '@base-ui/react/use-render'
-import { cn } from 'cn'
 import type { ComponentProps } from 'react'
+
+import { cn } from '#/utils/cn'
 
 import styles from './page-layout.module.css'
 

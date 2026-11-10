@@ -1,9 +1,9 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import { useGetDailyTaskDailyStudentIdDailyTaskGet } from '#/api/hooks/useGetDailyTaskDailyStudentIdDailyTaskGet'
 import { useGetStudentStreakStudentStudentIdStreakGet } from '#/api/hooks/useGetStudentStreakStudentStudentIdStreakGet'
 import { getStreakDays } from '#/routes/_authorized/-utils'
+import { cn } from '#/utils/cn'
 
 import { MissionWeek } from './components'
 

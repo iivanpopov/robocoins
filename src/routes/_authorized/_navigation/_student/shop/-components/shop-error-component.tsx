@@ -1,8 +1,8 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import { Button } from '#/components/ui/button'
 import { Typography } from '#/components/ui/typography'
+import { cn } from '#/utils/cn'
 
 import styles from './shop-error-component.module.css'
 

@@ -1,4 +1,3 @@
-import { cn } from 'cn'
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react'
 import {
   ComponentProps,
@@ -11,6 +10,7 @@ import {
 } from 'react'
 
 import { useMotionPreference } from '#/hooks/use-motion-preference'
+import { cn } from '#/utils/cn'
 import { prefersReducedMotion } from '#/utils/motion'
 
 import styles from './carousel.module.css'

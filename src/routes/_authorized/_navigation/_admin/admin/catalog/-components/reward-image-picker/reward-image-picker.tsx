@@ -1,7 +1,7 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import { Button, Input } from '#/components/ui'
+import { cn } from '#/utils/cn'
 
 import type { RewardImagePickerModel } from '../../-hooks/use-reward-image-picker'
 

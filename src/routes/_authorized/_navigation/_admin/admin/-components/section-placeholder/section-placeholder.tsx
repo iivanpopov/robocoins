@@ -1,4 +1,4 @@
-import { cn } from 'cn'
+import { cn } from '#/utils/cn'
 
 import styles from './section-placeholder.module.css'
 

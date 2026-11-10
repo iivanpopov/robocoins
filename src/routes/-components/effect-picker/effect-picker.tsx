@@ -1,6 +1,5 @@
-import { cn } from 'cn'
-
 import type { Avatar, AvailableAvatarRing, AvatarRing } from '#/routes/-constants'
+import { cn } from '#/utils/cn'
 
 import { UserAvatar } from '../user-avatar'
 import { VisualPickerGrid, VisualPickerTile } from '../visual-picker'

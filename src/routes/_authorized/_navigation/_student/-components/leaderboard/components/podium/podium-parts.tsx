@@ -1,8 +1,8 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import type { BalanceLeaderboardEntry } from '#/api/types'
 import { UserAvatar } from '#/routes/-components/user-avatar'
+import { cn } from '#/utils/cn'
 
 export interface PodiumViewProps {
   entries: BalanceLeaderboardEntry[]

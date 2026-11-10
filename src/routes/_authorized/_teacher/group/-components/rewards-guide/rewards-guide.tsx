@@ -1,5 +1,4 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import {
   Button,
@@ -14,6 +13,7 @@ import {
   IconButton,
 } from '#/components/ui'
 import { UserCard } from '#/routes/-components'
+import { cn } from '#/utils/cn'
 
 import styles from './rewards-guide.module.css'
 

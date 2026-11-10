@@ -1,6 +1,5 @@
-import { cn } from 'cn'
-
 import type { CourseCategoryKey } from '#/api/types'
+import { cn } from '#/utils/cn'
 
 const CATEGORY_ICON: Record<CourseCategoryKey, string> = {
   'game dev': 'i-ph:game-controller',

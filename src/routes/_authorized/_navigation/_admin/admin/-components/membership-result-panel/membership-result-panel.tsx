@@ -1,7 +1,7 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import { Button, Loader } from '#/components/ui'
+import { cn } from '#/utils/cn'
 
 import type {
   MembershipAdditionStatus,

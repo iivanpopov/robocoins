@@ -1,11 +1,11 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 import { type ReactNode } from 'react'
 
 import { Button, Loader } from '#/components/ui'
 import { InlineError, PageLayout } from '#/routes/-components'
 import { formatSignedAmount } from '#/routes/-utils'
 import { isTransactionCancellable } from '#/routes/_authorized/-utils'
+import { cn } from '#/utils/cn'
 
 import { useRewardHistory } from './hooks'
 

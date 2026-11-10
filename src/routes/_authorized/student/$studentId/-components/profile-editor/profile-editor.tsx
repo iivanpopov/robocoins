@@ -1,10 +1,10 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import { Button, Field, FieldLabel, Input, Loader } from '#/components/ui'
 import { AvatarPicker, EffectPicker, InlineError } from '#/routes/-components'
 import { UserAvatar } from '#/routes/-components/user-avatar'
 import { type AvailableAvatarRing, type Avatar, type AvatarRing } from '#/routes/-constants'
+import { cn } from '#/utils/cn'
 
 import {
   PROFILE_FIELDS,

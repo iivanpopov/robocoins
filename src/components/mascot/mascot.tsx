@@ -1,5 +1,6 @@
-import { cn } from 'cn'
 import { ImgHTMLAttributes } from 'react'
+
+import { cn } from '#/utils/cn'
 
 import styles from './mascot.module.css'
 

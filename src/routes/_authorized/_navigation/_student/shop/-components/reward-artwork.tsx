@@ -1,6 +1,5 @@
-import { cn } from 'cn'
-
 import type { RewardResponse } from '#/api/types/RewardResponse'
+import { cn } from '#/utils/cn'
 
 import styles from './reward-artwork.module.css'
 

@@ -1,10 +1,10 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 import { AnimationEvent, useRef } from 'react'
 
 import { BalanceTransactionResponse } from '#/api/types'
 import { formatSignedAmount } from '#/routes/-utils'
 import { isTransactionCancellable } from '#/routes/_authorized/-utils'
+import { cn } from '#/utils/cn'
 
 import { useTransactionSwipe, useTransactionTime } from '../hooks'
 

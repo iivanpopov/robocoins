@@ -8,18 +8,18 @@ import {
   createRootRouteWithContext,
   useLocation,
 } from '@tanstack/react-router'
-import { cn } from 'cn'
 import type { ReactNode } from 'react'
 import messages from 'virtual:messages/uk/common'
-import '@fontsource-variable/rubik'
+
+import { Toaster } from '#/components/ui/toast'
 
 import '#/assets/styles/global.css'
 import 'virtual:uno.css'
 
-import { Toaster } from '#/components/ui/toast'
 import { useMotionPreference } from '#/hooks/use-motion-preference'
 import { TranslationProvider } from '#/lib/translations'
 import { getSession } from '#/routes/-actions/get-session'
+import { cn } from '#/utils/cn'
 import { readCookie } from '#/utils/cookies'
 import { MOTION_PREFERENCE_COOKIE } from '#/utils/motion'
 

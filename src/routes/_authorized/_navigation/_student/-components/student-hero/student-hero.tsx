@@ -1,10 +1,10 @@
 import { useTranslate } from '@kanjou/react'
 import { Link } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import { Mascot } from '#/components/mascot'
 import { UserAvatar } from '#/routes/-components/user-avatar'
 import type { Avatar as AvatarName } from '#/routes/-constants'
+import { cn } from '#/utils/cn'
 
 import styles from './student-hero.module.css'
 

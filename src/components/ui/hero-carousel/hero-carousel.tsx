@@ -1,5 +1,6 @@
-import { cn } from 'cn'
 import { Children, ComponentProps, createContext, use } from 'react'
+
+import { cn } from '#/utils/cn'
 
 import { Carousel, CarouselContent, CarouselItem, CarouselProps, useCarousel } from '../carousel'
 

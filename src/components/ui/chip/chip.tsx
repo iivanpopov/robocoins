@@ -1,5 +1,6 @@
 import { Button as ButtonPrimitive } from '@base-ui/react'
-import { cn } from 'cn'
+
+import { cn } from '#/utils/cn'
 
 import styles from './chip.module.css'
 

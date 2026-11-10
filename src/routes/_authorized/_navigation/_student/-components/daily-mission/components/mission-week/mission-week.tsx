@@ -1,11 +1,11 @@
 import { useTranslate } from '@kanjou/react'
 import { Link } from '@tanstack/react-router'
-import { cn } from 'cn'
 import { useId } from 'react'
 
 import type { DailyTaskResponse, StreakResponse } from '#/api/types'
 import { SpaceBackground } from '#/routes/_authorized/-components/space-background'
 import { getMissionWeek } from '#/routes/_authorized/-utils'
+import { cn } from '#/utils/cn'
 
 import { getWeeklyConstellation } from '../../lib'
 import { PortalDepth } from './portal-depth'

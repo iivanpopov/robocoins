@@ -1,9 +1,9 @@
 import { useTranslate } from '@kanjou/react'
 import { Link } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import { Button } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
+import { cn } from '#/utils/cn'
 
 import styles from './teacher-request-error.module.css'
 

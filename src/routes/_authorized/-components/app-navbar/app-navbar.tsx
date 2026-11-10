@@ -1,8 +1,8 @@
 import { useTranslate } from '@kanjou/react'
 import { useLocation } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import { Navbar, NavbarItem } from '#/components/ui'
+import { cn } from '#/utils/cn'
 
 import { useAppNavbar } from './hooks'
 

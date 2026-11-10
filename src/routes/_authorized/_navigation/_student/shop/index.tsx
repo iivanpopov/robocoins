@@ -1,12 +1,12 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import { getShopRewardsShopGetQueryOptions } from '#/api/hooks/useGetShopRewardsShopGet'
 import { getStudentRewardProgressStudentStudentIdRewardProgressGetQueryOptions } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
 import type { StudentProfileResponse } from '#/api/types'
 import { Feedback, InlineError } from '#/routes/-components'
 import { SpaceBackground } from '#/routes/_authorized/-components/space-background'
+import { cn } from '#/utils/cn'
 
 import { getStudentRewardCategoriesQueryOptions, isRewardEligible } from '../-utils'
 import { RewardArtwork, RewardSymbol, ShopErrorComponent } from './-components'

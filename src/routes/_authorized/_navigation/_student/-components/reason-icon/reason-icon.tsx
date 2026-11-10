@@ -1,4 +1,4 @@
-import { cn } from 'cn'
+import { cn } from '#/utils/cn'
 
 const REASON_ICONS: Record<string, string> = {
   activity: 'i-ph:lightning',

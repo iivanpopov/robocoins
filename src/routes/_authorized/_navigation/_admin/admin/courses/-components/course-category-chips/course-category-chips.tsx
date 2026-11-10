@@ -1,8 +1,8 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import type { CourseCategoryKey } from '#/api/types'
 import { ThemedChip } from '#/routes/-components'
+import { cn } from '#/utils/cn'
 
 import { COURSE_CATEGORIES, CourseCategoryFilter } from '../../-constants'
 

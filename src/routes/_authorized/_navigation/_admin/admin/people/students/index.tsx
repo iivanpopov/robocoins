@@ -1,6 +1,5 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import {
   Button,
@@ -12,6 +11,7 @@ import {
   Loader,
 } from '#/components/ui'
 import { PageLayout } from '#/routes/-components/page-layout'
+import { cn } from '#/utils/cn'
 
 import { AdminSelect } from '../../-components'
 import { GROUP_FILTER_ALL } from '../../-constants'

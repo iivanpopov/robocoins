@@ -1,11 +1,11 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
 import { Button, Field, FieldLabel, IconButton, Input, Loader } from '#/components/ui'
 import { AvatarPicker, LearningCard, ThemedChip } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
+import { cn } from '#/utils/cn'
 
 import { ApiErrorNotice } from '../-components'
 import { useRegisterStudentPage } from './-hooks'

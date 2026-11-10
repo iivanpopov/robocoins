@@ -1,9 +1,9 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import type { BalanceTransactionResponse } from '#/api/types'
 import { Button } from '#/components/ui'
 import { formatSignedAmount } from '#/routes/-utils'
+import { cn } from '#/utils/cn'
 
 import styles from './transaction-row.module.css'
 

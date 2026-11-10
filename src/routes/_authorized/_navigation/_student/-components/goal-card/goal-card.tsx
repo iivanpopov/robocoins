@@ -1,8 +1,8 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 
 import type { RewardResponse } from '#/api/types'
 import { Button } from '#/components/ui'
+import { cn } from '#/utils/cn'
 
 import styles from './goal-card.module.css'
 

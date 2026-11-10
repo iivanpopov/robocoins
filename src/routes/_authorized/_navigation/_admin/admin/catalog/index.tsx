@@ -1,6 +1,5 @@
 import { useTranslate } from '@kanjou/react'
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import {
   Button,
@@ -12,6 +11,7 @@ import {
 } from '#/components/ui'
 import { InlineError, ThemedChip } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
+import { cn } from '#/utils/cn'
 
 import { RewardRow } from './-components'
 import { ALL_FILTER, REWARD_FILTER_CATEGORY_OPTIONS, REWARD_TYPE_OPTIONS } from './-constants'

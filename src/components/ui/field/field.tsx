@@ -1,5 +1,6 @@
-import { cn } from 'cn'
 import { ComponentProps, useMemo } from 'react'
+
+import { cn } from '#/utils/cn'
 
 import styles from './field.module.css'
 

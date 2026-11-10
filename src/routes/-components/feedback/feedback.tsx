@@ -1,5 +1,4 @@
 import { useTranslate } from '@kanjou/react'
-import { cn } from 'cn'
 import { useId } from 'react'
 import messages from 'virtual:messages/uk/feedback'
 
@@ -21,6 +20,7 @@ import {
 } from '#/components/ui'
 import { TranslationProvider } from '#/lib/translations'
 import { InlineError } from '#/routes/-components/inline-error'
+import { cn } from '#/utils/cn'
 
 import {
   FEEDBACK_DESCRIPTION_KEYS,

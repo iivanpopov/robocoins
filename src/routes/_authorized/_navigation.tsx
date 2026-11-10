@@ -1,5 +1,6 @@
 import { Outlet, createFileRoute, useRouteContext } from '@tanstack/react-router'
-import { cn } from 'cn'
+
+import { cn } from '#/utils/cn'
 
 import { AppNavbar } from './-components'
 

@@ -1,5 +1,6 @@
 import { Checkbox as CheckboxPrimitive } from '@base-ui/react/checkbox'
-import { cn } from 'cn'
+
+import { cn } from '#/utils/cn'
 
 import styles from './checkbox.module.css'
 

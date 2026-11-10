@@ -1,6 +1,5 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, notFound } from '@tanstack/react-router'
-import { cn } from 'cn'
 import * as v from 'valibot'
 
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
@@ -29,6 +28,7 @@ import {
 } from '#/components/ui'
 import { InlineError, PageLayout } from '#/routes/-components'
 import { UserAvatar } from '#/routes/-components/user-avatar'
+import { cn } from '#/utils/cn'
 
 import { AvatarPicker, StudentGroupAssignment } from './-components'
 import { useStudentEditPage } from './-hooks'

@@ -1,8 +1,7 @@
-import { cn } from 'cn'
-
 import { Avatar, AvatarFallback, AvatarImage, type AvatarProps } from '#/components/ui'
 import { AVATARS, isAvatarRing } from '#/routes/-constants'
 import { getAvatarUrl, getInitial } from '#/routes/-utils'
+import { cn } from '#/utils/cn'
 
 import styles from './user-avatar.module.css'
 

@@ -1,6 +1,7 @@
 import { Avatar as AvatarPrimitive } from '@base-ui/react/avatar'
-import { cn } from 'cn'
 import { ComponentProps } from 'react'
+
+import { cn } from '#/utils/cn'
 
 import styles from './avatar.module.css'
 

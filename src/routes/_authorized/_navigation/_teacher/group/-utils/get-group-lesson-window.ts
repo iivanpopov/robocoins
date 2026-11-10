@@ -1,7 +1,6 @@
-import { Temporal } from '@js-temporal/polyfill'
-
 import { Weekday } from '#/routes/-constants'
 import type { parseGroupSchedule } from '#/routes/-utils'
+import { getKyivDate, getKyivWeekday, kyivWallClockToEpoch } from '#/utils/date'
 
 const WEEKDAYS = [
   Weekday.Sunday,
@@ -26,15 +25,14 @@ export function getGroupLessonWindow(
   )
     return null
 
-  const current = Temporal.Instant.fromEpochMilliseconds(now.getTime()).toZonedDateTimeISO(
-    'Europe/Kyiv',
+  const daysSinceStart =
+    (getKyivWeekday(now.getTime()) - WEEKDAYS.indexOf(schedule.weekday) + 7) % 7
+  const startDate = getKyivDate(now.getTime() - daysSinceStart * 86_400_000)
+  const start = kyivWallClockToEpoch(
+    startDate,
+    Math.floor(schedule.startMinutes / 60),
+    schedule.startMinutes % 60,
   )
-  const daysSinceStart = ((current.dayOfWeek % 7) - WEEKDAYS.indexOf(schedule.weekday) + 7) % 7
-  const startDate = current.toPlainDate().subtract({ days: daysSinceStart })
-  const start = startDate.toZonedDateTime({
-    timeZone: 'Europe/Kyiv',
-    plainTime: { hour: Math.floor(schedule.startMinutes / 60), minute: schedule.startMinutes % 60 },
-  }).epochMilliseconds
   const end = start + schedule.durationMinutes * 60_000
 
   if (now.getTime() < start || now.getTime() >= end) return null
