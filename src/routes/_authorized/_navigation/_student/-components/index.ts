@@ -1,4 +1,3 @@
-export { CyberweenBanner } from './cyberween-banner'
 export { EarnWays } from './earn-ways'
 export { GoalCard } from './goal-card'
 export { HistoryPreview } from './history-preview'

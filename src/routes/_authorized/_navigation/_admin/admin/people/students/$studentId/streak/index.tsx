@@ -144,14 +144,16 @@ function StudentStreakPage() {
 
             {!!state.currentStreak && (
               <dl className={styles.dates}>
-                <div className={styles.date}>
-                  <dt>{t('admin.streak.started-label')}</dt>
-                  <dd>
-                    {t('admin.streak.date', {
-                      date: new Date(state.currentStreak.start_date),
-                    })}
-                  </dd>
-                </div>
+                {!!state.currentStreak.start_date && (
+                  <div className={styles.date}>
+                    <dt>{t('admin.streak.started-label')}</dt>
+                    <dd>
+                      {t('admin.streak.date', {
+                        date: new Date(state.currentStreak.start_date),
+                      })}
+                    </dd>
+                  </div>
+                )}
                 {!!state.currentStreak.end_date && (
                   <div className={styles.date}>
                     <dt>{t('admin.streak.finished-label')}</dt>

@@ -1,5 +1,14 @@
+import { useQueryClient } from '@tanstack/react-query'
+import { useRouter } from '@tanstack/react-router'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
+import { useChangeGoalStudentStudentIdChangeGoalPatch } from '#/api/hooks/useChangeGoalStudentStudentIdChangeGoalPatch'
+import { getCurrentUserAuthMeGetQueryKey } from '#/api/hooks/useGetCurrentUserAuthMeGet'
+import { getStudentByIdStudentStudentIdGetQueryKey } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
+import {
+  getStudentRewardProgressStudentStudentIdRewardProgressGetQueryKey,
+  useGetStudentRewardProgressStudentStudentIdRewardProgressGet,
+} from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
 import type { RewardResponse } from '#/api/types/RewardResponse'
 import type { StudentProfileResponse } from '#/api/types/StudentProfileResponse'
 
@@ -13,11 +22,41 @@ import { useRewardSelection } from './use-reward-selection'
 export function useShopPage() {
   const galaxy = Route.useLoaderData()
   const context = Route.useRouteContext()
+  const router = useRouter()
+  const queryClient = useQueryClient()
 
   const starsRef = useRef<(ReturnType<typeof getStarPositions>[number] & { glow: number })[]>([])
   const rewardBack = useRef<HTMLButtonElement>(null)
   const selectedStar = useRef<HTMLButtonElement | null>(null)
   const [view, setView] = useState<'galaxy' | 'list'>('galaxy')
+
+  const profile = context.user as StudentProfileResponse
+  const goalQuery = useGetStudentRewardProgressStudentStudentIdRewardProgressGet({
+    path: { student_id: profile.id },
+  })
+  const goalMutation = useChangeGoalStudentStudentIdChangeGoalPatch({
+    mutation: {
+      retry: false,
+      onSuccess: async () => {
+        await Promise.all([
+          queryClient.invalidateQueries({
+            queryKey: getStudentRewardProgressStudentStudentIdRewardProgressGetQueryKey({
+              path: { student_id: profile.id },
+            }),
+          }),
+          queryClient.invalidateQueries({
+            queryKey: getStudentByIdStudentStudentIdGetQueryKey({
+              path: { student_id: profile.id },
+            }),
+          }),
+          queryClient.invalidateQueries({ queryKey: getCurrentUserAuthMeGetQueryKey() }),
+          queryClient.invalidateQueries({ queryKey: ['session'] }),
+        ])
+        await router.invalidate()
+      },
+    },
+  })
+
   const map = useMapAnimation(starsRef)
   const camera = useCamera(map.cameraRef, map.handleInvalidate)
   const rewardSelection = useRewardSelection(camera.handleAnimate)
@@ -53,6 +92,7 @@ export function useShopPage() {
     if (rewardSelection.handleIsBlocked()) return
     if (event.detail !== 0 && !draggableMap.handleCanSelect()) return
     draggableMap.handleStop()
+    goalMutation.reset()
     selectedStar.current = map.starElementsRef.current.get(star.reward.id) ?? null
     rewardSelection.handleOpen(star.reward, map.handleGetPosition(star))
   }
@@ -63,6 +103,7 @@ export function useShopPage() {
   ) {
     if (rewardSelection.handleIsBlocked()) return
     draggableMap.handleStop()
+    goalMutation.reset()
     selectedStar.current = event.currentTarget
     rewardSelection.handleOpenDirect(reward)
   }
@@ -90,8 +131,28 @@ export function useShopPage() {
     map.handleFocusStar(star)
   }
 
+  function handleChangeGoal() {
+    const reward = rewardSelection.selection.reward
+    if (!reward || goalMutation.isPending) return
+    if (reward.id === currentGoalId) return
+    if (goalMutation.isError) goalMutation.reset()
+    goalMutation.mutate({
+      path: { student_id: profile.id },
+      body: { new_goal_reward_id: reward.id },
+    })
+  }
+
   const selectedReward = rewardSelection.selection.reward
-  const profile = context.user as StudentProfileResponse
+  const currentGoalId = goalQuery.data?.reward?.id ?? null
+  const isCurrentGoal = Boolean(selectedReward && selectedReward.id === currentGoalId)
+  const isGoalBusy = goalMutation.isPending || goalQuery.isFetching
+  const goalAction = goalQuery.isPending
+    ? 'loading'
+    : goalMutation.isPending
+      ? 'saving'
+      : isCurrentGoal
+        ? 'current'
+        : 'select'
 
   return {
     refs: {
@@ -107,12 +168,17 @@ export function useShopPage() {
       selectedReward,
       rewardDescription: selectedReward?.description?.trim(),
       isRewardActive: rewardSelection.selection.phase !== 'idle',
-      canClaimReward: Boolean(selectedReward && profile.balance >= selectedReward.price),
       balance: profile.balance,
       isRewardVisible:
         rewardSelection.selection.phase === 'open' || rewardSelection.selection.phase === 'closing',
       isRewardOpen: rewardSelection.selection.phase === 'open',
       isClosingReward: rewardSelection.selection.phase === 'closing',
+      isCurrentGoal,
+      isGoalBusy,
+      isGoalSaving: goalMutation.isPending,
+      goalAction,
+      isGoalError: goalMutation.isError,
+      isGoalSuccess: goalMutation.isSuccess,
     },
     functions: {
       handlePointerDown: draggableMap.handlePointerDown,
@@ -127,6 +193,7 @@ export function useShopPage() {
       handleShowGalaxy,
       handleShowList,
       handleFocusStar,
+      handleChangeGoal,
       handleCloseReward: rewardSelection.handleClose,
       handleRewardAnimationEnd: rewardSelection.handleRewardAnimationEnd,
     },

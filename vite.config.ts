@@ -1,6 +1,7 @@
 import kanjou from '@kanjou/plugin/vite'
 import { sentryTanstackStart } from '@sentry/tanstackstart-react/vite'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+import { redact } from '@tanstack/redact/vite'
 import react from '@vitejs/plugin-react'
 import { nitro } from 'nitro/vite'
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -29,9 +30,7 @@ export default defineConfig(({ mode }) => {
       nitro({
         preset: 'vercel',
         sourcemap: true,
-        traceDeps: ['react', 'react-dom'],
         rolldownConfig: {
-          external: ['react', 'react-dom'],
           checks: {
             moduleLevelDirective: false,
           },
@@ -46,6 +45,12 @@ export default defineConfig(({ mode }) => {
       kanjou(),
       translationNamespaces(),
       react(),
+      redact({
+        features: {
+          activity: false,
+          fragmentRefs: false,
+        },
+      }),
       unocss(),
       ...(isProduction
         ? [
@@ -93,9 +98,6 @@ export default defineConfig(({ mode }) => {
           },
         },
       },
-    },
-    ssr: {
-      external: ['react', 'react-dom'],
     },
   }
 })

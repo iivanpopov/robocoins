@@ -4,5 +4,9 @@
 */
 
 export type LongestStreakResponse = {
-  days: number;
+  /**
+   * @default 0
+   * @type integer | undefined
+   */
+  days?: number;
 };

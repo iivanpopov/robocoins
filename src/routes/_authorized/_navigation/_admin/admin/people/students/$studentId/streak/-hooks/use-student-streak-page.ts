@@ -116,7 +116,7 @@ export function useStudentStreakPage() {
       return
     }
     if (syncedStreakIdReference.current === streak.id) return
-    syncedStreakIdReference.current = streak.id
+    syncedStreakIdReference.current = streak.id ?? null
     form.reset({ days: String(streak.days) })
   }, [currentQuery.data, currentQuery.error, form])
 

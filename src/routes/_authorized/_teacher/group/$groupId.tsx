@@ -95,7 +95,11 @@ function GroupStudentsPage() {
                   <button type="button" onClick={() => functions.handleSelectStudent(student)} />
                 }
               >
-                <UserCard.Avatar name={student.name} avatar={student.avatar} />
+                <UserCard.Avatar
+                  name={student.name}
+                  avatar={student.avatar}
+                  avatarRing={student.avatar_ring}
+                />
                 <UserCard.Content>
                   <UserCard.Name>{student.name}</UserCard.Name>
                   <LessonRewards studentId={student.id} now={state.now} />

@@ -32,6 +32,13 @@
   pointer-events: none;
 }
 
+.shop-header-solid {
+  top: 0;
+  padding-top: max(8px, env(safe-area-inset-top));
+  padding-bottom: var(--spacing-sm);
+  background: var(--background);
+}
+
 .balance {
   display: flex;
   flex-shrink: 0;
@@ -63,12 +70,22 @@
   pointer-events: none;
 }
 
-.suggestion .suggestion-trigger {
+.suggestion-trigger {
   max-width: 100%;
   color: var(--foreground);
   text-align: right;
   text-decoration: none;
   pointer-events: auto;
+}
+
+.catalog-suggestion {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-lg);
+}
+
+.catalog-suggestion .suggestion-trigger {
+  text-align: center;
 }
 
 .list-view,
@@ -87,8 +104,8 @@
   display: flex;
   gap: 6px;
   align-items: center;
-  min-height: 40px;
-  padding: 6px 10px;
+  min-height: 36px;
+  padding: 4px 10px;
   font-size: 1rem;
   font-weight: 650;
   color: var(--muted-foreground);
@@ -332,7 +349,7 @@
   cursor: default;
   user-select: text;
   scrollbar-width: none;
-  background: linear-gradient(180deg, rgb(8 8 8) 0%, rgb(8 8 8 / 80%) 40%, rgb(8 8 8 / 92%) 55%);
+  background: var(--background);
   animation: reward-screen-in 220ms ease-out both;
 }
 
@@ -476,9 +493,27 @@
   font-size: 20px;
 }
 
-.buy {
+.goal-status {
+  margin-top: 18px;
+  font-size: 15px;
+  font-weight: 550;
+  line-height: 1.45;
+  color: var(--foreground);
+}
+
+.goal-error {
+  margin-top: 18px;
+}
+
+.detail-actions {
+  display: flex;
   flex: 1;
-  max-width: 230px;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 260px;
+}
+
+.goal {
   min-height: 52px;
   padding: 14px 16px;
   font-size: 15px;
@@ -491,12 +526,12 @@
   transition: background-color 160ms ease;
 }
 
-.buy:disabled {
+.goal:disabled {
   color: var(--muted-foreground);
   cursor: not-allowed;
   background: var(--muted);
 }
 
-.buy:hover:not(:disabled) {
+.goal:hover:not(:disabled) {
   background: #d4d4d4;
 }

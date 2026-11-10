@@ -135,6 +135,7 @@ export function useStudentPage() {
     (transaction) => transaction.isNew && transaction.isDeposit,
   )
   const avatar = (profile.avatar as AvatarName | null) ?? null
+  const avatarRing = profile.avatar_ring ?? null
   const localDayIndex = currentDate.since(Temporal.PlainDate.from('1970-01-01'), {
     largestUnit: 'days',
   }).days
@@ -149,6 +150,7 @@ export function useStudentPage() {
     state: {
       profile,
       avatar,
+      avatarRing,
       groups,
       goal,
       goalCompleted,

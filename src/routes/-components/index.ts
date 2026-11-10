@@ -1,3 +1,6 @@
+export * from './avatar-picker'
+export * from './effect-picker'
+export * from './visual-picker'
 export * from './category-icon'
 export * from './learning-card'
 export * from './page-layout'

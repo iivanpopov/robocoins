@@ -20,6 +20,12 @@
   align-self: flex-start;
 }
 
+@media (width < 640px) {
+  section.editing-page.editing-page {
+    padding-bottom: calc(9rem + var(--keyboard-inset, 0px) + env(safe-area-inset-bottom, 0px));
+  }
+}
+
 .avatar {
   --avatar-size: 8rem;
 

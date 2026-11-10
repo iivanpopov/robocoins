@@ -3,15 +3,15 @@ import { Link } from '@tanstack/react-router'
 import { cn } from 'cn'
 
 import { Mascot } from '#/components/mascot'
-import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui'
+import { UserAvatar } from '#/routes/-components/user-avatar'
 import type { Avatar as AvatarName } from '#/routes/-constants'
-import { getAvatarUrl, getInitial } from '#/routes/-utils'
 
 import styles from './student-hero.module.css'
 
 export interface StudentHeroProps {
   name: string
   avatar: AvatarName | null
+  avatarRing: string | null
   balance: number
   streakDays: number
   hasStreak: boolean
@@ -24,7 +24,6 @@ export interface StudentHeroProps {
 
 export function StudentHero(props: StudentHeroProps) {
   const t = useTranslate()
-  const avatarUrl = props.avatar ? getAvatarUrl(props.avatar) : undefined
 
   return (
     <header className={styles.hero}>
@@ -40,10 +39,13 @@ export function StudentHero(props: StudentHeroProps) {
           title={t('student.profile.title')}
           aria-label={t('student.profile.title')}
         >
-          <Avatar size="lg" className={styles.avatar}>
-            <AvatarImage src={avatarUrl} alt="" aria-hidden="true" />
-            <AvatarFallback aria-hidden="true">{getInitial(props.name)}</AvatarFallback>
-          </Avatar>
+          <UserAvatar
+            name={props.name}
+            avatar={props.avatar}
+            avatarRing={props.avatarRing}
+            size="lg"
+            className={styles.avatar}
+          />
         </button>
         <div className={styles.stats}>
           {props.hasStreak && (

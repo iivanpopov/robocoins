@@ -27,5 +27,7 @@ export type StudentProfileResponse = {
   course_names: string[];
   group_ids: number[];
   avatar?: string | null;
+  avatar_ring?: string | null;
   balance: number;
+  current_goal?: string | null;
 };

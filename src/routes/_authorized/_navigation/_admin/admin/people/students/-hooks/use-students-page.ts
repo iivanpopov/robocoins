@@ -121,6 +121,7 @@ export function useStudentsPage() {
         id: student.id,
         name: student.name,
         avatar: student.avatar,
+        avatarRing: student.avatar_ring,
         courseNames: getStudentCourseNames(student.course_names, student.group_ids, groups),
       }) satisfies StudentRowData,
   )

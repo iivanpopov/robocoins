@@ -2,9 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { cn } from 'cn'
 
 import type { BalanceLeaderboardEntry } from '#/api/types'
-import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui'
-import type { Avatar as AvatarName } from '#/routes/-constants'
-import { getAvatarUrl, getInitial } from '#/routes/-utils'
+import { UserAvatar } from '#/routes/-components/user-avatar'
 
 export interface PodiumViewProps {
   entries: BalanceLeaderboardEntry[]
@@ -24,10 +22,12 @@ export interface PodiumPointsProps {
 
 export function PodiumAvatar(props: PodiumAvatarProps) {
   return (
-    <Avatar size="lg" className={props.className}>
-      <AvatarImage src={getAvatarUrl(props.entry.avatar as AvatarName)} alt="" aria-hidden="true" />
-      <AvatarFallback>{getInitial(props.entry.name)}</AvatarFallback>
-    </Avatar>
+    <UserAvatar
+      name={props.entry.name}
+      avatar={props.entry.avatar}
+      size="lg"
+      className={props.className}
+    />
   )
 }
 

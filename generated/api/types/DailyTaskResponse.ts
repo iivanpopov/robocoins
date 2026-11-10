@@ -13,6 +13,7 @@ export type DailyTaskResponse = {
    * @type string
    */
   date: string;
+  course_id?: number | null;
   type: TaskTypeKey;
   question: string;
   options?: string[] | null;

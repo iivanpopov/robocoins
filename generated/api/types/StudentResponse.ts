@@ -27,6 +27,7 @@ export type StudentResponse = {
   course_names: string[];
   group_ids: number[];
   avatar?: string | null;
+  avatar_ring?: string | null;
   balance: number;
   hash_access_key: string;
   access_code: string;

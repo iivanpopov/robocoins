@@ -16,9 +16,6 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
   Button,
   Field,
   FieldLabel,
@@ -31,8 +28,7 @@ import {
   Loader,
 } from '#/components/ui'
 import { InlineError, PageLayout } from '#/routes/-components'
-import type { Avatar as AvatarName } from '#/routes/-constants'
-import { getAvatarUrl, getInitial } from '#/routes/-utils'
+import { UserAvatar } from '#/routes/-components/user-avatar'
 
 import { AvatarPicker, StudentGroupAssignment } from './-components'
 import { useStudentEditPage } from './-hooks'
@@ -110,16 +106,7 @@ function StudentEditPage() {
           <PageLayout.Heading>
             <div className={styles['header-identity']}>
               <span className={styles['header-name']}>{state.name}</span>
-              <Avatar>
-                <AvatarImage
-                  src={getAvatarUrl(state.avatar as AvatarName)}
-                  alt=""
-                  aria-hidden="true"
-                />
-                <AvatarFallback role="img" aria-label={state.name}>
-                  {getInitial(state.name)}
-                </AvatarFallback>
-              </Avatar>
+              <UserAvatar name={state.name} avatar={state.avatar} avatarRing={state.avatarRing} />
             </div>
           </PageLayout.Heading>
         )}
@@ -224,16 +211,12 @@ function StudentEditPage() {
             <Field>
               <FieldLabel>{t('field.avatar.label')}</FieldLabel>
               <div className={styles['avatar-field']}>
-                <Avatar size="lg">
-                  <AvatarImage
-                    src={getAvatarUrl(state.avatar as AvatarName)}
-                    alt=""
-                    aria-hidden="true"
-                  />
-                  <AvatarFallback role="img" aria-label={state.name}>
-                    {getInitial(state.name)}
-                  </AvatarFallback>
-                </Avatar>
+                <UserAvatar
+                  name={state.name}
+                  avatar={state.avatar}
+                  avatarRing={state.avatarRing}
+                  size="lg"
+                />
                 <Button variant="ghost" onClick={functions.handleOpenAvatarPicker}>
                   {t('student.edit.avatar.change')}
                 </Button>
@@ -278,6 +261,7 @@ function StudentEditPage() {
               studentId={state.studentId}
               studentName={state.name}
               studentAvatar={state.avatar}
+              studentAvatarRing={state.avatarRing}
               groupIds={state.groupIds}
               onSuccess={functions.handleAssignmentSuccess}
             />

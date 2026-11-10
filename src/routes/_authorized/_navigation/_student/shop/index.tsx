@@ -3,8 +3,9 @@ import { createFileRoute } from '@tanstack/react-router'
 import { cn } from 'cn'
 
 import { getShopRewardsShopGetQueryOptions } from '#/api/hooks/useGetShopRewardsShopGet'
+import { getStudentRewardProgressStudentStudentIdRewardProgressGetQueryOptions } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
 import type { StudentProfileResponse } from '#/api/types'
-import { Feedback } from '#/routes/-components'
+import { Feedback, InlineError } from '#/routes/-components'
 import { SpaceBackground } from '#/routes/_authorized/-components/space-background'
 
 import { getStudentRewardCategoriesQueryOptions, isRewardEligible } from '../-utils'
@@ -22,6 +23,13 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/shop/')(
       context.queryClient.query(
         getStudentRewardCategoriesQueryOptions(context.queryClient, profile),
       ),
+      context.queryClient
+        .query(
+          getStudentRewardProgressStudentStudentIdRewardProgressGetQueryOptions({
+            path: { student_id: profile.id },
+          }),
+        )
+        .catch(() => undefined),
     ])
 
     return {
@@ -43,7 +51,9 @@ function ShopPage() {
       data-galaxy=""
       ref={refs.map}
     >
-      <header className={styles['shop-header']}>
+      <header
+        className={cn(styles['shop-header'], !state.isRewardActive && styles['shop-header-solid'])}
+      >
         {!state.isRewardActive && (
           <div className={styles['view-switch']} role="group" aria-label={t('shop.view.label')}>
             <button
@@ -69,7 +79,7 @@ function ShopPage() {
           <span className="i-ph:coins" aria-hidden="true" />
         </div>
       </header>
-      {!state.isRewardActive && (
+      {!state.isRewardActive && !state.isListView && (
         <div className={styles.suggestion}>
           <Feedback
             source="shop"
@@ -157,6 +167,15 @@ function ShopPage() {
               </li>
             ))}
           </ul>
+          {!state.isRewardActive && (
+            <div className={styles['catalog-suggestion']}>
+              <Feedback
+                source="shop"
+                contentClassName="galaxy"
+                className={styles['suggestion-trigger']}
+              />
+            </div>
+          )}
         </section>
       )}
       {state.isRewardVisible && state.selectedReward && (
@@ -202,6 +221,20 @@ function ShopPage() {
               {state.rewardDescription && (
                 <p className={styles.description}>{state.rewardDescription}</p>
               )}
+              {state.isGoalSuccess && (
+                <p role="status" aria-live="polite" className={styles['goal-status']}>
+                  {t('shop.reward.goal.success')}
+                </p>
+              )}
+              {state.isGoalError && (
+                <InlineError
+                  onRetry={functions.handleChangeGoal}
+                  isRetrying={state.isGoalSaving}
+                  className={styles['goal-error']}
+                >
+                  {t('shop.reward.goal.error')}
+                </InlineError>
+              )}
             </div>
           </div>
           <div className={styles['detail-footer']}>
@@ -209,10 +242,20 @@ function ShopPage() {
               {t('coins.amount', { count: state.selectedReward.price })}
               <span className="i-ph:coins" aria-hidden="true" />
             </div>
-            <button className={styles.buy} disabled={!state.canClaimReward}>
-              {state.canClaimReward && t('shop.reward.claim')}
-              {!state.canClaimReward && t('shop.reward.insufficient')}
-            </button>
+            <div className={styles['detail-actions']}>
+              <button
+                type="button"
+                className={styles.goal}
+                onClick={functions.handleChangeGoal}
+                disabled={state.isGoalBusy || state.isCurrentGoal}
+                aria-busy={state.isGoalSaving}
+              >
+                {state.goalAction === 'loading' && t('shop.reward.goal.loading')}
+                {state.goalAction === 'saving' && t('shop.reward.goal.saving')}
+                {state.goalAction === 'current' && t('shop.reward.goal.current')}
+                {state.goalAction === 'select' && t('shop.reward.goal.select')}
+              </button>
+            </div>
           </div>
         </section>
       )}

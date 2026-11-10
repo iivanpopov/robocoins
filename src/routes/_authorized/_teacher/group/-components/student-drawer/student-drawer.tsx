@@ -2,17 +2,9 @@ import { useTranslate } from '@kanjou/react'
 import { cn } from 'cn'
 
 import { StudentProfileResponse } from '#/api/types'
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-} from '#/components/ui'
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from '#/components/ui'
+import { UserAvatar } from '#/routes/-components/user-avatar'
 import { Avatar as AvatarName } from '#/routes/-constants'
-import { getAvatarUrl, getInitial } from '#/routes/-utils'
 
 import { BalanceChange, RecentTransactions } from './components'
 import { useStudentDrawer } from './hooks'
@@ -50,15 +42,12 @@ export function StudentDrawer(props: StudentDrawerProps) {
                   onClick={studentDrawer.handleViewProfile}
                   title={t('step.success.profile')}
                 >
-                  <Avatar className={styles.avatar}>
-                    <AvatarImage
-                      src={getAvatarUrl(props.student.avatar)}
-                      alt={props.student.name}
-                    />
-                    <AvatarFallback role="img" aria-label={props.student.name}>
-                      {getInitial(props.student.name)}
-                    </AvatarFallback>
-                  </Avatar>
+                  <UserAvatar
+                    name={props.student.name}
+                    avatar={props.student.avatar}
+                    avatarRing={props.student.avatar_ring}
+                    className={styles.avatar}
+                  />
                   <span className={styles['student-details']}>
                     <span className={styles['student-name']}>{props.student.name}</span>
                     <span

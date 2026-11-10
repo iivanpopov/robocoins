@@ -152,6 +152,7 @@ export function useStudentGroupsPage() {
         id: student.id,
         name: student.name,
         avatar: student.avatar,
+        avatarRing: student.avatar_ring,
         groupIds: student.group_ids,
       }
     : null

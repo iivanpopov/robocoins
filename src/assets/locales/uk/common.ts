@@ -32,6 +32,7 @@ export default {
   'balance.cancel.action': 'Скасувати транзакцію',
   'balance.change': 'Змінити баланс',
   'balance.deduct.confirm-title': 'Підтвердити списання?',
+  'avatar-picker.option': 'Варіант аватара {$number :number}',
   'balance.direction': 'Напрямок операції',
   'categories.label': 'Категорія',
   'categories.title': 'Категорії',

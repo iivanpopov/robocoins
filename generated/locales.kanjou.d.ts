@@ -39,6 +39,7 @@ declare module '@kanjou/react' {
       'balance.cancel.action': {}
       'balance.change': {}
       'balance.deduct.confirm-title': {}
+      'avatar-picker.option': { number: { __fn: 'number' } }
       'balance.direction': {}
       'categories.label': {}
       'categories.title': {}
@@ -247,9 +248,6 @@ declare module '@kanjou/react' {
       'leaderboard.unranked': {}
       'leaderboard.you': {}
       'profile.balance.open-shop': {}
-      'profile.cyberween.open': {}
-      'profile.cyberween.period': {}
-      'profile.cyberween.tagline': {}
       'profile.earn.activity': {}
       'profile.earn.additional': {}
       'profile.earn.answer': {}
@@ -259,6 +257,37 @@ declare module '@kanjou/react' {
       'profile.earn.teamwork': {}
       'profile.earn.theory': {}
       'profile.earn.title': {}
+      'profile.edit.action': {}
+      'profile.edit.avatar.error': {}
+      'profile.edit.error': {}
+      'profile.edit.failed': { failed: DefaultMessageValue }
+      'profile.edit.fields.avatar': {}
+      'profile.edit.fields.nickname': {}
+      'profile.edit.fields.ring': {}
+      'profile.edit.leave.confirm': {}
+      'profile.edit.leave.description': {}
+      'profile.edit.leave.stay': {}
+      'profile.edit.leave.title': {}
+      'profile.edit.nickname.error': {}
+      'profile.edit.nickname.label': {}
+      'profile.edit.nickname.placeholder': {}
+      'profile.edit.nickname.required': {}
+      'profile.edit.partial': {
+        saved: DefaultMessageValue
+        failed: DefaultMessageValue
+      }
+      'profile.edit.personalization': {}
+      'profile.edit.ring.current': {}
+      'profile.edit.ring.double': {}
+      'profile.edit.ring.error': {}
+      'profile.edit.ring.none': {}
+      'profile.edit.ring.orbital': {}
+      'profile.edit.ring.outline': {}
+      'profile.edit.ring.soon': {}
+      'profile.edit.ring.star': {}
+      'profile.edit.save': {}
+      'profile.edit.tab.avatar': {}
+      'profile.edit.tab.ring': {}
       'profile.goal.change': {}
       'profile.goal.choose': {}
       'profile.goal.claim': {}
@@ -300,7 +329,12 @@ declare module '@kanjou/react' {
       'shop.reward.back': {}
       'shop.reward.claim': {}
       'shop.reward.cost': {}
-      'shop.reward.insufficient': {}
+      'shop.reward.goal.current': {}
+      'shop.reward.goal.error': {}
+      'shop.reward.goal.loading': {}
+      'shop.reward.goal.saving': {}
+      'shop.reward.goal.select': {}
+      'shop.reward.goal.success': {}
       'shop.reward.type.privilege': {}
       'shop.reward.type.reward': {}
       'shop.view.galaxy': {}
@@ -762,7 +796,6 @@ declare module '@kanjou/react' {
       'students.profile.memberships.manage': {}
       'students.profile.title': {}
       'students.register.action': {}
-      'students.register.avatar.option': { number: { __fn: 'number' } }
       'students.register.error': {}
       'students.register.groups.description': {}
       'students.register.groups.empty': {}

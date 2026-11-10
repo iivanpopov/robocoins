@@ -1,6 +1,5 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link, useParams } from '@tanstack/react-router'
-import { cn } from 'cn'
 
 import {
   Button,
@@ -12,10 +11,9 @@ import {
   Input,
   Loader,
 } from '#/components/ui'
+import { AvatarPicker } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
 import { UserAvatar } from '#/routes/-components/user-avatar'
-import { AVATARS } from '#/routes/-constants'
-import { getAvatarUrl } from '#/routes/-utils'
 
 import { StudentRequestError } from '../-components'
 import { parseStudentIdParams } from '../-utils'
@@ -78,6 +76,7 @@ function StudentEditPage() {
               <UserAvatar
                 name={state.student.name}
                 avatar={state.student.avatar}
+                avatarRing={state.student.avatar_ring}
                 size="lg"
                 className={styles.avatar}
               />
@@ -151,24 +150,12 @@ function StudentEditPage() {
             <form className={styles.form} onSubmit={functions.handleSubmitAvatar} noValidate>
               <features.avatarForm.Field name="avatar">
                 {(field) => (
-                  <div className={styles.avatars} role="group" aria-label={t('field.avatar.label')}>
-                    {AVATARS.map((avatar, index) => (
-                      <button
-                        key={avatar}
-                        type="button"
-                        className={cn(
-                          styles['avatar-option'],
-                          field.state.value === avatar && styles.selected,
-                        )}
-                        aria-pressed={field.state.value === avatar}
-                        aria-label={t('students.register.avatar.option', { number: index + 1 })}
-                        title={t('students.register.avatar.option', { number: index + 1 })}
-                        onClick={() => field.handleChange(avatar)}
-                      >
-                        <img src={getAvatarUrl(avatar)} alt="" aria-hidden="true" />
-                      </button>
-                    ))}
-                  </div>
+                  <AvatarPicker
+                    value={field.state.value}
+                    onChange={field.handleChange}
+                    name={state.student?.name ?? ''}
+                    disabled={mutations.avatar.isPending}
+                  />
                 )}
               </features.avatarForm.Field>
 
