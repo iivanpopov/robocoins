@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useChangeStudentBalanceStudentStudentIdBalanceTransactionsPost } from '#/api/hooks/useChangeStudentBalanceStudentStudentIdBalanceTransactionsPost'
 import { useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet } from '#/api/hooks/useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet'
 import { getGroupByIdGroupIdGroupIdGetQueryKey } from '#/api/hooks/useGetGroupByIdGroupIdGroupIdGet'
+import { getStudentAchievementProgressStudentStudentIdAchievementsGetQueryKey } from '#/api/hooks/useGetStudentAchievementProgressStudentStudentIdAchievementsGet'
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryKey } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { BalanceChangeReasonsKey } from '#/api/types'
 import { toast } from '#/components/ui'
@@ -46,6 +47,11 @@ export function useBalanceChange(props: UseBalanceChangeProps) {
           }),
           queryClient.invalidateQueries({
             queryKey: getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryKey({
+              path: { student_id: variables.path.student_id },
+            }),
+          }),
+          queryClient.invalidateQueries({
+            queryKey: getStudentAchievementProgressStudentStudentIdAchievementsGetQueryKey({
               path: { student_id: variables.path.student_id },
             }),
           }),

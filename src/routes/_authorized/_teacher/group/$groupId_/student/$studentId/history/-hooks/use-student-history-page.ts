@@ -5,6 +5,7 @@ import { useRef, useState } from 'react'
 
 import { useCancelStudentTransactionStudentTransactionsTransactionIdCancelPost } from '#/api/hooks/useCancelStudentTransactionStudentTransactionsTransactionIdCancelPost'
 import { getGroupByIdGroupIdGroupIdGetQueryKey } from '#/api/hooks/useGetGroupByIdGroupIdGroupIdGet'
+import { getStudentAchievementProgressStudentStudentIdAchievementsGetQueryKey } from '#/api/hooks/useGetStudentAchievementProgressStudentStudentIdAchievementsGet'
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryKey } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import type { BalanceTransactionResponse } from '#/api/types'
 import { toast } from '#/components/ui'
@@ -32,6 +33,11 @@ export function useStudentHistoryPage() {
           await Promise.all([
             queryClient.invalidateQueries({
               queryKey: getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryKey({
+                path: { student_id: student.id },
+              }),
+            }),
+            queryClient.invalidateQueries({
+              queryKey: getStudentAchievementProgressStudentStudentIdAchievementsGetQueryKey({
                 path: { student_id: student.id },
               }),
             }),

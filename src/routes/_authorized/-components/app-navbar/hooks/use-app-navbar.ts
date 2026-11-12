@@ -24,6 +24,11 @@ const NAVIGATION_ITEMS = {
       label: 'people.title',
     },
     { to: '/admin/catalog', icon: 'i-ph:storefront-bold', label: 'navbar.catalog' },
+    {
+      to: '/admin/achievements',
+      icon: 'i-ph:medal-bold',
+      label: 'navbar.achievements',
+    },
   ],
   teacher: [
     { to: '/settings', icon: 'i-ph:gear-bold', label: 'navbar.settings' },

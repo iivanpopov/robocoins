@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { getBalanceChangeReasonsExtBalanceBalanceChangeReasonsGetQueryOptions } from '#/api/hooks/useGetBalanceChangeReasonsExtBalanceBalanceChangeReasonsGet'
 import { getDailyTaskDailyStudentIdDailyTaskGetQueryOptions } from '#/api/hooks/useGetDailyTaskDailyStudentIdDailyTaskGet'
+import { getStudentAchievementProgressStudentStudentIdAchievementsGetQueryOptions } from '#/api/hooks/useGetStudentAchievementProgressStudentStudentIdAchievementsGet'
 import { getStudentRewardProgressStudentStudentIdRewardProgressGetQueryOptions } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
 import { getStudentStreakStudentStudentIdStreakGetQueryOptions } from '#/api/hooks/useGetStudentStreakStudentStudentIdStreakGet'
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryOptions } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
@@ -12,7 +13,14 @@ import { Feedback, InlineError } from '#/routes/-components'
 import { COOKIE_MAX_AGE, LAST_LOG_ON_COOKIE } from '#/routes/-constants'
 import { readCookie } from '#/utils/cookies'
 
-import { EarnWays, GoalCard, HistoryPreview, LeaderboardPreview, StudentHero } from './-components'
+import {
+  AchievementsPreview,
+  EarnWays,
+  GoalCard,
+  HistoryPreview,
+  LeaderboardPreview,
+  StudentHero,
+} from './-components'
 import { DailyMission } from './-components/daily-mission'
 import {
   getWeeklyLeaderboardQueryOptions,
@@ -69,6 +77,13 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/')({
           path: { student_id: profile.id },
         }),
       ),
+      context.queryClient
+        .query(
+          getStudentAchievementProgressStudentStudentIdAchievementsGetQueryOptions({
+            path: { student_id: profile.id },
+          }),
+        )
+        .catch(() => undefined),
       context.queryClient
         .query(getStudentRewardCategoriesQueryOptions(context.queryClient, profile))
         .catch(() => undefined),
@@ -127,6 +142,7 @@ function StudentPage() {
         />
       )}
       <DailyMission studentId={state.profile.id} />
+      <AchievementsPreview studentId={state.profile.id} />
       <EarnWays />
       <LeaderboardPreview />
       <HistoryPreview

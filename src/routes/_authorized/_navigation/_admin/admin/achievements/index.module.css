@@ -1,0 +1,34 @@
+.page {
+  max-width: 44rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.list > li + li {
+  border-top: 1px solid rgb(0 0 0 / 6%);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  text-align: center;
+}
+
+.empty > [aria-hidden='true'] {
+  font-size: 2.5rem;
+}

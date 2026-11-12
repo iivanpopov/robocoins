@@ -6,6 +6,31 @@ declare module '@kanjou/react' {
   export interface Register {
     locale: 'uk'
     messages: {
+      'achievement.artwork.tier.1': {}
+      'achievement.artwork.tier.2': {}
+      'achievement.artwork.tier.3': {}
+      'achievement.artwork.tier.4': {}
+      'achievement.artwork.tier.5': {}
+      'achievement.artwork.tier.6': {}
+      'achievements.all-earned': {}
+      'achievements.back': {}
+      'achievements.description': {}
+      'achievements.earned': {}
+      'achievements.earned-count': {
+        earned: { __fn: 'number' }
+        total: { __fn: 'number' }
+      }
+      'achievements.empty': {}
+      'achievements.error': {}
+      'achievements.locked': {}
+      'achievements.loading': {}
+      'achievements.preview.all': {}
+      'achievements.preview.earned': {}
+      'achievements.preview.title': {}
+      'achievements.progress': { percent: { __fn: 'number' } }
+      'achievements.progress.label': { percent: { __fn: 'number' } }
+      'achievements.required': { count: { __fn: 'coins' } }
+      'achievements.title': {}
       'access.code.copied': {}
       'access.code.label': {}
       'access.code.reset': {}
@@ -103,6 +128,7 @@ declare module '@kanjou/react' {
       'history.loading': {}
       'history.no-reason': {}
       'history.title': {}
+      'navbar.achievements': {}
       'navbar.catalog': {}
       'navbar.home': {}
       'navbar.label': {}
@@ -1012,6 +1038,49 @@ declare module '@kanjou/react' {
       'admin.catalog.validation.name': {}
       'admin.catalog.validation.price': {}
       'admin.catalog.validation.type': {}
+      'admin.achievements.add': {}
+      'admin.achievements.create.error': {}
+      'admin.achievements.create.submit': {}
+      'admin.achievements.create.success.another': {}
+      'admin.achievements.create.success.description': {}
+      'admin.achievements.create.success.open': {}
+      'admin.achievements.create.success.title': {}
+      'admin.achievements.create.title': {}
+      'admin.achievements.delete.action': {}
+      'admin.achievements.delete.back': {}
+      'admin.achievements.delete.confirm.description': {
+        name: DefaultMessageValue
+      }
+      'admin.achievements.delete.confirm.title': {}
+      'admin.achievements.delete.error': {}
+      'admin.achievements.delete.result.description': {}
+      'admin.achievements.delete.result.title': {}
+      'admin.achievements.delete.title': {}
+      'admin.achievements.empty': {}
+      'admin.achievements.error.forbidden': {}
+      'admin.achievements.error.load': {}
+      'admin.achievements.error.not-found': {}
+      'admin.achievements.error.request': {}
+      'admin.achievements.error.validation': {}
+      'admin.achievements.form.description': {}
+      'admin.achievements.form.description.placeholder': {}
+      'admin.achievements.form.name': {}
+      'admin.achievements.form.name.placeholder': {}
+      'admin.achievements.form.preview': {}
+      'admin.achievements.form.preview.null': {}
+      'admin.achievements.form.preview.note': {}
+      'admin.achievements.form.required': {}
+      'admin.achievements.form.required.placeholder': {}
+      'admin.achievements.form.type': {}
+      'admin.achievements.form.type.badge': {}
+      'admin.achievements.form.type.certificate': {}
+      'admin.achievements.form.type.trophy': {}
+      'admin.achievements.list.delete': {}
+      'admin.achievements.list.required': {}
+      'admin.achievements.title': {}
+      'admin.achievements.validation.description': {}
+      'admin.achievements.validation.name': {}
+      'admin.achievements.validation.required': {}
       'admin.balance.back': {}
       'admin.balance.cancel.already': {}
       'admin.balance.cancel.confirm.description': { amount: { __fn: 'coins' } }

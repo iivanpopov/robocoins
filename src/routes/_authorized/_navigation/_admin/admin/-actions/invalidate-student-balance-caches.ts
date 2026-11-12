@@ -3,6 +3,7 @@ import type { QueryClient } from '@tanstack/react-query'
 import { getAllStudentsStudentGetQueryKey } from '#/api/hooks/useGetAllStudentsStudentGet'
 import { getBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGetQueryKey } from '#/api/hooks/useGetBalanceLeaderboardRankStudentLeaderboardBalanceStudentIdGet'
 import { getBalanceLeaderboardStudentLeaderboardBalanceGetQueryKey } from '#/api/hooks/useGetBalanceLeaderboardStudentLeaderboardBalanceGet'
+import { getStudentAchievementProgressStudentStudentIdAchievementsGetQueryKey } from '#/api/hooks/useGetStudentAchievementProgressStudentStudentIdAchievementsGet'
 import { getStudentBalanceByIdStudentStudentIdBalanceGetQueryKey } from '#/api/hooks/useGetStudentBalanceByIdStudentStudentIdBalanceGet'
 import { getStudentByIdStudentStudentIdGetQueryKey } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
 import { getStudentRewardProgressStudentStudentIdRewardProgressGetQueryKey } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
@@ -31,7 +32,17 @@ export function invalidateStudentsBalanceCaches(
 
       return [
         queryClient.invalidateQueries(
-          { queryKey: getStudentBalanceByIdStudentStudentIdBalanceGetQueryKey({ path }) },
+          {
+            queryKey: getStudentBalanceByIdStudentStudentIdBalanceGetQueryKey({ path }),
+          },
+          invalidateOptions,
+        ),
+        queryClient.invalidateQueries(
+          {
+            queryKey: getStudentAchievementProgressStudentStudentIdAchievementsGetQueryKey({
+              path,
+            }),
+          },
           invalidateOptions,
         ),
         queryClient.invalidateQueries(

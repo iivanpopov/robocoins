@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none">
+  <defs>
+    <g id="coin">
+      <path d="M-22 0v8c0 11 44 11 44 0V0" fill="#F5A623" stroke="#B86B27" stroke-width="1.8"/>
+      <ellipse rx="22" ry="8" fill="#FFCD38" stroke="#B86B27" stroke-width="1.8"/>
+      <path d="M-17-1c3-5 21-7 31-2-11-1-18 1-24 4-4 1-6 0-7-2Z" fill="#FFF3B0" opacity=".8"/>
+    </g>
+    <g id="branch" stroke="#237F78" stroke-width="1.5" stroke-linejoin="round">
+      <path d="M73 134C34 124 20 94 33 55" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M52 124c-16 2-26-5-28-14 14-2 24 4 28 14ZM33 101c-13-5-18-15-14-24 12 4 18 12 14 24ZM28 76c-8-10-7-21-1-28 8 8 9 19 1 28Z" fill="#31C6A6"/>
+      <path d="M43 116c-2-14 4-23 13-26 4 13-1 22-13 26ZM30 93c2-13 9-19 17-20 0 12-6 19-17 20ZM32 61c0-14 7-22 16-24 1 13-5 21-16 24Z" fill="#88EBC0"/>
+      <path d="m32 115 13 6m0-12 7-12m-29-12 7 10m4-8 8-9M26 56l2 12m8-15 8-10" stroke="#C9FFE2" stroke-width="1.4" stroke-linecap="round"/>
+    </g>
+  </defs>
+  <ellipse cx="80" cy="140" rx="37" ry="4" fill="#3478FF" opacity=".1"/>
+  <use href="#branch"/><use href="#branch" transform="translate(160) scale(-1 1)"/>
+  <use href="#coin" x="94" y="105"/><use href="#coin" x="94" y="95"/><use href="#coin" x="94" y="85"/><use href="#coin" x="94" y="75"/>
+  <use href="#coin" x="64" y="115"/><use href="#coin" x="64" y="105"/><use href="#coin" x="64" y="95"/>
+</svg>
