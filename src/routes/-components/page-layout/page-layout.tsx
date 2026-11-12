@@ -5,8 +5,11 @@ import { cn } from '#/utils/cn'
 
 import styles from './page-layout.module.css'
 
+export type PageLayoutVariant = 'compact' | 'comfortable'
+
 export interface PageLayoutRootProps extends useRender.ComponentProps<'section'> {
   bottomSpace?: boolean
+  variant?: PageLayoutVariant
 }
 
 export interface PageLayoutHeaderProps extends ComponentProps<'header'> {
@@ -15,13 +18,17 @@ export interface PageLayoutHeaderProps extends ComponentProps<'header'> {
   size?: 'default' | 'compact'
 }
 
-function Root({ bottomSpace, className, render, ...props }: PageLayoutRootProps) {
+function Root(props: PageLayoutRootProps) {
   return useRender({
     defaultTagName: 'section',
-    render,
+    render: props.render,
     props: {
       ...props,
-      className: cn(styles.page, bottomSpace && styles['bottom-space'], className),
+      className: cn(styles.page, props.bottomSpace && styles['bottom-space'], props.className),
+      'data-variant': props.variant ?? 'compact',
+      bottomSpace: undefined,
+      render: undefined,
+      variant: undefined,
     },
   })
 }

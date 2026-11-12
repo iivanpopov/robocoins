@@ -21,7 +21,7 @@ function LeaderboardPage() {
   const entries = state.entries.filter((entry) => entry.rank > 3)
 
   return (
-    <PageLayout.Root render={<main />} className={styles.page}>
+    <PageLayout.Root variant="comfortable" render={<main />} className={styles.page}>
       <PageLayout.Header align="end" centered>
         <IconButton nativeButton={false} render={<Link to="/" />} title={t('navigation.home')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />

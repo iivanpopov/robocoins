@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useGetStudentCredentialsAuthMeCredentialsGet } from '#/api/hooks/useGetStudentCredentialsAuthMeCredentialsGet'
 import { useLogoutAuthLogoutPost } from '#/api/hooks/useLogoutAuthLogoutPost'
 import { useMotionPreference } from '#/hooks/use-motion-preference'
+import type { PageLayoutVariant } from '#/routes/-components/page-layout'
 import { setAnimationsDisabled } from '#/utils/motion'
 
 export function useSettingsPage() {
@@ -53,10 +54,13 @@ export function useSettingsPage() {
     setAnimationsDisabled(checked)
   }
 
+  const pageLayoutVariant: PageLayoutVariant = isStudent ? 'comfortable' : 'compact'
+
   return {
     state: {
       user: context.user,
       isStudent,
+      pageLayoutVariant,
       isPasswordVisible,
       isLogoutDialogOpen,
       animationsReduced: motionPreference.reducedMotion,

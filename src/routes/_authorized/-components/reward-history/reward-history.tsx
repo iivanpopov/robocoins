@@ -3,6 +3,7 @@ import { type ReactNode } from 'react'
 
 import { Button, Loader } from '#/components/ui'
 import { InlineError, PageLayout } from '#/routes/-components'
+import type { PageLayoutVariant } from '#/routes/-components'
 import { formatSignedAmount } from '#/routes/-utils'
 import { isTransactionCancellable } from '#/routes/_authorized/-utils'
 import { cn } from '#/utils/cn'
@@ -18,6 +19,7 @@ interface RewardHistoryProps {
   isCancelling?: boolean
   omitLeadingCoinZero?: boolean
   onCancel?: (transactionId: number) => void
+  variant?: PageLayoutVariant
 }
 
 export function RewardHistory(props: RewardHistoryProps) {
@@ -25,7 +27,7 @@ export function RewardHistory(props: RewardHistoryProps) {
   const t = useTranslate()
 
   return (
-    <PageLayout.Root aria-label={t('history.title')}>
+    <PageLayout.Root variant={props.variant} aria-label={t('history.title')}>
       <PageLayout.Header align="end" centered>
         {props.backLink}
         <PageLayout.Heading>
