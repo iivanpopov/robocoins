@@ -39,6 +39,20 @@
   background: var(--background);
 }
 
+.catalog-feedback {
+  position: absolute;
+  inset: 88px var(--spacing-xl);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.catalog-feedback > * {
+  pointer-events: auto;
+}
+
 .balance {
   display: flex;
   flex-shrink: 0;

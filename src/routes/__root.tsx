@@ -19,6 +19,7 @@ import 'virtual:uno.css'
 import { useMotionPreference } from '#/hooks/use-motion-preference'
 import { TranslationProvider } from '#/lib/translations'
 import { getSession } from '#/routes/-actions/get-session'
+import { RequestErrorComponent } from '#/routes/-components/request-error-component'
 import { cn } from '#/utils/cn'
 import { readCookie } from '#/utils/cookies'
 import { MOTION_PREFERENCE_COOKIE } from '#/utils/motion'
@@ -67,6 +68,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
   }),
   shellComponent: RootDocument,
+  errorComponent: RequestErrorComponent,
   component: RootComponent,
 })
 

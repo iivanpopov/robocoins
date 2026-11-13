@@ -1,9 +1,10 @@
-import { useQueryClient } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from '@tanstack/react-router'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { useChangeGoalStudentStudentIdChangeGoalPatch } from '#/api/hooks/useChangeGoalStudentStudentIdChangeGoalPatch'
 import { getCurrentUserAuthMeGetQueryKey } from '#/api/hooks/useGetCurrentUserAuthMeGet'
+import { useGetShopRewardsShopGet } from '#/api/hooks/useGetShopRewardsShopGet'
 import { getStudentByIdStudentStudentIdGetQueryKey } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
 import {
   getStudentRewardProgressStudentStudentIdRewardProgressGetQueryKey,
@@ -14,6 +15,7 @@ import type { StudentProfileResponse } from '#/api/types/StudentProfileResponse'
 
 import { Route } from '..'
 import { getStarPositions } from '../-utils'
+import { getStudentRewardCategoriesQueryOptions, isRewardEligible } from '../../-utils'
 import { useCamera } from './use-camera'
 import { useDraggableMap } from './use-draggable-map'
 import { useMapAnimation } from './use-map-animation'
@@ -31,6 +33,8 @@ export function useShopPage() {
   const [view, setView] = useState<'galaxy' | 'list'>('galaxy')
 
   const profile = context.user as StudentProfileResponse
+  const rewardsQuery = useGetShopRewardsShopGet()
+  const categoriesQuery = useQuery(getStudentRewardCategoriesQueryOptions(queryClient, profile))
   const goalQuery = useGetStudentRewardProgressStudentStudentIdRewardProgressGet({
     path: { student_id: profile.id },
   })
@@ -67,16 +71,18 @@ export function useShopPage() {
     rewardSelection.handleIsBlocked,
   )
 
+  const rewards = useMemo(
+    () =>
+      (rewardsQuery.data ?? []).filter((reward) => isRewardEligible(reward, categoriesQuery.data)),
+    [rewardsQuery.data, categoriesQuery.data],
+  )
   const starPositions = useMemo(() => {
-    const maximumPrice = galaxy.rewards.reduce(
-      (maximum, reward) => Math.max(maximum, reward.price),
-      1,
-    )
-    return getStarPositions(galaxy.rewards, galaxy.seed).map((star) => ({
+    const maximumPrice = rewards.reduce((maximum, reward) => Math.max(maximum, reward.price), 1)
+    return getStarPositions(rewards, galaxy.seed).map((star) => ({
       ...star,
       glow: Math.max(0, star.reward.price) / maximumPrice,
     }))
-  }, [galaxy.rewards, galaxy.seed])
+  }, [rewards, galaxy.seed])
   starsRef.current = starPositions
 
   useEffect(() => {
@@ -133,7 +139,14 @@ export function useShopPage() {
 
   function handleChangeGoal() {
     const reward = rewardSelection.selection.reward
-    if (!reward || goalMutation.isPending) return
+    if (
+      !reward ||
+      goalMutation.isPending ||
+      !goalQuery.isSuccess ||
+      !categoriesQuery.isSuccess ||
+      !rewardsQuery.isSuccess
+    )
+      return
     if (reward.id === currentGoalId) return
     if (goalMutation.isError) goalMutation.reset()
     goalMutation.mutate({
@@ -142,10 +155,28 @@ export function useShopPage() {
     })
   }
 
+  function handleRetryCatalog() {
+    void rewardsQuery.refetch()
+    void categoriesQuery.refetch()
+  }
+
+  function handleRetryGoal() {
+    if (goalQuery.isError) {
+      void goalQuery.refetch()
+      return
+    }
+    handleChangeGoal()
+  }
+
   const selectedReward = rewardSelection.selection.reward
   const currentGoalId = goalQuery.data?.reward?.id ?? null
   const isCurrentGoal = Boolean(selectedReward && selectedReward.id === currentGoalId)
-  const isGoalBusy = goalMutation.isPending || goalQuery.isFetching
+  const isGoalBusy =
+    goalMutation.isPending ||
+    goalQuery.isFetching ||
+    !goalQuery.isSuccess ||
+    !categoriesQuery.isSuccess ||
+    !rewardsQuery.isSuccess
   const goalAction = goalQuery.isPending
     ? 'loading'
     : goalMutation.isPending
@@ -163,7 +194,10 @@ export function useShopPage() {
     },
     state: {
       isListView: view === 'list',
-      rewards: galaxy.rewards,
+      rewards,
+      isCatalogPending: rewardsQuery.isPending || categoriesQuery.isPending,
+      isCatalogError: rewardsQuery.isError || categoriesQuery.isError,
+      isCatalogFetching: rewardsQuery.isFetching || categoriesQuery.isFetching,
       stars: starPositions,
       selectedReward,
       rewardDescription: selectedReward?.description?.trim(),
@@ -177,7 +211,7 @@ export function useShopPage() {
       isGoalBusy,
       isGoalSaving: goalMutation.isPending,
       goalAction,
-      isGoalError: goalMutation.isError,
+      isGoalError: goalMutation.isError || goalQuery.isError,
       isGoalSuccess: goalMutation.isSuccess,
     },
     functions: {
@@ -194,6 +228,8 @@ export function useShopPage() {
       handleShowList,
       handleFocusStar,
       handleChangeGoal,
+      handleRetryCatalog,
+      handleRetryGoal,
       handleCloseReward: rewardSelection.handleClose,
       handleRewardAnimationEnd: rewardSelection.handleRewardAnimationEnd,
     },

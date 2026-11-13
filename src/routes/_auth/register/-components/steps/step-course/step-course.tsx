@@ -1,7 +1,7 @@
 import { useTranslate } from '@kanjou/react'
 
 import { Drawer, DrawerContent, HeroButton, Loader, Typography } from '#/components/ui'
-import { LearningCard } from '#/routes/-components'
+import { InlineError, LearningCard } from '#/routes/-components'
 import { parseGroupSchedule } from '#/routes/-utils'
 import { AuthLayout } from '#/routes/_auth/-components'
 
@@ -36,6 +36,14 @@ export function StepCourse() {
       <AuthLayout.Bottom>
         <div className={styles.courses}>
           {queries.courses.isPending && <Loader />}
+          {queries.courses.isError && (
+            <InlineError
+              onRetry={functions.handleRetryCourses}
+              isRetrying={queries.courses.isFetching}
+            >
+              {t('error.description')}
+            </InlineError>
+          )}
           {queries.courses.isSuccess && !state.courses.length && (
             <Typography variant="caption">{t('step.selection.empty')}</Typography>
           )}

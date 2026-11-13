@@ -39,7 +39,7 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/')({
   },
   loader: async ({ context }) => {
     const profile = context.user as StudentProfileResponse
-    return Promise.all([
+    return Promise.allSettled([
       context.queryClient
         .query({
           ...getDailyTaskDailyStudentIdDailyTaskGetQueryOptions({

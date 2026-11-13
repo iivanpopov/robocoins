@@ -18,10 +18,16 @@ export function useStepView() {
 
   const registerMutation = useCreateStudentStudentRegisterPost()
   const coursesQuery = useGetCoursesCourseGet()
+
+  function handleRetryCourses() {
+    void coursesQuery.refetch()
+  }
+
   const draft = register.state as Required<RegisterDraft>
   const groups = (coursesQuery.data ?? []).flatMap((course) => {
     if (!draft.courseIds.includes(course.id)) return []
-    const group = course.groups!.find((item) => draft.groupIds.includes(item.id))!
+    const group = course.groups?.find((item) => draft.groupIds.includes(item.id))
+    if (!group) return []
     return [{ ...group, courseName: course.name, category: course.category }]
   })
 
@@ -68,6 +74,7 @@ export function useStepView() {
     },
     functions: {
       handleFinish,
+      handleRetryCourses,
     },
   }
 }

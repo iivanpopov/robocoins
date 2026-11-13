@@ -3,6 +3,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router'
 import type { CSSProperties } from 'react'
 import * as v from 'valibot'
 
+import { ResponseError } from '#/api/.kubb/client'
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
 import { getStudentByIdStudentStudentIdGetQueryOptions } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
 import { getTeacherGroupsTeacherGroupsGetQueryOptions } from '#/api/hooks/useGetTeacherGroupsTeacherGroupsGet'
@@ -23,6 +24,7 @@ import {
 import { Feedback } from '#/routes/-components'
 import { InlineError } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
+import { RequestErrorComponent } from '#/routes/-components/request-error-component'
 import { UserAvatar } from '#/routes/-components/user-avatar'
 import { AchievementsPreview } from '#/routes/_authorized/-components/achievements-preview'
 import { GroupCard } from '#/routes/_authorized/-components/group-card'
@@ -67,13 +69,16 @@ export const Route = createFileRoute('/_authorized/student/$studentId/')({
       .query(
         getStudentByIdStudentStudentIdGetQueryOptions({ path: { student_id: params.studentId } }),
       )
-      .catch(() => undefined)
+      .catch((error) => {
+        if (ResponseError.is(error) && error.status === 404) throw notFound()
+        throw error
+      })
     if (!student) throw notFound()
     if (user?.role === 'student') return student
 
-    const [groups, _courses] = await Promise.all([
+    const [groups] = await Promise.all([
       context.queryClient.query(getTeacherGroupsTeacherGroupsGetQueryOptions()),
-      context.queryClient.query(getCoursesCourseGetQueryOptions()),
+      context.queryClient.query(getCoursesCourseGetQueryOptions()).catch(() => undefined),
     ])
     const isStudentAccessible = student.group_ids.some((groupId) =>
       groups.some((group) => group.id === groupId),
@@ -81,6 +86,7 @@ export const Route = createFileRoute('/_authorized/student/$studentId/')({
     if (!isStudentAccessible) throw notFound()
   },
   component: StudentProfilePage,
+  errorComponent: RequestErrorComponent,
 })
 
 function StudentProfilePage() {
@@ -200,6 +206,12 @@ function StudentProfilePage() {
           {state.isTeacher && (
             <section className={styles.section}>
               <h2 className={styles['section-title']}>{t('groups.title')}</h2>
+              {state.isGroupsPending && <Loader />}
+              {state.isGroupsError && (
+                <InlineError onRetry={functions.handleRetry} isRetrying={state.isGroupsFetching}>
+                  {t('group.error')}
+                </InlineError>
+              )}
               {!!state.groupCards.length && (
                 <div className={styles['group-list']}>
                   {state.groupCards.map((group) => (
@@ -207,7 +219,7 @@ function StudentProfilePage() {
                   ))}
                 </div>
               )}
-              {!state.groupCards.length && (
+              {!state.isGroupsPending && !state.isGroupsError && !state.groupCards.length && (
                 <p className={styles.empty}>{t('profile.groups.empty')}</p>
               )}
             </section>

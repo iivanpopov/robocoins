@@ -123,6 +123,7 @@ export function useGroupStudentsPage() {
 
   function handleRetry() {
     void groupQuery.refetch()
+    void coursesQuery.refetch()
   }
 
   const students = (groupQuery.data?.students ?? []).map((student) => ({
@@ -159,8 +160,8 @@ export function useGroupStudentsPage() {
       studentsCount: students.length,
       canAwardPractice: groupQuery.isSuccess && !!students.length,
       isPending: groupQuery.isPending,
-      isError: groupQuery.isError,
-      isRetrying: groupQuery.isFetching,
+      isError: groupQuery.isError || coursesQuery.isError,
+      isRetrying: groupQuery.isFetching || coursesQuery.isFetching,
     },
     queries: { group: groupQuery, courses: coursesQuery },
     mutations: { awardPractice: awardPracticeMutation },

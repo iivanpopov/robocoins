@@ -14,6 +14,10 @@ export function useStepCourse() {
   const coursesQuery = useGetCoursesCourseGet()
   const navigation = useRegisterCategoryStep()
 
+  function handleRetryCourses() {
+    void coursesQuery.refetch()
+  }
+
   const courses =
     coursesQuery.data?.filter((course) => course.category === navigation.category) ?? []
   const selectedCourse = courses.find((course) => register.state.courseIds?.includes(course.id))
@@ -33,10 +37,12 @@ export function useStepCourse() {
   }
 
   const handleSelectCourse = async (id: number) => {
-    const course = courses.find((item) => item.id === id)!
+    if (!coursesQuery.isSuccess) return
+    const course = courses.find((item) => item.id === id)
+    if (!course) return
 
     const otherCourses = getSelectedCoursesOutsideCategory(
-      coursesQuery.data!,
+      coursesQuery.data,
       register.state,
       navigation.category,
     )
@@ -71,6 +77,6 @@ export function useStepCourse() {
       previousSearch: navigation.previousSearch,
     },
     queries: { courses: coursesQuery },
-    functions: { handleSelectCourse, handleDrawerOpenChange, handleNext },
+    functions: { handleSelectCourse, handleDrawerOpenChange, handleNext, handleRetryCourses },
   }
 }
