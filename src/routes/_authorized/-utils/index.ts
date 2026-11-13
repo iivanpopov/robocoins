@@ -5,4 +5,5 @@ export { isTransactionCancellable } from './is-transaction-cancellable'
 export {
   findNearestUnearnedAchievement,
   sortAchievementsByThreshold,
+  sortAchievementsForShowcase,
 } from './sort-achievements-by-threshold'

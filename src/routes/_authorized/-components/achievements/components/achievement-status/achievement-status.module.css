@@ -5,6 +5,12 @@
   width: 100%;
 }
 
+.status[data-earned='true'] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
 .label {
   display: inline-flex;
   gap: 0.25rem;
@@ -16,6 +22,8 @@
 }
 
 .label[data-earned='true'] {
+  grid-column: 2;
+  align-self: center;
   color: var(--brand);
 }
 

@@ -24,6 +24,7 @@ import { Feedback } from '#/routes/-components'
 import { InlineError } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
 import { UserAvatar } from '#/routes/-components/user-avatar'
+import { AchievementsPreview } from '#/routes/_authorized/-components/achievements-preview'
 import { GroupCard } from '#/routes/_authorized/-components/group-card'
 import { cn } from '#/utils/cn'
 
@@ -91,9 +92,14 @@ function StudentProfilePage() {
     <PageLayout.Root
       variant="comfortable"
       bottomSpace
-      className={cn(state.isEditing && styles['editing-page'])}
+      className={cn(styles.page, state.isEditing && styles['editing-page'])}
       style={{ '--keyboard-inset': `${state.keyboardInset}px` } as CSSProperties}
     >
+      {!state.isEditing && (
+        <div aria-hidden="true" className={styles.watermark}>
+          <span className={cn('i-ph:coins', styles['watermark-icon'])} />
+        </div>
+      )}
       <PageLayout.Header centered>
         <IconButton onClick={functions.handleBack} title={t('history.back')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />
@@ -160,21 +166,33 @@ function StudentProfilePage() {
                 avatarRing={state.avatarRing}
                 className={styles.avatar}
               />
-              <div className={styles['identity-info']}>
-                <Typography className={styles.name} variant="subtitle">
-                  {state.profile.name}
-                </Typography>
-                <div
-                  className={styles.balance}
-                  aria-label={`${t('coins.amount', { count: state.profile.balance })} ${t('coins.unit', { count: state.profile.balance })}`}
-                >
-                  <span aria-hidden="true">
-                    {t('coins.amount', { count: state.profile.balance })}
-                  </span>
-                  <span aria-hidden="true" className={cn('i-ph:coins', styles['coin-icon'])} />
-                </div>
-              </div>
+              <Typography className={styles.name} variant="subtitle">
+                {state.profile.name}
+              </Typography>
             </article>
+          )}
+          {!state.isEditing && (
+            <div className={styles.balance}>
+              <p
+                className={styles['balance-amount']}
+                aria-label={`${t('coins.amount', { count: state.profile.balance })} ${t('coins.unit', { count: state.profile.balance })}`}
+              >
+                <span aria-hidden="true">
+                  {t('coins.amount', { count: state.profile.balance })}
+                </span>
+              </p>
+            </div>
+          )}
+          {!state.isEditing && (
+            <AchievementsPreview.Root variant="profile">
+              <AchievementsPreview.Header>
+                <AchievementsPreview.Title>
+                  {t('achievements.preview.title')}
+                </AchievementsPreview.Title>
+                {state.isOwnProfile && <AchievementsPreview.AllLink />}
+              </AchievementsPreview.Header>
+              <AchievementsPreview.Collection studentId={state.profile.id} />
+            </AchievementsPreview.Root>
           )}
           {state.isOwnProfile && !state.isEditing && (
             <Feedback source="profile_avatar" className={styles.feedback} />

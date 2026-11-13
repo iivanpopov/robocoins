@@ -1,3 +1,26 @@
+.page {
+  position: relative;
+  isolation: isolate;
+}
+
+.watermark {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: clip;
+  pointer-events: none;
+  user-select: none;
+}
+
+.watermark-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: clamp(48rem, 180vmax, 120rem);
+  color: color-mix(in srgb, var(--brand) 8%, var(--background));
+  transform: translate(-50%, -50%) rotate(-15deg);
+}
+
 .loader {
   align-items: center;
 }
@@ -7,13 +30,6 @@
   gap: var(--spacing-lg);
   align-items: center;
   text-align: left;
-}
-
-.identity-info {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-  min-width: 0;
 }
 
 .feedback {
@@ -33,23 +49,28 @@
 }
 
 .name {
+  min-width: 0;
   font-size: 1.375rem;
   overflow-wrap: anywhere;
 }
 
 .balance {
   display: flex;
-  gap: 0.35rem;
-  align-items: baseline;
-  font-size: 1.5rem;
-  font-weight: 700;
+  justify-content: center;
+  min-width: 0;
+  padding-block: var(--spacing-lg) var(--spacing-2xl);
+  container-type: inline-size;
   color: var(--foreground);
 }
 
-.coin-icon {
-  font-size: 1.1rem;
-  color: var(--blue-500);
-  background-color: var(--blue-500);
+.balance-amount {
+  font-size: clamp(3rem, 18cqi, 6rem);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.05;
+  text-align: center;
+  letter-spacing: -0.045em;
+  overflow-wrap: anywhere;
 }
 
 .section {

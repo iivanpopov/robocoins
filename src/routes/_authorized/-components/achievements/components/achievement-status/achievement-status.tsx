@@ -19,7 +19,7 @@ export function AchievementStatus(props: AchievementStatusProps) {
   const showThreshold = props.showThreshold ?? true
 
   return (
-    <span className={cn(styles.status, props.className)}>
+    <span className={cn(styles.status, props.className)} data-earned={props.earned}>
       <span className={styles.label} data-earned={props.earned}>
         <span
           aria-hidden="true"

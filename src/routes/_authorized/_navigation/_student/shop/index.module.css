@@ -18,7 +18,7 @@
 
 .shop-header {
   position: absolute;
-  top: max(16px, env(safe-area-inset-top));
+  top: max(var(--spacing-xl), env(safe-area-inset-top));
   right: 0;
   left: 0;
   z-index: 2;
@@ -34,8 +34,8 @@
 
 .shop-header-solid {
   top: 0;
-  padding-top: max(8px, env(safe-area-inset-top));
-  padding-bottom: var(--spacing-sm);
+  padding-top: max(var(--spacing-xl), env(safe-area-inset-top));
+  padding-bottom: var(--spacing-lg);
   background: var(--background);
 }
 
@@ -130,7 +130,8 @@
 .catalog {
   position: absolute;
   inset: 0;
-  padding: 84px 24px calc(160px + env(safe-area-inset-bottom));
+  padding: calc(44px + var(--spacing-xl) * 2) var(--spacing-xl)
+    calc(160px + env(safe-area-inset-bottom));
   overflow: auto;
   overscroll-behavior: contain;
   touch-action: pan-y;

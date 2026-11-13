@@ -19,16 +19,18 @@ export interface PageLayoutHeaderProps extends ComponentProps<'header'> {
 }
 
 function Root(props: PageLayoutRootProps) {
+  const elementProps = { ...props }
+  delete elementProps.bottomSpace
+  delete elementProps.variant
+  delete elementProps.render
+
   return useRender({
     defaultTagName: 'section',
     render: props.render,
     props: {
-      ...props,
+      ...elementProps,
       className: cn(styles.page, props.bottomSpace && styles['bottom-space'], props.className),
       'data-variant': props.variant ?? 'compact',
-      bottomSpace: undefined,
-      render: undefined,
-      variant: undefined,
     },
   })
 }

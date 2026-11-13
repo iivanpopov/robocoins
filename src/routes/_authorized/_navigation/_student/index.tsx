@@ -10,17 +10,12 @@ import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryOptions
 import { StudentProfileResponse } from '#/api/types'
 import { Loader } from '#/components/ui'
 import { Feedback, InlineError } from '#/routes/-components'
+import { PageLayout } from '#/routes/-components/page-layout'
 import { COOKIE_MAX_AGE, LAST_LOG_ON_COOKIE } from '#/routes/-constants'
+import { AchievementsPreview } from '#/routes/_authorized/-components/achievements-preview'
 import { readCookie } from '#/utils/cookies'
 
-import {
-  AchievementsPreview,
-  EarnWays,
-  GoalCard,
-  HistoryPreview,
-  LeaderboardPreview,
-  StudentHero,
-} from './-components'
+import { EarnWays, GoalCard, HistoryPreview, LeaderboardPreview, StudentHero } from './-components'
 import { DailyMission } from './-components/daily-mission'
 import {
   getWeeklyLeaderboardQueryOptions,
@@ -111,7 +106,12 @@ function StudentPage() {
   const t = useTranslate()
 
   return (
-    <main className={styles.page} data-gradient={state.gradientVariant}>
+    <PageLayout.Root
+      variant="comfortable"
+      render={<main />}
+      className={styles.page}
+      data-gradient={state.gradientVariant}
+    >
       <StudentHero
         name={state.profile.name}
         avatar={state.avatar}
@@ -142,7 +142,13 @@ function StudentPage() {
         />
       )}
       <DailyMission studentId={state.profile.id} />
-      <AchievementsPreview studentId={state.profile.id} />
+      <AchievementsPreview.Root>
+        <AchievementsPreview.Header>
+          <AchievementsPreview.Title>{t('achievements.preview.title')}</AchievementsPreview.Title>
+          <AchievementsPreview.AllLink />
+        </AchievementsPreview.Header>
+        <AchievementsPreview.Preview studentId={state.profile.id} limit={3} />
+      </AchievementsPreview.Root>
       <EarnWays />
       <LeaderboardPreview />
       <HistoryPreview
@@ -154,6 +160,6 @@ function StudentPage() {
         onViewAll={functions.handleViewHistory}
       />
       <Feedback source="student_home" className={styles.feedback} />
-    </main>
+    </PageLayout.Root>
   )
 }
