@@ -8,6 +8,7 @@ import {
   getDailyTaskDailyStudentIdDailyTaskGetQueryKey,
   useGetDailyTaskDailyStudentIdDailyTaskGet,
 } from '#/api/hooks/useGetDailyTaskDailyStudentIdDailyTaskGet'
+import { getStudentAchievementProgressStudentStudentIdAchievementsGetQueryKey } from '#/api/hooks/useGetStudentAchievementProgressStudentStudentIdAchievementsGet'
 import { getStudentBalanceByIdStudentStudentIdBalanceGetQueryKey } from '#/api/hooks/useGetStudentBalanceByIdStudentStudentIdBalanceGet'
 import { getStudentByIdStudentStudentIdGetQueryKey } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
 import { getStudentRewardProgressStudentStudentIdRewardProgressGetQueryKey } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
@@ -51,6 +52,7 @@ export function useDailyMissionPage() {
             getDailyTaskDailyStudentIdDailyTaskGetQueryKey({ path }),
             getStudentStreakStudentStudentIdStreakGetQueryKey({ path }),
             getStudentBalanceByIdStudentStudentIdBalanceGetQueryKey({ path }),
+            getStudentAchievementProgressStudentStudentIdAchievementsGetQueryKey({ path }),
             getStudentByIdStudentStudentIdGetQueryKey({ path }),
             getStudentRewardProgressStudentStudentIdRewardProgressGetQueryKey({ path }),
             getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryKey({ path }),

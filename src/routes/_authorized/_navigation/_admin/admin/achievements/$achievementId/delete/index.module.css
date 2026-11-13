@@ -1,0 +1,88 @@
+.page {
+  max-width: 36rem;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  align-items: flex-start;
+  width: 100%;
+}
+
+.achievement {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  align-items: flex-start;
+  width: 100%;
+  padding: var(--spacing-md);
+  background: var(--surface);
+  border-radius: var(--rounded-lg);
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 12rem;
+}
+
+.name {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--foreground);
+}
+
+.description {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+.threshold {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.notice {
+  padding: var(--spacing-lg);
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  text-align: center;
+  background: var(--surface);
+  border-radius: var(--rounded-md);
+}
+
+.danger {
+  background: var(--error);
+}
+
+.danger:hover {
+  background: var(--error-hover);
+}
+
+.success-icon {
+  font-size: 2.5rem;
+  color: var(--brand);
+}
+
+.deleted-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}

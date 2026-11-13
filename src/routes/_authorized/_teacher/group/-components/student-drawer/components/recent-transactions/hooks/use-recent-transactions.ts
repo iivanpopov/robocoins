@@ -4,6 +4,7 @@ import { useRef, useState } from 'react'
 
 import { useCancelStudentTransactionStudentTransactionsTransactionIdCancelPost } from '#/api/hooks/useCancelStudentTransactionStudentTransactionsTransactionIdCancelPost'
 import { getGroupByIdGroupIdGroupIdGetQueryKey } from '#/api/hooks/useGetGroupByIdGroupIdGroupIdGet'
+import { getStudentAchievementProgressStudentStudentIdAchievementsGetQueryKey } from '#/api/hooks/useGetStudentAchievementProgressStudentStudentIdAchievementsGet'
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryKey } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { useGetStudentTransactionHistoryStudentStudentIdTransactionsGet } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { BalanceHistoryResponse, GroupResponse } from '#/api/types'
@@ -131,6 +132,11 @@ export function useRecentTransactions(props: UseRecentTransactionsProps) {
             }),
             queryClient.invalidateQueries({
               queryKey: getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryKey({
+                path: { student_id: props.studentId },
+              }),
+            }),
+            queryClient.invalidateQueries({
+              queryKey: getStudentAchievementProgressStudentStudentIdAchievementsGetQueryKey({
                 path: { student_id: props.studentId },
               }),
             }),

@@ -1,3 +1,4 @@
+import achievements from './admin/achievements'
 import catalog from './admin/catalog'
 import courses from './admin/courses'
 import groups from './admin/groups'
@@ -11,5 +12,6 @@ export default {
   ...people,
   ...operations,
   ...catalog,
+  ...achievements,
   ...shared,
 }

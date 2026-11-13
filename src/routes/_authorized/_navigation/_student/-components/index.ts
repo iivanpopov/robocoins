@@ -1,4 +1,5 @@
 export { EarnWays } from './earn-ways'
+export { AchievementsPreview } from './achievements-preview'
 export { GoalCard } from './goal-card'
 export { HistoryPreview } from './history-preview'
 export { LeaderboardPreview } from './leaderboard'

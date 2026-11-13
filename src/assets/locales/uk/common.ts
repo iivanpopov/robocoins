@@ -1,4 +1,7 @@
+import achievements from './achievements'
+
 export default {
+  ...achievements,
   'access.code.copied': 'Код скопійовано',
   'access.code.label': 'Код доступу',
   'access.code.reset': 'Скинути код',
@@ -122,6 +125,7 @@ export default {
   'history.loading': 'Завантаження історії…',
   'history.no-reason': 'Причину не вказано',
   'history.title': 'Уся історія нагород',
+  'navbar.achievements': 'Досягнення',
   'navbar.catalog': 'Каталог',
   'navbar.home': 'Головна',
   'navbar.label': 'Основна навігація',

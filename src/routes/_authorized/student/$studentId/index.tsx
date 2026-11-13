@@ -89,6 +89,7 @@ function StudentProfilePage() {
 
   return (
     <PageLayout.Root
+      variant="comfortable"
       bottomSpace
       className={cn(state.isEditing && styles['editing-page'])}
       style={{ '--keyboard-inset': `${state.keyboardInset}px` } as CSSProperties}

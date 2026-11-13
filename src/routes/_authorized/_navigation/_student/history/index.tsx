@@ -25,6 +25,7 @@ function HistoryPage() {
   return (
     <RewardHistory
       studentId={state.studentId}
+      variant="comfortable"
       backLink={
         <IconButton nativeButton={false} render={<Link to="/" />} title={t('history.back')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />

@@ -25,6 +25,7 @@ export const CATALOG_QUERY_KEYS: QueryKey[] = [
 export const LIVE_QUERY_KEYS: QueryKey[] = [
   [{ url: '/student/:student_id' }],
   [{ url: '/student/:student_id/balance' }],
+  [{ url: '/student/:student_id/achievements' }],
   [{ url: '/student/:student_id/reward-progress' }],
   [{ url: '/student/:student_id/transactions' }],
   [{ url: '/group/id/:group_id' }],

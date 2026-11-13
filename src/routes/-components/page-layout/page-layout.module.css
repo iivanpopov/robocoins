@@ -12,9 +12,17 @@
   padding-bottom: 4rem;
 }
 
+.page[data-variant='compact'] {
+  --page-layout-header-gap: var(--spacing-sm);
+}
+
+.page[data-variant='comfortable'] {
+  --page-layout-header-gap: var(--spacing-xl);
+}
+
 .header {
   display: flex;
-  gap: var(--spacing-sm);
+  gap: var(--page-layout-header-gap, var(--spacing-sm));
   align-items: flex-start;
   justify-content: space-between;
 }

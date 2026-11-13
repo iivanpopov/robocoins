@@ -1,0 +1,71 @@
+.fields {
+  gap: var(--spacing-lg);
+}
+
+.textarea {
+  width: 100%;
+  min-height: 6rem;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--foreground);
+  resize: vertical;
+  outline: none;
+  background: var(--surface);
+  border: none;
+  border-radius: var(--rounded-md);
+}
+
+.textarea::placeholder {
+  color: var(--muted-foreground);
+  transition: color 0.15s ease;
+}
+
+.textarea:focus::placeholder {
+  color: var(--brand);
+}
+
+.textarea:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  align-items: center;
+  padding: var(--spacing-md);
+  background: var(--surface);
+  border-radius: var(--rounded-lg);
+}
+
+.preview-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 12rem;
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+
+.preview-tier {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.note {
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+.static {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--foreground);
+}

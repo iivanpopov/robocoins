@@ -40,7 +40,7 @@ function SettingsPage() {
   const t = useTranslate()
 
   return (
-    <PageLayout.Root className={styles.page}>
+    <PageLayout.Root variant={state.pageLayoutVariant} className={styles.page}>
       <PageLayout.Header>
         <PageLayout.Heading>
           <PageLayout.Title>{t('navbar.settings')}</PageLayout.Title>

@@ -1,0 +1,58 @@
+.status {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  width: 100%;
+}
+
+.label {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+  align-self: flex-start;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.label[data-earned='true'] {
+  color: var(--brand);
+}
+
+.label[data-earned='false'] {
+  color: var(--muted-foreground);
+}
+
+.track {
+  display: block;
+  order: 2;
+  width: 100%;
+  height: 0.5rem;
+  overflow: hidden;
+  background: var(--muted);
+  border-radius: var(--rounded-full);
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  background: var(--brand);
+  border-radius: inherit;
+  transition: width 0.25s ease;
+}
+
+.progress {
+  order: 1;
+  margin-top: var(--spacing-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--brand);
+}
+
+.threshold {
+  order: -1;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--foreground);
+}

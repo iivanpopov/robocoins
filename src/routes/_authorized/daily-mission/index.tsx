@@ -45,7 +45,7 @@ function DailyMissionPage() {
   const t = useTranslate()
 
   return (
-    <PageLayout.Root render={<main />} className={cn('student', styles.page)}>
+    <PageLayout.Root variant="comfortable" render={<main />} className={cn('student', styles.page)}>
       <PageLayout.Header align="end" centered className={styles.header}>
         <IconButton onClick={functions.handleHome} title={t('navigation.home')}>
           <span className="i-ph:arrow-left" aria-hidden="true" />
