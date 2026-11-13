@@ -169,7 +169,7 @@ export function useShopPage() {
   }
 
   const selectedReward = rewardSelection.selection.reward
-  const currentGoalId = goalQuery.data?.reward?.id ?? null
+  const currentGoalId = goalQuery.data?.current_goal?.id ?? null
   const isCurrentGoal = Boolean(selectedReward && selectedReward.id === currentGoalId)
   const isGoalBusy =
     goalMutation.isPending ||

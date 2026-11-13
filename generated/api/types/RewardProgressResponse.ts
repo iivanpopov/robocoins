@@ -17,7 +17,7 @@ export type RewardProgressResponse = {
    */
   code?: number;
   balance: number;
-  reward: RewardResponse | null;
+  current_goal: RewardResponse | null;
   coins_remaining: number | null;
   progress_percent: number | null;
 };

@@ -69,12 +69,6 @@ export function GoalCard(props: GoalCardProps) {
           </p>
         )}
         {props.isCompleted && <p className={styles.remaining}>{t('profile.goal.completed')}</p>}
-        {props.isCompleted && (
-          <Button className={styles.action} size="md" onClick={props.onOpenShop}>
-            {t('profile.goal.claim')}
-            <span aria-hidden="true" className="i-ph:gift" />
-          </Button>
-        )}
       </div>
     </article>
   )

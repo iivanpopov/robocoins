@@ -205,9 +205,11 @@ function StudentBalanceContent(props: StudentBalanceContentProps) {
 
             <div className={styles.metric}>
               <span className={styles.label}>{t('admin.balance.summary.reward')}</span>
-              {!!state.rewardProgress?.reward && (
+              {!!state.rewardProgress?.current_goal && (
                 <>
-                  <span className={styles['reward-name']}>{state.rewardProgress.reward.name}</span>
+                  <span className={styles['reward-name']}>
+                    {state.rewardProgress.current_goal.name}
+                  </span>
                   {state.rewardProgressPercent !== null && (
                     <div
                       className={styles.progress}
@@ -226,7 +228,7 @@ function StudentBalanceContent(props: StudentBalanceContentProps) {
                   <span className={styles.caption}>
                     {t('admin.balance.summary.reward-progress', {
                       saved: state.rewardProgress.balance,
-                      price: state.rewardProgress.reward.price,
+                      price: state.rewardProgress.current_goal.price,
                     })}
                   </span>
                   {state.rewardProgress.coins_remaining !== null &&
@@ -244,7 +246,7 @@ function StudentBalanceContent(props: StudentBalanceContentProps) {
                   )}
                 </>
               )}
-              {!state.rewardProgress?.reward && (
+              {!state.rewardProgress?.current_goal && (
                 <span className={styles.caption}>{t('admin.balance.summary.reward-none')}</span>
               )}
             </div>
