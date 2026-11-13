@@ -1,16 +1,8 @@
-import { createContext, ReactNode, use, useMemo, useState } from 'react'
+import { ReactNode, use, useMemo, useState } from 'react'
 
 import type { RegisterDraft } from '../../-schemas'
 import { registerDraft } from '../../-utils/register-draft'
-
-interface RegisterContextValue {
-  accessCode: string | undefined
-  setAccessCode: (accessCode: string) => void
-  setState: (newState: Partial<RegisterDraft>) => Promise<void>
-  state: RegisterDraft
-}
-
-const RegisterContext = createContext<RegisterContextValue>({} as RegisterContextValue)
+import { RegisterContext } from './lib'
 
 export interface RegisterProviderProps {
   initialState: RegisterDraft
@@ -36,5 +28,8 @@ export function RegisterProvider({ initialState, children }: RegisterProviderPro
 }
 
 export function useRegisterDraft() {
-  return use(RegisterContext)
+  const register = use(RegisterContext)
+
+  if (!register) throw new Error('Registration draft provider is unavailable')
+  return register
 }
