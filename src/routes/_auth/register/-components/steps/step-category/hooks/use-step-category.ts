@@ -15,6 +15,10 @@ export function useStepCategory() {
   const navigate = useNavigate({ from: '/register' })
   const coursesQuery = useGetCoursesCourseGet()
 
+  function handleRetryCourses() {
+    void coursesQuery.refetch()
+  }
+
   const categories = [...new Set(coursesQuery.data?.map((course) => course.category))].map(
     (category) => ({
       category,
@@ -65,6 +69,6 @@ export function useStepCategory() {
   return {
     state: { categories, selectedCategories },
     queries: { courses: coursesQuery },
-    functions: { handleToggleCategory, handleSubmit },
+    functions: { handleToggleCategory, handleSubmit, handleRetryCourses },
   }
 }

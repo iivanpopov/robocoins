@@ -16,6 +16,7 @@ import {
   IconButton,
   Loader,
 } from '#/components/ui'
+import { RequestErrorComponent } from '#/routes/-components/request-error-component'
 import {
   getRewardHistoryQueryOptions,
   RewardHistory,
@@ -66,6 +67,7 @@ export const Route = createFileRoute(
     return student
   },
   component: StudentHistoryPage,
+  errorComponent: RequestErrorComponent,
 })
 
 function StudentHistoryPage() {

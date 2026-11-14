@@ -9,7 +9,7 @@ import {
   Loader,
   Typography,
 } from '#/components/ui'
-import { LearningCard } from '#/routes/-components'
+import { InlineError, LearningCard } from '#/routes/-components'
 import { parseGroupSchedule } from '#/routes/-utils'
 
 import { useStepGroup } from './hooks'
@@ -30,6 +30,14 @@ export function StepGroup() {
       </DrawerHeader>
       <div className={styles.groups}>
         {queries.courses.isPending && <Loader />}
+        {queries.courses.isError && (
+          <InlineError
+            onRetry={functions.handleRetryCourses}
+            isRetrying={queries.courses.isFetching}
+          >
+            {t('error.description')}
+          </InlineError>
+        )}
         {queries.courses.isSuccess && !state.course?.groups?.length && (
           <Typography variant="caption">{t('step.selection.empty')}</Typography>
         )}

@@ -42,6 +42,12 @@ export function createQueryClient() {
       onError: (error, query) => {
         if (shouldIgnoreError(error, query.meta)) return
 
+        if (import.meta.env.DEV) {
+          console.error('[query]', error.stack ?? error.message)
+          if (ResponseError.is(error)) {
+            console.error('[query response body]', error.data)
+          }
+        }
         captureException(error, { tags: { source: 'query' } })
       },
     }),
@@ -49,6 +55,12 @@ export function createQueryClient() {
       onError: (error, _variables, _context, mutation) => {
         if (shouldIgnoreError(error, mutation.meta)) return
 
+        if (import.meta.env.DEV) {
+          console.error('[mutation]', error.stack ?? error.message)
+          if (ResponseError.is(error)) {
+            console.error('[mutation response body]', error.data)
+          }
+        }
         captureException(error, { tags: { source: 'mutation' } })
       },
     }),

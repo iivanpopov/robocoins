@@ -1,14 +1,13 @@
-.page {
-  gap: var(--spacing-lg);
+.page.page {
   min-height: 100dvh;
-  padding: max(var(--spacing-lg), env(safe-area-inset-top)) 0
-    max(var(--spacing-md), env(safe-area-inset-bottom));
+  padding: max(var(--spacing-xl), env(safe-area-inset-top)) 0
+    max(var(--spacing-xl), env(safe-area-inset-bottom));
   color: var(--foreground);
   background: var(--background);
 }
 
 .header {
-  padding-inline: var(--spacing-md);
+  padding-inline: var(--spacing-xl);
 }
 
 .scene {

@@ -32,7 +32,7 @@ function AchievementsPage() {
   const t = useTranslate()
 
   return (
-    <PageLayout.Root variant="comfortable" render={<main />} className={styles.page}>
+    <PageLayout.Root variant="comfortable" render={<main />}>
       <PageLayout.Header align="end" centered>
         <IconButton nativeButton={false} render={<Link to="/" />} title={t('achievements.back')}>
           <span className="i-ph:arrow-left" aria-hidden="true" />

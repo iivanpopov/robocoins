@@ -27,7 +27,7 @@ import styles from './$groupId.module.css'
 
 export const Route = createFileRoute('/_authorized/_teacher/group/$groupId')({
   loader: async ({ context, params }) => {
-    await Promise.all([
+    await Promise.allSettled([
       context.queryClient.query(
         getGroupByIdGroupIdGroupIdGetQueryOptions({ path: { group_id: Number(params.groupId) } }),
       ),

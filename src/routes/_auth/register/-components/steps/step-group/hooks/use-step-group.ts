@@ -11,6 +11,10 @@ export function useStepGroup() {
   const coursesQuery = useGetCoursesCourseGet()
   const navigation = useRegisterCategoryStep()
 
+  function handleRetryCourses() {
+    void coursesQuery.refetch()
+  }
+
   const course = coursesQuery.data?.find(
     (item) => item.category === navigation.category && register.state.courseIds?.includes(item.id),
   )
@@ -18,8 +22,9 @@ export function useStepGroup() {
   const canSubmit = coursesQuery.isSuccess && !!group
 
   const handleSelectGroup = (id: number) => {
+    if (!coursesQuery.isSuccess || !course?.groups?.some((group) => group.id === id)) return
     const otherCourses = getSelectedCoursesOutsideCategory(
-      coursesQuery.data!,
+      coursesQuery.data,
       register.state,
       navigation.category,
     )
@@ -40,6 +45,6 @@ export function useStepGroup() {
       canSubmit,
     },
     queries: { courses: coursesQuery },
-    functions: { handleSelectGroup, handleSubmit },
+    functions: { handleSelectGroup, handleSubmit, handleRetryCourses },
   }
 }

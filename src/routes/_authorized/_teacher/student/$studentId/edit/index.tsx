@@ -2,6 +2,7 @@ import { useTranslate } from '@kanjou/react'
 import { createFileRoute, notFound } from '@tanstack/react-router'
 import * as v from 'valibot'
 
+import { ResponseError } from '#/api/.kubb/client'
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
 import { getStudentByIdStudentStudentIdGetQueryOptions } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
 import { getTeacherGroupsTeacherGroupsGetQueryOptions } from '#/api/hooks/useGetTeacherGroupsTeacherGroupsGet'
@@ -27,6 +28,7 @@ import {
   Loader,
 } from '#/components/ui'
 import { InlineError, PageLayout } from '#/routes/-components'
+import { RequestErrorComponent } from '#/routes/-components/request-error-component'
 import { UserAvatar } from '#/routes/-components/user-avatar'
 import { cn } from '#/utils/cn'
 
@@ -68,12 +70,15 @@ export const Route = createFileRoute('/_authorized/_teacher/student/$studentId/e
       .query(
         getStudentByIdStudentStudentIdGetQueryOptions({ path: { student_id: params.studentId } }),
       )
-      .catch(() => undefined)
+      .catch((error) => {
+        if (ResponseError.is(error) && error.status === 404) throw notFound()
+        throw error
+      })
     if (!student) throw notFound()
 
-    const [groups, _courses] = await Promise.all([
+    const [groups] = await Promise.all([
       context.queryClient.query(getTeacherGroupsTeacherGroupsGetQueryOptions()),
-      context.queryClient.query(getCoursesCourseGetQueryOptions()),
+      context.queryClient.query(getCoursesCourseGetQueryOptions()).catch(() => undefined),
     ])
     const isStudentAccessible = student.group_ids.some((groupId) =>
       groups.some((group) => group.id === groupId),
@@ -89,6 +94,7 @@ export const Route = createFileRoute('/_authorized/_teacher/student/$studentId/e
       .catch(() => undefined)
   },
   component: StudentEditPage,
+  errorComponent: RequestErrorComponent,
 })
 
 function StudentEditPage() {

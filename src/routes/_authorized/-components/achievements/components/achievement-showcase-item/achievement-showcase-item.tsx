@@ -12,6 +12,8 @@ export interface AchievementShowcaseItemProps {
 }
 
 export function AchievementShowcaseItem(props: AchievementShowcaseItemProps) {
+  const t = useTranslate()
+
   return (
     <figure className={cn(styles.item, props.className)} data-earned={props.achievement.earned}>
       <span className={styles.media}>
@@ -22,14 +24,30 @@ export function AchievementShowcaseItem(props: AchievementShowcaseItemProps) {
         />
       </span>
       <figcaption className={styles.body}>
-        <h3 className={styles.name}>{props.achievement.name}</h3>
+        <div className={styles.heading}>
+          <h3 className={styles.name}>{props.achievement.name}</h3>
+          {props.achievement.earned && (
+            <span className={styles.earned}>
+              <span aria-hidden="true" className="i-ph:check-circle-fill" />
+              {t('achievements.earned')}
+            </span>
+          )}
+        </div>
         <p className={styles.description}>{props.achievement.description}</p>
-        <AchievementStatus
-          earned={props.achievement.earned}
-          progressPercent={props.achievement.progress_percent}
-          requiredCoins={props.achievement.required_coins}
-        />
+        {props.achievement.earned && props.achievement.required_coins !== null && (
+          <p className={styles.threshold}>
+            {t('achievements.required', { count: props.achievement.required_coins })}
+          </p>
+        )}
+        {!props.achievement.earned && (
+          <AchievementStatus
+            earned={props.achievement.earned}
+            progressPercent={props.achievement.progress_percent}
+            requiredCoins={props.achievement.required_coins}
+          />
+        )}
       </figcaption>
     </figure>
   )
 }
+import { useTranslate } from '@kanjou/react'

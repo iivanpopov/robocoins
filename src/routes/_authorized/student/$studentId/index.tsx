@@ -3,6 +3,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router'
 import type { CSSProperties } from 'react'
 import * as v from 'valibot'
 
+import { ResponseError } from '#/api/.kubb/client'
 import { getCoursesCourseGetQueryOptions } from '#/api/hooks/useGetCoursesCourseGet'
 import { getStudentByIdStudentStudentIdGetQueryOptions } from '#/api/hooks/useGetStudentByIdStudentStudentIdGet'
 import { getTeacherGroupsTeacherGroupsGetQueryOptions } from '#/api/hooks/useGetTeacherGroupsTeacherGroupsGet'
@@ -23,7 +24,9 @@ import {
 import { Feedback } from '#/routes/-components'
 import { InlineError } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
+import { RequestErrorComponent } from '#/routes/-components/request-error-component'
 import { UserAvatar } from '#/routes/-components/user-avatar'
+import { AchievementsPreview } from '#/routes/_authorized/-components/achievements-preview'
 import { GroupCard } from '#/routes/_authorized/-components/group-card'
 import { cn } from '#/utils/cn'
 
@@ -66,13 +69,16 @@ export const Route = createFileRoute('/_authorized/student/$studentId/')({
       .query(
         getStudentByIdStudentStudentIdGetQueryOptions({ path: { student_id: params.studentId } }),
       )
-      .catch(() => undefined)
+      .catch((error) => {
+        if (ResponseError.is(error) && error.status === 404) throw notFound()
+        throw error
+      })
     if (!student) throw notFound()
     if (user?.role === 'student') return student
 
-    const [groups, _courses] = await Promise.all([
+    const [groups] = await Promise.all([
       context.queryClient.query(getTeacherGroupsTeacherGroupsGetQueryOptions()),
-      context.queryClient.query(getCoursesCourseGetQueryOptions()),
+      context.queryClient.query(getCoursesCourseGetQueryOptions()).catch(() => undefined),
     ])
     const isStudentAccessible = student.group_ids.some((groupId) =>
       groups.some((group) => group.id === groupId),
@@ -80,6 +86,7 @@ export const Route = createFileRoute('/_authorized/student/$studentId/')({
     if (!isStudentAccessible) throw notFound()
   },
   component: StudentProfilePage,
+  errorComponent: RequestErrorComponent,
 })
 
 function StudentProfilePage() {
@@ -91,9 +98,14 @@ function StudentProfilePage() {
     <PageLayout.Root
       variant="comfortable"
       bottomSpace
-      className={cn(state.isEditing && styles['editing-page'])}
+      className={cn(styles.page, state.isEditing && styles['editing-page'])}
       style={{ '--keyboard-inset': `${state.keyboardInset}px` } as CSSProperties}
     >
+      {!state.isEditing && (
+        <div aria-hidden="true" className={styles.watermark}>
+          <span className={cn('i-ph:coins', styles['watermark-icon'])} />
+        </div>
+      )}
       <PageLayout.Header centered>
         <IconButton onClick={functions.handleBack} title={t('history.back')}>
           <span aria-hidden="true" className="i-ph:arrow-left" />
@@ -160,21 +172,33 @@ function StudentProfilePage() {
                 avatarRing={state.avatarRing}
                 className={styles.avatar}
               />
-              <div className={styles['identity-info']}>
-                <Typography className={styles.name} variant="subtitle">
-                  {state.profile.name}
-                </Typography>
-                <div
-                  className={styles.balance}
-                  aria-label={`${t('coins.amount', { count: state.profile.balance })} ${t('coins.unit', { count: state.profile.balance })}`}
-                >
-                  <span aria-hidden="true">
-                    {t('coins.amount', { count: state.profile.balance })}
-                  </span>
-                  <span aria-hidden="true" className={cn('i-ph:coins', styles['coin-icon'])} />
-                </div>
-              </div>
+              <Typography className={styles.name} variant="subtitle">
+                {state.profile.name}
+              </Typography>
             </article>
+          )}
+          {!state.isEditing && (
+            <div className={styles.balance}>
+              <p
+                className={styles['balance-amount']}
+                aria-label={`${t('coins.amount', { count: state.profile.balance })} ${t('coins.unit', { count: state.profile.balance })}`}
+              >
+                <span aria-hidden="true">
+                  {t('coins.amount', { count: state.profile.balance })}
+                </span>
+              </p>
+            </div>
+          )}
+          {!state.isEditing && (
+            <AchievementsPreview.Root variant="profile">
+              <AchievementsPreview.Header>
+                <AchievementsPreview.Title>
+                  {t('achievements.preview.title')}
+                </AchievementsPreview.Title>
+                {state.isOwnProfile && <AchievementsPreview.AllLink />}
+              </AchievementsPreview.Header>
+              <AchievementsPreview.Collection studentId={state.profile.id} />
+            </AchievementsPreview.Root>
           )}
           {state.isOwnProfile && !state.isEditing && (
             <Feedback source="profile_avatar" className={styles.feedback} />
@@ -182,6 +206,12 @@ function StudentProfilePage() {
           {state.isTeacher && (
             <section className={styles.section}>
               <h2 className={styles['section-title']}>{t('groups.title')}</h2>
+              {state.isGroupsPending && <Loader />}
+              {state.isGroupsError && (
+                <InlineError onRetry={functions.handleRetry} isRetrying={state.isGroupsFetching}>
+                  {t('group.error')}
+                </InlineError>
+              )}
               {!!state.groupCards.length && (
                 <div className={styles['group-list']}>
                   {state.groupCards.map((group) => (
@@ -189,7 +219,7 @@ function StudentProfilePage() {
                   ))}
                 </div>
               )}
-              {!state.groupCards.length && (
+              {!state.isGroupsPending && !state.isGroupsError && !state.groupCards.length && (
                 <p className={styles.empty}>{t('profile.groups.empty')}</p>
               )}
             </section>

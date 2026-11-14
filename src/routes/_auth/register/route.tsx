@@ -18,7 +18,7 @@ export const Route = createFileRoute('/_auth/register')({
   component: RouteComponent,
   validateSearch: RouteSearchSchema,
   loader: async ({ context }) => {
-    await context.queryClient.query(getCoursesCourseGetQueryOptions())
+    await context.queryClient.query(getCoursesCourseGetQueryOptions()).catch(() => undefined)
     return registerDraft.get()
   },
 })

@@ -18,6 +18,13 @@
 
 .page[data-variant='comfortable'] {
   --page-layout-header-gap: var(--spacing-xl);
+
+  gap: var(--spacing-xl);
+  padding: var(--spacing-xl);
+}
+
+.page[data-variant='comfortable'].bottom-space {
+  padding-bottom: 4rem;
 }
 
 .header {

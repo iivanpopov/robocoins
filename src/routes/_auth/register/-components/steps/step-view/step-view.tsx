@@ -8,7 +8,7 @@ import {
   Loader,
   Typography,
 } from '#/components/ui'
-import { LearningCard } from '#/routes/-components'
+import { InlineError, LearningCard } from '#/routes/-components'
 import { getAvatarUrl, getInitial, parseGroupSchedule } from '#/routes/-utils'
 import { AuthLayout } from '#/routes/_auth/-components'
 
@@ -40,6 +40,14 @@ export function StepView() {
 
         <div className={styles.groups}>
           {queries.courses.isPending && <Loader />}
+          {queries.courses.isError && (
+            <InlineError
+              onRetry={functions.handleRetryCourses}
+              isRetrying={queries.courses.isFetching}
+            >
+              {t('error.description')}
+            </InlineError>
+          )}
           {state.groups.map((group) => {
             const schedule = parseGroupSchedule(group.name)
             return (

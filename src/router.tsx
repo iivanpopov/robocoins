@@ -26,7 +26,15 @@ export function getRouter() {
     defaultNotFoundComponent: NotFoundComponent,
     defaultErrorComponent: ErrorComponent,
     defaultPendingComponent: PendingComponent,
-    defaultOnCatch: (error) => captureException(error),
+    defaultOnCatch: (error) => {
+      if (import.meta.env.DEV) {
+        console.error(
+          '[router]',
+          error instanceof Error ? (error.stack ?? error.message) : String(error),
+        )
+      }
+      captureException(error)
+    },
   })
 
   setupRouterSsrQueryIntegration({ router, queryClient })

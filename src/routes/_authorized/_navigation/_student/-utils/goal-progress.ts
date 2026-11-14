@@ -17,11 +17,11 @@ export function getGoalProgressCookieName(studentId: number) {
 }
 
 export function getGoalProgressSnapshot(data: RewardProgressResponse | undefined) {
-  if (!data?.reward) return null
+  if (!data?.current_goal) return null
 
   const snapshot = {
-    goalId: data.reward.id,
-    price: data.reward.price,
+    goalId: data.current_goal.id,
+    price: data.current_goal.price,
     balance: data.balance,
     progress: Math.max(0, Math.min(100, data.progress_percent ?? 0)),
   }

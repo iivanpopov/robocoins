@@ -54,9 +54,9 @@ export function useStudentPage() {
   const goal =
     !isGoalPending &&
     !isGoalError &&
-    goalQuery.data?.reward &&
-    isRewardEligible(goalQuery.data.reward, categoriesQuery.data)
-      ? goalQuery.data.reward
+    goalQuery.data?.current_goal &&
+    isRewardEligible(goalQuery.data.current_goal, categoriesQuery.data)
+      ? goalQuery.data.current_goal
       : null
   const goalProgress = useGoalProgress(
     profile.id,
