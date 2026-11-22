@@ -28,8 +28,7 @@ export function useCamera(cameraRef: React.RefObject<Camera>, onChange: () => vo
     const origin = { ...cameraRef.current }
     const startedAt = performance.now()
     function handleFrame(now: number) {
-      let progress = Math.min(1, (now - startedAt) / duration)
-      if (prefersReducedMotion()) progress = 1
+      const progress = Math.min(1, (now - startedAt) / duration)
       const eased = getCameraProgress(progress)
       cameraRef.current = {
         x: origin.x + (target.x - origin.x) * eased,

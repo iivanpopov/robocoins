@@ -13,7 +13,7 @@ import {
 import { PageLayout } from '#/routes/-components/page-layout'
 
 import { CourseForm, ResultPanel } from '../../-components'
-import { useCategoryCreatePage } from '../../-hooks'
+import { useCategoryCreatePage } from './-hooks'
 
 import styles from './index.module.css'
 

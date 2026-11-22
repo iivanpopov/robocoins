@@ -11,6 +11,7 @@ import {
   IconButton,
   Input,
   Loader,
+  Select,
 } from '#/components/ui'
 import { PageLayout } from '#/routes/-components/page-layout'
 
@@ -19,7 +20,7 @@ import {
   EXPLANATION_MAX_LENGTH,
   TARIFF_INPUT_MAX_LENGTH,
 } from '../-constants'
-import { AdminSelect, ApiErrorNotice } from '../../-components'
+import { ApiErrorNotice } from '../../-components'
 import { LocalDraftNotice } from './-components'
 import { useLocalSettingsPage } from './-hooks'
 
@@ -94,15 +95,28 @@ function LocalSettingsPage() {
                   <FieldLabel htmlFor="operations-correction-student">
                     {t('role.student')}
                   </FieldLabel>
-                  <AdminSelect
-                    id="operations-correction-student"
-                    value={field.state.value}
-                    onValueChange={field.handleChange}
+                  <Select.Root
+                    value={field.state.value || null}
+                    onValueChange={(value) => field.handleChange(value ?? '')}
                     items={state.studentItems}
-                    placeholder={t('admin.operations.settings.correction.student-placeholder')}
-                    ariaLabel={t('role.student')}
                     disabled={!state.students.length}
-                  />
+                  >
+                    <Select.Trigger
+                      id="operations-correction-student"
+                      aria-label={t('role.student')}
+                    >
+                      <Select.Value
+                        placeholder={t('admin.operations.settings.correction.student-placeholder')}
+                      />
+                    </Select.Trigger>
+                    <Select.Content>
+                      {state.studentItems.map((item) => (
+                        <Select.Item key={item.value} value={item.value}>
+                          {item.label}
+                        </Select.Item>
+                      ))}
+                    </Select.Content>
+                  </Select.Root>
                   {!!field.state.meta.errors.length && (
                     <p className={styles.validation}>
                       {t('admin.operations.settings.correction.student-error')}

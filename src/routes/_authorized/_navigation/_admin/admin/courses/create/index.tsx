@@ -6,7 +6,7 @@ import { PageLayout } from '#/routes/-components/page-layout'
 
 import { CourseCategoryChips, CourseForm, CourseRequestError, ResultPanel } from '../-components'
 import { CourseCategoryFilter } from '../-constants'
-import { useCreateCoursePage } from '../-hooks'
+import { useCreateCoursePage } from './-hooks'
 
 import styles from './index.module.css'
 

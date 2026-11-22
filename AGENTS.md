@@ -14,6 +14,10 @@ Single-context layout: root `GLOSSARY.md` plus `docs/adr/`. See `docs/agents/dom
 
 ## Code style
 
+### UI component composition
+
+- Prefer compound components for selects, dropdown menus, comboboxes, and similar controls. Expose related parts under one namespace (for example, `Select.Root`, `Select.Trigger`, `Select.Content`, `Select.Item`) and compose those parts at the call site for feature-specific needs.
+
 ### Conditions and classes
 
 - In JSX, use separate `condition && ...` and `!condition && ...` branches instead of ternary operators. This also applies to JSX prop expressions, including class and handler selection.
@@ -38,15 +42,15 @@ Single-context layout: root `GLOSSARY.md` plus `docs/adr/`. See `docs/agents/dom
 
 ### Component and hook body order
 
-Arrange components and custom hooks in the following order. Omit unused sections and separate non-empty sections with a blank line:
+Use this default order in components and custom hooks. When an earlier section needs a value or callback, declare it before its first use. Omit unused sections and separate non-empty sections with a blank line:
 
 1. TanStack Router hooks: `useParams`, `useSearch`, `useNavigate`, `useRouteContext`, etc.
 2. State hooks: `useState`, `useReducer`, `useRef`.
 3. Queries and mutations.
 4. Form hooks.
-5. Effects: `useEffect` and related effect hooks, after all other hook calls.
-6. Functions: handlers and helpers.
-7. Derived values.
+5. Derived values, including `useMemo` results.
+6. Handlers and helpers, including `useCallback` callbacks.
+7. Effects: `useEffect` and related effect hooks.
 8. Return statement.
 
 For page components, the page model hook must be called and destructured first, followed by Kanjou hooks such as `useTranslate()`. This page-specific rule takes precedence over the general order above.

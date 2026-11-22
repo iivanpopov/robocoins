@@ -261,23 +261,6 @@ export function useMembershipOperations() {
     removeStudentMutation.reset()
   }
 
-  const hasFailures = results.some(
-    (result) => result.addition === 'failed' || result.removal === 'failed',
-  )
-  const hasUnknown = results.some(
-    (result) => result.addition === 'unknown' || result.removal === 'unknown',
-  )
-  const hasPartial = results.some(
-    (result) =>
-      (result.addition === 'added' || result.addition === 'skipped') && result.removal === 'failed',
-  )
-  const hasSessionFailure = results.some(
-    (result) => result.additionErrorStatus === 401 || result.removalErrorStatus === 401,
-  )
-  const hasForbiddenFailure = results.some(
-    (result) => result.additionErrorStatus === 403 || result.removalErrorStatus === 403,
-  )
-
   return {
     state: {
       results,
@@ -285,11 +268,6 @@ export function useMembershipOperations() {
       sourceGroupId,
       targetGroupId,
       isOperating,
-      hasFailures,
-      hasUnknown,
-      hasPartial,
-      hasSessionFailure,
-      hasForbiddenFailure,
     },
     mutations: {
       assignStudent: assignStudentMutation,

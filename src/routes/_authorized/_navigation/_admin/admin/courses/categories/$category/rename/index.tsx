@@ -5,8 +5,8 @@ import { Button, Field, FieldError, FieldLabel, IconButton, Input } from '#/comp
 import { PageLayout } from '#/routes/-components/page-layout'
 
 import { CourseForm, ResultPanel } from '../../../-components'
-import { useCategoryRenamePage } from '../../../-hooks'
 import { parseCategoryKeyParams } from '../../../-utils'
+import { useCategoryRenamePage } from './-hooks'
 
 import styles from './index.module.css'
 

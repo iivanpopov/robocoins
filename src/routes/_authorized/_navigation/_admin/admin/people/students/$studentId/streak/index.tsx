@@ -25,7 +25,7 @@ import {
 import { PageLayout } from '#/routes/-components/page-layout'
 import { cn } from '#/utils/cn'
 
-import { ApiErrorNotice } from '../../-components'
+import { ApiErrorNotice } from '../../../../-components'
 import { useStudentStreakPage } from './-hooks'
 import { StudentIdParamsSchema } from './-schemas'
 

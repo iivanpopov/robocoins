@@ -16,10 +16,11 @@ import {
   InputGroupAddon,
   InputGroupInput,
   Loader,
+  Select,
 } from '#/components/ui'
 import { PageLayout } from '#/routes/-components/page-layout'
 
-import { AdminSelect, ApiErrorNotice } from '../../-components'
+import { ApiErrorNotice } from '../../-components'
 import { GROUP_FILTER_ALL } from '../../-constants'
 import { PracticeGroupOption, PracticeResult } from './-components'
 import { usePracticePage } from './-hooks'
@@ -104,13 +105,22 @@ function PracticeContent() {
                   autoComplete="off"
                 />
               </InputGroup>
-              <AdminSelect
+              <Select.Root
                 value={state.courseFilter}
-                onValueChange={functions.handleCourseFilterChange}
+                onValueChange={(value) => functions.handleCourseFilterChange(value ?? '')}
                 items={courseItems}
-                placeholder={t('filters.all-courses')}
-                ariaLabel={t('filters.course')}
-              />
+              >
+                <Select.Trigger aria-label={t('filters.course')}>
+                  <Select.Value placeholder={t('filters.all-courses')} />
+                </Select.Trigger>
+                <Select.Content>
+                  {courseItems.map((item) => (
+                    <Select.Item key={item.value} value={item.value}>
+                      {item.label}
+                    </Select.Item>
+                  ))}
+                </Select.Content>
+              </Select.Root>
             </div>
 
             {state.groupsIsPending && <Loader grow />}

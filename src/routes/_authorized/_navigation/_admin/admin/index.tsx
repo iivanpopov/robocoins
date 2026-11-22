@@ -9,11 +9,12 @@ import {
   InputGroupAddon,
   InputGroupInput,
   Loader,
+  Select,
 } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
 
-import { AdminGroupRow, AdminSelect } from './-components'
+import { AdminGroupRow } from './-components'
 import { GROUP_FILTER_ALL } from './-constants'
 import { useAdminGroupsPage } from './-hooks'
 
@@ -89,27 +90,54 @@ function AdminGroupsPage() {
         </div>
         {state.isFiltersOpen && (
           <div className={styles.filters}>
-            <AdminSelect
+            <Select.Root
               value={state.courseFilter}
-              onValueChange={functions.handleCourseFilterChange}
+              onValueChange={(value) => functions.handleCourseFilterChange(value ?? '')}
               items={courseItems}
-              placeholder={t('filters.all-courses')}
-              ariaLabel={t('filters.course')}
-            />
-            <AdminSelect
+            >
+              <Select.Trigger aria-label={t('filters.course')}>
+                <Select.Value placeholder={t('filters.all-courses')} />
+              </Select.Trigger>
+              <Select.Content>
+                {courseItems.map((item) => (
+                  <Select.Item key={item.value} value={item.value}>
+                    {item.label}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Root>
+            <Select.Root
               value={state.categoryFilter}
-              onValueChange={functions.handleCategoryFilterChange}
+              onValueChange={(value) => functions.handleCategoryFilterChange(value ?? '')}
               items={categoryItems}
-              placeholder={t('filters.all-categories')}
-              ariaLabel={t('filters.category')}
-            />
-            <AdminSelect
+            >
+              <Select.Trigger aria-label={t('filters.category')}>
+                <Select.Value placeholder={t('filters.all-categories')} />
+              </Select.Trigger>
+              <Select.Content>
+                {categoryItems.map((item) => (
+                  <Select.Item key={item.value} value={item.value}>
+                    {item.label}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Root>
+            <Select.Root
               value={state.teacherFilter}
-              onValueChange={functions.handleTeacherFilterChange}
+              onValueChange={(value) => functions.handleTeacherFilterChange(value ?? '')}
               items={teacherItems}
-              placeholder={t('filters.all-teachers')}
-              ariaLabel={t('filters.teacher')}
-            />
+            >
+              <Select.Trigger aria-label={t('filters.teacher')}>
+                <Select.Value placeholder={t('filters.all-teachers')} />
+              </Select.Trigger>
+              <Select.Content>
+                {teacherItems.map((item) => (
+                  <Select.Item key={item.value} value={item.value}>
+                    {item.label}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Root>
           </div>
         )}
         {state.hasFilters && (

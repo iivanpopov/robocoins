@@ -24,7 +24,7 @@ import {
 import { PageLayout } from '#/routes/-components/page-layout'
 import { getStudentTransactionsQueryOptions } from '#/routes/_authorized/_navigation/_admin/admin/-hooks'
 
-import { ApiErrorNotice } from '../../-components'
+import { ApiErrorNotice } from '../../../../-components'
 import { CancelTransactionDialog, TransactionRow } from './-components'
 import { BalanceMutationKind, BalanceDirection } from './-constants'
 import { useStudentBalancePage } from './-hooks'

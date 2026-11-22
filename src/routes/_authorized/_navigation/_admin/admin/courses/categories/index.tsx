@@ -7,7 +7,7 @@ import { LearningCard } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
 
 import { CourseRequestError } from '../-components'
-import { useCourseCategoriesPage } from '../-hooks'
+import { useCourseCategoriesPage } from './-hooks'
 
 import styles from './index.module.css'
 

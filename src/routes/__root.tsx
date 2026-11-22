@@ -16,7 +16,7 @@ import { Toaster } from '#/components/ui/toast'
 import '#/assets/styles/global.css'
 import 'virtual:uno.css'
 
-import { useMotionPreference } from '#/hooks/use-motion-preference'
+import { useAnimationsDisabled } from '#/hooks/use-motion-preference'
 import { TranslationProvider } from '#/lib/translations'
 import { getSession } from '#/routes/-actions/get-session'
 import { RequestErrorComponent } from '#/routes/-components/request-error-component'
@@ -75,7 +75,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootDocument({ children }: { children: ReactNode }) {
   const pathname = useLocation({ select: (location) => location.pathname })
   const context = Route.useRouteContext()
-  const motionPreference = useMotionPreference(context?.animationsDisabled)
+  const animationsDisabled = useAnimationsDisabled(context?.animationsDisabled)
 
   const locale = context?.locale ?? 'uk'
 
@@ -86,7 +86,7 @@ function RootDocument({ children }: { children: ReactNode }) {
     <html
       lang={locale}
       className={cn(context?.user?.role === 'student' && 'student')}
-      data-reduced-motion={motionPreference.disabled}
+      data-reduced-motion={animationsDisabled}
     >
       <head>
         <HeadContent />

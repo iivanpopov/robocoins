@@ -14,8 +14,8 @@ import {
 import { PageLayout } from '#/routes/-components/page-layout'
 
 import { CourseEmptyState, CourseForm, CourseRequestError, ResultPanel } from '../../-components'
-import { useCourseRenamePage } from '../../-hooks'
 import { parseCourseIdParams } from '../../-utils'
+import { useCourseRenamePage } from './-hooks'
 
 import styles from './index.module.css'
 

@@ -6,19 +6,16 @@ import { InlineError } from '#/routes/-components'
 import type { GroupCardData } from '#/routes/_authorized/-components/group-card'
 import { GroupCard } from '#/routes/_authorized/-components/group-card'
 
+import type { GroupOptions, GroupSelection } from '../../types'
+
 import styles from './group-picker.module.css'
 
 export interface GroupPickerProps {
-  open: boolean
-  title: string
-  groups: GroupCardData[]
-  emptyLabel: string
-  isPending: boolean
-  isError: boolean
-  isRetrying: boolean
-  onOpenChange: (isOpen: boolean) => void
+  mode: GroupSelection['kind']
+  options: GroupOptions
+  onClose: () => void
   onRetry: () => void
-  onSelect: (groupId: number) => void
+  onSelect: (group: GroupCardData) => void
 }
 
 export function GroupPicker(props: GroupPickerProps) {
@@ -27,7 +24,7 @@ export function GroupPicker(props: GroupPickerProps) {
   const [searchQuery, setSearchQuery] = useState('')
 
   const query = searchQuery.trim().toLowerCase()
-  const filteredGroups = props.groups.filter(
+  const filteredGroups = props.options.groups.filter(
     (group) =>
       !query ||
       group.name.toLowerCase().includes(query) ||
@@ -35,16 +32,17 @@ export function GroupPicker(props: GroupPickerProps) {
   )
 
   function handleOpenChange(isOpen: boolean) {
-    if (!isOpen) setSearchQuery('')
-    props.onOpenChange(isOpen)
+    if (!isOpen) props.onClose()
   }
 
   return (
-    <Drawer open={props.open} onOpenChange={handleOpenChange} showSwipeHandle>
+    <Drawer open onOpenChange={handleOpenChange} showSwipeHandle>
       <DrawerContent>
         <div className={styles.sheet}>
           <DrawerHeader>
-            <DrawerTitle className={styles['sheet-title']}>{props.title}</DrawerTitle>
+            <DrawerTitle className={styles['sheet-title']}>
+              {t(`student.edit.groups.${props.mode}-picker-title`)}
+            </DrawerTitle>
           </DrawerHeader>
           <Input
             value={searchQuery}
@@ -52,25 +50,25 @@ export function GroupPicker(props: GroupPickerProps) {
             autoComplete="off"
             onChange={(event) => setSearchQuery(event.target.value)}
           />
-          {props.isPending && <Loader className={styles.loader} />}
-          {props.isError && (
-            <InlineError onRetry={props.onRetry} isRetrying={props.isRetrying}>
+          {props.options.isPending && <Loader className={styles.loader} />}
+          {props.options.isError && (
+            <InlineError onRetry={props.onRetry} isRetrying={props.options.isRetrying}>
               {t('group.error')}
             </InlineError>
           )}
-          {!props.isPending && !props.isError && !props.groups.length && (
-            <p className={styles.empty}>{props.emptyLabel}</p>
+          {!props.options.isPending && !props.options.isError && !props.options.groups.length && (
+            <p className={styles.empty}>{t('student.edit.groups.target-empty')}</p>
           )}
-          {!props.isPending &&
-            !props.isError &&
-            !!props.groups.length &&
+          {!props.options.isPending &&
+            !props.options.isError &&
+            !!props.options.groups.length &&
             !filteredGroups.length && <p className={styles.empty}>{t('student.empty')}</p>}
           <div className={styles.options}>
             {filteredGroups.map((group) => (
               <GroupCard
                 key={group.id}
                 group={group}
-                render={<button type="button" onClick={() => props.onSelect(group.id)} />}
+                render={<button type="button" onClick={() => props.onSelect(group)} />}
               />
             ))}
           </div>

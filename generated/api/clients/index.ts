@@ -37,6 +37,7 @@ export { getStudentAchievementProgressStudentStudentIdAchievementsGet } from './
 export { getStudentBalanceByIdStudentStudentIdBalanceGet } from './getStudentBalanceByIdStudentStudentIdBalanceGet'
 export { getStudentByIdStudentStudentIdGet } from './getStudentByIdStudentStudentIdGet'
 export { getStudentCredentialsAuthMeCredentialsGet } from './getStudentCredentialsAuthMeCredentialsGet'
+export { getStudentEarnedAchievementsStudentStudentIdEarnedAchievementsGet } from './getStudentEarnedAchievementsStudentStudentIdEarnedAchievementsGet'
 export { getStudentLongestStreakStudentStudentIdLongestStreakGet } from './getStudentLongestStreakStudentStudentIdLongestStreakGet'
 export { getStudentRewardProgressStudentStudentIdRewardProgressGet } from './getStudentRewardProgressStudentStudentIdRewardProgressGet'
 export { getStudentStreakStudentStudentIdStreakGet } from './getStudentStreakStudentStudentIdStreakGet'

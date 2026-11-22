@@ -16,13 +16,14 @@ import {
   InputGroupAddon,
   InputGroupInput,
   Loader,
+  Select,
 } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
 
 import { GroupEmptyState, GroupRequestError } from '../../-components'
 import { parseGroupIdParams } from '../../-utils'
-import { AdminSelect, MembershipResultPanel } from '../../../-components'
+import { MembershipResultPanel } from '../../../-components'
 import { MembershipStudentOption } from './-components'
 import { useGroupStudentsPage } from './-hooks'
 
@@ -115,11 +116,6 @@ function GroupStudentsPage() {
               sourceGroupName={state.resultSourceGroupName}
               targetGroupName={state.resultTargetGroupName}
               isOperating={state.membership.isOperating}
-              hasFailures={state.membership.hasFailures}
-              hasUnknown={state.membership.hasUnknown}
-              hasPartial={state.membership.hasPartial}
-              hasSessionFailure={state.membership.hasSessionFailure}
-              hasForbiddenFailure={state.membership.hasForbiddenFailure}
               onRetry={functions.handleRetryMembership}
               onReset={functions.handleResetMembership}
               onLogin={functions.handleLogin}
@@ -273,14 +269,25 @@ function GroupStudentsPage() {
                   !state.isCoursesError &&
                   !!state.targetGroups.length && (
                     <>
-                      <AdminSelect
-                        value={state.targetGroupValue}
-                        onValueChange={functions.handleTargetGroupChange}
+                      <Select.Root
+                        value={state.targetGroupValue || null}
+                        onValueChange={(value) => functions.handleTargetGroupChange(value ?? '')}
                         items={targetGroupItems}
-                        placeholder={t('groups.select.placeholder')}
-                        ariaLabel={t('admin.groups.membership.transfer.target-label')}
                         disabled={state.membership.isOperating}
-                      />
+                      >
+                        <Select.Trigger
+                          aria-label={t('admin.groups.membership.transfer.target-label')}
+                        >
+                          <Select.Value placeholder={t('groups.select.placeholder')} />
+                        </Select.Trigger>
+                        <Select.Content>
+                          {targetGroupItems.map((item) => (
+                            <Select.Item key={item.value} value={item.value}>
+                              {item.label}
+                            </Select.Item>
+                          ))}
+                        </Select.Content>
+                      </Select.Root>
                       <div className={styles.actions}>
                         <Button
                           onClick={functions.handleOpenTransferDialog}

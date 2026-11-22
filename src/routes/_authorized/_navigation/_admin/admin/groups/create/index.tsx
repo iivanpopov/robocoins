@@ -1,7 +1,17 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
-import { Button, Field, FieldError, FieldLabel, IconButton, Input, Loader } from '#/components/ui'
+import {
+  Button,
+  Field,
+  FieldError,
+  FieldLabel,
+  IconButton,
+  Input,
+  Loader,
+  Select,
+} from '#/components/ui'
+import { CategoryIcon } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
 
 import {
@@ -12,7 +22,6 @@ import {
   TeacherPicker,
 } from '../-components'
 import { useCreateGroupPage } from '../-hooks'
-import { AdminSelect } from '../../-components'
 
 export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/groups/create/')({
   head: () => ({ meta: [{ title: 'Нова група | Robocoins' }] }),
@@ -23,6 +32,15 @@ function CreateGroupPage() {
   const { state, functions, features } = useCreateGroupPage()
 
   const t = useTranslate()
+
+  const courseItems = state.courseItems.map((item) => ({
+    value: item.value,
+    label: (
+      <Select.OptionLabel icon={<CategoryIcon category={item.category} />}>
+        {item.label}
+      </Select.OptionLabel>
+    ),
+  }))
 
   return (
     <PageLayout.Root>
@@ -139,16 +157,24 @@ function CreateGroupPage() {
               {(field) => (
                 <Field>
                   <FieldLabel htmlFor="group-create-course">{t('courses.label')}</FieldLabel>
-                  <AdminSelect
-                    id="group-create-course"
+                  <Select.Root
                     name={field.name}
-                    value={field.state.value}
-                    onValueChange={(value) => field.handleChange(value)}
-                    items={state.courseItems}
-                    placeholder={t('admin.groups.create.course-placeholder')}
-                    ariaLabel={t('courses.label')}
+                    value={field.state.value || null}
+                    onValueChange={(value) => field.handleChange(value ?? '')}
+                    items={courseItems}
                     disabled={state.isSubmitting}
-                  />
+                  >
+                    <Select.Trigger id="group-create-course" aria-label={t('courses.label')}>
+                      <Select.Value placeholder={t('admin.groups.create.course-placeholder')} />
+                    </Select.Trigger>
+                    <Select.Content>
+                      {courseItems.map((item) => (
+                        <Select.Item key={item.value} value={item.value}>
+                          {item.label}
+                        </Select.Item>
+                      ))}
+                    </Select.Content>
+                  </Select.Root>
                   {!!field.state.meta.errors.length && (
                     <FieldError>{t('admin.groups.create.course-error')}</FieldError>
                   )}

@@ -7,7 +7,7 @@ import { AvatarPicker, LearningCard, ThemedChip } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
 import { cn } from '#/utils/cn'
 
-import { ApiErrorNotice } from '../-components'
+import { ApiErrorNotice } from '../../../-components'
 import { useRegisterStudentPage } from './-hooks'
 
 import styles from './index.module.css'

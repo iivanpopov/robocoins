@@ -5,6 +5,9 @@
 
 export type BalanceLeaderboardRankResponse = {
   student_id: number;
+  student_avatar?: string | null;
+  avatar_ring?: string | null;
+  name: string;
   rank: number;
   balance: number;
 };

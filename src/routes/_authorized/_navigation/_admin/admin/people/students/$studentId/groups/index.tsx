@@ -13,14 +13,14 @@ import {
   Button,
   IconButton,
   Loader,
+  Select,
 } from '#/components/ui'
 import { LearningCard } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
 import { UserAvatar } from '#/routes/-components/user-avatar'
 
 import { parseStudentIdParams } from '../-utils'
-import { ApiErrorNotice } from '../../-components'
-import { AdminSelect, MembershipResultPanel } from '../../../../-components'
+import { ApiErrorNotice, MembershipResultPanel } from '../../../../-components'
 import { useStudentGroupsPage } from './-hooks'
 
 import styles from './index.module.css'
@@ -125,11 +125,6 @@ function StudentGroupsPage() {
               sourceGroupName={state.resultSourceGroupName}
               targetGroupName={state.resultTargetGroupName}
               isOperating={state.membership.isOperating}
-              hasFailures={state.membership.hasFailures}
-              hasUnknown={state.membership.hasUnknown}
-              hasPartial={state.membership.hasPartial}
-              hasSessionFailure={state.membership.hasSessionFailure}
-              hasForbiddenFailure={state.membership.hasForbiddenFailure}
               onRetry={functions.handleRetryMembership}
               onReset={functions.handleResetMembership}
               onLogin={functions.handleLogin}
@@ -144,14 +139,23 @@ function StudentGroupsPage() {
 
             {!!state.targetGroups.length && (
               <div className={styles.controls}>
-                <AdminSelect
-                  value={state.addTargetValue}
-                  onValueChange={functions.handleAddTargetChange}
+                <Select.Root
+                  value={state.addTargetValue || null}
+                  onValueChange={(value) => functions.handleAddTargetChange(value ?? '')}
                   items={addGroupItems}
-                  placeholder={t('groups.select.placeholder')}
-                  ariaLabel={t('groups.label')}
                   disabled={state.membership.isOperating}
-                />
+                >
+                  <Select.Trigger aria-label={t('groups.label')}>
+                    <Select.Value placeholder={t('groups.select.placeholder')} />
+                  </Select.Trigger>
+                  <Select.Content>
+                    {addGroupItems.map((item) => (
+                      <Select.Item key={item.value} value={item.value}>
+                        {item.label}
+                      </Select.Item>
+                    ))}
+                  </Select.Content>
+                </Select.Root>
                 <Button
                   onClick={functions.handleAdd}
                   disabled={!state.canAdd}
@@ -183,22 +187,40 @@ function StudentGroupsPage() {
             )}
             {!!state.memberships.length && !!state.targetGroups.length && (
               <div className={styles['transfer-controls']}>
-                <AdminSelect
-                  value={state.transferSourceValue}
-                  onValueChange={functions.handleTransferSourceChange}
+                <Select.Root
+                  value={state.transferSourceValue || null}
+                  onValueChange={(value) => functions.handleTransferSourceChange(value ?? '')}
                   items={transferSourceItems}
-                  placeholder={t('groups.select.placeholder')}
-                  ariaLabel={t('admin.students.groups.transfer.source-label')}
                   disabled={state.membership.isOperating}
-                />
-                <AdminSelect
-                  value={state.transferTargetValue}
-                  onValueChange={functions.handleTransferTargetChange}
+                >
+                  <Select.Trigger aria-label={t('admin.students.groups.transfer.source-label')}>
+                    <Select.Value placeholder={t('groups.select.placeholder')} />
+                  </Select.Trigger>
+                  <Select.Content>
+                    {transferSourceItems.map((item) => (
+                      <Select.Item key={item.value} value={item.value}>
+                        {item.label}
+                      </Select.Item>
+                    ))}
+                  </Select.Content>
+                </Select.Root>
+                <Select.Root
+                  value={state.transferTargetValue || null}
+                  onValueChange={(value) => functions.handleTransferTargetChange(value ?? '')}
                   items={transferTargetItems}
-                  placeholder={t('groups.select.placeholder')}
-                  ariaLabel={t('admin.students.groups.transfer.target-label')}
                   disabled={state.membership.isOperating}
-                />
+                >
+                  <Select.Trigger aria-label={t('admin.students.groups.transfer.target-label')}>
+                    <Select.Value placeholder={t('groups.select.placeholder')} />
+                  </Select.Trigger>
+                  <Select.Content>
+                    {transferTargetItems.map((item) => (
+                      <Select.Item key={item.value} value={item.value}>
+                        {item.label}
+                      </Select.Item>
+                    ))}
+                  </Select.Content>
+                </Select.Root>
                 <Button
                   onClick={functions.handleOpenTransferDialog}
                   disabled={!state.canTransfer}

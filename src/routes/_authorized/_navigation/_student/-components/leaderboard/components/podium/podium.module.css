@@ -91,22 +91,6 @@
   color: var(--brand);
 }
 
-.points {
-  display: inline-flex;
-  gap: 0.1875rem;
-  align-items: center;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  line-height: 1.2;
-  color: var(--muted-foreground);
-}
-
-.coin {
-  font-size: 0.875rem;
-  color: var(--coin);
-}
-
 .step {
   --step-face: #dbe4f1;
   --step-ink: #44556f;

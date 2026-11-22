@@ -9,13 +9,14 @@ import {
   FieldLabel,
   IconButton,
   Loader,
+  Select,
 } from '#/components/ui'
+import { CategoryIcon } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
 
 import { GroupEmptyState, GroupForm, GroupRequestError, GroupResultPanel } from '../../-components'
 import { useGroupCoursePage } from '../../-hooks'
 import { parseGroupIdParams } from '../../-utils'
-import { AdminSelect } from '../../../-components'
 
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/groups/$groupId/course/',
@@ -37,6 +38,15 @@ function GroupCoursePage() {
   const { state, functions, features } = useGroupCoursePage()
 
   const t = useTranslate()
+
+  const courseItems = state.courseItems.map((item) => ({
+    value: item.value,
+    label: (
+      <Select.OptionLabel icon={<CategoryIcon category={item.category} />}>
+        {item.label}
+      </Select.OptionLabel>
+    ),
+  }))
 
   return (
     <PageLayout.Root>
@@ -98,15 +108,23 @@ function GroupCoursePage() {
         >
           <Field>
             <FieldLabel htmlFor="group-change-course">{t('courses.label')}</FieldLabel>
-            <AdminSelect
-              id="group-change-course"
+            <Select.Root
               name="courseId"
-              value={features.courseField.value}
-              onValueChange={features.courseField.handleChange}
-              items={state.courseItems}
-              placeholder={t('admin.groups.create.course-placeholder')}
-              ariaLabel={t('courses.label')}
-            />
+              value={features.courseField.value || null}
+              onValueChange={(value) => features.courseField.handleChange(value ?? '')}
+              items={courseItems}
+            >
+              <Select.Trigger id="group-change-course" aria-label={t('courses.label')}>
+                <Select.Value placeholder={t('admin.groups.create.course-placeholder')} />
+              </Select.Trigger>
+              <Select.Content>
+                {courseItems.map((item) => (
+                  <Select.Item key={item.value} value={item.value}>
+                    {item.label}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Root>
             {!!features.courseField.error && (
               <FieldError>{t('admin.groups.create.course-error')}</FieldError>
             )}
