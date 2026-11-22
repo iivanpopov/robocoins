@@ -1,7 +1,6 @@
+import { TranslateProvider } from '@kanjou/react'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
-import messages from 'virtual:messages/uk/settings'
-
-import { TranslationProvider } from '#/lib/translations'
+import messages from 'virtual:kanjou/uk/settings'
 
 export const Route = createFileRoute('/_authorized/_navigation/settings')({
   component: SettingsTranslationLayout,
@@ -9,8 +8,8 @@ export const Route = createFileRoute('/_authorized/_navigation/settings')({
 
 function SettingsTranslationLayout() {
   return (
-    <TranslationProvider messages={messages}>
+    <TranslateProvider messages={messages}>
       <Outlet />
-    </TranslationProvider>
+    </TranslateProvider>
   )
 }

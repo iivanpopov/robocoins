@@ -1,7 +1,6 @@
+import { TranslateProvider } from '@kanjou/react'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
-import messages from 'virtual:messages/uk/student'
-
-import { TranslationProvider } from '#/lib/translations'
+import messages from 'virtual:kanjou/uk/student'
 
 export const Route = createFileRoute('/_authorized/student')({
   component: StudentProfileTranslationLayout,
@@ -9,8 +8,8 @@ export const Route = createFileRoute('/_authorized/student')({
 
 function StudentProfileTranslationLayout() {
   return (
-    <TranslationProvider messages={messages}>
+    <TranslateProvider messages={messages}>
       <Outlet />
-    </TranslationProvider>
+    </TranslateProvider>
   )
 }

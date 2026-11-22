@@ -1,3 +1,4 @@
+import { TranslateProvider } from '@kanjou/react'
 import type { QueryClient } from '@tanstack/react-query'
 import {
   HeadContent,
@@ -7,7 +8,7 @@ import {
   useLocation,
 } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
-import messages from 'virtual:messages/uk/common'
+import messages from 'virtual:kanjou/uk/common'
 
 import rubikCyrillic from '#/assets/fonts/rubik-cyrillic-wght-normal.woff2?url'
 import rubikLatin from '#/assets/fonts/rubik-latin-wght-normal.woff2?url'
@@ -17,7 +18,7 @@ import '#/assets/styles/global.css'
 import 'virtual:uno.css'
 
 import { useAnimationsDisabled } from '#/hooks/use-motion-preference'
-import { TranslationProvider } from '#/lib/translations'
+import { translationComponents, translationFunctions } from '#/lib/translations'
 import { getSession } from '#/routes/-actions/get-session'
 import { RequestErrorComponent } from '#/routes/-components/request-error-component'
 import { cn } from '#/utils/cn'
@@ -93,9 +94,14 @@ function RootDocument({ children }: { children: ReactNode }) {
         <link rel="icon" href={iconHref} type="image/svg+xml" />
       </head>
       <body>
-        <TranslationProvider locale={locale} messages={messages}>
+        <TranslateProvider
+          locale={locale}
+          messages={messages}
+          functions={translationFunctions}
+          components={translationComponents}
+        >
           <Toaster>{children}</Toaster>
-        </TranslationProvider>
+        </TranslateProvider>
         <Scripts />
       </body>
     </html>

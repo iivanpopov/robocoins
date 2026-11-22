@@ -1,7 +1,7 @@
+import { TranslateProvider } from '@kanjou/react'
 import { createFileRoute, redirect, Outlet } from '@tanstack/react-router'
-import messages from 'virtual:messages/uk/auth'
+import messages from 'virtual:kanjou/uk/auth'
 
-import { TranslationProvider } from '#/lib/translations'
 import { getHomePath } from '#/routes/-utils'
 import { AuthWatermark } from '#/routes/_auth/-components'
 
@@ -18,11 +18,11 @@ export const Route = createFileRoute('/_auth')({
 
 function RouteComponent() {
   return (
-    <TranslationProvider messages={messages}>
+    <TranslateProvider messages={messages}>
       <div className={styles.wrapper}>
         <AuthWatermark />
         <Outlet />
       </div>
-    </TranslationProvider>
+    </TranslateProvider>
   )
 }

@@ -5,6 +5,15 @@ import type { DefaultMessageValue } from '@kanjou/react'
 declare module '@kanjou/react' {
   export interface Register {
     locale: 'uk'
+    namespace:
+      | 'achievements'
+      | 'admin'
+      | 'auth'
+      | 'common'
+      | 'feedback'
+      | 'settings'
+      | 'student'
+      | 'teacher'
     messages: {
       'achievement.artwork.tier.1': {}
       'achievement.artwork.tier.2': {}
