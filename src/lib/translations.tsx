@@ -1,37 +1,28 @@
-import type { Functions } from '@kanjou/react'
-import {
-  DraftFunctions,
-  type DefaultFunctions,
-  type MessageFunction,
-} from 'messageformat/functions'
+import { DraftFunctions, type MessageFunction } from 'messageformat/functions'
 import defaultFunctions from 'virtual:kanjou/functions'
 
 import { AppLink } from '#/routes/-components/app-link'
 import { formatCoinAmount } from '#/utils/coins'
 
-const coinFormatters = defaultFunctions as Pick<typeof DefaultFunctions, 'number' | 'string'>
+const coins: MessageFunction<'coins', 'string'> = (context, options, operand: any) => {
+  const input = defaultFunctions.number!(context, options, operand)
+  const formatted = formatCoinAmount(Number(input!.valueOf!()), true)
+  const number = defaultFunctions.number!(context, { maximumFractionDigits: 2 }, Number(formatted))
+  const text = defaultFunctions.string!(context, {}, formatted)
 
-function createCoinNumber(omitLeadingZero: boolean): MessageFunction<'coins', 'string'> {
-  return (context, options, operand) => {
-    const input = coinFormatters.number(context, options, operand)
-    const formatted = formatCoinAmount(Number(input.valueOf()), omitLeadingZero)
-    const number = coinFormatters.number(context, { maximumFractionDigits: 2 }, Number(formatted))
-    const text = coinFormatters.string(context, {}, formatted)
+  return { ...number, type: 'coins', toString: text.toString, toParts: text.toParts }
+}
 
-    return { ...number, type: 'coins', toString: text.toString, toParts: text.toParts }
+declare module '@kanjou/react' {
+  export interface Register {
+    functions: {
+      coins: typeof coins
+    }
   }
 }
 
-function defineCustomFunctions<CustomFunctions extends Record<string, MessageFunction<string>>>(
-  functions: CustomFunctions,
-) {
-  return functions as CustomFunctions & Functions
-}
-
 export const translationComponents = { br: () => <br />, a: AppLink }
-export const translationFunctions = defineCustomFunctions({
-  date: DraftFunctions.date,
-  datetime: DraftFunctions.datetime,
-  coins: createCoinNumber(false),
-})
-export const compactTranslationFunctions = defineCustomFunctions({ coins: createCoinNumber(true) })
+export const translationFunctions = {
+  ...DraftFunctions,
+  coins,
+}
