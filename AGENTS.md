@@ -1,17 +1,3 @@
-## Agent skills
-
-### Issue tracker
-
-Issues live as markdown files under `.scratch/<feature>/`. See `docs/agents/issue-tracker.md`.
-
-### Triage labels
-
-Five canonical roles, recorded as the `Status:` line in issue files. See `docs/agents/triage-labels.md`.
-
-### Domain docs
-
-Single-context layout: root `GLOSSARY.md` plus `docs/adr/`. See `docs/agents/domain.md`.
-
 ## Code style
 
 ### UI component composition
@@ -102,8 +88,8 @@ Example: `const { refs, state, functions } = useShopPage()`. Read nested values 
 
 ## Verification
 
-- After each change, run `bun check`.
-- If CSS warnings occur, try `bun lint:css --fix`, review its changes, and rerun `bun check`.
+- After each change, run `pnpm check`. This command does not rewrite files.
+- Run `pnpm lint:css` for CSS changes. If CSS warnings occur, try `pnpm lint:css --fix`, review its changes, and rerun both checks.
 - Do not create `.test` files inside the repository.
 
 ## UI design

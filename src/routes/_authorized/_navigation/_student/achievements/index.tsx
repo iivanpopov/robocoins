@@ -12,7 +12,6 @@ import { useAchievementsPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_student/achievements/')({
-  head: () => ({ meta: [{ title: 'Досягнення | Robocoins' }] }),
   loader: async ({ context }) => {
     const profile = context.user as StudentProfileResponse
     await context.queryClient

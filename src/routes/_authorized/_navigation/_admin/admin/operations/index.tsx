@@ -35,7 +35,6 @@ import { useOperationsPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/operations/')({
-  head: () => ({ meta: [{ title: 'Операції з балансом | Robocoins' }] }),
   loader: async ({ context }) => {
     await Promise.all([
       context.queryClient.query(getAllStudentsStudentGetQueryOptions()).catch(() => undefined),

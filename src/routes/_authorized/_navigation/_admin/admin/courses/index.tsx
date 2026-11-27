@@ -10,7 +10,6 @@ import { useCoursesPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/courses/')({
-  head: () => ({ meta: [{ title: 'Курси | Robocoins' }] }),
   component: CoursesPage,
 })
 

@@ -14,7 +14,6 @@ import styles from './index.module.css'
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/people/teachers/$userId/',
 )({
-  head: () => ({ meta: [{ title: 'Профіль викладача | Robocoins' }] }),
   params: { parse: (params) => parseTeacherIdParams(params) },
   component: TeacherProfilePage,
 })

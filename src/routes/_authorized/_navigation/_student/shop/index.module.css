@@ -73,35 +73,6 @@
   color: var(--foreground);
 }
 
-.suggestion {
-  position: absolute;
-  right: var(--spacing-xl);
-  bottom: calc(64px + env(safe-area-inset-bottom, 0px) + var(--spacing-xl));
-  left: var(--spacing-xl);
-  z-index: 2;
-  display: flex;
-  justify-content: flex-end;
-  pointer-events: none;
-}
-
-.suggestion-trigger {
-  max-width: 100%;
-  color: var(--foreground);
-  text-align: right;
-  text-decoration: none;
-  pointer-events: auto;
-}
-
-.catalog-suggestion {
-  display: flex;
-  justify-content: center;
-  margin-top: var(--spacing-lg);
-}
-
-.catalog-suggestion .suggestion-trigger {
-  text-align: center;
-}
-
 .list-view,
 .list-view:active {
   cursor: default;

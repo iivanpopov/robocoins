@@ -13,7 +13,6 @@ import { useCreateRewardPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/catalog/create/')({
-  head: () => ({ meta: [{ title: 'Нова нагорода | Robocoins' }] }),
   component: CreateRewardPage,
 })
 

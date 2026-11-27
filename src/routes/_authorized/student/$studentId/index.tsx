@@ -21,7 +21,6 @@ import {
   Loader,
   Typography,
 } from '#/components/ui'
-import { Feedback } from '#/routes/-components'
 import { InlineError } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
 import { RequestErrorComponent } from '#/routes/-components/request-error-component'
@@ -50,7 +49,6 @@ const ProfileSearchSchema = v.object({
 })
 
 export const Route = createFileRoute('/_authorized/student/$studentId/')({
-  head: () => ({ meta: [{ title: 'Профіль | Robocoins' }] }),
   params: {
     parse: (params) => {
       const result = v.safeParse(StudentParamsSchema, params)
@@ -199,9 +197,6 @@ function StudentProfilePage() {
               </AchievementsPreview.Header>
               <AchievementsPreview.Collection studentId={state.profile.id} />
             </AchievementsPreview.Root>
-          )}
-          {state.isOwnProfile && !state.isEditing && (
-            <Feedback source="profile_avatar" className={styles.feedback} />
           )}
           {state.isTeacher && (
             <section className={styles.section}>

@@ -18,7 +18,7 @@ function parseRegisterDraft(value: string | null) {
 }
 
 export const registerDraft = {
-  get: async () => parseRegisterDraft(await readCookie(REGISTER_DRAFT_COOKIE)),
+  get: () => parseRegisterDraft(readCookie(REGISTER_DRAFT_COOKIE)),
   save: (data: RegisterDraft) =>
     cookieStore.set({
       name: REGISTER_DRAFT_COOKIE,

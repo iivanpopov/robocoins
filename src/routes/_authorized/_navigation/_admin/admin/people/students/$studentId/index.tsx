@@ -26,7 +26,6 @@ const StudentParamsSchema = v.object({
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/people/students/$studentId/',
 )({
-  head: () => ({ meta: [{ title: 'Профіль учня | Robocoins' }] }),
   params: {
     parse: (params) => {
       const result = v.safeParse(StudentParamsSchema, params)

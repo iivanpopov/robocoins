@@ -1,17 +1,9 @@
 import { TranslateProvider } from '@kanjou/react'
 import type { QueryClient } from '@tanstack/react-query'
-import {
-  HeadContent,
-  Outlet,
-  Scripts,
-  createRootRouteWithContext,
-  useLocation,
-} from '@tanstack/react-router'
-import type { ReactNode } from 'react'
+import { HeadContent, Outlet, createRootRouteWithContext, useMatch } from '@tanstack/react-router'
+import { type ReactNode, useLayoutEffect } from 'react'
 import messages from 'virtual:kanjou/uk/common'
 
-import rubikCyrillic from '#/assets/fonts/rubik-cyrillic-wght-normal.woff2?url'
-import rubikLatin from '#/assets/fonts/rubik-latin-wght-normal.woff2?url'
 import { Toaster } from '#/components/ui/toast'
 
 import '#/assets/styles/global.css'
@@ -19,100 +11,48 @@ import 'virtual:uno.css'
 
 import { useAnimationsDisabled } from '#/hooks/use-motion-preference'
 import { translationComponents, translationFunctions } from '#/lib/translations'
-import { getSession } from '#/routes/-actions/get-session'
+import { NotFoundComponent } from '#/routes/-components/not-found-component'
 import { RequestErrorComponent } from '#/routes/-components/request-error-component'
-import { validateGoogleLoginSearch } from '#/routes/-utils/google-oauth-notice'
-import { cn } from '#/utils/cn'
 import { readCookie } from '#/utils/cookies'
 import { MOTION_PREFERENCE_COOKIE } from '#/utils/motion'
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  beforeLoad: async (match) => {
-    const locale = 'uk' as const
-    const pathname = match.location.pathname.replace(/\/+$/, '')
-    const isGoogleCallback = pathname === '/auth/google/callback'
-    const isGoogleLoginRecovery =
-      pathname === '/login' && !!validateGoogleLoginSearch(match.location.search).google
-    const user =
-      isGoogleCallback || isGoogleLoginRecovery
-        ? null
-        : await match.context.queryClient.query({
-            queryKey: ['session'],
-            queryFn: () => getSession(),
-            retry: false,
-          })
-    const animationsDisabled = (await readCookie(MOTION_PREFERENCE_COOKIE)) === 'true'
-
-    return { locale, user, animationsDisabled }
-  },
-  headers: () => ({ 'Cache-Control': 'private, no-store' }),
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'Robocoins' },
-      {
-        name: 'description',
-        content:
-          'Robocoins - платформа для учнів школи Roboocode. Отримуй робокоїни і купляй за них призи.',
-      },
-    ],
-    links: [
-      { rel: 'icon', href: '/favicon.ico', sizes: '32x32' },
-      { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
-      {
-        rel: 'preload',
-        href: rubikCyrillic,
-        as: 'font',
-        type: 'font/woff2',
-        crossOrigin: 'anonymous',
-      },
-      {
-        rel: 'preload',
-        href: rubikLatin,
-        as: 'font',
-        type: 'font/woff2',
-        crossOrigin: 'anonymous',
-      },
-    ],
+  beforeLoad: () => ({
+    animationsDisabled: readCookie(MOTION_PREFERENCE_COOKIE) === 'true',
   }),
-  shellComponent: RootDocument,
+  shellComponent: RootShell,
   errorComponent: RequestErrorComponent,
+  notFoundComponent: NotFoundComponent,
   component: RootComponent,
 })
 
-function RootDocument({ children }: { children: ReactNode }) {
-  const pathname = useLocation({ select: (location) => location.pathname })
+function RootShell(props: { children: ReactNode }) {
   const context = Route.useRouteContext()
+  const isStudent =
+    useMatch({
+      from: '/_authorized',
+      shouldThrow: false,
+      select: (match) => match.context.user?.role === 'student',
+    }) ?? false
   const animationsDisabled = useAnimationsDisabled(context?.animationsDisabled)
 
-  const locale = context?.locale ?? 'uk'
-
-  let iconHref = '/icon.svg'
-  if (pathname.replace(/\/+$/, '') === '/shop') iconHref = '/icon-galaxy.svg'
+  useLayoutEffect(() => {
+    document.documentElement.classList.toggle('student', isStudent)
+    document.documentElement.dataset.reducedMotion = String(animationsDisabled)
+  }, [isStudent, animationsDisabled])
 
   return (
-    <html
-      lang={locale}
-      className={cn(context?.user?.role === 'student' && 'student')}
-      data-reduced-motion={animationsDisabled}
-    >
-      <head>
-        <HeadContent />
-        <link rel="icon" href={iconHref} type="image/svg+xml" />
-      </head>
-      <body>
-        <TranslateProvider
-          locale={locale}
-          messages={messages}
-          functions={translationFunctions}
-          components={translationComponents}
-        >
-          <Toaster>{children}</Toaster>
-        </TranslateProvider>
-        <Scripts />
-      </body>
-    </html>
+    <>
+      <HeadContent />
+      <TranslateProvider
+        locale="uk"
+        messages={messages}
+        functions={translationFunctions}
+        components={translationComponents}
+      >
+        <Toaster>{props.children}</Toaster>
+      </TranslateProvider>
+    </>
   )
 }
 

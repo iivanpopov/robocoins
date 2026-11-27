@@ -18,7 +18,6 @@ import { useGroupTeachersPage } from './-hooks'
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/groups/$groupId/teachers/',
 )({
-  head: () => ({ meta: [{ title: 'Викладачі групи | Robocoins' }] }),
   params: { parse: (params) => parseGroupIdParams(params) },
   component: GroupTeachersRoute,
 })

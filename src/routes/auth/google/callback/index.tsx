@@ -6,7 +6,6 @@ import { Loader } from '#/components/ui'
 import { useGoogleCallbackPage } from './-hooks'
 
 export const Route = createFileRoute('/auth/google/callback/')({
-  headers: () => ({ 'Cache-Control': 'private, no-store', 'Referrer-Policy': 'no-referrer' }),
   head: () => ({ meta: [{ name: 'referrer', content: 'no-referrer' }] }),
   component: GoogleCallbackPage,
 })

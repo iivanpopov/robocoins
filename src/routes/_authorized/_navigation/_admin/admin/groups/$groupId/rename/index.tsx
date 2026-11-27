@@ -20,7 +20,6 @@ import { parseGroupIdParams } from '../../-utils'
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/groups/$groupId/rename/',
 )({
-  head: () => ({ meta: [{ title: 'Перейменування групи | Robocoins' }] }),
   params: { parse: (params) => parseGroupIdParams(params) },
   component: GroupRenameRoute,
 })

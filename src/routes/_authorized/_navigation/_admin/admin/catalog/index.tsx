@@ -20,7 +20,6 @@ import { useCatalogPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/catalog/')({
-  head: () => ({ meta: [{ title: 'Каталог нагород | Robocoins' }] }),
   component: CatalogPage,
 })
 

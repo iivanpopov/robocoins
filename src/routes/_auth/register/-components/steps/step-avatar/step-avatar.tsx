@@ -7,7 +7,6 @@ import {
   HeroCarouselItem,
   Typography,
 } from '#/components/ui'
-import { Feedback } from '#/routes/-components'
 import { AVATARS } from '#/routes/-constants'
 import { getAvatarUrl } from '#/routes/-utils'
 import { AuthLayout } from '#/routes/_auth/-components'
@@ -28,11 +27,6 @@ export function StepAvatar() {
         <AuthLayout.Top>
           <Typography variant="title">{t('step.avatar.title')}</Typography>
           <Typography variant="caption">{t('step.avatar.description')}</Typography>
-          <Feedback
-            source="registration_avatar"
-            className={styles['suggest-avatar']}
-            triggerLabel={t('step.avatar.suggest')}
-          />
         </AuthLayout.Top>
         <AuthLayout.Bottom style={{ marginTop: 0 }}>
           <HeroCarousel

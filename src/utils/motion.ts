@@ -1,11 +1,11 @@
-import { readDocumentCookie } from './cookies'
+import { readCookie } from './cookies'
 
 export const MOTION_PREFERENCE_COOKIE = 'reduced-motion'
 const MOTION_PREFERENCE_EVENT = 'motion-preference-change'
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
 
 export function animationsDisabled() {
-  return readDocumentCookie(MOTION_PREFERENCE_COOKIE) === 'true'
+  return readCookie(MOTION_PREFERENCE_COOKIE) === 'true'
 }
 
 export function systemPrefersReducedMotion() {

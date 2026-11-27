@@ -22,7 +22,6 @@ import styles from './index.module.css'
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/courses/$courseId/rename/',
 )({
-  head: () => ({ meta: [{ title: 'Перейменування курсу | Robocoins' }] }),
   params: { parse: (params) => parseCourseIdParams(params) },
   component: CourseRenameRoute,
 })

@@ -6,7 +6,6 @@ import {
   Button,
   Chip,
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
@@ -16,16 +15,13 @@ import {
   Field,
   FieldError,
   FieldLabel,
-  Loader,
 } from '#/components/ui'
-import { InlineError } from '#/routes/-components/inline-error'
 import { cn } from '#/utils/cn'
 
 import {
   FEEDBACK_DESCRIPTION_KEYS,
   FEEDBACK_KIND_KEYS,
   FEEDBACK_MESSAGE_MAX_LENGTH,
-  FEEDBACK_SUCCESS_KEYS,
   FEEDBACK_TITLE_KEYS,
   FEEDBACK_TRIGGER_KEYS,
   type FeedbackSource,
@@ -91,96 +87,69 @@ function FeedbackContent(props: FeedbackProps) {
           <DrawerTitle>{t(FEEDBACK_TITLE_KEYS[props.source])}</DrawerTitle>
           <DrawerDescription>{t(FEEDBACK_DESCRIPTION_KEYS[props.source])}</DrawerDescription>
         </DrawerHeader>
-        {feedback.state.isSuccess && (
-          <div className={styles.success} role="status">
-            <span aria-hidden="true" className={cn('i-ph:check-circle', styles['success-icon'])} />
-            <p className={styles['success-text']}>{t(FEEDBACK_SUCCESS_KEYS[props.source])}</p>
-            <DrawerClose render={<Button type="button" className={styles['success-close']} />}>
-              {t('feedback.success.close')}
-            </DrawerClose>
-          </div>
-        )}
-        {!feedback.state.isSuccess && (
-          <form className={styles.form} noValidate onSubmit={feedback.functions.handleSubmit}>
-            <div className={styles.fields}>
-              {feedback.state.kindChoices.length > 1 && (
-                <feedback.features.form.Field name="kind">
-                  {(field) => (
-                    <Field>
-                      <FieldLabel>{t('feedback.field.kind')}</FieldLabel>
-                      <div
-                        className={styles.kinds}
-                        role="group"
-                        aria-label={t('feedback.field.kind')}
-                      >
-                        {feedback.state.kindChoices.map((kind) => (
-                          <Chip
-                            key={kind}
-                            type="button"
-                            selected={field.state.value === kind}
-                            disabled={feedback.state.isSubmitting}
-                            onClick={() => {
-                              feedback.functions.handleResetSubmission()
-                              field.handleChange(kind)
-                            }}
-                          >
-                            {t(FEEDBACK_KIND_KEYS[kind])}
-                          </Chip>
-                        ))}
-                      </div>
-                      {!!field.state.meta.errors.length && (
-                        <FieldError>{t('feedback.validation.kind')}</FieldError>
-                      )}
-                    </Field>
-                  )}
-                </feedback.features.form.Field>
-              )}
-              <feedback.features.form.Field name="message">
+        <form className={styles.form} noValidate onSubmit={feedback.functions.handleSubmit}>
+          <div className={styles.fields}>
+            {feedback.state.kindChoices.length > 1 && (
+              <feedback.features.form.Field name="kind">
                 {(field) => (
                   <Field>
-                    <FieldLabel htmlFor={messageId}>{t('feedback.field.message')}</FieldLabel>
-                    <textarea
-                      id={messageId}
-                      name={field.name}
-                      className={styles.textarea}
-                      rows={6}
-                      maxLength={FEEDBACK_MESSAGE_MAX_LENGTH}
-                      value={field.state.value}
-                      placeholder={t('feedback.field.message.placeholder')}
-                      aria-invalid={!!field.state.meta.errors.length}
-                      disabled={feedback.state.isSubmitting}
-                      onBlur={field.handleBlur}
-                      onChange={(event) => {
-                        feedback.functions.handleResetSubmission()
-                        field.handleChange(event.target.value)
-                      }}
-                    />
-                    <span className={styles.counter}>
-                      {t('feedback.counter', {
-                        count: field.state.value.length,
-                        limit: FEEDBACK_MESSAGE_MAX_LENGTH,
-                      })}
-                    </span>
+                    <FieldLabel>{t('feedback.field.kind')}</FieldLabel>
+                    <div
+                      className={styles.kinds}
+                      role="group"
+                      aria-label={t('feedback.field.kind')}
+                    >
+                      {feedback.state.kindChoices.map((kind) => (
+                        <Chip
+                          key={kind}
+                          type="button"
+                          selected={field.state.value === kind}
+                          onClick={() => field.handleChange(kind)}
+                        >
+                          {t(FEEDBACK_KIND_KEYS[kind])}
+                        </Chip>
+                      ))}
+                    </div>
                     {!!field.state.meta.errors.length && (
-                      <FieldError>{t('feedback.validation.message')}</FieldError>
+                      <FieldError>{t('feedback.validation.kind')}</FieldError>
                     )}
                   </Field>
                 )}
               </feedback.features.form.Field>
-              {feedback.state.errorKey && <InlineError>{t(feedback.state.errorKey)}</InlineError>}
-            </div>
-            <DrawerFooter>
-              <Button
-                type="submit"
-                disabled={feedback.state.isSubmitting}
-                aria-busy={feedback.state.isSubmitting}
-              >
-                {feedback.state.isSubmitting && <Loader />}
-                {!feedback.state.isSubmitting && t('feedback.submit')}
-              </Button>
-            </DrawerFooter>
-          </form>
-        )}
+            )}
+            <feedback.features.form.Field name="message">
+              {(field) => (
+                <Field>
+                  <FieldLabel htmlFor={messageId}>{t('feedback.field.message')}</FieldLabel>
+                  <textarea
+                    id={messageId}
+                    name={field.name}
+                    className={styles.textarea}
+                    rows={6}
+                    maxLength={FEEDBACK_MESSAGE_MAX_LENGTH}
+                    value={field.state.value}
+                    placeholder={t('feedback.field.message.placeholder')}
+                    aria-invalid={!!field.state.meta.errors.length}
+                    onBlur={field.handleBlur}
+                    onChange={(event) => field.handleChange(event.target.value)}
+                  />
+                  <span className={styles.counter}>
+                    {t('feedback.counter', {
+                      count: field.state.value.length,
+                      limit: FEEDBACK_MESSAGE_MAX_LENGTH,
+                    })}
+                  </span>
+                  {!!field.state.meta.errors.length && (
+                    <FieldError>{t('feedback.validation.message')}</FieldError>
+                  )}
+                </Field>
+              )}
+            </feedback.features.form.Field>
+          </div>
+          <DrawerFooter>
+            <Button type="submit">{t('feedback.submit')}</Button>
+          </DrawerFooter>
+        </form>
       </DrawerContent>
     </Drawer>
   )

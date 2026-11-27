@@ -11,7 +11,6 @@ import { useCourseDetailsPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/courses/$courseId/')({
-  head: () => ({ meta: [{ title: 'Курс | Robocoins' }] }),
   params: { parse: (params) => parseCourseIdParams(params) },
   component: CourseDetailsPage,
 })

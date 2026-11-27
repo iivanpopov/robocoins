@@ -9,7 +9,7 @@ import { getStudentStreakStudentStudentIdStreakGetQueryOptions } from '#/api/hoo
 import { getStudentTransactionHistoryStudentStudentIdTransactionsGetQueryOptions } from '#/api/hooks/useGetStudentTransactionHistoryStudentStudentIdTransactionsGet'
 import { StudentProfileResponse } from '#/api/types'
 import { Loader } from '#/components/ui'
-import { Feedback, InlineError } from '#/routes/-components'
+import { InlineError } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
 import { COOKIE_MAX_AGE, LAST_LOG_ON_COOKIE } from '#/routes/-constants'
 import { AchievementsPreview } from '#/routes/_authorized/-components/achievements-preview'
@@ -28,11 +28,10 @@ import { getGoalProgressCookieName, getStudentRewardCategoriesQueryOptions } fro
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_student/')({
-  head: () => ({ meta: [{ title: 'Головна | Robocoins' }] }),
-  beforeLoad: async ({ context }) => {
+  beforeLoad: ({ context }) => {
     const renderedAt = Date.now()
-    const lastLogOn = Number(await readCookie(LAST_LOG_ON_COOKIE)) || Date.now()
-    const goalProgressSnapshot = await readCookie(
+    const lastLogOn = Number(readCookie(LAST_LOG_ON_COOKIE)) || Date.now()
+    const goalProgressSnapshot = readCookie(
       getGoalProgressCookieName((context.user as StudentProfileResponse).id),
     )
     return { lastLogOn, renderedAt, goalProgressSnapshot }
@@ -89,7 +88,6 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/')({
     ])
   },
   onEnter: () => {
-    if (import.meta.env.SSR) return
     void cookieStore.set({
       name: LAST_LOG_ON_COOKIE,
       value: String(Date.now()),
@@ -159,7 +157,6 @@ function StudentPage() {
         onRetry={functions.handleRetryHistory}
         onViewAll={functions.handleViewHistory}
       />
-      <Feedback source="student_home" className={styles.feedback} />
     </PageLayout.Root>
   )
 }

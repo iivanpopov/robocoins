@@ -11,7 +11,6 @@ import { useLeaderboardPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_student/leaderboard/')({
-  head: () => ({ meta: [{ title: 'Рейтинг тижня | Robocoins' }] }),
   component: LeaderboardPage,
 })
 

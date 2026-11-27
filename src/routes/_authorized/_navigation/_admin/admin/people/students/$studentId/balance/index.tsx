@@ -44,7 +44,6 @@ const BalanceStudentParamsSchema = v.object({
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/people/students/$studentId/balance/',
 )({
-  head: () => ({ meta: [{ title: 'Баланс учня | Robocoins' }] }),
   params: {
     parse: (params) => {
       const result = v.safeParse(BalanceStudentParamsSchema, params)

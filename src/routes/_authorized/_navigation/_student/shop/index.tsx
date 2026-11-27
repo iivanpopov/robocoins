@@ -5,7 +5,7 @@ import { getShopRewardsShopGetQueryOptions } from '#/api/hooks/useGetShopRewards
 import { getStudentRewardProgressStudentStudentIdRewardProgressGetQueryOptions } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
 import type { StudentProfileResponse } from '#/api/types'
 import { Loader } from '#/components/ui'
-import { Feedback, InlineError } from '#/routes/-components'
+import { InlineError } from '#/routes/-components'
 import { SpaceBackground } from '#/routes/_authorized/-components/space-background'
 import { cn } from '#/utils/cn'
 
@@ -16,7 +16,6 @@ import { useShopPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_student/shop/')({
-  head: () => ({ meta: [{ title: 'Магазин | Robocoins' }] }),
   loader: async ({ context }) => {
     const profile = context.user as StudentProfileResponse
     await Promise.allSettled([
@@ -89,15 +88,6 @@ function ShopPage() {
           <InlineError onRetry={functions.handleRetryCatalog} isRetrying={state.isCatalogFetching}>
             {t('error.description')}
           </InlineError>
-        </div>
-      )}
-      {!state.isRewardActive && !state.isListView && (
-        <div className={styles.suggestion}>
-          <Feedback
-            source="shop"
-            contentClassName="galaxy"
-            className={styles['suggestion-trigger']}
-          />
         </div>
       )}
       <SpaceBackground className={styles['star-background']} ref={refs.background} variant="shop" />
@@ -179,15 +169,6 @@ function ShopPage() {
               </li>
             ))}
           </ul>
-          {!state.isRewardActive && (
-            <div className={styles['catalog-suggestion']}>
-              <Feedback
-                source="shop"
-                contentClassName="galaxy"
-                className={styles['suggestion-trigger']}
-              />
-            </div>
-          )}
         </section>
       )}
       {state.isRewardVisible && state.selectedReward && (

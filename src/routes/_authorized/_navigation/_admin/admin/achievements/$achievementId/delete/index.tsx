@@ -26,7 +26,6 @@ import styles from './index.module.css'
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/achievements/$achievementId/delete/',
 )({
-  head: () => ({ meta: [{ title: 'Видалення досягнення | Robocoins' }] }),
   params: { parse: (params) => parseAchievementIdParams(params) },
   component: DeleteAchievementPage,
 })

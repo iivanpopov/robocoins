@@ -17,7 +17,6 @@ import { useDailyMissionPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/daily-mission/')({
-  head: () => ({ meta: [{ title: 'Місія дня | Robocoins' }] }),
   beforeLoad: ({ context }) => {
     if (context.user && context.user.role !== 'student') {
       throw redirect({ to: getHomePath(context.user.role) })

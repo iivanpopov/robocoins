@@ -29,7 +29,6 @@ function RouteComponent() {
           <HeroPasswordInput
             id="password"
             name="password"
-            disabled={!state.isHydrated}
             value={features.passwordField.value}
             onChange={(event) => features.passwordField.handleChange(event.target.value)}
             onBlur={features.passwordField.handleBlur}

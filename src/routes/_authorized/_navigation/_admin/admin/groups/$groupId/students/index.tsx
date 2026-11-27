@@ -32,7 +32,6 @@ import styles from './index.module.css'
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/groups/$groupId/students/',
 )({
-  head: () => ({ meta: [{ title: 'Склад групи | Robocoins' }] }),
   params: { parse: (params) => parseGroupIdParams(params) },
   component: GroupStudentsRoute,
 })
