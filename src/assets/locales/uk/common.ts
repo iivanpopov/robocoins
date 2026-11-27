@@ -63,6 +63,7 @@ export default {
   'error.code': '500',
   'error.description': 'Не вдалося завантажити сторінку. Спробуйте ще раз.',
   'error.retry': 'Спробувати ще раз',
+  'google.callback.loading': 'Завершуємо підключення до Google…',
   'error.title': 'Щось пішло не так',
   'field.action.label': 'Дія',
   'field.avatar.label': 'Аватар',

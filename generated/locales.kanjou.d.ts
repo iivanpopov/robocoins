@@ -87,6 +87,7 @@ declare module '@kanjou/react' {
       'error.code': {}
       'error.description': {}
       'error.retry': {}
+      'google.callback.loading': {}
       'error.title': {}
       'field.action.label': {}
       'field.avatar.label': {}
@@ -194,6 +195,10 @@ declare module '@kanjou/react' {
       'weekday.thursday': {}
       'weekday.tuesday': {}
       'weekday.wednesday': {}
+      'auth.google.button': {}
+      'auth.google.error': {}
+      'auth.google.not-linked': {}
+      'auth.google.session-expired': {}
       'caption.has-account': {}
       'caption.has-no-account': {}
       'caption.mistake': {}
@@ -223,12 +228,27 @@ declare module '@kanjou/react' {
       'settings.animations.disable': {}
       'settings.animations.system': {}
       'settings.credentials.error': {}
+      'settings.google.add': {}
+      'settings.google.already-linked': {}
+      'settings.google.connected': {}
+      'settings.google.email': {}
+      'settings.google.link-error': {}
+      'settings.google.loading': {}
+      'settings.google.retry': {}
+      'settings.google.status-error': {}
+      'settings.google.toggle-email': {}
+      'settings.google.unlink': {}
+      'settings.google.unlink-confirm': {}
+      'settings.google.unlink-description': {}
+      'settings.google.unlink-error': {}
+      'settings.google.unlink-title': {}
       'settings.logout': {}
       'settings.logout.confirm.description': {}
       'settings.logout.confirm.title': {}
       'settings.logout.error': {}
       'settings.section.appearance': {}
       'settings.section.session': {}
+      'settings.section.sign-in': {}
       'daily-mission.answer.error': {}
       'daily-mission.answer.incorrect': {}
       'daily-mission.answer.label': {}

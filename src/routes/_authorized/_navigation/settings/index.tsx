@@ -16,20 +16,18 @@ import {
   Field,
   FieldDescription,
   FieldLabel,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
   Loader,
 } from '#/components/ui'
 import { InlineError, PageLayout } from '#/routes/-components'
-import { cn } from '#/utils/cn'
+import { validateGoogleSettingsSearch } from '#/routes/-utils'
 
+import { GoogleAccountSettings, MaskedReadOnlyField } from './-components'
 import { useSettingsPage } from './-hooks'
 
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/settings/')({
+  validateSearch: validateGoogleSettingsSearch,
   head: () => ({ meta: [{ title: 'Налаштування | Robocoins' }] }),
   component: SettingsPage,
 })
@@ -47,38 +45,18 @@ function SettingsPage() {
         </PageLayout.Heading>
       </PageLayout.Header>
 
-      {state.isStudent && (
+      {state.isStudent && state.user && (
         <section className={styles.section}>
-          <h2 className={styles['section-title']}>{t('settings.section.account')}</h2>
-          <Field>
-            <FieldLabel htmlFor="settings-password">{t('settings.password')}</FieldLabel>
-            <InputGroup>
-              <InputGroupInput
-                id="settings-password"
-                type={state.isPasswordVisible ? 'text' : 'password'}
-                value={state.password}
-                readOnly
-                autoComplete="off"
-                placeholder={t('field.password.caption')}
-              />
-              <InputGroupAddon align="inline-end">
-                <InputGroupButton
-                  onClick={functions.handleTogglePassword}
-                  aria-label={
-                    state.isPasswordVisible ? t('field.password.hide') : t('field.password.show')
-                  }
-                  aria-pressed={state.isPasswordVisible}
-                >
-                  <span
-                    aria-hidden="true"
-                    className={cn(
-                      state.isPasswordVisible && 'i-ph:eye-slash',
-                      !state.isPasswordVisible && 'i-ph:eye',
-                    )}
-                  />
-                </InputGroupButton>
-              </InputGroupAddon>
-            </InputGroup>
+          <h2 className={styles['section-title']}>{t('settings.section.sign-in')}</h2>
+          <MaskedReadOnlyField
+            key={`code-${state.user.user_id}`}
+            id="settings-password"
+            label={t('settings.password')}
+            value={state.password}
+            showLabel={t('field.password.show')}
+            hideLabel={t('field.password.hide')}
+            placeholder={t('field.password.caption')}
+          >
             {queries.credentials.isError && (
               <InlineError
                 onRetry={functions.handleRetryCredentials}
@@ -87,7 +65,12 @@ function SettingsPage() {
                 {t('settings.credentials.error')}
               </InlineError>
             )}
-          </Field>
+          </MaskedReadOnlyField>
+          <GoogleAccountSettings
+            key={state.user.user_id}
+            userId={state.user.user_id}
+            googleNotice={state.googleNotice}
+          />
         </section>
       )}
 

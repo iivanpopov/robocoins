@@ -21,18 +21,26 @@ import { useAnimationsDisabled } from '#/hooks/use-motion-preference'
 import { translationComponents, translationFunctions } from '#/lib/translations'
 import { getSession } from '#/routes/-actions/get-session'
 import { RequestErrorComponent } from '#/routes/-components/request-error-component'
+import { validateGoogleLoginSearch } from '#/routes/-utils/google-oauth-notice'
 import { cn } from '#/utils/cn'
 import { readCookie } from '#/utils/cookies'
 import { MOTION_PREFERENCE_COOKIE } from '#/utils/motion'
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  beforeLoad: async ({ context }) => {
+  beforeLoad: async (match) => {
     const locale = 'uk' as const
-    const user = await context.queryClient.query({
-      queryKey: ['session'],
-      queryFn: () => getSession(),
-      retry: false,
-    })
+    const pathname = match.location.pathname.replace(/\/+$/, '')
+    const isGoogleCallback = pathname === '/auth/google/callback'
+    const isGoogleLoginRecovery =
+      pathname === '/login' && !!validateGoogleLoginSearch(match.location.search).google
+    const user =
+      isGoogleCallback || isGoogleLoginRecovery
+        ? null
+        : await match.context.queryClient.query({
+            queryKey: ['session'],
+            queryFn: () => getSession(),
+            retry: false,
+          })
     const animationsDisabled = (await readCookie(MOTION_PREFERENCE_COOKIE)) === 'true'
 
     return { locale, user, animationsDisabled }

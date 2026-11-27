@@ -32,7 +32,6 @@
         "@kubb/plugin-fetch": "^6.4.1",
         "@kubb/plugin-react-query": "^5.13.0",
         "@kubb/plugin-ts": "^5.6.1",
-        "@repo/kubb-thin-client": "workspace:*",
         "@types/node": "^26.6.6",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
@@ -54,13 +53,6 @@
         "typescript": "^7.0.2",
         "unocss": "^66.13.0",
         "vite": "^8.3.8",
-      },
-    },
-    "packages/kubb-thin-client": {
-      "name": "@repo/kubb-thin-client",
-      "version": "0.0.0",
-      "peerDependencies": {
-        "@kubb/core": ">=5.0.0",
       },
     },
   },
@@ -378,8 +370,6 @@
     "@readme/openapi-parser": ["@readme/openapi-parser@10.0.0", "", { "dependencies": { "@apidevtools/json-schema-ref-parser": "^15.5.1", "@readme/better-ajv-errors": "^2.3.2", "@readme/openapi-schemas": "^4.0.0", "@types/json-schema": "^7.0.15", "ajv": "^8.20.0", "ajv-draft-04": "^1.0.0" }, "peerDependencies": { "openapi-types": ">=7" } }, "sha512-i00ADeEJ24QoVS3QDM66bZxyTdIT0zoPtYxA4xS4L5Zw/3ivt0smzIjf1GSma3/uArSGXTG+oJf0gnieH2iSbQ=="],
 
     "@readme/openapi-schemas": ["@readme/openapi-schemas@4.0.0", "", { "dependencies": { "@types/json-schema": "7.0.15" } }, "sha512-hrG//9/+RpOZTrUDirU4OzfMqaxCdY5BMpr3YuLf3Rje9rfNsydQJsH9iCPTie9ZRu9xe+0OUD4fHe0JmGwa2w=="],
-
-    "@repo/kubb-thin-client": ["@repo/kubb-thin-client@workspace:packages/kubb-thin-client"],
 
     "@rolldown/binding-android-arm-eabi": ["@rolldown/binding-android-arm-eabi@1.2.19", "", { "os": "android", "cpu": "arm" }, "sha512-e+Ebe0WT+9tbXmNKPIiC8YrWAHYwug3m6i4p3rZGGulfZri1jtI4HslT+OZnFf/OIHowWF71DTlHwXBP2SiA7A=="],
 

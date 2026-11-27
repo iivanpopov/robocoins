@@ -21,8 +21,8 @@
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  color: var(--brand-foreground);
-  background: var(--brand);
+  color: var(--button-color, var(--brand-foreground));
+  background: var(--button-background, var(--brand));
   border: none;
 
   &:disabled {
@@ -31,7 +31,13 @@
   }
 
   &:hover:not(:disabled) {
-    background: var(--brand-hover);
+    background: var(--button-hover, var(--brand-hover));
+  }
+
+  &[data-variant='light'] {
+    --button-color: black;
+    --button-background: white;
+    --button-hover: var(--neutral-100);
   }
 
   &.sm {
