@@ -1,3 +1,4 @@
+import { TranslateProvider } from '@kanjou/react'
 import type { QueryClient } from '@tanstack/react-query'
 import {
   HeadContent,
@@ -7,7 +8,7 @@ import {
   useLocation,
 } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
-import messages from 'virtual:messages/uk/common'
+import messages from 'virtual:kanjou/uk/common'
 
 import rubikCyrillic from '#/assets/fonts/rubik-cyrillic-wght-normal.woff2?url'
 import rubikLatin from '#/assets/fonts/rubik-latin-wght-normal.woff2?url'
@@ -16,22 +17,30 @@ import { Toaster } from '#/components/ui/toast'
 import '#/assets/styles/global.css'
 import 'virtual:uno.css'
 
-import { useMotionPreference } from '#/hooks/use-motion-preference'
-import { TranslationProvider } from '#/lib/translations'
+import { useAnimationsDisabled } from '#/hooks/use-motion-preference'
+import { translationComponents, translationFunctions } from '#/lib/translations'
 import { getSession } from '#/routes/-actions/get-session'
 import { RequestErrorComponent } from '#/routes/-components/request-error-component'
+import { validateGoogleLoginSearch } from '#/routes/-utils/google-oauth-notice'
 import { cn } from '#/utils/cn'
 import { readCookie } from '#/utils/cookies'
 import { MOTION_PREFERENCE_COOKIE } from '#/utils/motion'
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  beforeLoad: async ({ context }) => {
+  beforeLoad: async (match) => {
     const locale = 'uk' as const
-    const user = await context.queryClient.query({
-      queryKey: ['session'],
-      queryFn: () => getSession(),
-      retry: false,
-    })
+    const pathname = match.location.pathname.replace(/\/+$/, '')
+    const isGoogleCallback = pathname === '/auth/google/callback'
+    const isGoogleLoginRecovery =
+      pathname === '/login' && !!validateGoogleLoginSearch(match.location.search).google
+    const user =
+      isGoogleCallback || isGoogleLoginRecovery
+        ? null
+        : await match.context.queryClient.query({
+            queryKey: ['session'],
+            queryFn: () => getSession(),
+            retry: false,
+          })
     const animationsDisabled = (await readCookie(MOTION_PREFERENCE_COOKIE)) === 'true'
 
     return { locale, user, animationsDisabled }
@@ -75,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootDocument({ children }: { children: ReactNode }) {
   const pathname = useLocation({ select: (location) => location.pathname })
   const context = Route.useRouteContext()
-  const motionPreference = useMotionPreference(context?.animationsDisabled)
+  const animationsDisabled = useAnimationsDisabled(context?.animationsDisabled)
 
   const locale = context?.locale ?? 'uk'
 
@@ -86,16 +95,21 @@ function RootDocument({ children }: { children: ReactNode }) {
     <html
       lang={locale}
       className={cn(context?.user?.role === 'student' && 'student')}
-      data-reduced-motion={motionPreference.disabled}
+      data-reduced-motion={animationsDisabled}
     >
       <head>
         <HeadContent />
         <link rel="icon" href={iconHref} type="image/svg+xml" />
       </head>
       <body>
-        <TranslationProvider locale={locale} messages={messages}>
+        <TranslateProvider
+          locale={locale}
+          messages={messages}
+          functions={translationFunctions}
+          components={translationComponents}
+        >
           <Toaster>{children}</Toaster>
-        </TranslationProvider>
+        </TranslateProvider>
         <Scripts />
       </body>
     </html>

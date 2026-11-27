@@ -3,9 +3,11 @@
 * Do not edit manually.
 */
 
+import type { AchievementResponse } from './AchievementResponse'
 import type { CoinAchievementProgressItem } from './CoinAchievementProgressItem'
 
 export type StudentAchievementProgressResponse = {
   earned_coins: number;
   achievements: CoinAchievementProgressItem[];
+  earned_daily_task_achievements?: AchievementResponse[];
 };

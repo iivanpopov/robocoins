@@ -9,11 +9,11 @@
   font-family: 'Rubik Variable', sans-serif;
   font-size: 1.5rem;
   font-weight: 500;
-  color: var(--background);
+  color: var(--hero-button-color, var(--background));
   cursor: pointer;
   outline: none;
   outline-offset: 2px;
-  background: var(--brand);
+  background: var(--hero-button-background, var(--brand));
   border: 3px solid var(--foreground);
   border-radius: var(--spacing-lg);
   transition:
@@ -44,7 +44,7 @@
   }
 
   &:hover {
-    background: var(--brand-hover);
+    background: var(--hero-button-hover, var(--brand-hover));
 
     &[aria-invalid] {
       background: var(--error-hover);
@@ -53,6 +53,12 @@
     &::after {
       transform: translate(0, 0);
     }
+  }
+
+  &[data-variant='light'] {
+    --hero-button-color: black;
+    --hero-button-background: white;
+    --hero-button-hover: var(--neutral-100);
   }
 }
 

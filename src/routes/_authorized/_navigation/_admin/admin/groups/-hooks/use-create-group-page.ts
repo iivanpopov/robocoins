@@ -10,7 +10,6 @@ import { useForm } from '#/hooks/use-form'
 import { CreateGroupStateSchema } from '../-schemas'
 import type { GroupErrorKey } from '../-types'
 import { getGroupErrorKey, invalidateGroupCaches } from '../-utils'
-import type { AdminSelectOption } from '../../-components'
 import { useTeacherOptions } from './use-teacher-options'
 
 export function useCreateGroupPage() {
@@ -74,7 +73,7 @@ export function useCreateGroupPage() {
   }
 
   const courses = coursesQuery.data ?? []
-  const courseItems: AdminSelectOption[] = courses.map((course) => ({
+  const courseItems = courses.map((course) => ({
     value: String(course.id),
     label: course.name,
     category: course.category,

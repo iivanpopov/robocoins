@@ -9,13 +9,14 @@ import {
   InputGroupButton,
   InputGroupInput,
   Loader,
+  Select,
 } from '#/components/ui'
 import { PageLayout } from '#/routes/-components/page-layout'
 import { cn } from '#/utils/cn'
 
-import { AdminSelect } from '../../-components'
+import { ApiErrorNotice } from '../../-components'
 import { GROUP_FILTER_ALL } from '../../-constants'
-import { ApiErrorNotice, StudentRow } from './-components'
+import { StudentRow } from './-components'
 import { useStudentsPage } from './-hooks'
 
 import styles from './index.module.css'
@@ -98,31 +99,54 @@ function StudentsPage() {
 
         {state.isFiltersOpen && (
           <div className={styles.filters}>
-            <AdminSelect
+            <Select.Root
               value={state.selectedCategory}
-              onValueChange={functions.handleCategorySelect}
+              onValueChange={(value) => functions.handleCategorySelect(value ?? '')}
               items={categoryItems}
-              placeholder={t('filters.all-categories')}
-              ariaLabel={t('students.filters.category')}
-            />
-            <AdminSelect
-              value={
-                state.selectedCourseId === null ? GROUP_FILTER_ALL : String(state.selectedCourseId)
-              }
-              onValueChange={functions.handleCourseSelect}
+            >
+              <Select.Trigger aria-label={t('students.filters.category')}>
+                <Select.Value placeholder={t('filters.all-categories')} />
+              </Select.Trigger>
+              <Select.Content>
+                {categoryItems.map((item) => (
+                  <Select.Item key={item.value} value={item.value}>
+                    {item.label}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Root>
+            <Select.Root
+              value={String(state.selectedCourseId ?? GROUP_FILTER_ALL)}
+              onValueChange={(value) => functions.handleCourseSelect(value ?? '')}
               items={courseItems}
-              placeholder={t('filters.all-courses')}
-              ariaLabel={t('courses.title')}
-            />
-            <AdminSelect
-              value={
-                state.selectedGroupId === null ? GROUP_FILTER_ALL : String(state.selectedGroupId)
-              }
-              onValueChange={functions.handleGroupSelect}
+            >
+              <Select.Trigger aria-label={t('courses.title')}>
+                <Select.Value placeholder={t('filters.all-courses')} />
+              </Select.Trigger>
+              <Select.Content>
+                {courseItems.map((item) => (
+                  <Select.Item key={item.value} value={item.value}>
+                    {item.label}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Root>
+            <Select.Root
+              value={String(state.selectedGroupId ?? GROUP_FILTER_ALL)}
+              onValueChange={(value) => functions.handleGroupSelect(value ?? '')}
               items={groupItems}
-              placeholder={t('filters.all-groups')}
-              ariaLabel={t('groups.title')}
-            />
+            >
+              <Select.Trigger aria-label={t('groups.title')}>
+                <Select.Value placeholder={t('filters.all-groups')} />
+              </Select.Trigger>
+              <Select.Content>
+                {groupItems.map((item) => (
+                  <Select.Item key={item.value} value={item.value}>
+                    {item.label}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Root>
           </div>
         )}
       </div>

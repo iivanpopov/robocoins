@@ -1,5 +1,4 @@
 import type { Avatar, AvailableAvatarRing, AvatarRing } from '#/routes/-constants'
-import { cn } from '#/utils/cn'
 
 import { UserAvatar } from '../user-avatar'
 import { VisualPickerGrid, VisualPickerTile } from '../visual-picker'
@@ -15,25 +14,7 @@ export interface EffectPickerProps {
 }
 
 export function EffectPicker(props: EffectPickerProps) {
-  const picker = useEffectPicker({
-    value: props.value,
-    persistedValue: props.persistedValue,
-    onChange: props.onChange,
-    disabled: props.disabled,
-  })
-
-  function getStatus(isLocked: boolean, isCurrent: boolean) {
-    if (isLocked) {
-      return (
-        <>
-          <span aria-hidden="true" className={cn('i-ph:lock-simple')} />
-          {picker.state.soonLabel}
-        </>
-      )
-    }
-    if (isCurrent) return picker.state.currentLabel
-    return undefined
-  }
+  const picker = useEffectPicker(props)
 
   return (
     <VisualPickerGrid label={picker.state.label} layout="effect">
@@ -46,7 +27,14 @@ export function EffectPicker(props: EffectPickerProps) {
           isLocked={item.isLocked}
           disabled={props.disabled}
           onClick={() => picker.functions.handleSelect(item.id)}
-          status={getStatus(item.isLocked, item.isCurrent)}
+          status={
+            item.statusLabel && (
+              <>
+                {item.isLocked && <span aria-hidden="true" className="i-ph:lock-simple" />}
+                {item.statusLabel}
+              </>
+            )
+          }
         >
           <UserAvatar name={props.name} avatar={props.avatar} avatarRing={item.id} size="lg" />
         </VisualPickerTile>

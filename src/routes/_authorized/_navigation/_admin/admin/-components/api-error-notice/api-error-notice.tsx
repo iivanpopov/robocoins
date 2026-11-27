@@ -2,7 +2,8 @@ import { useTranslate } from '@kanjou/react'
 
 import { Button } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
-import type { ApiErrorKind } from '#/routes/_authorized/_navigation/_admin/admin/-utils'
+
+import type { ApiErrorKind } from '../../-utils'
 
 import styles from './api-error-notice.module.css'
 
@@ -14,26 +15,23 @@ export interface ApiErrorNoticeProps {
   isRetrying?: boolean
 }
 
-export function ApiErrorNotice({
-  kind,
-  fallback,
-  onLogin,
-  onRetry,
-  isRetrying,
-}: ApiErrorNoticeProps) {
+export function ApiErrorNotice(props: ApiErrorNoticeProps) {
   const t = useTranslate()
+
+  const isSessionError = props.kind === 'session'
+  const isOtherError = props.kind === 'other'
+
+  let message = props.fallback
+  if (isSessionError) message = t('error.session')
+  if (props.kind === 'forbidden') message = t('error.forbidden')
 
   return (
     <div className={styles.notice}>
-      {kind === 'session' && <InlineError>{t('error.session')}</InlineError>}
-      {kind === 'forbidden' && <InlineError>{t('error.forbidden')}</InlineError>}
-      {kind === 'other' && (
-        <InlineError onRetry={onRetry} isRetrying={isRetrying}>
-          {fallback}
-        </InlineError>
-      )}
-      {kind === 'session' && (
-        <Button variant="ghost" onClick={onLogin}>
+      <InlineError {...(isOtherError && { onRetry: props.onRetry, isRetrying: props.isRetrying })}>
+        {message}
+      </InlineError>
+      {isSessionError && (
+        <Button type="button" variant="ghost" onClick={props.onLogin}>
           {t('navigation.login')}
         </Button>
       )}

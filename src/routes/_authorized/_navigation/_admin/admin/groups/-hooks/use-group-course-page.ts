@@ -7,7 +7,6 @@ import { useField } from '#/hooks/use-field'
 import { ChangeGroupCourseStateSchema } from '../-schemas'
 import type { GroupErrorKey } from '../-types'
 import { getGroupErrorKey, getGroupErrorStatus } from '../-utils'
-import type { AdminSelectOption } from '../../-components'
 import { useGroupWithCourse } from './use-group-with-course'
 
 export function useGroupCoursePage() {
@@ -68,7 +67,7 @@ export function useGroupCoursePage() {
   const selectedCourse =
     groupData.coursesQuery.data?.find((course) => String(course.id) === selectedCourseId) ?? null
   const courses = groupData.coursesQuery.data ?? []
-  const courseItems: AdminSelectOption[] = courses.map((course) => ({
+  const courseItems = courses.map((course) => ({
     value: String(course.id),
     label: course.name,
     category: course.category,

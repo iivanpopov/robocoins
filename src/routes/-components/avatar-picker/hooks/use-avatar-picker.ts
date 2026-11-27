@@ -11,16 +11,16 @@ export interface UseAvatarPickerOptions {
 export function useAvatarPicker(options: UseAvatarPickerOptions) {
   const t = useTranslate()
 
-  function handleSelect(avatar: Avatar) {
-    if (options.disabled || avatar === options.value) return
-    options.onChange(avatar)
-  }
-
   const items = AVATARS.map((avatar, index) => ({
     avatar,
     isSelected: avatar === options.value,
     label: t('avatar-picker.option', { number: index + 1 }),
   }))
+
+  function handleSelect(avatar: Avatar) {
+    if (options.disabled || avatar === options.value) return
+    options.onChange(avatar)
+  }
 
   return {
     state: {

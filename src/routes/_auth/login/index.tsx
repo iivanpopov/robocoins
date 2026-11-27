@@ -1,14 +1,17 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute } from '@tanstack/react-router'
 
+import { GoogleIcon } from '#/components/google-icon'
 import { HeroButton, Loader, Typography } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
+import { validateGoogleLoginSearch } from '#/routes/-utils'
 
 import { AuthLayout } from '../-components'
 import { HeroPasswordInput } from './-components'
 import { useLoginPage } from './-hooks'
 
 export const Route = createFileRoute('/_auth/login/')({
+  validateSearch: validateGoogleLoginSearch,
   component: RouteComponent,
 })
 
@@ -41,14 +44,30 @@ function RouteComponent() {
         </AuthLayout.Top>
 
         <AuthLayout.Bottom>
-          <HeroButton
-            type="submit"
-            className="w-full"
-            disabled={!state.isHydrated || mutations.login.isPending}
-          >
+          <HeroButton type="submit" className="w-full" disabled={state.isSignInDisabled}>
             {features.passwordField.isSubmitting && <Loader />}
             {!features.passwordField.isSubmitting && t('action.enter.title')}
           </HeroButton>
+          <HeroButton
+            type="button"
+            data-variant="light"
+            className="mt-3 w-full gap-2"
+            disabled={state.isSignInDisabled}
+            onClick={functions.handleGoogleLogin}
+            aria-busy={mutations.google.isPending}
+          >
+            <GoogleIcon />
+            {t('auth.google.button')}
+          </HeroButton>
+          {state.googleNotice === 'not_linked' && (
+            <InlineError className="mt-3">{t('auth.google.not-linked')}</InlineError>
+          )}
+          {state.googleNotice === 'session_expired' && (
+            <InlineError className="mt-3">{t('auth.google.session-expired')}</InlineError>
+          )}
+          {(state.googleNotice === 'error' || mutations.google.isError) && (
+            <InlineError className="mt-3">{t('auth.google.error')}</InlineError>
+          )}
           <Typography variant="caption" className="text-center mt-6">
             {t.rich('caption.has-no-account', { to: '/register' })}
           </Typography>

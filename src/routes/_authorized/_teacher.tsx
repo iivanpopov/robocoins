@@ -1,7 +1,7 @@
+import { TranslateProvider } from '@kanjou/react'
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
-import messages from 'virtual:messages/uk/teacher'
+import messages from 'virtual:kanjou/uk/teacher'
 
-import { TranslationProvider } from '#/lib/translations'
 import { getHomePath } from '#/routes/-utils'
 
 export const Route = createFileRoute('/_authorized/_teacher')({
@@ -16,8 +16,8 @@ export const Route = createFileRoute('/_authorized/_teacher')({
 
 function TeacherTranslationLayout() {
   return (
-    <TranslationProvider messages={messages} omitLeadingCoinZero>
+    <TranslateProvider messages={messages}>
       <Outlet />
-    </TranslationProvider>
+    </TranslateProvider>
   )
 }

@@ -1,5 +1,4 @@
 import kanjou from '@kanjou/plugin/vite'
-import { translationNamespaces } from '@repo/kanjou-translations'
 import { sentryTanstackStart } from '@sentry/tanstackstart-react/vite'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import { redact } from '@tanstack/redact/vite'
@@ -42,7 +41,6 @@ export default defineConfig(({ mode }) => {
         },
       }),
       kanjou(),
-      translationNamespaces(),
       react(),
       redact({
         features: {

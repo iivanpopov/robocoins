@@ -1,2 +1,3 @@
 export { ShopErrorComponent } from './shop-error-component'
-export { RewardArtwork, RewardSymbol } from './reward-artwork'
+export { RewardArtwork } from './reward-artwork'
+export { RewardSymbol } from './reward-symbol'

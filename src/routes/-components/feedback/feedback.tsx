@@ -1,6 +1,6 @@
-import { useTranslate } from '@kanjou/react'
+import { TranslateProvider, useTranslate } from '@kanjou/react'
 import { useId } from 'react'
-import messages from 'virtual:messages/uk/feedback'
+import messages from 'virtual:kanjou/uk/feedback'
 
 import {
   Button,
@@ -18,7 +18,6 @@ import {
   FieldLabel,
   Loader,
 } from '#/components/ui'
-import { TranslationProvider } from '#/lib/translations'
 import { InlineError } from '#/routes/-components/inline-error'
 import { cn } from '#/utils/cn'
 
@@ -53,9 +52,9 @@ export interface FeedbackProps {
 
 export function Feedback(props: FeedbackProps) {
   return (
-    <TranslationProvider messages={messages}>
+    <TranslateProvider messages={messages}>
       <FeedbackContent {...props} />
-    </TranslationProvider>
+    </TranslateProvider>
   )
 }
 

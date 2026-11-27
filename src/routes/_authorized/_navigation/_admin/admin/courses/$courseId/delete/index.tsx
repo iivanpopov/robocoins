@@ -21,8 +21,8 @@ import {
 import { PageLayout } from '#/routes/-components/page-layout'
 
 import { CourseEmptyState, CourseForm, CourseRequestError, ResultPanel } from '../../-components'
-import { useCourseDeletePage } from '../../-hooks'
 import { parseCourseIdParams } from '../../-utils'
+import { useCourseDeletePage } from './-hooks'
 
 import styles from './index.module.css'
 

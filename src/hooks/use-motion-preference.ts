@@ -2,18 +2,23 @@ import { useSyncExternalStore } from 'react'
 
 import {
   animationsDisabled,
-  subscribeMotionPreference,
+  subscribeAnimationsDisabled,
+  subscribeSystemReducedMotion,
   systemPrefersReducedMotion,
 } from '#/utils/motion'
 
-export function useMotionPreference(initialDisabled = false) {
-  const disabled = useSyncExternalStore(
-    subscribeMotionPreference,
+export function useAnimationsDisabled(initialDisabled = false) {
+  return useSyncExternalStore(
+    subscribeAnimationsDisabled,
     animationsDisabled,
     () => initialDisabled,
   )
+}
+
+export function useMotionPreference(initialDisabled = false) {
+  const disabled = useAnimationsDisabled(initialDisabled)
   const systemReducedMotion = useSyncExternalStore(
-    subscribeMotionPreference,
+    subscribeSystemReducedMotion,
     systemPrefersReducedMotion,
     () => false,
   )

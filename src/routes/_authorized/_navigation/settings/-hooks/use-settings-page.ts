@@ -1,5 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query'
-import { useRouteContext } from '@tanstack/react-router'
+import { useRouteContext, useSearch } from '@tanstack/react-router'
 import { useState } from 'react'
 
 import { useGetStudentCredentialsAuthMeCredentialsGet } from '#/api/hooks/useGetStudentCredentialsAuthMeCredentialsGet'
@@ -10,7 +10,8 @@ import { setAnimationsDisabled } from '#/utils/motion'
 
 export function useSettingsPage() {
   const context = useRouteContext({ from: '/_authorized' })
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+  const search = useSearch({ from: '/_authorized/_navigation/settings/' })
+
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false)
   const motionPreference = useMotionPreference(context.animationsDisabled)
   const queryClient = useQueryClient()
@@ -40,10 +41,6 @@ export function useSettingsPage() {
     setIsLogoutDialogOpen(open)
   }
 
-  const handleTogglePassword = () => {
-    setIsPasswordVisible((value) => !value)
-  }
-
   function handleRetryCredentials() {
     void credentialsQuery.refetch()
   }
@@ -60,8 +57,8 @@ export function useSettingsPage() {
     state: {
       user: context.user,
       isStudent,
+      googleNotice: search.google,
       pageLayoutVariant,
-      isPasswordVisible,
       isLogoutDialogOpen,
       animationsReduced: motionPreference.reducedMotion,
       isSystemReducedMotion: motionPreference.systemReducedMotion,
@@ -72,7 +69,6 @@ export function useSettingsPage() {
     mutations: { logout: logoutMutation },
     functions: {
       handleLogout,
-      handleTogglePassword,
       handleRetryCredentials,
       handleLogoutDialogOpenChange,
       handleAnimationsChange,

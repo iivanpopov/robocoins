@@ -1,4 +1,10 @@
 export default {
+  'auth.google.button': 'Google',
+  'auth.google.error': 'Не вдалося увійти через Google. Спробуй ще раз або увійди за кодом.',
+  'auth.google.not-linked':
+    'Цей Google-акаунт не підключено. Увійди за кодом і додай Google-акаунт у налаштуваннях.',
+  'auth.google.session-expired':
+    'Термін дії сесії минув. Увійди за кодом і повтори підключення Google-акаунта в налаштуваннях.',
   'caption.has-account': 'Маєш акаунт?{#br/}{#a to=$to}Увійти{/a}',
   'caption.has-no-account': 'Немає акаунту?{#br/}{#a to=$to}Зареєструватися{/a}',
   'caption.mistake':

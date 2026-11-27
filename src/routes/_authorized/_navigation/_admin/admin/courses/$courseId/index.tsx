@@ -5,8 +5,8 @@ import { Button, IconButton, Loader } from '#/components/ui'
 import { PageLayout } from '#/routes/-components/page-layout'
 
 import { CourseEmptyState, CourseGroupRow, CourseRequestError } from '../-components'
-import { useCourseDetailsPage } from '../-hooks'
 import { parseCourseIdParams } from '../-utils'
+import { useCourseDetailsPage } from './-hooks'
 
 import styles from './index.module.css'
 

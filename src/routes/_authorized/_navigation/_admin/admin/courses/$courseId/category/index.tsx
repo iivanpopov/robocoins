@@ -13,8 +13,8 @@ import {
   ResultPanel,
 } from '../../-components'
 import { CourseCategoryFilter } from '../../-constants'
-import { useCourseCategoryPage } from '../../-hooks'
 import { parseCourseIdParams } from '../../-utils'
+import { useCourseCategoryPage } from './-hooks'
 
 import styles from './index.module.css'
 

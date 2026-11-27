@@ -2,9 +2,10 @@ import { useTranslate } from '@kanjou/react'
 import { Link } from '@tanstack/react-router'
 
 import type { BalanceLeaderboardEntry } from '#/api/types'
+import { UserAvatar } from '#/routes/-components/user-avatar'
 import { cn } from '#/utils/cn'
 
-import { PodiumAvatar, PodiumPoints } from './podium-parts'
+import { PodiumPoints } from './components'
 
 import styles from './podium.module.css'
 
@@ -15,6 +16,7 @@ export interface PodiumProps {
 
 export function Podium(props: PodiumProps) {
   const t = useTranslate()
+
   const entries = props.entries
     .filter((entry) => entry.rank >= 1 && entry.rank <= 3)
     .toSorted((entry, otherEntry) => entry.rank - otherEntry.rank)
@@ -35,7 +37,12 @@ export function Podium(props: PodiumProps) {
               params={{ studentId: entry.student_id }}
               aria-label={t('profile.open-label', { name: entry.name })}
             >
-              <PodiumAvatar entry={entry} className={styles.avatar} />
+              <UserAvatar
+                name={entry.name}
+                avatar={entry.avatar}
+                size="lg"
+                className={styles.avatar}
+              />
             </Link>
             {entry.rank === 1 && (
               <span aria-hidden="true" className={cn('i-ph:crown', styles.crown)} />
@@ -43,7 +50,7 @@ export function Podium(props: PodiumProps) {
           </span>
           <span className={styles.meta}>
             <span className={styles.name}>{entry.name}</span>
-            <PodiumPoints entry={entry} className={styles.points} coinClassName={styles.coin} />
+            <PodiumPoints balance={entry.balance} />
           </span>
           <span aria-hidden="true" className={styles.step}>
             <span className={styles['step-rank']}>{entry.rank}</span>

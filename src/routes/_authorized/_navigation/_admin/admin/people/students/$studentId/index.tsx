@@ -8,7 +8,7 @@ import { IconButton, Loader } from '#/components/ui'
 import { LearningCard } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
 
-import { ApiErrorNotice } from '../-components'
+import { ApiErrorNotice } from '../../../-components'
 import { useStudentProfilePage } from './-hooks'
 
 import styles from './index.module.css'

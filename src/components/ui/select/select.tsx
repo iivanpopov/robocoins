@@ -1,78 +1,66 @@
 import { Select as SelectPrimitive } from '@base-ui/react/select'
+import type { ReactNode } from 'react'
 
 import { cn } from '#/utils/cn'
 
 import styles from './select.module.css'
 
-export const Select = SelectPrimitive.Root
-
-export interface SelectGroupProps extends SelectPrimitive.Group.Props {}
-
-export function SelectGroup({ className, ...props }: SelectGroupProps) {
-  return <SelectPrimitive.Group {...props} className={cn(styles.group, className)} />
+function SelectGroup(props: SelectPrimitive.Group.Props) {
+  return <SelectPrimitive.Group {...props} className={cn(styles.group, props.className)} />
 }
 
-export interface SelectValueProps extends SelectPrimitive.Value.Props {}
-
-export function SelectValue({ className, ...props }: SelectValueProps) {
-  return <SelectPrimitive.Value {...props} className={cn(styles.value, className)} />
+function SelectValue(props: SelectPrimitive.Value.Props) {
+  return <SelectPrimitive.Value {...props} className={cn(styles.value, props.className)} />
 }
 
-export interface SelectTriggerProps extends SelectPrimitive.Trigger.Props {}
-
-export function SelectTrigger({ className, children, ...props }: SelectTriggerProps) {
+function SelectTrigger(props: SelectPrimitive.Trigger.Props) {
   return (
-    <SelectPrimitive.Trigger {...props} className={cn(styles.trigger, className)}>
-      {children}
+    <SelectPrimitive.Trigger {...props} className={cn(styles.trigger, props.className)}>
+      {props.children}
       <SelectPrimitive.Icon className={styles.icon} render={<span className="i-ph:caret-down" />} />
     </SelectPrimitive.Trigger>
   )
 }
 
-export interface SelectContentProps
-  extends
-    SelectPrimitive.Popup.Props,
-    Pick<SelectPrimitive.Positioner.Props, 'side' | 'sideOffset' | 'align' | 'alignOffset'> {}
+interface SelectContentProps extends SelectPrimitive.Popup.Props {
+  positioner?: Pick<
+    SelectPrimitive.Positioner.Props,
+    'side' | 'sideOffset' | 'align' | 'alignOffset'
+  >
+}
 
-export function SelectContent({
-  className,
-  children,
-  side = 'bottom',
-  sideOffset = 6,
-  align = 'center',
-  alignOffset = 0,
-  ...props
-}: SelectContentProps) {
+function SelectContent(props: SelectContentProps) {
+  const popupProps = { ...props }
+  delete popupProps.positioner
+
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Positioner
-        side={side}
-        sideOffset={sideOffset}
-        align={align}
-        alignOffset={alignOffset}
+        side={props.positioner?.side ?? 'bottom'}
+        sideOffset={props.positioner?.sideOffset ?? 6}
+        align={props.positioner?.align ?? 'center'}
+        alignOffset={props.positioner?.alignOffset ?? 0}
         alignItemWithTrigger={false}
         className={styles.positioner}
       >
-        <SelectPrimitive.Popup {...props} className={cn(styles.content, className)}>
-          <SelectPrimitive.List>{children}</SelectPrimitive.List>
+        <SelectPrimitive.Popup {...popupProps} className={cn(styles.content, props.className)}>
+          <SelectPrimitive.List>{props.children}</SelectPrimitive.List>
         </SelectPrimitive.Popup>
       </SelectPrimitive.Positioner>
     </SelectPrimitive.Portal>
   )
 }
 
-export interface SelectLabelProps extends SelectPrimitive.GroupLabel.Props {}
-
-export function SelectLabel({ className, ...props }: SelectLabelProps) {
-  return <SelectPrimitive.GroupLabel {...props} className={cn(styles.label, className)} />
+function SelectLabel(props: SelectPrimitive.GroupLabel.Props) {
+  return <SelectPrimitive.GroupLabel {...props} className={cn(styles.label, props.className)} />
 }
 
-export interface SelectItemProps extends SelectPrimitive.Item.Props {}
-
-export function SelectItem({ className, children, ...props }: SelectItemProps) {
+function SelectItem(props: SelectPrimitive.Item.Props) {
   return (
-    <SelectPrimitive.Item {...props} className={cn(styles.item, className)}>
-      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+    <SelectPrimitive.Item {...props} className={cn(styles.item, props.className)}>
+      <SelectPrimitive.ItemText className={styles['item-text']}>
+        {props.children}
+      </SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator
         className={styles.indicator}
         render={<span className="i-ph:check" />}
@@ -81,8 +69,34 @@ export function SelectItem({ className, children, ...props }: SelectItemProps) {
   )
 }
 
-export interface SelectSeparatorProps extends SelectPrimitive.Separator.Props {}
+interface SelectOptionLabelProps {
+  icon: ReactNode
+  children: ReactNode
+}
 
-export function SelectSeparator({ className, ...props }: SelectSeparatorProps) {
-  return <SelectPrimitive.Separator {...props} className={cn(styles.separator, className)} />
+function SelectOptionLabel(props: SelectOptionLabelProps) {
+  return (
+    <span className={styles['option-label']}>
+      <span className={styles['option-icon']} aria-hidden="true">
+        {props.icon}
+      </span>
+      <span className={styles['item-text']}>{props.children}</span>
+    </span>
+  )
+}
+
+function SelectSeparator(props: SelectPrimitive.Separator.Props) {
+  return <SelectPrimitive.Separator {...props} className={cn(styles.separator, props.className)} />
+}
+
+export const Select = {
+  Root: SelectPrimitive.Root,
+  Trigger: SelectTrigger,
+  Value: SelectValue,
+  Content: SelectContent,
+  Group: SelectGroup,
+  Label: SelectLabel,
+  Item: SelectItem,
+  OptionLabel: SelectOptionLabel,
+  Separator: SelectSeparator,
 }

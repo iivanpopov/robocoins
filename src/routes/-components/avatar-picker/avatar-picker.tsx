@@ -12,11 +12,7 @@ export interface AvatarPickerProps {
 }
 
 export function AvatarPicker(props: AvatarPickerProps) {
-  const picker = useAvatarPicker({
-    value: props.value,
-    onChange: props.onChange,
-    disabled: props.disabled,
-  })
+  const picker = useAvatarPicker(props)
 
   return (
     <VisualPickerGrid label={picker.state.label} layout="avatar">

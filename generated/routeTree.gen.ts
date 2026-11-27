@@ -28,6 +28,7 @@ import { Route as AuthorizedNavigationStudentIndexRouteImport } from './../src/r
 import { Route as AuthorizedNavigationSettingsIndexRouteImport } from './../src/routes/_authorized/_navigation/settings/index'
 import { Route as AuthorizedTeacherGroupGroupIdRouteImport } from './../src/routes/_authorized/_teacher/group/$groupId'
 import { Route as AuthorizedStudentStudentIdIndexRouteImport } from './../src/routes/_authorized/student/$studentId/index'
+import { Route as AuthGoogleCallbackIndexRouteImport } from './../src/routes/auth/google/callback/index'
 import { Route as AuthorizedNavigationAdminAdminIndexRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/index'
 import { Route as AuthorizedNavigationAdminAdminCatalogRouteRouteImport } from './../src/routes/_authorized/_navigation/_admin/admin/catalog/route'
 import { Route as AuthorizedNavigationStudentAchievementsIndexRouteImport } from './../src/routes/_authorized/_navigation/_student/achievements/index'
@@ -180,6 +181,11 @@ const AuthorizedStudentStudentIdIndexRoute =
     path: '/$studentId/',
     getParentRoute: () => AuthorizedStudentRouteRoute,
   } as any)
+const AuthGoogleCallbackIndexRoute = AuthGoogleCallbackIndexRouteImport.update({
+  id: '/auth/google/callback/',
+  path: '/auth/google/callback/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthorizedNavigationAdminAdminIndexRoute =
   AuthorizedNavigationAdminAdminIndexRouteImport.update({
     id: '/',
@@ -528,6 +534,7 @@ export interface FileRoutesByFullPath {
   '/group/$groupId': typeof AuthorizedTeacherGroupGroupIdRoute
   '/settings/': typeof AuthorizedNavigationSettingsIndexRoute
   '/student/$studentId/': typeof AuthorizedStudentStudentIdIndexRoute
+  '/auth/google/callback/': typeof AuthGoogleCallbackIndexRoute
   '/admin/catalog': typeof AuthorizedNavigationAdminAdminCatalogRouteRouteWithChildren
   '/admin/': typeof AuthorizedNavigationAdminAdminIndexRoute
   '/achievements/': typeof AuthorizedNavigationStudentAchievementsIndexRoute
@@ -590,6 +597,7 @@ export interface FileRoutesByTo {
   '/group/$groupId': typeof AuthorizedTeacherGroupGroupIdRoute
   '/settings': typeof AuthorizedNavigationSettingsIndexRoute
   '/student/$studentId': typeof AuthorizedStudentStudentIdIndexRoute
+  '/auth/google/callback': typeof AuthGoogleCallbackIndexRoute
   '/admin': typeof AuthorizedNavigationAdminAdminIndexRoute
   '/achievements': typeof AuthorizedNavigationStudentAchievementsIndexRoute
   '/history': typeof AuthorizedNavigationStudentHistoryIndexRoute
@@ -663,6 +671,7 @@ export interface FileRoutesById {
   '/_authorized/_navigation/_student/': typeof AuthorizedNavigationStudentIndexRoute
   '/_authorized/_navigation/settings/': typeof AuthorizedNavigationSettingsIndexRoute
   '/_authorized/student/$studentId/': typeof AuthorizedStudentStudentIdIndexRoute
+  '/auth/google/callback/': typeof AuthGoogleCallbackIndexRoute
   '/_authorized/_navigation/_admin/admin/catalog': typeof AuthorizedNavigationAdminAdminCatalogRouteRouteWithChildren
   '/_authorized/_navigation/_admin/admin/': typeof AuthorizedNavigationAdminAdminIndexRoute
   '/_authorized/_navigation/_student/achievements/': typeof AuthorizedNavigationStudentAchievementsIndexRoute
@@ -731,6 +740,7 @@ export interface FileRouteTypes {
     | '/group/$groupId'
     | '/settings/'
     | '/student/$studentId/'
+    | '/auth/google/callback/'
     | '/admin/catalog'
     | '/admin/'
     | '/achievements/'
@@ -793,6 +803,7 @@ export interface FileRouteTypes {
     | '/group/$groupId'
     | '/settings'
     | '/student/$studentId'
+    | '/auth/google/callback'
     | '/admin'
     | '/achievements'
     | '/history'
@@ -865,6 +876,7 @@ export interface FileRouteTypes {
     | '/_authorized/_navigation/_student/'
     | '/_authorized/_navigation/settings/'
     | '/_authorized/student/$studentId/'
+    | '/auth/google/callback/'
     | '/_authorized/_navigation/_admin/admin/catalog'
     | '/_authorized/_navigation/_admin/admin/'
     | '/_authorized/_navigation/_student/achievements/'
@@ -922,6 +934,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   AuthorizedRouteRoute: typeof AuthorizedRouteRouteWithChildren
+  AuthGoogleCallbackIndexRoute: typeof AuthGoogleCallbackIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1058,6 +1071,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/student/$studentId/'
       preLoaderRoute: typeof AuthorizedStudentStudentIdIndexRouteImport
       parentRoute: typeof AuthorizedStudentRouteRoute
+    }
+    '/auth/google/callback/': {
+      id: '/auth/google/callback/'
+      path: '/auth/google/callback'
+      fullPath: '/auth/google/callback/'
+      preLoaderRoute: typeof AuthGoogleCallbackIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authorized/_navigation/_admin/admin/': {
       id: '/_authorized/_navigation/_admin/admin/'
@@ -1769,6 +1789,7 @@ const AuthorizedRouteRouteWithChildren = AuthorizedRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   AuthRouteRoute: AuthRouteRouteWithChildren,
   AuthorizedRouteRoute: AuthorizedRouteRouteWithChildren,
+  AuthGoogleCallbackIndexRoute: AuthGoogleCallbackIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

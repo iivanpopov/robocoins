@@ -1,16 +1,15 @@
 import { readDocumentCookie } from './cookies'
 
 export const MOTION_PREFERENCE_COOKIE = 'reduced-motion'
-export const MOTION_PREFERENCE_EVENT = 'motion-preference-change'
+const MOTION_PREFERENCE_EVENT = 'motion-preference-change'
+const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
 
 export function animationsDisabled() {
   return readDocumentCookie(MOTION_PREFERENCE_COOKIE) === 'true'
 }
 
 export function systemPrefersReducedMotion() {
-  return (
-    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  )
+  return typeof window !== 'undefined' && window.matchMedia(REDUCED_MOTION_QUERY).matches
 }
 
 export function prefersReducedMotion() {
@@ -19,20 +18,16 @@ export function prefersReducedMotion() {
 
 export function setAnimationsDisabled(disabled: boolean) {
   document.cookie = `${MOTION_PREFERENCE_COOKIE}=${disabled}; Path=/; Max-Age=31536000; SameSite=Lax`
-  document.documentElement.dataset.reducedMotion = String(disabled)
   window.dispatchEvent(new Event(MOTION_PREFERENCE_EVENT))
 }
 
-export function subscribeMotionPreference(onChange: () => void) {
-  const media = window.matchMedia('(prefers-reduced-motion: reduce)')
-  media.addEventListener('change', onChange)
+export function subscribeAnimationsDisabled(onChange: () => void) {
   window.addEventListener(MOTION_PREFERENCE_EVENT, onChange)
-  window.addEventListener('focus', onChange)
-  window.cookieStore?.addEventListener('change', onChange)
-  return () => {
-    media.removeEventListener('change', onChange)
-    window.removeEventListener(MOTION_PREFERENCE_EVENT, onChange)
-    window.removeEventListener('focus', onChange)
-    window.cookieStore?.removeEventListener('change', onChange)
-  }
+  return () => window.removeEventListener(MOTION_PREFERENCE_EVENT, onChange)
+}
+
+export function subscribeSystemReducedMotion(onChange: () => void) {
+  const media = window.matchMedia(REDUCED_MOTION_QUERY)
+  media.addEventListener('change', onChange)
+  return () => media.removeEventListener('change', onChange)
 }

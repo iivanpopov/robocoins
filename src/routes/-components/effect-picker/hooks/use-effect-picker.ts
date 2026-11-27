@@ -25,9 +25,9 @@ export interface UseEffectPickerOptions {
 export function useEffectPicker(options: UseEffectPickerOptions) {
   const t = useTranslate()
 
-  function handleSelect(ring: AvatarRing) {
-    if (options.disabled || !isAvatarRingAvailable(ring) || ring === options.value) return
-    options.onChange(ring)
+  function getStatusLabel(isLocked: boolean, isCurrent: boolean) {
+    if (isLocked) return t('profile.edit.ring.soon')
+    if (isCurrent) return t('profile.edit.ring.current')
   }
 
   const items = AVATAR_RING_CATALOGUE.map((option) => ({
@@ -35,14 +35,17 @@ export function useEffectPicker(options: UseEffectPickerOptions) {
     label: t(RING_LABEL_KEYS[option.id]),
     isSelected: option.id === options.value,
     isLocked: option.isLocked,
-    isCurrent: option.id === options.persistedValue,
+    statusLabel: getStatusLabel(option.isLocked, option.id === options.persistedValue),
   }))
+
+  function handleSelect(ring: AvatarRing) {
+    if (options.disabled || !isAvatarRingAvailable(ring) || ring === options.value) return
+    options.onChange(ring)
+  }
 
   return {
     state: {
       label: t('profile.edit.tab.ring'),
-      currentLabel: t('profile.edit.ring.current'),
-      soonLabel: t('profile.edit.ring.soon'),
       items,
     },
     functions: {

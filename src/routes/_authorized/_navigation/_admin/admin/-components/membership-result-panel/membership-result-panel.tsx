@@ -18,32 +18,51 @@ export interface MembershipResultPanelProps {
   sourceGroupName: string | null
   targetGroupName: string | null
   isOperating: boolean
-  hasFailures: boolean
-  hasUnknown: boolean
-  hasPartial: boolean
-  hasSessionFailure: boolean
-  hasForbiddenFailure: boolean
   onRetry: () => void
   onReset: () => void
   onLogin: () => void
 }
 
-export function MembershipResultPanel({
-  mode,
-  results,
-  sourceGroupName,
-  targetGroupName,
-  isOperating,
-  hasFailures,
-  hasUnknown,
-  hasPartial,
-  hasSessionFailure,
-  hasForbiddenFailure,
-  onRetry,
-  onReset,
-  onLogin,
-}: MembershipResultPanelProps) {
+export function MembershipResultPanel(props: MembershipResultPanelProps) {
   const t = useTranslate()
+
+  const hasFailures = props.results.some(
+    (result) => result.addition === 'failed' || result.removal === 'failed',
+  )
+  const hasUnknown = props.results.some(
+    (result) => result.addition === 'unknown' || result.removal === 'unknown',
+  )
+  const hasPartial = props.results.some(
+    (result) =>
+      (result.addition === 'added' || result.addition === 'skipped') && result.removal === 'failed',
+  )
+  const hasSessionFailure = props.results.some(
+    (result) => result.additionErrorStatus === 401 || result.removalErrorStatus === 401,
+  )
+  const hasForbiddenFailure = props.results.some(
+    (result) => result.additionErrorStatus === 403 || result.removalErrorStatus === 403,
+  )
+  const hasRetryable = hasFailures || hasUnknown
+
+  let title = t('admin.membership.result.add.title')
+  let description = t('admin.membership.result.add.description', {
+    target: props.targetGroupName ?? '',
+  })
+
+  if (props.mode === 'transfer') {
+    title = t('admin.membership.result.transfer.title')
+    description = t('admin.membership.result.transfer.description', {
+      source: props.sourceGroupName ?? '',
+      target: props.targetGroupName ?? '',
+    })
+  }
+
+  if (props.mode === 'remove') {
+    title = t('admin.membership.result.remove.title')
+    description = t('admin.membership.result.remove.description', {
+      source: props.sourceGroupName ?? '',
+    })
+  }
 
   function getAdditionLabel(status: MembershipAdditionStatus) {
     if (status === 'pending') return t('admin.membership.addition.pending')
@@ -63,28 +82,6 @@ export function MembershipResultPanel({
     return t('admin.membership.status.not-required')
   }
 
-  let title = t('admin.membership.result.add.title')
-  let description = t('admin.membership.result.add.description', {
-    target: targetGroupName ?? '',
-  })
-
-  if (mode === 'transfer') {
-    title = t('admin.membership.result.transfer.title')
-    description = t('admin.membership.result.transfer.description', {
-      source: sourceGroupName ?? '',
-      target: targetGroupName ?? '',
-    })
-  }
-
-  if (mode === 'remove') {
-    title = t('admin.membership.result.remove.title')
-    description = t('admin.membership.result.remove.description', {
-      source: sourceGroupName ?? '',
-    })
-  }
-
-  const hasRetryable = hasFailures || hasUnknown
-
   return (
     <section className={styles.panel} aria-live="polite">
       <header className={styles.header}>
@@ -96,11 +93,11 @@ export function MembershipResultPanel({
       </header>
 
       <ul className={styles.list}>
-        {results.map((result) => (
+        {props.results.map((result) => (
           <li key={result.studentId} className={styles.row}>
             <span className={styles.name}>{result.studentName}</span>
             <span className={styles.stages}>
-              {mode !== 'remove' && (
+              {props.mode !== 'remove' && (
                 <span className={styles.stage} data-status={result.addition}>
                   <span className={styles['stage-label']}>
                     {t('admin.membership.status.addition')}
@@ -110,7 +107,7 @@ export function MembershipResultPanel({
                   </strong>
                 </span>
               )}
-              {mode !== 'add' && (
+              {props.mode !== 'add' && (
                 <span className={styles.stage} data-status={result.removal}>
                   <span className={styles['stage-label']}>
                     {t('admin.membership.status.removal')}
@@ -153,16 +150,21 @@ export function MembershipResultPanel({
 
       <div className={styles.actions}>
         {hasRetryable && (
-          <Button onClick={onRetry} disabled={isOperating} aria-busy={isOperating}>
-            {isOperating && <Loader />}
+          <Button
+            type="button"
+            onClick={props.onRetry}
+            disabled={props.isOperating}
+            aria-busy={props.isOperating}
+          >
+            {props.isOperating && <Loader />}
             {t('admin.membership.result.retry')}
           </Button>
         )}
-        <Button variant="ghost" onClick={onReset} disabled={isOperating}>
+        <Button type="button" variant="ghost" onClick={props.onReset} disabled={props.isOperating}>
           {t('admin.membership.result.reset')}
         </Button>
         {hasSessionFailure && (
-          <Button variant="ghost" onClick={onLogin}>
+          <Button type="button" variant="ghost" onClick={props.onLogin}>
             {t('navigation.login')}
           </Button>
         )}

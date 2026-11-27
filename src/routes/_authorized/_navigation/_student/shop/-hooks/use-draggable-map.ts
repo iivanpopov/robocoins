@@ -105,10 +105,6 @@ export function useDraggableMap(
     if (Math.hypot(velocityRef.current.x, velocityRef.current.y) < 0.05) return
     let lastTime = performance.now()
     function handleInertia(now: number) {
-      if (prefersReducedMotion()) {
-        handleStop()
-        return
-      }
       const elapsed = Math.min(50, now - lastTime)
       lastTime = now
       const motion = advanceMapInertia(
