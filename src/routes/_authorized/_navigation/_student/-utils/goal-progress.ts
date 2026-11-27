@@ -1,7 +1,8 @@
 import * as v from 'valibot'
 
 import type { RewardProgressResponse } from '#/api/types'
-import { COOKIE_MAX_AGE } from '#/routes/-constants'
+import { STORAGE_YEAR_TTL_IN_MS } from '#/routes/-constants'
+import { readExpiringStorage, writeExpiringStorage } from '#/utils/storage'
 
 const GoalProgressSnapshotSchema = v.object({
   goalId: v.number(),
@@ -10,9 +11,9 @@ const GoalProgressSnapshotSchema = v.object({
   progress: v.pipe(v.number(), v.minValue(0), v.maxValue(100)),
 })
 
-type GoalProgressSnapshot = v.InferOutput<typeof GoalProgressSnapshotSchema>
+export type GoalProgressSnapshot = v.InferOutput<typeof GoalProgressSnapshotSchema>
 
-export function getGoalProgressCookieName(studentId: number) {
+export function getGoalProgressStorageKey(studentId: number) {
   return `robocoins-goal-progress-${studentId}`
 }
 
@@ -30,15 +31,12 @@ export function getGoalProgressSnapshot(data: RewardProgressResponse | undefined
   return snapshot
 }
 
-export function getSavedGoalProgressSnapshot(saved: string | null) {
+export function getSavedGoalProgressSnapshot(studentId: number) {
+  const saved = readExpiringStorage(getGoalProgressStorageKey(studentId))
   if (!saved) return null
 
-  try {
-    const parsed = v.safeParse(GoalProgressSnapshotSchema, JSON.parse(saved))
-    return parsed.success ? parsed.output : null
-  } catch {
-    return null
-  }
+  const parsed = v.safeParse(GoalProgressSnapshotSchema, saved)
+  return parsed.success ? parsed.output : null
 }
 
 export function getGoalProgressOrigin(
@@ -52,20 +50,12 @@ export function getGoalProgressOrigin(
 }
 
 export function saveGoalProgressSnapshot(studentId: number, snapshot: GoalProgressSnapshot | null) {
-  if (typeof document === 'undefined') return
+  const key = getGoalProgressStorageKey(studentId)
 
-  const name = getGoalProgressCookieName(studentId)
-
-  try {
-    if (!snapshot) {
-      document.cookie = `${name}=; path=/; max-age=0; samesite=lax`
-      return
-    }
-
-    document.cookie = `${name}=${encodeURIComponent(JSON.stringify(snapshot))}; path=/; max-age=${
-      COOKIE_MAX_AGE / 1000
-    }; samesite=lax`
-  } catch {
+  if (!snapshot) {
+    localStorage.removeItem(key)
     return
   }
+
+  writeExpiringStorage(key, snapshot, STORAGE_YEAR_TTL_IN_MS)
 }

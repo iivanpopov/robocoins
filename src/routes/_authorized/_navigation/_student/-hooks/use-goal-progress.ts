@@ -4,9 +4,9 @@ import type { RewardProgressResponse } from '#/api/types'
 import { prefersReducedMotion } from '#/utils/motion'
 
 import {
+  type GoalProgressSnapshot,
   getGoalProgressOrigin,
   getGoalProgressSnapshot,
-  getSavedGoalProgressSnapshot,
   saveGoalProgressSnapshot,
 } from '../-utils'
 
@@ -21,13 +21,13 @@ interface UseGoalProgressValue {
 export function useGoalProgress(
   studentId: number,
   data: RewardProgressResponse | undefined,
-  savedSnapshot: string | null,
+  savedSnapshot: GoalProgressSnapshot | null,
+  isGoalResolved: boolean,
 ): UseGoalProgressValue {
   const snapshot = getGoalProgressSnapshot(data)
   const key = `${studentId}:${JSON.stringify(snapshot)}`
   const currentProgress = snapshot?.progress ?? 0
-  const saved = getSavedGoalProgressSnapshot(savedSnapshot)
-  const origin = getGoalProgressOrigin(saved, snapshot)
+  const origin = getGoalProgressOrigin(savedSnapshot, snapshot)
 
   const [display, setDisplay] = useState<{ key: string; progress: number }>(() => ({
     key,
@@ -38,7 +38,9 @@ export function useGoalProgress(
   const animationKeyReference = useRef<string | null>(null)
 
   useLayoutEffect(() => {
-    saveGoalProgressSnapshot(studentId, snapshot)
+    if (isGoalResolved) {
+      saveGoalProgressSnapshot(studentId, snapshot)
+    }
 
     if (origin === null || origin >= currentProgress || prefersReducedMotion()) {
       setIsAnimating(false)
@@ -75,7 +77,7 @@ export function useGoalProgress(
       if (frame !== null) cancelAnimationFrame(frame)
       if (animationKeyReference.current === key) animationKeyReference.current = null
     }
-  }, [studentId, key, origin, currentProgress])
+  }, [studentId, key, origin, currentProgress, isGoalResolved])
 
   const displayProgress = display.key === key ? display.progress : currentProgress
 

@@ -11,9 +11,9 @@ import { StudentProfileResponse } from '#/api/types'
 import { Loader } from '#/components/ui'
 import { InlineError } from '#/routes/-components'
 import { PageLayout } from '#/routes/-components/page-layout'
-import { COOKIE_MAX_AGE, LAST_LOG_ON_COOKIE } from '#/routes/-constants'
+import { LAST_LOG_ON_STORAGE_KEY, STORAGE_YEAR_TTL_IN_MS } from '#/routes/-constants'
 import { AchievementsPreview } from '#/routes/_authorized/-components/achievements-preview'
-import { readCookie } from '#/utils/cookies'
+import { readExpiringStorage, writeExpiringStorage } from '#/utils/storage'
 
 import { EarnWays, GoalCard, HistoryPreview, LeaderboardPreview, StudentHero } from './-components'
 import { DailyMission } from './-components/daily-mission'
@@ -23,17 +23,22 @@ import {
 } from './-components/leaderboard'
 import { HISTORY_TRANSACTION_FETCH_LIMIT } from './-constants'
 import { useStudentPage } from './-hooks'
-import { getGoalProgressCookieName, getStudentRewardCategoriesQueryOptions } from './-utils'
+import { getSavedGoalProgressSnapshot, getStudentRewardCategoriesQueryOptions } from './-utils'
 
 import styles from './index.module.css'
+
+function getSavedLastLogOn() {
+  const saved = readExpiringStorage(LAST_LOG_ON_STORAGE_KEY)
+  if (typeof saved === 'number' && Number.isFinite(saved) && saved > 0) return saved
+  return null
+}
 
 export const Route = createFileRoute('/_authorized/_navigation/_student/')({
   beforeLoad: ({ context }) => {
     const renderedAt = Date.now()
-    const lastLogOn = Number(readCookie(LAST_LOG_ON_COOKIE)) || Date.now()
-    const goalProgressSnapshot = readCookie(
-      getGoalProgressCookieName((context.user as StudentProfileResponse).id),
-    )
+    const studentId = (context.user as StudentProfileResponse).id
+    const lastLogOn = getSavedLastLogOn() ?? renderedAt
+    const goalProgressSnapshot = getSavedGoalProgressSnapshot(studentId)
     return { lastLogOn, renderedAt, goalProgressSnapshot }
   },
   loader: async ({ context }) => {
@@ -88,13 +93,7 @@ export const Route = createFileRoute('/_authorized/_navigation/_student/')({
     ])
   },
   onEnter: () => {
-    void cookieStore.set({
-      name: LAST_LOG_ON_COOKIE,
-      value: String(Date.now()),
-      path: '/',
-      expires: Date.now() + COOKIE_MAX_AGE,
-      sameSite: 'lax',
-    })
+    writeExpiringStorage(LAST_LOG_ON_STORAGE_KEY, Date.now(), STORAGE_YEAR_TTL_IN_MS)
   },
   component: StudentPage,
 })

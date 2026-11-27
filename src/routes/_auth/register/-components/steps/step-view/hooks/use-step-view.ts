@@ -3,7 +3,8 @@ import { useNavigate } from '@tanstack/react-router'
 
 import { useCreateStudentStudentRegisterPost, useGetCoursesCourseGet } from '#/api/hooks'
 import { toast } from '#/components/ui/toast'
-import { COOKIE_MAX_AGE, DID_REGISTER_COOKIE } from '#/routes/-constants'
+import { DID_REGISTER_STORAGE_KEY, STORAGE_YEAR_TTL_IN_MS } from '#/routes/-constants'
+import { writeExpiringStorage } from '#/utils/storage'
 
 import { RegisterStep } from '../../../../-constants'
 import type { RegisterDraft } from '../../../../-schemas'
@@ -43,14 +44,8 @@ export function useStepView() {
         },
       })
       register.setAccessCode(response.access_code)
-      await registerDraft.clear()
-      await cookieStore.set({
-        name: DID_REGISTER_COOKIE,
-        value: 'true',
-        path: '/',
-        expires: Date.now() + COOKIE_MAX_AGE,
-        sameSite: 'lax',
-      })
+      registerDraft.clear()
+      writeExpiringStorage(DID_REGISTER_STORAGE_KEY, true, STORAGE_YEAR_TTL_IN_MS)
       await navigate({
         to: '/register',
         search: { step: RegisterStep.Success },

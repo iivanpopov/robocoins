@@ -1,31 +1,21 @@
 import * as v from 'valibot'
 
-import { COOKIE_MAX_AGE } from '#/routes/-constants'
-import { readCookie } from '#/utils/cookies'
+import { readExpiringStorage, writeExpiringStorage } from '#/utils/storage'
 
-import { REGISTER_DRAFT_COOKIE } from '../-constants'
+import { REGISTER_DRAFT_STORAGE_KEY, REGISTER_DRAFT_TTL_IN_MS } from '../-constants'
 import { RegisterDraftSchema, type RegisterDraft } from '../-schemas'
 
-function parseRegisterDraft(value: string | null) {
+function parseRegisterDraft(value: unknown) {
   if (!value) return v.parse(RegisterDraftSchema, {})
-  try {
-    const draft = v.safeParse(RegisterDraftSchema, JSON.parse(value))
-    if (draft.success) return draft.output
-    return v.parse(RegisterDraftSchema, {})
-  } catch {
-    return v.parse(RegisterDraftSchema, {})
-  }
+
+  const draft = v.safeParse(RegisterDraftSchema, value)
+  if (draft.success) return draft.output
+  return v.parse(RegisterDraftSchema, {})
 }
 
 export const registerDraft = {
-  get: () => parseRegisterDraft(readCookie(REGISTER_DRAFT_COOKIE)),
+  get: () => parseRegisterDraft(readExpiringStorage(REGISTER_DRAFT_STORAGE_KEY)),
   save: (data: RegisterDraft) =>
-    cookieStore.set({
-      name: REGISTER_DRAFT_COOKIE,
-      value: encodeURIComponent(JSON.stringify(data)),
-      path: '/',
-      expires: Date.now() + COOKIE_MAX_AGE,
-      sameSite: 'lax',
-    }),
-  clear: () => cookieStore.delete({ name: REGISTER_DRAFT_COOKIE, path: '/' }),
+    writeExpiringStorage(REGISTER_DRAFT_STORAGE_KEY, data, REGISTER_DRAFT_TTL_IN_MS),
+  clear: () => localStorage.removeItem(REGISTER_DRAFT_STORAGE_KEY),
 }

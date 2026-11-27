@@ -62,6 +62,7 @@ export function useStudentPage() {
     profile.id,
     goal ? goalQuery.data : undefined,
     context.goalProgressSnapshot,
+    !isGoalPending && !isGoalError,
   )
 
   function formatHistoryDate(value: string) {

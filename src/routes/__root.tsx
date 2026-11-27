@@ -13,12 +13,11 @@ import { useAnimationsDisabled } from '#/hooks/use-motion-preference'
 import { translationComponents, translationFunctions } from '#/lib/translations'
 import { NotFoundComponent } from '#/routes/-components/not-found-component'
 import { RequestErrorComponent } from '#/routes/-components/request-error-component'
-import { readCookie } from '#/utils/cookies'
-import { MOTION_PREFERENCE_COOKIE } from '#/utils/motion'
+import { animationsDisabled } from '#/utils/motion'
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   beforeLoad: () => ({
-    animationsDisabled: readCookie(MOTION_PREFERENCE_COOKIE) === 'true',
+    animationsDisabled: animationsDisabled(),
   }),
   shellComponent: RootShell,
   errorComponent: RequestErrorComponent,
