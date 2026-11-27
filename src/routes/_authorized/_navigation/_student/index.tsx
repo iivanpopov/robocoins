@@ -117,11 +117,11 @@ function StudentPage() {
         balance={state.profile.balance}
         streakDays={state.streakDays}
         hasStreak={state.hasStreak}
+        isStreakInactive={state.isStreakInactive}
         hasNewReward={state.hasNewReward}
         greetingVariant={state.greetingVariant}
         captionVariant={state.captionVariant}
         onOpenProfile={functions.handleOpenProfile}
-        onOpenShop={functions.handleNavigateToShop}
       />
       {state.isGoalPending && <Loader grow role="status" aria-label={t('profile.goal.loading')} />}
       {state.isGoalError && (
@@ -136,7 +136,7 @@ function StudentPage() {
           remainingBalance={state.remainingBalance}
           progressPercent={state.goalProgressDisplay}
           isCompleted={state.goalCompleted}
-          onOpenShop={functions.handleNavigateToShop}
+          onOpenShop={functions.handleChangeGoal}
         />
       )}
       <DailyMission studentId={state.profile.id} />

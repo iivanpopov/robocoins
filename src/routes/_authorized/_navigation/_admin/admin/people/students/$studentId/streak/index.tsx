@@ -113,7 +113,10 @@ function StudentStreakPage() {
             <div className={styles.metrics}>
               <div className={styles.metric}>
                 <span className={styles['metric-heading']}>
-                  <span aria-hidden="true" className={cn('i-ph:fire', styles['metric-icon'])} />
+                  <span
+                    aria-hidden="true"
+                    className={cn('i-ph:flame-bold', styles['metric-icon'])}
+                  />
                   <span className={styles['metric-label']}>{t('admin.streak.current.title')}</span>
                 </span>
                 <span className={styles['metric-value']}>

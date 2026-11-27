@@ -41,5 +41,5 @@
 }
 
 .reset:hover:not(:disabled) {
-  background: var(--taupe-200);
+  background: var(--muted);
 }

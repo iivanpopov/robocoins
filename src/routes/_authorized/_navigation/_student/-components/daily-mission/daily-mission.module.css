@@ -49,6 +49,10 @@
   color: var(--coin);
 }
 
+.streak[data-inactive='true'] > [aria-hidden] {
+  color: var(--muted-foreground);
+}
+
 .streak strong {
   color: var(--foreground);
 }
@@ -72,11 +76,6 @@
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   line-height: 1.25;
-  color: #f5a623;
-}
-
-.reward .reward-coin {
-  font-size: 1.125rem;
   color: var(--coin);
 }
 
@@ -229,7 +228,6 @@
   color: #ffd679;
 }
 
-.portal:has(.portal-link:hover) .today,
 .portal:has(.portal-link:focus-visible) .today {
   --star-glow: rgb(255 214 121 / 70%);
 
@@ -265,8 +263,4 @@
   .constellation-node .sub-star {
     transition: none;
   }
-}
-
-.reward[data-inactive='true'] .reward-coin {
-  color: var(--muted-foreground);
 }

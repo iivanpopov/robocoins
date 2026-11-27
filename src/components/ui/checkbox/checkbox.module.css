@@ -9,7 +9,7 @@
   color: var(--brand-foreground);
   cursor: pointer;
   background: var(--surface);
-  border: none;
+  border: 1px solid var(--mist-500);
   border-radius: var(--rounded-md);
   transition:
     background-color 0.15s ease,
@@ -24,6 +24,7 @@
   &[data-indeterminate] {
     color: var(--brand-foreground);
     background: var(--brand);
+    border-color: transparent;
   }
 
   &[data-variant='error'] {

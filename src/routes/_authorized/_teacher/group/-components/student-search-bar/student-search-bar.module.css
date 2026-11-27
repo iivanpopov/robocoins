@@ -36,7 +36,12 @@
 
 .popover-option:hover,
 .popover-option:active {
-  background: var(--taupe-100);
+  background: var(--muted);
+}
+
+.popover-option:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: -2px;
 }
 
 .popover-option[data-active] {

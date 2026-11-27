@@ -120,7 +120,7 @@ function StudentProfilePage() {
                 className={styles.action}
               >
                 <span aria-hidden="true" className={styles['action-icon']}>
-                  <span className="i-ph:coins" />
+                  <span className="i-ph:coin" />
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>{t('admin.balance.profile.link')}</span>
@@ -137,7 +137,7 @@ function StudentProfilePage() {
                 className={styles.action}
               >
                 <span aria-hidden="true" className={styles['action-icon']}>
-                  <span className="i-ph:fire" />
+                  <span className="i-ph:flame-bold" />
                 </span>
                 <span className={styles['action-copy']}>
                   <span className={styles['action-title']}>{t('admin.streak.title')}</span>

@@ -1,6 +1,4 @@
-import { Outlet, createFileRoute, useRouteContext } from '@tanstack/react-router'
-
-import { cn } from '#/utils/cn'
+import { Outlet, createFileRoute } from '@tanstack/react-router'
 
 import { AppNavbar } from './-components'
 
@@ -11,13 +9,9 @@ export const Route = createFileRoute('/_authorized/_navigation')({
 })
 
 function NavigationLayout() {
-  const routeContext = useRouteContext({ from: '/_authorized' })
-
-  const isStudent = routeContext.user?.role === 'student'
-
   return (
-    <div className={cn(styles.layout, isStudent && 'student')}>
-      <main className={cn(styles.content)} data-navigation-scroll>
+    <div className={styles.layout}>
+      <main className={styles.content} data-navigation-scroll>
         <Outlet />
       </main>
       <AppNavbar />

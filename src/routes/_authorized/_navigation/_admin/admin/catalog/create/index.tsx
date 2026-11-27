@@ -86,7 +86,7 @@ function CreateRewardPage() {
               <dt>{t('admin.catalog.form.price')}</dt>
               <dd>
                 {t('coins.amount', { count: state.createdReward.price })}
-                <span className="i-ph:coins" aria-hidden="true" />
+                <span className="i-ph:coin" aria-hidden="true" />
               </dd>
             </div>
             <div className={styles['summary-row']}>

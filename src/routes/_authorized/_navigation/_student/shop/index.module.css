@@ -18,7 +18,7 @@
 
 .shop-header {
   position: absolute;
-  top: max(var(--spacing-xl), env(safe-area-inset-top));
+  top: 0;
   right: 0;
   left: 0;
   z-index: 2;
@@ -27,15 +27,12 @@
   align-items: center;
   width: 100%;
   min-height: 44px;
-  padding: 0 var(--spacing-xl);
+  padding: max(var(--spacing-xl), env(safe-area-inset-top)) var(--spacing-xl) var(--spacing-lg);
   color: var(--foreground);
   pointer-events: none;
 }
 
 .shop-header-solid {
-  top: 0;
-  padding-top: max(var(--spacing-xl), env(safe-area-inset-top));
-  padding-bottom: var(--spacing-lg);
   background: var(--background);
 }
 
@@ -58,6 +55,7 @@
   flex-shrink: 0;
   gap: var(--spacing-sm);
   align-items: center;
+  min-height: 36px;
   margin-left: auto;
   font-size: 1.5rem;
   font-weight: 600;

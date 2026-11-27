@@ -8,6 +8,11 @@
   border: none;
   transition: color 0.15s ease;
 
+  &:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+  }
+
   &[data-disabled],
   &:disabled {
     cursor: not-allowed;

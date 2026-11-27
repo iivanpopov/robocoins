@@ -56,6 +56,7 @@ For page components, the page model hook must be called and destructured first, 
 ### Pages
 
 - Define the page component directly in its route's `index.tsx`.
+- Define route schemas directly in the route file rather than a separate `schemas` slice.
 - The page consumes its model hook and renders JSX. Keep handlers and non-rendering logic in the model hook.
 - Extract smaller components into the `components` slice as needed; do not move the entire page component there.
 

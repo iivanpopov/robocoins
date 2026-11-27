@@ -123,7 +123,7 @@ function GroupStudentsPage() {
             render={<Button className={styles['practice-award-btn']} />}
             disabled={!state.canAwardPractice || mutations.awardPractice.isPending}
           >
-            <span aria-hidden="true" className="i-ph:coins" />
+            <span aria-hidden="true" className="i-ph:coin" />
             {t('group.practice.award')}
           </AlertDialogTrigger>
           <AlertDialogContent>

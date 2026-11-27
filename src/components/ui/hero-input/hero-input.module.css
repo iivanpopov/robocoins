@@ -42,7 +42,7 @@
     color 100ms ease-in-out;
 
   &::placeholder {
-    color: var(--muted);
+    color: var(--muted-foreground);
   }
 
   &[aria-invalid='true'] {

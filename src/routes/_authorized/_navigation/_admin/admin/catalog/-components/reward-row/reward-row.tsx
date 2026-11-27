@@ -35,7 +35,7 @@ export function RewardRow({ reward }: RewardRowProps) {
       </span>
       <span className={styles.price}>
         {t('coins.amount', { count: reward.price })}
-        <span className="i-ph:coins" aria-hidden="true" />
+        <span className="i-ph:coin" aria-hidden="true" />
       </span>
       <span className={cn('i-ph:caret-right', styles.chevron)} aria-hidden="true" />
     </Link>

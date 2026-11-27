@@ -14,6 +14,11 @@
     min-height: 2.75rem;
   }
 
+  &:focus-within {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+  }
+
   &[data-invalid='true'],
   &:has([aria-invalid='true']) {
     outline: 2px solid var(--error);

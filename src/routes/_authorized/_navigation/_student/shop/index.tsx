@@ -1,5 +1,6 @@
 import { useTranslate } from '@kanjou/react'
 import { createFileRoute } from '@tanstack/react-router'
+import * as v from 'valibot'
 
 import { getShopRewardsShopGetQueryOptions } from '#/api/hooks/useGetShopRewardsShopGet'
 import { getStudentRewardProgressStudentStudentIdRewardProgressGetQueryOptions } from '#/api/hooks/useGetStudentRewardProgressStudentStudentIdRewardProgressGet'
@@ -15,7 +16,12 @@ import { useShopPage } from './-hooks'
 
 import styles from './index.module.css'
 
+const ShopSearchSchema = v.object({
+  from: v.optional(v.picklist(['goal'])),
+})
+
 export const Route = createFileRoute('/_authorized/_navigation/_student/shop/')({
+  validateSearch: ShopSearchSchema,
   loader: async ({ context }) => {
     const profile = context.user as StudentProfileResponse
     await Promise.allSettled([
@@ -75,7 +81,7 @@ function ShopPage() {
         )}
         <div className={styles.balance} aria-label={t('shop.balance', { count: state.balance })}>
           <span>{t('coins.amount', { count: state.balance })}</span>
-          <span className="i-ph:coins" aria-hidden="true" />
+          <span className="i-ph:coin" aria-hidden="true" />
         </div>
       </header>
       {state.isCatalogPending && (
@@ -132,7 +138,7 @@ function ShopPage() {
               <span className={styles['star-name']}>{star.reward.name}</span>
               <span className={styles['star-price']}>
                 {t('coins.amount', { count: star.reward.price })}
-                <span className="i-ph:coins" />
+                <span className="i-ph:coin" />
               </span>
             </span>
           </button>
@@ -162,7 +168,7 @@ function ShopPage() {
                     </span>
                     <span className={styles['card-price']}>
                       {t('coins.amount', { count: reward.price })}
-                      <span className="i-ph:coins" aria-hidden="true" />
+                      <span className="i-ph:coin" aria-hidden="true" />
                     </span>
                   </span>
                 </button>
@@ -233,7 +239,7 @@ function ShopPage() {
           <div className={styles['detail-footer']}>
             <div className={styles.price}>
               {t('coins.amount', { count: state.selectedReward.price })}
-              <span className="i-ph:coins" aria-hidden="true" />
+              <span className="i-ph:coin" aria-hidden="true" />
             </div>
             <div className={styles['detail-actions']}>
               <button

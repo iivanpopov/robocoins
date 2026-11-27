@@ -71,7 +71,7 @@ function RewardDetailContent() {
           {!!state.reward && (
             <p className={styles.price}>
               {t('coins.amount', { count: state.reward.price })}
-              <span className="i-ph:coins" aria-hidden="true" />
+              <span className="i-ph:coin" aria-hidden="true" />
             </p>
           )}
         </PageLayout.Heading>

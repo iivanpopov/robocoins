@@ -101,7 +101,7 @@ function StudentProfilePage() {
     >
       {!state.isEditing && (
         <div aria-hidden="true" className={styles.watermark}>
-          <span className={cn('i-ph:coins', styles['watermark-icon'])} />
+          <span className={cn('i-ph:coin', styles['watermark-icon'])} />
         </div>
       )}
       <PageLayout.Header centered>

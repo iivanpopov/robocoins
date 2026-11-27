@@ -1,6 +1,6 @@
 import { TranslateProvider } from '@kanjou/react'
 import type { QueryClient } from '@tanstack/react-query'
-import { HeadContent, Outlet, createRootRouteWithContext, useMatch } from '@tanstack/react-router'
+import { HeadContent, Outlet, createRootRouteWithContext } from '@tanstack/react-router'
 import { type ReactNode, useLayoutEffect } from 'react'
 import messages from 'virtual:kanjou/uk/common'
 
@@ -28,18 +28,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell(props: { children: ReactNode }) {
   const context = Route.useRouteContext()
-  const isStudent =
-    useMatch({
-      from: '/_authorized',
-      shouldThrow: false,
-      select: (match) => match.context.user?.role === 'student',
-    }) ?? false
   const animationsDisabled = useAnimationsDisabled(context?.animationsDisabled)
 
   useLayoutEffect(() => {
-    document.documentElement.classList.toggle('student', isStudent)
     document.documentElement.dataset.reducedMotion = String(animationsDisabled)
-  }, [isStudent, animationsDisabled])
+  }, [animationsDisabled])
 
   return (
     <>
