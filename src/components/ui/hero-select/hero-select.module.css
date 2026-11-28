@@ -57,7 +57,11 @@
     color 100ms ease-in-out;
 
   &[data-placeholder] {
-    color: var(--muted);
+    color: var(--muted-foreground);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--brand-hover);
   }
 
   &[aria-invalid='true'] {
@@ -138,7 +142,7 @@
   border-radius: var(--rounded-lg);
 
   &[data-highlighted] {
-    color: var(--background);
+    color: var(--brand-foreground);
     background: var(--brand);
   }
 

@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { useRouter } from '@tanstack/react-router'
+import { useNavigate, useRouter } from '@tanstack/react-router'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { useChangeGoalStudentStudentIdChangeGoalPatch } from '#/api/hooks/useChangeGoalStudentStudentIdChangeGoalPatch'
@@ -24,6 +24,8 @@ import { useRewardSelection } from './use-reward-selection'
 export function useShopPage() {
   const galaxy = Route.useLoaderData()
   const context = Route.useRouteContext()
+  const search = Route.useSearch()
+  const navigate = useNavigate()
   const router = useRouter()
   const queryClient = useQueryClient()
 
@@ -57,6 +59,9 @@ export function useShopPage() {
           queryClient.invalidateQueries({ queryKey: ['session'] }),
         ])
         await router.invalidate()
+        if (search.from === 'goal') {
+          void navigate({ to: '/', viewTransition: { types: ['slide-backward'] } })
+        }
       },
     },
   })

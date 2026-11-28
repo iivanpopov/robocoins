@@ -62,6 +62,7 @@ export function useStudentPage() {
     profile.id,
     goal ? goalQuery.data : undefined,
     context.goalProgressSnapshot,
+    !isGoalPending && !isGoalError,
   )
 
   function formatHistoryDate(value: string) {
@@ -76,8 +77,12 @@ export function useStudentPage() {
     void historyQuery.refetch()
   }
 
-  function handleNavigateToShop() {
-    void navigate({ to: '/shop', viewTransition: { types: ['slide-forward'] } })
+  function handleChangeGoal() {
+    void navigate({
+      to: '/shop',
+      search: { from: 'goal' },
+      viewTransition: { types: ['slide-forward'] },
+    })
   }
 
   function handleRetryGoal() {
@@ -143,6 +148,7 @@ export function useStudentPage() {
   const streak = !streakQuery.isError ? streakQuery.data : undefined
   const streakDays = Math.max(getStreakDays(streak), task?.completed_at ? 1 : 0)
   const hasStreak = Boolean(streak || task?.completed_at)
+  const isStreakInactive = Boolean(task && !task.completed_at)
 
   return {
     state: {
@@ -163,11 +169,12 @@ export function useStudentPage() {
       gradientVariant,
       streakDays,
       hasStreak,
+      isStreakInactive,
     },
     queries: { history: historyQuery },
     functions: {
       handleRetryHistory,
-      handleNavigateToShop,
+      handleChangeGoal,
       handleRetryGoal,
       handleViewHistory,
       handleOpenProfile,

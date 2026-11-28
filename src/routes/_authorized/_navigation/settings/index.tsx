@@ -28,7 +28,6 @@ import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/settings/')({
   validateSearch: validateGoogleSettingsSearch,
-  head: () => ({ meta: [{ title: 'Налаштування | Robocoins' }] }),
   component: SettingsPage,
 })
 

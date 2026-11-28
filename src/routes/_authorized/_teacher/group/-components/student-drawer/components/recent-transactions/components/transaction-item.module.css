@@ -78,7 +78,7 @@
   text-align: left;
   cursor: grab;
   user-select: none;
-  background: var(--taupe-100);
+  background: var(--muted);
   border: 1.5px solid transparent;
   border-radius: var(--rounded-md);
 }

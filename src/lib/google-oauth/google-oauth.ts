@@ -1,21 +1,29 @@
 import * as v from 'valibot'
 
+import { client, type RequestConfig } from '#/api/.kubb/client'
+
 import { GoogleOAuthCallbackSchema, GoogleOAuthStartSchema, GoogleLinkSchema } from './schemas'
 
 const FLOW_STORAGE_KEY = 'robocoins.google-oauth'
 
 type GoogleOAuthFlow = 'login' | 'link'
 
-async function requestGoogleOAuth(path: string, options?: RequestInit) {
-  const response = await fetch(`/api/auth/google/${path}`, {
+async function requestGoogleOAuth(
+  path: string,
+  options?: Pick<RequestConfig, 'method' | 'signal'>,
+) {
+  const result = await client({
+    url: `/auth/google/${path}`,
     ...options,
-    cache: 'no-store',
     credentials: 'same-origin',
-    redirect: 'error',
-    referrerPolicy: 'no-referrer',
+    options: {
+      cache: 'no-store',
+      redirect: 'error',
+      referrerPolicy: 'no-referrer',
+    },
+    parseAs: 'json',
   })
-  if (!response.ok) throw new Error('Google OAuth request failed')
-  return response.json()
+  return result.data
 }
 
 export async function startGoogleOAuth(flow: GoogleOAuthFlow) {

@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { useHydrated, useSearch } from '@tanstack/react-router'
+import { useSearch } from '@tanstack/react-router'
 import { type SyntheticEvent, useState } from 'react'
 
 import { useLoginAuthLoginPost } from '#/api/hooks/useLoginAuthLoginPost'
@@ -12,7 +12,6 @@ import { LoginStateSchema } from '../-schemas'
 export function useLoginPage() {
   const search = useSearch({ from: '/_auth/login/' })
 
-  const isHydrated = useHydrated()
   const [showGoogleNotice, setShowGoogleNotice] = useState(true)
 
   const loginMutation = useLoginAuthLoginPost()
@@ -31,7 +30,7 @@ export function useLoginPage() {
     },
   })
 
-  const isSignInDisabled = !isHydrated || loginMutation.isPending || googleMutation.isPending
+  const isSignInDisabled = loginMutation.isPending || googleMutation.isPending
 
   const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -46,7 +45,7 @@ export function useLoginPage() {
   }
 
   return {
-    state: { isHydrated, isSignInDisabled, googleNotice: showGoogleNotice && search.google },
+    state: { isSignInDisabled, googleNotice: showGoogleNotice && search.google },
     mutations: {
       login: loginMutation,
       google: googleMutation,

@@ -3,7 +3,6 @@ import { useTranslate } from '@kanjou/react'
 import { useGetDailyTaskDailyStudentIdDailyTaskGet } from '#/api/hooks/useGetDailyTaskDailyStudentIdDailyTaskGet'
 import { useGetStudentStreakStudentStudentIdStreakGet } from '#/api/hooks/useGetStudentStreakStudentStudentIdStreakGet'
 import { getStreakDays } from '#/routes/_authorized/-utils'
-import { cn } from '#/utils/cn'
 
 import { MissionWeek } from './components'
 
@@ -25,6 +24,7 @@ export function DailyMission({ studentId }: { studentId: number }) {
   const streak = !streakQuery.isError ? streakQuery.data : undefined
   const task = !taskQuery.isError ? taskQuery.data : undefined
   const streakDays = Math.max(getStreakDays(streak), isCompleted ? 1 : 0)
+  const isStreakInactive = Boolean(task && !isCompleted)
 
   return (
     <section className={styles.mission} aria-labelledby="daily-mission-title">
@@ -34,7 +34,7 @@ export function DailyMission({ studentId }: { studentId: number }) {
             {t('daily-mission.title')}
           </h2>
           {(streak || isCompleted) && (
-            <p className={styles.streak} data-inactive={!isCompleted}>
+            <p className={styles.streak} data-inactive={isStreakInactive}>
               <span className="i-ph:flame-bold" aria-hidden="true" />
               <strong>{t('daily-mission.streak', { count: streakDays })}</strong>
             </p>
@@ -45,7 +45,6 @@ export function DailyMission({ studentId }: { studentId: number }) {
             <strong className={styles['reward-amount']}>
               {t('daily-mission.reward.amount', { count: reward })}
             </strong>
-            <span aria-hidden="true" className={cn('i-ph:coin', styles['reward-coin'])} />
             <span className={styles['reward-unit']}>{t('coins.unit', { count: reward })}</span>
           </p>
         )}

@@ -52,7 +52,6 @@ const EditSearchSchema = v.object({
 })
 
 export const Route = createFileRoute('/_authorized/_teacher/student/$studentId/edit/')({
-  head: () => ({ meta: [{ title: 'Налаштування учня | Robocoins' }] }),
   params: {
     parse: (params) => {
       const result = v.safeParse(EditParamsSchema, params)

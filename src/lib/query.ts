@@ -1,7 +1,8 @@
-import { captureException } from '@sentry/tanstackstart-react'
+import { captureException } from '@sentry/react'
 import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query'
 
 import { ResponseError } from '#/api/.kubb/client'
+import { ValidationError } from '#/api/.kubb/standardSchema'
 
 interface RequestMeta extends Record<string, unknown> {
   expectedErrorStatuses?: number[]
@@ -14,12 +15,13 @@ declare module '@tanstack/react-query' {
   }
 }
 
-function shouldIgnoreError(error: unknown, meta: RequestMeta | undefined) {
-  if (!ResponseError.is(error)) return false
-  if (error.status === 401) return true
-  if (error.status < 400 || error.status >= 500) return false
+export function isExpectedRequestError(error: unknown, meta?: RequestMeta) {
+  if (!ResponseError.is(error) && !(error instanceof ValidationError)) return false
+  const status = error.status
+  if (status === 401) return true
+  if (status === undefined || status < 400 || status >= 500) return false
 
-  return meta?.expectedErrorStatuses?.includes(error.status) ?? false
+  return meta?.expectedErrorStatuses?.includes(status) ?? false
 }
 
 export function createQueryClient() {
@@ -32,7 +34,7 @@ export function createQueryClient() {
     },
     queryCache: new QueryCache({
       onError: (error, query) => {
-        if (shouldIgnoreError(error, query.meta)) return
+        if (isExpectedRequestError(error, query.meta)) return
 
         if (import.meta.env.DEV) {
           console.error('[query]', error.stack ?? error.message)
@@ -45,7 +47,7 @@ export function createQueryClient() {
     }),
     mutationCache: new MutationCache({
       onError: (error, _variables, _context, mutation) => {
-        if (shouldIgnoreError(error, mutation.meta)) return
+        if (isExpectedRequestError(error, mutation.meta)) return
 
         if (import.meta.env.DEV) {
           console.error('[mutation]', error.stack ?? error.message)

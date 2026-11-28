@@ -1,15 +1,13 @@
-import { readDocumentCookie } from './cookies'
-
-export const MOTION_PREFERENCE_COOKIE = 'reduced-motion'
+export const MOTION_PREFERENCE_STORAGE_KEY = 'reduced-motion'
 const MOTION_PREFERENCE_EVENT = 'motion-preference-change'
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
 
 export function animationsDisabled() {
-  return readDocumentCookie(MOTION_PREFERENCE_COOKIE) === 'true'
+  return localStorage.getItem(MOTION_PREFERENCE_STORAGE_KEY) === 'true'
 }
 
 export function systemPrefersReducedMotion() {
-  return typeof window !== 'undefined' && window.matchMedia(REDUCED_MOTION_QUERY).matches
+  return window.matchMedia(REDUCED_MOTION_QUERY).matches
 }
 
 export function prefersReducedMotion() {
@@ -17,7 +15,7 @@ export function prefersReducedMotion() {
 }
 
 export function setAnimationsDisabled(disabled: boolean) {
-  document.cookie = `${MOTION_PREFERENCE_COOKIE}=${disabled}; Path=/; Max-Age=31536000; SameSite=Lax`
+  localStorage.setItem(MOTION_PREFERENCE_STORAGE_KEY, String(disabled))
   window.dispatchEvent(new Event(MOTION_PREFERENCE_EVENT))
 }
 

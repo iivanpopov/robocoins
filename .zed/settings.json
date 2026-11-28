@@ -2,7 +2,12 @@
   "format_on_save": "on",
   "prettier": { "allowed": false },
   "formatter": [
-    { "language_server": { "name": "oxfmt" } },
+    {
+      "external": {
+        "command": "pnpm",
+        "arguments": ["exec", "vp", "fmt", "--stdin-filepath", "{buffer_path}"]
+      }
+    },
     { "code_action": "source.fixAll.oxc" },
     { "code_action": "source.fixAll.stylelint" }
   ],

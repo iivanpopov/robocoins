@@ -17,7 +17,6 @@ import { useDailyMissionPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/daily-mission/')({
-  head: () => ({ meta: [{ title: 'Місія дня | Robocoins' }] }),
   beforeLoad: ({ context }) => {
     if (context.user && context.user.role !== 'student') {
       throw redirect({ to: getHomePath(context.user.role) })
@@ -45,7 +44,7 @@ function DailyMissionPage() {
   const t = useTranslate()
 
   return (
-    <PageLayout.Root variant="comfortable" render={<main />} className={cn('student', styles.page)}>
+    <PageLayout.Root variant="comfortable" render={<main />} className={styles.page}>
       <PageLayout.Header align="end" centered className={styles.header}>
         <IconButton onClick={functions.handleHome} title={t('navigation.home')}>
           <span className="i-ph:arrow-left" aria-hidden="true" />
@@ -78,7 +77,7 @@ function DailyMissionPage() {
                 {state.reward !== undefined && (
                   <>
                     {t('daily-mission.reward.amount', { count: state.reward })}{' '}
-                    <span className="i-ph:coins" aria-hidden="true" />
+                    <span className="i-ph:coin" aria-hidden="true" />
                     <span className={styles.unit}>{t('coins.unit', { count: state.reward })}</span>
                   </>
                 )}

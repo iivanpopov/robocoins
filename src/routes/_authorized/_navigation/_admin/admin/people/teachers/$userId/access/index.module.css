@@ -53,7 +53,7 @@
   height: 2.25rem;
   font-size: 1.25rem;
   color: var(--muted-foreground);
-  background: var(--taupe-100);
+  background: var(--muted);
   border-radius: var(--rounded-sm);
 }
 

@@ -24,7 +24,6 @@ import {
 import { useCreateGroupPage } from '../-hooks'
 
 export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/groups/create/')({
-  head: () => ({ meta: [{ title: 'Нова група | Robocoins' }] }),
   component: CreateGroupPage,
 })
 

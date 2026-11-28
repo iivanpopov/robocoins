@@ -13,7 +13,6 @@ import { useCreateRewardPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/catalog/create/')({
-  head: () => ({ meta: [{ title: 'Нова нагорода | Robocoins' }] }),
   component: CreateRewardPage,
 })
 
@@ -87,7 +86,7 @@ function CreateRewardPage() {
               <dt>{t('admin.catalog.form.price')}</dt>
               <dd>
                 {t('coins.amount', { count: state.createdReward.price })}
-                <span className="i-ph:coins" aria-hidden="true" />
+                <span className="i-ph:coin" aria-hidden="true" />
               </dd>
             </div>
             <div className={styles['summary-row']}>

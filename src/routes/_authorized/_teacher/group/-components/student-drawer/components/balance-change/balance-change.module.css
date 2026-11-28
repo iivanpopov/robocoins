@@ -31,7 +31,7 @@
   font-weight: 800;
   color: var(--foreground);
   cursor: pointer;
-  background: var(--taupe-100);
+  background: var(--muted);
   border: none;
   border-radius: var(--rounded-md);
   transition: all 0.15s ease;
@@ -42,12 +42,12 @@
 }
 
 .direction-btn-plus-active {
-  color: var(--surface);
+  color: var(--brand-foreground);
   background: var(--brand);
 }
 
 .direction-btn-minus-active {
-  color: var(--surface);
+  color: var(--error-foreground);
   background: var(--red-600);
 }
 
@@ -60,9 +60,12 @@
   color: var(--red-600);
 }
 
-.direction-btn-plus-active .coin-icon,
+.direction-btn-plus-active .coin-icon {
+  color: var(--brand-foreground);
+}
+
 .direction-btn-minus-active .coin-icon {
-  color: var(--surface);
+  color: var(--error-foreground);
 }
 
 .section-label {
@@ -83,7 +86,7 @@
 }
 
 .reasons-list {
-  --chip-background: var(--taupe-100);
+  --chip-background: var(--muted);
 
   display: flex;
   flex-wrap: wrap;

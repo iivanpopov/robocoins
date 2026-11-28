@@ -1,17 +1,3 @@
-## Agent skills
-
-### Issue tracker
-
-Issues live as markdown files under `.scratch/<feature>/`. See `docs/agents/issue-tracker.md`.
-
-### Triage labels
-
-Five canonical roles, recorded as the `Status:` line in issue files. See `docs/agents/triage-labels.md`.
-
-### Domain docs
-
-Single-context layout: root `GLOSSARY.md` plus `docs/adr/`. See `docs/agents/domain.md`.
-
 ## Code style
 
 ### UI component composition
@@ -70,6 +56,7 @@ For page components, the page model hook must be called and destructured first, 
 ### Pages
 
 - Define the page component directly in its route's `index.tsx`.
+- Define route schemas directly in the route file rather than a separate `schemas` slice.
 - The page consumes its model hook and renders JSX. Keep handlers and non-rendering logic in the model hook.
 - Extract smaller components into the `components` slice as needed; do not move the entire page component there.
 
@@ -102,8 +89,8 @@ Example: `const { refs, state, functions } = useShopPage()`. Read nested values 
 
 ## Verification
 
-- After each change, run `bun check`.
-- If CSS warnings occur, try `bun lint:css --fix`, review its changes, and rerun `bun check`.
+- After each change, run `pnpm check`. This command does not rewrite files.
+- Run `pnpm lint:css` for CSS changes. If CSS warnings occur, try `pnpm lint:css --fix`, review its changes, and rerun both checks.
 - Do not create `.test` files inside the repository.
 
 ## UI design

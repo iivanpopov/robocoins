@@ -74,7 +74,6 @@ const ACCESS_ACTIONS = [
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/people/teachers/$userId/access/',
 )({
-  head: () => ({ meta: [{ title: 'Доступ викладача | Robocoins' }] }),
   params: { parse: (params) => parseTeacherIdParams(params) },
   component: TeacherAccessRoute,
 })

@@ -27,7 +27,6 @@ import { useRewardDetailPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/catalog/$rewardId/')({
-  head: () => ({ meta: [{ title: 'Нагорода | Robocoins' }] }),
   params: {
     parse: (params) => {
       const result = v.safeParse(RewardParamsSchema, params)
@@ -72,7 +71,7 @@ function RewardDetailContent() {
           {!!state.reward && (
             <p className={styles.price}>
               {t('coins.amount', { count: state.reward.price })}
-              <span className="i-ph:coins" aria-hidden="true" />
+              <span className="i-ph:coin" aria-hidden="true" />
             </p>
           )}
         </PageLayout.Heading>

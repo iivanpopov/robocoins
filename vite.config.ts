@@ -1,44 +1,51 @@
 import kanjou from '@kanjou/plugin/vite'
-import { sentryTanstackStart } from '@sentry/tanstackstart-react/vite'
-import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+import { sentryVitePlugin } from '@sentry/bundler-plugins/vite'
 import { redact } from '@tanstack/redact/vite'
+import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import react from '@vitejs/plugin-react'
-import { nitro } from 'nitro/vite'
 import { visualizer } from 'rollup-plugin-visualizer'
 import unocss from 'unocss/vite'
-import { defineConfig, loadEnv } from 'vite'
+import { loadEnv } from 'vite'
+import { defineConfig } from 'vite-plus'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const isProduction = mode === 'production'
-  const sourcemap = isProduction ? 'hidden' : true
 
   return {
+    fmt: {
+      semi: false,
+      singleQuote: true,
+      sortImports: true,
+      ignorePatterns: ['generated/**'],
+    },
+    lint: {
+      ignorePatterns: ['generated/**'],
+      options: {
+        typeAware: true,
+        typeCheck: true,
+      },
+      plugins: ['react'],
+      rules: {
+        'react/exhaustive-deps': 'off',
+        'react/refs': 'off',
+      },
+    },
+    staged: {
+      '*': 'vp check --fix',
+    },
     resolve: {
       tsconfigPaths: true,
       dedupe: ['react', 'react-dom'],
     },
     plugins: [
-      tanstackStart({
-        router: {
-          generatedRouteTree: '../generated/routeTree.gen.ts',
-          tmpDir: './generated/.tanstack/tmp',
-        },
-      }),
-      nitro({
-        preset: 'vercel',
-        sourcemap: true,
-        rolldownConfig: {
-          checks: {
-            moduleLevelDirective: false,
-          },
-        },
-        routeRules: {
-          '/api/**': {
-            proxy: `${env.API_URL}/**`,
-            headers: { 'Cache-Control': 'private, no-store' },
-          },
-        },
+      tanstackRouter({
+        target: 'react',
+        autoCodeSplitting: true,
+        routesDirectory: './src/routes',
+        routeFileIgnorePrefix: '-',
+        generatedRouteTree: './generated/routeTree.gen.ts',
+        tmpDir: './generated/.tanstack/tmp',
       }),
       kanjou(),
       react(),
@@ -49,22 +56,6 @@ export default defineConfig(({ mode }) => {
         },
       }),
       unocss(),
-      ...(isProduction
-        ? [
-            sentryTanstackStart({
-              authToken: env.SENTRY_AUTH_TOKEN,
-              org: env.SENTRY_ORG,
-              project: env.SENTRY_PROJECT,
-              bundleSizeOptimizations: {
-                excludeDebugStatements: true,
-                excludeTracing: true,
-              },
-              sourcemaps: {
-                filesToDeleteAfterUpload: ['./dist/**/*.map', './.vercel/output/**/*.map'],
-              },
-            }),
-          ]
-        : []),
       ...(mode === 'analyze'
         ? [
             visualizer({
@@ -75,26 +66,46 @@ export default defineConfig(({ mode }) => {
             }),
           ]
         : []),
+      ...(isProduction
+        ? [
+            sentryVitePlugin({
+              authToken: env.SENTRY_AUTH_TOKEN,
+              org: env.SENTRY_ORG,
+              project: env.SENTRY_PROJECT,
+              bundleSizeOptimizations: {
+                excludeDebugStatements: true,
+                excludeTracing: true,
+              },
+              sourcemaps: {
+                filesToDeleteAfterUpload: './dist/**/*.map',
+              },
+            }),
+          ]
+        : []),
     ],
     build: {
-      sourcemap,
+      sourcemap: isProduction ? 'hidden' : true,
       rolldownOptions: {
         checks: {
           moduleLevelDirective: false,
         },
       },
     },
-    environments: {
-      ssr: {
-        build: {
-          sourcemap,
-          rolldownOptions: {
-            checks: {
-              moduleLevelDirective: false,
+    server: {
+      proxy: env.API_URL
+        ? {
+            '^/api(?:/|\\?|$)': {
+              target: env.API_URL,
+              changeOrigin: true,
+              rewrite: (path) => path.replace(/^\/api(?=\/|\?|$)\/?/, '/'),
+              configure: (proxy) => {
+                proxy.on('proxyRes', (response) => {
+                  response.headers['cache-control'] = 'private, no-store'
+                })
+              },
             },
-          },
-        },
-      },
+          }
+        : undefined,
     },
   }
 })

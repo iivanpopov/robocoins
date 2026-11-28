@@ -1,4 +1,4 @@
-import { init } from '@sentry/tanstackstart-react'
+import { init } from '@sentry/react'
 
 init({
   dsn: import.meta.env.VITE_SENTRY_DSN,

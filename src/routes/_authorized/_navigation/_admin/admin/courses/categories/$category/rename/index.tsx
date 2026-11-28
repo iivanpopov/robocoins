@@ -13,7 +13,6 @@ import styles from './index.module.css'
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/courses/categories/$category/rename/',
 )({
-  head: () => ({ meta: [{ title: 'Перейменування категорії | Robocoins' }] }),
   params: { parse: (params) => parseCategoryKeyParams(params) },
   component: CategoryRenameRoute,
 })

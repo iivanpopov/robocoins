@@ -29,7 +29,6 @@ import { PracticeSearchSchema } from './-schemas'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/operations/practice/')({
-  head: () => ({ meta: [{ title: 'Практика групи | Robocoins' }] }),
   validateSearch: PracticeSearchSchema,
   component: PracticePage,
 })

@@ -18,7 +18,7 @@
 
 .shop-header {
   position: absolute;
-  top: max(var(--spacing-xl), env(safe-area-inset-top));
+  top: 0;
   right: 0;
   left: 0;
   z-index: 2;
@@ -27,15 +27,12 @@
   align-items: center;
   width: 100%;
   min-height: 44px;
-  padding: 0 var(--spacing-xl);
+  padding: max(var(--spacing-xl), env(safe-area-inset-top)) var(--spacing-xl) var(--spacing-lg);
   color: var(--foreground);
   pointer-events: none;
 }
 
 .shop-header-solid {
-  top: 0;
-  padding-top: max(var(--spacing-xl), env(safe-area-inset-top));
-  padding-bottom: var(--spacing-lg);
   background: var(--background);
 }
 
@@ -58,6 +55,7 @@
   flex-shrink: 0;
   gap: var(--spacing-sm);
   align-items: center;
+  min-height: 36px;
   margin-left: auto;
   font-size: 1.5rem;
   font-weight: 600;
@@ -71,35 +69,6 @@
   height: 1em;
   vertical-align: -0.08em;
   color: var(--foreground);
-}
-
-.suggestion {
-  position: absolute;
-  right: var(--spacing-xl);
-  bottom: calc(64px + env(safe-area-inset-bottom, 0px) + var(--spacing-xl));
-  left: var(--spacing-xl);
-  z-index: 2;
-  display: flex;
-  justify-content: flex-end;
-  pointer-events: none;
-}
-
-.suggestion-trigger {
-  max-width: 100%;
-  color: var(--foreground);
-  text-align: right;
-  text-decoration: none;
-  pointer-events: auto;
-}
-
-.catalog-suggestion {
-  display: flex;
-  justify-content: center;
-  margin-top: var(--spacing-lg);
-}
-
-.catalog-suggestion .suggestion-trigger {
-  text-align: center;
 }
 
 .list-view,

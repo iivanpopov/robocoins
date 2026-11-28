@@ -11,7 +11,7 @@
 }
 
 .row:hover {
-  background: var(--taupe-200);
+  background: var(--muted);
 }
 
 .row:focus-visible {

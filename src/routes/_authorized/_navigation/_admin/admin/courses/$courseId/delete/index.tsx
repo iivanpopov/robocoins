@@ -29,7 +29,6 @@ import styles from './index.module.css'
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/courses/$courseId/delete/',
 )({
-  head: () => ({ meta: [{ title: 'Видалення курсу | Robocoins' }] }),
   params: { parse: (params) => parseCourseIdParams(params) },
   component: CourseDeleteRoute,
 })

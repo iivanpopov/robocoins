@@ -55,7 +55,7 @@
   justify-content: center;
   width: var(--avatar-badge-size);
   height: var(--avatar-badge-size);
-  color: var(--surface);
+  color: var(--brand-foreground);
   user-select: none;
   background: var(--brand);
   border-radius: var(--rounded-full);

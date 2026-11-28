@@ -5,7 +5,7 @@ import styles from './auth-watermark.module.css'
 export function AuthWatermark() {
   return (
     <div aria-hidden="true" className={styles.root}>
-      <span className={cn('i-ph:coins', styles.icon)} />
+      <span className={cn('i-ph:coin', styles.icon)} />
     </div>
   )
 }

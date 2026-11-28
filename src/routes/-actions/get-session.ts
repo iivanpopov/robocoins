@@ -1,12 +1,22 @@
-import { createIsomorphicFn } from '@tanstack/react-start'
-import { getRequest } from '@tanstack/react-start/server'
+import type { QueryClient } from '@tanstack/react-query'
 
 import { ValidationError } from '#/api/.kubb/standardSchema'
 import { getCurrentUserAuthMeGet } from '#/api/clients/getCurrentUserAuthMeGet'
 
-async function loadSession() {
+export function querySession(queryClient: QueryClient) {
+  return queryClient.query({
+    queryKey: ['session'],
+    queryFn: getSession,
+    retry: false,
+  })
+}
+
+export async function getSession() {
   try {
-    const result = await getCurrentUserAuthMeGet({ throwOnError: false })
+    const result = await getCurrentUserAuthMeGet({
+      throwOnError: false,
+      options: { cache: 'no-store' },
+    })
     if (result.response.status === 401) return null
     if (!result.response.ok || !result.data) throw new Error('Unable to load the current session')
     return result.data
@@ -15,10 +25,3 @@ async function loadSession() {
     throw error
   }
 }
-
-export const getSession = createIsomorphicFn()
-  .server(async () => {
-    if (!getRequest().headers.get('cookie')) return null
-    return loadSession()
-  })
-  .client(loadSession)

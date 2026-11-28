@@ -15,7 +15,6 @@ import styles from './index.module.css'
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/people/students/register/',
 )({
-  head: () => ({ meta: [{ title: 'Новий учень | Robocoins' }] }),
   loader: async ({ context }) => {
     await context.queryClient.query(getCoursesCourseGetQueryOptions()).catch(() => undefined)
   },

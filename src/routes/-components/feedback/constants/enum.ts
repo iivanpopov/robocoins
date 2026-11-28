@@ -30,14 +30,3 @@ export const FEEDBACK_DEFAULT_KIND: Record<FeedbackSource, FeedbackKind> = {
   profile_avatar: 'avatar_suggestion',
   shop: 'reward_suggestion',
 }
-
-export const FEEDBACK_ERROR_CODES = [
-  'session',
-  'author',
-  'rate-limit',
-  'conflict',
-  'validation',
-  'unavailable',
-] as const
-
-export type FeedbackErrorCode = (typeof FEEDBACK_ERROR_CODES)[number]

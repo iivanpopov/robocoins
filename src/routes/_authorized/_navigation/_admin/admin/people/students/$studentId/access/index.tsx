@@ -28,7 +28,6 @@ import styles from './index.module.css'
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/people/students/$studentId/access/',
 )({
-  head: () => ({ meta: [{ title: 'Доступ учня | Robocoins' }] }),
   params: { parse: (params) => parseStudentIdParams(params) },
   component: StudentAccessRoute,
 })

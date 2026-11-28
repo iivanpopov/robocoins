@@ -16,7 +16,6 @@ import { parseGroupIdParams } from '../-utils'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/groups/$groupId/')({
-  head: () => ({ meta: [{ title: 'Група | Robocoins' }] }),
   params: { parse: (params) => parseGroupIdParams(params) },
   component: GroupDetailsPage,
 })

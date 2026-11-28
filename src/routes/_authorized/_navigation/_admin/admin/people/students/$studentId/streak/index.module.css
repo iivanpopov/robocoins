@@ -73,7 +73,7 @@
   gap: var(--spacing-xs);
   padding-top: var(--spacing-sm);
   margin: 0;
-  border-top: 1px solid var(--taupe-200);
+  border-top: 1px solid var(--divider);
 }
 
 .date {
@@ -166,7 +166,7 @@
 }
 
 .end-button:hover:not(:disabled) {
-  background: var(--taupe-200);
+  background: var(--muted);
 }
 
 .note {
@@ -190,5 +190,5 @@
   flex-direction: column;
   gap: var(--spacing-md);
   padding-top: var(--spacing-md);
-  border-top: 1px solid var(--taupe-200);
+  border-top: 1px solid var(--divider);
 }

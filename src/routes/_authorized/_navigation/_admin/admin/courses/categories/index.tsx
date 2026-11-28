@@ -12,7 +12,6 @@ import { useCourseCategoriesPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/courses/categories/')({
-  head: () => ({ meta: [{ title: 'Категорії | Robocoins' }] }),
   component: CourseCategoriesPage,
 })
 

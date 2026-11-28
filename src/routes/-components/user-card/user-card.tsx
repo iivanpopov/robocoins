@@ -59,7 +59,7 @@ function Balance({ value, className, ...props }: UserCardBalanceProps) {
       className={cn(styles.balance, className)}
       aria-label={`${t('coins.amount', { count: value })} ${t('coins.unit', { count: value })}`}
     >
-      <span aria-hidden="true" className={cn('i-ph:coins', styles['balance-icon'])} />
+      <span aria-hidden="true" className={cn('i-ph:coin', styles['balance-icon'])} />
       <span aria-hidden="true">{t('coins.amount', { count: value })}</span>
     </span>
   )

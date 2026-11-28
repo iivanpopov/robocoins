@@ -22,7 +22,6 @@ import { useStudentsPage } from './-hooks'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/_authorized/_navigation/_admin/admin/people/students/')({
-  head: () => ({ meta: [{ title: 'Учні | Robocoins' }] }),
   component: StudentsPage,
 })
 

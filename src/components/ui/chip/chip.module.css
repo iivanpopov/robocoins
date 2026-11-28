@@ -45,11 +45,11 @@
 }
 
 .brand[aria-pressed='true'] {
-  color: var(--surface);
+  color: var(--brand-foreground);
   background: var(--brand);
 }
 
 .error[aria-pressed='true'] {
-  color: var(--surface);
+  color: var(--error-foreground);
   background: var(--red-600);
 }

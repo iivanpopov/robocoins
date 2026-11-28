@@ -65,7 +65,7 @@
   flex-direction: column;
   gap: var(--spacing-sm);
   padding-top: var(--spacing-md);
-  border-top: 1px solid var(--taupe-200);
+  border-top: 1px solid var(--divider);
 }
 
 .preview-title {
@@ -158,7 +158,7 @@
 }
 
 .secondary-action:hover {
-  background: var(--taupe-200);
+  background: var(--muted);
 }
 
 .primary-action:focus-visible,

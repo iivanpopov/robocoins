@@ -13,7 +13,6 @@ import styles from './index.module.css'
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/people/teachers/register/',
 )({
-  head: () => ({ meta: [{ title: 'Новий викладач | Robocoins' }] }),
   component: TeacherRegistrationPage,
 })
 

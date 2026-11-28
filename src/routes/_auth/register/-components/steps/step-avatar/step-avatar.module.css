@@ -12,10 +12,3 @@
 :root:active-view-transition-type(register-avatar) [data-active] > .avatar {
   view-transition-name: register-avatar;
 }
-
-.suggest-avatar {
-  align-self: flex-start;
-  font-size: 1rem;
-  font-weight: 500;
-  text-align: left;
-}

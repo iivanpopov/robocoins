@@ -25,7 +25,6 @@ const CourseCategorySearchSchema = v.object({
 export const Route = createFileRoute(
   '/_authorized/_navigation/_admin/admin/courses/$courseId/category/',
 )({
-  head: () => ({ meta: [{ title: 'Категорія курсу | Robocoins' }] }),
   params: { parse: (params) => parseCourseIdParams(params) },
   validateSearch: CourseCategorySearchSchema,
   component: CourseCategoryRoute,

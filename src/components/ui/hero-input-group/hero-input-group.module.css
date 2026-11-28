@@ -56,7 +56,7 @@
   margin-right: var(--spacing-xs);
   font-family: 'Rubik Variable', sans-serif;
   font-size: 1.5rem;
-  color: var(--muted);
+  color: var(--muted-foreground);
   cursor: pointer;
   outline: none;
   background: transparent;

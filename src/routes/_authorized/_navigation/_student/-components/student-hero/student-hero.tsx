@@ -1,5 +1,4 @@
 import { useTranslate } from '@kanjou/react'
-import { Link } from '@tanstack/react-router'
 
 import { Mascot } from '#/components/mascot'
 import { UserAvatar } from '#/routes/-components/user-avatar'
@@ -15,11 +14,11 @@ export interface StudentHeroProps {
   balance: number
   streakDays: number
   hasStreak: boolean
+  isStreakInactive: boolean
   hasNewReward: boolean
   greetingVariant: string
   captionVariant: string
   onOpenProfile: () => void
-  onOpenShop: () => void
 }
 
 export function StudentHero(props: StudentHeroProps) {
@@ -49,28 +48,21 @@ export function StudentHero(props: StudentHeroProps) {
         </button>
         <div className={styles.stats}>
           {props.hasStreak && (
-            <Link
-              to="/daily-mission"
+            <div
               className={styles.streak}
-              aria-label={t('daily-mission.streak', { count: props.streakDays })}
+              data-inactive={props.isStreakInactive}
               title={t('daily-mission.streak', { count: props.streakDays })}
             >
-              <span className="i-ph:flame-fill" aria-hidden="true" />
+              <span className="i-ph:flame-bold" aria-hidden="true" />
               <strong>{props.streakDays}</strong>
-            </Link>
+            </div>
           )}
-          <button
-            type="button"
-            className={styles.balance}
-            onClick={props.onOpenShop}
-            data-new={props.hasNewReward}
-            aria-label={`${t('coins.amount', { count: props.balance })} ${t('coins.unit', { count: props.balance })}. ${t('profile.balance.open-shop')}`}
-          >
+          <div className={styles.balance} data-new={props.hasNewReward}>
             <span className={styles['balance-value']}>
               {t('coins.amount', { count: props.balance })}
             </span>
             <span aria-hidden="true" className={cn('i-ph:coin', styles.coin)} />
-          </button>
+          </div>
         </div>
       </div>
       <Mascot mood="happy" size={76} alt="" aria-hidden="true" className={styles.mascot} />
